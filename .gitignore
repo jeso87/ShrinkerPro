@@ -40,4 +40,3 @@ build/dmg-stage/
 # XcodeGen output (project.yml is the source of truth)
 *.xcodeproj/
 build/DerivedData/
-/Logo.icon

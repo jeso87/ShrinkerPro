@@ -1,0 +1,180 @@
+name: ShrinkerPro
+options:
+  bundleIdPrefix: com.eightseven
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    # ARCHS: arm64 is the setting that actually does the enforcing — it pins
+    # the build to a single literal architecture. EXCLUDED_ARCHS: x86_64 is
+    # kept as defense-in-depth / explicit documentation of intent, but is
+    # redundant on its own: clearing it while ARCHS stays "arm64" has no
+    # effect (verified empirically — see ArchitectureGuardTests vacuity
+    # proof in task-1-report.md). Do not remove ARCHS thinking EXCLUDED_ARCHS
+    # alone is sufficient to keep this project arm64-only.
+    ARCHS: arm64
+    EXCLUDED_ARCHS: x86_64
+    ONLY_ACTIVE_ARCH: NO
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    SWIFT_VERSION: "6.0"
+    ENABLE_HARDENED_RUNTIME: YES
+    CODE_SIGN_ENTITLEMENTS: build/entitlements.plist
+    DEVELOPMENT_TEAM: LY424U3HLD
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  ShrinkerPro:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/ShrinkerPro
+        excludes: ["Resources/Info.plist"]
+      - path: Sources/ShrinkerPro/Resources/svgo.jsc.js
+        type: file
+        buildPhase: resources
+      # The brief's `dependencies: - bundle: ...` form is for a *build
+      # product* of another target in the same project (it emits a
+      # fileRef with sourceTree = BUILT_PRODUCTS_DIR, which "couldn't be
+      # opened" here since these binaries aren't produced by any target).
+      # These are prebuilt files already sitting on disk, so they need a
+      # `sources:` entry with an explicit Copy Files build phase instead.
+      #
+      # destination: executables (dstSubfolderSpec 6) turned out, verified
+      # empirically by building and listing Contents/, to resolve to
+      # $(EXECUTABLE_FOLDER_PATH) = Contents/MacOS for an application
+      # product — not Contents/Helpers as the brief assumed. destination:
+      # wrapper (dstSubfolderSpec 1, the bundle root) with an explicit
+      # subpath is what actually lands files in Contents/Helpers/, and was
+      # re-verified the same way after switching to it.
+      - path: vendor/compressors/cjpeg
+        type: file
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Helpers
+      - path: vendor/compressors/pngquant
+        type: file
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Helpers
+      - path: vendor/compressors/gifsicle
+        type: file
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Helpers
+      - path: vendor/compressors/cwebp
+        type: file
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Helpers
+    # Spec: "The gate runs in three places: at the end of
+    # build-compressors.sh, as an Xcode Run Script phase on Release builds,
+    # and in release.sh before notarization is submitted." This is that
+    # middle one, which was missing — so a hand-run
+    # `xcodebuild -configuration Release build` plus manual signing was
+    # gated by nothing (the unit-test guard only ever sees the Debug,
+    # test-hosted build).
+    #
+    # Release only: a Debug build is test-hosted, so Xcode embeds Apple's
+    # own universal XCTest/Testing frameworks into the bundle. Those are
+    # x86_64+arm64+arm64e with minos 17.0 and would fail the gate on every
+    # incremental Debug build — they are never present in a Release build,
+    # which is the artifact that actually ships.
+    #
+    # basedOnDependencyAnalysis: false because this phase declares no
+    # inputs/outputs; without it Xcode both warns and may skip the phase on
+    # an incremental build, which is exactly how a gate silently stops
+    # running.
+    #
+    # TARGET_BUILD_DIR, not BUILT_PRODUCTS_DIR. The two are identical for a
+    # `build` action, but an `archive` sets DEPLOYMENT_LOCATION = YES, and
+    # then they diverge (verified with `xcodebuild -showBuildSettings archive`):
+    #
+    #   TARGET_BUILD_DIR   = .../ArchiveIntermediates/ShrinkerPro/
+    #                        InstallationBuildProductsLocation/Applications
+    #   BUILT_PRODUCTS_DIR = .../ArchiveIntermediates/ShrinkerPro/
+    #                        BuildProductsPath/Release
+    #
+    # The real, fully-populated bundle is built at TARGET_BUILD_DIR; the entry
+    # in BUILT_PRODUCTS_DIR is a *symlink* pointing back at it. verify-arch.sh
+    # walks its target with `find -type f`, which does not traverse symlinks,
+    # so aiming the gate at BUILT_PRODUCTS_DIR during an archive enumerated
+    # zero files and the gate correctly fail-closed with "no Mach-O files
+    # found ... nothing was verified", breaking `scripts/release.sh`.
+    #
+    # This was a path bug, not a timing one: the bundle at TARGET_BUILD_DIR is
+    # complete when this phase runs (all 4 Mach-O — the app executable plus the
+    # three Contents/Helpers compressors — are in place). So the gate now runs
+    # for real in both actions. It is deliberately NOT scoped away by $ACTION:
+    # skipping during archive would mean the artifact release.sh notarizes was
+    # never gated at build time, and this project has already been burned by
+    # gates that pass without checking anything.
+    postBuildScripts:
+      - name: Verify arm64-only architecture gate
+        basedOnDependencyAnalysis: false
+        script: |
+          if [ "${CONFIGURATION}" != "Release" ]; then
+            echo "note: architecture gate skipped for ${CONFIGURATION} configuration"
+            exit 0
+          fi
+          "${SRCROOT}/scripts/verify-arch.sh" "${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
+    settings:
+      base:
+        # PRODUCT_NAME/EXECUTABLE_NAME are split (Ruling 2) so the bundle is
+        # "Shrinker Pro.app" (matching the test's builtAppURL() and later
+        # tasks) while the on-disk executable stays a clean identifier,
+        # "ShrinkerPro". Scoped to this target only, not settings.base, so
+        # the test target's own product/module name is unaffected.
+        PRODUCT_NAME: Shrinker Pro
+        EXECUTABLE_NAME: ShrinkerPro
+        # Without this, Swift derives the module name from PRODUCT_NAME by
+        # replacing invalid characters, so "Shrinker Pro" would become module
+        # "Shrinker_Pro" — breaking every later task's `@testable import
+        # ShrinkerPro`. Pin the module name explicitly instead.
+        PRODUCT_MODULE_NAME: ShrinkerPro
+        INFOPLIST_FILE: Sources/ShrinkerPro/Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.eightseven.shrinkerpro
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "Developer ID Application"
+
+  ShrinkerProTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Tests/ShrinkerProTests
+      - path: Tests/ShrinkerProTests/Fixtures
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - target: ShrinkerPro
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.eightseven.shrinkerpro.tests
+        # xcodegen's bundle.unit-test template does not generate an
+        # Info.plist by default; without one, code signing fails.
+        GENERATE_INFOPLIST_FILE: YES
+        # Hosted test target (dependency on ShrinkerPro, TEST_HOST/BUNDLE_LOADER
+        # below): required so later tasks' test files can `@testable import
+        # ShrinkerPro`. This builds ShrinkerProTests.xctest nested inside
+        # "Shrinker Pro.app/Contents/PlugIns/" rather than as a sibling of the
+        # app in the products directory — ArchitectureGuardTests.builtAppURL()
+        # walks up from the test bundle to find the enclosing .app rather than
+        # assuming a sibling layout, so the guard still finds the real app.
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Shrinker Pro.app/Contents/MacOS/ShrinkerPro"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  ShrinkerPro:
+    build:
+      targets:
+        ShrinkerPro: all
+        ShrinkerProTests: [test]
+    test:
+      targets: [ShrinkerProTests]

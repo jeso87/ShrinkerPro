@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key><string>en</string>
+    <key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
+    <key>CFBundleName</key><string>Shrinker Pro</string>
+    <key>CFBundleDisplayName</key><string>Shrinker Pro</string>
+    <key>CFBundlePackageType</key><string>APPL</string>
+    <key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+    <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+    <key>LSMinimumSystemVersion</key><string>14.0</string>
+    <key>NSHumanReadableCopyright</key><string>Made by Joshua Omilian. Based on Image Shrinker by Stefan Schulz-Lauterbach (CC0-1.0).</string>
+    <!-- "owner/repo" for UpdateChecker's GitHub releases query. Left empty
+         until Shrinker Pro has a public repository — UpdateChecker treats an
+         empty value as .notConfigured and makes no network request. Do not
+         fill this in speculatively; only once the repo is actually public. -->
+    <key>SPRepository</key><string></string>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeName</key><string>Image</string>
+            <key>CFBundleTypeRole</key><string>Editor</string>
+            <key>LSHandlerRank</key><string>Alternate</string>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>public.svg-image</string>
+                <string>public.png</string>
+                <string>com.compuserve.gif</string>
+                <string>public.jpeg</string>
+                <string>public.webp</string>
+                <string>public.avif</string>
+                <string>public.heic</string>
+                <string>public.heif</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>

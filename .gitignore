@@ -1,0 +1,36 @@
+# SwiftPM
+.build/
+.swiftpm/
+Package.resolved
+
+# Built compressor binaries (produced by scripts/build-compressors.sh)
+vendor/compressors/
+vendor/src/
+# Exception: the committed pngquant Cargo.lock pin (vendor/pngquant-*-Cargo.lock)
+# is source, not build output — see build-compressors.sh for why it's needed.
+!vendor/pngquant-*-Cargo.lock
+
+# svgo rewritten for JSContext (produced by scripts/prepare-svgo.sh).
+# REQUIRED BUILD STEP: run `./scripts/prepare-svgo.sh` before `xcodebuild` —
+# without it, SVGCompressor's tests are missing their resource and
+# ShrinkerPro cannot compress SVGs.
+Sources/ShrinkerPro/Resources/svgo.jsc.js
+
+# Build output
+dist/
+*.app/
+*.dmg
+build/ShrinkerPro.xcarchive/
+build/export/
+build/dmg-stage/
+
+# Signing / notarization secrets
+.env
+*.p12
+
+# macOS
+.DS_Store
+
+# XcodeGen output (project.yml is the source of truth)
+*.xcodeproj/
+build/DerivedData/

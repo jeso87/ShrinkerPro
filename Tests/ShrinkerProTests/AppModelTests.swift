@@ -28,7 +28,7 @@ final class AppModelTests: XCTestCase {
         let engine = try ShrinkEngine(
             helperProvider: { vendor.appendingPathComponent($0) }, svgoScriptURL: svgo
         )
-        let settings = Settings(defaults: UserDefaults(suiteName: "appmodel-\(UUID().uuidString)")!)
+        let settings = Settings(defaults: makeTestDefaults("appmodel"))
         return (AppModel(engine: engine, settings: settings, notifier: nil), settings)
     }
 

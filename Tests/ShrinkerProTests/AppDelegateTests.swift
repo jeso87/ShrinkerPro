@@ -32,7 +32,7 @@ final class AppDelegateTests: XCTestCase {
         let engine = try ShrinkEngine(
             helperProvider: { vendor.appendingPathComponent($0) }, svgoScriptURL: svgo
         )
-        let settings = Settings(defaults: UserDefaults(suiteName: "appdelegate-\(UUID().uuidString)")!)
+        let settings = Settings(defaults: makeTestDefaults("appdelegate"))
         return AppModel(engine: engine, settings: settings, notifier: nil)
     }
 

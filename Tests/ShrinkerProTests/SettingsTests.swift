@@ -6,10 +6,7 @@ import UserNotifications
 final class SettingsTests: XCTestCase {
 
     private func makeDefaults() -> UserDefaults {
-        let suite = "shrinker-tests-\(UUID().uuidString)"
-        let defaults = UserDefaults(suiteName: suite)!
-        defaults.removePersistentDomain(forName: suite)
-        return defaults
+        makeTestDefaults()
     }
 
     func testDefaultsMatchUpstream() {

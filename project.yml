@@ -73,6 +73,30 @@ targets:
           copyFiles:
             destination: wrapper
             subpath: Contents/Helpers
+    # Sparkle.framework, thinned to arm64 by scripts/prepare-sparkle.sh (run
+    # before `xcodegen generate` — see that script and .gitignore). Unlike
+    # the compressors above, this is a real link dependency (Swift code
+    # below does `import Sparkle`), not just a bundled executable invoked
+    # via Process(), so it's declared as a `framework` dependency rather
+    # than a bare `sources` copyFiles entry: xcodegen wires up both the
+    # link step and an "Embed Frameworks" Copy Files phase (destination
+    # Frameworks -> Contents/Frameworks) from this one entry.
+    #
+    # codeSign: false deliberately turns off Xcode's own "sign on copy" for
+    # the embed step. lipo-thinning in prepare-sparkle.sh already leaves the
+    # framework ad hoc signed (valid enough to load for a plain `xcodebuild
+    # build`), and release.sh re-signs it for real — inside-out, nested
+    # XPC services and Updater.app before the umbrella framework itself —
+    # immediately before export, extending the exact pattern it already
+    # uses for vendor/compressors/*. Letting Xcode ALSO sign-on-copy here
+    # would either redundantly race that manual pass or (since it isn't
+    # `--deep`) sign only the outer framework and silently leave the
+    # already-broken nested signatures on Autoupdate/Updater.app/the two
+    # XPC services from the lipo thinning — worse than doing nothing.
+    dependencies:
+      - framework: vendor/Sparkle/Sparkle.framework
+        embed: true
+        codeSign: false
     # Spec: "The gate runs in three places: at the end of
     # build-compressors.sh, as an Xcode Run Script phase on Release builds,
     # and in release.sh before notarization is submitted." This is that
@@ -143,6 +167,17 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Manual
         CODE_SIGN_IDENTITY: "Developer ID Application"
+        # Belt-and-suspenders for the Sparkle framework dependency above:
+        # Xcode's new build system generally infers both of these
+        # automatically for a framework referenced directly by file path,
+        # but this project's own history (see the destination: comments
+        # above) is "verify, don't assume" about anything xcodegen/Xcode
+        # resolves implicitly, and getting either of these wrong fails
+        # silently (a missing FRAMEWORK_SEARCH_PATHS is a compile error on
+        # `import Sparkle`; a missing LD_RUNPATH_SEARCH_PATHS entry is a
+        # dyld failure only at launch, not at build time).
+        FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SRCROOT)/vendor/Sparkle"]
+        LD_RUNPATH_SEARCH_PATHS: ["$(inherited)", "@executable_path/../Frameworks"]
 
   ShrinkerProTests:
     type: bundle.unit-test
@@ -169,6 +204,14 @@ targets:
         # assuming a sibling layout, so the guard still finds the real app.
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Shrinker Pro.app/Contents/MacOS/ShrinkerPro"
         BUNDLE_LOADER: "$(TEST_HOST)"
+        # `@testable import ShrinkerPro` transitively needs to resolve
+        # ShrinkerPro's own `import Sparkle` module dependency at compile
+        # time, even though at runtime this bundle is dlopen'd into the
+        # already-running host app (which already has Sparkle.framework
+        # loaded via its own embed + rpath, needing nothing further here).
+        # ShrinkerPro's FRAMEWORK_SEARCH_PATHS is scoped to that target only
+        # and isn't inherited by this one, so it's repeated here.
+        FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SRCROOT)/vendor/Sparkle"]
 
 schemes:
   ShrinkerPro:

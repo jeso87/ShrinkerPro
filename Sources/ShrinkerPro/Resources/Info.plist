@@ -13,11 +13,21 @@
     <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
     <key>LSMinimumSystemVersion</key><string>14.0</string>
     <key>NSHumanReadableCopyright</key><string>Made by Joshua Omilian. Based on Image Shrinker by Stefan Schulz-Lauterbach (CC0-1.0).</string>
-    <!-- "owner/repo" for UpdateChecker's GitHub releases query. Left empty
-         until Shrinker Pro has a public repository — UpdateChecker treats an
-         empty value as .notConfigured and makes no network request. Do not
-         fill this in speculatively; only once the repo is actually public. -->
-    <key>SPRepository</key><string></string>
+    <!-- Sparkle: where AppUpdater checks for new releases, and the public
+         half of the EdDSA key pair whose private half lives only in the
+         signing machine's Keychain (see scripts/release.sh's "sign_update"
+         step). appcast.xml is written to the repo root by release.sh and
+         served at this exact URL by GitHub Pages. -->
+    <key>SUFeedURL</key><string>https://jeso87.github.io/ShrinkerPro/appcast.xml</string>
+    <key>SUPublicEDKey</key><string>WJdCmygGtLYY1evpoPN3z8zQIJg3FZ3b108A27ynfd8=</string>
+    <!-- Bootstrap default only, so Sparkle doesn't show its own first-run
+         "should this app check for updates automatically?" permission
+         prompt — AppUpdater.swift overwrites SPUUpdater.
+         automaticallyChecksForUpdates with the live value of Settings.
+         updateCheck (the "Check for updates" toggle in Settings) at launch
+         and on every change, so that one toggle — not this static plist
+         value — is the actual, ongoing source of truth. -->
+    <key>SUEnableAutomaticChecks</key><true/>
     <key>CFBundleDocumentTypes</key>
     <array>
         <dict>

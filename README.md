@@ -91,10 +91,12 @@ same fast path as "keep" — it compresses, it does not round-trip.
 - Optional notification when a batch finishes. If notifications are turned off
   for the app in System Settings, the panel says so rather than failing quietly.
 - Settings persist across launches (backed by `UserDefaults`).
-- It does **not** auto-update yet. A version check runs against a GitHub
-  releases API if `SPRepository` in `Info.plist` is set, but that key ships
-  empty, so the check always reports "not configured" and no update banner
-  ever appears.
+- Updates via [Sparkle](https://sparkle-project.org/) 2.9.6: "Check for
+  Updates…" in the app menu, plus an automatic background check gated by
+  the same "Check for updates" toggle in Settings. Sparkle polls
+  `appcast.xml` (published by `scripts/release.sh`, served from this repo's
+  GitHub Pages) and verifies every update's EdDSA signature before offering
+  to install it.
 
 ## Requirements
 
@@ -106,6 +108,7 @@ macOS 14 Sonoma or later, Apple Silicon.
 ./scripts/bootstrap.sh          # Xcode path, xcodegen, cmake, autoconf/automake, Node, Rust
 ./scripts/build-compressors.sh  # static arm64 cjpeg, pngquant, gifsicle, cwebp
 ./scripts/prepare-svgo.sh       # svgo bundle, ESM export stripped for JSContext
+./scripts/prepare-sparkle.sh    # Sparkle.framework, fetched and thinned to arm64
 ./scripts/make-icon.sh          # app icon
 xcodegen generate
 xcodebuild -scheme ShrinkerPro build

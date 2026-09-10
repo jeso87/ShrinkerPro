@@ -23,10 +23,17 @@ struct ShrinkerProApp: App {
     @StateObject private var settings: Settings
     @State private var model: AppModel?
     @State private var launchError: String?
+    // Constructed unconditionally, independent of whether ShrinkEngine
+    // initializes below: like Settings, updating has no dependency on the
+    // engine, so "Check for Updates…" stays functional even in the
+    // launch-failure state — arguably more useful there, since it's exactly
+    // how a user on a broken install would get to a fixed release.
+    @State private var appUpdater: AppUpdater
 
     init() {
         let settings = Settings()
         _settings = StateObject(wrappedValue: settings)
+        _appUpdater = State(wrappedValue: AppUpdater(settings: settings))
 
         // ShrinkEngine.init can throw ShrinkError.helperMissing when
         // svgo.jsc.js is missing from the bundle — a damaged or
@@ -74,6 +81,15 @@ struct ShrinkerProApp: App {
             // "not configured yet" from "confirmed no model coming"; see
             // AppDelegate.swift.
             .onAppear { appDelegate.model = model }
+            // The only place settings.updateCheck ever changes is the
+            // "Check for updates" toggle in SettingsView, so observing it
+            // here (rather than a Combine subscription held for the app's
+            // whole lifetime) is sufficient to keep Sparkle's background
+            // polling live-synced with it, with no ObjC-KVO/Sendable-closure
+            // concerns to work around.
+            .onChange(of: settings.updateCheck) { _, newValue in
+                appUpdater.setAutomaticChecksEnabled(newValue)
+            }
         }
         .defaultSize(width: 500, height: 620)
         .windowResizability(.contentMinSize)
@@ -93,6 +109,12 @@ struct ShrinkerProApp: App {
                         )
                     ])
                 }
+            }
+
+            // Sparkle's conventional placement: directly below About, above
+            // Settings/Preferences.
+            CommandGroup(after: .appInfo) {
+                Button("Check for Updates…") { appUpdater.checkForUpdates() }
             }
 
             CommandGroup(replacing: .newItem) {

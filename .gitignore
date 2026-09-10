@@ -10,6 +10,12 @@ vendor/src/
 # is source, not build output — see build-compressors.sh for why it's needed.
 !vendor/pngquant-*-Cargo.lock
 
+# Sparkle.framework, thinned to arm64 (produced by scripts/prepare-sparkle.sh).
+# REQUIRED BUILD STEP: run ./scripts/prepare-sparkle.sh before `xcodegen
+# generate` — without it, the app target's Sparkle framework dependency and
+# release.sh's publishing step both have nothing to point at.
+vendor/Sparkle/
+
 # svgo rewritten for JSContext (produced by scripts/prepare-svgo.sh).
 # REQUIRED BUILD STEP: run `./scripts/prepare-svgo.sh` before `xcodebuild` —
 # without it, SVGCompressor's tests are missing their resource and

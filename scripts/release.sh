@@ -63,6 +63,41 @@ for helper in "$HELPERS_DIR/"*; do
   echo "    signed $(basename "$helper")"
 done
 
+FRAMEWORKS_DIR="$ARCHIVE/Products/Applications/Shrinker Pro.app/Contents/Frameworks"
+SPARKLE="$FRAMEWORKS_DIR/Sparkle.framework"
+
+echo "==> verifying Sparkle.framework is present"
+# Same reasoning as the helpers check above: a build that silently dropped
+# or failed to embed Sparkle would still pass the (app-agnostic) arch gate.
+[ -d "$SPARKLE" ] || {
+  echo "FAIL  Sparkle.framework not found at $SPARKLE" >&2
+  echo "      (scripts/prepare-sparkle.sh must be run before xcodegen generate)" >&2
+  exit 1
+}
+
+echo "==> signing Sparkle.framework inside-out"
+# Sparkle ships universal (x86_64+arm64); its five Mach-Os are thinned to
+# arm64 by scripts/prepare-sparkle.sh before this project is even built,
+# which invalidates every signature under the framework (thinning rewrites
+# the binaries; codesign hashes exact bytes). prepare-sparkle.sh leaves it
+# ad hoc signed, just enough to be locally launchable — this is the real
+# re-sign, with this project's actual Developer ID identity, extending the
+# exact same inside-out-before-container pattern as the helpers above:
+# both XPC services and the nested Updater.app are signed first, the
+# loose Autoupdate tool next, and only then the umbrella framework itself
+# (which is what the app's own signature, applied during export below,
+# will in turn expect to find already valid).
+for nested in \
+  "$SPARKLE/Versions/B/XPCServices/Downloader.xpc" \
+  "$SPARKLE/Versions/B/XPCServices/Installer.xpc" \
+  "$SPARKLE/Versions/B/Updater.app" \
+  "$SPARKLE/Versions/B/Autoupdate"; do
+  codesign --force --options runtime --timestamp --sign "$IDENTITY" "$nested"
+  echo "    signed ${nested#"$FRAMEWORKS_DIR/"}"
+done
+codesign --force --options runtime --timestamp --sign "$IDENTITY" "$SPARKLE"
+echo "    signed Sparkle.framework"
+
 echo "==> exporting"
 xcodebuild -exportArchive \
   -archivePath "$ARCHIVE" \
@@ -142,3 +177,69 @@ xcrun stapler validate "$DMG"
 
 echo
 echo "Release ready: $DMG"
+
+# --- Sparkle: sign the DMG and publish an appcast entry for it -------------
+#
+# Deliberately placed after stapling, not right after "signing DMG" above:
+# Sparkle's EdDSA signature (and the appcast entry generate_appcast builds
+# around it) must cover the exact bytes a user's copy of Sparkle will
+# actually download — which is this final, notarized-and-stapled DMG, not
+# the pre-notarization one.
+SPARKLE_BIN="$ROOT/vendor/Sparkle/bin"
+GITHUB_REPO="jeso87/ShrinkerPro"
+RELEASE_TAG="v$VERSION"
+
+echo "==> signing update artifact with Sparkle's EdDSA key"
+# Reads the private key from this machine's Keychain — never touches disk,
+# never passed on the command line. This is the same signature
+# generate_appcast computes internally for the appcast entry below; running
+# it here too is purely so the signature is visible and logged for this
+# release, matching the brief's two explicit steps rather than treating
+# generate_appcast as a black box.
+UPDATE_SIGNATURE=$("$SPARKLE_BIN/sign_update" "$DMG")
+echo "    $UPDATE_SIGNATURE"
+
+echo "==> generating appcast"
+APPCAST_STAGE="build/appcast-stage"
+rm -rf "$APPCAST_STAGE"
+mkdir -p "$APPCAST_STAGE"
+cp "$DMG" "$APPCAST_STAGE/"
+# generate_appcast only looks for a pre-existing appcast.xml to extend
+# inside its own archives-source-dir (not wherever -o points), and dist/ is
+# gitignored/ephemeral — so the previously-published feed (committed at the
+# repo root) is copied in here first, if one exists, purely so history
+# (older versions, delta eligibility) carries forward across a clean
+# dist/build/ wipe instead of restarting from a single-entry feed every
+# release.
+[ -f "$ROOT/appcast.xml" ] && cp "$ROOT/appcast.xml" "$APPCAST_STAGE/appcast.xml"
+
+"$SPARKLE_BIN/generate_appcast" \
+  --download-url-prefix "https://github.com/$GITHUB_REPO/releases/download/$RELEASE_TAG/" \
+  "$APPCAST_STAGE"
+
+cp "$APPCAST_STAGE/appcast.xml" "$ROOT/appcast.xml"
+rm -rf "$APPCAST_STAGE"
+echo "    wrote $ROOT/appcast.xml"
+
+# No `gh` on this machine, and this project doesn't push or open releases on
+# its own initiative — print exactly what a human needs to do instead of
+# guessing at automating it.
+echo
+echo "=================================================================="
+echo "Update feed regenerated locally. Nothing has been published yet."
+echo
+echo "To publish v$VERSION:"
+echo
+echo "  1. Create a GitHub Release tagged $RELEASE_TAG at:"
+echo "       https://github.com/$GITHUB_REPO/releases/new?tag=$RELEASE_TAG"
+echo "  2. Upload this file as its release asset (filename must not change —"
+echo "     the appcast enclosure URL below is built from it):"
+echo "       $DMG"
+echo "  3. Commit and push the regenerated feed so GitHub Pages serves it:"
+echo "       git add appcast.xml"
+echo "       git commit -m \"Publish $RELEASE_TAG to the update feed\""
+echo "       git push"
+echo
+echo "  Feed URL (must match Info.plist's SUFeedURL exactly):"
+echo "    https://jeso87.github.io/ShrinkerPro/appcast.xml"
+echo "=================================================================="

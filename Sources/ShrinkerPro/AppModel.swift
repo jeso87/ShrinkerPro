@@ -64,11 +64,6 @@ final class AppModel: ObservableObject {
     @Published private(set) var isProcessing = false
     @Published var errorMessage: String?
 
-    /// Set by ContentView's launch-time `.task` once `UpdateChecker.check()`
-    /// resolves to `.available`. `nil` — the default, and the only possible
-    /// value while `SPRepository` is unconfigured — means no banner shows.
-    @Published var availableUpdate: (version: String, url: URL)?
-
     private let engine: ShrinkEngine
     private let settings: Settings
     private let notifier: Notifier?
@@ -82,12 +77,6 @@ final class AppModel: ObservableObject {
     /// Entry point for drops, the file picker, and Finder open events.
     func handle(urls: [URL]) {
         Task { await process(urls: urls) }
-    }
-
-    /// Called from ContentView's launch-time update-check `.task` once
-    /// `UpdateChecker.check()` resolves to `.available`.
-    func announceUpdate(version: String, url: URL) {
-        availableUpdate = (version, url)
     }
 
     /// Empties the results history: both the row list and the session

@@ -196,6 +196,26 @@ xcrun notarytool submit "$DMG" --keychain-profile "$KEYCHAIN_PROFILE" --wait
 
 echo "==> stapling"
 xcrun stapler staple "$DMG"
+
+# A second, identical copy under a name that never changes.
+#
+# GitHub's permanent "latest release" download URL is
+# .../releases/latest/download/<exact asset name>, so a stable download
+# button needs an asset whose filename carries no version. Sparkle needs
+# the opposite: generate_appcast derives the enclosure URL from the
+# versioned filename, and each release's asset must stay distinct. Upload
+# both and each consumer gets what it needs.
+#
+# Copied after stapling so this one carries the notarization ticket too —
+# copying before would produce a file that needs a network round trip on
+# first launch, and would silently fail to open offline.
+STABLE_DMG="dist/ShrinkerPro.dmg"
+cp "$DMG" "$STABLE_DMG"
+xcrun stapler validate "$STABLE_DMG" >/dev/null || {
+  echo "FAIL  $STABLE_DMG is not stapled — the copy must happen after stapling" >&2
+  exit 1
+}
+echo "    wrote $STABLE_DMG (stable download URL, same bytes)"
 xcrun stapler validate "$DMG"
 
 echo
@@ -288,6 +308,9 @@ echo "  2. Upload these as release assets. The DMG's filename must not"
 echo "     change — the appcast enclosure URL below is built from it, and"
 echo "     GitHub rewrites spaces to periods, which is why it has none:"
 echo "       $DMG"
+echo "       $STABLE_DMG                (same bytes; powers the README"
+echo "                                         download button, which breaks"
+echo "                                         if this asset is missing)"
 echo "       $SOURCES_ZIP   (GPL corresponding source — required)"
 echo "  3. Commit and push the regenerated feed so GitHub Pages serves it:"
 echo "       git add appcast.xml"

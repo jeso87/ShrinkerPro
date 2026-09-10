@@ -7,6 +7,23 @@ Shrinker Pro writes a smaller copy beside the original — or wherever you tell
 it to. Originals are never replaced unless you ask for that (turn off both the
 `.min` suffix and the `minified/` subfolder in Settings).
 
+## Install
+
+**[Download Shrinker Pro](https://github.com/jeso87/ShrinkerPro/releases/latest/download/ShrinkerPro.dmg)** — or browse [all releases](https://github.com/jeso87/ShrinkerPro/releases/latest).
+
+Open the DMG and drag Shrinker Pro to Applications. The app is signed with a
+Developer ID and notarized by Apple, with the notarization ticket stapled to
+the DMG, so it opens by double-clicking — no right-click-Open, no Gatekeeper
+warning, and no network round trip on first launch.
+
+Requires macOS 14 Sonoma or later on Apple Silicon. There is no Intel build,
+by design — see below.
+
+Updates are handled in-app by [Sparkle](https://sparkle-project.org/):
+Shrinker Pro checks once a day and on "Check for Updates…" in the app menu,
+and every update's signature is verified before it is installed. You can turn
+the automatic check off in Settings.
+
 ## Why this exists
 
 Shrinker Pro is a native rewrite of [Image Shrinker](https://github.com/stefansl/image-shrinker)

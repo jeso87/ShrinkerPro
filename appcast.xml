@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Shrinker Pro</title>
+        <item>
+            <title>1.0.0</title>
+            <pubDate>Thu, 10 Sep 2026 18:20:07 -0400</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.0.0/ShrinkerPro-1.0.0.dmg" length="2638220" type="application/octet-stream" sparkle:edSignature="jQOnq2pLV3OY8vkU8KP6cdVeUsZSX+rN9GobLum1ev551K6Mdv2DiDk0rCUewHgaD4AYgDKz9Dd6bYJCTEE4Dw=="/>
+        </item>
+    </channel>
+</rss>

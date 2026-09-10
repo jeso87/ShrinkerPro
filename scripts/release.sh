@@ -116,7 +116,18 @@ codesign --verify --deep --strict --verbose=2 "$APP"
 spctl --assess --type execute --verbose "$APP" || echo "    (spctl will pass only after notarization)"
 
 VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$APP/Contents/Info.plist")
-DMG="dist/Shrinker Pro-$VERSION.dmg"
+# No space in the DMG's *filename*, deliberately — the mounted volume is
+# still named "Shrinker Pro" (see -volname below), which is what a user
+# actually sees.
+#
+# GitHub rewrites spaces in a release asset's filename to periods when it
+# is uploaded, so "Shrinker Pro-1.0.0.dmg" is served as
+# "Shrinker.Pro-1.0.0.dmg". generate_appcast builds the appcast enclosure
+# URL from the local filename, giving "Shrinker%20Pro-1.0.0.dmg" — a URL
+# that 404s. Sparkle would then find an update and fail to download it,
+# which is worse than finding none, and is unfixable by shipping an
+# update: every existing install keeps checking the same broken feed.
+DMG="dist/ShrinkerPro-$VERSION.dmg"
 STAGE="build/dmg-stage"
 
 echo "==> building DMG $DMG"
@@ -126,6 +137,18 @@ mkdir -p "$STAGE"
 cp -R "$APP" "$STAGE/"
 ln -s /Applications "$STAGE/Applications"
 cp build/ShrinkerPro.icns "$STAGE/.VolumeIcon.icns"
+
+# GPL-2.0 (gifsicle) and GPL-3.0 (pngquant) both require the license text to
+# accompany the binaries wherever they are distributed — the repo having a
+# copy is not enough, because the DMG is what most people receive. Fail
+# rather than ship a DMG without them.
+for doc in LICENSE THIRD-PARTY-LICENSES.md; do
+  [ -f "$ROOT/$doc" ] || {
+    echo "FAIL  $doc missing — run ./scripts/collect-licenses.sh" >&2
+    exit 1
+  }
+  cp "$ROOT/$doc" "$STAGE/"
+done
 
 # A custom volume icon requires setting the "has custom icon" attribute on
 # a writable HFS+ volume before the DMG is compressed, so this builds an
@@ -221,6 +244,35 @@ cp "$APPCAST_STAGE/appcast.xml" "$ROOT/appcast.xml"
 rm -rf "$APPCAST_STAGE"
 echo "    wrote $ROOT/appcast.xml"
 
+# --- GPL corresponding source ---------------------------------------------
+#
+# gifsicle (GPL-2.0) and pngquant (GPL-3.0) are distributed as binaries in
+# the DMG, which obliges us to make their source available. Pointing at an
+# upstream URL alone is fragile: a tag can be retagged or deleted, and the
+# obligation attaches to the source for *these* binaries. So the exact
+# archives build-compressors.sh downloaded and built are bundled here and
+# uploaded to the same release, which discharges it unambiguously.
+#
+# Permissively-licensed components are included too. They carry no such
+# obligation, but a single archive that matches the notice file is easier to
+# reason about than one that mysteriously omits three of its six entries.
+SOURCES_ZIP="dist/ShrinkerPro-$VERSION-thirdparty-sources.zip"
+echo "==> collecting third-party source archives"
+rm -f "$SOURCES_ZIP"
+TARBALLS=()
+while IFS= read -r t; do TARBALLS+=("$t"); done < <(find "$ROOT/vendor/src" -maxdepth 1 -name '*.tar.gz' | sort)
+# Fail closed: an empty archive would look like compliance while providing
+# nothing. build-compressors.sh leaves these behind, so none means the
+# vendor tree was cleaned and the release is being cut from stale binaries.
+[ "${#TARBALLS[@]}" -ge 5 ] || {
+  echo "FAIL  expected >=5 source tarballs in vendor/src, found ${#TARBALLS[@]}" >&2
+  echo "      run ./scripts/build-compressors.sh to repopulate" >&2
+  exit 1
+}
+ditto -c -k --sequesterRsrc "${TARBALLS[@]}" "$ROOT/THIRD-PARTY-LICENSES.md" "$SOURCES_ZIP" 2>/dev/null \
+  || zip -j -q "$SOURCES_ZIP" "${TARBALLS[@]}" "$ROOT/THIRD-PARTY-LICENSES.md"
+echo "    wrote $SOURCES_ZIP ($(du -h "$SOURCES_ZIP" | cut -f1 | tr -d ' '), ${#TARBALLS[@]} archives)"
+
 # No `gh` on this machine, and this project doesn't push or open releases on
 # its own initiative — print exactly what a human needs to do instead of
 # guessing at automating it.
@@ -232,9 +284,11 @@ echo "To publish v$VERSION:"
 echo
 echo "  1. Create a GitHub Release tagged $RELEASE_TAG at:"
 echo "       https://github.com/$GITHUB_REPO/releases/new?tag=$RELEASE_TAG"
-echo "  2. Upload this file as its release asset (filename must not change —"
-echo "     the appcast enclosure URL below is built from it):"
+echo "  2. Upload these as release assets. The DMG's filename must not"
+echo "     change — the appcast enclosure URL below is built from it, and"
+echo "     GitHub rewrites spaces to periods, which is why it has none:"
 echo "       $DMG"
+echo "       $SOURCES_ZIP   (GPL corresponding source — required)"
 echo "  3. Commit and push the regenerated feed so GitHub Pages serves it:"
 echo "       git add appcast.xml"
 echo "       git commit -m \"Publish $RELEASE_TAG to the update feed\""

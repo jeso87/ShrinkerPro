@@ -100,13 +100,7 @@ struct ShrinkerProApp: App {
             CommandGroup(replacing: .appInfo) {
                 Button("About Shrinker Pro") {
                     NSApplication.shared.orderFrontStandardAboutPanel(options: [
-                        .credits: NSAttributedString(
-                            string: ShrinkerProApp.aboutCredits,
-                            attributes: [
-                                .font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
-                                .foregroundColor: NSColor.secondaryLabelColor,
-                            ]
-                        )
+                        .credits: ShrinkerProApp.aboutCredits()
                     ])
                 }
             }
@@ -184,14 +178,55 @@ struct ShrinkerProApp: App {
         }
     }
 
-    static let aboutCredits = """
-        Made by Joshua Omilian
+    static let websiteURL = URL(string: "https://shrinkerpro.app")!
 
-        A native Apple Silicon rewrite of Image Shrinker \
-        by Stefan Schulz-Lauterbach (CC0-1.0).
+    /// The body of the About panel.
+    ///
+    /// Built as an attributed string rather than a plain one so the site
+    /// is a real clickable link — `orderFrontStandardAboutPanel` renders
+    /// `.link` attributes in the credits, and a bare URL printed as text
+    /// gives the reader nothing to click.
+    ///
+    /// What this deliberately does *not* contain is a copyright line.
+    /// That belongs to `NSHumanReadableCopyright`, which the panel already
+    /// renders in bold underneath; putting it here as well is what
+    /// produced the duplicated "Made by Joshua Omilian. Based on Image
+    /// Shrinker…" paragraph sitting directly below its own restatement.
+    static func aboutCredits() -> NSAttributedString {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        paragraph.paragraphSpacing = 8
 
-        Compression by mozjpeg, pngquant, gifsicle and SVGO.
-        """
+        let base: [NSAttributedString.Key: Any] = [
+            .font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
+            .foregroundColor: NSColor.secondaryLabelColor,
+            .paragraphStyle: paragraph,
+        ]
+
+        let credits = NSMutableAttributedString()
+        credits.append(NSAttributedString(string: "Made by Joshua Omilian\n", attributes: base))
+
+        var link = base
+        link[.link] = websiteURL
+        link[.foregroundColor] = NSColor.linkColor
+        credits.append(NSAttributedString(string: "shrinkerpro.app", attributes: link))
+
+        // Paragraph breaks come from `paragraphSpacing`, not from blank
+        // lines. The panel's credits area is a fixed-height scroll view
+        // that does not grow with its content: an earlier draft used
+        // explicit blank lines as well and the final line was clipped
+        // mid-sentence, below the fold, with nothing to indicate it was
+        // there.
+        credits.append(NSAttributedString(
+            string: """
+                \nA native Apple Silicon rewrite of Image Shrinker \
+                by Stefan Schulz-Lauterbach (CC0-1.0).
+                Compression by mozjpeg, pngquant, gifsicle, cwebp and SVGO.
+                """,
+            attributes: base
+        ))
+        return credits
+    }
 
     private func openPanel() {
         guard let model else { return }

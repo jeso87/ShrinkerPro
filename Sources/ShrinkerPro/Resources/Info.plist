@@ -12,7 +12,11 @@
     <key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
     <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
     <key>LSMinimumSystemVersion</key><string>14.0</string>
-    <key>NSHumanReadableCopyright</key><string>Made by Joshua Omilian. Based on Image Shrinker by Stefan Schulz-Lauterbach (CC0-1.0).</string>
+    <!-- The bold line at the foot of the About panel. It is a copyright
+         notice, not a second place to repeat the credits above it —
+         which is what it used to be, printing "Made by Joshua Omilian.
+         Based on Image Shrinker..." directly beneath the same words. -->
+    <key>NSHumanReadableCopyright</key><string>© 2026 Joshua Omilian. Shrinker Pro is MIT licensed; bundled tools are not — see THIRD-PARTY-LICENSES.</string>
     <!-- Sparkle: where AppUpdater checks for new releases, and the public
          half of the EdDSA key pair whose private half lives only in the
          signing machine's Keychain (see scripts/release.sh's "sign_update"

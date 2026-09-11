@@ -336,3 +336,99 @@ final class AppModelTests: XCTestCase {
         XCTAssertFalse(body.contains("-"), "savings total should never render negative, got \(body)")
     }
 }
+
+// MARK: - The session conversion override
+
+@MainActor
+final class SessionOverrideTests: XCTestCase {
+
+    private struct MissingTestResource: Error {}
+
+    private func makeModel() throws -> (AppModel, Settings) {
+        let repoRoot = ProcessInfo.processInfo.environment["SRCROOT"].map(URL.init(fileURLWithPath:))
+            ?? URL(fileURLWithPath: #filePath)
+                .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let vendor = repoRoot.appendingPathComponent("vendor/compressors")
+        guard FileManager.default.isExecutableFile(atPath: vendor.appendingPathComponent("cjpeg").path) else {
+            XCTFail("compressors not built — run scripts/build-compressors.sh")
+            throw MissingTestResource()
+        }
+        let bundle = Bundle(for: SessionOverrideTests.self)
+        guard let svgo = bundle.url(forResource: "svgo.jsc", withExtension: "js")
+            ?? Bundle.main.url(forResource: "svgo.jsc", withExtension: "js") else {
+            XCTFail("svgo.jsc.js not bundled — run scripts/prepare-svgo.sh, then xcodegen generate")
+            throw MissingTestResource()
+        }
+        let engine = try ShrinkEngine(
+            helperProvider: { vendor.appendingPathComponent($0) }, svgoScriptURL: svgo
+        )
+        let settings = Settings(defaults: makeTestDefaults("session-override"))
+        return (AppModel(engine: engine, settings: settings, notifier: nil), settings)
+    }
+
+    private func staged(_ name: String, _ ext: String) throws -> URL {
+        let bundle = Bundle(for: SessionOverrideTests.self)
+        guard let source = bundle.url(forResource: name, withExtension: ext, subdirectory: "Fixtures")
+            ?? bundle.url(forResource: name, withExtension: ext) else {
+            XCTFail("fixture \(name).\(ext) not found in test bundle")
+            throw MissingTestResource()
+        }
+        let dir = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("session-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        addTeardownBlock { try? FileManager.default.removeItem(at: dir) }
+        let staged = dir.appendingPathComponent("\(name).\(ext)")
+        try FileManager.default.copyItem(at: source, to: staged)
+        return staged
+    }
+
+    func testDefaultsToOff() throws {
+        let (model, _) = try makeModel()
+        XCTAssertNil(model.sessionFormat, "the app must behave exactly as before until the override is set")
+    }
+
+    func testAnOverrideConvertsADroppedFile() async throws {
+        let (model, _) = try makeModel()
+        model.sessionFormat = .webp
+
+        await model.process(urls: [try staged("sample", "png")])
+
+        XCTAssertEqual(model.rows.first?.output.pathExtension, "webp")
+    }
+
+    func testClearingTheOverrideRestoresTheStoredRules() async throws {
+        let (model, _) = try makeModel()
+        model.sessionFormat = .webp
+        await model.process(urls: [try staged("sample", "png")])
+        XCTAssertEqual(model.rows.first?.output.pathExtension, "webp")
+
+        model.sessionFormat = nil
+        await model.process(urls: [try staged("sample", "png")])
+
+        XCTAssertEqual(model.rows.first?.output.pathExtension, "png")
+    }
+
+    /// The override is session state and must never reach the defaults
+    /// database — a fresh `Settings` over the same suite must not see it.
+    func testTheOverrideIsNeverPersisted() async throws {
+        let (model, settings) = try makeModel()
+        model.sessionFormat = .avif
+        await model.process(urls: [try staged("sample", "png")])
+
+        XCTAssertNil(
+            settings.outputSettings.sessionFormat,
+            "the override must not be written into the settings snapshot"
+        )
+        XCTAssertEqual(settings.pngConversion, .keep, "the stored rules must be left exactly as they were")
+    }
+
+    func testSVGAndGIFAreUnaffected() async throws {
+        let (model, _) = try makeModel()
+        model.sessionFormat = .jpeg
+
+        await model.process(urls: [try staged("sample", "svg"), try staged("sample", "gif")])
+
+        let extensions = Set(model.rows.map(\.output.pathExtension))
+        XCTAssertEqual(extensions, ["svg", "gif"])
+    }
+}

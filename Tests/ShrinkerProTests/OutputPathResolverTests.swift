@@ -25,7 +25,7 @@ final class OutputPathResolverTests: XCTestCase {
     ) -> OutputSettings {
         OutputSettings(
             saveInSameFolder: sameFolder, savePath: savePath,
-            useSubfolder: subfolder, addSuffix: suffix
+            useSubfolder: subfolder, keepOriginal: suffix
         )
     }
 

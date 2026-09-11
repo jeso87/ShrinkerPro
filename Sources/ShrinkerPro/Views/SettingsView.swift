@@ -25,7 +25,19 @@ struct SettingsView: View {
                     }
                 }
                 Toggle("Add subfolder \"minified\"", isOn: $settings.useSubfolder)
-                Toggle("Add .min suffix to shrunken files", isOn: $settings.addSuffix)
+                // Named for the stake, not the mechanism: with this off (and
+                // no subfolder, and no redirected save path) the output path
+                // *is* the input path and the original is replaced. The old
+                // wording, "Add .min suffix to shrunken files", described
+                // what the filename does and left the user to work out what
+                // turning it off costs them.
+                Toggle("Keep original files", isOn: $settings.keepOriginal)
+                Text(settings.keepOriginal
+                     ? "Shrunken copies are saved alongside the originals with a .min suffix."
+                     : "Originals are overwritten in place. Converted files keep a separate extension, so those originals are left alone.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             Section {
                 Toggle("Enable notifications", isOn: $settings.notification)
@@ -68,6 +80,23 @@ struct SettingsView: View {
                 // and give the reason for each — "some formats are
                 // excluded" is not actionable.
                 Text("SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.")
+            }
+            Section {
+                Picker("When shrinking, keep", selection: $settings.metadataPolicy) {
+                    ForEach(MetadataPolicy.allCases, id: \.self) { policy in
+                        Text(policy.displayName).tag(policy)
+                    }
+                }
+            } header: {
+                Text("Metadata")
+            } footer: {
+                // Rotation is stated here because it is the one thing this
+                // setting does NOT control, and a user who has just been
+                // offered "No metadata" has every reason to assume turning
+                // it on would leave their photos sideways again. It is also
+                // the fix for the bug that prompted the setting, so saying
+                // it plainly is worth the line.
+                Text("Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.")
             }
         }
         .formStyle(.grouped)

@@ -101,3 +101,16 @@ struct ConversionRules: Equatable, Sendable {
     var webp: ConversionTarget = .keep
     var avif: ConversionTarget = .keep
 }
+
+extension ConversionFormat {
+    /// This rule's equivalent in the router's own, wider vocabulary. The
+    /// widening is one-way: `TargetFormat` has a `.png` case that no
+    /// persisted rule can produce (see `SessionFormat`).
+    var targetFormat: TargetFormat {
+        switch self {
+        case .jpeg: return .jpeg
+        case .webp: return .webp
+        case .avif: return .avif
+        }
+    }
+}

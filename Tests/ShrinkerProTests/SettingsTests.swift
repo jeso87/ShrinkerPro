@@ -14,7 +14,7 @@ final class SettingsTests: XCTestCase {
         XCTAssertTrue(settings.notification)
         XCTAssertTrue(settings.saveInSameFolder)
         XCTAssertFalse(settings.clearList)
-        XCTAssertTrue(settings.addSuffix)
+        XCTAssertTrue(settings.keepOriginal)
         XCTAssertTrue(settings.updateCheck)
         XCTAssertFalse(settings.useSubfolder)
         XCTAssertNil(settings.savePath)
@@ -23,12 +23,12 @@ final class SettingsTests: XCTestCase {
     func testValuesPersist() {
         let defaults = makeDefaults()
         let first = Settings(defaults: defaults)
-        first.addSuffix = false
+        first.keepOriginal = false
         first.useSubfolder = true
         first.savePath = URL(fileURLWithPath: "/tmp/shrinker-dest")
 
         let second = Settings(defaults: defaults)
-        XCTAssertFalse(second.addSuffix)
+        XCTAssertFalse(second.keepOriginal)
         XCTAssertTrue(second.useSubfolder)
         XCTAssertEqual(second.savePath?.path, "/tmp/shrinker-dest")
     }
@@ -138,13 +138,13 @@ final class SettingsTests: XCTestCase {
         settings.saveInSameFolder = false
         settings.savePath = URL(fileURLWithPath: "/tmp/dest")
         settings.useSubfolder = true
-        settings.addSuffix = false
+        settings.keepOriginal = false
 
         let projected = settings.outputSettings
         XCTAssertFalse(projected.saveInSameFolder)
         XCTAssertEqual(projected.savePath?.path, "/tmp/dest")
         XCTAssertTrue(projected.useSubfolder)
-        XCTAssertFalse(projected.addSuffix)
+        XCTAssertFalse(projected.keepOriginal)
     }
 
     /// Guards against a boolean write being mistaken for "unset" — setting a
@@ -215,5 +215,82 @@ final class SettingsTests: XCTestCase {
             "the Notifications settings pane identifier changed — NotificationPermission."
                 + "systemSettingsURL now opens nothing"
         )
+    }
+}
+
+// MARK: - Metadata policy, and the "Keep original files" rename
+
+@MainActor
+final class MetadataPolicySettingTests: XCTestCase {
+
+    func testDefaultsToKeepingEverything() {
+        let settings = Settings(defaults: makeTestDefaults())
+        XCTAssertEqual(
+            settings.metadataPolicy, .all,
+            "any other default would start deleting EXIF from files JPEG -> JPEG round-trips intact today"
+        )
+    }
+
+    func testThePolicyPersists() {
+        let defaults = makeTestDefaults()
+        let first = Settings(defaults: defaults)
+        first.metadataPolicy = .copyright
+
+        XCTAssertEqual(Settings(defaults: defaults).metadataPolicy, .copyright)
+    }
+
+    /// Same contract as `readTarget`: a value written by a future version of
+    /// the app, naming a policy this build has never heard of, must come
+    /// back as the default rather than crash on launch.
+    func testAnUnrecognisedStoredPolicyFallsBackRatherThanCrashing() {
+        let defaults = makeTestDefaults()
+        defaults.set("some-future-policy", forKey: "metadata")
+
+        XCTAssertEqual(Settings(defaults: defaults).metadataPolicy, .all)
+    }
+
+    /// `.stripped` is spelled that way in Swift to avoid colliding with
+    /// `Optional.none`, but the *stored* value is still "none" — which is
+    /// what a reader of the defaults database sees, and what any already
+    /// released build would have written.
+    func testStrippedPersistsUnderItsPlainName() {
+        let defaults = makeTestDefaults()
+        Settings(defaults: defaults).metadataPolicy = .stripped
+
+        XCTAssertEqual(defaults.string(forKey: "metadata"), "none")
+        XCTAssertEqual(Settings(defaults: defaults).metadataPolicy, .stripped)
+    }
+
+    /// The rename from `addSuffix` to `keepOriginal` was a rename of the
+    /// *property*, not of the stored key, precisely so that nobody's
+    /// existing preference had to be migrated. A preference written by the
+    /// previous build must still be read, and with the same meaning.
+    func testKeepOriginalStillReadsThePreviousBuildsStoredPreference() {
+        let defaults = makeTestDefaults()
+        // Exactly what a build predating the rename would have left behind.
+        defaults.set(false, forKey: "suffix")
+
+        let settings = Settings(defaults: defaults)
+        XCTAssertFalse(
+            settings.keepOriginal,
+            "polarity is unchanged: a stored false still means 'overwrite the original'"
+        )
+
+        settings.keepOriginal = true
+        XCTAssertTrue(defaults.bool(forKey: "suffix"), "the key must stay \"suffix\"")
+    }
+
+    func testThePolicyReachesTheEngineSnapshot() {
+        let settings = Settings(defaults: makeTestDefaults())
+        settings.metadataPolicy = .copyright
+
+        XCTAssertEqual(settings.outputSettings.metadataPolicy, .copyright)
+    }
+
+    /// The session override is not a setting. Nothing in `Settings` should
+    /// ever produce one, because nothing should ever persist one.
+    func testTheSnapshotCarriesNoSessionOverride() {
+        let settings = Settings(defaults: makeTestDefaults())
+        XCTAssertNil(settings.outputSettings.sessionFormat)
     }
 }

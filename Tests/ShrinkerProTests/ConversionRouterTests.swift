@@ -216,8 +216,222 @@ final class ConversionRouterTests: XCTestCase {
     /// type has no `.avif` case, because ImageIO decodes every supported
     /// input directly and an AVIF target therefore never needs a carrier.
     func testRelayedTargetHasNoAVIFCase() {
-        XCTAssertEqual(RelayedTarget.allCases, [.jpeg, .webp])
+        // `.png` joined this list with the session override's PNG target:
+        // pngquant reads only PNG, so every other source reaches it through
+        // a carrier, exactly as cjpeg and cwebp do. The guarantee this test
+        // exists for is the assertion below, not the length of the list.
+        XCTAssertEqual(RelayedTarget.allCases, [.jpeg, .webp, .png])
         XCTAssertNil(RelayedTarget(rawValue: "avif"),
                       "an AVIF target must never be representable as a RelayedTarget")
+    }
+
+    // MARK: - PNG is reachable only from a session override
+
+    /// The counterpart to `TargetFormat` having a `.png` case: neither of
+    /// the two *persisted* types may gain one. Both drive a Settings picker
+    /// through `allCases`, so a case added to either would appear in the UI
+    /// as a stored rule — and `Settings` would then accept and write "png"
+    /// for a rule the user could not otherwise express.
+    func testThePersistedRuleTypesHaveNoPNGCase() {
+        XCTAssertNil(ConversionTarget(rawValue: "png"),
+                     "PNG must not be storable as a per-format rule")
+        XCTAssertNil(ConversionFormat(rawValue: "png"),
+                     "PNG must not be storable as the HEIC rule")
+        XCTAssertEqual(ConversionFormat.allCases, [.jpeg, .webp, .avif],
+                       "the HEIC/HEIF row offers exactly three options; PNG is session-only")
+    }
+
+    /// ...and the session-only type is the one place it does exist.
+    func testTheSessionTypeOffersAllFourTargets() {
+        XCTAssertEqual(SessionFormat.allCases, [.jpeg, .webp, .avif, .png])
+        XCTAssertEqual(SessionFormat.allCases.map(\.targetFormat), [.jpeg, .webp, .avif, .png])
+    }
+}
+
+// MARK: - Orientation and metadata routing
+
+/// The rule these cover: a file whose pixels are not already upright can
+/// never be handed straight to a vendored CLI encoder, because none of them
+/// can rotate. Each such route must be rewritten to the relayed equivalent
+/// of the *same destination* — the output format must never change as a
+/// side effect of the input being rotated.
+final class RoutingContextTests: XCTestCase {
+
+    private let rotated = RoutingContext(isUpright: false, policy: .all)
+    private let upright = RoutingContext(isUpright: true, policy: .all)
+
+    func testUprightSourcesKeepTheirDirectCLIRoutes() {
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, rule: .keep, context: upright),
+            .sameFormat(.jpeg)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .png, rule: .keep, context: upright),
+            .sameFormat(.png)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .webp, rule: .keep, context: upright),
+            .sameFormat(.webp)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, rule: ConversionTarget.webp, context: upright),
+            .direct(target: .webp)
+        )
+    }
+
+    func testRotatedSourcesAreReroutedThroughImageIO() {
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, rule: .keep, context: rotated),
+            .viaIntermediate(target: .jpeg, intermediate: .tga),
+            "cjpeg cannot rotate, so a rotated JPEG must decode through ImageIO first"
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .png, rule: .keep, context: rotated),
+            .viaIntermediate(target: .png, intermediate: .png)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .webp, rule: .keep, context: rotated),
+            .viaIntermediate(target: .webp, intermediate: .png)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, rule: ConversionTarget.webp, context: rotated),
+            .viaIntermediate(target: .webp, intermediate: .png)
+        )
+    }
+
+    /// AVIF and HEIC are ImageIO end to end already, which is where the
+    /// rotation happens — so being rotated must not change their route.
+    func testImageIORoutesAreUnaffectedByOrientation() {
+        XCTAssertEqual(
+            ConversionRouter.route(native: .avif, rule: .keep, context: rotated),
+            .sameFormat(.avif)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .heic, rule: ConversionTarget.avif, context: rotated),
+            .direct(target: .avif)
+        )
+    }
+
+    /// Rerouting must preserve the destination exactly. A rotated file
+    /// silently coming out as a different format would be a far worse bug
+    /// than the one being fixed.
+    func testReroutingNeverChangesTheDestinationFormat() {
+        for native in [NativeFormat.png, .jpeg, .webp, .avif, .heic] {
+            for target in TargetFormat.allCases {
+                let up = ConversionRouter.route(native: native, target: target, context: upright)
+                let turned = ConversionRouter.route(native: native, target: target, context: rotated)
+                XCTAssertEqual(
+                    destination(of: up), destination(of: turned),
+                    "\(native) -> \(target) changed destination when rotated"
+                )
+            }
+        }
+    }
+
+    /// cwebp's `-metadata` flag can say "all" or "none" but cannot name
+    /// individual tags, so "copyright only" is the one policy it cannot be
+    /// trusted with — those jobs must be relayed through a PNG intermediate
+    /// authored with exactly the tags to keep.
+    func testCopyrightPolicyForcesWebPThroughAnIntermediate() {
+        let copyright = RoutingContext(isUpright: true, policy: .copyright)
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, rule: ConversionTarget.webp, context: copyright),
+            .viaIntermediate(target: .webp, intermediate: .png)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .webp, rule: .keep, context: copyright),
+            .viaIntermediate(target: .webp, intermediate: .png)
+        )
+    }
+
+    func testAllAndStrippedPoliciesLeaveTheDirectWebPRouteAlone() {
+        for policy in [MetadataPolicy.all, .stripped] {
+            let context = RoutingContext(isUpright: true, policy: policy)
+            XCTAssertEqual(
+                ConversionRouter.route(native: .jpeg, rule: ConversionTarget.webp, context: context),
+                .direct(target: .webp),
+                "cwebp can state \(policy.rawValue) with its own flag; no relay needed"
+            )
+        }
+    }
+
+    /// The policy only ever matters to cwebp. Everything else either writes
+    /// metadata at encode time (ImageIO) or gets a post-pass (cjpeg,
+    /// pngquant), so no other route should move because of it.
+    func testPolicyDoesNotDisturbNonWebPRoutes() {
+        for policy in MetadataPolicy.allCases {
+            let context = RoutingContext(isUpright: true, policy: policy)
+            XCTAssertEqual(ConversionRouter.route(native: .jpeg, rule: .keep, context: context), .sameFormat(.jpeg))
+            XCTAssertEqual(ConversionRouter.route(native: .png, rule: .keep, context: context), .sameFormat(.png))
+            XCTAssertEqual(ConversionRouter.route(native: .heic, rule: ConversionFormat.jpeg, context: context),
+                           .viaIntermediate(target: .jpeg, intermediate: .tga))
+            XCTAssertEqual(ConversionRouter.route(native: .png, rule: ConversionTarget.avif, context: context), .direct(target: .avif))
+        }
+    }
+
+    private func destination(of route: ConversionRoute) -> String {
+        switch route {
+        case .sameFormat(let native): return "\(native)"
+        case .direct(let target): return target.rawValue
+        case .viaIntermediate(let target, _): return target.rawValue
+        }
+    }
+}
+
+// MARK: - The PNG target
+
+/// PNG is reachable only through the session override. These cover the
+/// route itself; that it stays out of the persisted rules is covered by the
+/// absence of a `.png` case on `ConversionTarget`/`ConversionFormat`, which
+/// the compiler enforces.
+final class PNGTargetRoutingTests: XCTestCase {
+
+    func testEveryNonPNGSourceReachesPNGThroughAnIntermediate() {
+        for native in [NativeFormat.jpeg, .webp, .avif, .heic] {
+            XCTAssertEqual(
+                ConversionRouter.route(native: native, target: .png),
+                .viaIntermediate(target: .png, intermediate: .png),
+                "pngquant reads only PNG, so \(native) must decode through ImageIO first"
+            )
+        }
+    }
+
+    /// Same-format conversion is still compression: a PNG asked to become a
+    /// PNG must take pngquant directly, not a pointless decode/re-encode.
+    func testAPNGTargetingPNGIsJustCompression() {
+        XCTAssertEqual(
+            ConversionRouter.route(native: .png, target: .png),
+            .sameFormat(.png)
+        )
+    }
+
+    func testAPNGOutputIsOwedAMetadataPostPass() {
+        XCTAssertTrue(ConversionRoute.sameFormat(.png).needsMetadataPostPass)
+        XCTAssertTrue(ConversionRoute.viaIntermediate(target: .png, intermediate: .png).needsMetadataPostPass)
+    }
+}
+
+// MARK: - Which outputs are owed a metadata post-pass
+
+final class MetadataPostPassRoutingTests: XCTestCase {
+
+    /// cjpeg and pngquant cannot be told what metadata to emit, so their
+    /// output is rewritten afterwards.
+    func testCLIEncodedJPEGAndPNGAreOwedAPostPass() {
+        XCTAssertTrue(ConversionRoute.sameFormat(.jpeg).needsMetadataPostPass)
+        XCTAssertTrue(ConversionRoute.sameFormat(.png).needsMetadataPostPass)
+        XCTAssertTrue(ConversionRoute.viaIntermediate(target: .jpeg, intermediate: .tga).needsMetadataPostPass)
+    }
+
+    /// ImageIO writes its own metadata at encode time, and cwebp's output
+    /// ImageIO cannot open for writing at all — attempting a post-pass on a
+    /// WebP would fail, so it must never be asked for.
+    func testImageIOAndWebPOutputsAreNotOwedAPostPass() {
+        XCTAssertFalse(ConversionRoute.sameFormat(.avif).needsMetadataPostPass)
+        XCTAssertFalse(ConversionRoute.sameFormat(.heic).needsMetadataPostPass)
+        XCTAssertFalse(ConversionRoute.sameFormat(.webp).needsMetadataPostPass)
+        XCTAssertFalse(ConversionRoute.direct(target: .avif).needsMetadataPostPass)
+        XCTAssertFalse(ConversionRoute.direct(target: .webp).needsMetadataPostPass)
+        XCTAssertFalse(ConversionRoute.viaIntermediate(target: .webp, intermediate: .png).needsMetadataPostPass)
     }
 }

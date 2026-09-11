@@ -67,6 +67,23 @@ enum IntermediateFormat: Equatable, Sendable {
     }
 }
 
+/// Every format the router can be asked to produce.
+///
+/// Deliberately wider than `ConversionFormat`, which is *persisted* and must
+/// stay exactly the three options the Settings rows offer. `.png` is
+/// reachable only through `SessionFormat`, so it lives here rather than
+/// being added to a type whose `allCases` drives a picker.
+///
+/// This is the router's own vocabulary: both a stored rule and a session
+/// override map into it, and nothing downstream has to know which of the two
+/// it came from.
+enum TargetFormat: String, CaseIterable, Equatable, Sendable {
+    case jpeg
+    case webp
+    case avif
+    case png
+}
+
 /// The destination formats reachable by `ConversionRoute.direct` — decode
 /// the input and encode straight to this format, no intermediate. A
 /// strict subset of `ConversionFormat`: it excludes `.jpeg`, because cjpeg
@@ -103,6 +120,12 @@ enum DirectTarget: String, CaseIterable, Equatable, Sendable {
 enum RelayedTarget: String, CaseIterable, Equatable, Sendable {
     case jpeg
     case webp
+    /// Reachable only through the session override (`SessionFormat.png`);
+    /// PNG is not one of the persisted per-format rules. ImageIO decodes to
+    /// a PNG intermediate and `pngquant` compresses it, reusing the existing
+    /// relay rather than adding a fifth encoder. A PNG *source* targeting
+    /// PNG short-circuits to `.sameFormat(.png)` long before this.
+    case png
 }
 
 /// The compression pipeline `ConversionRouter.route` decided on for one
@@ -134,66 +157,115 @@ enum ConversionRoute: Equatable {
     case viaIntermediate(target: RelayedTarget, intermediate: IntermediateFormat)
 }
 
+/// Everything about one file, beyond its own format and the rule that
+/// applies to it, that can change which pipeline it takes.
+///
+/// Both fields exist because the three vendored CLI encoders are trusted to
+/// read the user's original file directly only when they need no help with
+/// it. When they do, the fix is the same in every case: send the pixels
+/// through ImageIO first, which is the app's only decoder and therefore the
+/// only thing that can rotate or re-author metadata.
+struct RoutingContext: Equatable, Sendable {
+
+    /// `false` when the source declares an orientation other than "up".
+    ///
+    /// Such a file's pixels **must** pass through an ImageIO decode before
+    /// any encoder sees them, because that is where the rotation is baked in
+    /// (see `ImageMetadata.applyingOrientation`). Preserving the tag instead
+    /// is not an option: the TGA and PNG intermediates have no orientation
+    /// field to carry one, so it cannot fix HEIC → JPEG — the default rule,
+    /// and the case users actually reported.
+    var isUpright: Bool = true
+
+    /// What the user asked to keep. Only `.copyright` changes routing:
+    /// cwebp's `-metadata` flag can express "all" and "none" but has no
+    /// setting for "just the rights tags", so that one policy has to be
+    /// applied by authoring the intermediate rather than by flag.
+    var policy: MetadataPolicy = .all
+
+    static let `default` = RoutingContext()
+}
+
 /// Decides *how* to compress a file of a given native format under a given
 /// conversion rule. Pure and IO-free by design: no file paths, no helper
-/// binaries, no ImageIO — so every combination of input format × rule is
-/// cheap to enumerate and check without touching a real image or process.
-/// `ShrinkEngine` is the only caller, and turns the result into an actual
-/// `Compressor` by supplying the binaries/quality this function has no
-/// business knowing about.
+/// binaries, no ImageIO — so every combination of input format × rule ×
+/// context is cheap to enumerate and check without touching a real image or
+/// process. `ShrinkEngine` is the only caller, and turns the result into an
+/// actual `Compressor` by supplying the binaries/quality this function has
+/// no business knowing about.
+///
+/// Note that `context` is read *from the file* by the caller but is not
+/// itself IO: orientation arrives here as a plain `Bool`, which is what
+/// keeps this type testable by enumeration.
 enum ConversionRouter {
 
     /// For every input format whose user-facing rule may legitimately be
     /// "keep" — PNG, JPEG, WebP, AVIF (see `ConversionTarget`). HEIC/HEIF
     /// has no such rule at all and calls the `ConversionFormat` overload
     /// below directly.
-    static func route(native: NativeFormat, rule: ConversionTarget) -> ConversionRoute {
+    static func route(
+        native: NativeFormat, rule: ConversionTarget, context: RoutingContext = .default
+    ) -> ConversionRoute {
         // .keep never needs a target at all — resolve it before anything
         // else so nothing downstream of this point ever has to consider
         // .keep again. `conversionFormat` is nil for exactly that one
         // case, so there is no case left here to mishandle.
         guard let format = rule.conversionFormat else {
-            return .sameFormat(native)
+            return honouring(.sameFormat(native), context: context)
         }
-        return route(native: native, rule: format)
+        return route(native: native, rule: format, context: context)
     }
 
     /// The routing decision once "keep" has been ruled out (or, for HEIC,
     /// was never on the table in the first place). `rule` is a
     /// `ConversionFormat`, which has no `.keep` case to write — the type
     /// itself is the guarantee, not a runtime check.
-    static func route(native: NativeFormat, rule: ConversionFormat) -> ConversionRoute {
+    static func route(
+        native: NativeFormat, rule: ConversionFormat, context: RoutingContext = .default
+    ) -> ConversionRoute {
+        route(native: native, target: rule.targetFormat, context: context)
+    }
+
+    /// The session override's entry point, and the one place `.png` can
+    /// arrive as a target. Identical logic to the stored-rule overloads
+    /// above — a session override is not a different kind of conversion,
+    /// only a different source of the same decision.
+    static func route(
+        native: NativeFormat, target: TargetFormat, context: RoutingContext = .default
+    ) -> ConversionRoute {
         // Same-format conversion is still compression (spec): an explicit
-        // rule naming the input's own format (JPEG→JPEG, WebP→WebP,
-        // AVIF→AVIF) must take the same fast path as .keep, not a
-        // decode/re-encode round trip. PNG and HEIC/HEIF can't hit this —
-        // neither is ever native alongside a matching same-format rule
-        // here (PNG has no same-format rule at all; HEIC's own format
-        // isn't one of `ConversionFormat`'s cases) — so they always fall
+        // target naming the input's own format (JPEG→JPEG, WebP→WebP,
+        // AVIF→AVIF, PNG→PNG) must take the same fast path as .keep, not a
+        // decode/re-encode round trip. HEIC/HEIF can't hit this — its own
+        // format isn't one of `TargetFormat`'s cases — so it always falls
         // through to `convert(native:to:)` below.
-        switch (native, rule) {
-        case (.jpeg, .jpeg), (.webp, .webp), (.avif, .avif):
-            return .sameFormat(native)
+        switch (native, target) {
+        case (.jpeg, .jpeg), (.webp, .webp), (.avif, .avif), (.png, .png):
+            return honouring(.sameFormat(native), context: context)
         default:
-            return convert(native: native, to: rule)
+            return convert(native: native, to: target, context: context)
         }
     }
 
     /// The actual conversion decision, once same-format compression has
-    /// been ruled out by `route(native:rule:ConversionFormat)` above.
-    /// Kept as its own `static` function (rather than inlined into
-    /// `route`) specifically so `ConversionRouterTests` can call the WebP
-    /// branch below directly for `native: .webp` — a combination `route`
-    /// itself never reaches, because it's already short-circuited as
-    /// `.sameFormat` above. That makes the branch's correctness (not just
-    /// its absence of a crash) an observable, tested fact rather than
-    /// something inferred from "the crash was never seen".
-    static func convert(native: NativeFormat, to rule: ConversionFormat) -> ConversionRoute {
-        switch rule {
+    /// been ruled out by `route(native:target:)` above.
+    ///
+    /// Kept as its own `static` function (rather than inlined into `route`)
+    /// specifically so `ConversionRouterTests` can call the WebP branch
+    /// below directly for `native: .webp` — a combination `route` itself
+    /// never reaches, because it's already short-circuited as `.sameFormat`
+    /// above. That makes the branch's correctness (not just its absence of a
+    /// crash) an observable, tested fact rather than something inferred from
+    /// "the crash was never seen".
+    static func convert(
+        native: NativeFormat, to target: TargetFormat, context: RoutingContext = .default
+    ) -> ConversionRoute {
+        let route: ConversionRoute
+        switch target {
         case .avif:
             // ImageIO decodes every supported input format directly, so
             // there is never an intermediate step for an AVIF target.
-            return .direct(target: .avif)
+            route = .direct(target: .avif)
 
         case .jpeg:
             // cjpeg cannot read PNG, WebP, AVIF, or HEIC (see
@@ -201,7 +273,19 @@ enum ConversionRouter {
             // source needs the TGA intermediate. (A JPEG source targeting
             // JPEG is handled by the same-format short-circuit above and
             // never reaches here.)
-            return .viaIntermediate(target: .jpeg, intermediate: .tga)
+            route = .viaIntermediate(target: .jpeg, intermediate: .tga)
+
+        case .png:
+            // pngquant reads nothing but PNG, so every non-PNG source
+            // decodes to a PNG intermediate first. (A PNG source targeting
+            // PNG is handled by the same-format short-circuit above.)
+            //
+            // Worth knowing rather than discovering: PNG is lossless, so a
+            // photograph converted this way routinely comes out several
+            // times larger than the JPEG or HEIC it came from. That is
+            // inherent to the request, not a fault in this route — the UI
+            // says so where the target is chosen.
+            route = .viaIntermediate(target: .png, intermediate: .png)
 
         case .webp:
             switch native {
@@ -212,11 +296,100 @@ enum ConversionRouter {
                 // `.sameFormat(.webp)` for it), but if it ever did, this
                 // is the genuinely correct answer, not an impossible
                 // state: cwebp reads WebP natively the same as PNG/JPEG.
-                return .direct(target: .webp)
+                route = .direct(target: .webp)
             case .avif, .heic:
                 // cwebp cannot read either directly.
-                return .viaIntermediate(target: .webp, intermediate: .png)
+                route = .viaIntermediate(target: .webp, intermediate: .png)
             }
+        }
+        return honouring(route, context: context)
+    }
+
+    /// Rewrites a route that would point a CLI encoder straight at the
+    /// user's file, in the cases where doing so would produce the wrong
+    /// result. Every rewrite substitutes the relayed equivalent of the same
+    /// destination, so the *output format* is never changed here — only the
+    /// path taken to it.
+    ///
+    /// Applied at the end of every route decision rather than at each
+    /// `return`, so a route added later cannot forget it.
+    private static func honouring(
+        _ route: ConversionRoute, context: RoutingContext
+    ) -> ConversionRoute {
+        switch route {
+        case .sameFormat(let native):
+            switch native {
+            case .jpeg:
+                // cjpeg cannot rotate. The TGA detour costs no extra
+                // generational loss: cjpeg already fully decodes and
+                // re-encodes, and TGA is lossless.
+                return context.isUpright
+                    ? route : .viaIntermediate(target: .jpeg, intermediate: .tga)
+            case .png:
+                return context.isUpright
+                    ? route : .viaIntermediate(target: .png, intermediate: .png)
+            case .webp:
+                return cwebpNeedsNoHelp(context)
+                    ? route : .viaIntermediate(target: .webp, intermediate: .png)
+            case .avif, .heic:
+                // Already ImageIO end to end, which is where the rotation
+                // and the metadata are applied. Nothing to reroute.
+                return route
+            }
+
+        case .direct(let target):
+            switch target {
+            case .avif:
+                return route
+            case .webp:
+                return cwebpNeedsNoHelp(context)
+                    ? route : .viaIntermediate(target: .webp, intermediate: .png)
+            }
+
+        case .viaIntermediate:
+            // Already going through ImageIO, which is the fix itself.
+            return route
+        }
+    }
+
+    /// Whether cwebp can be pointed at the user's original file.
+    ///
+    /// It can, on both counts, only when it needs no help: the pixels are
+    /// already upright (cwebp cannot rotate), and the policy is one its
+    /// `-metadata` flag can state exactly. That flag takes `all` or `none`
+    /// and has nothing in between, so `.copyright` has to be applied by
+    /// authoring the PNG intermediate with exactly the tags to keep and then
+    /// passing `-metadata all`.
+    ///
+    /// WebP is the one output format with no post-pass available to correct
+    /// any of this afterwards: ImageIO cannot write WebP at all, so whatever
+    /// cwebp emits is final.
+    private static func cwebpNeedsNoHelp(_ context: RoutingContext) -> Bool {
+        context.isUpright && context.policy != .copyright
+    }
+}
+
+extension ConversionRoute {
+    /// Whether the finished output still needs its metadata written for it.
+    ///
+    /// True exactly when the encoder producing the final bytes is one of the
+    /// vendored CLI tools whose output ImageIO *can* still rewrite losslessly
+    /// — cjpeg and pngquant. Neither can be told what metadata to emit:
+    /// cjpeg copies every marker or none depending only on its input format,
+    /// and pngquant keeps whatever chunks it keeps. So the policy is applied
+    /// afterwards instead, by `ImageMetadata.rewriteMetadata`.
+    ///
+    /// False for ImageIO's own outputs (already written correctly at encode
+    /// time) and for cwebp, whose output ImageIO cannot open for writing at
+    /// all — WebP is handled by the `-metadata` flag and the intermediate.
+    var needsMetadataPostPass: Bool {
+        switch self {
+        case .sameFormat(let native):
+            return native == .jpeg || native == .png
+        case .direct:
+            return false
+        case .viaIntermediate(let target, _):
+            return target == .jpeg || target == .png
         }
     }
 }

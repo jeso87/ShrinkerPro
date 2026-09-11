@@ -21,6 +21,15 @@ struct IntermediateConversionCompressor: Compressor {
 
     let intermediate: IntermediateFormat
     let downstream: Compressor
+    /// Handed to the ImageIO stage below, so the intermediate is authored
+    /// carrying exactly the metadata the user asked to keep.
+    ///
+    /// This matters for one destination in particular: WebP. ImageIO cannot
+    /// write WebP, so a post-pass over cwebp's output is impossible, and the
+    /// intermediate's own metadata is the only thing cwebp has to copy from.
+    /// For a TGA carrier it is inert — TGA holds no metadata — and the JPEG
+    /// that follows gets its metadata from the post-pass instead.
+    var policy: MetadataPolicy = .all
 
     func compress(input: URL, output: URL) throws {
         let intermediateURL = FileManager.default.temporaryDirectory
@@ -29,7 +38,7 @@ struct IntermediateConversionCompressor: Compressor {
             )
         defer { try? FileManager.default.removeItem(at: intermediateURL) }
 
-        try ImageIOCompressor(utType: intermediate.utType, quality: nil)
+        try ImageIOCompressor(utType: intermediate.utType, quality: nil, policy: policy)
             .compress(input: input, output: intermediateURL)
 
         try downstream.compress(input: intermediateURL, output: output)

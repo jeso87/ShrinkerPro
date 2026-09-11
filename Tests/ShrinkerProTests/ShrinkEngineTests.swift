@@ -56,7 +56,7 @@ final class ShrinkEngineTests: XCTestCase {
     }
 
     private let defaults = OutputSettings(
-        saveInSameFolder: true, savePath: nil, useSubfolder: false, addSuffix: true
+        saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true
     )
 
     func testShrinksEachSupportedFormat() throws {
@@ -82,7 +82,7 @@ final class ShrinkEngineTests: XCTestCase {
     /// non-default value named explicitly.
     private func settings(rules: ConversionRules) -> OutputSettings {
         OutputSettings(
-            saveInSameFolder: true, savePath: nil, useSubfolder: false, addSuffix: true,
+            saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true,
             conversionRules: rules
         )
     }
@@ -367,7 +367,7 @@ final class ShrinkEngineTests: XCTestCase {
     /// configuration because it is the only one where a compressor bug
     /// costs the user data rather than a regenerable derivative.
     private let inPlace = OutputSettings(
-        saveInSameFolder: true, savePath: nil, useSubfolder: false, addSuffix: false
+        saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: false
     )
 
     /// Copies a fixture to a private directory and corrupts it so its

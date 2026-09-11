@@ -88,9 +88,9 @@ final class ShrinkEngine {
         }
 
         let originalBytes = try byteCount(of: input)
-        let (compressor, targetExtension) = try plan(for: ext, rules: settings.conversionRules)
+        let plan = try plan(for: ext, input: input, settings: settings)
         let output = try OutputPathResolver.resolve(
-            input: input, settings: settings, targetExtension: targetExtension
+            input: input, settings: settings, targetExtension: plan.targetExtension
         )
 
         // No compressor is ever handed `output` as its write target.
@@ -134,7 +134,7 @@ final class ShrinkEngine {
         // *target* extension (== `ext` for same-format compression, the
         // conversion's target extension otherwise) because some tools
         // infer format from it.
-        let scratchExtension = targetExtension ?? ext
+        let scratchExtension = plan.targetExtension ?? ext
 
         // The scratch lives in an item-replacement directory rather than
         // beside `output`. `.itemReplacementDirectory` is guaranteed to be on
@@ -157,10 +157,42 @@ final class ShrinkEngine {
             .appendingPathComponent("\(UUID().uuidString).\(scratchExtension)")
         defer { try? FileManager.default.removeItem(at: replacementDirectory) }
 
-        try compressor.compress(input: input, output: scratch)
+        try plan.compressor.compress(input: input, output: scratch)
 
         // Existence alone would be a lie about what got produced: an
         // exit-0 run that wrote an empty file must not overwrite anything.
+        guard ((try? byteCount(of: scratch)) ?? 0) > 0 else {
+            throw ShrinkError.outputNotWritten(output)
+        }
+
+        // cjpeg and pngquant cannot be told what metadata to emit, so the
+        // user's policy is applied to their output here instead — copying
+        // the already-compressed image data across verbatim rather than
+        // re-encoding it, which would throw away the work those tools were
+        // run to do. Deliberately placed before promotion: like the
+        // compressors above, this only ever touches the scratch file, so a
+        // failure here leaves the user's original exactly as it was.
+        //
+        // `input` is still intact at this point — no compressor has ever
+        // been handed it as a write target — so it is safe to read the
+        // metadata back out of it even in the in-place case where `output`
+        // resolves to `input`.
+        if plan.needsMetadataPostPass,
+           let utType = ImageMetadata.utType(forOutputExtension: scratchExtension) {
+            try ImageMetadata.rewriteMetadata(
+                of: scratch,
+                takingFrom: input,
+                policy: settings.metadataPolicy,
+                utType: utType,
+                wasRotated: plan.wasRotated,
+                workingIn: replacementDirectory
+            )
+        }
+
+        // Re-measured after the metadata pass, which changes the size: it
+        // strips the markers cjpeg copied, or adds the EXIF a relayed
+        // encode could not carry. Reporting the pre-pass number would make
+        // the saving shown in the UI disagree with the file on disk.
         let shrunkBytes = (try? byteCount(of: scratch)) ?? 0
         guard shrunkBytes > 0 else {
             throw ShrinkError.outputNotWritten(output)
@@ -192,27 +224,46 @@ final class ShrinkEngine {
         )
     }
 
-    /// Decides both the compressor pipeline and the output extension for
-    /// one input extension, given the user's conversion rules.
+    /// Everything `shrink` needs to know about how one file will be
+    /// handled, decided before a single byte is written.
+    private struct Plan {
+        let compressor: Compressor
+        /// `nil` means "keep the input's own extension" — same-format
+        /// compression, unchanged from before the conversion feature — and
+        /// a non-nil value is the conversion's target extension for
+        /// `OutputPathResolver` to use instead.
+        let targetExtension: String?
+        /// Whether the finished output still needs its metadata written by
+        /// ImageIO because the encoder could not — see
+        /// `ConversionRoute.needsMetadataPostPass`.
+        let needsMetadataPostPass: Bool
+        /// Whether the source declared an orientation that has now been
+        /// baked into the pixels. Only used to drop the stale EXIF
+        /// dimensions that describe the frame before it was turned.
+        let wasRotated: Bool
+    }
+
+    /// Decides the compressor pipeline, the output extension, and whether a
+    /// metadata pass is still owed, for one input extension.
     ///
-    /// SVG and GIF are handled first and unconditionally, before `rules`
-    /// is even consulted: the spec is explicit that both "never convert",
-    /// regardless of what any rule says, because there is no rule for
-    /// either of them to consult in the first place — `ConversionRules`
-    /// has no `svg` or `gif` field. Everything else goes through
-    /// `ConversionRouter`, which is where the actual routing decisions
-    /// live (and where they're unit-tested, IO-free).
-    ///
-    /// A `nil` output extension means "keep the input's own extension" —
-    /// same-format compression, unchanged from before this feature — and
-    /// a non-nil one is the conversion's target extension (`"jpg"`,
-    /// `"webp"`, or `"avif"`) for `OutputPathResolver` to use instead.
-    private func plan(for ext: String, rules: ConversionRules) throws -> (Compressor, String?) {
+    /// SVG and GIF are handled first and unconditionally, before anything
+    /// else is even consulted: the spec is explicit that both "never
+    /// convert", regardless of what any rule — or the session override —
+    /// says, because there is no rule for either of them in the first place
+    /// (`ConversionRules` has no `svg` or `gif` field). That same
+    /// short-circuit is what exempts them from the session override for
+    /// free, and it is why neither is charged the cost of an orientation
+    /// read. Everything else goes through `ConversionRouter`, which is where
+    /// the actual routing decisions live (and where they're unit-tested,
+    /// IO-free).
+    private func plan(for ext: String, input: URL, settings: OutputSettings) throws -> Plan {
         switch ext {
         case "svg":
-            return (svgCompressor, nil)
+            return Plan(compressor: svgCompressor, targetExtension: nil,
+                        needsMetadataPostPass: false, wasRotated: false)
         case "gif":
-            return (GIFCompressor(executable: try helperProvider("gifsicle")), nil)
+            return Plan(compressor: GIFCompressor(executable: try helperProvider("gifsicle")),
+                        targetExtension: nil, needsMetadataPostPass: false, wasRotated: false)
         default:
             break
         }
@@ -223,21 +274,48 @@ final class ShrinkEngine {
             throw ShrinkError.unsupportedFormat(ext)
         }
 
-        // HEIC's rule is a `ConversionFormat` (no `.keep` case — see that
-        // type's doc comment), every other format's is a `ConversionTarget`
-        // — so the route is computed per-format rather than funneled
-        // through one shared `rule` variable that would have to paper over
-        // the type difference.
+        // Reading the orientation is a header read, not a decode, so it is
+        // cheap enough to do for every raster file before choosing a route.
+        // It has to happen here rather than inside a compressor, because
+        // whether the file is upright is one of the things that *decides*
+        // the route: a rotated file can never be handed straight to a CLI
+        // encoder, none of which can rotate.
+        let orientation = ImageMetadata.orientation(of: input)
+        let context = RoutingContext(
+            isUpright: orientation == .up,
+            policy: settings.metadataPolicy
+        )
+
+        // A session override replaces every stored rule at once, for every
+        // raster format — that is the whole point of it — so it is checked
+        // before the per-format rules are consulted at all. HEIC's rule is a
+        // `ConversionFormat` (no `.keep` case — see that type's doc comment)
+        // and every other format's is a `ConversionTarget`, so the stored
+        // case is computed per-format rather than funneled through one
+        // shared `rule` variable that would have to paper over the type
+        // difference.
         let route: ConversionRoute
-        switch native {
-        case .png: route = ConversionRouter.route(native: native, rule: rules.png)
-        case .jpeg: route = ConversionRouter.route(native: native, rule: rules.jpeg)
-        case .webp: route = ConversionRouter.route(native: native, rule: rules.webp)
-        case .avif: route = ConversionRouter.route(native: native, rule: rules.avif)
-        case .heic: route = ConversionRouter.route(native: native, rule: rules.heic)
+        if let session = settings.sessionFormat {
+            route = ConversionRouter.route(
+                native: native, target: session.targetFormat, context: context
+            )
+        } else {
+            let rules = settings.conversionRules
+            switch native {
+            case .png: route = ConversionRouter.route(native: native, rule: rules.png, context: context)
+            case .jpeg: route = ConversionRouter.route(native: native, rule: rules.jpeg, context: context)
+            case .webp: route = ConversionRouter.route(native: native, rule: rules.webp, context: context)
+            case .avif: route = ConversionRouter.route(native: native, rule: rules.avif, context: context)
+            case .heic: route = ConversionRouter.route(native: native, rule: rules.heic, context: context)
+            }
         }
 
-        return (try compressor(for: route), outputExtension(for: route))
+        return Plan(
+            compressor: try compressor(for: route, policy: settings.metadataPolicy),
+            targetExtension: outputExtension(for: route),
+            needsMetadataPostPass: route.needsMetadataPostPass,
+            wasRotated: orientation != .up
+        )
     }
 
     /// Turns a routing decision into an actual `Compressor`, supplying the
@@ -250,7 +328,7 @@ final class ShrinkEngine {
     /// to handle under `.direct`, and no `.avif` case under
     /// `.viaIntermediate`, because those types don't have them. Nothing
     /// left here for a `preconditionFailure` to stand in for.
-    private func compressor(for route: ConversionRoute) throws -> Compressor {
+    private func compressor(for route: ConversionRoute, policy: MetadataPolicy) throws -> Compressor {
         switch route {
         case .sameFormat(let native):
             switch native {
@@ -259,19 +337,19 @@ final class ShrinkEngine {
             case .jpeg:
                 return JPEGCompressor(executable: try helperProvider("cjpeg"))
             case .webp:
-                return WebPCompressor(executable: try helperProvider("cwebp"))
+                return WebPCompressor(executable: try helperProvider("cwebp"), policy: policy)
             case .avif:
-                return ImageIOCompressor(utType: RasterUTType.avif, quality: ConversionQuality.unitScale)
+                return ImageIOCompressor(utType: RasterUTType.avif, quality: ConversionQuality.unitScale, policy: policy)
             case .heic:
-                return ImageIOCompressor(utType: RasterUTType.heic, quality: ConversionQuality.unitScale)
+                return ImageIOCompressor(utType: RasterUTType.heic, quality: ConversionQuality.unitScale, policy: policy)
             }
 
         case .direct(let target):
             switch target {
             case .avif:
-                return ImageIOCompressor(utType: RasterUTType.avif, quality: ConversionQuality.unitScale)
+                return ImageIOCompressor(utType: RasterUTType.avif, quality: ConversionQuality.unitScale, policy: policy)
             case .webp:
-                return WebPCompressor(executable: try helperProvider("cwebp"))
+                return WebPCompressor(executable: try helperProvider("cwebp"), policy: policy)
             }
 
         case .viaIntermediate(let target, let intermediate):
@@ -279,12 +357,20 @@ final class ShrinkEngine {
             case .jpeg:
                 return IntermediateConversionCompressor(
                     intermediate: intermediate,
-                    downstream: JPEGCompressor(executable: try helperProvider("cjpeg"))
+                    downstream: JPEGCompressor(executable: try helperProvider("cjpeg")),
+                    policy: policy
                 )
             case .webp:
                 return IntermediateConversionCompressor(
                     intermediate: intermediate,
-                    downstream: WebPCompressor(executable: try helperProvider("cwebp"))
+                    downstream: WebPCompressor(executable: try helperProvider("cwebp"), policy: policy),
+                    policy: policy
+                )
+            case .png:
+                return IntermediateConversionCompressor(
+                    intermediate: intermediate,
+                    downstream: PNGCompressor(executable: try helperProvider("pngquant")),
+                    policy: policy
                 )
             }
         }
@@ -312,6 +398,7 @@ final class ShrinkEngine {
             switch target {
             case .jpeg: return "jpg"
             case .webp: return "webp"
+            case .png: return "png"
             }
         }
     }

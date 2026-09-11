@@ -64,6 +64,23 @@ final class AppModel: ObservableObject {
     @Published private(set) var isProcessing = false
     @Published var errorMessage: String?
 
+    /// Convert every raster file to this format for the rest of this run,
+    /// whatever the stored per-format rules say. `nil` — the default — means
+    /// the stored rules apply, which is the behaviour the app has always had.
+    ///
+    /// Session state, deliberately: it lives here rather than in `Settings`
+    /// so there is no code path that can persist it, and it is reset by
+    /// nothing more elaborate than quitting. `2026-09-10-format-conversion.md`
+    /// rejected a *stored* global override as too blunt — it would convert
+    /// silently and forever. This answers both halves of that: the bar
+    /// showing it is on sits above the results list the whole time, and it
+    /// is gone next launch.
+    ///
+    /// SVG and GIF are unaffected. They are short-circuited in
+    /// `ShrinkEngine.plan` before any rule or override is consulted, so they
+    /// need no exemption of their own here.
+    @Published var sessionFormat: SessionFormat?
+
     private let engine: ShrinkEngine
     private let settings: Settings
     private let notifier: Notifier?
@@ -102,7 +119,18 @@ final class AppModel: ObservableObject {
         defer { isProcessing = false }
 
         let files = Self.expand(urls)
-        let outputSettings = settings.outputSettings
+        // One snapshot per batch, with the session override layered on top
+        // of the stored settings. Taken once, before the loop, so changing
+        // the override mid-batch cannot convert half a drop to one format
+        // and half to another.
+        // A `let`, not a mutated `var`: this value is captured by the
+        // detached task below, and capturing a `var` is what Swift 6 strict
+        // concurrency rejects as a potential race.
+        let outputSettings: OutputSettings = {
+            var snapshot = settings.outputSettings
+            snapshot.sessionFormat = sessionFormat
+            return snapshot
+        }()
         var succeeded: [ShrinkResult] = []
 
         for file in files {

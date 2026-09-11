@@ -11,6 +11,12 @@ final class Settings: ObservableObject {
         static let folderswitch = "folderswitch"
         static let savepath = "savepath"
         static let clearlist = "clearlist"
+        /// Backs `keepOriginal`. The key keeps its original name — and its
+        /// original polarity — deliberately: the property was renamed from
+        /// `addSuffix` to say what is at stake rather than what is
+        /// appended, and renaming the key alongside it would have been a
+        /// migration with a real chance of reading somebody's existing
+        /// preference backwards, for no benefit they could see.
         static let suffix = "suffix"
         static let updatecheck = "updatecheck"
         static let subfolder = "subfolder"
@@ -19,6 +25,7 @@ final class Settings: ObservableObject {
         static let conversionHEIC = "conversionHEIC"
         static let conversionWebP = "conversionWebP"
         static let conversionAVIF = "conversionAVIF"
+        static let metadata = "metadata"
     }
 
     private let defaults: UserDefaults
@@ -26,7 +33,7 @@ final class Settings: ObservableObject {
     @Published var notification: Bool { didSet { defaults.set(notification, forKey: Key.notification) } }
     @Published var saveInSameFolder: Bool { didSet { defaults.set(saveInSameFolder, forKey: Key.folderswitch) } }
     @Published var clearList: Bool { didSet { defaults.set(clearList, forKey: Key.clearlist) } }
-    @Published var addSuffix: Bool { didSet { defaults.set(addSuffix, forKey: Key.suffix) } }
+    @Published var keepOriginal: Bool { didSet { defaults.set(keepOriginal, forKey: Key.suffix) } }
     @Published var updateCheck: Bool { didSet { defaults.set(updateCheck, forKey: Key.updatecheck) } }
     @Published var useSubfolder: Bool { didSet { defaults.set(useSubfolder, forKey: Key.subfolder) } }
 
@@ -59,6 +66,13 @@ final class Settings: ObservableObject {
         didSet { defaults.set(avifConversion.rawValue, forKey: Key.conversionAVIF) }
     }
 
+    /// What metadata survives compression — see `MetadataPolicy`. Note this
+    /// never governs orientation, which is always applied to the pixels and
+    /// always absent from the output.
+    @Published var metadataPolicy: MetadataPolicy {
+        didSet { defaults.set(metadataPolicy.rawValue, forKey: Key.metadata) }
+    }
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         // Upstream defaultSettings in main.js, plus the spec's one
@@ -76,11 +90,16 @@ final class Settings: ObservableObject {
             Key.conversionHEIC: ConversionFormat.jpeg.rawValue,
             Key.conversionWebP: ConversionTarget.keep.rawValue,
             Key.conversionAVIF: ConversionTarget.keep.rawValue,
+            // `.all` because it is the only default that doesn't silently
+            // regress: JPEG -> JPEG preserves EXIF today (cjpeg copies every
+            // APPn marker), so anything else would start deleting capture
+            // data from files this app already round-trips intact.
+            Key.metadata: MetadataPolicy.all.rawValue,
         ])
         notification = defaults.bool(forKey: Key.notification)
         saveInSameFolder = defaults.bool(forKey: Key.folderswitch)
         clearList = defaults.bool(forKey: Key.clearlist)
-        addSuffix = defaults.bool(forKey: Key.suffix)
+        keepOriginal = defaults.bool(forKey: Key.suffix)
         updateCheck = defaults.bool(forKey: Key.updatecheck)
         useSubfolder = defaults.bool(forKey: Key.subfolder)
         savePath = defaults.string(forKey: Key.savepath).map(URL.init(fileURLWithPath:))
@@ -89,6 +108,7 @@ final class Settings: ObservableObject {
         heicConversion = Self.readFormat(defaults, Key.conversionHEIC, default: .jpeg)
         webpConversion = Self.readTarget(defaults, Key.conversionWebP, default: .keep)
         avifConversion = Self.readTarget(defaults, Key.conversionAVIF, default: .keep)
+        metadataPolicy = Self.readPolicy(defaults, Key.metadata, default: .all)
     }
 
     /// `defaults.register` guarantees a string is present under normal
@@ -115,19 +135,32 @@ final class Settings: ObservableObject {
         defaults.string(forKey: key).flatMap(ConversionFormat.init(rawValue:)) ?? def
     }
 
+    /// Same fallback contract as `readTarget`: a value written by a future
+    /// version of this app, with a policy this build has never heard of,
+    /// must come back as the default rather than crash on launch.
+    private static func readPolicy(
+        _ defaults: UserDefaults, _ key: String, default def: MetadataPolicy
+    ) -> MetadataPolicy {
+        defaults.string(forKey: key).flatMap(MetadataPolicy.init(rawValue:)) ?? def
+    }
+
+    /// The persisted half of what the engine needs. The session override is
+    /// deliberately absent: it lives on `AppModel`, is never written here,
+    /// and is layered onto this snapshot per batch.
     var outputSettings: OutputSettings {
         OutputSettings(
             saveInSameFolder: saveInSameFolder,
             savePath: savePath,
             useSubfolder: useSubfolder,
-            addSuffix: addSuffix,
+            keepOriginal: keepOriginal,
             conversionRules: ConversionRules(
                 png: pngConversion,
                 jpeg: jpegConversion,
                 heic: heicConversion,
                 webp: webpConversion,
                 avif: avifConversion
-            )
+            ),
+            metadataPolicy: metadataPolicy
         )
     }
 }

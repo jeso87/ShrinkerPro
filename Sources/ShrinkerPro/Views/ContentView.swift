@@ -9,6 +9,7 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             DropZoneView(isTargeted: isTargeted)
+            SessionOverrideBar()
             // No divider directly under the band: the "Recent" header's own
             // top hairline (inside ResultsListView) is the only separator,
             // and it appears only once there's history to separate from.

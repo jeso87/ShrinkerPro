@@ -3,6 +3,15 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.0.1</title>
+            <pubDate>Thu, 10 Sep 2026 20:10:51 -0400</pubDate>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.0.1/ShrinkerPro-1.0.1.dmg" length="3385800" type="application/octet-stream" sparkle:edSignature="fa9rsa33vh2IpMWJqElUfH14+Fq9lweCBCDAMMxBcQ5t8ldmBarcqqmdXJC4D4AnKcLXgAritFgn6UrjFf1qBA=="/>
+        </item>
+        <item>
             <title>1.0.0</title>
             <pubDate>Thu, 10 Sep 2026 18:20:07 -0400</pubDate>
             <sparkle:version>1</sparkle:version>

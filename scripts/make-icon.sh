@@ -46,6 +46,33 @@ echo "==> applying macOS icon geometry"
 swift "$ROOT/scripts/render-icon.swift" "$TMP/full-bleed.png" "$TMP" \
   16,32,64,128,256,512,1024
 
+# The artwork is photographic — soft gradients, glow, noise from the upscale
+# — so it does not compress the way the flat art it replaced did. Left raw it
+# is 1.6MB of PNG, which compiles to a 2.1MB Assets.car and roughly doubles
+# the download for an app whose whole pitch is that it is small.
+#
+# pngquant takes that to 356KB with no visible banding at any size (checked at
+# 1024). It is the same binary the app ships and invokes on the user's PNGs,
+# so this is the app compressing its own icon.
+PNGQUANT="$ROOT/vendor/compressors/pngquant"
+if [ -x "$PNGQUANT" ]; then
+  echo "==> compressing icon PNGs with the app's own pngquant"
+  # Measure only the icon PNGs: $TMP also holds the 16MB intermediate render,
+  # which would swamp the figure and under-report the saving.
+  iconkb() { du -ck "$TMP"/icon_*.png | tail -1 | cut -f1; }
+  before=$(iconkb)
+  for f in "$TMP"/icon_*.png; do
+    # --skip-if-larger leaves the original in place rather than writing a
+    # bigger file, which is what happens at 16px where a palette costs more
+    # than it saves.
+    "$PNGQUANT" --force --skip-if-larger --quality=70-98 --output "$f" -- "$f" 2>/dev/null || true
+  done
+  echo "    ${before}KB -> $(iconkb)KB"
+else
+  echo "    note: vendor/compressors/pngquant not built — shipping uncompressed icon PNGs"
+  echo "          (run ./scripts/build-compressors.sh first to halve the bundle)"
+fi
+
 copy() { cp "$TMP/icon_$1.png" "$SET/$2"; }
 copy 16   icon_16x16.png
 copy 32   icon_16x16@2x.png

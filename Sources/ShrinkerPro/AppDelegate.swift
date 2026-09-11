@@ -1,9 +1,10 @@
 import AppKit
+import UserNotifications
 
 /// Handles files opened from Finder ("Open With", drops on the Dock icon, and
 /// the Recent Documents menu) — upstream's `app.on('open-file')`.
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
 
     /// Set by `ShrinkerProApp`'s `.onAppear` exactly once, to whatever the
     /// scene resolved: the real `AppModel` on a normal launch, or `nil` when
@@ -84,11 +85,38 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     /// Only this app's own frame keys are touched; every other preference is
     /// left alone.
     func applicationWillFinishLaunching(_ notification: Notification) {
+        // Without this, notifications posted while Shrinker Pro is the
+        // frontmost app are delivered and then silently discarded — macOS
+        // only displays a foreground notification if a delegate implements
+        // `willPresent` and asks for it. Compression is triggered by
+        // dropping files onto the window, so the app is *always* frontmost
+        // when a notification fires: every one of them was being swallowed,
+        // which is why the feature looked broken rather than merely quiet.
+        //
+        // Apple requires the delegate be set before the app finishes
+        // launching, which is why it lives here rather than in
+        // `applicationDidFinishLaunching`.
+        UNUserNotificationCenter.current().delegate = self
+
         let defaults = UserDefaults.standard
         for key in defaults.dictionaryRepresentation().keys
         where key.hasPrefix("NSWindow Frame") {
             defaults.removeObject(forKey: key)
         }
+    }
+
+    /// Shows the banner even though Shrinker Pro is frontmost.
+    ///
+    /// `.banner` is the visible alert; `.list` also keeps it in Notification
+    /// Centre so a user who was looking elsewhere can still find it. Sound is
+    /// deliberately absent — upstream posts silently, and a compressor that
+    /// pings on every drop would wear out its welcome fast.
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .list])
     }
 
     /// The size the main window opens at, every launch.

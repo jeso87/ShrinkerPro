@@ -286,4 +286,53 @@ final class AppModelTests: XCTestCase {
             "a directly-dropped package should pass through whole, not be expanded"
         )
     }
+
+    // MARK: - Batch notification summary
+    //
+    // The notification used to be posted inside the per-file loop, so a
+    // six-file drop fired six banners. These cover the summary that replaced
+    // it: they are pure functions over results, so they need no engine, no
+    // files and no notification permission.
+
+    func testSingleFileNotificationNamesTheFile() {
+        let result = ShrinkResult(
+            input: URL(fileURLWithPath: "/tmp/hero-banner@2x.png"),
+            output: URL(fileURLWithPath: "/tmp/hero-banner@2x.min.png"),
+            originalBytes: 1_440_822, shrunkBytes: 524_269
+        )
+        XCTAssertEqual(AppModel.notificationTitle(count: 1), "Image shrunk")
+        XCTAssertEqual(AppModel.notificationBody(for: [result]), "hero-banner@2x.min.png")
+    }
+
+    func testBatchNotificationCountsFilesAndTotalsSavings() {
+        let results = [
+            ShrinkResult(input: URL(fileURLWithPath: "/tmp/a.png"),
+                         output: URL(fileURLWithPath: "/tmp/a.min.png"),
+                         originalBytes: 1_000_000, shrunkBytes: 400_000),
+            ShrinkResult(input: URL(fileURLWithPath: "/tmp/b.jpg"),
+                         output: URL(fileURLWithPath: "/tmp/b.min.jpg"),
+                         originalBytes: 500_000, shrunkBytes: 100_000),
+        ]
+        XCTAssertEqual(AppModel.notificationTitle(count: 2), "2 images shrunk")
+        // 1,000,000 saved across the batch. ByteCountFormatter's exact
+        // wording is locale-dependent, so assert the number is reported
+        // rather than pinning a string the formatter owns.
+        let body = AppModel.notificationBody(for: results)
+        XCTAssertTrue(body.contains("saved"), "expected a savings summary, got \(body)")
+        XCTAssertTrue(body.contains("1") && (body.contains("MB") || body.contains("KB")),
+                      "expected a formatted byte total, got \(body)")
+    }
+
+    func testBatchNotificationDoesNotReportNegativeSavings() {
+        // A file that grew (upstream's savedPercent can go negative) must not
+        // produce a nonsensical negative total.
+        let grew = ShrinkResult(input: URL(fileURLWithPath: "/tmp/c.gif"),
+                                output: URL(fileURLWithPath: "/tmp/c.min.gif"),
+                                originalBytes: 1000, shrunkBytes: 1200)
+        let shrank = ShrinkResult(input: URL(fileURLWithPath: "/tmp/d.png"),
+                                  output: URL(fileURLWithPath: "/tmp/d.min.png"),
+                                  originalBytes: 1000, shrunkBytes: 100)
+        let body = AppModel.notificationBody(for: [grew, shrank])
+        XCTAssertFalse(body.contains("-"), "savings total should never render negative, got \(body)")
+    }
 }

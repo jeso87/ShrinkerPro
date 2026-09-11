@@ -103,6 +103,7 @@ final class AppModel: ObservableObject {
 
         let files = Self.expand(urls)
         let outputSettings = settings.outputSettings
+        var succeeded: [ShrinkResult] = []
 
         for file in files {
             do {
@@ -127,9 +128,9 @@ final class AppModel: ObservableObject {
                 )
                 session.record(originalBytes: result.originalBytes, shrunkBytes: result.shrunkBytes)
                 NSDocumentController.shared.noteNewRecentDocumentURL(file)
-                if settings.notification {
-                    await notifier?.notify(title: "Image shrunk", body: result.output.lastPathComponent)
-                }
+                // Deliberately NOT notified here. See the summary after the
+                // loop: one notification per batch, not one per file.
+                succeeded.append(result)
             } catch {
                 // A supported-extension file that doesn't exist on disk (or
                 // otherwise fails Foundation-level I/O before ShrinkEngine
@@ -140,6 +141,39 @@ final class AppModel: ObservableObject {
                 errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
             }
         }
+
+        // One notification for the whole batch, posted once every file has
+        // been through. Notifying inside the loop meant a six-file drop
+        // posted six banners, which is noise rather than information — and
+        // the useful number, how much the batch saved in total, is only
+        // known here.
+        if settings.notification, !succeeded.isEmpty {
+            await notifier?.notify(
+                title: Self.notificationTitle(count: succeeded.count),
+                body: Self.notificationBody(for: succeeded)
+            )
+        }
+    }
+
+    /// "Image shrunk" for one file, matching upstream's wording, and a count
+    /// for a batch.
+    static func notificationTitle(count: Int) -> String {
+        count == 1 ? "Image shrunk" : "\(count) images shrunk"
+    }
+
+    /// The filename for a single file (upstream's behaviour — with one file
+    /// the name is the useful fact), and the total saved for a batch, which
+    /// is the only thing a six-file summary can usefully say.
+    static func notificationBody(for results: [ShrinkResult]) -> String {
+        if let only = results.first, results.count == 1 {
+            return only.output.lastPathComponent
+        }
+        let original = results.reduce(0) { $0 + $1.originalBytes }
+        let shrunk = results.reduce(0) { $0 + $1.shrunkBytes }
+        let saved = max(0, original - shrunk)
+        let formatter = ByteCountFormatter()
+        formatter.countStyle = .file
+        return "\(formatter.string(fromByteCount: Int64(saved))) saved"
     }
 
     /// Upstream's renderer recurses into dropped directories via

@@ -25,8 +25,12 @@ A native, Apple Silicon macOS app.
 
 Drag PNG, JPEG, GIF, SVG, WebP, AVIF, or HEIC files onto the window and
 Shrinker Pro writes a smaller copy beside the original — or wherever you tell
-it to. Originals are never replaced unless you ask for that (turn off both the
-`.min` suffix and the `minified/` subfolder in Settings).
+it to. Originals are never replaced unless you ask for that — "Keep original
+files" is on by default, and turning it off is what writes over them.
+
+Photos keep their rotation. EXIF orientation is applied to the pixels rather
+than passed along as a tag, so a portrait iPhone shot comes out upright in
+every app, whatever format you convert it to.
 
 ## Install
 
@@ -115,13 +119,49 @@ with no file or process access, so all of it is enumerable in tests.
 Converting to a format's own type (JPEG→JPEG, WebP→WebP, AVIF→AVIF) takes the
 same fast path as "keep" — it compresses, it does not round-trip.
 
+### Convert all to…
+
+Above the results list is a session override: **Convert all to** JPEG, WebP,
+AVIF or PNG. It replaces every per-format rule at once for as long as the app
+is open, without touching what you have stored, and it is gone the next time
+you launch. It is in the window rather than in Settings deliberately — it is
+visible the whole time it is on, so nothing converts behind your back.
+
+PNG is available here and nowhere else. As a stored rule it would sit next to
+"Keep PNG" meaning almost the same thing; as a one-off it is genuinely useful,
+for flattening a mixed folder to a single lossless format. PNG is lossless, so
+photographs converted to it usually get *larger* — the app says so when you
+pick it, and the results row reports the negative saving honestly.
+
+SVG and GIF ignore the override, exactly as they ignore the stored rules.
+
+## Metadata
+
+Settings carries one choice: keep **all metadata**, **copyright and credit
+only**, or **none**. The default is all — JPEG→JPEG already preserved EXIF
+before this setting existed, so anything else would have quietly deleted
+capture data from files the app used to round-trip intact.
+
+"Copyright and credit only" is the one to reach for before posting a photo
+anywhere: it keeps the rights and attribution fields and drops GPS, capture
+time and camera details.
+
+Rotation is not covered by any of the three. It is always applied to the
+pixels and never written back as a tag, because an orientation tag is an
+instruction about how to draw an image rather than a fact about it — and by
+the time the file is written, that instruction has been carried out.
+
+Metadata is rewritten without re-encoding: `CGImageDestinationCopyImageSource`
+copies the compressed image data across verbatim, so pngquant's palette and
+mozjpeg's progressive scans survive a metadata change intact.
+
 ## What it does — and doesn't do
 
 - Drop files or a folder anywhere on the window, or use "Open Files…". The
   entire window is a drop target, not just the dashed zone.
-- Output goes beside the original by default, or to a folder you choose, with
-  an optional `.min` suffix and/or `minified/` subfolder — configurable in
-  Settings.
+- Output goes beside the original by default, or to a folder you choose. "Keep
+  original files" writes a `.min` copy alongside; turn it off and the original
+  is replaced in place. A `minified/` subfolder is optional either way.
 - Results accumulate for the session, showing each file's before/after size
   and percentage saved. "Clear" empties the list; a Settings toggle can clear
   it automatically on each new drop instead.
@@ -145,7 +185,7 @@ same fast path as "keep" — it compresses, it does not round-trip.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/empty-state-compact-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/empty-state-compact-light.png">
-  <img src="docs/screenshots/empty-state-compact-dark.png" alt="The window at rest, showing a dashed drop zone reading “Drag files here — PNG, JPG, HEIC, WebP, AVIF, GIF and SVG”.">
+  <img src="docs/screenshots/empty-state-compact-dark.png" alt="The window at rest, showing a dashed drop zone reading “Drag files here — PNG, JPG, HEIC, WebP, AVIF, GIF and SVG”, and a “Convert all to” bar set to Off.">
 </picture>
 
 Drop anywhere in the window, not just the dashed zone.
@@ -156,10 +196,10 @@ Drop anywhere in the window, not just the dashed zone.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/settings-light.png">
-  <img src="docs/screenshots/settings-dark.png" alt="Settings showing output location, .min suffix, notification and update toggles, and the per-format conversion rules.">
+  <img src="docs/screenshots/settings-dark.png" alt="Settings showing output location, the “Keep original files” toggle, notification and update toggles, the per-format conversion rules, and the metadata policy.">
 </picture>
 
-Output location, notifications, updates.
+Output location, notifications, metadata.
 
 </td>
 <td width="33%" valign="top">

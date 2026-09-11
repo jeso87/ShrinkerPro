@@ -34,7 +34,7 @@ every app, whatever format you convert it to.
 
 ## Install
 
-**[Download Shrinker Pro](https://github.com/jeso87/ShrinkerPro/releases/latest/download/ShrinkerPro.dmg)** — or browse [all releases](https://github.com/jeso87/ShrinkerPro/releases/latest).
+**[Download Shrinker Pro](https://github.com/jeso87/ShrinkerPro/releases/latest/download/ShrinkerPro.dmg)** — or browse [all releases](https://github.com/jeso87/ShrinkerPro/releases/latest). What changed in each version is in [CHANGELOG.md](CHANGELOG.md).
 
 Open the DMG and drag Shrinker Pro to Applications. The app is signed with a
 Developer ID and notarized by Apple, with the notarization ticket stapled to

@@ -180,7 +180,7 @@ mozjpeg's progressive scans survive a metadata change intact.
 
 <table>
 <tr>
-<td width="33%" valign="top">
+<td width="50%" valign="top">
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/empty-state-compact-dark.png">
@@ -191,7 +191,7 @@ mozjpeg's progressive scans survive a metadata change intact.
 Drop anywhere in the window, not just the dashed zone.
 
 </td>
-<td width="33%" valign="top">
+<td width="50%" valign="top">
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-dark.png">
@@ -199,18 +199,7 @@ Drop anywhere in the window, not just the dashed zone.
   <img src="docs/screenshots/settings-dark.png" alt="Settings showing output location, the “Keep original files” toggle, notification and update toggles, the per-format conversion rules, and the metadata policy.">
 </picture>
 
-Output location, notifications, metadata.
-
-</td>
-<td width="33%" valign="top">
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-conversion-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/settings-conversion-light.png">
-  <img src="docs/screenshots/settings-conversion-dark.png" alt="The conversion section of Settings with PNG set to convert to WebP while JPEG, WebP and AVIF keep their own format.">
-</picture>
-
-PNG to WebP, with JPEG left alone.
+Output location, notifications, per-format conversion rules and metadata.
 
 </td>
 </tr>

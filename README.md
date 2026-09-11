@@ -1,6 +1,27 @@
+<div align="center">
+
+<img src="docs/screenshots/icon.png" width="128" alt="">
+
 # Shrinker Pro
 
-Minify images and graphics with one drop. A native, Apple Silicon macOS app.
+**Minify images and graphics with one drop.**
+A native, Apple Silicon macOS app.
+
+[![Download](https://img.shields.io/github/v/release/jeso87/ShrinkerPro?label=download&color=6C65E8)](https://github.com/jeso87/ShrinkerPro/releases/latest/download/ShrinkerPro.dmg)
+[![Platform](https://img.shields.io/badge/macOS-14%2B%20%C2%B7%20Apple%20Silicon-6FD7F5)](https://shrinkerpro.app)
+[![License](https://img.shields.io/badge/license-MIT-7A72F0)](LICENSE)
+
+[shrinkerpro.app](https://shrinkerpro.app)
+
+<!-- GitHub honours prefers-color-scheme in <picture>, so the screenshots
+     follow the reader's theme instead of glaring at half of them. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/main-window-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/main-window-light.png">
+  <img src="docs/screenshots/main-window-dark.png" width="612" alt="Shrinker Pro compressing six images. Each row shows the filename, a savings bar, the before and after file sizes, and the percentage saved.">
+</picture>
+
+</div>
 
 Drag PNG, JPEG, GIF, SVG, WebP, AVIF, or HEIC files onto the window and
 Shrinker Pro writes a smaller copy beside the original — or wherever you tell
@@ -114,6 +135,46 @@ same fast path as "keep" — it compresses, it does not round-trip.
   `appcast.xml` (published by `scripts/release.sh`, served from this repo's
   GitHub Pages) and verifies every update's EdDSA signature before offering
   to install it.
+
+## Screenshots
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/empty-state-compact-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/empty-state-compact-light.png">
+  <img src="docs/screenshots/empty-state-compact-dark.png" alt="The window at rest, showing a dashed drop zone reading “Drag files here — PNG, JPG, HEIC, WebP, AVIF, GIF and SVG”.">
+</picture>
+
+Drop anywhere in the window, not just the dashed zone.
+
+</td>
+<td width="33%" valign="top">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/settings-light.png">
+  <img src="docs/screenshots/settings-dark.png" alt="Settings showing output location, .min suffix, notification and update toggles, and the per-format conversion rules.">
+</picture>
+
+Output location, notifications, updates.
+
+</td>
+<td width="33%" valign="top">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-conversion-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/settings-conversion-light.png">
+  <img src="docs/screenshots/settings-conversion-dark.png" alt="The conversion section of Settings with PNG set to convert to WebP while JPEG, WebP and AVIF keep their own format.">
+</picture>
+
+PNG to WebP, with JPEG left alone.
+
+</td>
+</tr>
+</table>
 
 ## Requirements
 

@@ -5,7 +5,7 @@
 # Shrinker Pro
 
 **Minify images and graphics with one drop.**
-A native, Apple Silicon macOS app.
+A native Apple Silicon (ARM) macOS app — M1 through M5, no Rosetta.
 
 [![Download](https://img.shields.io/github/v/release/jeso87/ShrinkerPro?label=download&color=6C65E8)](https://github.com/jeso87/ShrinkerPro/releases/latest/download/ShrinkerPro.dmg)
 [![Platform](https://img.shields.io/badge/macOS-14%2B%20%C2%B7%20Apple%20Silicon-6FD7F5)](https://shrinkerpro.app)
@@ -32,6 +32,10 @@ Photos keep their rotation. EXIF orientation is applied to the pixels rather
 than passed along as a tag, so a portrait iPhone shot comes out upright in
 every app, whatever format you convert it to.
 
+Everything happens on your Mac. The compressors are bundled inside the app,
+and the only network request it makes is the update check, which you can
+turn off in Settings.
+
 ## Install
 
 **[Download Shrinker Pro](https://github.com/jeso87/ShrinkerPro/releases/latest/download/ShrinkerPro.dmg)** — or browse [all releases](https://github.com/jeso87/ShrinkerPro/releases/latest). What changed in each version is in [CHANGELOG.md](CHANGELOG.md).
@@ -52,9 +56,11 @@ the automatic check off in Settings.
 ## Why this exists
 
 Shrinker Pro is a native rewrite of [Image Shrinker](https://github.com/stefansl/image-shrinker)
-by Stefan Schulz-Lauterbach. The original is an Electron app whose compression
-binaries ship as x64-only builds, so on Apple Silicon they run through Rosetta 2
-and fail outright without it. Apple ended Intel Mac support with macOS 26 Tahoe,
+by Stefan Schulz-Lauterbach. The original is an Electron app, and its latest
+release — 1.6.4, from October 2020 — ships its compression binaries as x64-only
+builds, so on an ARM Mac they run through Rosetta 2 and fail outright without
+it. That is why Image Shrinker asks to install Rosetta on a Mac that doesn't
+have it. Apple ended Intel Mac support with macOS 26 Tahoe,
 and Rosetta 2 is on a published sunset path — full availability through macOS 26
 and 27, then narrowing to a limited subset for older game frameworks. Anything
 leaning on translation has a deadline attached to it.
@@ -84,6 +90,12 @@ handled by ImageIO, which encodes and decodes both natively on macOS; nothing
 is vendored for them.
 
 HEIC has no in-place optimiser here — it is always converted (see below).
+
+Most of the saving is lossy. pngquant reduces a PNG to an optimised palette of
+at most 256 colours, and cjpeg re-encodes a JPEG at its default quality of 75;
+WebP and AVIF conversions encode at 80 (see below). gifsicle's `-O2`
+optimisation is lossless. "Keep original files" is on by default, so the
+original is still there to compare against.
 
 ## Conversion
 
@@ -158,7 +170,11 @@ mozjpeg's progressive scans survive a metadata change intact.
 ## What it does — and doesn't do
 
 - Drop files or a folder anywhere on the window, or use "Open Files…". The
-  entire window is a drop target, not just the dashed zone.
+  entire window is a drop target, not just the dashed zone. A dropped folder
+  includes its subfolders; hidden folders and packages (apps, photo
+  libraries) are skipped, so a drop never rewrites the inside of either.
+- Image files also open from Finder's "Open With" menu, or by dropping them
+  on the Dock icon.
 - Output goes beside the original by default, or to a folder you choose. "Keep
   original files" writes a `.min` copy alongside; turn it off and the original
   is replaced in place. A `minified/` subfolder is optional either way.
@@ -207,7 +223,8 @@ Output location, notifications, per-format conversion rules and metadata.
 
 ## Requirements
 
-macOS 14 Sonoma or later, Apple Silicon.
+macOS 14 Sonoma or later on Apple Silicon — any M1, M2, M3, M4 or M5 Mac.
+Rosetta 2 is not needed, and there is no Intel build.
 
 ## Build
 

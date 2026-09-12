@@ -42,6 +42,20 @@ struct CommandLineOptions: Equatable {
     /// quality produces what the GUI produces.
     var quality: QualityChoice = .level(.standard)
 
+    /// `--to`: convert every raster input to this format.
+    ///
+    /// `nil` — the default — means every file keeps its own format. Unlike
+    /// the app, there is no set of stored per-format rules to fall back on:
+    /// those live in the user's preferences, which a headless run
+    /// deliberately never reads. So the absence of this flag is the absence
+    /// of any conversion at all.
+    var convertTo: SessionFormat?
+
+    /// `--metadata`: what survives compression. Defaults to `.all`, matching
+    /// the app, which is the only value that doesn't silently discard EXIF
+    /// the tool would otherwise have carried across.
+    var metadata: MetadataPolicy = .all
+
     var showsHelp: Bool = false
     var showsVersion: Bool = false
 }
@@ -114,6 +128,34 @@ enum QualityChoice: Equatable {
 
 extension CommandLineOptions {
 
+    /// `--to`'s vocabulary. Kept here rather than added to `SessionFormat`
+    /// itself: the shell spellings are the CLI's concern, and a Core type
+    /// that already documents why it exists separately from
+    /// `ConversionFormat` should not also grow argv trivia.
+    ///
+    /// "jpg" is accepted because it is what people and agents actually
+    /// write. Refusing it on the grounds that the enum spells the case
+    /// `jpeg` would be a gratuitous failure on the commonest format there
+    /// is.
+    private static func parseFormat(_ value: String) -> SessionFormat? {
+        let normalised = value.lowercased()
+        if normalised == "jpg" { return .jpeg }
+        return SessionFormat.allCases.first { $0.rawValue.lowercased() == normalised }
+    }
+
+    /// `--metadata`'s vocabulary, matched against the stored rawValues.
+    ///
+    /// That matters for one case: `MetadataPolicy.stripped` carries the
+    /// rawValue `"none"`, and is named `stripped` in Swift only to avoid
+    /// colliding with `Optional.none`. "none" is both what the defaults
+    /// database holds and the word a person reaches for, so it is the
+    /// spelling this accepts — matching on the Swift case name instead
+    /// would reject the obvious input.
+    private static func parseMetadata(_ value: String) -> MetadataPolicy? {
+        let normalised = value.lowercased()
+        return MetadataPolicy.allCases.first { $0.rawValue.lowercased() == normalised }
+    }
+
     /// Parses `arguments` — argv *without* the executable name.
     ///
     /// Flags and paths may be interleaved in any order: agents assemble
@@ -126,6 +168,16 @@ extension CommandLineOptions {
         var options = CommandLineOptions()
         var index = arguments.startIndex
         var flagsEnded = false
+
+        /// Consumes the argument after a flag, or reports that the flag was
+        /// left dangling at the end of the command line.
+        func nextValue(for flag: String) throws -> String {
+            guard index < arguments.endIndex else {
+                throw CommandLineParseError.missingValue(flag)
+            }
+            defer { index += 1 }
+            return arguments[index]
+        }
 
         while index < arguments.endIndex {
             let argument = arguments[index]
@@ -148,21 +200,25 @@ extension CommandLineOptions {
             case "--json":
                 options.json = true
             case "--out":
-                guard index < arguments.endIndex else {
-                    throw CommandLineParseError.missingValue(argument)
-                }
-                options.outputDirectory = arguments[index]
-                index += 1
+                options.outputDirectory = try nextValue(for: argument)
             case "--quality":
-                guard index < arguments.endIndex else {
-                    throw CommandLineParseError.missingValue(argument)
-                }
-                let raw = arguments[index]
-                index += 1
+                let raw = try nextValue(for: argument)
                 guard let choice = QualityChoice.parse(raw) else {
                     throw CommandLineParseError.invalidValue(flag: argument, value: raw)
                 }
                 options.quality = choice
+            case "--to":
+                let raw = try nextValue(for: argument)
+                guard let format = Self.parseFormat(raw) else {
+                    throw CommandLineParseError.invalidValue(flag: argument, value: raw)
+                }
+                options.convertTo = format
+            case "--metadata":
+                let raw = try nextValue(for: argument)
+                guard let policy = Self.parseMetadata(raw) else {
+                    throw CommandLineParseError.invalidValue(flag: argument, value: raw)
+                }
+                options.metadata = policy
             default:
                 // A bare "-" is conventionally a stream, not a flag, so it is
                 // never reported as an unknown one.

@@ -140,6 +140,72 @@ final class CommandLineOptionsTests: XCTestCase {
         }
     }
 
+    // MARK: - Conversion target
+
+    /// No `--to` means every file keeps its own format. The CLI has no
+    /// stored per-format rules to fall back on — those live in the app's
+    /// preferences, which a headless run deliberately never reads — so the
+    /// absence of this flag is the absence of any conversion.
+    func testNoConversionTargetByDefault() throws {
+        XCTAssertNil(try CommandLineOptions.parse(["a.png"]).convertTo)
+    }
+
+    func testConversionTargetAcceptsEachFormat() throws {
+        XCTAssertEqual(try CommandLineOptions.parse(["--to", "webp", "a.png"]).convertTo, .webp)
+        XCTAssertEqual(try CommandLineOptions.parse(["--to", "avif", "a.png"]).convertTo, .avif)
+        XCTAssertEqual(try CommandLineOptions.parse(["--to", "png", "a.png"]).convertTo, .png)
+        XCTAssertEqual(try CommandLineOptions.parse(["--to", "JPEG", "a.png"]).convertTo, .jpeg)
+    }
+
+    /// "jpg" is what people and agents actually write. Refusing it because
+    /// the enum happens to spell the case `jpeg` would be a gratuitous
+    /// failure on the single most common image format.
+    func testJPGIsAcceptedAsJPEG() throws {
+        XCTAssertEqual(try CommandLineOptions.parse(["--to", "jpg", "a.png"]).convertTo, .jpeg)
+    }
+
+    func testAnUnknownConversionTargetIsRejected() throws {
+        XCTAssertThrowsError(try CommandLineOptions.parse(["--to", "tiff", "a.png"])) { error in
+            XCTAssertEqual(error as? CommandLineParseError, .invalidValue(flag: "--to", value: "tiff"))
+        }
+    }
+
+    func testConversionTargetNeedsAValue() throws {
+        XCTAssertThrowsError(try CommandLineOptions.parse(["a.png", "--to"])) { error in
+            XCTAssertEqual(error as? CommandLineParseError, .missingValue("--to"))
+        }
+    }
+
+    // MARK: - Metadata
+
+    func testMetadataDefaultsToKeepingEverything() throws {
+        XCTAssertEqual(try CommandLineOptions.parse(["a.png"]).metadata, .all)
+    }
+
+    /// The spelling trap. `MetadataPolicy.stripped` carries the rawValue
+    /// `"none"` — it is named `stripped` in Swift only to avoid colliding
+    /// with `Optional.none` at call sites that rely on inference. "none" is
+    /// both the stored value and the word a person would reach for, so it is
+    /// the spelling the flag must accept.
+    func testMetadataAcceptsEachPolicyByItsStoredSpelling() throws {
+        XCTAssertEqual(try CommandLineOptions.parse(["--metadata", "all", "a.png"]).metadata, .all)
+        XCTAssertEqual(try CommandLineOptions.parse(["--metadata", "copyright", "a.png"]).metadata, .copyright)
+        XCTAssertEqual(try CommandLineOptions.parse(["--metadata", "none", "a.png"]).metadata, .stripped)
+        XCTAssertEqual(try CommandLineOptions.parse(["--metadata", "NONE", "a.png"]).metadata, .stripped)
+    }
+
+    func testAnUnknownMetadataPolicyIsRejected() throws {
+        XCTAssertThrowsError(try CommandLineOptions.parse(["--metadata", "exif", "a.png"])) { error in
+            XCTAssertEqual(error as? CommandLineParseError, .invalidValue(flag: "--metadata", value: "exif"))
+        }
+    }
+
+    func testMetadataNeedsAValue() throws {
+        XCTAssertThrowsError(try CommandLineOptions.parse(["a.png", "--metadata"])) { error in
+            XCTAssertEqual(error as? CommandLineParseError, .missingValue("--metadata"))
+        }
+    }
+
     // MARK: - Resolving a choice to encoder numbers
 
     func testALevelChoiceResolvesToThatLevelsSettings() {

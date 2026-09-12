@@ -37,6 +37,11 @@ struct CommandLineOptions: Equatable {
     /// `--json`: emit one machine-readable object per file instead of prose.
     var json: Bool = false
 
+    /// `--quality`: a named level, or a bare number. Defaults to the same
+    /// `.standard` the app does, so a command line that says nothing about
+    /// quality produces what the GUI produces.
+    var quality: QualityChoice = .level(.standard)
+
     var showsHelp: Bool = false
     var showsVersion: Bool = false
 }
@@ -50,6 +55,61 @@ enum CommandLineParseError: Error, Equatable {
     case unknownFlag(String)
     /// A flag that takes a value reached the end of the arguments without one.
     case missingValue(String)
+    /// A flag got a value it cannot mean. Carries both halves so the message
+    /// can name the flag *and* quote what was actually passed — "invalid
+    /// value" alone leaves the reader to guess which of several flags.
+    case invalidValue(flag: String, value: String)
+}
+
+/// What `--quality` accepted: one of the app's named levels, or a bare
+/// number.
+///
+/// Numbers exist for the agent case. An agent asked to bring a file under a
+/// size budget needs to sweep values; three named stops give it three
+/// attempts and then nowhere to go. The GUI deliberately offers only the
+/// named levels — a slider was rejected twice in this project's specs — but a
+/// command line has no such reason to withhold the dial.
+enum QualityChoice: Equatable {
+    case level(QualityLevel)
+    case numeric(Int)
+
+    var settings: QualitySettings {
+        switch self {
+        case .level(let level):
+            return level.settings
+        case .numeric(let value):
+            // Taken literally on every axis, cjpeg's included — where
+            // `.standard` deliberately passes no flag at all. Someone who
+            // writes `--quality 75` has asked for an explicit 75, which is
+            // genuinely not the same bytes as omitting it (see
+            // `QualitySettings.cjpegQuality`). Honouring the request beats
+            // silently second-guessing it.
+            return QualitySettings(
+                unitScale: Double(value) / 100,
+                cwebpScale: value,
+                cjpegQuality: value
+            )
+        }
+    }
+
+    /// `nil` when the value is neither a level this build knows nor a number
+    /// the encoders accept.
+    ///
+    /// Names match case-insensitively and ignore hyphens, so `super-low`,
+    /// `superlow` and `superLow` all work. Nobody types Swift's camelCase at
+    /// a shell prompt, and an agent reading `--help` should not have to
+    /// reverse-engineer it either.
+    static func parse(_ value: String) -> QualityChoice? {
+        if let number = Int(value) {
+            guard (0...100).contains(number) else { return nil }
+            return .numeric(number)
+        }
+
+        let normalised = value.lowercased().replacingOccurrences(of: "-", with: "")
+        return QualityLevel.allCases
+            .first { $0.rawValue.lowercased() == normalised }
+            .map(QualityChoice.level)
+    }
 }
 
 extension CommandLineOptions {
@@ -93,6 +153,16 @@ extension CommandLineOptions {
                 }
                 options.outputDirectory = arguments[index]
                 index += 1
+            case "--quality":
+                guard index < arguments.endIndex else {
+                    throw CommandLineParseError.missingValue(argument)
+                }
+                let raw = arguments[index]
+                index += 1
+                guard let choice = QualityChoice.parse(raw) else {
+                    throw CommandLineParseError.invalidValue(flag: argument, value: raw)
+                }
+                options.quality = choice
             default:
                 // A bare "-" is conventionally a stream, not a flag, so it is
                 // never reported as an unknown one.

@@ -293,6 +293,78 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertEqual(settings.quality, QualityLevel.superLow.settings)
     }
 
+    // MARK: - Help text
+
+    /// `--help` is the only discovery surface an agent has. A flag the
+    /// parser accepts but help never mentions is effectively invisible, and
+    /// that drift is the whole reason this is asserted mechanically rather
+    /// than by reading the string once and trusting it.
+    func testHelpNamesEveryFlagTheParserAccepts() {
+        let help = CommandLineOptions.helpText
+
+        for flag in ["--quality", "--to", "--metadata", "--out", "--in-place", "--json", "--help", "--version"] {
+            XCTAssertTrue(help.contains(flag), "--help never mentions \(flag)")
+        }
+    }
+
+    /// Every level name has to appear, or an agent has no way to learn that
+    /// "super-low" is spelled with a hyphen — and it would reasonably guess
+    /// the Swift spelling, which is the one thing that looks wrong.
+    func testHelpNamesEveryQualityLevel() {
+        let help = CommandLineOptions.helpText
+        for name in ["super-low", "low", "standard", "high"] {
+            XCTAssertTrue(help.contains(name), "--help never mentions the \(name) level")
+        }
+    }
+
+    /// The single most consequential thing a reader can misunderstand: that
+    /// this writes a copy by default and only overwrites when asked.
+    func testHelpStatesThatOriginalsAreKeptByDefault() {
+        XCTAssertTrue(
+            CommandLineOptions.helpText.lowercased().contains(".min"),
+            "--help must say where output goes when --in-place is absent"
+        )
+    }
+
+    // MARK: - Exit codes
+
+    /// Scripts and agents branch on these, so they are a compatibility
+    /// surface: pinned here so changing one has to be deliberate.
+    func testEachFailureHasItsOwnStableExitCode() {
+        XCTAssertEqual(ShrinkError.unsupportedFormat("txt").exitCode, 2)
+        XCTAssertEqual(ShrinkError.helperMissing("cjpeg").exitCode, 3)
+        XCTAssertEqual(ShrinkError.compressorFailed(tool: "cjpeg", code: 1, message: "").exitCode, 4)
+        XCTAssertEqual(ShrinkError.javascriptFailed("").exitCode, 5)
+        XCTAssertEqual(ShrinkError.outputNotWritten(URL(fileURLWithPath: "/a")).exitCode, 6)
+        XCTAssertEqual(ShrinkError.conversionFailed("").exitCode, 7)
+    }
+
+    /// Nothing may collide with 0, and nothing may collide with anything
+    /// else — an exit code that two different failures share tells a caller
+    /// nothing it could act on.
+    func testExitCodesAreDistinctAndNonZero() {
+        let codes = [
+            ShrinkError.unsupportedFormat("txt").exitCode,
+            ShrinkError.helperMissing("cjpeg").exitCode,
+            ShrinkError.compressorFailed(tool: "cjpeg", code: 1, message: "").exitCode,
+            ShrinkError.javascriptFailed("").exitCode,
+            ShrinkError.outputNotWritten(URL(fileURLWithPath: "/a")).exitCode,
+            ShrinkError.conversionFailed("").exitCode,
+        ]
+
+        XCTAssertEqual(Set(codes).count, codes.count, "two failures share an exit code")
+        XCTAssertFalse(codes.contains(0), "0 means success and cannot also mean a failure")
+    }
+
+    /// Bad usage is distinct from a failed shrink: one means "you typed it
+    /// wrong", the other "the work itself failed", and a caller retrying the
+    /// same command line needs to tell those apart.
+    func testUsageErrorsHaveTheirOwnExitCode() {
+        XCTAssertEqual(CommandLineParseError.unknownFlag("--nope").exitCode, 64)
+        XCTAssertEqual(CommandLineParseError.missingValue("--out").exitCode, 64)
+        XCTAssertEqual(CommandLineParseError.invalidValue(flag: "--to", value: "tiff").exitCode, 64)
+    }
+
     // MARK: - Self-description
 
     func testHelpAndVersionAreRecognised() throws {

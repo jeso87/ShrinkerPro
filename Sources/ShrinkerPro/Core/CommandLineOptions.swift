@@ -75,6 +75,36 @@ enum CommandLineParseError: Error, Equatable {
     case invalidValue(flag: String, value: String)
 }
 
+extension CommandLineParseError {
+    /// `EX_USAGE` from BSD `sysexits.h`.
+    ///
+    /// Deliberately far away from the shrink failures below, because the two
+    /// mean different things to a caller: this one says "the command line was
+    /// wrong", which retrying verbatim will never fix, while those say "the
+    /// work failed", which may well be worth retrying or reporting per-file.
+    var exitCode: Int32 { 64 }
+}
+
+extension ShrinkError {
+    /// One code per failure, so a caller can branch on *why* rather than
+    /// parsing prose out of stderr.
+    ///
+    /// These are a compatibility surface the moment anything scripts against
+    /// them, which is why `CommandLineOptionsTests` pins each value and
+    /// asserts they stay distinct and non-zero. 1 is left unused as the
+    /// conventional catch-all for anything not classified here.
+    var exitCode: Int32 {
+        switch self {
+        case .unsupportedFormat: return 2
+        case .helperMissing: return 3
+        case .compressorFailed: return 4
+        case .javascriptFailed: return 5
+        case .outputNotWritten: return 6
+        case .conversionFailed: return 7
+        }
+    }
+}
+
 /// What `--quality` accepted: one of the app's named levels, or a bare
 /// number.
 ///
@@ -127,6 +157,57 @@ enum QualityChoice: Equatable {
 }
 
 extension CommandLineOptions {
+
+    /// What `--help` prints, and what a bare `shrinker` prints.
+    ///
+    /// This is the entire discovery surface for anything meeting the tool
+    /// for the first time — a person, or an agent that will read this once
+    /// and then compose command lines from it. So it states the things that
+    /// are guessed wrong: that output is a copy rather than a replacement,
+    /// that `super-low` takes a hyphen, that two formats ignore `--quality`
+    /// entirely, and that compressing never inflates a file.
+    ///
+    /// `CommandLineOptionsTests` asserts that every flag `parse` accepts
+    /// appears here. A flag the parser honours but help never mentions is
+    /// invisible, and that drift is easy to introduce and impossible to
+    /// notice.
+    static let helpText = """
+    shrinker — minify images and graphics
+
+    USAGE
+      shrinker [options] <file-or-folder>...
+
+    Writes a shrunken copy beside each original with a .min suffix, leaving
+    your own files untouched. Folders are searched for supported images.
+
+    OPTIONS
+      --quality <level|0-100>  super-low, low, standard (default), high — or a
+                               number, for a value no level names
+      --to <format>            convert every image: jpeg, webp, avif, png
+      --metadata <policy>      all (default), copyright, none
+      --out <directory>        write results here instead of beside each input
+      --in-place               overwrite each original instead of writing a
+                               .min copy. This destroys the source
+      --json                   one JSON object per file on stdout
+      --help, -h               this text
+      --version                version number only
+
+    FORMATS
+      Reads PNG, JPEG, GIF, SVG, WebP, AVIF and HEIC.
+      SVG and GIF are always kept in their own format and never converted.
+      PNG and GIF ignore --quality — the tools that optimise them have no
+      comparable setting, so those files are identical at every level.
+
+    Compressing never makes a file bigger. If a same-format result comes out
+    larger than its source it is discarded, your original is kept, and the
+    saving is reported as 0%. Converting is exempt: growth there is the thing
+    you asked for.
+
+    EXAMPLES
+      shrinker photo.jpg
+      shrinker --quality super-low --to webp ./screenshots
+      shrinker --json --quality 85 diagram.png
+    """
 
     /// These options as the engine wants them.
     ///

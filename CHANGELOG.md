@@ -4,6 +4,47 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## Unreleased
+
+### Added
+
+**Quality.** Settings now offers Super Low, Low, Standard or High for the lossy
+encoders, and the same control sits in the window footer so it can be changed
+between one drop and the next without opening a panel. Standard is the default
+and produces what earlier versions did — upgrading changes nothing about your
+output unless you choose to.
+
+It applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are deliberately left out:
+the tools that optimise them have no comparable setting, so those files come out
+the same whichever level you pick.
+
+### Fixed
+
+**Compressing a file can no longer make it bigger.** Re-encoding an image that
+is already compressed can produce a larger file than the one you started with,
+and the app used to write that result and report it as a saving. Now, when a
+same-format result comes out larger than the source, it is discarded and your
+original is left untouched, reported as 0% saved.
+
+This was already happening before this release in one case: re-optimising a WebP
+produced a file about 36 bytes larger every time. Converting between formats is
+deliberately exempt — a photo converted to lossless PNG is expected to grow, and
+that is the thing you asked for.
+
+### Changed
+
+**The main window has a footer.** "Convert all to" has moved from above the
+results list to a bar pinned along the bottom, now as a dropdown, with Quality
+beside it. The history scrolls above them, so both controls stay put however
+long the list gets. On a narrow window they stack rather than crowd.
+
+"Off" is now "App default", which says what actually happens — your stored
+per-format rules apply — rather than only what doesn't.
+
+The warning that PNG makes photographs larger is now a marker beside the control
+rather than a line of text that appeared and disappeared, so the footer never
+changes height while you use it.
+
 ## 1.1.0 — 2026-09-11
 
 Photos keep their rotation, metadata is now yours to control, and there's a

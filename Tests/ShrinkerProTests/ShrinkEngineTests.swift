@@ -188,17 +188,40 @@ final class ShrinkEngineTests: XCTestCase {
     /// WebP and AVIF "keep" both mean "re-encode in the same container" —
     /// there's no dedicated re-optimiser for either, so this is ImageIO
     /// decode+re-encode, still shrinking a real file end-to-end.
-    func testWebPAndAVIFKeepStillShrink() throws {
+    /// AVIF "keep" re-encodes and genuinely shrinks, so it writes a `.min`
+    /// file as it always has.
+    ///
+    /// WebP "keep" no longer does, and this test used to assert that it did.
+    /// An ImageIO decode plus cwebp re-encode of an already-optimal WebP comes
+    /// out 36 bytes *larger* than the source (18,828 -> 18,864), so the
+    /// skip-if-larger guard declines to promote it and the result points at
+    /// the untouched original. That was equally true before the guard existed
+    /// — the app simply wrote the bigger file and reported it as a shrink,
+    /// and the assertion here encoded that. It is a fixed bug, not a
+    /// regression.
+    func testWebPKeepIsDeclinedWhileAVIFKeepStillShrinks() throws {
         let engine = try makeEngine()
-        for (name, ext) in [("sample", "webp"), ("sample", "avif")] {
-            let input = try stagedFixture(name, ext)
-            defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
 
-            let result = try engine.shrink(input, settings: defaults) // ConversionRules() == all .keep
-            XCTAssertEqual(result.output.lastPathComponent, "sample.min.\(ext)", ext)
-            XCTAssertGreaterThan(result.shrunkBytes, 0, ext)
-            XCTAssertTrue(FileManager.default.fileExists(atPath: result.output.path), ext)
-        }
+        let avif = try stagedFixture("sample", "avif")
+        defer { try? FileManager.default.removeItem(at: avif.deletingLastPathComponent()) }
+
+        let avifResult = try engine.shrink(avif, settings: defaults) // ConversionRules() == all .keep
+        XCTAssertEqual(avifResult.output.lastPathComponent, "sample.min.avif")
+        XCTAssertLessThan(avifResult.shrunkBytes, avifResult.originalBytes)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: avifResult.output.path))
+
+        let webp = try stagedFixture("sample", "webp")
+        defer { try? FileManager.default.removeItem(at: webp.deletingLastPathComponent()) }
+
+        let webpResult = try engine.shrink(webp, settings: defaults)
+        XCTAssertEqual(webpResult.output, webp, "a declined re-encode must report the file the user still has")
+        XCTAssertEqual(webpResult.savedPercent, 0)
+        XCTAssertFalse(
+            FileManager.default.fileExists(
+                atPath: webp.deletingLastPathComponent().appendingPathComponent("sample.min.webp").path
+            ),
+            "no .min file should be written when the re-encode is declined"
+        )
     }
 
     /// SVG and GIF have no rule row at all — `ConversionRules` has no
@@ -564,9 +587,77 @@ final class ShrinkEngineTests: XCTestCase {
     private func shrunkBytes(
         _ name: String, _ ext: String, rules: ConversionRules, quality: QualityLevel
     ) throws -> Int {
+        try sizes(name, ext, rules: rules, quality: quality).shrunk
+    }
+
+    private func sizes(
+        _ name: String, _ ext: String, rules: ConversionRules, quality: QualityLevel
+    ) throws -> (original: Int, shrunk: Int) {
         let input = try stagedFixture(name, ext)
         defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
-        return try makeEngine().shrink(input, settings: settings(rules: rules, quality: quality)).shrunkBytes
+        let result = try makeEngine().shrink(input, settings: settings(rules: rules, quality: quality))
+        return (result.originalBytes, result.shrunkBytes)
+    }
+
+    // MARK: - Never make a file bigger by compressing it
+
+    /// The promise the app's name makes. Re-encoding an already-compressed
+    /// file at a quality above the one it was stored at inflates it, and the
+    /// source's original quality is unknowable — so no choice of constant can
+    /// prevent this, only a check after the fact.
+    ///
+    /// Measured before the guard existed, every one of these grew at `.high`:
+    /// JPEG 45,784 -> 50,467, WebP 18,828 -> 26,232, AVIF 20,981 -> 24,911.
+    func testSameFormatReEncodingNeverGrowsTheFile() throws {
+        for ext in ["jpg", "webp", "avif"] {
+            for quality in QualityLevel.allCases {
+                let measured = try sizes("sample", ext, rules: ConversionRules(), quality: quality)
+                XCTAssertLessThanOrEqual(
+                    measured.shrunk, measured.original,
+                    "\(ext) at \(quality.displayName): compressing a file must never make it bigger"
+                )
+            }
+        }
+    }
+
+    /// When the guard declines to promote, the user's file must be left
+    /// exactly as it was — not rewritten with identical-looking bytes, and
+    /// certainly not replaced by the larger candidate. Run in place, which is
+    /// the configuration where getting this wrong destroys data.
+    func testASkippedReEncodeLeavesTheOriginalByteIdentical() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "webp")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+        let before = try Data(contentsOf: input)
+
+        var inPlaceHigh = inPlace
+        inPlaceHigh.quality = .high
+        let result = try engine.shrink(input, settings: inPlaceHigh)
+
+        XCTAssertEqual(try Data(contentsOf: input), before, "the original was modified by a skipped re-encode")
+        XCTAssertEqual(result.output, input, "a skipped re-encode must report the file the user still has")
+        XCTAssertEqual(result.shrunkBytes, result.originalBytes, "a skipped re-encode saved nothing")
+        XCTAssertEqual(result.savedPercent, 0)
+    }
+
+    /// The guard must not over-apply. Converting to PNG is offered precisely
+    /// so a mixed folder can be flattened to one lossless format, and a photo
+    /// converted to PNG legitimately gets much larger — the footer warns about
+    /// exactly that. Growth the user explicitly asked for is not a failure,
+    /// and refusing it would silently ignore the request.
+    func testAConversionIsStillAllowedToGrow() throws {
+        let input = try stagedFixture("sample", "jpg")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        var toPNG = settings(rules: ConversionRules(), quality: .standard)
+        toPNG.sessionFormat = .png
+        let result = try makeEngine().shrink(input, settings: toPNG)
+
+        XCTAssertEqual(result.output.pathExtension, "png")
+        XCTAssertGreaterThan(
+            result.shrunkBytes, result.originalBytes,
+            "a JPEG converted to lossless PNG is expected to grow — the guard must not block it"
+        )
     }
 
     /// The end-to-end proof that the chosen level actually reaches the
@@ -614,6 +705,20 @@ final class ShrinkEngineTests: XCTestCase {
                 "\(ext) must be byte-for-byte unaffected by the quality level"
             )
         }
+    }
+
+    /// The third encoder, and the one the tests above cannot speak for.
+    /// `QualitySettings.unitScale` feeds ImageIO for AVIF and HEIC, which is
+    /// a wholly separate code path from cwebp's `-q` and cjpeg's `-quality`
+    /// — a level that demonstrably reached both of those would still prove
+    /// nothing about this one.
+    func testQualityLevelReachesTheImageIOEncoder() throws {
+        let low = try shrunkBytes("sample", "png", rules: ConversionRules(png: .avif), quality: .low)
+        let standard = try shrunkBytes("sample", "png", rules: ConversionRules(png: .avif), quality: .standard)
+        let high = try shrunkBytes("sample", "png", rules: ConversionRules(png: .avif), quality: .high)
+
+        XCTAssertLessThan(low, standard, "a lower quality must produce a smaller AVIF")
+        XCTAssertLessThan(standard, high, "a higher quality must produce a larger AVIF")
     }
 
     /// A relayed route (HEIC → TGA → cjpeg) must apply quality at the

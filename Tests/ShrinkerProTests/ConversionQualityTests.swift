@@ -66,7 +66,25 @@ final class ConversionQualityTests: XCTestCase {
     /// enums. Worst to best, so the control reads left-to-right the way the
     /// values do.
     func testAllCasesAreOrderedWorstToBest() {
-        XCTAssertEqual(QualityLevel.allCases, [.low, .standard, .high])
+        XCTAssertEqual(QualityLevel.allCases, [.superLow, .low, .standard, .high])
+    }
+
+    /// Super Low exists because the gap below Low is where the remaining
+    /// savings are, measured on a real 18.3MB camera original:
+    ///
+    ///     cjpeg 60 (Low)       2.19 MB   -88%
+    ///     cjpeg 40 (Super Low) ~1.6 MB   -91%
+    ///     cjpeg 35             1.46 MB   -92%
+    ///
+    /// It must sit strictly below Low on every axis, or it is just a second
+    /// name for the same setting.
+    func testSuperLowSitsBelowLowOnEveryEncoderAxis() throws {
+        let superLow = QualityLevel.superLow.settings
+        let low = QualityLevel.low.settings
+
+        XCTAssertLessThan(superLow.unitScale, low.unitScale)
+        XCTAssertLessThan(superLow.cwebpScale, low.cwebpScale)
+        XCTAssertLessThan(try XCTUnwrap(superLow.cjpegQuality), try XCTUnwrap(low.cjpegQuality))
     }
 
     /// Both pickers that will offer this — the window footer and the
@@ -81,6 +99,26 @@ final class ConversionQualityTests: XCTestCase {
     /// offering a "Default" would be needlessly ambiguous about which
     /// default is meant.
     func testDisplayNamesReadWorstToBest() {
-        XCTAssertEqual(QualityLevel.allCases.map(\.displayName), ["Low", "Standard", "High"])
+        XCTAssertEqual(
+            QualityLevel.allCases.map(\.displayName),
+            ["Super Low", "Low", "Standard", "High"]
+        )
+    }
+
+    /// mozjpeg's `set_quality_ratings` also picks chroma subsampling, and it
+    /// switches from 4:2:0 to 4:4:4 at quality >= 90 — a discontinuity, not a
+    /// gradient. Measured against this project's own 45,784-byte fixture:
+    ///
+    ///     quality 88 -> 37,739 bytes  (-18% vs the original)
+    ///     quality 90 -> 50,467 bytes  (+10% vs the original)
+    ///
+    /// A 34% jump for two points of quality. `.high` must stay on the near
+    /// side of that cliff so nobody falls off it by choosing the top setting.
+    func testHighStaysBelowMozjpegsSubsamplingCliff() throws {
+        let high = try XCTUnwrap(QualityLevel.high.settings.cjpegQuality)
+        XCTAssertLessThan(
+            high, 90,
+            "cjpeg switches to 4:4:4 subsampling at quality >= 90, inflating output by ~34% in one step"
+        )
     }
 }

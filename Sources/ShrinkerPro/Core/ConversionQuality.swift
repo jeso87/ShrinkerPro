@@ -52,14 +52,26 @@ struct QualitySettings: Equatable, Sendable {
 /// Declared worst-to-best: `allCases` *is* the Settings picker's option list
 /// (the rows iterate it directly), so this order is the on-screen order.
 enum QualityLevel: String, CaseIterable, Sendable {
+    case superLow
     case low
     /// Spelled `standard` rather than `default` because `default` is a
     /// reserved word. This is the shipped behaviour, unchanged.
     case standard
     case high
 
+    /// Every number below was measured, not chosen by feel. The reference is
+    /// a real 18.3MB camera original (7008x4672) rather than this project's
+    /// 45KB test fixture, which turned out to be actively misleading: it is
+    /// already compressed to the point of having no headroom, so *any*
+    /// re-encode inflates it and every value looks bad.
     var settings: QualitySettings {
         switch self {
+        case .superLow:
+            // cjpeg 60 (Low) -> 2.19MB; 40 -> ~1.6MB; 35 -> 1.46MB. The curve
+            // flattens below about 40 — past there you pay visible quality
+            // for very little further saving — so this is the floor by
+            // measurement, not merely the lowest number that still decodes.
+            QualitySettings(unitScale: 0.40, cwebpScale: 40, cjpegQuality: 40)
         case .low:
             // Visibly softer on close inspection, materially smaller. 60 is
             // low enough to be worth choosing over `.standard` and high
@@ -70,11 +82,22 @@ enum QualityLevel: String, CaseIterable, Sendable {
             // `cjpegQuality` is nil, not 75 — see `QualitySettings`.
             QualitySettings(unitScale: 0.80, cwebpScale: 80, cjpegQuality: nil)
         case .high:
-            // Deliberately short of 100: every encoder here grows sharply in
-            // the last few points for no visible return, and a "High" that
-            // routinely produced files larger than the input would read as
-            // broken rather than careful.
-            QualitySettings(unitScale: 0.92, cwebpScale: 92, cjpegQuality: 90)
+            // 85, not 90, and the two points matter enormously. mozjpeg's
+            // `set_quality_ratings` switches chroma subsampling from 4:2:0 to
+            // 4:4:4 at quality >= 90 — a discontinuity, not a gradient:
+            //
+            //   real 18.3MB original:  85 -> 4.55MB (-75%)
+            //                          88 -> 5.22MB (-72%)
+            //                          90 -> 6.90MB (-62%)
+            //
+            // and on an already-compressed file 90 inflates outright
+            // (45,784 -> 50,467 bytes). 85 sits clear of the cliff while
+            // still being a real step above Standard (+36% on that original).
+            //
+            // High earns its place despite that scare: on genuine camera
+            // originals it still saves 75%. It was the tiny fixture, not the
+            // setting, that made it look broken.
+            QualitySettings(unitScale: 0.85, cwebpScale: 85, cjpegQuality: 85)
         }
     }
 
@@ -87,6 +110,7 @@ enum QualityLevel: String, CaseIterable, Sendable {
     /// menus each offering a "Default" would be ambiguous about which.
     var displayName: String {
         switch self {
+        case .superLow: return "Super Low"
         case .low: return "Low"
         case .standard: return "Standard"
         case .high: return "High"

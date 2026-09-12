@@ -91,10 +91,17 @@ is vendored for them.
 
 HEIC has no in-place optimiser here — it is always converted (see below).
 
-Most of the saving is lossy. A **Quality** setting — Low, Standard or High —
-governs the lossy encoders. Standard is the default and produces exactly what
-every previous version of the app did: cjpeg at its own default of 75, and 80
-for WebP and AVIF.
+Most of the saving is lossy. A **Quality** setting — Super Low, Low, Standard
+or High — governs the lossy encoders. Standard is the default and produces
+what every previous version of the app did: cjpeg at its own default of 75, and
+80 for WebP and AVIF.
+
+**Compressing a file never makes it bigger.** Re-encoding an already-compressed
+image at a quality above the one it was stored at inflates it, and the original
+quality of a file cannot be read back out of it — so rather than guess, the app
+checks afterwards: if a same-format result comes out larger than the source, it
+is discarded and your file is left alone, reported as 0% saved. Conversions are
+exempt, because growth there is what you asked for — see PNG below.
 
 pngquant and gifsicle are deliberately left out of it. pngquant reduces a PNG
 to an optimised palette of at most 256 colours, and gifsicle's `-O2`
@@ -150,9 +157,9 @@ touching what you have stored, and it is gone the next time you launch.
 Settings deliberately: it is visible the whole time it is on, so nothing
 converts behind your back.
 
-**Quality** is the same Low / Standard / High setting that lives in Settings,
-put within reach so it can be changed without opening a panel. Unlike the
-override, it *is* saved.
+**Quality** is the same Super Low / Low / Standard / High setting that lives in
+Settings, put within reach so it can be changed without opening a panel. Unlike
+the override, it *is* saved.
 
 PNG is available in the override and nowhere else. As a stored rule it would sit
 next to "Keep PNG" meaning almost the same thing; as a one-off it is genuinely

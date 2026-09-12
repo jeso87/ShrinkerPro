@@ -46,6 +46,41 @@ final class AppModelTests: XCTestCase {
         return staged
     }
 
+    /// The last hop nothing else covers: `Settings` → the per-batch snapshot
+    /// `process(urls:)` builds → the engine. `QualitySettingTests` proves
+    /// `Settings` projects the level into `outputSettings`; this proves a real
+    /// drop is actually encoded with it.
+    ///
+    /// Routed PNG → WebP deliberately. A same-format PNG drop goes to
+    /// pngquant, which ignores quality by design, so it would pass whether or
+    /// not the setting were plumbed through at all — the test would be
+    /// vacuous in exactly the way that matters.
+    func testTheQualitySettingChangesWhatADropActuallyProduces() async throws {
+        func shrunkBytes(at quality: QualityLevel) async throws -> Int {
+            let (model, settings) = try makeModel()
+            settings.pngConversion = .webp
+            settings.quality = quality
+
+            let file = try stagedPNG()
+            defer { try? FileManager.default.removeItem(at: file.deletingLastPathComponent()) }
+
+            await model.process(urls: [file])
+            guard let row = model.rows.first else {
+                XCTFail("expected a row after processing at \(quality.displayName)")
+                return 0
+            }
+            return row.shrunkBytes
+        }
+
+        let low = try await shrunkBytes(at: .low)
+        let high = try await shrunkBytes(at: .high)
+
+        XCTAssertLessThan(
+            low, high,
+            "the Quality setting must change what a drop actually writes to disk"
+        )
+    }
+
     func testSuccessfulDropAddsRow() async throws {
         let (model, _) = try makeModel()
         let file = try stagedPNG()

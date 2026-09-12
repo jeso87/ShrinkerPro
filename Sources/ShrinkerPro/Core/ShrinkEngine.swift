@@ -198,6 +198,38 @@ final class ShrinkEngine {
             throw ShrinkError.outputNotWritten(output)
         }
 
+        // Never make a file bigger by compressing it.
+        //
+        // Re-encoding an already-compressed file at a quality above the one
+        // it was stored at inflates it, and the source's original quality is
+        // not knowable from the file — so no choice of encoder constant can
+        // prevent this, only a check after the fact. Measured against this
+        // project's own fixtures before this guard existed, every same-format
+        // route grew at `.high`: JPEG 45,784 -> 50,467, WebP 18,828 ->
+        // 26,232, AVIF 20,981 -> 24,911. Same-format WebP grew even at
+        // `.standard` (18,828 -> 18,864), which predates the quality setting
+        // entirely.
+        //
+        // Scoped to same-format compression — `targetExtension == nil` — and
+        // deliberately NOT applied to conversions. A conversion's growth is
+        // the user's own explicit request: PNG is offered precisely so a
+        // mixed folder can be flattened to one lossless format, where a photo
+        // getting larger is the expected outcome, stated in the README and
+        // warned about beside the control. Refusing that would silently
+        // ignore what was asked for; refusing this is doing what was asked.
+        //
+        // The scratch file is simply not promoted, and `defer` above removes
+        // it with the rest of the replacement directory. The result points at
+        // `input`, because that is the file the user still has.
+        if plan.targetExtension == nil, shrunkBytes >= originalBytes {
+            return ShrinkResult(
+                input: input,
+                output: input,
+                originalBytes: originalBytes,
+                shrunkBytes: originalBytes
+            )
+        }
+
         // replaceItemAt is atomic and preserves the destination's metadata
         // when overwriting (the in-place case, and re-runs over an existing
         // `.min` file); a plain move covers a brand-new destination.

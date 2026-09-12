@@ -53,6 +53,46 @@ Shrinker Pro checks once a day and on "Check for Updates…" in the app menu,
 and every update's signature is verified before it is installed. You can turn
 the automatic check off in Settings.
 
+### The command line
+
+`shrinker` runs the same compression engine without a window — for scripts,
+for build steps, and for AI assistants that can run a command but cannot drag
+a file onto a drop zone.
+
+```sh
+brew install jeso87/tap/shrinker
+```
+
+```sh
+shrinker photo.jpg                              # a .min copy beside it
+shrinker --quality super-low --to webp ./shots   # a whole folder
+shrinker --json --quality 85 diagram.jpg         # one JSON line per file
+```
+
+| | |
+|---|---|
+| `--quality <level\|0-100>` | `super-low`, `low`, `standard` (default), `high` — or a number |
+| `--to <format>` | `jpeg`, `webp`, `avif`, `png` |
+| `--metadata <policy>` | `all` (default), `copyright`, `none` |
+| `--out <directory>` | write results here instead of beside each input |
+| `--in-place` | overwrite each original. This destroys the source |
+| `--json` | one machine-readable object per file, on stdout |
+
+It writes a `.min` copy beside each original and only overwrites with
+`--in-place`. Folders are searched the same way dropping one on the window
+searches them, packages and hidden directories included — which is to say,
+excluded. Exit codes distinguish a usage mistake from a failed shrink, so a
+script can tell "you typed it wrong" from "the work failed".
+
+Two differences from the app. It never reads your saved preferences, so
+nothing converts unless `--to` asks — except HEIC, which has no "keep" option
+anywhere and always becomes a JPEG. And `--quality` accepts a bare number as
+well as a level name, for hitting a size target the four named stops don't
+reach.
+
+`shrinker --help` is written to be read by something meeting the tool for the
+first time, and lists everything above.
+
 ## Why this exists
 
 Shrinker Pro is a native rewrite of [Image Shrinker](https://github.com/stefansl/image-shrinker)

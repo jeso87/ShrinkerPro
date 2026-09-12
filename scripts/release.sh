@@ -286,6 +286,20 @@ CLI_BIN="$CLI_DERIVED/Build/Products/Release/shrinker"
   exit 1
 }
 
+# ShrinkerVersion is a hand-kept copy of MARKETING_VERSION — a bare tool has
+# no Info.plist to read one from at runtime, the way the app does. A unit
+# test compares the two, but nothing here runs the suite, so a release could
+# sign, notarize and publish a formula declaring one version against a binary
+# that prints another. brew test would then fail *after* publication, which
+# is the expensive place to find out.
+REPORTED_VERSION=$("$CLI_BIN" --version)
+[ "$REPORTED_VERSION" = "$VERSION" ] || {
+  echo "FAIL  shrinker --version says $REPORTED_VERSION, this release is $VERSION" >&2
+  echo "      update ShrinkerVersion.current to match MARKETING_VERSION" >&2
+  exit 1
+}
+echo "    shrinker reports $REPORTED_VERSION"
+
 echo "==> staging shrinker payload"
 # The layout the tool expects to find itself in: bin/shrinker resolves
 # ../libexec/shrinker for its helpers. Same shape Homebrew installs, so what

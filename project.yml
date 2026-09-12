@@ -213,6 +213,45 @@ targets:
         # and isn't inherited by this one, so it's repeated here.
         FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SRCROOT)/vendor/Sparkle"]
 
+  # The headless CLI. Shares Core with the app and nothing else — no
+  # SwiftUI, no AppKit, no Sparkle, no bundle.
+  #
+  # Four Core files are excluded because a bare tool cannot link them:
+  #
+  #   AppUpdater.swift            imports Sparkle and is @MainActor, and
+  #                               SPUStandardUpdaterController reads
+  #                               SUFeedURL/SUPublicEDKey from an Info.plist
+  #                               this product does not have.
+  #   Notifier.swift              UNUserNotificationCenter.current() requires
+  #   NotificationPermission.swift a valid bundle proxy. Notifier is an actor
+  #                               rather than @MainActor, so it looks safe
+  #                               from its signature alone — it is not.
+  #   Settings.swift              @MainActor and UserDefaults-backed. Not a
+  #                               link failure, just wrong: a headless run
+  #                               must not read the user's preferences, and
+  #                               builds OutputSettings from argv instead.
+  #
+  # It inherits ARCHS: arm64, ENABLE_HARDENED_RUNTIME and, importantly,
+  # CODE_SIGN_ENTITLEMENTS from settings.base — so it gets the allow-jit
+  # entitlement JavaScriptCore needs for svgo without declaring anything.
+  shrinker:
+    type: tool
+    platform: macOS
+    sources:
+      - path: Sources/ShrinkerPro/Core
+        excludes:
+          - "AppUpdater.swift"
+          - "Notifier.swift"
+          - "NotificationPermission.swift"
+          - "Settings.swift"
+      - path: Sources/shrinker
+    settings:
+      base:
+        PRODUCT_NAME: shrinker
+        PRODUCT_MODULE_NAME: shrinker
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "Developer ID Application"
+
 schemes:
   ShrinkerPro:
     build:
@@ -221,3 +260,11 @@ schemes:
         ShrinkerProTests: [test]
     test:
       targets: [ShrinkerProTests]
+
+  # Its own scheme: release.sh archives `-scheme ShrinkerPro`, and forcing a
+  # second product into that archive would complicate the export for no gain.
+  # The CLI is built separately and staged separately.
+  shrinker:
+    build:
+      targets:
+        shrinker: all

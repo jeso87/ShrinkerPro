@@ -347,6 +347,53 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertEqual(json["output"] as? String, "/photos/a.webp")
     }
 
+    // MARK: - The JSON line as actually emitted
+
+    private func jsonLine() throws -> String {
+        try ShrinkReport.jsonLine(for: ShrinkResult(
+            input: URL(fileURLWithPath: "/photos/a.png"),
+            output: URL(fileURLWithPath: "/photos/a.min.png"),
+            originalBytes: 1000,
+            shrunkBytes: 250
+        ))
+    }
+
+    /// `JSONEncoder` escapes forward slashes by default, so a path comes out
+    /// as `\/photos\/a.png`. That is valid JSON and any parser copes — but
+    /// an agent that greps the path out of the line instead of parsing it
+    /// gets something that is not a path, and paths are the whole point of
+    /// this output.
+    func testTheJSONLineDoesNotEscapeSlashes() throws {
+        let line = try jsonLine()
+
+        XCTAssertFalse(line.contains("\\/"), "slashes must not be escaped")
+        XCTAssertTrue(line.contains("/photos/a.min.png"))
+    }
+
+    /// Key order out of `JSONEncoder` follows dictionary iteration order,
+    /// which is not stable — two objects emitted by the same run came back
+    /// in different orders. Unstable output cannot be diffed between runs or
+    /// used as a cache key, both of which are ordinary things to do with a
+    /// tool's stdout.
+    func testTheJSONLineHasAStableKeyOrder() throws {
+        let line = try jsonLine()
+
+        let keys = ["input", "originalBytes", "output", "savedPercent", "shrunkBytes"]
+        var searchedTo = line.startIndex
+        for key in keys {
+            guard let found = line.range(of: "\"\(key)\"", range: searchedTo..<line.endIndex) else {
+                return XCTFail("\(key) missing, or out of sorted order, in: \(line)")
+            }
+            searchedTo = found.upperBound
+        }
+    }
+
+    /// One object per line, so the output is consumable by anything that
+    /// reads a stream line by line. Pretty-printing would break that.
+    func testTheJSONLineIsASingleLine() throws {
+        XCTAssertFalse(try jsonLine().contains("\n"))
+    }
+
     // MARK: - Help text
 
     /// `--help` is the only discovery surface an agent has. A flag the

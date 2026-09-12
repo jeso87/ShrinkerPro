@@ -152,6 +152,30 @@ struct ShrinkReport: Encodable {
     let shrunkBytes: Int
     let savedPercent: Int
 
+    /// One `--json` line, exactly as the tool emits it.
+    ///
+    /// The encoder's configuration is part of the output contract, so it
+    /// belongs here where a test can reach it — not at the call site, which
+    /// is where both of the defects this method exists to fix were living
+    /// and where nothing could have caught them:
+    ///
+    ///   - `.withoutEscapingSlashes`, because `JSONEncoder` renders a path
+    ///     as `\/photos\/a.png` by default. Valid JSON, but an agent that
+    ///     greps the path out of the line instead of parsing it gets
+    ///     something that is not a path — and paths are the point.
+    ///   - `.sortedKeys`, because the default order follows dictionary
+    ///     iteration and is not stable. Two objects from a single run came
+    ///     back in different orders, which makes stdout undiffable between
+    ///     runs and useless as a cache key.
+    ///
+    /// Not pretty-printed: one object per line, so the output can be read by
+    /// anything that consumes a stream line by line.
+    static func jsonLine(for result: ShrinkResult) throws -> String {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.withoutEscapingSlashes, .sortedKeys]
+        return String(decoding: try encoder.encode(ShrinkReport(result)), as: UTF8.self)
+    }
+
     init(_ result: ShrinkResult) {
         // `.path`, not the URL itself — see the note above.
         self.input = result.input.path

@@ -311,7 +311,9 @@ final class ShrinkEngine {
         }
 
         return Plan(
-            compressor: try compressor(for: route, policy: settings.metadataPolicy),
+            compressor: try compressor(
+                for: route, policy: settings.metadataPolicy, quality: settings.quality.settings
+            ),
             targetExtension: outputExtension(for: route),
             needsMetadataPostPass: route.needsMetadataPostPass,
             wasRotated: orientation != .up
@@ -319,7 +321,7 @@ final class ShrinkEngine {
     }
 
     /// Turns a routing decision into an actual `Compressor`, supplying the
-    /// helper binaries and fixed quality `ConversionRouter` has no
+    /// helper binaries and the resolved quality `ConversionRouter` has no
     /// business knowing about. `.direct(target:)` and
     /// `.viaIntermediate(target:)` carry `DirectTarget`/`RelayedTarget`
     /// rather than the general `ConversionFormat` (see `ConversionRouter
@@ -328,42 +330,61 @@ final class ShrinkEngine {
     /// to handle under `.direct`, and no `.avif` case under
     /// `.viaIntermediate`, because those types don't have them. Nothing
     /// left here for a `preconditionFailure` to stand in for.
-    private func compressor(for route: ConversionRoute, policy: MetadataPolicy) throws -> Compressor {
+    /// `PNGCompressor` and `GIFCompressor` are constructed without a quality
+    /// anywhere below, and that is deliberate — see `QualityLevel`. pngquant's
+    /// `--quality` is a floor with an abort rather than a dial, and gifsicle's
+    /// `--lossy` inverts the axis against output that is lossless today.
+    private func compressor(
+        for route: ConversionRoute, policy: MetadataPolicy, quality: QualitySettings
+    ) throws -> Compressor {
         switch route {
         case .sameFormat(let native):
             switch native {
             case .png:
                 return PNGCompressor(executable: try helperProvider("pngquant"))
             case .jpeg:
-                return JPEGCompressor(executable: try helperProvider("cjpeg"))
+                return JPEGCompressor(
+                    executable: try helperProvider("cjpeg"), quality: quality.cjpegQuality
+                )
             case .webp:
-                return WebPCompressor(executable: try helperProvider("cwebp"), policy: policy)
+                return WebPCompressor(
+                    executable: try helperProvider("cwebp"), policy: policy, quality: quality.cwebpScale
+                )
             case .avif:
-                return ImageIOCompressor(utType: RasterUTType.avif, quality: ConversionQuality.unitScale, policy: policy)
+                return ImageIOCompressor(utType: RasterUTType.avif, quality: quality.unitScale, policy: policy)
             case .heic:
-                return ImageIOCompressor(utType: RasterUTType.heic, quality: ConversionQuality.unitScale, policy: policy)
+                return ImageIOCompressor(utType: RasterUTType.heic, quality: quality.unitScale, policy: policy)
             }
 
         case .direct(let target):
             switch target {
             case .avif:
-                return ImageIOCompressor(utType: RasterUTType.avif, quality: ConversionQuality.unitScale, policy: policy)
+                return ImageIOCompressor(utType: RasterUTType.avif, quality: quality.unitScale, policy: policy)
             case .webp:
-                return WebPCompressor(executable: try helperProvider("cwebp"), policy: policy)
+                return WebPCompressor(
+                    executable: try helperProvider("cwebp"), policy: policy, quality: quality.cwebpScale
+                )
             }
 
         case .viaIntermediate(let target, let intermediate):
+            // Quality is applied to the DOWNSTREAM encoder only. The
+            // intermediate stays lossless — see
+            // `IntermediateConversionCompressor`.
             switch target {
             case .jpeg:
                 return IntermediateConversionCompressor(
                     intermediate: intermediate,
-                    downstream: JPEGCompressor(executable: try helperProvider("cjpeg")),
+                    downstream: JPEGCompressor(
+                        executable: try helperProvider("cjpeg"), quality: quality.cjpegQuality
+                    ),
                     policy: policy
                 )
             case .webp:
                 return IntermediateConversionCompressor(
                     intermediate: intermediate,
-                    downstream: WebPCompressor(executable: try helperProvider("cwebp"), policy: policy),
+                    downstream: WebPCompressor(
+                        executable: try helperProvider("cwebp"), policy: policy, quality: quality.cwebpScale
+                    ),
                     policy: policy
                 )
             case .png:

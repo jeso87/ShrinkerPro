@@ -91,11 +91,16 @@ is vendored for them.
 
 HEIC has no in-place optimiser here — it is always converted (see below).
 
-Most of the saving is lossy. pngquant reduces a PNG to an optimised palette of
-at most 256 colours, and cjpeg re-encodes a JPEG at its default quality of 75;
-WebP and AVIF conversions encode at 80 (see below). gifsicle's `-O2`
-optimisation is lossless. "Keep original files" is on by default, so the
-original is still there to compare against.
+Most of the saving is lossy. A **Quality** setting — Low, Standard or High —
+governs the lossy encoders. Standard is the default and produces exactly what
+every previous version of the app did: cjpeg at its own default of 75, and 80
+for WebP and AVIF.
+
+pngquant and gifsicle are deliberately left out of it. pngquant reduces a PNG
+to an optimised palette of at most 256 colours, and gifsicle's `-O2`
+optimisation is lossless; PNG and GIF output is identical at every quality
+level. "Keep original files" is on by default, so the original is still there
+to compare against.
 
 ## Conversion
 
@@ -121,8 +126,9 @@ usually animated; converting either would destroy what makes it useful. This
 is stated in the Settings panel too, so their absence doesn't read as an
 oversight.
 
-Conversions encode at quality 80 (`cwebp -q 80`, or `0.80` for ImageIO's
-lossy targets). Where an encoder can't read the source format directly — cjpeg
+Conversions encode at the chosen Quality level; at Standard that is `cwebp -q
+80`, or `0.80` for ImageIO's lossy targets. Where an encoder can't read the
+source format directly — cjpeg
 reads neither PNG, WebP, AVIF nor HEIC — the pixels are relayed through a
 lossless intermediate rather than a second lossy hop. `ConversionRouter`
 decides the route for every input × rule combination, and is a pure function

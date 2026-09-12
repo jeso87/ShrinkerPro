@@ -188,7 +188,8 @@ the in-place overwrite it warns about applies to same-format compression.
 
 ## Out of scope
 
-- A quality slider (still, from the previous spec)
+- A quality slider (still, from the previous spec) *(superseded — quality is now a
+  three-level setting; see `QualityLevel`)*
 - Resizing or dimension changes
 - Rasterising SVG, converting animated GIF
 - PNG in the persistent per-format rules

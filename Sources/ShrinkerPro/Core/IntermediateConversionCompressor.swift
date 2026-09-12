@@ -38,6 +38,16 @@ struct IntermediateConversionCompressor: Compressor {
             )
         defer { try? FileManager.default.removeItem(at: intermediateURL) }
 
+        // This `quality: nil` must stay nil. It is not an unthreaded
+        // parameter waiting to be wired up to the user's quality level: the
+        // whole point of relaying through an intermediate is that the source
+        // reaches the downstream encoder having lost nothing, so there is
+        // exactly ONE lossy hop. Passing a quality here would add a second
+        // one, silently degrading precisely the routes this type exists to
+        // protect (HEIC→JPEG, AVIF→JPEG, HEIC/AVIF→WebP) — and the README
+        // states that single-hop guarantee publicly. The carriers are TGA
+        // and PNG, both lossless, so they would ignore the value anyway;
+        // passing nothing says so rather than relying on their indifference.
         try ImageIOCompressor(utType: intermediate.utType, quality: nil, policy: policy)
             .compress(input: input, output: intermediateURL)
 

@@ -5,8 +5,7 @@ import Foundation
 /// it cannot read HEIC or AVIF at all, so those go through
 /// `IntermediateConversionCompressor` first (see `ConversionRouter`).
 ///
-/// Invocation: `cwebp -q <ConversionQuality.cwebpScale> -metadata <policy>
-/// -o OUT IN`. Checked against the vendored binary: on a file it can't
+/// Invocation: `cwebp -q <quality> -metadata <policy> -o OUT IN`. Checked against the vendored binary: on a file it can't
 /// decode at all (bad PNG signature), cwebp exits 1 having left its `-o`
 /// target completely untouched. That's an observation about this version,
 /// not a contract this type relies on — same reasoning as `PNGCompressor`'s
@@ -25,6 +24,10 @@ struct WebPCompressor: Compressor {
 
     let executable: URL
     var policy: MetadataPolicy = .all
+    /// cwebp's `-q`, 0...100. Defaults to 80 — the value this compressor
+    /// hardcoded before quality was selectable — so a construction site that
+    /// doesn't name one keeps its existing output exactly.
+    var quality: Int = 80
 
     /// cwebp's `-metadata` takes a comma-separated list, of which `all` and
     /// `none` are the two useful settings here. There is deliberately no
@@ -43,7 +46,7 @@ struct WebPCompressor: Compressor {
     func compress(input: URL, output: URL) throws {
         let result = try ProcessRunner.run(
             executable,
-            ["-q", "\(ConversionQuality.cwebpScale)",
+            ["-q", "\(quality)",
              "-metadata", metadataArgument,
              "-o", output.path, input.path]
         )

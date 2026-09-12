@@ -548,4 +548,84 @@ final class ShrinkEngineTests: XCTestCase {
         XCTAssertEqual(ShrinkResult(input: URL(fileURLWithPath: "/a"), output: URL(fileURLWithPath: "/b"),
                                     originalBytes: 0, shrunkBytes: 0).savedPercent, 0)
     }
+
+    // MARK: - Encoder quality
+
+    /// Same base settings as `defaults`, with conversion rules and a quality
+    /// level named for one specific test.
+    private func settings(rules: ConversionRules, quality: QualityLevel) -> OutputSettings {
+        OutputSettings(
+            saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true,
+            conversionRules: rules,
+            quality: quality
+        )
+    }
+
+    private func shrunkBytes(
+        _ name: String, _ ext: String, rules: ConversionRules, quality: QualityLevel
+    ) throws -> Int {
+        let input = try stagedFixture(name, ext)
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+        return try makeEngine().shrink(input, settings: settings(rules: rules, quality: quality)).shrunkBytes
+    }
+
+    /// The end-to-end proof that the chosen level actually reaches the
+    /// encoder, rather than being carried as far as `OutputSettings` and
+    /// then dropped — which is exactly what a half-finished threading job
+    /// looks like, and which no unit test of the mapping alone would catch.
+    ///
+    /// PNG → WebP is `ConversionRoute.direct`: cwebp reads the PNG itself,
+    /// so the only lossy step is the one whose `-q` is under test.
+    func testQualityLevelReachesTheWebPEncoder() throws {
+        let low = try shrunkBytes("sample", "png", rules: ConversionRules(png: .webp), quality: .low)
+        let standard = try shrunkBytes("sample", "png", rules: ConversionRules(png: .webp), quality: .standard)
+        let high = try shrunkBytes("sample", "png", rules: ConversionRules(png: .webp), quality: .high)
+
+        XCTAssertLessThan(low, standard, "a lower quality must produce a smaller WebP")
+        XCTAssertLessThan(standard, high, "a higher quality must produce a larger WebP")
+    }
+
+    /// cjpeg is the awkward one: `.standard` passes no `-quality` at all, so
+    /// this spans two different argv shapes rather than three values of one
+    /// flag. Low and high must still land either side of the 75 cjpeg
+    /// applies on its own.
+    func testQualityLevelReachesTheJPEGEncoder() throws {
+        let low = try shrunkBytes("sample", "jpg", rules: ConversionRules(), quality: .low)
+        let standard = try shrunkBytes("sample", "jpg", rules: ConversionRules(), quality: .standard)
+        let high = try shrunkBytes("sample", "jpg", rules: ConversionRules(), quality: .high)
+
+        XCTAssertLessThan(low, standard, "a lower quality must produce a smaller JPEG")
+        XCTAssertLessThan(standard, high, "a higher quality must produce a larger JPEG")
+    }
+
+    /// Pins the deliberate exclusion documented on `QualityLevel`. Both of
+    /// these look like oversights to anyone reading the switch in
+    /// `compressor(for:policy:quality:)` and finding two arms that ignore
+    /// their quality argument, so the decision is asserted rather than left
+    /// to a comment: pngquant's `--quality` aborts rather than dials, and
+    /// gifsicle's `--lossy` would make "High" the only lossless GIF setting.
+    func testPNGAndGIFAreUnaffectedByTheQualityLevel() throws {
+        for ext in ["png", "gif"] {
+            let low = try shrunkBytes("sample", ext, rules: ConversionRules(), quality: .low)
+            let high = try shrunkBytes("sample", ext, rules: ConversionRules(), quality: .high)
+
+            XCTAssertEqual(
+                low, high,
+                "\(ext) must be byte-for-byte unaffected by the quality level"
+            )
+        }
+    }
+
+    /// A relayed route (HEIC → TGA → cjpeg) must apply quality at the
+    /// downstream encoder. If a refactor ever wired quality into the
+    /// intermediate as well, this still passes — so it is paired with the
+    /// existing `testHEICConvertsToWebPViaIntermediate` leftover check and
+    /// the comment in `IntermediateConversionCompressor`, which is where the
+    /// single-hop guarantee actually lives.
+    func testQualityReachesTheDownstreamEncoderOnARelayedRoute() throws {
+        let low = try shrunkBytes("sample", "heic", rules: ConversionRules(heic: .jpeg), quality: .low)
+        let high = try shrunkBytes("sample", "heic", rules: ConversionRules(heic: .jpeg), quality: .high)
+
+        XCTAssertLessThan(low, high, "quality must reach cjpeg through the intermediate")
+    }
 }

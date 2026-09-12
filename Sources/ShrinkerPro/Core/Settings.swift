@@ -26,6 +26,7 @@ final class Settings: ObservableObject {
         static let conversionWebP = "conversionWebP"
         static let conversionAVIF = "conversionAVIF"
         static let metadata = "metadata"
+        static let quality = "quality"
     }
 
     private let defaults: UserDefaults
@@ -73,6 +74,13 @@ final class Settings: ObservableObject {
         didSet { defaults.set(metadataPolicy.rawValue, forKey: Key.metadata) }
     }
 
+    /// Encoder quality for the lossy conversion paths — see `QualityLevel`.
+    /// Applies to JPEG, WebP, AVIF and HEIC; PNG and GIF deliberately ignore
+    /// it, for the reasons documented on that type.
+    @Published var quality: QualityLevel {
+        didSet { defaults.set(quality.rawValue, forKey: Key.quality) }
+    }
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         // Upstream defaultSettings in main.js, plus the spec's one
@@ -95,6 +103,10 @@ final class Settings: ObservableObject {
             // APPn marker), so anything else would start deleting capture
             // data from files this app already round-trips intact.
             Key.metadata: MetadataPolicy.all.rawValue,
+            // `.standard` is the only level that resolves to the constants
+            // this app already shipped, so it is the only default that
+            // doesn't silently re-encode everyone's images on upgrade.
+            Key.quality: QualityLevel.standard.rawValue,
         ])
         notification = defaults.bool(forKey: Key.notification)
         saveInSameFolder = defaults.bool(forKey: Key.folderswitch)
@@ -109,6 +121,7 @@ final class Settings: ObservableObject {
         webpConversion = Self.readTarget(defaults, Key.conversionWebP, default: .keep)
         avifConversion = Self.readTarget(defaults, Key.conversionAVIF, default: .keep)
         metadataPolicy = Self.readPolicy(defaults, Key.metadata, default: .all)
+        quality = Self.readQuality(defaults, Key.quality, default: .standard)
     }
 
     /// `defaults.register` guarantees a string is present under normal
@@ -144,6 +157,17 @@ final class Settings: ObservableObject {
         defaults.string(forKey: key).flatMap(MetadataPolicy.init(rawValue:)) ?? def
     }
 
+    /// Same fallback contract again, for the encoder quality level. Worth
+    /// stating why this is an enum rather than the bare number it resolves
+    /// to: `defaults.integer(forKey:)` returns `0` for a missing or
+    /// unparseable key, so a numeric preference would read a corrupted store
+    /// as "quality zero" and silently destroy every image it touched.
+    private static func readQuality(
+        _ defaults: UserDefaults, _ key: String, default def: QualityLevel
+    ) -> QualityLevel {
+        defaults.string(forKey: key).flatMap(QualityLevel.init(rawValue:)) ?? def
+    }
+
     /// The persisted half of what the engine needs. The session override is
     /// deliberately absent: it lives on `AppModel`, is never written here,
     /// and is layered onto this snapshot per batch.
@@ -160,7 +184,8 @@ final class Settings: ObservableObject {
                 webp: webpConversion,
                 avif: avifConversion
             ),
-            metadataPolicy: metadataPolicy
+            metadataPolicy: metadataPolicy,
+            quality: quality
         )
     }
 }

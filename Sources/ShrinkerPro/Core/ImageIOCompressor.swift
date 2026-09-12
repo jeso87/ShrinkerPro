@@ -26,7 +26,8 @@ import CoreGraphics
 /// `quality` is `nil` for a lossless intermediate (TGA/PNG ignore the
 /// lossy-compression-quality option regardless, but passing nothing makes
 /// that explicit rather than relying on the encoder's indifference) and
-/// `ConversionQuality.unitScale` for a real lossy target.
+/// `QualitySettings.unitScale` — resolved from the user's `QualityLevel` —
+/// for a real lossy target.
 struct ImageIOCompressor: Compressor {
 
     let utType: String

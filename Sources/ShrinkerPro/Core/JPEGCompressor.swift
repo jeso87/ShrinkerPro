@@ -19,8 +19,28 @@ struct JPEGCompressor: Compressor {
 
     let executable: URL
 
+    /// cjpeg's `-quality`, 0...100 — or `nil` to omit the flag entirely and
+    /// let cjpeg apply its own built-in default of 75 (cjpeg.c:521).
+    ///
+    /// The `nil` case is load-bearing, not a missing value. Omitting the
+    /// flag is genuinely not the same as passing 75: mozjpeg's
+    /// `set_quality_ratings` also sets default subsampling as a side effect
+    /// (vendor/src/mozjpeg/cjpeg.c:673), so an explicit `-quality 75`
+    /// produces different bytes than no flag at all. `QualityLevel.standard`
+    /// resolves to `nil` here for exactly that reason — it is what keeps its
+    /// JPEG output byte-identical to every build shipped before quality was
+    /// selectable.
+    var quality: Int? = nil
+
     func compress(input: URL, output: URL) throws {
-        let result = try ProcessRunner.run(executable, ["-outfile", output.path, input.path])
+        // Switches precede the output and input operands, per cjpeg's usage.
+        var arguments: [String] = []
+        if let quality {
+            arguments += ["-quality", "\(quality)"]
+        }
+        arguments += ["-outfile", output.path, input.path]
+
+        let result = try ProcessRunner.run(executable, arguments)
         guard result.code == 0 else {
             throw ShrinkError.compressorFailed(tool: "cjpeg", code: result.code, message: result.stderr)
         }

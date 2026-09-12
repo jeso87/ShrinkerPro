@@ -294,3 +294,72 @@ final class MetadataPolicySettingTests: XCTestCase {
         XCTAssertNil(settings.outputSettings.sessionFormat)
     }
 }
+
+// MARK: - Encoder quality
+
+/// Same five-part contract as `MetadataPolicySettingTests`: a default that
+/// doesn't regress anyone, persistence, a safe fallback for an unrecognised
+/// stored value, a pinned on-disk spelling, and proof it reaches the engine.
+@MainActor
+final class QualitySettingTests: XCTestCase {
+
+    /// `.standard` is the only default that leaves existing users' output
+    /// untouched — it resolves to the exact constants the app shipped with
+    /// before quality was selectable. See `ConversionQualityTests`.
+    func testDefaultsToStandard() {
+        let settings = Settings(defaults: makeTestDefaults())
+        XCTAssertEqual(
+            settings.quality, .standard,
+            "any other default would silently re-encode every user's images differently on upgrade"
+        )
+    }
+
+    func testTheQualityPersists() {
+        let defaults = makeTestDefaults()
+        Settings(defaults: defaults).quality = .high
+
+        XCTAssertEqual(Settings(defaults: defaults).quality, .high)
+    }
+
+    /// Same contract as `readTarget`/`readPolicy`: a level written by a
+    /// future version of the app, naming a case this build has never heard
+    /// of, must come back as the default rather than crash on launch.
+    func testAnUnrecognisedStoredQualityFallsBackRatherThanCrashing() {
+        let defaults = makeTestDefaults()
+        defaults.set("some-future-level", forKey: "quality")
+
+        XCTAssertEqual(Settings(defaults: defaults).quality, .standard)
+    }
+
+    /// The rawValue is the persistence format, so the stored spelling is a
+    /// compatibility surface: renaming a case silently orphans everyone's
+    /// stored preference. Pinned here so a rename has to be deliberate.
+    func testLevelsPersistUnderTheirPlainNames() {
+        let defaults = makeTestDefaults()
+        let settings = Settings(defaults: defaults)
+
+        settings.quality = .low
+        XCTAssertEqual(defaults.string(forKey: "quality"), "low")
+        settings.quality = .high
+        XCTAssertEqual(defaults.string(forKey: "quality"), "high")
+        settings.quality = .standard
+        XCTAssertEqual(defaults.string(forKey: "quality"), "standard")
+    }
+
+    func testTheQualityReachesTheEngineSnapshot() {
+        let settings = Settings(defaults: makeTestDefaults())
+        settings.quality = .low
+
+        XCTAssertEqual(settings.outputSettings.quality, .low)
+    }
+
+    /// Every `OutputSettings` built without naming a quality — which is most
+    /// of them, including every existing call site — must mean "unchanged
+    /// behaviour", not "quality zero".
+    func testABareOutputSettingsDefaultsToStandard() {
+        let bare = OutputSettings(
+            saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true
+        )
+        XCTAssertEqual(bare.quality, .standard)
+    }
+}

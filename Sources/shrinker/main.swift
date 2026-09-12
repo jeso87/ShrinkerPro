@@ -8,13 +8,6 @@ import Foundation
 // is wiring, plus the one thing that genuinely cannot exist anywhere else:
 // finding the helper binaries when there is no app bundle to look inside.
 
-/// Must track `MARKETING_VERSION` in project.yml.
-///
-/// A bare tool has no Info.plist to read it from, so this is a hand-kept
-/// copy and therefore a drift risk. A test comparing the two is worth
-/// adding before this ships.
-let shrinkerVersion = "1.1.0"
-
 func writeLine(_ text: String, to handle: FileHandle) {
     handle.write(Data((text + "\n").utf8))
 }
@@ -36,7 +29,9 @@ do {
 }
 
 if options.showsVersion {
-    print(shrinkerVersion)
+    // From Core, so a test can hold it against project.yml — see
+    // ShrinkerVersion.
+    print(ShrinkerVersion.current)
     exit(0)
 }
 

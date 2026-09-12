@@ -394,6 +394,40 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertFalse(try jsonLine().contains("\n"))
     }
 
+    // MARK: - Version
+
+    /// `shrinker --version` is a hand-kept copy of `MARKETING_VERSION`: a
+    /// bare tool has no Info.plist to read one out of at runtime, the way
+    /// the app does.
+    ///
+    /// Nothing but this test stops the two diverging at the next release
+    /// bump — at which point the CLI would confidently report a version it
+    /// is not, which is worse than reporting none at all, because a caller
+    /// has no reason to doubt it.
+    ///
+    /// Reads project.yml rather than duplicating the number here, so there
+    /// is exactly one place to change and this fails until it is changed.
+    func testTheCLIVersionMatchesTheProjectsMarketingVersion() throws {
+        let repoRoot = ProcessInfo.processInfo.environment["SRCROOT"].map(URL.init(fileURLWithPath:))
+            ?? URL(fileURLWithPath: #filePath)
+                .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+
+        let yaml = try String(
+            contentsOf: repoRoot.appendingPathComponent("project.yml"), encoding: .utf8
+        )
+        guard let line = yaml.split(separator: "\n").first(where: { $0.contains("MARKETING_VERSION:") }) else {
+            return XCTFail("project.yml no longer declares MARKETING_VERSION — this guard is now vacuous")
+        }
+        let declared = String(line.split(separator: ":")[1])
+            .trimmingCharacters(in: CharacterSet(charactersIn: " \"'"))
+
+        XCTAssertFalse(declared.isEmpty, "could not read MARKETING_VERSION out of project.yml")
+        XCTAssertEqual(
+            ShrinkerVersion.current, declared,
+            "shrinker --version reports \(ShrinkerVersion.current) but the project says \(declared)"
+        )
+    }
+
     // MARK: - Help text
 
     /// `--help` is the only discovery surface an agent has. A flag the

@@ -127,10 +127,11 @@ Lossy encoders need a quality setting. Use a sensible fixed default rather than 
 slider in this pass — the spec's original "no quality slider" non-goal still holds. State
 the chosen value in code with a comment; it can become a setting later if it proves wrong.
 
-> **Superseded.** It did become a setting: `QualityLevel` (Low / Standard / High) is now
-> selectable, and `.standard` resolves to the fixed values this section chose, so nothing
-> stated above changed for anyone who leaves it alone. PNG and GIF remain excluded — see
-> `QualityLevel`'s doc comment for why pngquant's and gifsicle's knobs don't fit this axis.
+> **Superseded.** It did become a setting: `QualityLevel` (Super Low / Low / Standard /
+> High) is now selectable, and `.standard` resolves to the fixed values this section chose,
+> so nothing stated above changed for anyone who leaves it alone. PNG and GIF remain
+> excluded — see `QualityLevel`'s doc comment for why pngquant's and gifsicle's knobs don't
+> fit this axis.
 
 ## Out of scope
 

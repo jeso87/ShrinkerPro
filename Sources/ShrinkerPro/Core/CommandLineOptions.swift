@@ -298,6 +298,9 @@ extension CommandLineOptions {
     FORMATS
       Reads PNG, JPEG, GIF, SVG, WebP, AVIF and HEIC.
       SVG and GIF are always kept in their own format and never converted.
+      HEIC is always converted, to JPEG unless --to says otherwise. There is
+      no HEIC-to-HEIC path: most tools outside Apple's ecosystem still
+      cannot open one, so keeping it is rarely what anyone wants.
       PNG and GIF ignore --quality — the tools that optimise them have no
       comparable setting, so those files are identical at every level.
 
@@ -317,10 +320,18 @@ extension CommandLineOptions {
     /// Two fields are deliberately fixed rather than exposed as flags.
     /// `useSubfolder` is always false — the app's `minified/` subfolder is a
     /// convenience for people dropping files on a window, whereas a command
-    /// line already says exactly where output goes. And `conversionRules`
-    /// stays entirely "keep": those are the app's *stored* per-format
-    /// preferences, which a headless run deliberately never reads, so
-    /// conversion happens only when `--to` asks for it.
+    /// line already says exactly where output goes. And `conversionRules` is
+    /// left at its own defaults: those are the app's *stored* per-format
+    /// preferences, which a headless run deliberately never reads.
+    ///
+    /// That is "keep" for every format except HEIC, and the distinction is
+    /// worth stating because an earlier version of this comment claimed
+    /// conversion happens only when `--to` asks for it. It does not.
+    /// `ConversionRules.heic` is a `ConversionFormat`, which has no `.keep`
+    /// case at all — HEIC always converts, defaulting to JPEG — so
+    /// `shrinker photo.heic` writes `photo.min.jpg`. There is no
+    /// HEIC-to-HEIC route to fall back on: `.sameFormat(.heic)` is
+    /// unreachable by construction. `--help` says so under FORMATS.
     var outputSettings: OutputSettings {
         OutputSettings(
             // No --out means "beside the original", which is what the app

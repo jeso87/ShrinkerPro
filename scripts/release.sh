@@ -311,8 +311,23 @@ for helper in "$CLI_STAGE/libexec/shrinker/"*; do
   codesign --force --options runtime --timestamp --sign "$IDENTITY" "$helper"
   echo "    signed $(basename "$helper")"
 done
-codesign --force --options runtime --timestamp --sign "$IDENTITY" "$CLI_STAGE/bin/shrinker"
-echo "    signed shrinker"
+# --entitlements is required here, unlike for the helpers. A plain --force
+# re-sign DROPS the entitlements Xcode applied at build time, and the CLI
+# inherits CODE_SIGN_ENTITLEMENTS from settings.base precisely so svgo's
+# JavaScriptCore gets allow-jit. Without this flag the shipped binary has
+# hardened runtime and no JIT entitlement — JSC silently falls back to its
+# interpreter, so nothing crashes and the loss is invisible, which is what
+# makes it worth stating. The app is unaffected: it is signed by
+# -exportArchive, which applies the entitlements itself.
+codesign --force --options runtime --timestamp \
+  --entitlements build/entitlements.plist \
+  --sign "$IDENTITY" "$CLI_STAGE/bin/shrinker"
+echo "    signed shrinker (with entitlements)"
+
+# Symmetry with the app path, which verifies before notarizing. A failing
+# codesign already aborts under set -e, so this catches the other case: a
+# signature that was applied but is not valid for distribution.
+codesign --verify --strict --verbose=2 "$CLI_STAGE/bin/shrinker"
 
 echo "==> ARCHITECTURE GATE (shrinker)"
 # Same gate, same fail-closed guarantee, applied to the second shipped

@@ -269,6 +269,17 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertEqual(settings.conversionRules.jpeg, .keep)
         XCTAssertEqual(settings.conversionRules.webp, .keep)
         XCTAssertEqual(settings.conversionRules.avif, .keep)
+
+        // HEIC is the exception, and skipping it here was a real gap: this
+        // test asserted "nothing converts without --to" while stepping
+        // around the one format that does. `ConversionFormat` has no `.keep`
+        // case, so `shrinker photo.heic` writes photo.min.jpg whether or not
+        // --to was given. Asserted rather than omitted, so the behaviour is
+        // stated where someone reading the test will see it.
+        XCTAssertEqual(
+            settings.conversionRules.heic, .jpeg,
+            "HEIC has no keep option — it always converts, and --help says so"
+        )
     }
 
     func testMetadataPolicyIsCarried() throws {

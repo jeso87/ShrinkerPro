@@ -18,6 +18,28 @@ It applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are deliberately left out:
 the tools that optimise them have no comparable setting, so those files come out
 the same whichever level you pick.
 
+**A command-line tool.** `shrinker` runs the same compression engine without a
+window — for scripts, for build steps, and for AI assistants that can run a
+command but cannot drag a file onto a drop zone.
+
+```
+brew install jeso87/tap/shrinker
+
+shrinker photo.jpg
+shrinker --quality super-low --to webp ./screenshots
+shrinker --json --quality 85 diagram.jpg
+```
+
+It writes a `.min` copy beside each original and only overwrites with
+`--in-place`; folders are searched the same way dropping one on the window
+searches them; and `--json` prints one machine-readable line per file.
+
+Two differences from the app worth knowing. It never reads your saved
+preferences, so nothing converts unless `--to` asks — except HEIC, which has no
+"keep" option anywhere and always becomes a JPEG. And `--quality` takes a plain
+number as well as a level name, for hitting a size target the four named stops
+don't reach.
+
 ### Fixed
 
 **Compressing a file can no longer make it bigger.** Re-encoding an image that
@@ -30,21 +52,6 @@ This was already happening before this release in one case: re-optimising a WebP
 produced a file about 36 bytes larger every time. Converting between formats is
 deliberately exempt — a photo converted to lossless PNG is expected to grow, and
 that is the thing you asked for.
-
-**A command-line tool.** `shrinker` does everything the app does, without a
-window — for scripts, for build steps, and for AI assistants that can run a
-command but cannot drag a file onto a drop zone.
-
-```
-shrinker photo.jpg
-shrinker --quality super-low --to webp ./screenshots
-shrinker --json --quality 85 diagram.png
-```
-
-It writes a `.min` copy beside each original by default and only overwrites
-with `--in-place`, folders are searched the same way dropping one on the
-window searches them, and `--json` prints one machine-readable line per file.
-It shares its engine with the app, so the output is identical.
 
 ### Changed
 

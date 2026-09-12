@@ -264,6 +264,94 @@ cp "$APPCAST_STAGE/appcast.xml" "$ROOT/appcast.xml"
 rm -rf "$APPCAST_STAGE"
 echo "    wrote $ROOT/appcast.xml"
 
+# --- shrinker CLI ----------------------------------------------------------
+#
+# Built separately rather than added to the app's scheme: `xcodebuild
+# archive` produces one product, and forcing a second into it complicates
+# the export for no gain. The CLI ships as its own zip, not inside the DMG.
+
+echo "==> building shrinker CLI"
+CLI_DERIVED="build/cli"
+rm -rf "$CLI_DERIVED"
+xcodebuild build \
+  -scheme shrinker \
+  -configuration Release \
+  -derivedDataPath "$CLI_DERIVED" \
+  ARCHS=arm64 EXCLUDED_ARCHS=x86_64 \
+  | tail -5
+
+CLI_BIN="$CLI_DERIVED/Build/Products/Release/shrinker"
+[ -x "$CLI_BIN" ] || {
+  echo "FAIL  shrinker was not built at $CLI_BIN" >&2
+  exit 1
+}
+
+echo "==> staging shrinker payload"
+# The layout the tool expects to find itself in: bin/shrinker resolves
+# ../libexec/shrinker for its helpers. Same shape Homebrew installs, so what
+# is notarized here is what a user runs.
+CLI_STAGE="build/shrinker-stage"
+rm -rf "$CLI_STAGE"
+mkdir -p "$CLI_STAGE/bin" "$CLI_STAGE/libexec/shrinker"
+cp "$CLI_BIN" "$CLI_STAGE/bin/shrinker"
+for helper in "${REQUIRED_HELPERS[@]}"; do
+  cp "vendor/compressors/$helper" "$CLI_STAGE/libexec/shrinker/$helper"
+done
+# svgo is not optional: ShrinkEngine.init loads and evaluates it eagerly, so
+# a payload without it fails at startup for every format, not just SVG.
+cp Sources/ShrinkerPro/Resources/svgo.jsc.js "$CLI_STAGE/libexec/shrinker/"
+# Same GPL obligation as the DMG — gifsicle and pngquant travel with their
+# licence text wherever they are distributed, and this is a second place
+# they are distributed.
+cp LICENSE THIRD-PARTY-LICENSES.md "$CLI_STAGE/"
+
+echo "==> signing shrinker payload inside-out"
+for helper in "$CLI_STAGE/libexec/shrinker/"*; do
+  case "$helper" in *.js) continue ;; esac
+  codesign --force --options runtime --timestamp --sign "$IDENTITY" "$helper"
+  echo "    signed $(basename "$helper")"
+done
+codesign --force --options runtime --timestamp --sign "$IDENTITY" "$CLI_STAGE/bin/shrinker"
+echo "    signed shrinker"
+
+echo "==> ARCHITECTURE GATE (shrinker)"
+# Same gate, same fail-closed guarantee, applied to the second shipped
+# artifact. svgo.jsc.js is skipped as a non-Mach-O; the five binaries are not.
+./scripts/verify-arch.sh "$CLI_STAGE"
+
+echo "==> zipping shrinker"
+CLI_ZIP="dist/shrinker-$VERSION-arm64.zip"
+rm -f "$CLI_ZIP"
+# Zipped from inside the stage so the archive root is bin/ and libexec/,
+# with no build-directory name baked into every path.
+( cd "$CLI_STAGE" && ditto -c -k --sequesterRsrc . "$ROOT/$CLI_ZIP" )
+echo "    wrote $CLI_ZIP ($(du -h "$CLI_ZIP" | cut -f1 | tr -d ' '))"
+
+echo "==> notarizing shrinker (this takes a few minutes)"
+xcrun notarytool submit "$CLI_ZIP" --keychain-profile "$KEYCHAIN_PROFILE" --wait
+
+# Deliberately NOT stapled, and this is not an oversight. `stapler` only
+# accepts .app, .dmg, .pkg and .kext — there is nowhere in a bare Mach-O or a
+# zip to attach a ticket. The notarization above is still what matters: the
+# ticket is published to Apple's servers and Gatekeeper checks online. In
+# practice it is never consulted for this artifact anyway, because Homebrew
+# does not set the quarantine attribute on what it downloads.
+
+CLI_SHA=$(shasum -a 256 "$CLI_ZIP" | cut -d' ' -f1)
+echo "    sha256 $CLI_SHA"
+
+echo "==> writing Homebrew formula"
+# Generated, never hand-edited: the url and sha256 can only be known after
+# the zip exists, and a formula edited by hand is a formula that eventually
+# points at the wrong bytes.
+CLI_FORMULA="dist/shrinker.rb"
+sed \
+  -e "s|@@VERSION@@|$VERSION|g" \
+  -e "s|@@SHA256@@|$CLI_SHA|g" \
+  -e "s|@@REPO@@|$GITHUB_REPO|g" \
+  homebrew/shrinker.rb.template > "$CLI_FORMULA"
+echo "    wrote $CLI_FORMULA"
+
 # --- GPL corresponding source ---------------------------------------------
 #
 # gifsicle (GPL-2.0) and pngquant (GPL-3.0) are distributed as binaries in
@@ -312,6 +400,12 @@ echo "       $STABLE_DMG                (same bytes; powers the README"
 echo "                                         download button, which breaks"
 echo "                                         if this asset is missing)"
 echo "       $SOURCES_ZIP   (GPL corresponding source — required)"
+echo "       $CLI_ZIP          (the shrinker CLI; the formula's"
+echo "                                         url points at this exact name)"
+echo "  2b. Publish the Homebrew formula:"
+echo "       cp $CLI_FORMULA <your homebrew-tap clone>/Formula/shrinker.rb"
+echo "       and commit it there. Users then get it with:"
+echo "         brew install $(dirname "$GITHUB_REPO")/tap/shrinker"
 echo "  3. Commit and push the regenerated feed so GitHub Pages serves it:"
 echo "       git add appcast.xml"
 echo "       git commit -m \"Publish $RELEASE_TAG to the update feed\""

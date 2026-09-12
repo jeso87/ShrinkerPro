@@ -1,0 +1,45 @@
+# Template for the Homebrew formula. scripts/release.sh fills in @@VERSION@@,
+# @@SHA256@@ and @@REPO@@ and writes the result to dist/shrinker.rb.
+#
+# Generated rather than hand-edited on purpose: the url and sha256 cannot be
+# known until the zip exists, and a formula maintained by hand is one that
+# eventually points at bytes that are no longer there.
+#
+# To publish, copy dist/shrinker.rb into the tap repository as
+# Formula/shrinker.rb and commit it.
+class Shrinker < Formula
+  desc "Minify images and graphics from the command line"
+  homepage "https://shrinkerpro.app"
+  url "https://github.com/@@REPO@@/releases/download/v@@VERSION@@/shrinker-@@VERSION@@-arm64.zip"
+  version "@@VERSION@@"
+  sha256 "@@SHA256@@"
+  license "MIT"
+
+  # Apple Silicon only, and macOS 14 or newer, matching the app: every binary
+  # in the payload is built arm64-only with a 14.0 deployment target, and the
+  # release gate refuses to ship anything else.
+  depends_on arch: :arm64
+  depends_on macos: ">= :sonoma"
+
+  def install
+    # Binary and helpers together in libexec, with a wrapper in bin.
+    #
+    # The tool can find its own helpers by resolving its executable path, but
+    # this states it outright instead. Homebrew links bin/shrinker from the
+    # prefix into the Cellar, and depending on that symlink resolving the way
+    # the tool expects is a guess; SHRINKER_HELPERS is not.
+    (libexec/"shrinker").install Dir["libexec/shrinker/*"]
+    (libexec/"shrinker").install "bin/shrinker"
+    (bin/"shrinker").write_env_script libexec/"shrinker/shrinker",
+                                      SHRINKER_HELPERS: libexec/"shrinker"
+
+    # gifsicle is GPL-2.0 and pngquant GPL-3.0, so the licence text travels
+    # with the binaries wherever they go — including here.
+    prefix.install "LICENSE", "THIRD-PARTY-LICENSES.md"
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/shrinker --version")
+    assert_match "--quality", shell_output("#{bin}/shrinker --help")
+  end
+end

@@ -31,6 +31,21 @@ produced a file about 36 bytes larger every time. Converting between formats is
 deliberately exempt — a photo converted to lossless PNG is expected to grow, and
 that is the thing you asked for.
 
+**A command-line tool.** `shrinker` does everything the app does, without a
+window — for scripts, for build steps, and for AI assistants that can run a
+command but cannot drag a file onto a drop zone.
+
+```
+shrinker photo.jpg
+shrinker --quality super-low --to webp ./screenshots
+shrinker --json --quality 85 diagram.png
+```
+
+It writes a `.min` copy beside each original by default and only overwrites
+with `--in-place`, folders are searched the same way dropping one on the
+window searches them, and `--json` prints one machine-readable line per file.
+It shares its engine with the app, so the output is identical.
+
 ### Changed
 
 **The main window has a footer.** "Convert all to" has moved from above the

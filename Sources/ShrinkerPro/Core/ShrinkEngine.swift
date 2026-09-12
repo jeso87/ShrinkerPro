@@ -484,8 +484,23 @@ final class ShrinkEngine {
         }
     }
 
+    /// The size of the file this URL names — following a symlink to whatever
+    /// it points at, rather than measuring the link itself.
+    ///
+    /// `.fileSizeKey` on a symlink reports the link's own size, which is a
+    /// hundred-odd bytes of stored path. That made `originalBytes` nonsense
+    /// for any symlinked input, and once the never-grow guard existed it
+    /// became worse than nonsense: the compressed result is always larger
+    /// than 103 bytes, so the guard declined every symlinked file and
+    /// nothing was written at all. Measured: a link to a 244,413-byte PNG
+    /// reported 103 bytes and produced no output.
+    ///
+    /// Resolution is for *measurement only*. The engine still writes to the
+    /// `output` computed from the original URL — redirecting writes through
+    /// the resolved path would change where a symlinked in-place run lands,
+    /// which is a far larger behavioural change than the bug being fixed.
     private func byteCount(of url: URL) throws -> Int {
-        let values = try url.resourceValues(forKeys: [.fileSizeKey])
+        let values = try url.resolvingSymlinksInPath().resourceValues(forKeys: [.fileSizeKey])
         return values.fileSize ?? 0
     }
 }

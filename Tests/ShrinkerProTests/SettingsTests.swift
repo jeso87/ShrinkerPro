@@ -338,6 +338,14 @@ final class QualitySettingTests: XCTestCase {
         let defaults = makeTestDefaults()
         let settings = Settings(defaults: defaults)
 
+        // Super Low was added after this test was written and was the one
+        // case of four left unpinned. Renaming it — to "super-low", say —
+        // would silently reset every user who chose it back to Standard on
+        // next launch, because readQuality falls back to the default for an
+        // unrecognised string, and the whole suite would stay green.
+        settings.quality = .superLow
+        XCTAssertEqual(defaults.string(forKey: "quality"), "superLow")
+
         settings.quality = .low
         XCTAssertEqual(defaults.string(forKey: "quality"), "low")
         settings.quality = .high

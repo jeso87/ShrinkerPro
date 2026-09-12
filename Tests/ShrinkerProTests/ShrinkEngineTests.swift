@@ -690,6 +690,37 @@ final class ShrinkEngineTests: XCTestCase {
         XCTAssertEqual(result.savedPercent, 0)
     }
 
+    /// A symlink's own size is a few dozen bytes, and reading it as the
+    /// original's size makes the never-grow guard decline every symlinked
+    /// input — so the file is silently never compressed at all.
+    ///
+    /// Measured before the fix: a link to a 244,413-byte PNG reported
+    /// `originalBytes: 128`, `savedPercent: 0`, and wrote nothing. The
+    /// wrong size predates the guard (it would have reported a nonsense
+    /// saving), but the guard is what turned it into doing nothing.
+    ///
+    /// Agents pass symlinks constantly, and so does anyone with a synced or
+    /// linked photo library.
+    func testASymlinkedInputIsMeasuredByItsTargetNotTheLink() throws {
+        let staged = try stagedFixture("sample", "png")
+        defer { try? FileManager.default.removeItem(at: staged.deletingLastPathComponent()) }
+
+        let link = staged.deletingLastPathComponent().appendingPathComponent("link.png")
+        try FileManager.default.createSymbolicLink(at: link, withDestinationURL: staged)
+        let targetBytes = try Data(contentsOf: staged).count
+
+        let result = try makeEngine().shrink(link, settings: settings(rules: ConversionRules(), quality: .standard))
+
+        XCTAssertEqual(
+            result.originalBytes, targetBytes,
+            "a symlink's own size is not the size of the image it points at"
+        )
+        XCTAssertLessThan(
+            result.shrunkBytes, result.originalBytes,
+            "a symlinked PNG must compress like any other PNG"
+        )
+    }
+
     /// When the guard declines to promote, the user's file must be left
     /// exactly as it was — not rewritten with identical-looking bytes, and
     /// certainly not replaced by the larger candidate. Run in place, which is

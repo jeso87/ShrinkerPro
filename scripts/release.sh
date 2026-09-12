@@ -384,16 +384,48 @@ echo "==> collecting third-party source archives"
 rm -f "$SOURCES_ZIP"
 TARBALLS=()
 while IFS= read -r t; do TARBALLS+=("$t"); done < <(find "$ROOT/vendor/src" -maxdepth 1 -name '*.tar.gz' | sort)
-# Fail closed: an empty archive would look like compliance while providing
-# nothing. build-compressors.sh leaves these behind, so none means the
-# vendor tree was cleaned and the release is being cut from stale binaries.
-[ "${#TARBALLS[@]}" -ge 5 ] || {
-  echo "FAIL  expected >=5 source tarballs in vendor/src, found ${#TARBALLS[@]}" >&2
+
+# Name the GPL components rather than counting the archives.
+#
+# The old gate was `>= 5`, which is the same vacuous shape the helper-presence
+# check at the top of this script exists to prevent: add a sixth component and
+# the set can be five-with-gifsicle-missing while the gate still reports PASS
+# and the obligation silently lapses. These three are the ones whose absence
+# is a licence violation rather than an inconvenience, so they are checked by
+# name.
+#
+# libimagequant is in that list because it is GPL-3.0-or-later and is compiled
+# *into* the pngquant binary — pngquant's own tag tarball carries lib/ as an
+# empty gitlink, so for three releases the published "corresponding source"
+# could not actually rebuild the binary being shipped. build-compressors.sh
+# now keeps that submodule tarball beside the others.
+REQUIRED_SOURCES=(gifsicle pngquant libimagequant)
+MISSING_SOURCES=()
+for required in "${REQUIRED_SOURCES[@]}"; do
+  [ -f "$ROOT/vendor/src/$required.tar.gz" ] || MISSING_SOURCES+=("$required")
+done
+if [ "${#MISSING_SOURCES[@]}" -ne 0 ]; then
+  echo "FAIL  missing GPL corresponding source: ${MISSING_SOURCES[*]}" >&2
+  echo "      run ./scripts/build-compressors.sh to repopulate vendor/src" >&2
+  exit 1
+fi
+[ "${#TARBALLS[@]}" -ge 6 ] || {
+  echo "FAIL  expected >=6 source tarballs in vendor/src, found ${#TARBALLS[@]}" >&2
   echo "      run ./scripts/build-compressors.sh to repopulate" >&2
   exit 1
 }
-ditto -c -k --sequesterRsrc "${TARBALLS[@]}" "$ROOT/THIRD-PARTY-LICENSES.md" "$SOURCES_ZIP" 2>/dev/null \
-  || zip -j -q "$SOURCES_ZIP" "${TARBALLS[@]}" "$ROOT/THIRD-PARTY-LICENSES.md"
+
+# The committed Cargo.lock travels with them: libimagequant's source alone
+# does not pin the dependency graph pngquant was actually built against, and
+# a rebuild that resolves different crate versions is not the same program.
+PNGQUANT_LOCK="$ROOT/vendor/pngquant-3.0.3-Cargo.lock"
+[ -f "$PNGQUANT_LOCK" ] || {
+  echo "FAIL  missing $PNGQUANT_LOCK — the published source could not be rebuilt" >&2
+  exit 1
+}
+
+ditto -c -k --sequesterRsrc "${TARBALLS[@]}" "$PNGQUANT_LOCK" "$ROOT/THIRD-PARTY-LICENSES.md" "$SOURCES_ZIP" 2>/dev/null \
+  || zip -j -q "$SOURCES_ZIP" "${TARBALLS[@]}" "$PNGQUANT_LOCK" "$ROOT/THIRD-PARTY-LICENSES.md"
 echo "    wrote $SOURCES_ZIP ($(du -h "$SOURCES_ZIP" | cut -f1 | tr -d ' '), ${#TARBALLS[@]} archives)"
 
 # No `gh` on this machine, and this project doesn't push or open releases on

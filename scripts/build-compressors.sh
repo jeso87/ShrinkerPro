@@ -185,6 +185,20 @@ build_pngquant() {
     mv "$libtmp" "$SRC/pngquant/lib"
   fi
 
+  # Keep the submodule tarball alongside the others, not just its extracted
+  # tree. libimagequant is GPL-3.0-or-later and is compiled *into* the
+  # shipped pngquant binary, so its source is part of the corresponding
+  # source we are obliged to publish — and the pngquant tag tarball cannot
+  # carry it (lib/ is an empty gitlink in there, verified: exactly one
+  # entry). Without this copy the published archive cannot rebuild the
+  # binary we ship, which is the whole point of publishing it.
+  #
+  # Named to sort beside the rest so release.sh collects it by pattern
+  # rather than by special case.
+  if [ -f "$SRC/pngquant/lib.tar.gz" ]; then
+    cp "$SRC/pngquant/lib.tar.gz" "$SRC/libimagequant.tar.gz"
+  fi
+
   # Pin the dependency graph: copy the committed lockfile into place before
   # building. Copied fresh on every run (not just when Cargo.lock is
   # missing) so a stale/hand-edited Cargo.lock left over in vendor/src from

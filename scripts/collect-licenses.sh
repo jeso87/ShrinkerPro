@@ -26,6 +26,12 @@ OUT="$ROOT/THIRD-PARTY-LICENSES.md"
 COMPONENTS=(
   "mozjpeg (cjpeg)|4.1.5|BSD-3-Clause and IJG|mozjpeg/LICENSE.md|https://github.com/mozilla/mozjpeg/archive/refs/tags/v4.1.5.tar.gz"
   "pngquant|3.0.3|GPL-3.0-or-later|pngquant/COPYRIGHT|https://github.com/kornelski/pngquant/archive/refs/tags/3.0.3.tar.gz"
+  # Compiled into the pngquant executable rather than invoked beside it, and
+  # absent from this notice for three releases. pngquant's tag tarball carries
+  # lib/ as an empty gitlink, so build-compressors.sh fetches the pinned
+  # submodule separately — see the comment there. The version is the crate's
+  # own (imagequant 4.2.2 in Cargo.toml), not the imagequant-sys wrapper's.
+  "libimagequant|4.2.2|GPL-3.0-or-later|pngquant/lib/COPYRIGHT|https://github.com/ImageOptim/libimagequant"
   "gifsicle|1.96|GPL-2.0|gifsicle/COPYING|https://github.com/kohler/gifsicle/archive/refs/tags/v1.96.tar.gz"
   "libwebp (cwebp)|1.6.0|BSD-3-Clause|libwebp/COPYING|https://github.com/webmproject/libwebp/archive/refs/tags/v1.6.0.tar.gz"
   "libpng|1.6.58|libpng-2.0|libpng/LICENSE|https://github.com/pnggroup/libpng/archive/refs/tags/v1.6.58.tar.gz"
@@ -40,15 +46,20 @@ Shrinker Pro's own source code is MIT licensed (see `LICENSE`). The
 distributed application also contains the programs below, each under its own
 license.
 
-**Two of them are under the GPL.** They are shipped as standalone
-command-line executables in `Contents/Helpers/`, invoked as separate
-processes over a command-line interface — Shrinker Pro does not link against
-them, and no GPL code is compiled into the application binary. Their licenses
-apply to those executables.
+**Three of them are under the GPL.** gifsicle and pngquant are shipped as
+standalone command-line executables — in `Contents/Helpers/` inside the app,
+and in `libexec/shrinker/` inside the `shrinker` command-line tool's archive.
+They are invoked as separate processes over a command-line interface, so
+Shrinker Pro does not link against them and no GPL code is compiled into the
+application binary. Their licenses apply to those executables.
+
+libimagequant is different and is listed separately below: it is compiled
+*into* the pngquant executable rather than invoked alongside it.
 
 Corresponding source for every component is listed below, and the exact
-source archives used to build the shipped binaries are attached to each
-GitHub release alongside the DMG.
+source archives used to build the shipped binaries — together with the
+committed `Cargo.lock` that pins pngquant's dependency graph — are attached
+to each GitHub release, alongside both the DMG and the CLI archive.
 
 | Component | Version | License |
 |---|---|---|

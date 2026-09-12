@@ -9,11 +9,21 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             DropZoneView(isTargeted: isTargeted)
-            SessionOverrideBar()
-            // No divider directly under the band: the "Recent" header's own
-            // top hairline (inside ResultsListView) is the only separator,
-            // and it appears only once there's history to separate from.
+            // No divider directly under the drop zone: the "Recent" header's
+            // own top hairline (inside ResultsListView) is the only
+            // separator, and it appears only once there's history to
+            // separate from.
             ResultsListView()
+            // The footer is pinned and the history scrolls above it.
+            // ResultsListView has no explicit frame, so it absorbs all the
+            // leftover height and everything after it is already anchored to
+            // the window's bottom edge — no safeAreaInset needed.
+            //
+            // This divider, unlike the one above, is unconditional: rows
+            // scroll right up to the footer's edge, so without it the last
+            // visible row bleeds into the controls.
+            Divider()
+            WindowFooterView()
         }
         .frame(minWidth: 340, minHeight: 420)
         // Publishes whether there's history to clear up to the Scene, so

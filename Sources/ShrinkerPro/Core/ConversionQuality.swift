@@ -77,4 +77,19 @@ enum QualityLevel: String, CaseIterable, Sendable {
             QualitySettings(unitScale: 0.92, cwebpScale: 92, cjpegQuality: 90)
         }
     }
+
+    /// Shown by the Settings row and the window footer, both of which
+    /// iterate `allCases` — so this is the option list, not a label applied
+    /// on top of one.
+    ///
+    /// "Standard", not "Default": the session-override dropdown sits beside
+    /// this one in the footer and offers "App default", and two adjacent
+    /// menus each offering a "Default" would be ambiguous about which.
+    var displayName: String {
+        switch self {
+        case .low: return "Low"
+        case .standard: return "Standard"
+        case .high: return "High"
+        }
+    }
 }

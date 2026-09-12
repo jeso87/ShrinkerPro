@@ -81,6 +81,27 @@ struct SettingsView: View {
                 // excluded" is not actionable.
                 Text("SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.")
             }
+            // Its own Section, placed directly after the conversion rules:
+            // quality governs the encoders those rules select, but it also
+            // applies to same-format compression, so folding it into the
+            // Conversion group would understate its reach.
+            Section {
+                Picker("Encode at", selection: $settings.quality) {
+                    ForEach(QualityLevel.allCases, id: \.self) { level in
+                        Text(level.displayName).tag(level)
+                    }
+                }
+            } header: {
+                Text("Quality")
+            } footer: {
+                // Naming the excluded formats for the same reason the
+                // Conversion footer names SVG and GIF: an exemption the user
+                // can't see is one they'll take for a bug. Deliberately does
+                // NOT claim PNG is lossless — pngquant quantises to a 256
+                // colour palette, so it very much isn't; it simply has no
+                // comparable quality dial, and neither does gifsicle's -O2.
+                Text("Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced.")
+            }
             Section {
                 Picker("When shrinking, keep", selection: $settings.metadataPolicy) {
                     ForEach(MetadataPolicy.allCases, id: \.self) { policy in

@@ -68,4 +68,19 @@ final class ConversionQualityTests: XCTestCase {
     func testAllCasesAreOrderedWorstToBest() {
         XCTAssertEqual(QualityLevel.allCases, [.low, .standard, .high])
     }
+
+    /// Both pickers that will offer this — the window footer and the
+    /// Settings row — render `ForEach(QualityLevel.allCases)`, so these
+    /// strings *are* the on-screen option list. Same reasoning
+    /// `SettingsViewTests` applies to the conversion enums: there is no
+    /// separate options structure that could drift from what's rendered.
+    ///
+    /// "Standard" rather than "Default" is deliberate. The session-override
+    /// dropdown sits immediately beside this one in the footer and its
+    /// no-override entry reads "App default"; two adjacent menus both
+    /// offering a "Default" would be needlessly ambiguous about which
+    /// default is meant.
+    func testDisplayNamesReadWorstToBest() {
+        XCTAssertEqual(QualityLevel.allCases.map(\.displayName), ["Low", "Standard", "High"])
+    }
 }

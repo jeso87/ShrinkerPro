@@ -137,19 +137,29 @@ with no file or process access, so all of it is enumerable in tests.
 Converting to a format's own type (JPEG→JPEG, WebP→WebP, AVIF→AVIF) takes the
 same fast path as "keep" — it compresses, it does not round-trip.
 
-### Convert all to…
+### The window footer
 
-Above the results list is a session override: **Convert all to** JPEG, WebP,
-AVIF or PNG. It replaces every per-format rule at once for as long as the app
-is open, without touching what you have stored, and it is gone the next time
-you launch. It is in the window rather than in Settings deliberately — it is
-visible the whole time it is on, so nothing converts behind your back.
+Pinned along the bottom of the window, below the scrolling history, are the two
+things worth changing between one drop and the next: **Convert all to** and
+**Quality**. On a narrow window they stack rather than crowd.
 
-PNG is available here and nowhere else. As a stored rule it would sit next to
-"Keep PNG" meaning almost the same thing; as a one-off it is genuinely useful,
-for flattening a mixed folder to a single lossless format. PNG is lossless, so
-photographs converted to it usually get *larger* — the app says so when you
-pick it, and the results row reports the negative saving honestly.
+**Convert all to** — JPEG, WebP, AVIF or PNG — is a session override. It
+replaces every per-format rule at once for as long as the app is open, without
+touching what you have stored, and it is gone the next time you launch.
+"App default" means your stored rules apply. It is in the window rather than in
+Settings deliberately: it is visible the whole time it is on, so nothing
+converts behind your back.
+
+**Quality** is the same Low / Standard / High setting that lives in Settings,
+put within reach so it can be changed without opening a panel. Unlike the
+override, it *is* saved.
+
+PNG is available in the override and nowhere else. As a stored rule it would sit
+next to "Keep PNG" meaning almost the same thing; as a one-off it is genuinely
+useful, for flattening a mixed folder to a single lossless format. PNG is
+lossless, so photographs converted to it usually get *larger* — a warning
+appears beside the control when you pick it, and the results row reports the
+negative saving honestly.
 
 SVG and GIF ignore the override, exactly as they ignore the stored rules.
 

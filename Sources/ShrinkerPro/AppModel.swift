@@ -72,9 +72,12 @@ final class AppModel: ObservableObject {
     /// so there is no code path that can persist it, and it is reset by
     /// nothing more elaborate than quitting. `2026-09-10-format-conversion.md`
     /// rejected a *stored* global override as too blunt — it would convert
-    /// silently and forever. This answers both halves of that: the bar
-    /// showing it is on sits above the results list the whole time, and it
-    /// is gone next launch.
+    /// silently and forever. This answers both halves of that: the footer
+    /// showing it is on is pinned below the results list the whole time, and
+    /// it is gone next launch. (It sat *above* the list until the footer
+    /// landed — the position changed, the argument did not: what mattered
+    /// was the control never being off screen while an override is in
+    /// force. See `WindowFooterView`.)
     ///
     /// SVG and GIF are unaffected. They are short-circuited in
     /// `ShrinkEngine.plan` before any rule or override is consulted, so they

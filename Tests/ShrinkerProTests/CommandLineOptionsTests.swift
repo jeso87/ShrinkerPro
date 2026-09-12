@@ -419,6 +419,38 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertEqual(CommandLineParseError.invalidValue(flag: "--to", value: "tiff").exitCode, 64)
     }
 
+    // MARK: - What a rejected command line says
+
+    /// stderr is the only thing a caller gets when parsing fails, and an
+    /// agent has to act on it without a human reading over its shoulder.
+    /// "invalid arguments" would tell it nothing it could use.
+    func testAnUnknownFlagNamesItAndPointsAtHelp() throws {
+        let message = try XCTUnwrap(CommandLineParseError.unknownFlag("--dry-run").errorDescription)
+
+        XCTAssertTrue(message.contains("--dry-run"), "the message must quote the flag that was not understood")
+        XCTAssertTrue(
+            message.contains("--help"),
+            "an unrecognised flag is precisely when a caller needs telling where the list of real ones is"
+        )
+    }
+
+    func testAMissingValueNamesTheFlagThatNeededOne() throws {
+        let message = try XCTUnwrap(CommandLineParseError.missingValue("--out").errorDescription)
+        XCTAssertTrue(message.contains("--out"))
+    }
+
+    /// Both halves have to appear. The flag alone leaves the caller guessing
+    /// which of its arguments was rejected; the value alone leaves it
+    /// guessing which flag rejected it.
+    func testAnInvalidValueQuotesBothTheFlagAndTheValue() throws {
+        let message = try XCTUnwrap(
+            CommandLineParseError.invalidValue(flag: "--to", value: "tiff").errorDescription
+        )
+
+        XCTAssertTrue(message.contains("--to"))
+        XCTAssertTrue(message.contains("tiff"))
+    }
+
     // MARK: - Self-description
 
     func testHelpAndVersionAreRecognised() throws {

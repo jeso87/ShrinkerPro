@@ -85,6 +85,32 @@ extension CommandLineParseError {
     var exitCode: Int32 { 64 }
 }
 
+extension CommandLineParseError: LocalizedError {
+    /// What goes to stderr when a command line is rejected.
+    ///
+    /// This is a discovery surface in its own right, not just a courtesy.
+    /// When an agent's command line is refused, stderr is the only thing it
+    /// receives, and it has to work out what to change without a human
+    /// reading over its shoulder — so each message names the offending flag,
+    /// quotes the offending value, and an unrecognised flag says where the
+    /// real list lives. "invalid arguments" would be worse than silence: it
+    /// implies the caller has been told something.
+    ///
+    /// Lowercase and unpunctuated at the start because the caller prefixes
+    /// these with `shrinker: `, the usual `tool: message` shape for stderr.
+    var errorDescription: String? {
+        switch self {
+        case .unknownFlag(let flag):
+            return "unknown option '\(flag)'. Run 'shrinker --help' for the list of options."
+        case .missingValue(let flag):
+            return "'\(flag)' needs a value."
+        case .invalidValue(let flag, let value):
+            return "'\(value)' is not a valid value for '\(flag)'. "
+                + "Run 'shrinker --help' for the accepted values."
+        }
+    }
+}
+
 extension ShrinkError {
     /// One code per failure, so a caller can branch on *why* rather than
     /// parsing prose out of stderr.

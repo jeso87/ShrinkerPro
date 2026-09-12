@@ -580,7 +580,7 @@ final class ShrinkEngineTests: XCTestCase {
         OutputSettings(
             saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true,
             conversionRules: rules,
-            quality: quality
+            quality: quality.settings
         )
     }
 
@@ -631,7 +631,7 @@ final class ShrinkEngineTests: XCTestCase {
         let before = try Data(contentsOf: input)
 
         var inPlaceHigh = inPlace
-        inPlaceHigh.quality = .high
+        inPlaceHigh.quality = QualityLevel.high.settings
         let result = try engine.shrink(input, settings: inPlaceHigh)
 
         XCTAssertEqual(try Data(contentsOf: input), before, "the original was modified by a skipped re-encode")

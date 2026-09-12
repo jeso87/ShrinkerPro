@@ -128,6 +128,30 @@ enum QualityChoice: Equatable {
 
 extension CommandLineOptions {
 
+    /// These options as the engine wants them.
+    ///
+    /// Two fields are deliberately fixed rather than exposed as flags.
+    /// `useSubfolder` is always false — the app's `minified/` subfolder is a
+    /// convenience for people dropping files on a window, whereas a command
+    /// line already says exactly where output goes. And `conversionRules`
+    /// stays entirely "keep": those are the app's *stored* per-format
+    /// preferences, which a headless run deliberately never reads, so
+    /// conversion happens only when `--to` asks for it.
+    var outputSettings: OutputSettings {
+        OutputSettings(
+            // No --out means "beside the original", which is what the app
+            // calls saving in the same folder.
+            saveInSameFolder: outputDirectory == nil,
+            savePath: outputDirectory.map { URL(fileURLWithPath: $0) },
+            useSubfolder: false,
+            keepOriginal: !inPlace,
+            conversionRules: ConversionRules(),
+            metadataPolicy: metadata,
+            quality: quality.settings,
+            sessionFormat: convertTo
+        )
+    }
+
     /// `--to`'s vocabulary. Kept here rather than added to `SessionFormat`
     /// itself: the shell spellings are the CLI's concern, and a Core type
     /// that already documents why it exists separately from

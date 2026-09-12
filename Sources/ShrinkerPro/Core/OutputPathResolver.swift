@@ -24,12 +24,21 @@ struct OutputSettings: Equatable {
     /// What metadata survives — see `MetadataPolicy`. Defaults to `.all`,
     /// which is the only value that preserves what the app already does.
     var metadataPolicy: MetadataPolicy = .all
-    /// Encoder quality for the lossy paths — see `QualityLevel`. Defaults to
-    /// `.standard`, which resolves to the exact constants the app shipped
-    /// before quality was selectable, so every call site that doesn't
-    /// mention it keeps its existing behaviour. PNG and GIF ignore this
+    /// Encoder quality for the lossy paths, already resolved to the numbers
+    /// each encoder takes.
+    ///
+    /// Resolved rather than a `QualityLevel` on purpose. A level is a *user
+    /// interface* concept — four named stops that a picker can iterate and
+    /// UserDefaults can persist — and it lives on `Settings`, which owns
+    /// both of those jobs. What the engine consumes is numbers, and the CLI
+    /// can supply numbers a level cannot express (`--quality 85`). Carrying
+    /// the level this far would mean inventing a case for every value
+    /// someone might type, and putting it in the Settings picker.
+    ///
+    /// Defaults to `.standard`'s numbers, so every call site that doesn't
+    /// mention quality keeps its existing behaviour. PNG and GIF ignore this
     /// entirely; that is deliberate and explained on `QualityLevel`.
-    var quality: QualityLevel = .standard
+    var quality: QualitySettings = QualityLevel.standard.settings
     /// The main window's session override, when set: every raster format is
     /// converted to this, in place of `conversionRules`. Not persisted, and
     /// deliberately not folded into `conversionRules` — that type cannot

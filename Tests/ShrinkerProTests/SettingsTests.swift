@@ -350,7 +350,7 @@ final class QualitySettingTests: XCTestCase {
         let settings = Settings(defaults: makeTestDefaults())
         settings.quality = .low
 
-        XCTAssertEqual(settings.outputSettings.quality, .low)
+        XCTAssertEqual(settings.outputSettings.quality, QualityLevel.low.settings)
     }
 
     /// Every `OutputSettings` built without naming a quality — which is most
@@ -360,6 +360,6 @@ final class QualitySettingTests: XCTestCase {
         let bare = OutputSettings(
             saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true
         )
-        XCTAssertEqual(bare.quality, .standard)
+        XCTAssertEqual(bare.quality, QualityLevel.standard.settings)
     }
 }

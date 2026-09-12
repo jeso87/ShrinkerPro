@@ -226,6 +226,73 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertEqual(resolved.cjpegQuality, 85)
     }
 
+    // MARK: - Becoming the engine's OutputSettings
+
+    /// With no flags at all, a headless run must behave like the app's own
+    /// defaults: write a `.min` copy beside each original, touching nothing.
+    func testDefaultOptionsProduceNonDestructiveSettingsBesideTheInput() throws {
+        let settings = try CommandLineOptions.parse(["a.png"]).outputSettings
+
+        XCTAssertTrue(settings.saveInSameFolder)
+        XCTAssertNil(settings.savePath)
+        XCTAssertTrue(settings.keepOriginal, "the CLI must not overwrite originals unless asked")
+        XCTAssertFalse(settings.useSubfolder, "there is no --subfolder flag; the CLI writes where it is told")
+    }
+
+    func testInPlaceClearsKeepOriginal() throws {
+        let settings = try CommandLineOptions.parse(["--in-place", "a.png"]).outputSettings
+        XCTAssertFalse(settings.keepOriginal)
+    }
+
+    func testOutRedirectsTheDestination() throws {
+        let settings = try CommandLineOptions.parse(["--out", "/tmp/shrunk", "a.png"]).outputSettings
+
+        XCTAssertFalse(settings.saveInSameFolder, "a redirected destination is not 'same folder'")
+        XCTAssertEqual(settings.savePath?.path, "/tmp/shrunk")
+    }
+
+    /// `--to` becomes the session override rather than a conversion rule.
+    /// It is the only field that can express a PNG target, and it is what
+    /// overrides every format at once — which is exactly what the flag says.
+    func testConversionTargetBecomesTheSessionOverride() throws {
+        let settings = try CommandLineOptions.parse(["--to", "webp", "a.png"]).outputSettings
+        XCTAssertEqual(settings.sessionFormat, .webp)
+    }
+
+    /// A headless run reads no preferences, so there are no stored rules to
+    /// carry. Everything stays "keep" and conversion happens only via --to.
+    func testNoStoredConversionRulesAreInvented() throws {
+        let settings = try CommandLineOptions.parse(["a.png"]).outputSettings
+
+        XCTAssertNil(settings.sessionFormat)
+        XCTAssertEqual(settings.conversionRules.png, .keep)
+        XCTAssertEqual(settings.conversionRules.jpeg, .keep)
+        XCTAssertEqual(settings.conversionRules.webp, .keep)
+        XCTAssertEqual(settings.conversionRules.avif, .keep)
+    }
+
+    func testMetadataPolicyIsCarried() throws {
+        let settings = try CommandLineOptions.parse(["--metadata", "none", "a.png"]).outputSettings
+        XCTAssertEqual(settings.metadataPolicy, .stripped)
+    }
+
+    /// The reason `OutputSettings` has to carry resolved encoder numbers
+    /// rather than a `QualityLevel`: there is no level that means 85, and
+    /// inventing one would put a value in the Settings picker that no user
+    /// chose.
+    func testANumericQualityReachesTheSettingsAsResolvedNumbers() throws {
+        let settings = try CommandLineOptions.parse(["--quality", "85", "a.png"]).outputSettings
+
+        XCTAssertEqual(settings.quality.unitScale, 0.85, accuracy: 0.0001)
+        XCTAssertEqual(settings.quality.cwebpScale, 85)
+        XCTAssertEqual(settings.quality.cjpegQuality, 85)
+    }
+
+    func testANamedQualityResolvesToThatLevelsNumbers() throws {
+        let settings = try CommandLineOptions.parse(["--quality", "super-low", "a.png"]).outputSettings
+        XCTAssertEqual(settings.quality, QualityLevel.superLow.settings)
+    }
+
     // MARK: - Self-description
 
     func testHelpAndVersionAreRecognised() throws {

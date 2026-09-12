@@ -344,7 +344,7 @@ final class ShrinkEngine {
 
         return Plan(
             compressor: try compressor(
-                for: route, policy: settings.metadataPolicy, quality: settings.quality.settings
+                for: route, policy: settings.metadataPolicy, quality: settings.quality
             ),
             targetExtension: outputExtension(for: route),
             needsMetadataPostPass: route.needsMetadataPostPass,

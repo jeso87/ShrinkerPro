@@ -185,7 +185,9 @@ final class Settings: ObservableObject {
                 avif: avifConversion
             ),
             metadataPolicy: metadataPolicy,
-            quality: quality
+            // Resolved here: the level is what this class persists and what
+            // the picker iterates, but the engine only ever wants numbers.
+            quality: quality.settings
         )
     }
 }

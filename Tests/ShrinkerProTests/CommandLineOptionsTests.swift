@@ -293,6 +293,60 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertEqual(settings.quality, QualityLevel.superLow.settings)
     }
 
+    // MARK: - JSON output
+
+    private func encodedReport(
+        input: String = "/photos/a.png",
+        output: String = "/photos/a.min.png",
+        originalBytes: Int = 1000,
+        shrunkBytes: Int = 250
+    ) throws -> [String: Any] {
+        let result = ShrinkResult(
+            input: URL(fileURLWithPath: input),
+            output: URL(fileURLWithPath: output),
+            originalBytes: originalBytes,
+            shrunkBytes: shrunkBytes
+        )
+        let data = try JSONEncoder().encode(ShrinkReport(result))
+        return try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+    }
+
+    /// `URL` encodes as `file:///photos/a.png` by default, which is useless
+    /// to a caller that wants to hand the path to another command. Plain
+    /// filesystem paths are the only form worth emitting.
+    func testReportEmitsPlainPathsNotFileURLs() throws {
+        let json = try encodedReport()
+
+        XCTAssertEqual(json["input"] as? String, "/photos/a.png")
+        XCTAssertEqual(json["output"] as? String, "/photos/a.min.png")
+    }
+
+    /// `savedPercent` is a computed property on `ShrinkResult`, so it does
+    /// not synthesize into an encoding at all — and it is the single number
+    /// a caller is most likely to want. Stating it explicitly is the whole
+    /// reason this report type exists rather than conforming the engine's
+    /// result to Codable.
+    func testReportCarriesTheComputedSaving() throws {
+        let json = try encodedReport(originalBytes: 1000, shrunkBytes: 250)
+
+        XCTAssertEqual(json["originalBytes"] as? Int, 1000)
+        XCTAssertEqual(json["shrunkBytes"] as? Int, 250)
+        XCTAssertEqual(json["savedPercent"] as? Int, 75)
+    }
+
+    /// A declined re-encode reports the original, unchanged, at 0% — and
+    /// that has to survive into JSON as a real result rather than looking
+    /// like a failure, because nothing went wrong.
+    func testReportRepresentsADeclinedShrinkAsZeroSaved() throws {
+        let json = try encodedReport(
+            input: "/photos/a.webp", output: "/photos/a.webp",
+            originalBytes: 18828, shrunkBytes: 18828
+        )
+
+        XCTAssertEqual(json["savedPercent"] as? Int, 0)
+        XCTAssertEqual(json["output"] as? String, "/photos/a.webp")
+    }
+
     // MARK: - Help text
 
     /// `--help` is the only discovery surface an agent has. A flag the

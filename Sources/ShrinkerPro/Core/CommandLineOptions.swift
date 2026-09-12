@@ -105,6 +105,42 @@ extension ShrinkError {
     }
 }
 
+/// One object of `--json` output: what happened to a single file.
+///
+/// A separate type rather than `Codable` on `ShrinkResult`, for two
+/// reasons. Serialisation for one front end has no business being welded
+/// onto the engine's own result type; and the encoding `ShrinkResult` would
+/// synthesize is the wrong one anyway — `URL` encodes as
+/// `file:///photos/a.png`, which is useless to a caller that wants to hand
+/// the path to the next command, and `savedPercent` is computed, so it
+/// would silently not appear at all despite being the single number a
+/// caller most wants.
+///
+/// `Encodable`, not `Codable`: the CLI writes these and never reads them
+/// back, and claiming a decode path that nothing exercises would be a lie
+/// in the type signature.
+struct ShrinkReport: Encodable {
+    let input: String
+    let output: String
+    let originalBytes: Int
+    let shrunkBytes: Int
+    let savedPercent: Int
+
+    init(_ result: ShrinkResult) {
+        // `.path`, not the URL itself — see the note above.
+        self.input = result.input.path
+        // The engine's own answer for where the file ended up, which is not
+        // always where the path resolver aimed: `replaceItemAt` can relocate
+        // it on a file provider such as iCloud Drive, and a declined
+        // re-encode reports the untouched original instead of a `.min` file
+        // that was never written.
+        self.output = result.output.path
+        self.originalBytes = result.originalBytes
+        self.shrunkBytes = result.shrunkBytes
+        self.savedPercent = result.savedPercent
+    }
+}
+
 /// What `--quality` accepted: one of the app's named levels, or a bare
 /// number.
 ///

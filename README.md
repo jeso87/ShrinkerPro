@@ -227,7 +227,7 @@ mozjpeg's progressive scans survive a metadata change intact.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/empty-state-compact-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/empty-state-compact-light.png">
-  <img src="docs/screenshots/empty-state-compact-dark.png" alt="The window at rest, showing a dashed drop zone reading “Drag files here — PNG, JPG, HEIC, WebP, AVIF, GIF and SVG”, and a “Convert all to” bar set to Off.">
+  <img src="docs/screenshots/empty-state-compact-dark.png" alt="The window at rest, showing a dashed drop zone reading “Drag files here — PNG, JPG, HEIC, WebP, AVIF, GIF and SVG”, and a footer with “Convert all to” set to App default beside a Quality setting.">
 </picture>
 
 Drop anywhere in the window, not just the dashed zone.

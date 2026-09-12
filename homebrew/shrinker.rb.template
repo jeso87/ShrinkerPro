@@ -13,7 +13,17 @@ class Shrinker < Formula
   url "https://github.com/@@REPO@@/releases/download/v@@VERSION@@/shrinker-@@VERSION@@-arm64.zip"
   version "@@VERSION@@"
   sha256 "@@SHA256@@"
-  license "MIT"
+  # The zip is not MIT. Shrinker Pro's own code is, but the payload also
+  # carries gifsicle (GPL-2.0) and pngquant with libimagequant
+  # (GPL-3.0-or-later) as executables, plus BSD/libpng components. Declaring
+  # only MIT would understate what a user is installing.
+  license all_of: [
+    "MIT",
+    "GPL-2.0-only",
+    "GPL-3.0-or-later",
+    "BSD-3-Clause",
+    "libpng-2.0",
+  ]
 
   # Apple Silicon only, and macOS 14 or newer, matching the app: every binary
   # in the payload is built arm64-only with a 14.0 deployment target, and the

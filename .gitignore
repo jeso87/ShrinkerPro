@@ -29,6 +29,11 @@ dist/
 build/ShrinkerPro.xcarchive/
 build/export/
 build/dmg-stage/
+# The CLI's own derived data and staged payload (scripts/release.sh). Without
+# these, a release leaves a full DerivedData tree untracked in the repo —
+# right where the printed instructions tell you to `git add` the appcast.
+build/cli/
+build/shrinker-stage/
 
 # Signing / notarization secrets
 .env

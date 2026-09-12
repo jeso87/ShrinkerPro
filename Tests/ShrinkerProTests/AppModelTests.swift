@@ -287,7 +287,7 @@ final class AppModelTests: XCTestCase {
         let root = try folderWithTraps()
         defer { try? FileManager.default.removeItem(at: root) }
 
-        let found = AppModel.expand([root])
+        let found = InputExpander.expand([root])
 
         XCTAssertEqual(
             found.map(\.lastPathComponent), ["visible.png"],
@@ -314,7 +314,7 @@ final class AppModelTests: XCTestCase {
         defer { try? FileManager.default.removeItem(at: root) }
         let package = root.appendingPathComponent("Fake.app")
 
-        let found = AppModel.expand([package])
+        let found = InputExpander.expand([package])
 
         XCTAssertEqual(
             found, [package],

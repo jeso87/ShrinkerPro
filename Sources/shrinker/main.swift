@@ -101,15 +101,40 @@ do {
 
 // MARK: - Doing the work
 
-let inputs = InputExpander.expand(options.inputs.map { URL(fileURLWithPath: $0) })
+/// The first failure's exit code. Declared here rather than beside the loop
+/// because a missing input is already a failure, before anything is
+/// compressed.
+var firstFailure: Int32 = 0
+
+// Checked before expansion, because the expander silently drops anything
+// that does not exist — so a mistyped path would otherwise vanish into a
+// successful-looking run, or be reported as "no images found", which names
+// the wrong problem entirely.
+//
+// Printing the message is not sufficient on its own, which is how the first
+// attempt at this was wrong: with one good file and one typo, the good file
+// succeeded, `firstFailure` stayed 0, and the run exited 0 while stderr said
+// the path did not exist. A caller reading the exit code — which is the
+// whole point of having one — was told it worked.
+let requested = options.inputs.map { URL(fileURLWithPath: $0) }
+let missing = requested.filter { !FileManager.default.fileExists(atPath: $0.path) }
+for path in missing {
+    writeLine("shrinker: \(path.path): no such file or directory", to: .standardError)
+    // EX_NOINPUT. Recorded rather than fatal: the other paths are still
+    // worth doing, and the run reports the failure at the end.
+    if firstFailure == 0 { firstFailure = 66 }
+}
+
+let inputs = InputExpander.expand(requested)
 
 if inputs.isEmpty {
-    die("no images found in what you gave me.", code: 66)
+    if missing.isEmpty {
+        die("no supported images found in what you gave me.", code: 66)
+    }
+    exit(firstFailure)
 }
 
 let settings = options.outputSettings
-
-var firstFailure: Int32 = 0
 
 for file in inputs {
     do {
@@ -119,13 +144,20 @@ for file in inputs {
             // Formatting lives on ShrinkReport, not here — see jsonLine.
             print(try ShrinkReport.jsonLine(for: result))
         } else {
-            let saved = result.savedPercent
-            // A declined re-encode reports 0%, which is a real outcome and
-            // not a failure — say so plainly rather than printing "0% saved"
-            // and leaving the reader to wonder what went wrong.
-            let summary = saved > 0
-                ? "\(saved)% smaller"
-                : "left alone — compressing it would have made it bigger"
+            // Whether the file was declined is `output == input`, not a
+            // percentage. Branching on `savedPercent > 0` announced "left
+            // alone" for any conversion that grew — a file that had just
+            // been written — which was both false and alarming.
+            let summary: String
+            if result.output == result.input {
+                summary = "left alone — compressing it would have made it bigger"
+            } else if result.savedPercent > 0 {
+                summary = "\(result.savedPercent)% smaller"
+            } else {
+                // Written, and no smaller: a conversion the user asked for
+                // that cost bytes. Say so rather than dressing it up.
+                summary = "\(abs(result.savedPercent))% larger"
+            }
             print("\(result.output.path)  \(summary)")
         }
     } catch let error as ShrinkError {

@@ -189,6 +189,15 @@ targets:
         buildPhase: resources
     dependencies:
       - target: ShrinkerPro
+      # The CLI, so `xcodebuild test` builds it into the same products
+      # directory and an integration test can actually run the binary.
+      #
+      # Without this, main.swift had no coverage of any kind: the audit
+      # found that `exit(firstFailure)` could be changed to `exit(0)` — every
+      # scripted caller believing a folder of failures succeeded — with the
+      # whole suite still green. The parser, the exit codes and the JSON
+      # shape are all unit-tested; none of that exercises the program.
+      - target: shrinker
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.eightseven.shrinkerpro.tests

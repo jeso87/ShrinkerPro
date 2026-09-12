@@ -73,6 +73,10 @@ enum CommandLineParseError: Error, Equatable {
     /// can name the flag *and* quote what was actually passed — "invalid
     /// value" alone leaves the reader to guess which of several flags.
     case invalidValue(flag: String, value: String)
+    /// Two flags that cannot both be honoured. Carries both so the message
+    /// can name the pair rather than picking one and leaving the reader to
+    /// work out what it conflicted with.
+    case contradictoryFlags(String, String)
 }
 
 extension CommandLineParseError {
@@ -107,6 +111,9 @@ extension CommandLineParseError: LocalizedError {
         case .invalidValue(let flag, let value):
             return "'\(value)' is not a valid value for '\(flag)'. "
                 + "Run 'shrinker --help' for the accepted values."
+        case .contradictoryFlags(let one, let other):
+            return "'\(one)' and '\(other)' cannot be used together — "
+                + "one overwrites each original, the other writes copies elsewhere."
         }
     }
 }
@@ -215,7 +222,17 @@ enum QualityChoice: Equatable {
             // `QualitySettings.cjpegQuality`). Honouring the request beats
             // silently second-guessing it.
             return QualitySettings(
-                unitScale: Double(value) / 100,
+                // Capped just below 1.0, because ImageIO's AVIF encoder
+                // fails outright at exactly 1.0: CGImageDestinationFinalize
+                // returns false and writes nothing, so `--quality 100 --to
+                // avif` died with conversionFailed and exit 7 for a value
+                // --help advertises as valid. Measured: 0.99 and 0.999 both
+                // encode fine, 1.0 produces 0 bytes. HEIC is unaffected.
+                //
+                // The cap is on this axis only. cjpeg and cwebp both accept
+                // their full 0...100 range, and silently lowering what a
+                // caller asked those encoders for would be its own bug.
+                unitScale: min(Double(value) / 100, 0.99),
                 cwebpScale: value,
                 cjpegQuality: value
             )
@@ -426,6 +443,15 @@ extension CommandLineOptions {
         // one-line answer rather than printing the whole help text.
         if options.inputs.isEmpty && !options.showsVersion {
             options.showsHelp = true
+        }
+
+        // --in-place and --out have no coherent combined meaning, and
+        // accepting both silently produced a third behaviour that is neither:
+        // output written to the --out directory without the .min suffix,
+        // originals left untouched. Refused at the door rather than resolved
+        // by a precedence rule nobody could guess, and never documented.
+        if options.inPlace, options.outputDirectory != nil, !options.showsHelp {
+            throw CommandLineParseError.contradictoryFlags("--in-place", "--out")
         }
 
         return options

@@ -105,6 +105,26 @@ final class ConversionQualityTests: XCTestCase {
         )
     }
 
+    /// ImageIO's AVIF encoder fails outright at exactly 1.0 —
+    /// `CGImageDestinationFinalize` returns false and writes nothing — so
+    /// `--quality 100 --to avif` died with `conversionFailed` and exit 7 for
+    /// a value `--help` advertises as valid. Measured: 0.99 and 0.999 encode
+    /// fine, 1.0 produces 0 bytes. HEIC is unaffected.
+    ///
+    /// The cap belongs to this axis alone: cjpeg and cwebp both take their
+    /// full range, and quietly lowering what a caller asked those encoders
+    /// for would be a separate bug.
+    func testANumericQualityOf100DoesNotReachImageIOsFailurePoint() throws {
+        let resolved = QualityChoice.numeric(100).settings
+
+        XCTAssertLessThan(
+            resolved.unitScale, 1.0,
+            "ImageIO's AVIF encoder writes zero bytes at exactly 1.0"
+        )
+        XCTAssertEqual(resolved.cwebpScale, 100, "cwebp's own range must not be clamped")
+        XCTAssertEqual(resolved.cjpegQuality, 100, "cjpeg's own range must not be clamped")
+    }
+
     /// mozjpeg's `set_quality_ratings` also picks chroma subsampling, and it
     /// switches from 4:2:0 to 4:4:4 at quality >= 90 — a discontinuity, not a
     /// gradient. Measured against this project's own 45,784-byte fixture:

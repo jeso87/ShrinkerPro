@@ -256,6 +256,28 @@ cp "$DMG" "$APPCAST_STAGE/"
 # release.
 [ -f "$ROOT/appcast.xml" ] && cp "$ROOT/appcast.xml" "$APPCAST_STAGE/appcast.xml"
 
+# CURRENT_PROJECT_VERSION is what Sparkle actually compares — <sparkle:version>
+# in the feed is the build number, not the marketing version. Ship 1.2.0
+# without bumping it and generate_appcast emits build 4 again, so every
+# existing 1.1.0 install decides it is already current and is never offered
+# the update. That is unfixable by shipping another release: the same feed
+# keeps telling them no. It is the same class of unrecoverable mistake the
+# DMG-filename comment above exists to prevent, so it gets the same
+# treatment — checked before the feed is written, not after.
+BUILD_NUMBER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$APP/Contents/Info.plist")
+if [ -f "$APPCAST_STAGE/appcast.xml" ]; then
+  PUBLISHED_BUILD=$(grep -o '<sparkle:version>[0-9]*</sparkle:version>' "$APPCAST_STAGE/appcast.xml" \
+    | grep -o '[0-9]*' | sort -n | tail -1)
+  if [ -n "${PUBLISHED_BUILD:-}" ] && [ "$BUILD_NUMBER" -le "$PUBLISHED_BUILD" ]; then
+    echo "FAIL  CURRENT_PROJECT_VERSION is $BUILD_NUMBER, but the published feed already" >&2
+    echo "      contains build $PUBLISHED_BUILD. Sparkle compares this number, not the" >&2
+    echo "      marketing version — existing installs would never be offered $VERSION." >&2
+    echo "      Bump CURRENT_PROJECT_VERSION in project.yml." >&2
+    exit 1
+  fi
+fi
+echo "    build $BUILD_NUMBER (Sparkle compares this, not $VERSION)"
+
 "$SPARKLE_BIN/generate_appcast" \
   --download-url-prefix "https://github.com/$GITHUB_REPO/releases/download/$RELEASE_TAG/" \
   "$APPCAST_STAGE"
@@ -374,11 +396,17 @@ echo "==> writing Homebrew formula"
 # the zip exists, and a formula edited by hand is a formula that eventually
 # points at the wrong bytes.
 CLI_FORMULA="dist/shrinker.rb"
+# The leading comment block explains the template to whoever maintains it
+# here; it has no business in a published tap, where substitution turns it
+# into "fills in 1.1.0, 3f2a<64 hex> and jeso87/ShrinkerPro" — instructions
+# addressed to nobody, describing work already done. Dropped up to the
+# `class` line, which is where the formula proper starts.
 sed \
   -e "s|@@VERSION@@|$VERSION|g" \
   -e "s|@@SHA256@@|$CLI_SHA|g" \
   -e "s|@@REPO@@|$GITHUB_REPO|g" \
-  homebrew/shrinker.rb.template > "$CLI_FORMULA"
+  homebrew/shrinker.rb.template \
+  | sed '1,/^class /{/^#/d;}' > "$CLI_FORMULA"
 echo "    wrote $CLI_FORMULA"
 
 # --- GPL corresponding source ---------------------------------------------

@@ -103,11 +103,14 @@ checks afterwards: if a same-format result comes out larger than the source, it
 is discarded and your file is left alone, reported as 0% saved. Conversions are
 exempt, because growth there is what you asked for — see PNG below.
 
-pngquant and gifsicle are deliberately left out of it. pngquant reduces a PNG
-to an optimised palette of at most 256 colours, and gifsicle's `-O2`
-optimisation is lossless; PNG and GIF output is identical at every quality
-level. "Keep original files" is on by default, so the original is still there
-to compare against.
+**PNG and GIF sit outside the Quality setting**, deliberately. pngquant reduces
+a PNG to an optimised palette of at most 256 colours, and gifsicle's `-O2`
+optimisation is lossless; neither tool takes a comparable quality dial, so those
+files come out the same whichever level you pick. They are still covered by the
+never-grow check above.
+
+"Keep original files" is on by default, so the original is still there to
+compare against.
 
 ## Conversion
 
@@ -135,11 +138,11 @@ oversight.
 
 Conversions encode at the chosen Quality level; at Standard that is `cwebp -q
 80`, or `0.80` for ImageIO's lossy targets. Where an encoder can't read the
-source format directly — cjpeg
-reads neither PNG, WebP, AVIF nor HEIC — the pixels are relayed through a
-lossless intermediate rather than a second lossy hop. `ConversionRouter`
-decides the route for every input × rule combination, and is a pure function
-with no file or process access, so all of it is enumerable in tests.
+source format directly — cjpeg reads neither PNG, WebP, AVIF nor HEIC — the
+pixels are relayed through a lossless intermediate rather than a second lossy
+hop. `ConversionRouter` decides the route for every input × rule combination,
+and is a pure function with no file or process access, so all of it is
+enumerable in tests.
 
 Converting to a format's own type (JPEG→JPEG, WebP→WebP, AVIF→AVIF) takes the
 same fast path as "keep" — it compresses, it does not round-trip.

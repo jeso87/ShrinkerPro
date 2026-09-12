@@ -370,6 +370,44 @@ enum ConversionRouter {
 }
 
 extension ConversionRoute {
+    /// The format the finished file will actually be in.
+    ///
+    /// Exists because "did the format change?" cannot be answered from the
+    /// output *extension*, and answering it that way caused a real bug:
+    /// `honouring` rewrites a same-format route into a relayed one whenever
+    /// a CLI encoder needs help (a file that is not upright, or WebP under
+    /// `.copyright`), and every relayed route reports a non-nil extension.
+    /// A caller keyed on that concluded a conversion was happening when the
+    /// format was unchanged.
+    ///
+    /// Derived from the router's own vocabulary instead, so a route added
+    /// later has to answer this question rather than being silently
+    /// misclassified by a filename.
+    var destinationFormat: NativeFormat {
+        switch self {
+        case .sameFormat(let native):
+            return native
+        case .direct(let target):
+            switch target {
+            case .webp: return .webp
+            case .avif: return .avif
+            }
+        case .viaIntermediate(let target, _):
+            switch target {
+            case .jpeg: return .jpeg
+            case .webp: return .webp
+            case .png: return .png
+            }
+        }
+    }
+
+    /// Whether this route leaves the file in the format it arrived in —
+    /// compression rather than conversion, whatever path it takes to get
+    /// there.
+    func isSameFormat(as native: NativeFormat) -> Bool {
+        destinationFormat == native
+    }
+
     /// Whether the finished output still needs its metadata written for it.
     ///
     /// True exactly when the encoder producing the final bytes is one of the

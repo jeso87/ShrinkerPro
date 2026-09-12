@@ -210,18 +210,31 @@ final class ShrinkEngine {
         // `.standard` (18,828 -> 18,864), which predates the quality setting
         // entirely.
         //
-        // Scoped to same-format compression — `targetExtension == nil` — and
-        // deliberately NOT applied to conversions. A conversion's growth is
-        // the user's own explicit request: PNG is offered precisely so a
-        // mixed folder can be flattened to one lossless format, where a photo
-        // getting larger is the expected outcome, stated in the README and
-        // warned about beside the control. Refusing that would silently
-        // ignore what was asked for; refusing this is doing what was asked.
+        // Scoped to same-format compression and deliberately NOT applied to
+        // conversions. A conversion's growth is the user's own explicit
+        // request: PNG is offered precisely so a mixed folder can be
+        // flattened to one lossless format, where a photo getting larger is
+        // the expected outcome, stated in the README and warned about beside
+        // the control. Refusing that would silently ignore what was asked
+        // for; refusing this is doing what was asked.
+        //
+        // `plan.isSameFormat` comes from the *route*, not from whether the
+        // output extension changed. Keying it on `targetExtension == nil` was
+        // a real bug: `ConversionRouter.honouring` rewrites a same-format
+        // route into a relayed one whenever a CLI encoder needs help — a file
+        // that is not upright, or WebP under `.copyright` — and every relayed
+        // route reports a non-nil extension. So the guard silently stopped
+        // applying to every rotated file, which is every portrait phone
+        // photo. In place, such a file resolves its output back to the input
+        // path, so the unguarded result was written straight over the
+        // original: a 2,675-byte rotated JPEG came back as 3,356 bytes while
+        // the CLI printed "left alone". See the three regression tests named
+        // for it in ShrinkEngineTests.
         //
         // The scratch file is simply not promoted, and `defer` above removes
         // it with the rest of the replacement directory. The result points at
         // `input`, because that is the file the user still has.
-        if plan.targetExtension == nil, shrunkBytes >= originalBytes {
+        if plan.isSameFormat, shrunkBytes >= originalBytes {
             return ShrinkResult(
                 input: input,
                 output: input,
@@ -273,6 +286,15 @@ final class ShrinkEngine {
         /// baked into the pixels. Only used to drop the stale EXIF
         /// dimensions that describe the frame before it was turned.
         let wasRotated: Bool
+        /// Whether the file comes out in the format it went in as.
+        ///
+        /// Deliberately NOT derived from `targetExtension` above, and the two
+        /// must not be conflated: a rotated JPEG, or a WebP under
+        /// `.copyright`, is rewritten by `ConversionRouter.honouring` into a
+        /// relayed route that reports a non-nil extension while converting
+        /// nothing. Reading "same format" off that extension is what let the
+        /// never-grow guard overwrite rotated originals with larger files.
+        let isSameFormat: Bool
     }
 
     /// Decides the compressor pipeline, the output extension, and whether a
@@ -290,12 +312,17 @@ final class ShrinkEngine {
     /// IO-free).
     private func plan(for ext: String, input: URL, settings: OutputSettings) throws -> Plan {
         switch ext {
+        // Both short-circuit before the router runs, so there is no route to
+        // ask — but they are same-format by definition (neither ever
+        // converts), and the guard applies to them like anything else.
         case "svg":
             return Plan(compressor: svgCompressor, targetExtension: nil,
-                        needsMetadataPostPass: false, wasRotated: false)
+                        needsMetadataPostPass: false, wasRotated: false,
+                        isSameFormat: true)
         case "gif":
             return Plan(compressor: GIFCompressor(executable: try helperProvider("gifsicle")),
-                        targetExtension: nil, needsMetadataPostPass: false, wasRotated: false)
+                        targetExtension: nil, needsMetadataPostPass: false, wasRotated: false,
+                        isSameFormat: true)
         default:
             break
         }
@@ -348,7 +375,8 @@ final class ShrinkEngine {
             ),
             targetExtension: outputExtension(for: route),
             needsMetadataPostPass: route.needsMetadataPostPass,
-            wasRotated: orientation != .up
+            wasRotated: orientation != .up,
+            isSameFormat: route.isSameFormat(as: native)
         )
     }
 

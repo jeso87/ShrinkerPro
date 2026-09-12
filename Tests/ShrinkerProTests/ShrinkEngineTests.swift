@@ -620,6 +620,76 @@ final class ShrinkEngineTests: XCTestCase {
         }
     }
 
+    /// The guard's blind spot, and the reason it is not enough to ask
+    /// whether the output extension changed.
+    ///
+    /// `ConversionRouter.honouring` rewrites a same-format route into a
+    /// relayed one whenever a CLI encoder needs help — a file that is not
+    /// upright (cjpeg cannot rotate), or WebP under `.copyright` (cwebp's
+    /// `-metadata` flag cannot express it). The output format is unchanged;
+    /// only the path to it is. But `outputExtension(for:)` returns non-nil
+    /// for every relayed route, so a guard keyed on `targetExtension == nil`
+    /// silently stops applying to exactly those files.
+    ///
+    /// Measured before the fix: rotated.jpg 2,675 -> 3,356 bytes promoted.
+    func testARotatedFileIsStillGuardedAgainstGrowing() throws {
+        let input = try stagedFixture("rotated", "jpg")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        var settings = settings(rules: ConversionRules(), quality: .standard)
+        settings.quality = QualityChoice.numeric(100).settings
+
+        let result = try makeEngine().shrink(input, settings: settings)
+
+        XCTAssertLessThanOrEqual(
+            result.shrunkBytes, result.originalBytes,
+            "a rotated file takes a relayed route, but it is still the same format going in and out"
+        )
+    }
+
+    /// The other rewrite: `.copyright` forces WebP through a PNG
+    /// intermediate, because cwebp's flag has no setting between "all" and
+    /// "none". Same format in and out, same guarantee owed.
+    ///
+    /// Measured before the fix: sample.webp 18,828 -> 20,424 bytes promoted.
+    func testACopyrightWebPIsStillGuardedAgainstGrowing() throws {
+        let input = try stagedFixture("sample", "webp")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        var settings = settings(rules: ConversionRules(), quality: .high)
+        settings.metadataPolicy = .copyright
+
+        let result = try makeEngine().shrink(input, settings: settings)
+
+        XCTAssertLessThanOrEqual(result.shrunkBytes, result.originalBytes)
+    }
+
+    /// The one that actually costs a user something.
+    ///
+    /// In place, a relayed same-format JPEG resolves its output back to the
+    /// input path — so the unguarded, inflated result is written straight
+    /// over the original. Verified against the real binaries before the fix:
+    /// a 2,675-byte rotated JPEG came back as 3,356 bytes, in place, while
+    /// the tool printed "left alone — compressing it would have made it
+    /// bigger". Every portrait-orientation phone photo takes this route.
+    func testARotatedOriginalIsNotOverwrittenByAnInflatedResult() throws {
+        let input = try stagedFixture("rotated", "jpg")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+        let before = try Data(contentsOf: input)
+
+        var settings = inPlace
+        settings.quality = QualityChoice.numeric(100).settings
+
+        let result = try makeEngine().shrink(input, settings: settings)
+
+        XCTAssertEqual(
+            try Data(contentsOf: input), before,
+            "the user's original was replaced by a larger file"
+        )
+        XCTAssertEqual(result.output, input)
+        XCTAssertEqual(result.savedPercent, 0)
+    }
+
     /// When the guard declines to promote, the user's file must be left
     /// exactly as it was — not rewritten with identical-looking bytes, and
     /// certainly not replaced by the larger candidate. Run in place, which is

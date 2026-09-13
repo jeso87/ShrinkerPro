@@ -230,6 +230,103 @@ final class ShrinkerCLITests: XCTestCase {
         )
     }
 
+    // MARK: - Refusing to lose work
+
+    /// `--out` flattens every result into one directory, so two inputs with
+    /// the same name in different folders resolve to the same output path
+    /// and the second silently replaces the first. Originals are safe, but
+    /// the user asked for two results and got one, with exit 0 and no
+    /// mention of it.
+    ///
+    /// Refused rather than disambiguated: inventing `logo-1.min.png` would
+    /// invent a filename nobody asked for, and picking a winner is what the
+    /// bug already does.
+    func testTwoInputsThatWouldOverwriteEachOtherAreRefused() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let a = work.appendingPathComponent("a")
+        let b = work.appendingPathComponent("b")
+        try FileManager.default.createDirectory(at: a, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: b, withIntermediateDirectories: true)
+
+        let source = repoRoot().appendingPathComponent("Tests/ShrinkerProTests/Fixtures/sample.png")
+        try FileManager.default.copyItem(at: source, to: a.appendingPathComponent("logo.png"))
+        try FileManager.default.copyItem(at: source, to: b.appendingPathComponent("logo.png"))
+
+        let out = work.appendingPathComponent("out")
+        let result = try run(
+            ["--out", out.path,
+             a.appendingPathComponent("logo.png").path,
+             b.appendingPathComponent("logo.png").path],
+            helpers: helpers
+        )
+
+        XCTAssertNotEqual(result.code, 0, "one result silently replacing another must not be a success")
+        XCTAssertTrue(
+            result.stderr.contains("logo.png"),
+            "the message must name the file that collides, got: \(result.stderr)"
+        )
+    }
+
+    /// The same filename is fine when the outputs differ — a PNG and a JPEG
+    /// called `logo` produce `logo.min.png` and `logo.min.jpg`, which do not
+    /// collide. Refusing these would make `--out` useless on any ordinary
+    /// mixed folder.
+    func testSameStemWithDifferentOutputExtensionsIsAllowed() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let fixtures = repoRoot().appendingPathComponent("Tests/ShrinkerProTests/Fixtures")
+        try FileManager.default.copyItem(
+            at: fixtures.appendingPathComponent("sample.png"),
+            to: work.appendingPathComponent("logo.png")
+        )
+        try FileManager.default.copyItem(
+            at: fixtures.appendingPathComponent("sample.jpg"),
+            to: work.appendingPathComponent("logo.jpg")
+        )
+
+        let out = work.appendingPathComponent("out")
+        let result = try run(
+            ["--out", out.path,
+             work.appendingPathComponent("logo.png").path,
+             work.appendingPathComponent("logo.jpg").path],
+            helpers: helpers
+        )
+
+        XCTAssertEqual(result.code, 0, result.stderr)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: out.appendingPathComponent("logo.min.png").path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: out.appendingPathComponent("logo.min.jpg").path))
+    }
+
+    /// The case a naive basename check gets wrong in the other direction:
+    /// HEIC always converts to JPEG, so `photo.heic` and `photo.jpg` both
+    /// land on `photo.min.jpg` despite having different input extensions.
+    func testAHEICAndAJPEGWithTheSameStemCollide() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let fixtures = repoRoot().appendingPathComponent("Tests/ShrinkerProTests/Fixtures")
+        try FileManager.default.copyItem(
+            at: fixtures.appendingPathComponent("sample.heic"),
+            to: work.appendingPathComponent("photo.heic")
+        )
+        try FileManager.default.copyItem(
+            at: fixtures.appendingPathComponent("sample.jpg"),
+            to: work.appendingPathComponent("photo.jpg")
+        )
+
+        let result = try run(
+            ["--out", work.appendingPathComponent("out").path,
+             work.appendingPathComponent("photo.heic").path,
+             work.appendingPathComponent("photo.jpg").path],
+            helpers: helpers
+        )
+
+        XCTAssertNotEqual(
+            result.code, 0,
+            "HEIC becomes JPEG, so both of these resolve to photo.min.jpg"
+        )
+    }
+
     // MARK: - Finding its own helpers
 
     /// The Homebrew layout, which nothing has ever exercised: the binary in

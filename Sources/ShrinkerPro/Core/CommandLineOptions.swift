@@ -138,6 +138,81 @@ extension ShrinkError {
     }
 }
 
+/// Detects inputs that would be written to the same place.
+///
+/// `--out` flattens every result into one directory, so two files with the
+/// same name in different folders resolve to the same output path and the
+/// second silently replaces the first — the user asked for two results and
+/// got one, with no mention of it.
+///
+/// Only relevant when `--out` is set: writing beside each original keeps
+/// results in separate directories by construction. And `--in-place` is
+/// refused alongside `--out`, so the `.min` suffix is always present here,
+/// which is why nothing below needs to know about it.
+enum OutputCollision {
+
+    /// The filename an input would land on inside the `--out` directory.
+    ///
+    /// Mirrors `ShrinkEngine.outputExtension(for:)` and the routing rules it
+    /// reads from. Duplicated rather than shared because that method is
+    /// private to the engine and takes a `ConversionRoute` this side has no
+    /// way to compute — but the three rules it encodes are stable and
+    /// individually tested elsewhere:
+    ///
+    ///   - SVG and GIF never convert, whatever `--to` says.
+    ///   - `--to` otherwise decides the extension.
+    ///   - HEIC has no "keep" option anywhere, so it becomes JPEG on its own.
+    ///
+    /// That last one is why a plain basename comparison is wrong: `photo.heic`
+    /// and `photo.jpg` have different input extensions and still collide.
+    static func outputName(for input: URL, convertingTo target: SessionFormat?) -> String {
+        let stem = input.deletingPathExtension().lastPathComponent
+        let ext = input.pathExtension.lowercased()
+
+        let resolved: String
+        switch ext {
+        case "svg", "gif":
+            resolved = ext
+        default:
+            if let target {
+                resolved = target.outputExtension
+            } else if ext == "heic" || ext == "heif" {
+                resolved = "jpg"
+            } else {
+                resolved = ext
+            }
+        }
+        return "\(stem).min.\(resolved)"
+    }
+
+    /// Inputs grouped by the output filename they share, for every name
+    /// claimed by more than one of them. Ordered by filename, and each group
+    /// in the order the inputs were given, so the report is stable.
+    static func groups(in inputs: [URL], convertingTo target: SessionFormat?) -> [(name: String, inputs: [URL])] {
+        var byName: [String: [URL]] = [:]
+        for input in inputs {
+            byName[outputName(for: input, convertingTo: target), default: []].append(input)
+        }
+        return byName
+            .filter { $0.value.count > 1 }
+            .sorted { $0.key < $1.key }
+            .map { (name: $0.key, inputs: $0.value) }
+    }
+}
+
+extension SessionFormat {
+    /// The extension this format's output actually carries. JPEG is written
+    /// `.jpg`, matching `ShrinkEngine.outputExtension(for:)`.
+    var outputExtension: String {
+        switch self {
+        case .jpeg: return "jpg"
+        case .webp: return "webp"
+        case .avif: return "avif"
+        case .png: return "png"
+        }
+    }
+}
+
 /// One object of `--json` output: what happened to a single file.
 ///
 /// A separate type rather than `Codable` on `ShrinkResult`, for two

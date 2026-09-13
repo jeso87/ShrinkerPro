@@ -134,6 +134,35 @@ if inputs.isEmpty {
     exit(firstFailure)
 }
 
+// Two inputs that would land on the same filename inside --out: the second
+// overwrites the first, and the run reports success for both. Refused rather
+// than disambiguated — inventing `logo-1.min.png` would invent a name nobody
+// asked for, and picking a winner is exactly what the bug already did.
+//
+// Checked before any work starts, so the run does not half-finish and leave
+// the user guessing which results survived.
+if options.outputDirectory != nil {
+    let collisions = OutputCollision.groups(in: inputs, convertingTo: options.convertTo)
+    if !collisions.isEmpty {
+        for collision in collisions {
+            writeLine(
+                "shrinker: these would all be written as \(collision.name):",
+                to: .standardError
+            )
+            for path in collision.inputs {
+                writeLine("shrinker:     \(path.path)", to: .standardError)
+            }
+        }
+        writeLine(
+            "shrinker: rename them, or drop --out to write each result beside its own original.",
+            to: .standardError
+        )
+        // EX_DATAERR, not EX_USAGE: the flags are well formed, it is the set
+        // of inputs that cannot all be honoured at once.
+        exit(65)
+    }
+}
+
 let settings = options.outputSettings
 
 for file in inputs {

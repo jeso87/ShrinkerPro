@@ -191,102 +191,20 @@ rm -f "$RW_DMG"
 echo "==> signing DMG"
 codesign --force --sign "$IDENTITY" --timestamp "$DMG"
 
-echo "==> notarizing (this takes a few minutes)"
-xcrun notarytool submit "$DMG" --keychain-profile "$KEYCHAIN_PROFILE" --wait
-
-echo "==> stapling"
-xcrun stapler staple "$DMG"
-
-# A second, identical copy under a name that never changes.
+# --- shrinker CLI, part one: everything that can fail cheaply --------------
 #
-# GitHub's permanent "latest release" download URL is
-# .../releases/latest/download/<exact asset name>, so a stable download
-# button needs an asset whose filename carries no version. Sparkle needs
-# the opposite: generate_appcast derives the enclosure URL from the
-# versioned filename, and each release's asset must stay distinct. Upload
-# both and each consumer gets what it needs.
+# Deliberately placed BEFORE the DMG is notarized. Notarization is this
+# script's point of no return: past it the DMG is stapled, a stable copy is
+# written, the EdDSA signature is computed and appcast.xml is rewritten in
+# the repo. A CLI failure after all that — a build error, a missing
+# svgo.jsc.js, a version mismatch — left the tree carrying a rewritten feed
+# and a notarized DMG while "Release ready" had already been printed, and
+# re-running cost a second notarization of an identical DMG.
 #
-# Copied after stapling so this one carries the notarization ticket too —
-# copying before would produce a file that needs a network round trip on
-# first launch, and would silently fail to open offline.
-STABLE_DMG="dist/ShrinkerPro.dmg"
-cp "$DMG" "$STABLE_DMG"
-xcrun stapler validate "$STABLE_DMG" >/dev/null || {
-  echo "FAIL  $STABLE_DMG is not stapled — the copy must happen after stapling" >&2
-  exit 1
-}
-echo "    wrote $STABLE_DMG (stable download URL, same bytes)"
-xcrun stapler validate "$DMG"
-
-echo
-echo "Release ready: $DMG"
-
-# --- Sparkle: sign the DMG and publish an appcast entry for it -------------
-#
-# Deliberately placed after stapling, not right after "signing DMG" above:
-# Sparkle's EdDSA signature (and the appcast entry generate_appcast builds
-# around it) must cover the exact bytes a user's copy of Sparkle will
-# actually download — which is this final, notarized-and-stapled DMG, not
-# the pre-notarization one.
-SPARKLE_BIN="$ROOT/vendor/Sparkle/bin"
-GITHUB_REPO="jeso87/ShrinkerPro"
-RELEASE_TAG="v$VERSION"
-
-echo "==> signing update artifact with Sparkle's EdDSA key"
-# Reads the private key from this machine's Keychain — never touches disk,
-# never passed on the command line. This is the same signature
-# generate_appcast computes internally for the appcast entry below; running
-# it here too is purely so the signature is visible and logged for this
-# release, matching the brief's two explicit steps rather than treating
-# generate_appcast as a black box.
-UPDATE_SIGNATURE=$("$SPARKLE_BIN/sign_update" "$DMG")
-echo "    $UPDATE_SIGNATURE"
-
-echo "==> generating appcast"
-APPCAST_STAGE="build/appcast-stage"
-rm -rf "$APPCAST_STAGE"
-mkdir -p "$APPCAST_STAGE"
-cp "$DMG" "$APPCAST_STAGE/"
-# generate_appcast only looks for a pre-existing appcast.xml to extend
-# inside its own archives-source-dir (not wherever -o points), and dist/ is
-# gitignored/ephemeral — so the previously-published feed (committed at the
-# repo root) is copied in here first, if one exists, purely so history
-# (older versions, delta eligibility) carries forward across a clean
-# dist/build/ wipe instead of restarting from a single-entry feed every
-# release.
-[ -f "$ROOT/appcast.xml" ] && cp "$ROOT/appcast.xml" "$APPCAST_STAGE/appcast.xml"
-
-# CURRENT_PROJECT_VERSION is what Sparkle actually compares — <sparkle:version>
-# in the feed is the build number, not the marketing version. Ship 1.2.0
-# without bumping it and generate_appcast emits build 4 again, so every
-# existing 1.1.0 install decides it is already current and is never offered
-# the update. That is unfixable by shipping another release: the same feed
-# keeps telling them no. It is the same class of unrecoverable mistake the
-# DMG-filename comment above exists to prevent, so it gets the same
-# treatment — checked before the feed is written, not after.
-BUILD_NUMBER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$APP/Contents/Info.plist")
-if [ -f "$APPCAST_STAGE/appcast.xml" ]; then
-  PUBLISHED_BUILD=$(grep -o '<sparkle:version>[0-9]*</sparkle:version>' "$APPCAST_STAGE/appcast.xml" \
-    | grep -o '[0-9]*' | sort -n | tail -1)
-  if [ -n "${PUBLISHED_BUILD:-}" ] && [ "$BUILD_NUMBER" -le "$PUBLISHED_BUILD" ]; then
-    echo "FAIL  CURRENT_PROJECT_VERSION is $BUILD_NUMBER, but the published feed already" >&2
-    echo "      contains build $PUBLISHED_BUILD. Sparkle compares this number, not the" >&2
-    echo "      marketing version — existing installs would never be offered $VERSION." >&2
-    echo "      Bump CURRENT_PROJECT_VERSION in project.yml." >&2
-    exit 1
-  fi
-fi
-echo "    build $BUILD_NUMBER (Sparkle compares this, not $VERSION)"
-
-"$SPARKLE_BIN/generate_appcast" \
-  --download-url-prefix "https://github.com/$GITHUB_REPO/releases/download/$RELEASE_TAG/" \
-  "$APPCAST_STAGE"
-
-cp "$APPCAST_STAGE/appcast.xml" "$ROOT/appcast.xml"
-rm -rf "$APPCAST_STAGE"
-echo "    wrote $ROOT/appcast.xml"
-
-# --- shrinker CLI ----------------------------------------------------------
+# So the cheap, fail-fast half runs first: build, version check, stage, sign,
+# verify, arch gate. The expensive half — zip, notarize, formula — is further
+# down, after the app's own notarization, because it costs a round trip
+# either way and depends on nothing in between.
 #
 # Built separately rather than added to the app's scheme: `xcodebuild
 # archive` produces one product, and forcing a second into it complicates
@@ -369,6 +287,109 @@ echo "==> ARCHITECTURE GATE (shrinker)"
 # Same gate, same fail-closed guarantee, applied to the second shipped
 # artifact. svgo.jsc.js is skipped as a non-Mach-O; the five binaries are not.
 ./scripts/verify-arch.sh "$CLI_STAGE"
+
+# --- point of no return ----------------------------------------------------
+
+echo "==> notarizing (this takes a few minutes)"
+xcrun notarytool submit "$DMG" --keychain-profile "$KEYCHAIN_PROFILE" --wait
+
+echo "==> stapling"
+xcrun stapler staple "$DMG"
+
+# A second, identical copy under a name that never changes.
+#
+# GitHub's permanent "latest release" download URL is
+# .../releases/latest/download/<exact asset name>, so a stable download
+# button needs an asset whose filename carries no version. Sparkle needs
+# the opposite: generate_appcast derives the enclosure URL from the
+# versioned filename, and each release's asset must stay distinct. Upload
+# both and each consumer gets what it needs.
+#
+# Copied after stapling so this one carries the notarization ticket too —
+# copying before would produce a file that needs a network round trip on
+# first launch, and would silently fail to open offline.
+STABLE_DMG="dist/ShrinkerPro.dmg"
+cp "$DMG" "$STABLE_DMG"
+xcrun stapler validate "$STABLE_DMG" >/dev/null || {
+  echo "FAIL  $STABLE_DMG is not stapled — the copy must happen after stapling" >&2
+  exit 1
+}
+echo "    wrote $STABLE_DMG (stable download URL, same bytes)"
+xcrun stapler validate "$DMG"
+
+echo
+echo "DMG ready: $DMG  (the CLI archive follows)"
+
+# --- Sparkle: sign the DMG and publish an appcast entry for it -------------
+#
+# Deliberately placed after stapling, not right after "signing DMG" above:
+# Sparkle's EdDSA signature (and the appcast entry generate_appcast builds
+# around it) must cover the exact bytes a user's copy of Sparkle will
+# actually download — which is this final, notarized-and-stapled DMG, not
+# the pre-notarization one.
+SPARKLE_BIN="$ROOT/vendor/Sparkle/bin"
+GITHUB_REPO="jeso87/ShrinkerPro"
+RELEASE_TAG="v$VERSION"
+
+echo "==> signing update artifact with Sparkle's EdDSA key"
+# Reads the private key from this machine's Keychain — never touches disk,
+# never passed on the command line. This is the same signature
+# generate_appcast computes internally for the appcast entry below; running
+# it here too is purely so the signature is visible and logged for this
+# release, matching the brief's two explicit steps rather than treating
+# generate_appcast as a black box.
+UPDATE_SIGNATURE=$("$SPARKLE_BIN/sign_update" "$DMG")
+echo "    $UPDATE_SIGNATURE"
+
+echo "==> generating appcast"
+APPCAST_STAGE="build/appcast-stage"
+rm -rf "$APPCAST_STAGE"
+mkdir -p "$APPCAST_STAGE"
+cp "$DMG" "$APPCAST_STAGE/"
+# generate_appcast only looks for a pre-existing appcast.xml to extend
+# inside its own archives-source-dir (not wherever -o points), and dist/ is
+# gitignored/ephemeral — so the previously-published feed (committed at the
+# repo root) is copied in here first, if one exists, purely so history
+# (older versions, delta eligibility) carries forward across a clean
+# dist/build/ wipe instead of restarting from a single-entry feed every
+# release.
+[ -f "$ROOT/appcast.xml" ] && cp "$ROOT/appcast.xml" "$APPCAST_STAGE/appcast.xml"
+
+# CURRENT_PROJECT_VERSION is what Sparkle actually compares — <sparkle:version>
+# in the feed is the build number, not the marketing version. Ship 1.2.0
+# without bumping it and generate_appcast emits build 4 again, so every
+# existing 1.1.0 install decides it is already current and is never offered
+# the update. That is unfixable by shipping another release: the same feed
+# keeps telling them no. It is the same class of unrecoverable mistake the
+# DMG-filename comment above exists to prevent, so it gets the same
+# treatment — checked before the feed is written, not after.
+BUILD_NUMBER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$APP/Contents/Info.plist")
+if [ -f "$APPCAST_STAGE/appcast.xml" ]; then
+  PUBLISHED_BUILD=$(grep -o '<sparkle:version>[0-9]*</sparkle:version>' "$APPCAST_STAGE/appcast.xml" \
+    | grep -o '[0-9]*' | sort -n | tail -1)
+  if [ -n "${PUBLISHED_BUILD:-}" ] && [ "$BUILD_NUMBER" -le "$PUBLISHED_BUILD" ]; then
+    echo "FAIL  CURRENT_PROJECT_VERSION is $BUILD_NUMBER, but the published feed already" >&2
+    echo "      contains build $PUBLISHED_BUILD. Sparkle compares this number, not the" >&2
+    echo "      marketing version — existing installs would never be offered $VERSION." >&2
+    echo "      Bump CURRENT_PROJECT_VERSION in project.yml." >&2
+    exit 1
+  fi
+fi
+echo "    build $BUILD_NUMBER (Sparkle compares this, not $VERSION)"
+
+"$SPARKLE_BIN/generate_appcast" \
+  --download-url-prefix "https://github.com/$GITHUB_REPO/releases/download/$RELEASE_TAG/" \
+  "$APPCAST_STAGE"
+
+cp "$APPCAST_STAGE/appcast.xml" "$ROOT/appcast.xml"
+rm -rf "$APPCAST_STAGE"
+echo "    wrote $ROOT/appcast.xml"
+
+# --- shrinker CLI, part two: the expensive half ----------------------------
+#
+# Everything above the DMG notarization was the part that can fail cheaply.
+# What remains costs a second notarization round trip and can only happen
+# once the artifact exists.
 
 echo "==> zipping shrinker"
 CLI_ZIP="dist/shrinker-$VERSION-arm64.zip"

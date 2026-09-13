@@ -278,10 +278,11 @@ Drop anywhere in the window, not just the dashed zone.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/settings-light.png">
-  <img src="docs/screenshots/settings-dark.png" alt="Settings showing output location, the “Keep original files” toggle, notification and update toggles, the per-format conversion rules, and the metadata policy.">
+  <img src="docs/screenshots/settings-dark.png" alt="Settings showing output location, the “Keep original files” toggle, notification and update toggles, the per-format conversion rules, the Quality level, and the metadata policy.">
 </picture>
 
-Output location, notifications, per-format conversion rules and metadata.
+Output location, notifications, per-format conversion rules, quality and
+metadata.
 
 </td>
 </tr>

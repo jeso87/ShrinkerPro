@@ -1751,7 +1751,13 @@ Replace the body of `process(urls:)` between `let files = InputExpander.expand(u
         }
 ```
 
-`ShrinkPlan` must be `Sendable` for the detached task. Add `: Sendable` to its declaration in `ShrinkEngine.swift`; if `Compressor` is not `Sendable`, mark the protocol `Sendable` rather than making `ShrinkPlan` `@unchecked` — the compressors are stateless value-like types and the engine already shares itself across detached tasks on that basis.
+`ShrinkPlan` is already `Sendable` — **do not add the conformance here.** Task 6 declared it at the type's birth, and the cascade it caused is worth knowing before you hand a plan to a detached task: `Compressor` became a `Sendable` protocol, six of its conformers qualified automatically as structs of value fields, and `SVGCompressor` — a final class holding a `JSContext` — needed `@unchecked Sendable`, justified against the `NSLock` that already guards every access to its context. That is the whole of the concurrency groundwork; this task consumes it rather than extending it.
+
+Three consequences of the preceding tasks that shape this one, none of them visible from the code you are writing:
+
+- **`writing(to:)` does not police the extension.** It accepts any destination, while `shrink` derives its scratch extension from the *input's* route. Redirecting a Keep Both plan to a differently-suffixed path would produce a file whose contents and extension disagree. Number the name, never change its extension.
+- **Planning is eager.** `plan()` reads an orientation header and constructs a compressor per file, so scanning a hundred-file drop costs a hundred header reads and a hundred helper lookups *before* the user has consented to anything. Acceptable — the destination genuinely depends on the route — but it is why the scan must happen once per batch and never per sheet.
+- **A plan can go stale.** Between the collision scan and the write, the world can change; `shrink(_ plan:)` re-checks `fileExists` only to choose `replaceItemAt` over `moveItem`, not to re-confirm consent. The batch snapshot is taken once, before planning, so nothing the user changes mid-sheet can split a drop across two behaviours.
 
 - [ ] **Step 4: Present the sheet**
 

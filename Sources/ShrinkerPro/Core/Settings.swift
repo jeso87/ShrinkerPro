@@ -27,6 +27,9 @@ final class Settings: ObservableObject {
         static let conversionAVIF = "conversionAVIF"
         static let metadata = "metadata"
         static let quality = "quality"
+        /// Ours, so camelCase like `conversionPNG` — not the lowercase
+        /// Electron-era spellings above, which are inherited rather than chosen.
+        static let warnBeforeOverwrite = "warnBeforeOverwrite"
     }
 
     private let defaults: UserDefaults
@@ -81,6 +84,17 @@ final class Settings: ObservableObject {
         didSet { defaults.set(quality.rawValue, forKey: Key.quality) }
     }
 
+    /// Whether a batch that would replace an existing file stops to ask.
+    ///
+    /// Read through `object(forKey:) as? Bool` rather than `bool(forKey:)`,
+    /// unlike every other Bool here, and the exception is deliberate:
+    /// `bool(forKey:)` answers `false` for a value of the wrong type, and
+    /// `false` for this key means "replace files without asking". A corrupt
+    /// store must fail towards the safe answer.
+    @Published var warnBeforeOverwrite: Bool {
+        didSet { defaults.set(warnBeforeOverwrite, forKey: Key.warnBeforeOverwrite) }
+    }
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         // Upstream defaultSettings in main.js, plus the spec's one
@@ -107,6 +121,7 @@ final class Settings: ObservableObject {
             // this app already shipped, so it is the only default that
             // doesn't silently re-encode everyone's images on upgrade.
             Key.quality: QualityLevel.standard.rawValue,
+            Key.warnBeforeOverwrite: true,
         ])
         notification = defaults.bool(forKey: Key.notification)
         saveInSameFolder = defaults.bool(forKey: Key.folderswitch)
@@ -122,6 +137,7 @@ final class Settings: ObservableObject {
         avifConversion = Self.readTarget(defaults, Key.conversionAVIF, default: .keep)
         metadataPolicy = Self.readPolicy(defaults, Key.metadata, default: .all)
         quality = Self.readQuality(defaults, Key.quality, default: .standard)
+        warnBeforeOverwrite = (defaults.object(forKey: Key.warnBeforeOverwrite) as? Bool) ?? true
     }
 
     /// `defaults.register` guarantees a string is present under normal

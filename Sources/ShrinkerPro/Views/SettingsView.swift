@@ -12,7 +12,12 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section {
-                Toggle("Save shrunken files in same folder", isOn: $settings.saveInSameFolder)
+                Picker("Where", selection: $settings.saveInSameFolder) {
+                    Text("Same folder as original").tag(true)
+                    Text("Choose folder…").tag(false)
+                }
+                .pickerStyle(.radioGroup)
+
                 if !settings.saveInSameFolder {
                     HStack {
                         Text(settings.savePath?.path ?? "No folder chosen")
@@ -24,43 +29,41 @@ struct SettingsView: View {
                         Button("Choose…", action: chooseFolder)
                     }
                 }
-                Toggle("Add subfolder \"minified\"", isOn: $settings.useSubfolder)
-                // Named for the stake, not the mechanism: with this off (and
-                // no subfolder, and no redirected save path) the output path
-                // *is* the input path and the original is replaced. The old
-                // wording, "Add .min suffix to shrunken files", described
-                // what the filename does and left the user to work out what
-                // turning it off costs them.
-                Toggle("Keep original files", isOn: $settings.keepOriginal)
-                Text(settings.keepOriginal
-                     ? "Shrunken copies are saved alongside the originals with a .min suffix."
-                     : "Originals are overwritten in place. Converted files keep a separate extension, so those originals are left alone.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            Section {
-                Toggle("Enable notifications", isOn: $settings.notification)
-                // Spec: a denial must be reflected here and link to System
-                // Settings, not leave the toggle switched on doing nothing.
-                if notificationPermission.showsDeniedNotice(toggleIsOn: settings.notification) {
+
+                Toggle("Put them in a \"minified\" subfolder", isOn: $settings.useSubfolder)
+
+                // A radio pair, not a checkbox: the defect being fixed is a
+                // switch whose off-state you had to infer. Both branches now
+                // state their own consequence. The binding and its "suffix"
+                // key are unchanged — this is presentation only.
+                Picker("Files", selection: $settings.keepOriginal) {
+                    Text("Keep originals, save a .min copy").tag(true)
+                    Text("Replace originals").tag(false)
+                }
+                .pickerStyle(.radioGroup)
+
+                Toggle("Warn before replacing a file", isOn: $settings.warnBeforeOverwrite)
+
+                // Only when the current combination genuinely puts originals
+                // at risk. The old caption asserted this unconditionally and
+                // was wrong in three of four combinations — see OutputWarning.
+                if OutputWarning.replacesOriginals(
+                    keepOriginal: settings.keepOriginal,
+                    saveInSameFolder: settings.saveInSameFolder,
+                    savePath: settings.savePath,
+                    useSubfolder: settings.useSubfolder
+                ) {
                     HStack(alignment: .top, spacing: 8) {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundStyle(.orange)
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Notifications are turned off for Shrinker Pro in System Settings, so none will appear.")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                                .fixedSize(horizontal: false, vertical: true)
-                            Button("Open Notification Settings…") {
-                                NSWorkspace.shared.open(NotificationPermission.systemSettingsURL)
-                            }
-                            .controlSize(.small)
-                        }
+                        Text("Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
-                Toggle("Clear result list when shrinking new images", isOn: $settings.clearList)
-                Toggle("Check for updates", isOn: $settings.updateCheck)
+            } header: {
+                Text("Output")
             }
             // A separate Section (not folded into either toggle group above)
             // so the five rules read as one group of related controls, per
@@ -118,6 +121,29 @@ struct SettingsView: View {
                 // the fix for the bug that prompted the setting, so saying
                 // it plainly is worth the line.
                 Text("Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.")
+            }
+            Section {
+                Toggle("Enable notifications", isOn: $settings.notification)
+                if notificationPermission.showsDeniedNotice(toggleIsOn: settings.notification) {
+                    HStack(alignment: .top, spacing: 8) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(.orange)
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("Notifications are turned off for Shrinker Pro in System Settings, so none will appear.")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Button("Open Notification Settings…") {
+                                NSWorkspace.shared.open(NotificationPermission.systemSettingsURL)
+                            }
+                            .controlSize(.small)
+                        }
+                    }
+                }
+                Toggle("Clear result list when shrinking new images", isOn: $settings.clearList)
+                Toggle("Check for updates", isOn: $settings.updateCheck)
+            } header: {
+                Text("General")
             }
         }
         .formStyle(.grouped)

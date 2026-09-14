@@ -1397,31 +1397,39 @@ enum OverwriteScan {
 }
 ```
 
-Add a test-only stub factory so the classification tests need no compressors. Append to `OverwritePrompt.swift`:
+Add a test-only stub factory so the classification tests need no compressors. It belongs in the **test file**, not in `OverwritePrompt.swift`: `@testable import` reaches `internal`, and a stub living in production code would ship in the app for no reason. Append to `Tests/ShrinkerProTests/OverwriteGuardTests.swift`:
 
 ```swift
-#if DEBUG
+/// A plan with no real route behind it, for tests that care only about its
+/// input and destination. Task 6 left `ShrinkPlan`'s routing fields
+/// `internal` precisely so this can live here rather than in shipped code.
 extension ShrinkPlan {
-    /// A plan with no real route behind it, for tests that only care about
-    /// input and destination. `DEBUG`-only so it cannot reach a release build.
     static func stub(input: URL, destination: URL) -> ShrinkPlan {
         ShrinkPlan(
-            input: input, destination: destination, compressor: NoopCompressor(),
-            targetExtension: nil, needsMetadataPostPass: false,
-            wasRotated: false, isSameFormat: true
+            input: input,
+            destination: destination,
+            compressor: NoopCompressor(),
+            targetExtension: nil,
+            needsMetadataPostPass: false,
+            wasRotated: false,
+            isSameFormat: true,
+            metadataPolicy: .all
         )
     }
 }
 
+/// Never invoked — `OverwriteScan.classify` reads only `input` and
+/// `destination`. It throws rather than returning quietly so that a test
+/// which somehow reaches compression fails loudly instead of passing for
+/// the wrong reason.
 private struct NoopCompressor: Compressor {
-    func compress(_ input: URL, to output: URL, settings: OutputSettings) throws {
+    func compress(input: URL, output: URL) throws {
         throw ShrinkError.unsupportedFormat("stub")
     }
 }
-#endif
 ```
 
-> **Note for the implementer:** `ShrinkPlan`'s routing fields are `fileprivate` to `ShrinkEngine.swift`, so this extension will not compile from another file. Change those five fields to `internal` (drop the `fileprivate`) and keep the doc comment explaining that callers outside the engine have no business constructing one by hand. Confirm `Compressor`'s actual requirement signature in `Sources/ShrinkerPro/Core/Compressor.swift` and match it in `NoopCompressor` — the shape above is indicative, and the protocol is the authority.
+> **Both signatures above are verified against the shipped code, not assumed.** `Compressor`'s single requirement is `func compress(input: URL, output: URL) throws` — two labelled arguments, and no `settings` parameter. `ShrinkPlan`'s memberwise initializer takes **eight** arguments: `metadataPolicy` is a sixth routing field added in Task 6, because the body moved into `shrink(_ plan:)` reads `settings.metadataPolicy` and that method has no `settings` in scope. An earlier draft of this plan specified a seven-argument call and an invented `compress(_:to:settings:)`; neither compiles.
 
 - [ ] **Step 4: Run the tests and verify they pass**
 
@@ -1439,7 +1447,7 @@ Expected: 10 tests, all PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add Sources/ShrinkerPro/Core/OverwritePrompt.swift Sources/ShrinkerPro/Core/ShrinkEngine.swift Tests/ShrinkerProTests/OverwriteGuardTests.swift
+git add Sources/ShrinkerPro/Core/OverwritePrompt.swift Tests/ShrinkerProTests/OverwriteGuardTests.swift
 git commit -m "Sort collisions into originals and files already there"
 ```
 

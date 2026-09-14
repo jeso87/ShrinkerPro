@@ -18,7 +18,8 @@
 - **New defaults key spelling is `"warnBeforeOverwrite"`, pinned by test.** Renaming it silently resets every user.
 - **`--if-exists` defaults to `replace`, which must reproduce 1.2.0 byte for byte** — no extra stat, no extra stderr, identical stdout.
 - **Exit codes and `--json` key order are a compatibility surface.** `.sortedKeys` and `.withoutEscapingSlashes` are part of the contract (`CommandLineOptions.swift:230`).
-- **Any new `.swift` file requires `xcodegen generate` before it will build.** The `.xcodeproj` is committed and XcodeGen-driven.
+- **Any new `.swift` file requires `xcodegen generate` before it will build.** The project is XcodeGen-driven from `project.yml`.
+- **Never `git add ShrinkerPro.xcodeproj`.** `.gitignore` excludes `*.xcodeproj/` — "XcodeGen output (project.yml is the source of truth)". Run `xcodegen generate` to build; never commit its output.
 - **No signed/notarized release build.** Version bump and changelog only; the user says when 1.2.1 ships.
 
 **Canonical test command** (referred to below as *the test command*, always with the `-only-testing:` filter shown in that step):
@@ -196,7 +197,7 @@ Expected: 5 tests, all PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add Sources/ShrinkerPro/Core/Settings.swift Tests/ShrinkerProTests/OverwriteGuardTests.swift ShrinkerPro.xcodeproj
+git add Sources/ShrinkerPro/Core/Settings.swift Tests/ShrinkerProTests/OverwriteGuardTests.swift
 git commit -m "Add a warn-before-replacing preference"
 ```
 
@@ -345,7 +346,7 @@ Expected: 5 tests, all PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add Sources/ShrinkerPro/Core/OutputWarning.swift Tests/ShrinkerProTests/OverwriteGuardTests.swift ShrinkerPro.xcodeproj
+git add Sources/ShrinkerPro/Core/OutputWarning.swift Tests/ShrinkerProTests/OverwriteGuardTests.swift
 git commit -m "Say when originals are actually at risk, rather than always"
 ```
 
@@ -1438,7 +1439,7 @@ Expected: 10 tests, all PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add Sources/ShrinkerPro/Core/OverwritePrompt.swift Sources/ShrinkerPro/Core/ShrinkEngine.swift Tests/ShrinkerProTests/OverwriteGuardTests.swift ShrinkerPro.xcodeproj
+git add Sources/ShrinkerPro/Core/OverwritePrompt.swift Sources/ShrinkerPro/Core/ShrinkEngine.swift Tests/ShrinkerProTests/OverwriteGuardTests.swift
 git commit -m "Sort collisions into originals and files already there"
 ```
 
@@ -2599,7 +2600,7 @@ Expected: every test PASSES. Do not proceed past a failure.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add project.yml Sources/ShrinkerPro/Core/ShrinkerVersion.swift CHANGELOG.md docs/screenshots ShrinkerPro.xcodeproj
+git add project.yml Sources/ShrinkerPro/Core/ShrinkerVersion.swift CHANGELOG.md docs/screenshots
 git commit -m "Prepare 1.2.1"
 ```
 

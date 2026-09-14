@@ -238,17 +238,32 @@ final class ShrinkPlanTests: XCTestCase {
         )
     }
 
-    /// The convenience overload is what keeps 22 existing engine tests and
-    /// the entire CLI compiling. It must agree with planning then executing.
-    func testTheConvenienceOverloadMatchesPlanThenShrink() throws {
+    /// The convenience overload is what keeps the 22 existing engine call sites
+    /// and the whole CLI compiling untouched. It cannot prove behaviour
+    /// preservation — it is *defined* as `shrink(plan(input, settings:))`, so
+    /// comparing it against planning-then-executing would compare it with its
+    /// own definition. What this asserts instead is that it genuinely does the
+    /// work, against values fixed independently of the engine: a real file at
+    /// the suffixed destination, beside its original, actually smaller than it
+    /// started. A non-delegating re-implementation that dropped the suffix,
+    /// wrote to the wrong directory, or wrote nothing at all fails here.
+    func testTheConvenienceOverloadShrinksToTheSuffixedDestination() throws {
         let engine = try makeEngine()
-        let a = try staged("sample", "png")
-        let b = try staged("sample", "png")
+        let file = try staged("sample", "png")
 
-        let direct = try engine.shrink(a, settings: settings())
-        let viaPlan = try engine.shrink(engine.plan(b, settings: settings()))
+        let result = try engine.shrink(file, settings: settings())
 
-        XCTAssertEqual(direct.output.lastPathComponent, viaPlan.output.lastPathComponent)
-        XCTAssertEqual(direct.shrunkBytes, viaPlan.shrunkBytes)
+        XCTAssertEqual(result.input.path, file.path)
+        XCTAssertEqual(result.output.lastPathComponent, "sample.min.png")
+        XCTAssertEqual(
+            result.output.deletingLastPathComponent().path,
+            file.deletingLastPathComponent().path,
+            "the copy belongs beside its original"
+        )
+        XCTAssertTrue(FileManager.default.fileExists(atPath: result.output.path))
+        XCTAssertLessThan(
+            result.shrunkBytes, result.originalBytes,
+            "the sample fixture is expected to actually shrink"
+        )
     }
 }

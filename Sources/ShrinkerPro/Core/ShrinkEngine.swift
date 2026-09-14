@@ -23,8 +23,12 @@ struct ShrinkResult: Equatable {
 /// below are the engine's own: a caller that builds one by hand can hand the
 /// engine a route that contradicts its own destination, so get a plan from
 /// `ShrinkEngine.plan(_:settings:)` and redirect it with `writing(to:)` rather
-/// than constructing one. They are `internal` rather than `fileprivate` only
-/// because the tests that cover redirection have to be able to build one.
+/// than constructing one. They are `internal` rather than `fileprivate` so
+/// that a test *can* build one directly when it needs to: `@testable import`
+/// reaches `internal` but never `fileprivate`. Nothing builds one by hand
+/// today — every test here goes through `ShrinkEngine.plan(_:settings:)` and
+/// `writing(to:)` — but the overwrite guard that follows needs a plan it can
+/// stand up without an engine behind it.
 ///
 /// `Sendable` because a plan is decided where the user can be asked about it
 /// and executed somewhere else — see `ShrinkEngine`'s own conformance below.

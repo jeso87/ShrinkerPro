@@ -67,5 +67,32 @@ struct ContentView: View {
             actions: { Button("OK", role: .cancel) { model.errorMessage = nil } },
             message: { Text(model.errorMessage ?? "") }
         )
+        // Beside the error alert deliberately, rather than reaching for a
+        // second presentation mechanism: there is one pattern here for "the
+        // model wants the window to say something", and this is it.
+        .alert(
+            model.pendingOverwrite?.title ?? "",
+            isPresented: Binding(
+                get: { model.pendingOverwrite != nil },
+                // Dismissing without choosing is Skip: it declines these
+                // files, it does not cancel the drop.
+                set: { if !$0 { model.answerOverwrite(.skip) } }
+            ),
+            presenting: model.pendingOverwrite,
+            actions: { request in
+                Button(request.skipButtonTitle, role: .cancel) { model.answerOverwrite(.skip) }
+                Button("Keep Both") { model.answerOverwrite(.keepBoth) }
+                Button("Replace", role: .destructive) { model.answerOverwrite(.replace) }
+            },
+            message: { request in Text(request.message) }
+        )
+        // A window that goes away mid-question must not strand the batch
+        // waiting on it: this app deliberately stays running after its last
+        // window closes (see AppDelegate), so nothing else would ever resume
+        // that continuation and the drop would hang for the life of the
+        // process. `.skip` is the answer that writes nothing, and
+        // `answerOverwrite` is a no-op when no question is pending — so this
+        // costs nothing on the ordinary path where the view simply goes away.
+        .onDisappear { model.answerOverwrite(.skip) }
     }
 }

@@ -84,6 +84,16 @@ final class AppModel: ObservableObject {
     /// need no exemption of their own here.
     @Published var sessionFormat: SessionFormat?
 
+    /// The sheet the window should be showing, if any. One category at a
+    /// time: the originals-at-risk question is asked and answered before the
+    /// second is raised, so each carries its own independent answer.
+    @Published private(set) var pendingOverwrite: OverwriteRequest?
+
+    /// Resumed exactly once per request — including when the window goes
+    /// away, since a continuation that is never resumed leaks the task that
+    /// is awaiting it and the batch would hang forever.
+    private var overwriteContinuation: CheckedContinuation<OverwriteAnswer, Never>?
+
     private let engine: ShrinkEngine
     private let settings: Settings
     private let notifier: Notifier?
@@ -112,6 +122,40 @@ final class AppModel: ObservableObject {
         session = SessionSummary()
     }
 
+    /// Called by the sheet's buttons. Dismissing counts as `.skip`.
+    ///
+    /// Safe to call with nothing pending — it clears a nil and resumes
+    /// nothing — which is what lets the window hand it a `.skip` on its way
+    /// out without having to know whether a question was on screen.
+    func answerOverwrite(_ answer: OverwriteAnswer) {
+        pendingOverwrite = nil
+        overwriteContinuation?.resume(returning: answer)
+        overwriteContinuation = nil
+    }
+
+    /// Puts one question on screen and waits for its answer.
+    private func ask(_ request: OverwriteRequest) async -> OverwriteAnswer {
+        // Only one continuation can be stored, and two batches genuinely can
+        // overlap: `handle(urls:)` starts a task per drop, and a Finder "Open
+        // With", a Dock drop or an Open Recent click all reach it while a
+        // sheet is up. Simply overwriting the stored continuation would
+        // strand the earlier batch's — nobody could ever resume it, and it
+        // would hang its task for the life of the process. So the displaced
+        // question is answered here instead, with `.skip`: the one answer
+        // that writes nothing, and therefore the only safe thing to decide on
+        // a user's behalf. Resuming enqueues that task rather than running it
+        // now, and the continuation below is stored without an intervening
+        // suspension point, so this cannot displace itself.
+        if let displaced = overwriteContinuation {
+            overwriteContinuation = nil
+            displaced.resume(returning: .skip)
+        }
+        return await withCheckedContinuation { continuation in
+            overwriteContinuation = continuation
+            pendingOverwrite = request
+        }
+    }
+
     func process(urls: [URL]) async {
         guard !urls.isEmpty else { return }
 
@@ -123,9 +167,9 @@ final class AppModel: ObservableObject {
 
         let files = InputExpander.expand(urls)
         // One snapshot per batch, with the session override layered on top
-        // of the stored settings. Taken once, before the loop, so changing
-        // the override mid-batch cannot convert half a drop to one format
-        // and half to another.
+        // of the stored settings. Taken once, before anything is planned, so
+        // changing a setting mid-batch — the override, or the warning itself
+        // — cannot split one drop across two behaviours.
         // A `let`, not a mutated `var`: this value is captured by the
         // detached task below, and capturing a `var` is what Swift 6 strict
         // concurrency rejects as a potential race.
@@ -134,18 +178,87 @@ final class AppModel: ObservableObject {
             snapshot.sessionFormat = sessionFormat
             return snapshot
         }()
+
+        // Plan the whole batch first. Planning creates nothing, so a drop the
+        // user then declines leaves no trace — not even an empty minified/.
+        // It is not free: `plan` reads an orientation header and builds a
+        // compressor per file, so a hundred-file drop pays a hundred header
+        // reads before anyone is asked anything. That is the price of knowing
+        // where each file would land, and it is why the batch is planned and
+        // scanned exactly once rather than once per sheet.
+        var plans: [ShrinkPlan] = []
+        for file in files {
+            do {
+                plans.append(try engine.plan(file, settings: outputSettings))
+            } catch {
+                // A supported-extension file that doesn't exist on disk (or
+                // otherwise fails Foundation-level I/O before ShrinkEngine
+                // gets a chance to classify it) surfaces as a raw NSError,
+                // not a typed ShrinkError. `localizedDescription` still
+                // renders something sane for those; LocalizedError cases
+                // use their own tailored text.
+                errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+            }
+        }
+
+        // With the warning turned off, none of this runs: no scan, no extra
+        // `stat` per file, no sheet. The path is the one 1.2.0 took, which is
+        // the whole point of the setting — a user who declines the warning
+        // pays nothing for it.
+        if settings.warnBeforeOverwrite {
+            let (originals, existing) = OverwriteScan.classify(plans)
+            // Stakes first: the irreversible question is asked before the
+            // recoverable one. Two questions, each with its own answer, so
+            // "keep both of my originals but replace the stale copies" is
+            // expressible.
+            for group in [(OverwriteCategory.original, originals), (.existingFile, existing)]
+            where !group.1.isEmpty {
+                let colliding = Set(group.1.map(\.destination.path))
+                let answer = await ask(OverwriteRequest(
+                    category: group.0,
+                    paths: group.1.map(\.destination),
+                    unaffectedCount: plans.count - colliding.count
+                ))
+                switch answer {
+                case .replace:
+                    break
+                case .skip:
+                    // Declines these files and only these files — every
+                    // non-colliding file in the same drop still runs, which
+                    // is why the button says Skip rather than Cancel. A
+                    // skipped file produces no row and no error: it is a
+                    // choice the user made, not a failure.
+                    plans.removeAll { colliding.contains($0.destination.path) }
+                case .keepBoth:
+                    plans = plans.map { plan in
+                        // Only the destination moves. `writing(to:)` accepts
+                        // any path without policing its extension, while
+                        // `shrink` takes its scratch extension from the
+                        // input's route — so the number goes into the name
+                        // and the extension is left exactly as planned.
+                        colliding.contains(plan.destination.path)
+                            ? plan.writing(to: OutputPathResolver.uniqueDestination(for: plan.destination))
+                            : plan
+                    }
+                }
+            }
+        }
+
         var succeeded: [ShrinkResult] = []
 
-        for file in files {
+        for plan in plans {
             do {
                 // Compression is blocking; keep it off the main actor. `engine`
                 // is a plain reference type with no shared mutable state
                 // across calls, so sharing it into a detached task per file
                 // (rather than one detached task for the whole batch) is
                 // safe and keeps each file's error isolated to itself.
+                // `ShrinkPlan` is already `Sendable`, so the decided plan
+                // crosses into that task the same way the settings snapshot
+                // does.
                 let engine = engine
                 let result = try await Task.detached(priority: .userInitiated) {
-                    try engine.shrink(file, settings: outputSettings)
+                    try engine.shrink(plan)
                 }.value
 
                 rows.insert(
@@ -158,17 +271,13 @@ final class AppModel: ObservableObject {
                     at: 0
                 )
                 session.record(originalBytes: result.originalBytes, shrunkBytes: result.shrunkBytes)
-                NSDocumentController.shared.noteNewRecentDocumentURL(file)
+                NSDocumentController.shared.noteNewRecentDocumentURL(plan.input)
                 // Deliberately NOT notified here. See the summary after the
                 // loop: one notification per batch, not one per file.
                 succeeded.append(result)
             } catch {
-                // A supported-extension file that doesn't exist on disk (or
-                // otherwise fails Foundation-level I/O before ShrinkEngine
-                // gets a chance to classify it) surfaces as a raw NSError,
-                // not a typed ShrinkError. `localizedDescription` still
-                // renders something sane for those; LocalizedError cases
-                // use their own tailored text.
+                // Same reasoning as the planning loop above: not every failure
+                // that reaches here is a typed ShrinkError.
                 errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
             }
         }

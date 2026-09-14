@@ -467,3 +467,249 @@ final class SessionOverrideTests: XCTestCase {
         XCTAssertEqual(extensions, ["svg", "gif"])
     }
 }
+
+// MARK: - The overwrite guard
+
+@MainActor
+final class OverwriteFlowTests: XCTestCase {
+
+    private struct MissingTestResource: Error {}
+
+    private func makeModel() throws -> (AppModel, Settings) {
+        let repoRoot = ProcessInfo.processInfo.environment["SRCROOT"].map(URL.init(fileURLWithPath:))
+            ?? URL(fileURLWithPath: #filePath)
+                .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let vendor = repoRoot.appendingPathComponent("vendor/compressors")
+        guard FileManager.default.isExecutableFile(atPath: vendor.appendingPathComponent("cjpeg").path) else {
+            XCTFail("compressors not built — run scripts/build-compressors.sh")
+            throw MissingTestResource()
+        }
+        let bundle = Bundle(for: Self.self)
+        guard let svgo = bundle.url(forResource: "svgo.jsc", withExtension: "js")
+            ?? Bundle.main.url(forResource: "svgo.jsc", withExtension: "js") else {
+            XCTFail("svgo.jsc.js not bundled — run scripts/prepare-svgo.sh, then xcodegen generate")
+            throw MissingTestResource()
+        }
+        let engine = try ShrinkEngine(
+            helperProvider: { vendor.appendingPathComponent($0) }, svgoScriptURL: svgo
+        )
+        let settings = Settings(defaults: makeTestDefaults("overwrite-flow"))
+        return (AppModel(engine: engine, settings: settings, notifier: nil), settings)
+    }
+
+    private func staged(_ name: String = "sample") throws -> URL {
+        let repoRoot = ProcessInfo.processInfo.environment["SRCROOT"].map(URL.init(fileURLWithPath:))
+            ?? URL(fileURLWithPath: #filePath)
+                .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let source = repoRoot.appendingPathComponent("Tests/ShrinkerProTests/Fixtures/sample.png")
+        let dir = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("flow-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        addTeardownBlock { try? FileManager.default.removeItem(at: dir) }
+        let staged = dir.appendingPathComponent("\(name).png")
+        try FileManager.default.copyItem(at: source, to: staged)
+        return staged
+    }
+
+    /// Answers the sheet as soon as one appears, so `process` can complete.
+    private func answering(_ answer: OverwriteAnswer, on model: AppModel) -> Task<Void, Never> {
+        Task { @MainActor in
+            while model.pendingOverwrite == nil {
+                await Task.yield()
+            }
+            model.answerOverwrite(answer)
+        }
+    }
+
+    func testAFirstRunAsksNothing() async throws {
+        let (model, _) = try makeModel()
+
+        await model.process(urls: [try staged()])
+
+        XCTAssertNil(model.pendingOverwrite, "nothing was there to replace")
+        XCTAssertEqual(model.rows.count, 1)
+    }
+
+    /// The requester's own scenario: shrink, then shrink again.
+    func testASecondRunOverTheSameFileAsks() async throws {
+        let (model, _) = try makeModel()
+        let file = try staged()
+        await model.process(urls: [file])
+
+        let responder = answering(.replace, on: model)
+        await model.process(urls: [file])
+        await responder.value
+
+        XCTAssertEqual(model.rows.count, 2, "replacing still produces a result")
+    }
+
+    /// With the setting off the code path must be exactly 1.2.0's.
+    func testNothingIsAskedWhenTheWarningIsTurnedOff() async throws {
+        let (model, settings) = try makeModel()
+        settings.warnBeforeOverwrite = false
+        let file = try staged()
+        await model.process(urls: [file])
+
+        await model.process(urls: [file])
+
+        XCTAssertNil(model.pendingOverwrite)
+        XCTAssertEqual(model.rows.count, 2)
+    }
+
+    func testSkippingLeavesTheExistingFileByteForByte() async throws {
+        let (model, _) = try makeModel()
+        let file = try staged()
+        await model.process(urls: [file])
+        let output = file.deletingLastPathComponent().appendingPathComponent("sample.min.png")
+        let before = try Data(contentsOf: output)
+
+        let responder = answering(.skip, on: model)
+        await model.process(urls: [file])
+        await responder.value
+
+        XCTAssertEqual(try Data(contentsOf: output), before, "skip must not write")
+        XCTAssertEqual(model.rows.count, 1, "a skipped file produces no row")
+        XCTAssertNil(model.errorMessage, "skipping is a choice, not a failure")
+    }
+
+    func testKeepBothWritesANumberedSibling() async throws {
+        let (model, _) = try makeModel()
+        let file = try staged()
+        await model.process(urls: [file])
+
+        let responder = answering(.keepBoth, on: model)
+        await model.process(urls: [file])
+        await responder.value
+
+        let folder = file.deletingLastPathComponent()
+        XCTAssertTrue(FileManager.default.fileExists(atPath: folder.appendingPathComponent("sample.min.png").path))
+        XCTAssertTrue(
+            FileManager.default.fileExists(atPath: folder.appendingPathComponent("sample.min 2.png").path),
+            "Keep Both must leave both files on disk"
+        )
+    }
+
+    /// Skipping one file must not abandon the rest of the drop.
+    func testUncollidingFilesInTheSameBatchStillRun() async throws {
+        let (model, _) = try makeModel()
+        let collides = try staged("collides")
+        await model.process(urls: [collides])
+        let fresh = try staged("fresh")
+
+        let responder = answering(.skip, on: model)
+        await model.process(urls: [collides, fresh])
+        await responder.value
+
+        XCTAssertTrue(
+            FileManager.default.fileExists(
+                atPath: fresh.deletingLastPathComponent().appendingPathComponent("fresh.min.png").path
+            ),
+            "the file nobody was asked about must still have been shrunk"
+        )
+    }
+
+    /// The sheet must describe the second category, not the first: with
+    /// "Keep originals" on, a re-run threatens the .min copy, not the source.
+    func testARerunAsksAboutTheExistingFileNotTheOriginal() async throws {
+        let (model, _) = try makeModel()
+        let file = try staged()
+        await model.process(urls: [file])
+
+        let observer = Task { @MainActor () -> OverwriteCategory? in
+            while model.pendingOverwrite == nil { await Task.yield() }
+            let category = model.pendingOverwrite?.category
+            model.answerOverwrite(.skip)
+            return category
+        }
+        await model.process(urls: [file])
+
+        // Pattern-matched rather than `XCTAssertEqual(category, .existingFile)`:
+        // `OverwriteCategory` is not `Equatable`, and giving it that
+        // conformance would mean editing a file this task must leave alone.
+        // The assertion is the same one either way — a `.original` here, or
+        // no sheet at all, fails.
+        let category = await observer.value
+        guard case .some(.existingFile) = category else {
+            XCTFail("the sheet must be about the file already there, not the original")
+            return
+        }
+    }
+
+    /// One continuation is stored at a time, so a second batch that reaches a
+    /// sheet while the first is still waiting would strand the first one —
+    /// and a continuation nobody ever resumes hangs its batch for the life of
+    /// the process. Two batches genuinely can overlap: `handle(urls:)` starts
+    /// a task per drop, and a Finder "Open With", a Dock drop or an Open
+    /// Recent click all reach it while a sheet is up.
+    ///
+    /// Waits on a wall-clock deadline rather than an `XCTestExpectation`, and
+    /// that is not a style preference. XCTest's expectation timers are
+    /// scheduled on the main run loop, which a stranded main-actor batch
+    /// leaves saturated — so the timeout never fires and the whole run wedges
+    /// instead of this one test failing. Measured against the mutation below:
+    /// an expectation-based first draft hung the test host for over ten
+    /// minutes. Polling `Date()` depends on nothing but the clock, so the
+    /// failure is always clean and bounded.
+    func testASecondBatchWhileASheetIsUpDoesNotStrandTheFirst() async throws {
+        let (model, _) = try makeModel()
+        let first = try staged("first")
+        let second = try staged("second")
+        await model.process(urls: [first])
+        await model.process(urls: [second])
+
+        // Both destinations are now occupied, so both batches must ask.
+        //
+        // The responder deliberately does NOT answer the first question it
+        // sees. Answering immediately lets the two batches queue up one after
+        // the other — a sequence that works whether or not anything guards
+        // the single continuation slot, and a first draft of this test that
+        // did exactly that passed even with the guard deleted. Waiting until
+        // a *second, different* request has replaced the first is what forces
+        // the overlap: at that moment two batches are both waiting and only
+        // one continuation is stored. The single answer below releases the
+        // second batch; the first can only finish if something resumed the
+        // continuation it was displaced from.
+        let flags = BatchFlags()
+        let responder = Task { @MainActor in
+            let overlapBy = Date().addingTimeInterval(5)
+            while model.pendingOverwrite == nil, Date() < overlapBy, !Task.isCancelled {
+                await Task.yield()
+            }
+            let firstQuestion = model.pendingOverwrite?.id
+            while model.pendingOverwrite?.id == firstQuestion, Date() < overlapBy, !Task.isCancelled {
+                await Task.yield()
+            }
+            model.answerOverwrite(.skip)
+        }
+        Task { @MainActor in
+            await model.process(urls: [first])
+            flags.firstFinished = true
+        }
+        Task { @MainActor in
+            await model.process(urls: [second])
+            flags.secondFinished = true
+        }
+
+        let deadline = Date().addingTimeInterval(20)
+        while !(flags.firstFinished && flags.secondFinished), Date() < deadline {
+            await Task.yield()
+        }
+        responder.cancel()
+
+        XCTAssertTrue(
+            flags.firstFinished,
+            "the first batch never returned — nothing resumed the continuation it was displaced from"
+        )
+        XCTAssertTrue(flags.secondFinished, "the second batch never returned")
+    }
+}
+
+/// Whether each of two overlapping batches actually returned. A small
+/// main-actor box because Swift 6 will not let two tasks mutate a captured
+/// local `var`, and both batches and the test that reads them are already
+/// confined to the main actor.
+@MainActor
+private final class BatchFlags {
+    var firstFinished = false
+    var secondFinished = false
+}

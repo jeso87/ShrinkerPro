@@ -227,10 +227,21 @@ case .skip:
         writeLine("shrinker: \(path): already exists, skipped", to: .standardError)
     }
     if options.json {
-        for plan in occupied {
+        // A declined re-encode reports the file's real size on both sides —
+        // equal counts, an honest 0% saved — so `originalBytes` means "the
+        // real size of the input file" on every line a caller sees. A
+        // skipped file mirrors that convention rather than reporting 0/0:
+        // zero would read as "we didn't look" here and nowhere else, and
+        // paired with an `output` path that was never written, it would read
+        // as "a 0-byte file was written here", which is false. If the size
+        // genuinely can't be read, 0 is the fallback rather than aborting a
+        // run over a file that was, after all, only skipped.
+        for entry in occupied.sorted(by: { $0.plan.destination.path < $1.plan.destination.path }) {
+            let attributes = try? FileManager.default.attributesOfItem(atPath: entry.plan.input.path)
+            let size = (attributes?[.size] as? Int) ?? 0
             let untouched = ShrinkResult(
-                input: plan.plan.input, output: plan.plan.destination,
-                originalBytes: 0, shrunkBytes: 0
+                input: entry.plan.input, output: entry.plan.destination,
+                originalBytes: size, shrunkBytes: size
             )
             print(try ShrinkReport.jsonLine(for: untouched, status: .skipped))
         }

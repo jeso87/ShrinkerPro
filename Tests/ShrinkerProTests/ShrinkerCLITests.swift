@@ -442,6 +442,35 @@ final class ShrinkerCLITests: XCTestCase {
         )
     }
 
+    /// A declined re-encode reports the file's real size on both sides, so
+    /// `originalBytes` means "the real size of the input file" on every
+    /// `--json` line a caller sees. A skipped line must mirror that
+    /// convention rather than reporting 0/0, which would silently undercount
+    /// any caller summing `originalBytes` to answer "how many bytes did I
+    /// process" — and would read, alongside a never-written `output` path,
+    /// as "a 0-byte file was written here".
+    func testASkippedFilesJSONLineReportsItsRealSize() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let input = try fixture("sample", "png", into: work)
+        let realSize = try XCTUnwrap(
+            try FileManager.default.attributesOfItem(atPath: input.path)[.size] as? Int
+        )
+
+        _ = try run([input.path], helpers: helpers)
+        let result = try run(["--if-exists", "skip", "--json", input.path], helpers: helpers)
+
+        XCTAssertEqual(result.code, 0, result.stderr)
+        let line = result.stdout.trimmingCharacters(in: .whitespacesAndNewlines)
+        let data = try XCTUnwrap(line.data(using: .utf8))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+
+        XCTAssertEqual(json["status"] as? String, "skipped")
+        XCTAssertEqual(json["originalBytes"] as? Int, realSize, "must report the input's real size, not 0")
+        XCTAssertEqual(json["shrunkBytes"] as? Int, realSize)
+        XCTAssertEqual(json["savedPercent"] as? Int, 0)
+    }
+
     func testKeepBothWritesANumberedSibling() throws {
         let helpers = try stagedHelpers()
         let work = try workspace()

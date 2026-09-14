@@ -389,7 +389,7 @@ final class CommandLineOptionsTests: XCTestCase {
     func testTheJSONLineHasAStableKeyOrder() throws {
         let line = try jsonLine()
 
-        let keys = ["input", "originalBytes", "output", "savedPercent", "shrunkBytes"]
+        let keys = ["input", "originalBytes", "output", "savedPercent", "shrunkBytes", "status"]
         var searchedTo = line.startIndex
         for key in keys {
             guard let found = line.range(of: "\"\(key)\"", range: searchedTo..<line.endIndex) else {
@@ -403,6 +403,49 @@ final class CommandLineOptionsTests: XCTestCase {
     /// reads a stream line by line. Pretty-printing would break that.
     func testTheJSONLineIsASingleLine() throws {
         XCTAssertFalse(try jsonLine().contains("\n"))
+    }
+
+    // MARK: - status
+
+    /// A skip and a decline both mean "nothing happened", for entirely
+    /// different reasons, and a caller may act differently on each. Before
+    /// this field the two were indistinguishable — both reported
+    /// `output == input` at 0%.
+    func testAShrunkFileSaysSo() throws {
+        let json = try encodedReport()
+        XCTAssertEqual(json["status"] as? String, "shrunk")
+    }
+
+    func testADeclinedReEncodeIsLabelledDeclined() throws {
+        let result = ShrinkResult(
+            input: URL(fileURLWithPath: "/photos/a.webp"),
+            output: URL(fileURLWithPath: "/photos/a.webp"),
+            originalBytes: 18828, shrunkBytes: 18828
+        )
+        let data = try JSONEncoder().encode(ShrinkReport(result))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+
+        XCTAssertEqual(json["status"] as? String, "declined")
+    }
+
+    func testASkippedFileIsLabelledSkipped() throws {
+        let line = try ShrinkReport.jsonLine(
+            for: ShrinkResult(
+                input: URL(fileURLWithPath: "/photos/a.png"),
+                output: URL(fileURLWithPath: "/photos/a.min.png"),
+                originalBytes: 1000, shrunkBytes: 1000
+            ),
+            status: .skipped
+        )
+
+        XCTAssertTrue(line.contains("\"status\":\"skipped\""), line)
+    }
+
+    /// The three spellings are what a script branches on, so they are pinned.
+    func testTheStatusSpellingsAreStable() {
+        XCTAssertEqual(ShrinkReport.Status.shrunk.rawValue, "shrunk")
+        XCTAssertEqual(ShrinkReport.Status.declined.rawValue, "declined")
+        XCTAssertEqual(ShrinkReport.Status.skipped.rawValue, "skipped")
     }
 
     // MARK: - Version

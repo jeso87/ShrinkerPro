@@ -226,6 +226,15 @@ case .skip:
     for path in skipped.sorted() {
         writeLine("shrinker: \(path): already exists, skipped", to: .standardError)
     }
+    if options.json {
+        for plan in occupied {
+            let untouched = ShrinkResult(
+                input: plan.plan.input, output: plan.plan.destination,
+                originalBytes: 0, shrunkBytes: 0
+            )
+            print(try ShrinkReport.jsonLine(for: untouched, status: .skipped))
+        }
+    }
     planned.removeAll { skipped.contains($0.plan.destination.path) }
 case .keepBoth:
     planned = planned.map { entry in

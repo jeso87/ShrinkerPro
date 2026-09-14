@@ -234,11 +234,25 @@ extension SessionFormat {
 /// back, and claiming a decode path that nothing exercises would be a lie
 /// in the type signature.
 struct ShrinkReport: Encodable {
+    /// What actually happened to this file.
+    ///
+    /// Additive to a contract that is already a compatibility surface:
+    /// `.sortedKeys` places it deterministically and a consumer reading the
+    /// five older keys is unaffected. It exists because "nothing happened"
+    /// had two causes and only one spelling — a skipped file and a declined
+    /// re-encode both reported `output == input` at 0% saved.
+    enum Status: String, Encodable {
+        case shrunk
+        case declined
+        case skipped
+    }
+
     let input: String
     let output: String
     let originalBytes: Int
     let shrunkBytes: Int
     let savedPercent: Int
+    let status: Status
 
     /// One `--json` line, exactly as the tool emits it.
     ///
@@ -258,13 +272,13 @@ struct ShrinkReport: Encodable {
     ///
     /// Not pretty-printed: one object per line, so the output can be read by
     /// anything that consumes a stream line by line.
-    static func jsonLine(for result: ShrinkResult) throws -> String {
+    static func jsonLine(for result: ShrinkResult, status: Status? = nil) throws -> String {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.withoutEscapingSlashes, .sortedKeys]
-        return String(decoding: try encoder.encode(ShrinkReport(result)), as: UTF8.self)
+        return String(decoding: try encoder.encode(ShrinkReport(result, status: status)), as: UTF8.self)
     }
 
-    init(_ result: ShrinkResult) {
+    init(_ result: ShrinkResult, status: Status? = nil) {
         // `.path`, not the URL itself — see the note above.
         self.input = result.input.path
         // The engine's own answer for where the file ended up, which is not
@@ -276,6 +290,10 @@ struct ShrinkReport: Encodable {
         self.originalBytes = result.originalBytes
         self.shrunkBytes = result.shrunkBytes
         self.savedPercent = result.savedPercent
+        // The engine reports a declined re-encode by pointing the result at
+        // the untouched original — the same signal main.swift branches on to
+        // print "left alone".
+        self.status = status ?? (result.output == result.input ? .declined : .shrunk)
     }
 }
 

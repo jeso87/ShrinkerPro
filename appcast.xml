@@ -3,6 +3,15 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.2.0</title>
+            <pubDate>Sun, 13 Sep 2026 22:15:09 -0400</pubDate>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>1.2.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.2.0/ShrinkerPro-1.2.0.dmg" length="3422854" type="application/octet-stream" sparkle:edSignature="iQjklT40MXeaJGHl7GnhsC4kNuAJ2CwFTiz+KaM6BSI5w1NZsxksVm9uTGoSSkHI+x/HOVJeGkp0lQinUACVBw=="/>
+        </item>
+        <item>
             <title>1.1.0</title>
             <pubDate>Fri, 11 Sep 2026 00:18:33 -0400</pubDate>
             <sparkle:version>4</sparkle:version>
@@ -19,15 +28,6 @@
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.0.2/ShrinkerPro-1.0.2.dmg" length="3387895" type="application/octet-stream" sparkle:edSignature="vbBKGzGczoZMOeasdU8ZwwVvIDe0iPul5R48J532aMXTE/C/JRJTPnJ5XyDHrchtGnYvlU0lFpSVXuPHpz6SCQ=="/>
-        </item>
-        <item>
-            <title>1.0.1</title>
-            <pubDate>Thu, 10 Sep 2026 20:10:51 -0400</pubDate>
-            <sparkle:version>2</sparkle:version>
-            <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.0.1/ShrinkerPro-1.0.1.dmg" length="3385800" type="application/octet-stream" sparkle:edSignature="fa9rsa33vh2IpMWJqElUfH14+Fq9lweCBCDAMMxBcQ5t8ldmBarcqqmdXJC4D4AnKcLXgAritFgn6UrjFf1qBA=="/>
         </item>
     </channel>
 </rss>

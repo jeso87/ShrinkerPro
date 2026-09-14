@@ -121,3 +121,134 @@ final class OutputWarningTests: XCTestCase {
         )
     }
 }
+
+// MARK: - Planning a file without writing it
+
+final class ShrinkPlanTests: XCTestCase {
+
+    private struct MissingTestResource: Error {}
+
+    private func repoRoot() -> URL {
+        ProcessInfo.processInfo.environment["SRCROOT"].map(URL.init(fileURLWithPath:))
+            ?? URL(fileURLWithPath: #filePath)
+                .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+    }
+
+    private func makeEngine() throws -> ShrinkEngine {
+        let vendor = repoRoot().appendingPathComponent("vendor/compressors")
+        guard FileManager.default.isExecutableFile(atPath: vendor.appendingPathComponent("cjpeg").path) else {
+            XCTFail("compressors not built — run scripts/build-compressors.sh")
+            throw MissingTestResource()
+        }
+        let bundle = Bundle(for: Self.self)
+        guard let svgo = bundle.url(forResource: "svgo.jsc", withExtension: "js")
+            ?? Bundle.main.url(forResource: "svgo.jsc", withExtension: "js") else {
+            XCTFail("svgo.jsc.js not bundled — run scripts/prepare-svgo.sh, then xcodegen generate")
+            throw MissingTestResource()
+        }
+        return try ShrinkEngine(
+            helperProvider: { vendor.appendingPathComponent($0) }, svgoScriptURL: svgo
+        )
+    }
+
+    private func staged(_ name: String, _ ext: String) throws -> URL {
+        let source = repoRoot().appendingPathComponent("Tests/ShrinkerProTests/Fixtures/\(name).\(ext)")
+        let dir = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("plan-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        addTeardownBlock { try? FileManager.default.removeItem(at: dir) }
+        let staged = dir.appendingPathComponent("\(name).\(ext)")
+        try FileManager.default.copyItem(at: source, to: staged)
+        return staged
+    }
+
+    private func settings(subfolder: Bool = false, keepOriginal: Bool = true) -> OutputSettings {
+        OutputSettings(
+            saveInSameFolder: true, savePath: nil,
+            useSubfolder: subfolder, keepOriginal: keepOriginal
+        )
+    }
+
+    func testPlanningNamesTheDestinationWithoutWritingAnything() throws {
+        let engine = try makeEngine()
+        let input = try staged("sample", "png")
+
+        let plan = try engine.plan(input, settings: settings())
+
+        XCTAssertEqual(plan.input.path, input.path)
+        XCTAssertEqual(plan.destination.lastPathComponent, "sample.min.png")
+        XCTAssertFalse(
+            FileManager.default.fileExists(atPath: plan.destination.path),
+            "planning must not write the output"
+        )
+    }
+
+    /// The side effect that used to be buried in path resolution. A scan of
+    /// a hundred files must leave no `minified/` folders behind.
+    func testPlanningCreatesNoSubfolder() throws {
+        let engine = try makeEngine()
+        let input = try staged("sample", "png")
+
+        let plan = try engine.plan(input, settings: settings(subfolder: true))
+
+        XCTAssertEqual(plan.destination.deletingLastPathComponent().lastPathComponent, "minified")
+        XCTAssertFalse(
+            FileManager.default.fileExists(atPath: plan.destination.deletingLastPathComponent().path),
+            "planning must not create minified/"
+        )
+    }
+
+    /// HEIC always converts, so its destination is a `.jpg` — which is the
+    /// reason a collision scan cannot be done on filenames alone.
+    func testPlanningAccountsForConversion() throws {
+        let engine = try makeEngine()
+        let input = try staged("sample", "heic")
+
+        let plan = try engine.plan(input, settings: settings())
+
+        XCTAssertEqual(plan.destination.pathExtension, "jpg")
+    }
+
+    func testExecutingAPlanWritesToItsDestination() throws {
+        let engine = try makeEngine()
+        let input = try staged("sample", "png")
+        let plan = try engine.plan(input, settings: settings())
+
+        let result = try engine.shrink(plan)
+
+        XCTAssertEqual(result.output.path, plan.destination.path)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: plan.destination.path))
+    }
+
+    /// How Keep Both is applied: the plan is redirected, and everything else
+    /// about it — route, conversion, metadata pass — is carried over intact.
+    func testARedirectedPlanWritesToTheNewPath() throws {
+        let engine = try makeEngine()
+        let input = try staged("sample", "png")
+        let plan = try engine.plan(input, settings: settings())
+        let elsewhere = plan.destination.deletingLastPathComponent()
+            .appendingPathComponent("sample.min 2.png")
+
+        let result = try engine.shrink(plan.writing(to: elsewhere))
+
+        XCTAssertEqual(result.output.lastPathComponent, "sample.min 2.png")
+        XCTAssertFalse(
+            FileManager.default.fileExists(atPath: plan.destination.path),
+            "redirecting must not also write the original destination"
+        )
+    }
+
+    /// The convenience overload is what keeps 22 existing engine tests and
+    /// the entire CLI compiling. It must agree with planning then executing.
+    func testTheConvenienceOverloadMatchesPlanThenShrink() throws {
+        let engine = try makeEngine()
+        let a = try staged("sample", "png")
+        let b = try staged("sample", "png")
+
+        let direct = try engine.shrink(a, settings: settings())
+        let viaPlan = try engine.shrink(engine.plan(b, settings: settings()))
+
+        XCTAssertEqual(direct.output.lastPathComponent, viaPlan.output.lastPathComponent)
+        XCTAssertEqual(direct.shrunkBytes, viaPlan.shrunkBytes)
+    }
+}

@@ -8,7 +8,16 @@ import JavaScriptCore
 /// into a `globalThis.svgo = {...}` assignment; this class consumes that
 /// rewritten script. JavaScriptCore's JIT requires the
 /// `com.apple.security.cs.allow-jit` entitlement under the hardened runtime.
-final class SVGCompressor: Compressor {
+///
+/// `@unchecked Sendable` because `Compressor` is now `Sendable` — a
+/// `ShrinkPlan` carries its chosen compressor from where a file is planned to
+/// where it is executed — and `JSContext` is not. This is not a new claim:
+/// `context` is touched only under the `lock` below (and in `init`, before
+/// the instance is shared), which is exactly what `ShrinkEngine`'s own
+/// `@unchecked Sendable` has always rested on. `@unchecked` is unavoidable
+/// rather than a shortcut: the compiler cannot see that an `NSLock` guards a
+/// stored property.
+final class SVGCompressor: Compressor, @unchecked Sendable {
 
     private let context: JSContext
     private let lock = NSLock()

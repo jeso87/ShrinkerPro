@@ -15,6 +15,58 @@ struct ShrinkResult: Equatable {
     }
 }
 
+/// Everything `ShrinkEngine.shrink` needs to know about how one file will be
+/// handled, decided before a single byte is written — and now handed to the
+/// caller, so "where would this land?" can be answered without landing it.
+///
+/// Only `input` and `destination` are a caller's business. The routing fields
+/// below are the engine's own: a caller that builds one by hand can hand the
+/// engine a route that contradicts its own destination, so get a plan from
+/// `ShrinkEngine.plan(_:settings:)` and redirect it with `writing(to:)` rather
+/// than constructing one. They are `internal` rather than `fileprivate` only
+/// because the tests that cover redirection have to be able to build one.
+///
+/// `Sendable` because a plan is decided where the user can be asked about it
+/// and executed somewhere else — see `ShrinkEngine`'s own conformance below.
+struct ShrinkPlan: Sendable {
+    let input: URL
+    /// Where this will be written. Computed by `OutputPathResolver.destination`,
+    /// which creates nothing — the directory is made in `shrink(_:)`.
+    let destination: URL
+
+    let compressor: Compressor
+    /// `nil` means "keep the input's own extension" — same-format
+    /// compression — and a non-nil value is the conversion's target
+    /// extension that `OutputPathResolver` was given instead.
+    let targetExtension: String?
+    /// Whether the finished output still needs its metadata written by
+    /// ImageIO because the encoder could not.
+    let needsMetadataPostPass: Bool
+    /// Whether the source declared an orientation now baked into the pixels.
+    let wasRotated: Bool
+    /// Whether the file comes out in the format it went in as. Deliberately
+    /// NOT derived from `targetExtension`: a rotated JPEG is rewritten into a
+    /// relayed route that reports a non-nil extension while converting
+    /// nothing, and reading "same format" off that is what let the never-grow
+    /// guard overwrite rotated originals with larger files.
+    let isSameFormat: Bool
+    /// What the metadata post-pass is allowed to keep. Carried here because
+    /// `shrink(_:)` no longer receives the `OutputSettings` it used to read
+    /// this from — a plan has to be the whole of what executing a file needs.
+    let metadataPolicy: MetadataPolicy
+
+    /// The same plan, writing somewhere else. This is how Keep Both is
+    /// applied: only the destination moves, so the route, the conversion and
+    /// the metadata pass are all carried over exactly as planned.
+    func writing(to newDestination: URL) -> ShrinkPlan {
+        ShrinkPlan(
+            input: input, destination: newDestination, compressor: compressor,
+            targetExtension: targetExtension, needsMetadataPostPass: needsMetadataPostPass,
+            wasRotated: wasRotated, isSameFormat: isSameFormat, metadataPolicy: metadataPolicy
+        )
+    }
+}
+
 /// Dispatches a file to the right compressor by extension and reports the
 /// resulting size delta. This is the entry point the UI calls.
 final class ShrinkEngine {
@@ -72,26 +124,61 @@ final class ShrinkEngine {
         self.svgCompressor = try SVGCompressor(scriptURL: script)
     }
 
-    /// Compresses `input` according to `settings` and reports the size delta.
+    /// Decides how one file will be handled, and where it would land, without
+    /// writing anything or creating any directory.
     ///
-    /// Note: `OutputPathResolver.resolve` creates the destination directory
-    /// as a side effect of computing the path (a faithful port of
-    /// upstream's `makeDir.sync` placement) — it runs before compression is
-    /// attempted below. So if compression subsequently throws, an empty
-    /// destination directory (e.g. `minified/`) can be left behind on disk.
-    /// That is upstream's existing behavior, not a bug introduced here, and
-    /// is out of scope to "fix" by adding cleanup.
-    func shrink(_ input: URL, settings: OutputSettings) throws -> ShrinkResult {
+    /// The half that can safely be run over a whole drop: a hundred files can
+    /// be planned in order to ask which of them would replace something, and
+    /// if the answer is "cancel", nothing has appeared on disk.
+    func plan(_ input: URL, settings: OutputSettings) throws -> ShrinkPlan {
         let ext = input.pathExtension.lowercased()
         guard Self.supportedExtensions.contains(ext) else {
             throw ShrinkError.unsupportedFormat(ext)
         }
 
-        let originalBytes = try byteCount(of: input)
-        let plan = try plan(for: ext, input: input, settings: settings)
-        let output = try OutputPathResolver.resolve(
-            input: input, settings: settings, targetExtension: plan.targetExtension
+        let routing = try routing(for: ext, input: input, settings: settings)
+        return ShrinkPlan(
+            input: input,
+            destination: OutputPathResolver.destination(
+                input: input, settings: settings, targetExtension: routing.targetExtension
+            ),
+            compressor: routing.compressor,
+            targetExtension: routing.targetExtension,
+            needsMetadataPostPass: routing.needsMetadataPostPass,
+            wasRotated: routing.wasRotated,
+            isSameFormat: routing.isSameFormat,
+            metadataPolicy: settings.metadataPolicy
         )
+    }
+
+    /// Plan and execute in one call. The shape the CLI and most existing
+    /// tests use, and the reason neither had to change.
+    func shrink(_ input: URL, settings: OutputSettings) throws -> ShrinkResult {
+        try shrink(plan(input, settings: settings))
+    }
+
+    /// Compresses `plan.input` into `plan.destination` and reports the size
+    /// delta.
+    ///
+    /// Note: the destination directory is created here, before compression is
+    /// attempted below — the same point in the sequence as when
+    /// `OutputPathResolver.resolve` created it as a side effect of computing
+    /// the path (a faithful port of upstream's `makeDir.sync` placement). So
+    /// if compression subsequently throws, an empty destination directory
+    /// (e.g. `minified/`) can be left behind on disk. That is upstream's
+    /// existing behavior, not a bug introduced here, and is out of scope to
+    /// "fix" by adding cleanup.
+    func shrink(_ plan: ShrinkPlan) throws -> ShrinkResult {
+        let input = plan.input
+        let output = plan.destination
+        let ext = input.pathExtension.lowercased()
+
+        let originalBytes = try byteCount(of: input)
+
+        // Deferred to here, and no earlier: planning must leave no trace, so
+        // the one side effect in path resolution happens once the caller has
+        // committed to actually writing this file.
+        try OutputPathResolver.prepareDirectory(for: output)
 
         // No compressor is ever handed `output` as its write target.
         //
@@ -182,7 +269,7 @@ final class ShrinkEngine {
             try ImageMetadata.rewriteMetadata(
                 of: scratch,
                 takingFrom: input,
-                policy: settings.metadataPolicy,
+                policy: plan.metadataPolicy,
                 utType: utType,
                 wasRotated: plan.wasRotated,
                 workingIn: replacementDirectory
@@ -269,9 +356,11 @@ final class ShrinkEngine {
         )
     }
 
-    /// Everything `shrink` needs to know about how one file will be
-    /// handled, decided before a single byte is written.
-    private struct Plan {
+    /// The routing half of a `ShrinkPlan`: everything `shrink` needs to know
+    /// about HOW one file will be handled, decided before a single byte is
+    /// written and before its destination has been worked out.
+    /// `plan(_:settings:)` pairs this with a resolved destination.
+    private struct ShrinkPlanRouting {
         let compressor: Compressor
         /// `nil` means "keep the input's own extension" — same-format
         /// compression, unchanged from before the conversion feature — and
@@ -310,19 +399,24 @@ final class ShrinkEngine {
     /// read. Everything else goes through `ConversionRouter`, which is where
     /// the actual routing decisions live (and where they're unit-tested,
     /// IO-free).
-    private func plan(for ext: String, input: URL, settings: OutputSettings) throws -> Plan {
+    private func routing(
+        for ext: String, input: URL, settings: OutputSettings
+    ) throws -> ShrinkPlanRouting {
         switch ext {
         // Both short-circuit before the router runs, so there is no route to
         // ask — but they are same-format by definition (neither ever
         // converts), and the guard applies to them like anything else.
         case "svg":
-            return Plan(compressor: svgCompressor, targetExtension: nil,
-                        needsMetadataPostPass: false, wasRotated: false,
-                        isSameFormat: true)
+            return ShrinkPlanRouting(
+                compressor: svgCompressor, targetExtension: nil,
+                needsMetadataPostPass: false, wasRotated: false, isSameFormat: true
+            )
         case "gif":
-            return Plan(compressor: GIFCompressor(executable: try helperProvider("gifsicle")),
-                        targetExtension: nil, needsMetadataPostPass: false, wasRotated: false,
-                        isSameFormat: true)
+            return ShrinkPlanRouting(
+                compressor: GIFCompressor(executable: try helperProvider("gifsicle")),
+                targetExtension: nil, needsMetadataPostPass: false, wasRotated: false,
+                isSameFormat: true
+            )
         default:
             break
         }
@@ -369,7 +463,7 @@ final class ShrinkEngine {
             }
         }
 
-        return Plan(
+        return ShrinkPlanRouting(
             compressor: try compressor(
                 for: route, policy: settings.metadataPolicy, quality: settings.quality
             ),

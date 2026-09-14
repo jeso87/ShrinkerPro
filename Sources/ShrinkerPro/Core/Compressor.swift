@@ -2,7 +2,13 @@ import Foundation
 
 /// Compresses a single image file. Implementations are stateless with respect
 /// to individual calls and safe to reuse across files.
-protocol Compressor {
+///
+/// That second sentence is the whole of the `Sendable` claim: a `ShrinkPlan`
+/// carries its chosen compressor from wherever the plan was made to wherever
+/// it is executed, which under Swift 6 requires the proof. Every conformer is
+/// a struct of immutable value fields bar `SVGCompressor`, whose `JSContext`
+/// is serialized behind an `NSLock` — see its own conformance.
+protocol Compressor: Sendable {
     /// Reads `input` and writes the compressed result to `output`.
     ///
     /// Contract, enforced by the only caller (`ShrinkEngine.shrink`):

@@ -55,12 +55,17 @@ struct OutputSettings: Equatable {
 /// subfolder, then create it, then build the filename.
 enum OutputPathResolver {
 
-    static func resolve(
+    /// Where a file will be written, computed without touching the disk.
+    ///
+    /// Split out of `resolve` so a caller can ask "where would this land?"
+    /// before anything is created. Order matches upstream `generateNewPath`:
+    /// redirect the directory, then append the subfolder, then build the
+    /// filename.
+    static func destination(
         input: URL,
         settings: OutputSettings,
-        targetExtension: String? = nil,
-        fileManager: FileManager = .default
-    ) throws -> URL {
+        targetExtension: String? = nil
+    ) -> URL {
 
         var directory = input.deletingLastPathComponent()
 
@@ -74,20 +79,11 @@ enum OutputPathResolver {
             directory = directory.appendingPathComponent("minified", isDirectory: true)
         }
 
-        do {
-            try fileManager.createDirectory(at: directory, withIntermediateDirectories: true)
-        } catch {
-            throw ShrinkError.outputNotWritten(directory)
-        }
-
-        // `targetExtension` is nil for same-format compression (the
-        // pre-conversion behavior: keep whatever extension the input
-        // had) and set to the conversion's target extension — "jpg",
-        // "webp", or "avif" — whenever `ShrinkEngine` actually converts
-        // the file. That's also why a converting output never collides
-        // with its input even with suffix and subfolder both off: the
-        // extension itself differs, so the in-place case below only ever
-        // applies to same-format compression, exactly as before.
+        // `targetExtension` is nil for same-format compression (keep whatever
+        // extension the input had) and set to the conversion's target
+        // extension whenever `ShrinkEngine` actually converts the file. That
+        // is also why a converting output never collides with its input even
+        // with suffix and subfolder both off: the extension itself differs.
         let ext = targetExtension ?? input.pathExtension
         let stem = input.deletingPathExtension().lastPathComponent
         let name = settings.keepOriginal ? stem + ".min" : stem
@@ -95,5 +91,34 @@ enum OutputPathResolver {
         return ext.isEmpty
             ? directory.appendingPathComponent(name)
             : directory.appendingPathComponent(name).appendingPathExtension(ext)
+    }
+
+    /// Creates the directory a destination will be written into.
+    ///
+    /// Deliberately separate from `destination`: this is the half with a side
+    /// effect, and it must not run until the user has consented to the write.
+    static func prepareDirectory(
+        for destination: URL,
+        fileManager: FileManager = .default
+    ) throws {
+        let directory = destination.deletingLastPathComponent()
+        do {
+            try fileManager.createDirectory(at: directory, withIntermediateDirectories: true)
+        } catch {
+            throw ShrinkError.outputNotWritten(directory)
+        }
+    }
+
+    /// Both halves, in the order they have always run. Retained so existing
+    /// callers and their tests are unaffected by the split.
+    static func resolve(
+        input: URL,
+        settings: OutputSettings,
+        targetExtension: String? = nil,
+        fileManager: FileManager = .default
+    ) throws -> URL {
+        let output = destination(input: input, settings: settings, targetExtension: targetExtension)
+        try prepareDirectory(for: output, fileManager: fileManager)
+        return output
     }
 }

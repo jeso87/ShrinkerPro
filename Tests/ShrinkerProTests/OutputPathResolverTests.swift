@@ -174,4 +174,74 @@ final class OutputPathResolverTests: XCTestCase {
         XCTAssertEqual(withDefault, explicitNil)
         XCTAssertEqual(withDefault.pathExtension, "png")
     }
+
+    // MARK: - Building a path without touching the disk
+
+    /// The regression most likely to come back: creating the directory is
+    /// what this code does today, and a pre-flight collision scan that
+    /// creates `minified/` folders before the user has agreed to anything
+    /// would be exactly the bug the warning exists to prevent.
+    func testDestinationCreatesNoDirectory() {
+        let dest = root.appendingPathComponent("elsewhere")
+
+        let out = OutputPathResolver.destination(
+            input: input(),
+            settings: settings(sameFolder: false, savePath: dest, subfolder: true),
+            targetExtension: nil
+        )
+
+        XCTAssertEqual(out.lastPathComponent, "photo.min.png")
+        XCTAssertFalse(
+            FileManager.default.fileExists(atPath: dest.path),
+            "building a path must not create the save folder"
+        )
+        XCTAssertFalse(
+            FileManager.default.fileExists(atPath: out.deletingLastPathComponent().path),
+            "building a path must not create the minified/ subfolder"
+        )
+    }
+
+    /// The split must be behaviour-preserving: for every combination the
+    /// suite already covers, the pure builder has to agree with what
+    /// `resolve` returns.
+    func testDestinationAgreesWithResolveForEveryCombination() throws {
+        let dest = root.appendingPathComponent("agree")
+        for sameFolder in [true, false] {
+            for subfolder in [true, false] {
+                for suffix in [true, false] {
+                    let cfg = settings(
+                        sameFolder: sameFolder,
+                        savePath: sameFolder ? nil : dest,
+                        subfolder: subfolder, suffix: suffix
+                    )
+                    let resolved = try OutputPathResolver.resolve(
+                        input: input(), settings: cfg, fileManager: .default
+                    )
+                    let built = OutputPathResolver.destination(
+                        input: input(), settings: cfg, targetExtension: nil
+                    )
+                    XCTAssertEqual(
+                        built.path, resolved.path,
+                        "pure builder disagreed for sameFolder=\(sameFolder) subfolder=\(subfolder) suffix=\(suffix)"
+                    )
+                }
+            }
+        }
+    }
+
+    func testPrepareDirectoryCreatesTheDestinationsParent() throws {
+        let dest = root.appendingPathComponent("made")
+        let out = OutputPathResolver.destination(
+            input: input(), settings: settings(sameFolder: false, savePath: dest, subfolder: true),
+            targetExtension: nil
+        )
+
+        try OutputPathResolver.prepareDirectory(for: out, fileManager: .default)
+
+        var isDir: ObjCBool = false
+        XCTAssertTrue(
+            FileManager.default.fileExists(atPath: out.deletingLastPathComponent().path, isDirectory: &isDir)
+                && isDir.boolValue
+        )
+    }
 }

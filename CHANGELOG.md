@@ -4,6 +4,54 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.2.1 — 2026-09-14
+
+### Added
+
+**Shrinker Pro now asks before replacing a file.** Drop something whose result
+would land on a file that already exists and you are asked before any work
+starts, with the choice to skip those files, keep both, or replace. Files in
+the same drop that collide with nothing still get shrunk.
+
+Two questions rather than one, asked separately and answered separately,
+because the stakes differ. Your own originals are asked about first —
+overwriting one cannot be undone — then anything already sitting at the
+destination, such as a `.min` copy from an earlier run, which usually can be
+shrugged off. Skipping declines only the files in that one answer; the rest of
+the drop still runs.
+
+You can turn it off in Settings, under Output, which restores exactly what
+1.2.0 did.
+
+**`--if-exists` for the command line.** The same three choices, plus a fourth
+that has no sheet equivalent, as a flag:
+
+```
+shrinker --if-exists skip ./screenshots
+shrinker --if-exists keep-both photo.jpg
+shrinker --if-exists fail ./build-assets
+```
+
+It defaults to `replace`, which is what every earlier version did, so no
+existing script changes behaviour. `--json` output gains a `status` field —
+`shrunk`, `declined` or `skipped` — so a caller can tell a file that was
+skipped from one that had nothing worth saving.
+
+### Changed
+
+**Settings is easier to read.** The panel is now five labelled sections —
+Output, Conversion, Quality, Metadata, General — where two of them previously
+had no heading at all. Where files go and whether originals are kept are
+radio choices that each state their own consequence, instead of a checkbox
+whose off-state you had to work out.
+
+### Fixed
+
+**The "your originals will be overwritten" warning told the truth only some
+of the time.** It appeared whenever the `.min` suffix was off, including when
+a subfolder or a chosen save folder meant nothing was actually being
+overwritten. It now appears only when originals are genuinely at risk.
+
 ## 1.2.0 — 2026-09-13
 
 ### Added

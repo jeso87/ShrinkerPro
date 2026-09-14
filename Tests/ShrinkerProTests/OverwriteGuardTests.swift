@@ -267,3 +267,192 @@ final class ShrinkPlanTests: XCTestCase {
         )
     }
 }
+
+// MARK: - Which collisions are which
+
+final class OverwriteScanTests: XCTestCase {
+
+    private var root: URL!
+
+    override func setUpWithError() throws {
+        root = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("scan-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    }
+
+    override func tearDownWithError() throws {
+        try? FileManager.default.removeItem(at: root)
+    }
+
+    @discardableResult
+    private func touch(_ name: String) throws -> URL {
+        let url = root.appendingPathComponent(name)
+        try Data("x".utf8).write(to: url)
+        return url
+    }
+
+    func testAPlanWhoseDestinationIsItsOwnInputIsAnOriginalAtRisk() throws {
+        let file = try touch("photo.png")
+        let plans = [ShrinkPlan.stub(input: file, destination: file)]
+
+        let (originals, existing) = OverwriteScan.classify(plans)
+
+        XCTAssertEqual(originals.map(\.input.path), [file.path])
+        XCTAssertTrue(existing.isEmpty)
+    }
+
+    /// Not an original — something else is simply already sitting there.
+    /// The sheet must not claim to know what it is.
+    func testAnOccupiedDestinationThatIsNotTheInputIsTheOtherCategory() throws {
+        let file = try touch("photo.png")
+        let occupied = try touch("photo.min.png")
+        let plans = [ShrinkPlan.stub(input: file, destination: occupied)]
+
+        let (originals, existing) = OverwriteScan.classify(plans)
+
+        XCTAssertTrue(originals.isEmpty)
+        XCTAssertEqual(existing.map(\.destination.path), [occupied.path])
+    }
+
+    func testAFreeDestinationIsNoCollisionAtAll() throws {
+        let file = try touch("photo.png")
+        let free = root.appendingPathComponent("photo.min.png")
+        let plans = [ShrinkPlan.stub(input: file, destination: free)]
+
+        let (originals, existing) = OverwriteScan.classify(plans)
+
+        XCTAssertTrue(originals.isEmpty)
+        XCTAssertTrue(existing.isEmpty)
+    }
+
+    /// "Replace originals" plus a chosen save folder: the original is not at
+    /// risk, so this belongs in the second category however destructive it is.
+    func testReplacingIntoAChosenFolderIsNotAnOriginalAtRisk() throws {
+        let file = try touch("photo.png")
+        let dest = root.appendingPathComponent("out")
+        try FileManager.default.createDirectory(at: dest, withIntermediateDirectories: true)
+        let occupied = dest.appendingPathComponent("photo.png")
+        try Data("y".utf8).write(to: occupied)
+
+        let (originals, existing) = OverwriteScan.classify(
+            [ShrinkPlan.stub(input: file, destination: occupied)]
+        )
+
+        XCTAssertTrue(originals.isEmpty, "the input file itself is not the destination")
+        XCTAssertEqual(existing.count, 1)
+    }
+
+    /// Path equality has to survive the forms the same file can be spelled
+    /// in, or an in-place plan would be misfiled as "some other file".
+    func testClassificationIsNotFooledByAnUnstandardisedPath() throws {
+        let file = try touch("photo.png")
+        let awkward = root.appendingPathComponent("./photo.png")
+
+        let (originals, _) = OverwriteScan.classify(
+            [ShrinkPlan.stub(input: file, destination: awkward)]
+        )
+
+        XCTAssertEqual(originals.count, 1, "same file, different spelling")
+    }
+
+    func testAMixedBatchSplitsIntoBothCategories() throws {
+        let inPlace = try touch("a.png")
+        let other = try touch("b.png")
+        let occupied = try touch("b.min.png")
+        let clean = try touch("c.png")
+
+        let (originals, existing) = OverwriteScan.classify([
+            ShrinkPlan.stub(input: inPlace, destination: inPlace),
+            ShrinkPlan.stub(input: other, destination: occupied),
+            ShrinkPlan.stub(input: clean, destination: root.appendingPathComponent("c.min.png")),
+        ])
+
+        XCTAssertEqual(originals.count, 1)
+        XCTAssertEqual(existing.count, 1)
+    }
+}
+
+// MARK: - The sheet's own words
+
+final class OverwriteRequestCopyTests: XCTestCase {
+
+    private func url(_ name: String) -> URL { URL(fileURLWithPath: "/tmp/\(name)") }
+
+    func testOneOriginalIsNamedAndTheWarningIsUnambiguous() {
+        let request = OverwriteRequest(
+            category: .original, paths: [url("photo.jpg")], unaffectedCount: 48
+        )
+
+        XCTAssertEqual(request.title, "Replace 1 original?")
+        XCTAssertTrue(request.message.contains("photo.jpg"))
+        XCTAssertTrue(request.message.contains("cannot be recovered"))
+        XCTAssertTrue(request.message.contains("48"))
+        XCTAssertEqual(request.skipButtonTitle, "Skip This")
+    }
+
+    func testSeveralOriginalsPluraliseTitleAndButton() {
+        let request = OverwriteRequest(
+            category: .original,
+            paths: [url("a.jpg"), url("b.jpg"), url("c.jpg")],
+            unaffectedCount: 0
+        )
+
+        XCTAssertEqual(request.title, "Replace 3 originals?")
+        XCTAssertEqual(request.skipButtonTitle, "Skip These")
+    }
+
+    /// The correction that matters: this sheet must not describe the file as
+    /// an earlier .min copy, because with a chosen save folder it may be an
+    /// unrelated file that merely shares a name.
+    func testTheSecondCategoryDoesNotClaimToKnowWhatTheFileIs() {
+        let request = OverwriteRequest(
+            category: .existingFile, paths: [url("logo.png")], unaffectedCount: 2
+        )
+
+        XCTAssertTrue(request.message.contains("logo.png"))
+        XCTAssertFalse(
+            request.message.lowercased().contains("earlier run"),
+            "the app cannot know that, and guessing wrong about what it destroys is worse than naming the path"
+        )
+        XCTAssertFalse(request.message.lowercased().contains(".min copy"))
+    }
+
+    func testAnUnaffectedCountOfZeroIsNotMentioned() {
+        let request = OverwriteRequest(
+            category: .original, paths: [url("only.jpg")], unaffectedCount: 0
+        )
+
+        XCTAssertFalse(
+            request.message.contains("unaffected"),
+            "there are no other files to reassure anyone about"
+        )
+    }
+}
+
+/// A plan with no real route behind it, for tests that care only about its
+/// input and destination. Task 6 left `ShrinkPlan`'s routing fields
+/// `internal` precisely so this can live here rather than in shipped code.
+extension ShrinkPlan {
+    static func stub(input: URL, destination: URL) -> ShrinkPlan {
+        ShrinkPlan(
+            input: input,
+            destination: destination,
+            compressor: NoopCompressor(),
+            targetExtension: nil,
+            needsMetadataPostPass: false,
+            wasRotated: false,
+            isSameFormat: true,
+            metadataPolicy: .all
+        )
+    }
+}
+
+/// Never invoked — `OverwriteScan.classify` reads only `input` and
+/// `destination`. It throws rather than returning quietly so that a test
+/// which somehow reaches compression fails loudly instead of passing for
+/// the wrong reason.
+private struct NoopCompressor: Compressor {
+    func compress(input: URL, output: URL) throws {
+        throw ShrinkError.unsupportedFormat("stub")
+    }
+}

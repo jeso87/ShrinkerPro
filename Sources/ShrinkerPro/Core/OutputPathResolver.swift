@@ -111,6 +111,33 @@ enum OutputPathResolver {
         }
     }
 
+    /// The first free Finder-style name at or after `destination`.
+    ///
+    /// `photo.min.png` → `photo.min 2.png`, numbering from 2 and skipping any
+    /// that are taken. The whole filename minus its final extension is the
+    /// stem, so `.min` is carried along rather than split apart.
+    ///
+    /// The check-then-write gap is a benign race: the caller writes with a
+    /// plain move to a path observed free, and losing it would require another
+    /// process to create that exact name in the intervening moment.
+    static func uniqueDestination(
+        for destination: URL,
+        fileManager: FileManager = .default
+    ) -> URL {
+        guard fileManager.fileExists(atPath: destination.path) else { return destination }
+
+        let ext = destination.pathExtension
+        let stem = destination.deletingPathExtension()
+
+        var counter = 2
+        while true {
+            let numbered = URL(fileURLWithPath: stem.path + " \(counter)")
+            let candidate = ext.isEmpty ? numbered : numbered.appendingPathExtension(ext)
+            if !fileManager.fileExists(atPath: candidate.path) { return candidate }
+            counter += 1
+        }
+    }
+
     /// Both halves, in the order they have always run. Retained so existing
     /// callers and their tests are unaffected by the split.
     static func resolve(

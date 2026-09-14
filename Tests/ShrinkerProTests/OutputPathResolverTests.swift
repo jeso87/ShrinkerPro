@@ -255,4 +255,63 @@ final class OutputPathResolverTests: XCTestCase {
                 && isDir.boolValue
         )
     }
+
+    // MARK: - Keep Both
+
+    private func touch(_ name: String) throws -> URL {
+        let url = root.appendingPathComponent(name)
+        try Data("x".utf8).write(to: url)
+        return url
+    }
+
+    func testAFreePathIsReturnedUnchanged() throws {
+        let free = root.appendingPathComponent("photo.min.png")
+        XCTAssertEqual(OutputPathResolver.uniqueDestination(for: free).path, free.path)
+    }
+
+    /// Finder's convention, and the `.min` stem must survive it:
+    /// `photo.min.png` becomes `photo.min 2.png`, never `photo 2.min.png`.
+    func testAnOccupiedPathGetsTheFirstFreeNumber() throws {
+        _ = try touch("photo.min.png")
+
+        let unique = OutputPathResolver.uniqueDestination(
+            for: root.appendingPathComponent("photo.min.png")
+        )
+
+        XCTAssertEqual(unique.lastPathComponent, "photo.min 2.png")
+    }
+
+    func testNumberingSkipsGaps() throws {
+        _ = try touch("photo.min.png")
+        _ = try touch("photo.min 2.png")
+        _ = try touch("photo.min 3.png")
+
+        let unique = OutputPathResolver.uniqueDestination(
+            for: root.appendingPathComponent("photo.min.png")
+        )
+
+        XCTAssertEqual(unique.lastPathComponent, "photo.min 4.png")
+    }
+
+    /// Under "Replace originals" there is no `.min` in the stem at all, and
+    /// the numbered sibling is what lets the original survive.
+    func testAStemWithoutMinIsNumberedToo() throws {
+        _ = try touch("photo.png")
+
+        let unique = OutputPathResolver.uniqueDestination(
+            for: root.appendingPathComponent("photo.png")
+        )
+
+        XCTAssertEqual(unique.lastPathComponent, "photo 2.png")
+    }
+
+    func testAnExtensionlessNameIsNumberedWithoutGainingADot() throws {
+        _ = try touch("photo")
+
+        let unique = OutputPathResolver.uniqueDestination(
+            for: root.appendingPathComponent("photo")
+        )
+
+        XCTAssertEqual(unique.lastPathComponent, "photo 2")
+    }
 }

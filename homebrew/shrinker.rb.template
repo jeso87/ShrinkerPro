@@ -28,8 +28,16 @@ class Shrinker < Formula
   # Apple Silicon only, and macOS 14 or newer, matching the app: every binary
   # in the payload is built arm64-only with a 14.0 deployment target, and the
   # release gate refuses to ship anything else.
+  #
+  # A bare symbol, NOT ">= :sonoma". `>=` is already the default comparator, so
+  # the string bought nothing, and Homebrew 7 rejects it: MacOSRequirement.parse
+  # deprecated the string-comparison format, execution falls through to a branch
+  # that hands the whole string to MacOSVersion.from_symbol, and the install dies
+  # with `unknown or unsupported macOS version: ">= :sonoma"`. Homebrew's own
+  # source names this line as the replacement. Verified with `brew info`, which
+  # reports "macOS >= 14" — a floor, so macOS 26 and 27 satisfy it.
   depends_on arch: :arm64
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   def install
     # Binary and helpers together in libexec, with a wrapper in bin.

@@ -16,9 +16,10 @@ the same drop that collide with nothing still get shrunk.
 Two questions rather than one, asked separately and answered separately,
 because the stakes differ. Your own originals are asked about first —
 overwriting one cannot be undone — then anything already sitting at the
-destination, such as a `.min` copy from an earlier run, which usually can be
-shrugged off. Skipping declines only the files in that one answer; the rest of
-the drop still runs.
+destination: a copy from an earlier run, or something unrelated that happens
+to share the name. Shrinker Pro cannot tell which from where it stands, so it
+asks rather than assuming. Skipping declines only the files in that one
+answer; the rest of the drop still runs.
 
 You can turn it off in Settings, under Output, which restores exactly what
 1.2.0 did.

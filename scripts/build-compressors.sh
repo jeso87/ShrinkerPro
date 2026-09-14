@@ -162,12 +162,48 @@ build_pngquant() {
   # SHA cannot change for pngquant's 3.0.3 tag specifically, but a future
   # change to GitHub's Contents API response format could break the `sed`
   # parse below.
-  if [ ! -f "$SRC/pngquant/lib/Cargo.toml" ]; then
+  # The archive is what the fetch keys on — not the extracted tree.
+  #
+  # libimagequant is GPL-3.0-or-later and is compiled *into* the shipped
+  # pngquant binary, so its source is part of the corresponding source we are
+  # obliged to publish, and the pngquant tag tarball cannot carry it (lib/ is
+  # an empty gitlink in there, verified: exactly one entry).
+  #
+  # This used to be two independent conditions: fetch when lib/ was missing,
+  # keep the archive when the download happened to still be lying around.
+  # Each is defensible alone; together they left a hole neither could see. An
+  # extracted lib/ with the download cleaned away satisfies the first and
+  # fails the second, so libimagequant.tar.gz never reappears — and
+  # release.sh's GPL gate then fails telling you to run this script, which
+  # skips both branches and fixes nothing. That is exactly how the 1.2.0
+  # release stalled.
+  #
+  # So the obligation-critical artifact drives the fetch, and extraction is a
+  # consumer of it. Named to sort beside the rest so release.sh collects it by
+  # pattern rather than by special case.
+  local libimagequant_src="$SRC/libimagequant.tar.gz"
+  if [ ! -f "$libimagequant_src" ]; then
     echo "==> fetching pinned libimagequant submodule for pngquant"
     local sha
     sha=$(curl -fsSL "https://api.github.com/repos/kornelski/pngquant/contents/lib?ref=$PNGQUANT_VERSION" \
       | sed -n 's/.*"sha": *"\([0-9a-f]*\)".*/\1/p' | head -1)
-    curl -fsSL "https://github.com/ImageOptim/libimagequant/archive/$sha.tar.gz" -o "$SRC/pngquant/lib.tar.gz"
+    # The comment above warns this parse depends on GitHub's response shape.
+    # Say so outright rather than fetching ".tar.gz" and reporting a 404,
+    # which names the wrong problem.
+    [ -n "$sha" ] || {
+      echo "FATAL: could not resolve pngquant $PNGQUANT_VERSION's pinned lib/ commit" >&2
+      echo "       (GitHub's Contents API response shape may have changed)" >&2
+      exit 1
+    }
+    # Download to a temp name and rename only on success, so an interrupted
+    # fetch cannot leave a truncated archive that later runs treat as present
+    # — the same failure mode in a new disguise.
+    curl -fsSL "https://github.com/ImageOptim/libimagequant/archive/$sha.tar.gz" \
+      -o "$libimagequant_src.tmp.$$"
+    mv "$libimagequant_src.tmp.$$" "$libimagequant_src"
+  fi
+
+  if [ ! -f "$SRC/pngquant/lib/Cargo.toml" ]; then
     # Same atomicity concern as fetch() above, and the same fix: extract to a
     # temp dir first and only replace "$SRC/pngquant/lib" once tar succeeds.
     # Note the outer pngquant tarball already contains an empty "lib/"
@@ -180,23 +216,9 @@ build_pngquant() {
     local libtmp="$SRC/pngquant/lib.tmp.$$"
     rm -rf "$libtmp"
     mkdir -p "$libtmp"
-    tar xzf "$SRC/pngquant/lib.tar.gz" -C "$libtmp" --strip-components=1
+    tar xzf "$libimagequant_src" -C "$libtmp" --strip-components=1
     rm -rf "$SRC/pngquant/lib"
     mv "$libtmp" "$SRC/pngquant/lib"
-  fi
-
-  # Keep the submodule tarball alongside the others, not just its extracted
-  # tree. libimagequant is GPL-3.0-or-later and is compiled *into* the
-  # shipped pngquant binary, so its source is part of the corresponding
-  # source we are obliged to publish — and the pngquant tag tarball cannot
-  # carry it (lib/ is an empty gitlink in there, verified: exactly one
-  # entry). Without this copy the published archive cannot rebuild the
-  # binary we ship, which is the whole point of publishing it.
-  #
-  # Named to sort beside the rest so release.sh collects it by pattern
-  # rather than by special case.
-  if [ -f "$SRC/pngquant/lib.tar.gz" ]; then
-    cp "$SRC/pngquant/lib.tar.gz" "$SRC/libimagequant.tar.gz"
   fi
 
   # Pin the dependency graph: copy the committed lockfile into place before

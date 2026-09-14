@@ -94,6 +94,14 @@ final class AppModel: ObservableObject {
     /// is awaiting it and the batch would hang forever.
     private var overwriteContinuation: CheckedContinuation<OverwriteAnswer, Never>?
 
+    /// Whether there is a window on screen to present a sheet in.
+    ///
+    /// Starts `true` rather than waiting to be told: an `AppModel` built
+    /// before its window exists — and every test's, which has no window at
+    /// all — must still be able to ask, or the guard in `ask` would make the
+    /// whole feature dead code outside the running app.
+    private var windowIsPresent = true
+
     private let engine: ShrinkEngine
     private let settings: Settings
     private let notifier: Notifier?
@@ -127,14 +135,45 @@ final class AppModel: ObservableObject {
     /// Safe to call with nothing pending — it clears a nil and resumes
     /// nothing — which is what lets the window hand it a `.skip` on its way
     /// out without having to know whether a question was on screen.
+    ///
+    /// The continuation is taken out of the slot *before* it is resumed, so
+    /// the resume-exactly-once invariant is structural rather than resting on
+    /// there being no synchronous observer able to re-enter between the two
+    /// lines. Same shape as the displacement in `ask`.
     func answerOverwrite(_ answer: OverwriteAnswer) {
-        pendingOverwrite = nil
-        overwriteContinuation?.resume(returning: answer)
+        let continuation = overwriteContinuation
         overwriteContinuation = nil
+        pendingOverwrite = nil
+        continuation?.resume(returning: answer)
+    }
+
+    /// A window is on screen and can present a sheet.
+    func windowAppeared() {
+        windowIsPresent = true
+    }
+
+    /// The window has gone, and whatever sheet it was showing went with it.
+    ///
+    /// Answers the question that was on screen, and — via `windowIsPresent` —
+    /// every question raised after this point, until a window comes back.
+    func windowDisappeared() {
+        windowIsPresent = false
+        answerOverwrite(.skip)
     }
 
     /// Puts one question on screen and waits for its answer.
     private func ask(_ request: OverwriteRequest) async -> OverwriteAnswer {
+        // No window, nobody to ask. Storing a continuation here would suspend
+        // this batch on an answer that cannot arrive: no sheet would ever be
+        // presented, `isProcessing` would stay true, and the drop zone would
+        // spin for the life of the process.
+        //
+        // This is the gap a one-shot `.onDisappear` could not close. That
+        // fires once, as the window goes; a batch can reach this line
+        // afterwards — the second category of a batch whose first sheet the
+        // teardown answered, or any batch that starts while no window is up.
+        guard windowIsPresent else { return .skip }
+
         // Only one continuation can be stored, and two batches genuinely can
         // overlap: `handle(urls:)` starts a task per drop, and a Finder "Open
         // With", a Dock drop or an Open Recent click all reach it while a
@@ -153,6 +192,42 @@ final class AppModel: ObservableObject {
         return await withCheckedContinuation { continuation in
             overwriteContinuation = continuation
             pendingOverwrite = request
+        }
+    }
+
+    /// The first name free both on disk and among the destinations this batch
+    /// has already claimed.
+    ///
+    /// `OutputPathResolver.uniqueDestination` answers the first half, and is
+    /// left exactly as it is — it belongs to a closed task and the CLI depends
+    /// on it. The second half is this batch's own business: `InputExpander`
+    /// does not de-duplicate, so dropping a folder together with a file inside
+    /// it plans that file twice. Two plans asking the resolver the same
+    /// question get the same answer, both would be written to
+    /// `photo.min 2.png`, and the second would destroy the first — data loss
+    /// in the one path whose entire purpose is not losing data.
+    ///
+    /// The numbering below repeats the resolver's scheme rather than calling
+    /// it in a loop, deliberately: given a name that is free on disk the
+    /// resolver returns it unchanged, so feeding its own answer back to it
+    /// would never terminate.
+    private static func freeDestination(
+        for destination: URL, claimedInBatch claimed: Set<String>
+    ) -> URL {
+        let first = OutputPathResolver.uniqueDestination(for: destination)
+        guard claimed.contains(first.path) else { return first }
+
+        let ext = destination.pathExtension
+        let stem = destination.deletingPathExtension()
+        var counter = 2
+        while true {
+            let numbered = URL(fileURLWithPath: stem.path + " \(counter)")
+            let candidate = ext.isEmpty ? numbered : numbered.appendingPathExtension(ext)
+            if !FileManager.default.fileExists(atPath: candidate.path),
+               !claimed.contains(candidate.path) {
+                return candidate
+            }
+            counter += 1
         }
     }
 
@@ -207,6 +282,24 @@ final class AppModel: ObservableObject {
         // pays nothing for it.
         if settings.warnBeforeOverwrite {
             let (originals, existing) = OverwriteScan.classify(plans)
+            // How many files in this drop no question touches at all — counted
+            // once, across BOTH categories, before anything is asked or
+            // applied.
+            //
+            // Deriving it per-sheet from the category being asked about is
+            // wrong in the exact way this feature exists to prevent: on the
+            // first sheet, every file queued for the second would be counted
+            // as unaffected, so a drop with one original at risk and one
+            // existing file to replace would say "The other file is
+            // unaffected" about a file the very next sheet offers to destroy.
+            //
+            // Counting plans rather than distinct paths is deliberate too: two
+            // plans for the same input (see `freeDestination`) are two files
+            // the user is being asked about, not one. And computing it before
+            // any answer is applied keeps a `.skip` in the first category from
+            // driving the second sheet's count negative.
+            let collidingTotal = originals.count + existing.count
+            let unaffectedCount = plans.count - collidingTotal
             // Stakes first: the irreversible question is asked before the
             // recoverable one. Two questions, each with its own answer, so
             // "keep both of my originals but replace the stale copies" is
@@ -217,7 +310,7 @@ final class AppModel: ObservableObject {
                 let answer = await ask(OverwriteRequest(
                     category: group.0,
                     paths: group.1.map(\.destination),
-                    unaffectedCount: plans.count - colliding.count
+                    unaffectedCount: unaffectedCount
                 ))
                 switch answer {
                 case .replace:
@@ -230,15 +323,21 @@ final class AppModel: ObservableObject {
                     // choice the user made, not a failure.
                     plans.removeAll { colliding.contains($0.destination.path) }
                 case .keepBoth:
+                    // What this batch has already spoken for. Nothing is
+                    // written until every plan has been decided, so the
+                    // filesystem alone cannot tell two plans apart — see
+                    // `freeDestination`.
+                    var claimed: Set<String> = []
                     plans = plans.map { plan in
+                        guard colliding.contains(plan.destination.path) else { return plan }
                         // Only the destination moves. `writing(to:)` accepts
                         // any path without policing its extension, while
                         // `shrink` takes its scratch extension from the
                         // input's route — so the number goes into the name
                         // and the extension is left exactly as planned.
-                        colliding.contains(plan.destination.path)
-                            ? plan.writing(to: OutputPathResolver.uniqueDestination(for: plan.destination))
-                            : plan
+                        let free = Self.freeDestination(for: plan.destination, claimedInBatch: claimed)
+                        claimed.insert(free.path)
+                        return plan.writing(to: free)
                     }
                 }
             }

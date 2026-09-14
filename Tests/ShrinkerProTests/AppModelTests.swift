@@ -512,13 +512,40 @@ final class OverwriteFlowTests: XCTestCase {
     }
 
     /// Answers the sheet as soon as one appears, so `process` can complete.
+    ///
+    /// Bounded on the wall clock, and that is not a nicety. An unbounded spin
+    /// on the main actor turns "no sheet was ever raised" into a hung test
+    /// host rather than a failing test: XCTest's own timers are scheduled on
+    /// the main run loop, which a saturated main actor never lets fire. That
+    /// cost ten minutes of a wedged run once already — see
+    /// `testASecondBatchWhileASheetIsUpDoesNotStrandTheFirst`.
     private func answering(_ answer: OverwriteAnswer, on model: AppModel) -> Task<Void, Never> {
         Task { @MainActor in
-            while model.pendingOverwrite == nil {
+            let deadline = Date().addingTimeInterval(10)
+            while model.pendingOverwrite == nil, Date() < deadline, !Task.isCancelled {
                 await Task.yield()
             }
             model.answerOverwrite(answer)
         }
+    }
+
+    /// Stages several fixtures side by side in one directory, so a single drop
+    /// can carry files that collide in different ways.
+    private func stagedFolder(_ names: [String]) throws -> URL {
+        let repoRoot = ProcessInfo.processInfo.environment["SRCROOT"].map(URL.init(fileURLWithPath:))
+            ?? URL(fileURLWithPath: #filePath)
+                .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let dir = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("flow-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        addTeardownBlock { try? FileManager.default.removeItem(at: dir) }
+        for name in names {
+            try FileManager.default.copyItem(
+                at: repoRoot.appendingPathComponent("Tests/ShrinkerProTests/Fixtures/\(name)"),
+                to: dir.appendingPathComponent(name)
+            )
+        }
+        return dir
     }
 
     func testAFirstRunAsksNothing() async throws {
@@ -550,8 +577,26 @@ final class OverwriteFlowTests: XCTestCase {
         let file = try staged()
         await model.process(urls: [file])
 
+        // A watchdog rather than no responder at all. With the setting off no
+        // sheet may appear — but if one ever did, nothing here would answer it
+        // and `process` would hang the test host instead of failing. This
+        // answers it and records that it happened, so the assertion below is
+        // what reports the regression.
+        let log = SheetLog()
+        let watchdog = Task { @MainActor in
+            let deadline = Date().addingTimeInterval(10)
+            while Date() < deadline, !Task.isCancelled {
+                if model.pendingOverwrite != nil {
+                    log.sawAnySheet = true
+                    model.answerOverwrite(.skip)
+                }
+                await Task.yield()
+            }
+        }
         await model.process(urls: [file])
+        watchdog.cancel()
 
+        XCTAssertFalse(log.sawAnySheet, "the warning is off: nothing may be asked")
         XCTAssertNil(model.pendingOverwrite)
         XCTAssertEqual(model.rows.count, 2)
     }
@@ -615,8 +660,11 @@ final class OverwriteFlowTests: XCTestCase {
         let file = try staged()
         await model.process(urls: [file])
 
+        // Bounded for the same reason as `answering(_:on:)` above: a sheet
+        // that never arrives must fail this test, not wedge the host.
         let observer = Task { @MainActor () -> OverwriteCategory? in
-            while model.pendingOverwrite == nil { await Task.yield() }
+            let deadline = Date().addingTimeInterval(10)
+            while model.pendingOverwrite == nil, Date() < deadline { await Task.yield() }
             let category = model.pendingOverwrite?.category
             model.answerOverwrite(.skip)
             return category
@@ -702,6 +750,110 @@ final class OverwriteFlowTests: XCTestCase {
         )
         XCTAssertTrue(flags.secondFinished, "the second batch never returned")
     }
+
+    /// The configuration that motivated having two sheets at all: one file
+    /// whose output would land on the user's own original, and another whose
+    /// converted output would land on a different file already sitting there.
+    /// Both questions must be asked, the irreversible one first, and each
+    /// answer honoured independently — "keep both of my originals, but
+    /// replace the stale copies".
+    ///
+    /// It is also the shape that catches a sheet counting the *other* sheet's
+    /// files as unaffected, which is the worst thing this feature could do:
+    /// tell the user a file is safe immediately before offering to replace it.
+    func testADropWithBothKindsOfCollisionAsksTwiceInStakesOrder() async throws {
+        let (model, settings) = try makeModel()
+        // Outputs take their input's own name, so a same-format file's
+        // destination IS its input — the first category.
+        settings.keepOriginal = false
+        // ...while the JPEG converts, so its destination is a .webp that is
+        // already on disk — the second category, in the same drop.
+        settings.jpegConversion = .webp
+
+        let folder = try stagedFolder(["sample.png", "sample.jpg", "sample.webp"])
+        let png = folder.appendingPathComponent("sample.png")
+        let jpg = folder.appendingPathComponent("sample.jpg")
+        let webp = folder.appendingPathComponent("sample.webp")
+        let pngBefore = try Data(contentsOf: png)
+        let webpBefore = try Data(contentsOf: webp)
+
+        let log = SheetLog()
+        let responder = Task { @MainActor in
+            let deadline = Date().addingTimeInterval(10)
+            while log.categories.count < 2, Date() < deadline, !Task.isCancelled {
+                guard let request = model.pendingOverwrite else {
+                    await Task.yield()
+                    continue
+                }
+                log.unaffectedCounts.append(request.unaffectedCount)
+                switch request.category {
+                case .original:
+                    log.categories.append("original")
+                    model.answerOverwrite(.keepBoth)
+                case .existingFile:
+                    log.categories.append("existingFile")
+                    model.answerOverwrite(.replace)
+                }
+            }
+        }
+        await model.process(urls: [png, jpg])
+        responder.cancel()
+
+        XCTAssertEqual(
+            log.categories, ["original", "existingFile"],
+            "both questions must be asked, and the irreversible one first"
+        )
+        XCTAssertEqual(
+            log.unaffectedCounts.first, 0,
+            "every file in this drop is about to be asked about — none may be called unaffected"
+        )
+        XCTAssertEqual(
+            try Data(contentsOf: png), pngBefore,
+            "Keep Both must leave the original exactly as it was"
+        )
+        XCTAssertTrue(
+            FileManager.default.fileExists(atPath: folder.appendingPathComponent("sample 2.png").path),
+            "Keep Both must write the result beside the original it spared"
+        )
+        XCTAssertNotEqual(
+            try Data(contentsOf: webp), webpBefore,
+            "Replace must actually replace the file already there"
+        )
+    }
+
+    /// `InputExpander` does not de-duplicate, so dropping a folder together
+    /// with a file inside it plans the same file twice. Under Keep Both both
+    /// plans are redirected, and `OutputPathResolver.uniqueDestination` can
+    /// only see what is on disk — never what this batch has already claimed —
+    /// so unless the batch tracks its own claims both pick the same "… 2"
+    /// name and the second write destroys the first. Data loss in the one
+    /// path whose entire purpose is not losing data.
+    func testKeepBothGivesDuplicatePlansDistinctFiles() async throws {
+        let (model, _) = try makeModel()
+        let file = try staged()
+        let folder = file.deletingLastPathComponent()
+        await model.process(urls: [file])
+
+        // The realistic route to a duplicate, asserted rather than assumed:
+        // a folder and a file inside it, dropped together.
+        XCTAssertEqual(
+            InputExpander.expand([folder, file]).filter { $0.lastPathComponent == "sample.png" }.count, 2,
+            "expansion is expected to yield the same file twice — that is the case under test"
+        )
+
+        let responder = answering(.keepBoth, on: model)
+        await model.process(urls: [file, file])
+        await responder.value
+
+        let produced = try FileManager.default
+            .contentsOfDirectory(atPath: folder.path)
+            .filter { $0.hasPrefix("sample.min") }
+            .sorted()
+        XCTAssertEqual(
+            produced, ["sample.min 2.png", "sample.min 3.png", "sample.min.png"],
+            "two duplicate plans must land on two distinct new files, not both on one"
+        )
+    }
 }
 
 /// Whether each of two overlapping batches actually returned. A small
@@ -712,4 +864,14 @@ final class OverwriteFlowTests: XCTestCase {
 private final class BatchFlags {
     var firstFinished = false
     var secondFinished = false
+}
+
+/// What the sheets said, in the order they were raised. Categories are
+/// recorded as strings because `OverwriteCategory` is not `Equatable` and
+/// making it so would mean editing a file these tasks must leave alone.
+@MainActor
+private final class SheetLog {
+    var categories: [String] = []
+    var unaffectedCounts: [Int] = []
+    var sawAnySheet = false
 }

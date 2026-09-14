@@ -58,41 +58,65 @@ struct ContentView: View {
             }
             return true
         }
-        .alert(
-            "Something went wrong",
-            isPresented: Binding(
-                get: { model.errorMessage != nil },
-                set: { if !$0 { model.errorMessage = nil } }
-            ),
-            actions: { Button("OK", role: .cancel) { model.errorMessage = nil } },
-            message: { Text(model.errorMessage ?? "") }
-        )
-        // Beside the error alert deliberately, rather than reaching for a
-        // second presentation mechanism: there is one pattern here for "the
-        // model wants the window to say something", and this is it.
-        .alert(
-            model.pendingOverwrite?.title ?? "",
-            isPresented: Binding(
-                get: { model.pendingOverwrite != nil },
-                // Dismissing without choosing is Skip: it declines these
-                // files, it does not cancel the drop.
-                set: { if !$0 { model.answerOverwrite(.skip) } }
-            ),
-            presenting: model.pendingOverwrite,
-            actions: { request in
-                Button(request.skipButtonTitle, role: .cancel) { model.answerOverwrite(.skip) }
-                Button("Keep Both") { model.answerOverwrite(.keepBoth) }
-                Button("Replace", role: .destructive) { model.answerOverwrite(.replace) }
-            },
-            message: { request in Text(request.message) }
-        )
-        // A window that goes away mid-question must not strand the batch
-        // waiting on it: this app deliberately stays running after its last
-        // window closes (see AppDelegate), so nothing else would ever resume
-        // that continuation and the drop would hang for the life of the
-        // process. `.skip` is the answer that writes nothing, and
-        // `answerOverwrite` is a no-op when no question is pending — so this
-        // costs nothing on the ordinary path where the view simply goes away.
-        .onDisappear { model.answerOverwrite(.skip) }
+        .modifier(ModelAlerts(model: model))
+        // Window *presence*, not a one-shot answer on the way out.
+        //
+        // A batch that goes away mid-question must not be stranded: this app
+        // deliberately stays running after its last window closes (see
+        // AppDelegate), so nothing else would ever resume that continuation.
+        // But `.onDisappear` alone only covered the question already on
+        // screen — a batch reaching `ask` afterwards would suspend on a sheet
+        // nobody could present, leaving `isProcessing` true and the drop zone
+        // spinning. Telling the model whether a window exists at all closes
+        // both halves: the pending question is answered here, and later ones
+        // are answered immediately in `ask`.
+        .onAppear { model.windowAppeared() }
+        .onDisappear { model.windowDisappeared() }
+    }
+}
+
+/// Both of the window's alerts, in one place and — just as importantly — in
+/// their own function body.
+///
+/// Stacked inline on `ContentView.body` alongside the toolbar, the drop
+/// handler and the focused-scene value, the two alerts' four closures pushed
+/// the whole chain past the type checker's budget: Xcode reported "unable to
+/// type-check this expression in reasonable time" on the body. It still
+/// compiled, which is precisely why it was worth fixing before it stopped.
+/// A `ViewModifier` is solved as its own function body, so neither this nor
+/// `ContentView.body` is one giant expression any more.
+private struct ModelAlerts: ViewModifier {
+    @ObservedObject var model: AppModel
+
+    func body(content: Content) -> some View {
+        content
+            .alert(
+                "Something went wrong",
+                isPresented: Binding(
+                    get: { model.errorMessage != nil },
+                    set: { if !$0 { model.errorMessage = nil } }
+                ),
+                actions: { Button("OK", role: .cancel) { model.errorMessage = nil } },
+                message: { Text(model.errorMessage ?? "") }
+            )
+            // Beside the error alert deliberately, rather than reaching for a
+            // second presentation mechanism: there is one pattern here for
+            // "the model wants the window to say something", and this is it.
+            .alert(
+                model.pendingOverwrite?.title ?? "",
+                isPresented: Binding(
+                    get: { model.pendingOverwrite != nil },
+                    // Dismissing without choosing is Skip: it declines these
+                    // files, it does not cancel the drop.
+                    set: { if !$0 { model.answerOverwrite(.skip) } }
+                ),
+                presenting: model.pendingOverwrite,
+                actions: { request in
+                    Button(request.skipButtonTitle, role: .cancel) { model.answerOverwrite(.skip) }
+                    Button("Keep Both") { model.answerOverwrite(.keepBoth) }
+                    Button("Replace", role: .destructive) { model.answerOverwrite(.replace) }
+                },
+                message: { request in Text(request.message) }
+            )
     }
 }

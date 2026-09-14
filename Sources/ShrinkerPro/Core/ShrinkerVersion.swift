@@ -16,5 +16,5 @@ import Foundation
 /// something other than good intentions keeping it correct.
 enum ShrinkerVersion {
     /// Must equal `MARKETING_VERSION` in project.yml, which is asserted.
-    static let current = "1.1.0"
+    static let current = "1.2.0"
 }

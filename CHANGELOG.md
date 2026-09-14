@@ -4,7 +4,7 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
-## Unreleased
+## 1.2.0 — 2026-09-13
 
 ### Added
 

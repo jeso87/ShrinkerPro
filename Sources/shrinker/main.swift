@@ -139,9 +139,14 @@ if inputs.isEmpty {
 // than disambiguated — inventing `logo-1.min.png` would invent a name nobody
 // asked for, and picking a winner is exactly what the bug already did.
 //
+// `--if-exists keep-both` is the one exception, and it is not an exception to
+// the principle: numbering is wrong when nobody asked for it and right when
+// somebody did. Those runs fall through to the per-destination numbering
+// below, which makes the second input land on `logo.min 2.png`.
+//
 // Checked before any work starts, so the run does not half-finish and leave
 // the user guessing which results survived.
-if options.outputDirectory != nil {
+if options.outputDirectory != nil, options.ifExists != .keepBoth {
     let collisions = OutputCollision.groups(in: inputs, convertingTo: options.convertTo)
     if !collisions.isEmpty {
         for collision in collisions {
@@ -248,10 +253,70 @@ case .skip:
     }
     planned.removeAll { skipped.contains($0.plan.destination.path) }
 case .keepBoth:
+    // Seeded with every surviving plan's destination, not just the ones being
+    // redirected: a plan that collides with nothing still intends to write
+    // its own path, and numbering another plan onto it would destroy that
+    // result just as surely as the collision this mode exists to avoid.
+    //
+    // A plain set of paths cannot record "two different plans both want this
+    // exact path" — inserting the same string twice adds nothing over
+    // inserting it once, so removing it once (to exempt the plan currently
+    // being decided) would erase the other plan's claim on it too. That is
+    // exactly the shape of the case this mode exists to handle — two inputs
+    // sharing a destination — so claims are counted, not just recorded:
+    // releasing one occurrence of a path leaves any other plan that shares it
+    // still marked as wanting it.
+    var claimCounts: [String: Int] = [:]
+    for entry in planned {
+        claimCounts[entry.plan.destination.path, default: 0] += 1
+    }
+
+    func isTaken(_ url: URL) -> Bool {
+        FileManager.default.fileExists(atPath: url.path) || (claimCounts[url.path] ?? 0) > 0
+    }
+
+    func release(_ path: String) {
+        guard let count = claimCounts[path] else { return }
+        if count <= 1 {
+            claimCounts.removeValue(forKey: path)
+        } else {
+            claimCounts[path] = count - 1
+        }
+    }
+
+    func claim(_ path: String) {
+        claimCounts[path, default: 0] += 1
+    }
+
     planned = planned.map { entry in
-        FileManager.default.fileExists(atPath: entry.plan.destination.path)
-            ? (entry.index, entry.plan.writing(to: OutputPathResolver.uniqueDestination(for: entry.plan.destination)))
-            : entry
+        // Its own destination is not an obstacle to itself — releasing one
+        // occurrence, rather than deleting the path outright, leaves any
+        // other plan that shares this exact destination still counted.
+        release(entry.plan.destination.path)
+
+        guard isTaken(entry.plan.destination) else {
+            claim(entry.plan.destination.path)
+            return entry
+        }
+
+        // Local numbering, not a call to OutputPathResolver.uniqueDestination
+        // in a loop: given a name that is free on disk that resolver returns
+        // it unchanged, so feeding its own answer back is a fixed point that
+        // never terminates. This mirrors its convention exactly — stem,
+        // space, integer from 2, extension reattached — while also checking
+        // the claim counts on each candidate.
+        let ext = entry.plan.destination.pathExtension
+        let stem = entry.plan.destination.deletingPathExtension()
+        var counter = 2
+        while true {
+            let numbered = URL(fileURLWithPath: stem.path + " \(counter)")
+            let candidate = ext.isEmpty ? numbered : numbered.appendingPathExtension(ext)
+            if !isTaken(candidate) {
+                claim(candidate.path)
+                return (entry.index, entry.plan.writing(to: candidate))
+            }
+            counter += 1
+        }
     }
 }
 

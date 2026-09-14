@@ -527,4 +527,62 @@ final class ShrinkerCLITests: XCTestCase {
             "the message must name both flags, got: \(result.stderr)"
         )
     }
+
+    // MARK: - keep-both resolves the input-vs-input refusal
+
+    /// Two inputs landing on one name is still refused by default — picking a
+    /// winner remains the bug it always was. But with keep-both the user has
+    /// explicitly asked for numbering, so inventing a name is no longer
+    /// inventing: it is doing as told.
+    func testKeepBothDisambiguatesTwoInputsThatWouldCollide() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let a = work.appendingPathComponent("a")
+        let b = work.appendingPathComponent("b")
+        try FileManager.default.createDirectory(at: a, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: b, withIntermediateDirectories: true)
+
+        let source = repoRoot().appendingPathComponent("Tests/ShrinkerProTests/Fixtures/sample.png")
+        try FileManager.default.copyItem(at: source, to: a.appendingPathComponent("logo.png"))
+        try FileManager.default.copyItem(at: source, to: b.appendingPathComponent("logo.png"))
+
+        let out = work.appendingPathComponent("out")
+        let result = try run(
+            ["--if-exists", "keep-both", "--out", out.path,
+             a.appendingPathComponent("logo.png").path,
+             b.appendingPathComponent("logo.png").path],
+            helpers: helpers
+        )
+
+        XCTAssertEqual(result.code, 0, result.stderr)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: out.appendingPathComponent("logo.min.png").path))
+        XCTAssertTrue(
+            FileManager.default.fileExists(atPath: out.appendingPathComponent("logo.min 2.png").path),
+            "both results must survive"
+        )
+    }
+
+    /// The other three modes keep refusing, unchanged.
+    func testSkipAndFailStillRefuseTwoInputsThatWouldCollide() throws {
+        let helpers = try stagedHelpers()
+        for mode in ["skip", "fail"] {
+            let work = try workspace()
+            let a = work.appendingPathComponent("a")
+            let b = work.appendingPathComponent("b")
+            try FileManager.default.createDirectory(at: a, withIntermediateDirectories: true)
+            try FileManager.default.createDirectory(at: b, withIntermediateDirectories: true)
+            let source = repoRoot().appendingPathComponent("Tests/ShrinkerProTests/Fixtures/sample.png")
+            try FileManager.default.copyItem(at: source, to: a.appendingPathComponent("logo.png"))
+            try FileManager.default.copyItem(at: source, to: b.appendingPathComponent("logo.png"))
+
+            let result = try run(
+                ["--if-exists", mode, "--out", work.appendingPathComponent("out").path,
+                 a.appendingPathComponent("logo.png").path,
+                 b.appendingPathComponent("logo.png").path],
+                helpers: helpers
+            )
+
+            XCTAssertNotEqual(result.code, 0, "--if-exists \(mode) must still refuse a two-input collision")
+        }
+    }
 }

@@ -2469,25 +2469,51 @@ In `main.swift`, change the collision guard at line 144 so `keep-both` opts out 
 if options.outputDirectory != nil, options.ifExists != .keepBoth {
 ```
 
-Then, in the `.keepBoth` branch added in Task 10, number against destinations already claimed *within this run* as well as files on disk — otherwise two inputs both resolve to the same free name:
+Then, in the `.keepBoth` branch added in Task 10, number against destinations already spoken for *within this run* as well as files on disk — otherwise two inputs both resolve to the same free name and the second write clobbers the first.
+
+**Do not call `OutputPathResolver.uniqueDestination` in a loop to do this.** Given a name that is free on disk it returns that name unchanged, so feeding its own answer back is a fixed point and the loop never terminates. Write the numbering locally instead, checking both the disk and the claim set on each candidate:
 
 ```swift
 case .keepBoth:
-    var claimed: Set<String> = []
+    // Seeded with every surviving plan's destination, not just the ones being
+    // redirected: a plan that collides with nothing still intends to write its
+    // own path, and numbering another plan onto it would destroy that result
+    // just as surely as the collision this mode exists to avoid.
+    var claimed = Set(planned.map(\.destination.path))
+
     planned = planned.map { plan in
-        var destination = plan.destination
-        while FileManager.default.fileExists(atPath: destination.path) || claimed.contains(destination.path) {
-            destination = OutputPathResolver.uniqueDestination(
-                for: destination,
-                fileManager: ClaimAwareFileManager(claimed: claimed)
-            )
+        // Its own destination is not an obstacle to itself.
+        claimed.remove(plan.destination.path)
+        defer { claimed.insert(plan.destination.path) }
+
+        guard isTaken(plan.destination) else { return plan }
+
+        let ext = plan.destination.pathExtension
+        let stem = plan.destination.deletingPathExtension()
+        var counter = 2
+        while true {
+            let numbered = URL(fileURLWithPath: stem.path + " \(counter)")
+            let candidate = ext.isEmpty ? numbered : numbered.appendingPathExtension(ext)
+            if !isTaken(candidate) {
+                claimed.insert(candidate.path)
+                return plan.writing(to: candidate)
+            }
+            counter += 1
         }
-        claimed.insert(destination.path)
-        return plan.writing(to: destination)
     }
 ```
 
-> **Note for the implementer:** rather than introduce a `FileManager` subclass, the simpler correct form is a local loop that appends " 2", " 3"… checking both `FileManager.default.fileExists` and `claimed`. Implement whichever reads more plainly; the requirement under test is only that two identically-named inputs produce `logo.min.png` and `logo.min 2.png`, and that neither silently replaces the other.
+where `isTaken` asks both sources:
+
+```swift
+func isTaken(_ url: URL) -> Bool {
+    FileManager.default.fileExists(atPath: url.path) || claimed.contains(url.path)
+}
+```
+
+> **Why the claim set is seeded with every destination, not just the redirected ones.** The app's equivalent scopes its claim set to the plans it is redirecting, which leaves a gap: a surviving non-colliding plan whose destination happens to be the numbered name a redirect lands on gets clobbered. That gap is recorded against the app; the CLI must not inherit it. Seeding from all of `planned` closes it, and removing a plan's own destination before testing it keeps a plan from being numbered away from the path it already owns.
+>
+> The numbering itself must agree exactly with `OutputPathResolver.uniqueDestination` — stem, space, integer from 2, extension reattached — because the two are the same user-visible convention reached by two routes. If that resolver ever grows an `isTaken` predicate parameter, delete this block and call it.
 
 - [ ] **Step 4: Run the tests and verify they pass**
 

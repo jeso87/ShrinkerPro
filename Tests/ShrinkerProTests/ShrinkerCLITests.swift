@@ -562,7 +562,11 @@ final class ShrinkerCLITests: XCTestCase {
         )
     }
 
-    /// The other three modes keep refusing, unchanged.
+    /// The other three modes keep refusing, unchanged. Pinned to the exact
+    /// exit code and to the message naming the colliding file — the same two
+    /// things `testTwoInputsThatWouldOverwriteEachOtherAreRefused` pins for
+    /// the default mode — so a refusal that degraded into a crash, or into
+    /// some other non-zero code, would still be caught.
     func testSkipAndFailStillRefuseTwoInputsThatWouldCollide() throws {
         let helpers = try stagedHelpers()
         for mode in ["skip", "fail"] {
@@ -582,7 +586,57 @@ final class ShrinkerCLITests: XCTestCase {
                 helpers: helpers
             )
 
-            XCTAssertNotEqual(result.code, 0, "--if-exists \(mode) must still refuse a two-input collision")
+            XCTAssertEqual(result.code, 65, "--if-exists \(mode) must still refuse a two-input collision as EX_DATAERR")
+            XCTAssertTrue(
+                result.stderr.contains("logo.png"),
+                "--if-exists \(mode): the message must name the file that collides, got: \(result.stderr)"
+            )
         }
+    }
+
+    /// Not just that both survive, but that the mapping is the right way
+    /// round: the first input in the list keeps the plain name, and every
+    /// later input sharing it is the one that gets numbered — the Finder
+    /// convention this feature imitates, and the reverse of what an earlier,
+    /// less careful claim-tracking scheme produced (it inverted the mapping
+    /// while still leaving both files on disk, which a same-filenames-only
+    /// assertion could not have caught).
+    func testKeepBothKeepsTheFirstInputsPlainNameAndNumbersLaterOnes() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let a = work.appendingPathComponent("a")
+        let b = work.appendingPathComponent("b")
+        try FileManager.default.createDirectory(at: a, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: b, withIntermediateDirectories: true)
+
+        let source = repoRoot().appendingPathComponent("Tests/ShrinkerProTests/Fixtures/sample.png")
+        let firstInput = a.appendingPathComponent("logo.png")
+        let secondInput = b.appendingPathComponent("logo.png")
+        try FileManager.default.copyItem(at: source, to: firstInput)
+        try FileManager.default.copyItem(at: source, to: secondInput)
+
+        let out = work.appendingPathComponent("out")
+        let result = try run(
+            ["--if-exists", "keep-both", "--out", out.path, "--json", firstInput.path, secondInput.path],
+            helpers: helpers
+        )
+
+        XCTAssertEqual(result.code, 0, result.stderr)
+        let lines = result.stdout
+            .split(separator: "\n")
+            .map { try? XCTUnwrap(JSONSerialization.jsonObject(with: Data($0.utf8)) as? [String: Any]) }
+            .compactMap { $0 }
+        XCTAssertEqual(lines.count, 2, "expected one JSON line per input, got: \(result.stdout)")
+
+        let byInput = Dictionary(uniqueKeysWithValues: lines.map { ($0["input"] as? String ?? "", $0["output"] as? String ?? "") })
+
+        XCTAssertEqual(
+            byInput[firstInput.path], out.appendingPathComponent("logo.min.png").path,
+            "the first input must keep the plain name"
+        )
+        XCTAssertEqual(
+            byInput[secondInput.path], out.appendingPathComponent("logo.min 2.png").path,
+            "the second input, which arrived after the first already claimed the plain name, must be the one numbered"
+        )
     }
 }

@@ -142,7 +142,8 @@ if inputs.isEmpty {
 // `--if-exists keep-both` is the one exception, and it is not an exception to
 // the principle: numbering is wrong when nobody asked for it and right when
 // somebody did. Those runs fall through to the per-destination numbering
-// below, which makes the second input land on `logo.min 2.png`.
+// below, which lets the first input in the list keep `logo.min.png` and
+// numbers every later input that shares it — `logo.min 2.png` and up.
 //
 // Checked before any work starts, so the run does not half-finish and leave
 // the user guessing which results survived.
@@ -258,44 +259,57 @@ case .keepBoth:
     // its own path, and numbering another plan onto it would destroy that
     // result just as surely as the collision this mode exists to avoid.
     //
-    // A plain set of paths cannot record "two different plans both want this
-    // exact path" — inserting the same string twice adds nothing over
-    // inserting it once, so removing it once (to exempt the plan currently
-    // being decided) would erase the other plan's claim on it too. That is
-    // exactly the shape of the case this mode exists to handle — two inputs
-    // sharing a destination — so claims are counted, not just recorded:
-    // releasing one occurrence of a path leaves any other plan that shares it
-    // still marked as wanting it.
-    var claimCounts: [String: Int] = [:]
+    // Two different questions get two different sets, because one predicate
+    // answering both put the numbering backwards: "may I keep my own name?"
+    // must not be blocked by a plan that has not been decided yet — the
+    // other half of a two-way collision on the same path is not "taken" by
+    // anyone until one of the two loses the tie — while "is this numbered
+    // candidate free?" must be blocked by a not-yet-decided plan's natural
+    // destination, or a later, non-colliding plan's own name could still be
+    // numbered out from under it.
+    //
+    // `decided`: destinations already settled on by a plan processed so far
+    // in this loop — these are real obstacles to everyone after them.
+    // `undecidedCounts`: how many plans not yet processed still have this as
+    // their *natural* (pre-renumbering) destination. A plain set cannot
+    // record "two different plans both want this exact path" — inserting an
+    // already-present string is a no-op — which matters exactly when two
+    // plans start out wanting the identical destination, the central case
+    // here; counting makes releasing one plan's own entry leave any other
+    // plan that shares the path still counted.
+    var decided = Set<String>()
+    var undecidedCounts: [String: Int] = [:]
     for entry in planned {
-        claimCounts[entry.plan.destination.path, default: 0] += 1
+        undecidedCounts[entry.plan.destination.path, default: 0] += 1
     }
 
-    func isTaken(_ url: URL) -> Bool {
-        FileManager.default.fileExists(atPath: url.path) || (claimCounts[url.path] ?? 0) > 0
-    }
-
-    func release(_ path: String) {
-        guard let count = claimCounts[path] else { return }
+    func releaseUndecided(_ path: String) {
+        guard let count = undecidedCounts[path] else { return }
         if count <= 1 {
-            claimCounts.removeValue(forKey: path)
+            undecidedCounts.removeValue(forKey: path)
         } else {
-            claimCounts[path] = count - 1
+            undecidedCounts[path] = count - 1
         }
     }
 
-    func claim(_ path: String) {
-        claimCounts[path, default: 0] += 1
+    func canKeepOwnDestination(_ url: URL) -> Bool {
+        !FileManager.default.fileExists(atPath: url.path) && !decided.contains(url.path)
+    }
+
+    func isCandidateFree(_ url: URL) -> Bool {
+        !FileManager.default.fileExists(atPath: url.path)
+            && !decided.contains(url.path)
+            && (undecidedCounts[url.path] ?? 0) == 0
     }
 
     planned = planned.map { entry in
-        // Its own destination is not an obstacle to itself — releasing one
-        // occurrence, rather than deleting the path outright, leaves any
-        // other plan that shares this exact destination still counted.
-        release(entry.plan.destination.path)
+        // This plan is being decided now, regardless of whether it ends up
+        // keeping its own name or being renumbered — either way it stops
+        // being one of the undecided plans a later candidate must dodge.
+        releaseUndecided(entry.plan.destination.path)
 
-        guard isTaken(entry.plan.destination) else {
-            claim(entry.plan.destination.path)
+        if canKeepOwnDestination(entry.plan.destination) {
+            decided.insert(entry.plan.destination.path)
             return entry
         }
 
@@ -304,15 +318,15 @@ case .keepBoth:
         // it unchanged, so feeding its own answer back is a fixed point that
         // never terminates. This mirrors its convention exactly — stem,
         // space, integer from 2, extension reattached — while also checking
-        // the claim counts on each candidate.
+        // both sets on each candidate.
         let ext = entry.plan.destination.pathExtension
         let stem = entry.plan.destination.deletingPathExtension()
         var counter = 2
         while true {
             let numbered = URL(fileURLWithPath: stem.path + " \(counter)")
             let candidate = ext.isEmpty ? numbered : numbered.appendingPathExtension(ext)
-            if !isTaken(candidate) {
-                claim(candidate.path)
+            if isCandidateFree(candidate) {
+                decided.insert(candidate.path)
                 return (entry.index, entry.plan.writing(to: candidate))
             }
             counter += 1

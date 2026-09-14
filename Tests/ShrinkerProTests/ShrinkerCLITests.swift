@@ -387,6 +387,42 @@ final class ShrinkerCLITests: XCTestCase {
         )
     }
 
+    /// The plan/decide/execute split runs the *whole* planning sweep before
+    /// any file is executed, so recording each phase's failure directly into
+    /// a single `firstFailure` lets a later input's planning failure outrank
+    /// an earlier input's execution failure — changing the exit code for a
+    /// command line that types no --if-exists flag at all. The first input
+    /// here plans fine (a supported extension) but fails during execution
+    /// (its content is not actually that format); the second fails during
+    /// planning (an unsupported extension). The first input's code must win,
+    /// exactly as it would have under the old single-loop version.
+    func testAnEarlierExecutionFailureOutranksALaterPlanningFailure() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+
+        // A supported extension whose content is not actually a PNG: passes
+        // planning (which only checks the extension and probes orientation,
+        // failing closed to "upright" on unreadable content) but pngquant
+        // rejects it at execution time.
+        let willFailToCompress = work.appendingPathComponent("willFailToCompress.png")
+        try Data("not actually a png".utf8).write(to: willFailToCompress)
+
+        let bad = work.appendingPathComponent("bad.txt")
+        try Data("hello".utf8).write(to: bad)
+
+        let result = try run([willFailToCompress.path, bad.path], helpers: helpers)
+
+        // Observed directly against the built binary before writing this
+        // assertion: pngquant's decode failure surfaces as
+        // ShrinkError.compressorFailed, which this project pins to exit 4 —
+        // not bad.txt's unsupportedFormat (2), which is what the ordering
+        // bug reported instead.
+        XCTAssertEqual(
+            result.code, 4,
+            "the first input's failure must win, got code \(result.code), stderr: \(result.stderr)"
+        )
+    }
+
     func testSkipLeavesTheExistingFileAloneAndSaysSo() throws {
         let helpers = try stagedHelpers()
         let work = try workspace()
@@ -441,6 +477,14 @@ final class ShrinkerCLITests: XCTestCase {
         )
     }
 
+    /// Not a guard on anything in this file: `CommandLineOptions.parse` refuses
+    /// this combination before the plan/decide/execute path in `main.swift`
+    /// ever runs, so no mutation to that code can make this test fail. What it
+    /// does guard end-to-end is that the parser's refusal actually reaches the
+    /// binary as exit 64 with both flags named — i.e. that `main.swift`'s
+    /// top-level `catch let error as CommandLineParseError` still maps this
+    /// particular throw correctly, independent of anything `--if-exists` does
+    /// once a run starts.
     func testInPlaceWithANonDefaultIfExistsIsRejected() throws {
         let helpers = try stagedHelpers()
         let work = try workspace()

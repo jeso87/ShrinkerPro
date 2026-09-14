@@ -165,32 +165,52 @@ if options.outputDirectory != nil {
 
 let settings = options.outputSettings
 
+// One slot per (expanded) input, in input order. A planning failure and an
+// execution failure can never both land in the same slot — an input that
+// fails to plan never reaches the execution loop — so there is never a
+// collision to resolve, only which *index* failed first.
+//
+// This exists because the plan/decide/execute split below runs the whole
+// planning sweep before a single file is executed: with the two loops each
+// setting `firstFailure` directly (the naive approach), a later input's
+// planning failure would outrank an earlier input's execution failure,
+// changing the exit code for command lines that type no --if-exists flag at
+// all. Recording failures by index and resolving in input order afterwards
+// keeps the exit code exactly what the single-loop version would have
+// produced: whichever input, first in the list, failed at all.
+var failureByIndex: [Int32?] = Array(repeating: nil, count: inputs.count)
+
 // Plan every input before writing anything, so --if-exists fail can refuse
 // the whole run rather than stopping halfway with some results written.
-var planned: [ShrinkPlan] = []
-for file in inputs {
+var planned: [(index: Int, plan: ShrinkPlan)] = []
+for (index, file) in inputs.enumerated() {
     do {
-        planned.append(try engine.plan(file, settings: settings))
+        planned.append((index, try engine.plan(file, settings: settings)))
     } catch let error as ShrinkError {
         writeLine("shrinker: \(file.path): \(error.errorDescription ?? "failed")", to: .standardError)
-        if firstFailure == 0 { firstFailure = error.exitCode }
+        failureByIndex[index] = error.exitCode
     } catch {
         writeLine("shrinker: \(file.path): \(error.localizedDescription)", to: .standardError)
-        if firstFailure == 0 { firstFailure = 1 }
+        failureByIndex[index] = 1
     }
 }
 
 // --in-place makes the destination the input, and the parser refuses any
-// non-default --if-exists alongside it, so nothing here can be an original.
-let occupied = planned.filter { FileManager.default.fileExists(atPath: $0.destination.path) }
-
+// non-default --if-exists alongside it, so nothing any case below checks for
+// "already exists" can be an original.
+//
+// Whether a destination already exists is only computed inside the cases
+// that consult it, not once up front: `.replace` — the default, and the only
+// mode most command lines ever use — must not pay for a stat per input that
+// nothing here would use.
 switch options.ifExists {
 case .replace:
     break
 case .fail:
+    let occupied = planned.filter { FileManager.default.fileExists(atPath: $0.plan.destination.path) }
     if !occupied.isEmpty {
-        for plan in occupied {
-            writeLine("shrinker: \(plan.destination.path): already exists", to: .standardError)
+        for entry in occupied {
+            writeLine("shrinker: \(entry.plan.destination.path): already exists", to: .standardError)
         }
         writeLine(
             "shrinker: nothing was written. Use --if-exists skip, keep-both, or replace.",
@@ -201,22 +221,23 @@ case .fail:
         exit(65)
     }
 case .skip:
-    let skipped = Set(occupied.map(\.destination.path))
+    let occupied = planned.filter { FileManager.default.fileExists(atPath: $0.plan.destination.path) }
+    let skipped = Set(occupied.map { $0.plan.destination.path })
     for path in skipped.sorted() {
         writeLine("shrinker: \(path): already exists, skipped", to: .standardError)
     }
-    planned.removeAll { skipped.contains($0.destination.path) }
+    planned.removeAll { skipped.contains($0.plan.destination.path) }
 case .keepBoth:
-    planned = planned.map { plan in
-        FileManager.default.fileExists(atPath: plan.destination.path)
-            ? plan.writing(to: OutputPathResolver.uniqueDestination(for: plan.destination))
-            : plan
+    planned = planned.map { entry in
+        FileManager.default.fileExists(atPath: entry.plan.destination.path)
+            ? (entry.index, entry.plan.writing(to: OutputPathResolver.uniqueDestination(for: entry.plan.destination)))
+            : entry
     }
 }
 
-for plan in planned {
+for entry in planned {
     do {
-        let result = try engine.shrink(plan)
+        let result = try engine.shrink(entry.plan)
 
         if options.json {
             // Formatting lives on ShrinkReport, not here — see jsonLine.
@@ -242,11 +263,24 @@ for plan in planned {
         // Keep going. One unsupported file in a folder of hundreds should
         // not abandon the rest, but the run still has to exit non-zero or a
         // caller will believe everything worked.
-        writeLine("shrinker: \(plan.input.path): \(error.errorDescription ?? "failed")", to: .standardError)
-        if firstFailure == 0 { firstFailure = error.exitCode }
+        writeLine("shrinker: \(entry.plan.input.path): \(error.errorDescription ?? "failed")", to: .standardError)
+        failureByIndex[entry.index] = error.exitCode
     } catch {
-        writeLine("shrinker: \(plan.input.path): \(error.localizedDescription)", to: .standardError)
-        if firstFailure == 0 { firstFailure = 1 }
+        writeLine("shrinker: \(entry.plan.input.path): \(error.localizedDescription)", to: .standardError)
+        failureByIndex[entry.index] = 1
+    }
+}
+
+// The missing-path check above already set `firstFailure` (66) if anything
+// was typed that doesn't exist, and that outranks everything decided here —
+// unchanged from before this task. Otherwise, take whichever input, first in
+// the list, failed in either phase.
+if firstFailure == 0 {
+    for code in failureByIndex {
+        if let code {
+            firstFailure = code
+            break
+        }
     }
 }
 

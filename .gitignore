@@ -34,6 +34,11 @@ build/dmg-stage/
 # right where the printed instructions tell you to `git add` the appcast.
 build/cli/
 build/shrinker-stage/
+# Likewise the appcast staging dir, which holds a copy of the DMG. It was the
+# one build/ subdirectory not listed here, and an aborted release leaves it
+# behind — 3.4 MB of untracked binary sitting exactly where step 3 says to
+# `git add appcast.xml`.
+build/appcast-stage/
 
 # Signing / notarization secrets
 .env

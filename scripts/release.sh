@@ -348,12 +348,37 @@ mkdir -p "$APPCAST_STAGE"
 cp "$DMG" "$APPCAST_STAGE/"
 # generate_appcast only looks for a pre-existing appcast.xml to extend
 # inside its own archives-source-dir (not wherever -o points), and dist/ is
-# gitignored/ephemeral — so the previously-published feed (committed at the
-# repo root) is copied in here first, if one exists, purely so history
-# (older versions, delta eligibility) carries forward across a clean
-# dist/build/ wipe instead of restarting from a single-entry feed every
-# release.
-[ -f "$ROOT/appcast.xml" ] && cp "$ROOT/appcast.xml" "$APPCAST_STAGE/appcast.xml"
+# gitignored/ephemeral — so the previously-published feed is copied in here
+# first, purely so history (older versions, delta eligibility) carries
+# forward across a clean dist/build/ wipe instead of restarting from a
+# single-entry feed every release.
+#
+# It comes from git rather than the working copy, because "published" means
+# what GitHub Pages serves, and that is the committed file. The working copy
+# is this script's own output — the cp below writes the regenerated feed
+# back to the repo root — so any run that dies after that point leaves a
+# working copy advertising a build that was never released. The guard below
+# then reads it, believes that build is published, and refuses: every
+# subsequent run wedged until someone hand-reverts a file the script itself
+# wrote. That is precisely the unrecoverable shape the guard exists to
+# prevent, and it is what happened on the first 1.2.0 attempt.
+#
+# Falling back to the working copy covers the only case that legitimately
+# has no committed feed — a fresh repo, or a checkout where appcast.xml has
+# never been committed — which is where the old behaviour was right.
+if git -C "$ROOT" show HEAD:appcast.xml > "$APPCAST_STAGE/appcast.xml" 2>/dev/null; then
+  echo "    seeded from the committed feed"
+elif [ -f "$ROOT/appcast.xml" ]; then
+  # Note the redirect above has already created the file, so this overwrites
+  # rather than merges.
+  cp "$ROOT/appcast.xml" "$APPCAST_STAGE/appcast.xml"
+  echo "    seeded from the working copy (no committed feed yet)"
+else
+  # Same reason: clear the empty file the failed redirect left behind, or the
+  # guard and generate_appcast both read a zero-byte feed as a real one.
+  rm -f "$APPCAST_STAGE/appcast.xml"
+  echo "    no previous feed — starting a new one"
+fi
 
 # CURRENT_PROJECT_VERSION is what Sparkle actually compares — <sparkle:version>
 # in the feed is the build number, not the marketing version. Ship 1.2.0

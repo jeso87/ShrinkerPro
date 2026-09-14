@@ -1,4 +1,4 @@
-# Shrinker Pro — Suffix Discoverability, Settings Regroup, and an Overwrite Warning
+# Shrinker Pro — Suffix Discoverability, a Settings Regroup, and an Overwrite Guard on Both Surfaces
 
 **Date:** 2026-09-14
 
@@ -6,6 +6,11 @@ Two requests from one user. The first turns out to be already built and simply u
 which makes it a wording problem rather than a feature. The second is real, and paying for
 it properly means the engine has to be able to answer a question it currently cannot:
 *where would this file land, without landing it?*
+
+Both surfaces are covered. The window gets a sheet; `shrinker` gets `--if-exists`, because
+the hazard is identical on the command line and currently unguarded there — and shipping the
+guard on one surface only would leave the product holding two opposite opinions about what a
+collision means.
 
 ## 1. The request that was already shipped
 
@@ -196,12 +201,84 @@ what was scanned and what is written. One sheet per batch per category — never
 
 With `warnBeforeOverwrite` off there is no scan and no sheet.
 
-## 5. The CLI is untouched
+## 5. The same guard on the command line
 
-`CommandLineOptions.swift:417` builds its own `OutputSettings` with `keepOriginal: !inPlace`
-and never reads `Settings`, so none of this reaches `shrinker`. No prompt, no new flag,
-`--in-place` keeps meaning exactly what it means. A non-interactive tool that stopped to ask
-a question would be a bug.
+The §3 refactor reaches the CLI not at all: `main.swift:170` calls
+`engine.shrink(file, settings:)`, which the convenience overload keeps compiling unchanged,
+and the CLI never touches `OutputPathResolver`. `CommandLineOptions.swift:417` builds its own
+`OutputSettings` and never reads `Settings`, so no preference of the app's leaks into a
+headless run.
+
+But "the CLI is untouched" was the wrong conclusion, because **the hazard is unguarded
+here too**. `shrinker photo.jpg` run twice replaces `photo.min.jpg` without a word — which is
+precisely the quality-testing loop that prompted this spec.
+
+### What the CLI refuses today, and what it doesn't
+
+`OutputCollision` (`CommandLineOptions.swift:141`) catches *input-vs-input* collisions: two
+inputs that would land on the same name inside `--out`. It refuses the run at exit 65 rather
+than disambiguating, and `main.swift:137-140` is explicit about why — *"inventing
+`logo-1.min.png` would invent a name nobody asked for, and picking a winner is exactly what
+the bug already did."*
+
+Nothing compares a destination against a file **already on disk**. That is the gap.
+
+### `--if-exists <what>`
+
+| Mode | Behaviour |
+|---|---|
+| **`replace`** (default) | Overwrite it — today's behaviour, byte for byte |
+| `skip` | Leave it; name it on stderr; the run continues and exits 0 |
+| `keep-both` | Write `photo.min 2.jpg`, via the same `uniqueDestination` the sheet uses |
+| `fail` | Refuse the run before any work starts; exit 65 |
+
+**The default is `replace` because exit codes and stdout are a compatibility surface this
+project already treats as one** — `CommandLineOptions.swift:126` says so, and the tests pin
+every code. Making refusal the default would close the gap by breaking every existing script
+and cron job on upgrade. The gap is closed by making the choice *available and documented*,
+which is all a non-interactive tool can honestly offer.
+
+### The principle that reconciles `keep-both` with the CLI's refusal
+
+> A person looking at a sheet can be **offered** a name. A tool running unattended must not
+> **invent** one.
+
+The app's Keep Both button and the CLI's "refused rather than disambiguated" stance are the
+same rule under that principle, not a contradiction: numbering is fine when a human asked for
+it, and wrong when nobody did. `--if-exists keep-both` *is* asking for it.
+
+Which resolves the older refusal too: with `keep-both` explicitly set, the input-vs-input
+collision at `main.swift:144` stops being a refusal and becomes numbering. Under `replace`,
+`skip` and `fail` it still refuses exactly as it does today — picking a winner remains the bug
+it always was.
+
+### `--in-place` is its own consent
+
+Without it, `keepOriginal` is true (`:417`), so the destination is always the `.min` name and
+never the input — category A simply cannot arise. With it, replacing the original is the
+entire point of the flag. So `--if-exists` has nothing to govern under `--in-place`, and any
+non-default combination of the two is **refused at the door** as contradictory, following the
+`--in-place` + `--out` precedent at `:539`. Silently ignoring a flag the user took the trouble
+to type is how precedence rules nobody can guess get born.
+
+### `--json` gains a `status`
+
+`ShrinkReport` (`:230`) has five non-optional fields built from a `ShrinkResult`, so a skipped
+file has no `output` and no `shrunkBytes` to report. Reusing the existing "nothing happened"
+idiom — `output == input`, `savedPercent: 0`, as a never-grow decline reports at `:244` —
+would need no schema change, and is rejected: a script could not then distinguish *"skipped,
+something was already there"* from *"declined, compressing would have made it bigger."* Those
+are different facts and a caller may reasonably act differently on each.
+
+So `ShrinkReport` grows one field, `status`, with exactly three values: `shrunk`, `declined`,
+`skipped`. The change is additive — `.sortedKeys` places it deterministically and existing
+consumers reading the five known keys are unaffected — and it pays a second dividend by making
+`declined` explicit, which today can only be inferred by string-comparing two paths.
+
+### Help text
+
+`--if-exists` joins OPTIONS with its four values, and EXAMPLES gains one line showing the
+quality-testing loop the flag exists for.
 
 ## 6. Testing
 
@@ -221,6 +298,22 @@ a question would be a bug.
 - Existing `ShrinkEngineTests` migrate to whichever overload reads clearest; the convenience
   overload keeps most of them unchanged.
 
+And for the CLI:
+
+- `--if-exists` parses its four values and rejects anything else through the existing
+  `invalidValue` path; the flag is absent from a parse with no `--if-exists` at all.
+- **The default reproduces 1.2.0 exactly** — a re-run with no flag still replaces, with no
+  extra stat, no stderr line, and identical stdout.
+- `--in-place --if-exists skip` is refused as contradictory, and `--in-place --if-exists
+  replace` (the default, stated explicitly) is not.
+- `keep-both` numbering comes from the *same* `uniqueDestination` as the sheet — one
+  implementation, asserted from both surfaces, so they cannot drift apart.
+- `keep-both` resolves an input-vs-input group that `replace` still refuses at exit 65.
+- `status` is pinned to its three spellings alongside the existing JSON contract tests, and a
+  never-grow decline reports `declined` while an untouched skip reports `skipped`.
+- Exit 65 for `fail` sits alongside the pinned `ShrinkError` codes and stays distinct from
+  them.
+
 ## 7. Out of scope
 
 - A suffix control in the window footer (section 1).
@@ -230,3 +323,7 @@ a question would be a bug.
 - Moving replaced files to the Trash instead of overwriting them, and any form of undo.
 - Splitting Settings into tabs. The regroup buys enough legibility for 1.2.1; tabs are the
   answer if the panel grows again.
+- An interactive `--if-exists ask`. A tool that blocks on a question cannot be run from a
+  script, a build step, or an agent, which is most of why `shrinker` exists.
+- Changing the CLI's default to anything but `replace`. If that is ever wanted it is a major
+  version, announced, not a point release.

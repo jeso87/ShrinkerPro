@@ -609,10 +609,12 @@ final class CommandLineOptionsTests: XCTestCase {
 
     /// Every mode name has to appear, for the same reason every quality level
     /// does: "keep-both" is spelled with a hyphen and an agent would
-    /// reasonably guess otherwise.
+    /// reasonably guess otherwise. Derived from `allCases` rather than a
+    /// hand-kept list, so a fifth mode cannot be added to the enum without
+    /// `--help` being required to mention it.
     func testHelpNamesEveryIfExistsMode() {
         let help = CommandLineOptions.helpText
-        for name in ["replace", "skip", "keep-both", "fail"] {
+        for name in IfExists.allCases.map(\.flagName) {
             XCTAssertTrue(help.contains(name), "--help never mentions the \(name) mode")
         }
     }

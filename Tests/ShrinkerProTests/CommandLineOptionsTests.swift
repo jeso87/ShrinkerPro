@@ -448,7 +448,7 @@ final class CommandLineOptionsTests: XCTestCase {
     func testHelpNamesEveryFlagTheParserAccepts() {
         let help = CommandLineOptions.helpText
 
-        for flag in ["--quality", "--to", "--metadata", "--out", "--in-place", "--json", "--help", "--version"] {
+        for flag in ["--quality", "--to", "--metadata", "--out", "--in-place", "--json", "--if-exists", "--help", "--version"] {
             XCTAssertTrue(help.contains(flag), "--help never mentions \(flag)")
         }
     }
@@ -549,5 +549,71 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertTrue(try CommandLineOptions.parse(["--help"]).showsHelp)
         XCTAssertTrue(try CommandLineOptions.parse(["-h"]).showsHelp)
         XCTAssertTrue(try CommandLineOptions.parse(["--version"]).showsVersion)
+    }
+
+    // MARK: - --if-exists
+
+    /// The default has to be today's behaviour exactly. Anything else breaks
+    /// every script and cron job that already calls this tool.
+    func testIfExistsDefaultsToReplace() throws {
+        XCTAssertEqual(try CommandLineOptions.parse(["a.png"]).ifExists, .replace)
+    }
+
+    func testIfExistsAcceptsEachMode() throws {
+        XCTAssertEqual(try CommandLineOptions.parse(["--if-exists", "replace", "a.png"]).ifExists, .replace)
+        XCTAssertEqual(try CommandLineOptions.parse(["--if-exists", "skip", "a.png"]).ifExists, .skip)
+        XCTAssertEqual(try CommandLineOptions.parse(["--if-exists", "keep-both", "a.png"]).ifExists, .keepBoth)
+        XCTAssertEqual(try CommandLineOptions.parse(["--if-exists", "fail", "a.png"]).ifExists, .fail)
+    }
+
+    /// Same forgiveness as --quality and --metadata: nobody types camelCase
+    /// at a shell prompt, and an agent reading --help should not have to guess.
+    func testIfExistsModeNamesAreForgiving() throws {
+        XCTAssertEqual(try CommandLineOptions.parse(["--if-exists", "KEEP-BOTH", "a.png"]).ifExists, .keepBoth)
+        XCTAssertEqual(try CommandLineOptions.parse(["--if-exists", "keepboth", "a.png"]).ifExists, .keepBoth)
+        XCTAssertEqual(try CommandLineOptions.parse(["--if-exists", "Skip", "a.png"]).ifExists, .skip)
+    }
+
+    func testAnUnknownIfExistsModeIsRejected() throws {
+        XCTAssertThrowsError(try CommandLineOptions.parse(["--if-exists", "clobber", "a.png"])) { error in
+            XCTAssertEqual(error as? CommandLineParseError, .invalidValue(flag: "--if-exists", value: "clobber"))
+        }
+    }
+
+    func testIfExistsNeedsAValue() throws {
+        XCTAssertThrowsError(try CommandLineOptions.parse(["a.png", "--if-exists"])) { error in
+            XCTAssertEqual(error as? CommandLineParseError, .missingValue("--if-exists"))
+        }
+    }
+
+    /// With --in-place the destination IS the input, so there is nothing for
+    /// this flag to govern. Silently ignoring a flag someone typed is how
+    /// precedence rules nobody can guess get born — see --in-place + --out.
+    func testIfExistsIsRefusedAlongsideInPlace() throws {
+        XCTAssertThrowsError(
+            try CommandLineOptions.parse(["--in-place", "--if-exists", "skip", "a.png"])
+        ) { error in
+            XCTAssertEqual(
+                error as? CommandLineParseError,
+                .contradictoryFlags("--in-place", "--if-exists")
+            )
+        }
+    }
+
+    /// Stating the default explicitly is not a contradiction.
+    func testInPlaceWithAnExplicitReplaceIsAccepted() throws {
+        let options = try CommandLineOptions.parse(["--in-place", "--if-exists", "replace", "a.png"])
+        XCTAssertTrue(options.inPlace)
+        XCTAssertEqual(options.ifExists, .replace)
+    }
+
+    /// Every mode name has to appear, for the same reason every quality level
+    /// does: "keep-both" is spelled with a hyphen and an agent would
+    /// reasonably guess otherwise.
+    func testHelpNamesEveryIfExistsMode() {
+        let help = CommandLineOptions.helpText
+        for name in ["replace", "skip", "keep-both", "fail"] {
+            XCTAssertTrue(help.contains(name), "--help never mentions the \(name) mode")
+        }
     }
 }

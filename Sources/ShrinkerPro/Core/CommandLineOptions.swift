@@ -56,6 +56,12 @@ struct CommandLineOptions: Equatable {
     /// the tool would otherwise have carried across.
     var metadata: MetadataPolicy = .all
 
+    /// `--if-exists`: what to do when the destination already exists.
+    /// Defaults to `.replace`, which is exactly what every earlier version of
+    /// this tool did — the guard is opt-in precisely so no existing script
+    /// changes behaviour on upgrade.
+    var ifExists: IfExists = .replace
+
     var showsHelp: Bool = false
     var showsVersion: Bool = false
 }
@@ -273,6 +279,26 @@ struct ShrinkReport: Encodable {
     }
 }
 
+/// What to do when a result's destination already exists.
+///
+/// The vocabulary is deliberately the app's sheet buttons plus this tool's
+/// own long-standing refusal stance, so the two surfaces answer the same
+/// question with the same words.
+enum IfExists: String, Equatable, CaseIterable {
+    case replace
+    case skip
+    case keepBoth
+    case fail
+
+    /// What a person types, which is not what Swift spells.
+    var flagName: String { self == .keepBoth ? "keep-both" : rawValue }
+
+    static func parse(_ raw: String) -> IfExists? {
+        let normalised = raw.lowercased().replacingOccurrences(of: "-", with: "")
+        return allCases.first { $0.rawValue.lowercased() == normalised }
+    }
+}
+
 /// What `--quality` accepted: one of the app's named levels, or a bare
 /// number.
 ///
@@ -366,6 +392,8 @@ extension CommandLineOptions {
       --out <directory>        write results here instead of beside each input
       --in-place               overwrite each original instead of writing a
                                .min copy. This destroys the source
+      --if-exists <what>       when the destination already exists:
+                               replace (default), skip, keep-both, fail
       --json                   one JSON object per file on stdout
       --help, -h               this text
       --version                version number only
@@ -388,6 +416,7 @@ extension CommandLineOptions {
       shrinker photo.jpg
       shrinker --quality super-low --to webp ./screenshots
       shrinker --json --quality 85 diagram.png
+      shrinker --if-exists keep-both --quality 60 photo.jpg
     """
 
     /// These options as the engine wants them.
@@ -513,6 +542,12 @@ extension CommandLineOptions {
                     throw CommandLineParseError.invalidValue(flag: argument, value: raw)
                 }
                 options.metadata = policy
+            case "--if-exists":
+                let raw = try nextValue(for: argument)
+                guard let mode = IfExists.parse(raw) else {
+                    throw CommandLineParseError.invalidValue(flag: argument, value: raw)
+                }
+                options.ifExists = mode
             default:
                 // A bare "-" is conventionally a stream, not a flag, so it is
                 // never reported as an unknown one.
@@ -538,6 +573,15 @@ extension CommandLineOptions {
         // by a precedence rule nobody could guess, and never documented.
         if options.inPlace, options.outputDirectory != nil, !options.showsHelp {
             throw CommandLineParseError.contradictoryFlags("--in-place", "--out")
+        }
+
+        // --in-place makes the destination the input, so there is nothing for
+        // --if-exists to decide. Refused rather than ignored, for the same
+        // reason as above: a flag that is accepted and does nothing is worse
+        // than one that is rejected and says why. An explicit `replace` is
+        // the default and contradicts nothing.
+        if options.inPlace, options.ifExists != .replace, !options.showsHelp {
+            throw CommandLineParseError.contradictoryFlags("--in-place", "--if-exists")
         }
 
         return options

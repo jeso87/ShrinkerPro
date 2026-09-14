@@ -76,6 +76,7 @@ shrinker --json --quality 85 diagram.jpg         # one JSON line per file
 | `--metadata <policy>` | `all` (default), `copyright`, `none` |
 | `--out <directory>` | write results here instead of beside each input |
 | `--in-place` | overwrite each original. This destroys the source |
+| `--if-exists <what>` | when the destination exists: `replace` (default), `skip`, `keep-both`, `fail` |
 | `--json` | one machine-readable object per file, on stdout |
 
 It writes a `.min` copy beside each original and only overwrites with
@@ -83,6 +84,11 @@ It writes a `.min` copy beside each original and only overwrites with
 searches them, packages and hidden directories included — which is to say,
 excluded. Exit codes distinguish a usage mistake from a failed shrink, so a
 script can tell "you typed it wrong" from "the work failed".
+
+By default a result replaces whatever is already at its destination, which is
+what every earlier version did. `--if-exists` changes that per run: `skip`
+leaves existing files alone, `keep-both` writes `photo.min 2.jpg` beside them,
+and `fail` refuses the run before any work starts.
 
 Two differences from the app. It never reads your saved preferences, so
 nothing converts unless `--to` asks — except HEIC, which has no "keep" option

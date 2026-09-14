@@ -165,9 +165,58 @@ if options.outputDirectory != nil {
 
 let settings = options.outputSettings
 
+// Plan every input before writing anything, so --if-exists fail can refuse
+// the whole run rather than stopping halfway with some results written.
+var planned: [ShrinkPlan] = []
 for file in inputs {
     do {
-        let result = try engine.shrink(file, settings: settings)
+        planned.append(try engine.plan(file, settings: settings))
+    } catch let error as ShrinkError {
+        writeLine("shrinker: \(file.path): \(error.errorDescription ?? "failed")", to: .standardError)
+        if firstFailure == 0 { firstFailure = error.exitCode }
+    } catch {
+        writeLine("shrinker: \(file.path): \(error.localizedDescription)", to: .standardError)
+        if firstFailure == 0 { firstFailure = 1 }
+    }
+}
+
+// --in-place makes the destination the input, and the parser refuses any
+// non-default --if-exists alongside it, so nothing here can be an original.
+let occupied = planned.filter { FileManager.default.fileExists(atPath: $0.destination.path) }
+
+switch options.ifExists {
+case .replace:
+    break
+case .fail:
+    if !occupied.isEmpty {
+        for plan in occupied {
+            writeLine("shrinker: \(plan.destination.path): already exists", to: .standardError)
+        }
+        writeLine(
+            "shrinker: nothing was written. Use --if-exists skip, keep-both, or replace.",
+            to: .standardError
+        )
+        // EX_DATAERR, matching the input-vs-input refusal above: the flags are
+        // well formed, it is the state of the destination that cannot be honoured.
+        exit(65)
+    }
+case .skip:
+    let skipped = Set(occupied.map(\.destination.path))
+    for path in skipped.sorted() {
+        writeLine("shrinker: \(path): already exists, skipped", to: .standardError)
+    }
+    planned.removeAll { skipped.contains($0.destination.path) }
+case .keepBoth:
+    planned = planned.map { plan in
+        FileManager.default.fileExists(atPath: plan.destination.path)
+            ? plan.writing(to: OutputPathResolver.uniqueDestination(for: plan.destination))
+            : plan
+    }
+}
+
+for plan in planned {
+    do {
+        let result = try engine.shrink(plan)
 
         if options.json {
             // Formatting lives on ShrinkReport, not here — see jsonLine.
@@ -193,10 +242,10 @@ for file in inputs {
         // Keep going. One unsupported file in a folder of hundreds should
         // not abandon the rest, but the run still has to exit non-zero or a
         // caller will believe everything worked.
-        writeLine("shrinker: \(file.path): \(error.errorDescription ?? "failed")", to: .standardError)
+        writeLine("shrinker: \(plan.input.path): \(error.errorDescription ?? "failed")", to: .standardError)
         if firstFailure == 0 { firstFailure = error.exitCode }
     } catch {
-        writeLine("shrinker: \(file.path): \(error.localizedDescription)", to: .standardError)
+        writeLine("shrinker: \(plan.input.path): \(error.localizedDescription)", to: .standardError)
         if firstFailure == 0 { firstFailure = 1 }
     }
 }

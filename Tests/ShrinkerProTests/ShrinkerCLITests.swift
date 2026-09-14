@@ -367,4 +367,91 @@ final class ShrinkerCLITests: XCTestCase {
             "the libexec layout must work without SHRINKER_HELPERS: \(String(decoding: errData, as: UTF8.self))"
         )
     }
+
+    // MARK: - --if-exists
+
+    /// The compatibility guarantee: with no flag, a re-run replaces, exactly
+    /// as every earlier version did.
+    func testTheDefaultStillReplacesSilently() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let input = try fixture("sample", "png", into: work)
+
+        _ = try run([input.path], helpers: helpers)
+        let result = try run([input.path], helpers: helpers)
+
+        XCTAssertEqual(result.code, 0, result.stderr)
+        XCTAssertFalse(
+            FileManager.default.fileExists(atPath: work.appendingPathComponent("sample.min 2.png").path),
+            "the default must not start inventing names"
+        )
+    }
+
+    func testSkipLeavesTheExistingFileAloneAndSaysSo() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let input = try fixture("sample", "png", into: work)
+
+        _ = try run([input.path], helpers: helpers)
+        let output = work.appendingPathComponent("sample.min.png")
+        let before = try Data(contentsOf: output)
+
+        let result = try run(["--if-exists", "skip", input.path], helpers: helpers)
+
+        XCTAssertEqual(result.code, 0, "skipping is what was asked for, not a failure")
+        XCTAssertEqual(try Data(contentsOf: output), before)
+        XCTAssertTrue(
+            result.stderr.contains("sample.min.png"),
+            "a skipped file must be named, got: \(result.stderr)"
+        )
+    }
+
+    func testKeepBothWritesANumberedSibling() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let input = try fixture("sample", "png", into: work)
+
+        _ = try run([input.path], helpers: helpers)
+        let result = try run(["--if-exists", "keep-both", input.path], helpers: helpers)
+
+        XCTAssertEqual(result.code, 0, result.stderr)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: work.appendingPathComponent("sample.min.png").path))
+        XCTAssertTrue(
+            FileManager.default.fileExists(atPath: work.appendingPathComponent("sample.min 2.png").path),
+            "keep-both must leave both on disk"
+        )
+    }
+
+    func testFailRefusesTheRunBeforeDoingAnyWork() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let collides = try fixture("sample", "png", into: work)
+        _ = try run([collides.path], helpers: helpers)
+
+        let fresh = work.appendingPathComponent("fresh.png")
+        try FileManager.default.copyItem(at: collides, to: fresh)
+
+        let result = try run(["--if-exists", "fail", collides.path, fresh.path], helpers: helpers)
+
+        XCTAssertEqual(result.code, 65, "a set of inputs that cannot be honoured is EX_DATAERR")
+        XCTAssertTrue(result.stderr.contains("sample.min.png"), result.stderr)
+        XCTAssertFalse(
+            FileManager.default.fileExists(atPath: work.appendingPathComponent("fresh.min.png").path),
+            "fail must refuse before any work starts, not halfway through"
+        )
+    }
+
+    func testInPlaceWithANonDefaultIfExistsIsRejected() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let input = try fixture("sample", "png", into: work)
+
+        let result = try run(["--in-place", "--if-exists", "skip", input.path], helpers: helpers)
+
+        XCTAssertEqual(result.code, 64, "contradictory flags are a usage error")
+        XCTAssertTrue(
+            result.stderr.contains("--in-place") && result.stderr.contains("--if-exists"),
+            "the message must name both flags, got: \(result.stderr)"
+        )
+    }
 }

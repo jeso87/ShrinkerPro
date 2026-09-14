@@ -51,8 +51,10 @@ struct OutputSettings: Equatable {
 
 /// Port of upstream `generateNewPath` in image-shrinker's main.js.
 ///
-/// Order matters and matches upstream: redirect the directory, then append the
-/// subfolder, then create it, then build the filename.
+/// Order matters and matches upstream: redirect the directory, then append
+/// the subfolder, then build the filename. Creating the directory is split
+/// out into `prepareDirectory` so a caller can ask where a file would land
+/// without anything appearing on disk — see the two methods' own docs.
 enum OutputPathResolver {
 
     /// Where a file will be written, computed without touching the disk.

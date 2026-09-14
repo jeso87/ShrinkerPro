@@ -201,31 +201,42 @@ final class OutputPathResolverTests: XCTestCase {
         )
     }
 
-    /// The split must be behaviour-preserving: for every combination the
-    /// suite already covers, the pure builder has to agree with what
-    /// `resolve` returns.
-    func testDestinationAgreesWithResolveForEveryCombination() throws {
-        let dest = root.appendingPathComponent("agree")
-        for sameFolder in [true, false] {
-            for subfolder in [true, false] {
-                for suffix in [true, false] {
-                    let cfg = settings(
-                        sameFolder: sameFolder,
-                        savePath: sameFolder ? nil : dest,
-                        subfolder: subfolder, suffix: suffix
-                    )
-                    let resolved = try OutputPathResolver.resolve(
-                        input: input(), settings: cfg, fileManager: .default
-                    )
-                    let built = OutputPathResolver.destination(
-                        input: input(), settings: cfg, targetExtension: nil
-                    )
-                    XCTAssertEqual(
-                        built.path, resolved.path,
-                        "pure builder disagreed for sameFolder=\(sameFolder) subfolder=\(subfolder) suffix=\(suffix)"
-                    )
-                }
-            }
+    /// Asserts the pure builder against literal expected paths rather than
+    /// against `resolve` — which now calls `destination` itself, so comparing
+    /// the two could never fail: a bug inside the shared path-building code
+    /// would produce the same wrong answer on both sides. Each row names the
+    /// directory and filename it expects, so a drift in the redirect, the
+    /// subfolder or the suffix breaks exactly one case and names it.
+    func testDestinationBuildsTheExpectedPathForEveryCombination() {
+        let source = input().deletingLastPathComponent()
+        let dest = root.appendingPathComponent("dest")
+
+        let cases: [(sameFolder: Bool, subfolder: Bool, suffix: Bool, expected: URL)] = [
+            (true,  false, true,  source.appendingPathComponent("photo.min.png")),
+            (true,  false, false, source.appendingPathComponent("photo.png")),
+            (true,  true,  true,  source.appendingPathComponent("minified/photo.min.png")),
+            (true,  true,  false, source.appendingPathComponent("minified/photo.png")),
+            (false, false, true,  dest.appendingPathComponent("photo.min.png")),
+            (false, false, false, dest.appendingPathComponent("photo.png")),
+            (false, true,  true,  dest.appendingPathComponent("minified/photo.min.png")),
+            (false, true,  false, dest.appendingPathComponent("minified/photo.png")),
+        ]
+
+        for row in cases {
+            let out = OutputPathResolver.destination(
+                input: input(),
+                settings: settings(
+                    sameFolder: row.sameFolder,
+                    savePath: row.sameFolder ? nil : dest,
+                    subfolder: row.subfolder,
+                    suffix: row.suffix
+                ),
+                targetExtension: nil
+            )
+            XCTAssertEqual(
+                out.path, row.expected.path,
+                "wrong path for sameFolder=\(row.sameFolder) subfolder=\(row.subfolder) suffix=\(row.suffix)"
+            )
         }
     }
 

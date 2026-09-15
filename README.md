@@ -79,8 +79,8 @@ shrinker --json --quality 85 diagram.jpg         # one JSON line per file
 | `--if-exists <what>` | when the destination exists: `replace` (default), `skip`, `keep-both`, `fail` |
 | `--json` | one machine-readable object per file, on stdout |
 
-It writes a `.min` copy beside each original and only overwrites with
-`--in-place`. Folders are searched the same way dropping one on the window
+It writes a `.min` copy beside each original, and only overwrites the
+originals themselves with `--in-place`. Folders are searched the same way dropping one on the window
 searches them, packages and hidden directories included — which is to say,
 excluded. Exit codes distinguish a usage mistake from a failed shrink, so a
 script can tell "you typed it wrong" from "the work failed".

@@ -138,8 +138,10 @@ enum OutputPathResolver {
         }
     }
 
-    /// Both halves, in the order they have always run. Retained so existing
-    /// callers and their tests are unaffected by the split.
+    /// Both halves, in the order they have always run. No shipped code calls
+    /// it any more — the engine plans with `destination` and prepares the
+    /// directory only once a write is consented to. It is kept because its
+    /// tests pin the combined behaviour the split must still add up to.
     static func resolve(
         input: URL,
         settings: OutputSettings,

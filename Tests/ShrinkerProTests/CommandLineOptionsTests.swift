@@ -638,9 +638,41 @@ final class CommandLineOptionsTests: XCTestCase {
         ) { error in
             XCTAssertEqual(
                 error as? CommandLineParseError,
-                .contradictoryFlags("--in-place", "--if-exists")
+                .contradictoryFlags(
+                    "--in-place", "--if-exists",
+                    reason: "'--in-place' always overwrites the original itself, "
+                        + "so there is no separate destination for '--if-exists' to decide about"
+                )
             )
         }
+    }
+
+    /// Each refused pair explains itself in its own terms. One shared sentence
+    /// ("one overwrites each original, the other writes copies elsewhere") was
+    /// true of `--out` and false of `--if-exists`, which writes nothing
+    /// anywhere — a usage error that misdescribes a flag teaches the caller
+    /// something wrong.
+    func testEachContradictionGivesAReasonTrueOfItsOwnPair() throws {
+        func message(_ arguments: [String]) -> String? {
+            do {
+                _ = try CommandLineOptions.parse(arguments)
+                return nil
+            } catch {
+                return (error as? CommandLineParseError)?.errorDescription
+            }
+        }
+
+        let out = try XCTUnwrap(message(["--in-place", "--out", "dir", "a.png"]))
+        XCTAssertTrue(out.contains("--in-place") && out.contains("--out"))
+        XCTAssertTrue(out.contains("writes copies elsewhere"), out)
+
+        let ifExists = try XCTUnwrap(message(["--in-place", "--if-exists", "keep-both", "a.png"]))
+        XCTAssertTrue(ifExists.contains("--in-place") && ifExists.contains("--if-exists"))
+        XCTAssertFalse(
+            ifExists.contains("copies elsewhere"),
+            "--if-exists writes no copies anywhere; the message must not say it does: \(ifExists)"
+        )
+        XCTAssertTrue(ifExists.contains("overwrites the original"), ifExists)
     }
 
     /// Stating the default explicitly is not a contradiction.

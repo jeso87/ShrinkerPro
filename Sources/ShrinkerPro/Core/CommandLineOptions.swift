@@ -81,8 +81,10 @@ enum CommandLineParseError: Error, Equatable {
     case invalidValue(flag: String, value: String)
     /// Two flags that cannot both be honoured. Carries both so the message
     /// can name the pair rather than picking one and leaving the reader to
-    /// work out what it conflicted with.
-    case contradictoryFlags(String, String)
+    /// work out what it conflicted with — and the reason, supplied by the
+    /// check that refused them, because each pair conflicts for its own
+    /// reason and no one sentence is true of all of them.
+    case contradictoryFlags(String, String, reason: String)
 }
 
 extension CommandLineParseError {
@@ -117,9 +119,8 @@ extension CommandLineParseError: LocalizedError {
         case .invalidValue(let flag, let value):
             return "'\(value)' is not a valid value for '\(flag)'. "
                 + "Run 'shrinker --help' for the accepted values."
-        case .contradictoryFlags(let one, let other):
-            return "'\(one)' and '\(other)' cannot be used together — "
-                + "one overwrites each original, the other writes copies elsewhere."
+        case .contradictoryFlags(let one, let other, let reason):
+            return "'\(one)' and '\(other)' cannot be used together — \(reason)."
         }
     }
 }
@@ -590,7 +591,10 @@ extension CommandLineOptions {
         // originals left untouched. Refused at the door rather than resolved
         // by a precedence rule nobody could guess, and never documented.
         if options.inPlace, options.outputDirectory != nil, !options.showsHelp {
-            throw CommandLineParseError.contradictoryFlags("--in-place", "--out")
+            throw CommandLineParseError.contradictoryFlags(
+                "--in-place", "--out",
+                reason: "one overwrites each original, the other writes copies elsewhere"
+            )
         }
 
         // --in-place makes the destination the input, so there is nothing for
@@ -599,7 +603,11 @@ extension CommandLineOptions {
         // than one that is rejected and says why. An explicit `replace` is
         // the default and contradicts nothing.
         if options.inPlace, options.ifExists != .replace, !options.showsHelp {
-            throw CommandLineParseError.contradictoryFlags("--in-place", "--if-exists")
+            throw CommandLineParseError.contradictoryFlags(
+                "--in-place", "--if-exists",
+                reason: "'--in-place' always overwrites the original itself, "
+                    + "so there is no separate destination for '--if-exists' to decide about"
+            )
         }
 
         return options

@@ -471,6 +471,26 @@ final class ShrinkerCLITests: XCTestCase {
         XCTAssertEqual(json["savedPercent"] as? Int, 0)
     }
 
+    /// The same file named twice plans it twice. stderr already reported the
+    /// skip once per destination; the `--json` stream must not report the
+    /// one skipped file as two, or a caller counting lines counts it double.
+    func testASkippedFileNamedTwiceIsReportedOnceInJSON() throws {
+        let helpers = try stagedHelpers()
+        let work = try workspace()
+        let input = try fixture("sample", "png", into: work)
+
+        _ = try run([input.path], helpers: helpers)
+        let result = try run(["--if-exists", "skip", "--json", input.path, input.path], helpers: helpers)
+
+        XCTAssertEqual(result.code, 0, result.stderr)
+        let lines = result.stdout.split(separator: "\n")
+        XCTAssertEqual(lines.count, 1, "one skipped file, one line — got: \(result.stdout)")
+        XCTAssertEqual(
+            result.stderr.components(separatedBy: "already exists, skipped").count - 1, 1,
+            "and stderr names it once too, got: \(result.stderr)"
+        )
+    }
+
     func testKeepBothWritesANumberedSibling() throws {
         let helpers = try stagedHelpers()
         let work = try workspace()

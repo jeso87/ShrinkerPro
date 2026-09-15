@@ -227,7 +227,17 @@ case .fail:
         exit(65)
     }
 case .skip:
-    let occupied = planned.filter { FileManager.default.fileExists(atPath: $0.plan.destination.path) }
+    // Deduplicated once, and both reports below iterate the result. The same
+    // input named twice plans it twice; iterating the raw list printed one
+    // stderr line (from a set) but two `--json` lines (from the array), so a
+    // caller counting lines counted one skipped file as two. Kept per input
+    // rather than per destination: two *different* inputs can share one
+    // destination (`photo.heic` and `photo.jpg` both aim at `photo.min.jpg`),
+    // and each is a file the caller named and deserves its own line.
+    var seenPlans = Set<[String]>()
+    let occupied = planned
+        .filter { FileManager.default.fileExists(atPath: $0.plan.destination.path) }
+        .filter { seenPlans.insert([$0.plan.input.path, $0.plan.destination.path]).inserted }
     let skipped = Set(occupied.map { $0.plan.destination.path })
     for path in skipped.sorted() {
         writeLine("shrinker: \(path): already exists, skipped", to: .standardError)
@@ -249,7 +259,14 @@ case .skip:
                 input: entry.plan.input, output: entry.plan.destination,
                 originalBytes: size, shrunkBytes: size
             )
-            print(try ShrinkReport.jsonLine(for: untouched, status: .skipped))
+            // Caught, like every other throwing call in this file, so a
+            // failure reaches stderr through `die` with an exit code rather
+            // than as an uncaught top-level error.
+            do {
+                print(try ShrinkReport.jsonLine(for: untouched, status: .skipped))
+            } catch {
+                die("\(entry.plan.input.path): could not report as JSON: \(error.localizedDescription)", code: 1)
+            }
         }
     }
     planned.removeAll { skipped.contains($0.plan.destination.path) }

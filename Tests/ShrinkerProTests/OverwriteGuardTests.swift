@@ -383,7 +383,7 @@ final class OverwriteRequestCopyTests: XCTestCase {
             category: .original, paths: [url("photo.jpg")], unaffectedCount: 48
         )
 
-        XCTAssertEqual(request.title, "Replace 1 original?")
+        XCTAssertEqual(request.title, "Replace 1 original in “tmp”?")
         XCTAssertTrue(request.message.contains("photo.jpg"))
         XCTAssertTrue(request.message.contains("cannot be recovered"))
         XCTAssertTrue(request.message.contains("48"))
@@ -397,7 +397,7 @@ final class OverwriteRequestCopyTests: XCTestCase {
             unaffectedCount: 0
         )
 
-        XCTAssertEqual(request.title, "Replace 3 originals?")
+        XCTAssertEqual(request.title, "Replace 3 originals in “tmp”?")
         XCTAssertEqual(request.skipButtonTitle, "Skip These")
     }
 
@@ -415,6 +415,78 @@ final class OverwriteRequestCopyTests: XCTestCase {
             "the app cannot know that, and guessing wrong about what it destroys is worse than naming the path"
         )
         XCTAssertFalse(request.message.lowercased().contains(".min copy"))
+    }
+
+    /// Files that all sit in one folder: the folder is named once, in the
+    /// title, and the message lists bare filenames beneath it.
+    func testFilesSharingAFolderNameItInTheTitleAndListBareNames() {
+        let request = OverwriteRequest(
+            category: .existingFile,
+            paths: [
+                URL(fileURLWithPath: "/Users/me/Shoot/minified/a.png"),
+                URL(fileURLWithPath: "/Users/me/Shoot/minified/b.png"),
+            ],
+            unaffectedCount: 0
+        )
+
+        XCTAssertEqual(request.title, "Replace 2 files in “minified”?")
+        XCTAssertTrue(request.message.contains("a.png, b.png"), request.message)
+        XCTAssertFalse(request.message.contains("/Users"), "the folder is already in the title")
+    }
+
+    /// A tree of same-named files. Bare filenames would read
+    /// "photo.png, photo.png" — a list that names nothing — so each is shown
+    /// by the part of its path that tells it apart.
+    func testSameNamedFilesInDifferentFoldersAreToldApart() {
+        let request = OverwriteRequest(
+            category: .original,
+            paths: [
+                URL(fileURLWithPath: "/Users/me/Shoot/day1/photo.png"),
+                URL(fileURLWithPath: "/Users/me/Shoot/day2/photo.png"),
+                URL(fileURLWithPath: "/Users/me/Shoot/day2/raw/photo.png"),
+            ],
+            unaffectedCount: 0
+        )
+
+        XCTAssertEqual(request.title, "Replace 3 originals?", "no single folder to name")
+        XCTAssertTrue(
+            request.message.contains("day1/photo.png, day2/photo.png, day2/raw/photo.png"),
+            request.message
+        )
+    }
+
+    /// Nothing shared but the root: a relative path would be meaningless, so
+    /// the full path is shown.
+    func testPathsSharingOnlyTheRootAreShownInFull() {
+        let request = OverwriteRequest(
+            category: .existingFile,
+            paths: [URL(fileURLWithPath: "/Volumes/A/photo.png"), URL(fileURLWithPath: "/Users/me/photo.png")],
+            unaffectedCount: 0
+        )
+
+        XCTAssertTrue(request.message.contains("/Volumes/A/photo.png, /Users/me/photo.png"), request.message)
+    }
+
+    /// An alert is not a scrolling list. A long drop names the first few and
+    /// counts the rest, while the title still counts every file.
+    func testALongListIsTruncatedWithACountOfTheRest() {
+        let paths = (1...8).map { URL(fileURLWithPath: "/tmp/shoot/\($0).png") }
+        let request = OverwriteRequest(category: .existingFile, paths: paths, unaffectedCount: 0)
+
+        XCTAssertEqual(request.title, "Replace 8 files in “shoot”?")
+        XCTAssertTrue(
+            request.message.contains("1.png, 2.png, 3.png, 4.png, 5.png, …and 3 more"),
+            request.message
+        )
+        XCTAssertFalse(request.message.contains("6.png"))
+    }
+
+    func testAListAtTheLimitIsNotTruncated() {
+        let paths = (1...OverwriteRequest.listedNameLimit).map { URL(fileURLWithPath: "/tmp/shoot/\($0).png") }
+        let request = OverwriteRequest(category: .existingFile, paths: paths, unaffectedCount: 0)
+
+        XCTAssertFalse(request.message.contains("more"), request.message)
+        XCTAssertTrue(request.message.contains("\(OverwriteRequest.listedNameLimit).png"))
     }
 
     func testAnUnaffectedCountOfZeroIsNotMentioned() {

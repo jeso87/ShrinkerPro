@@ -671,16 +671,12 @@ final class OverwriteFlowTests: XCTestCase {
         }
         await model.process(urls: [file])
 
-        // Pattern-matched rather than `XCTAssertEqual(category, .existingFile)`:
-        // `OverwriteCategory` is not `Equatable`, and giving it that
-        // conformance would mean editing a file this task must leave alone.
-        // The assertion is the same one either way — a `.original` here, or
-        // no sheet at all, fails.
+        // A `.original` here, or no sheet at all (nil), fails.
         let category = await observer.value
-        guard case .some(.existingFile) = category else {
-            XCTFail("the sheet must be about the file already there, not the original")
-            return
-        }
+        XCTAssertEqual(
+            category, .existingFile,
+            "the sheet must be about the file already there, not the original"
+        )
     }
 
     /// One continuation is stored at a time, so a second batch that reaches a
@@ -788,10 +784,10 @@ final class OverwriteFlowTests: XCTestCase {
                 log.unaffectedCounts.append(request.unaffectedCount)
                 switch request.category {
                 case .original:
-                    log.categories.append("original")
+                    log.categories.append(.original)
                     model.answerOverwrite(.keepBoth)
                 case .existingFile:
-                    log.categories.append("existingFile")
+                    log.categories.append(.existingFile)
                     model.answerOverwrite(.replace)
                 }
             }
@@ -800,7 +796,7 @@ final class OverwriteFlowTests: XCTestCase {
         responder.cancel()
 
         XCTAssertEqual(
-            log.categories, ["original", "existingFile"],
+            log.categories, [.original, .existingFile],
             "both questions must be asked, and the irreversible one first"
         )
         XCTAssertEqual(
@@ -949,12 +945,10 @@ private final class BatchFlags {
     var secondFinished = false
 }
 
-/// What the sheets said, in the order they were raised. Categories are
-/// recorded as strings because `OverwriteCategory` is not `Equatable` and
-/// making it so would mean editing a file these tasks must leave alone.
+/// What the sheets said, in the order they were raised.
 @MainActor
 private final class SheetLog {
-    var categories: [String] = []
+    var categories: [OverwriteCategory] = []
     var unaffectedCounts: [Int] = []
     var sawAnySheet = false
 }

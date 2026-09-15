@@ -367,8 +367,8 @@ final class OverwriteScanTests: XCTestCase {
             ShrinkPlan.stub(input: clean, destination: root.appendingPathComponent("c.min.png")),
         ])
 
-        XCTAssertEqual(originals.count, 1)
-        XCTAssertEqual(existing.count, 1)
+        XCTAssertEqual(originals.map(\.input.path), [inPlace.path], "the in-place plan, and only it")
+        XCTAssertEqual(existing.map(\.destination.path), [occupied.path], "the occupied copy, and only it")
     }
 }
 

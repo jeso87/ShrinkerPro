@@ -1,7 +1,7 @@
 import Foundation
 
 /// Which kind of file a collision would destroy.
-enum OverwriteCategory {
+enum OverwriteCategory: Equatable {
     /// The destination *is* the input. The user's own file, unrecoverable.
     case original
     /// Something else is already at that path. It may be a `.min` copy from

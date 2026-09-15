@@ -854,6 +854,89 @@ final class OverwriteFlowTests: XCTestCase {
             "two duplicate plans must land on two distinct new files, not both on one"
         )
     }
+
+    /// A Keep Both redirect must not land on a path another plan in the same
+    /// batch is *already* going to write — including a plan no sheet ever
+    /// mentioned, because its own destination was free.
+    ///
+    /// With originals replaced into `minified/`, `photo.png` collides with a
+    /// `minified/photo.png` already there, while `photo 2.png` heads for a
+    /// free `minified/photo 2.png`. The first free numbered name for the
+    /// redirect is exactly that path, so unless the batch reserves every
+    /// plan's destination up front, both write it and the second destroys the
+    /// first.
+    func testKeepBothDoesNotRedirectOntoAnotherPlansDestination() async throws {
+        let (model, settings) = try makeModel()
+        settings.keepOriginal = false
+        settings.useSubfolder = true
+
+        // Two different images, so the two outputs can be told apart.
+        let folder = try stagedFolder(["sample.png", "rotated.png"])
+        let photo = folder.appendingPathComponent("photo.png")
+        let photo2 = folder.appendingPathComponent("photo 2.png")
+        try FileManager.default.moveItem(at: folder.appendingPathComponent("sample.png"), to: photo)
+        try FileManager.default.moveItem(at: folder.appendingPathComponent("rotated.png"), to: photo2)
+
+        let minified = folder.appendingPathComponent("minified", isDirectory: true)
+        try FileManager.default.createDirectory(at: minified, withIntermediateDirectories: true)
+        let occupant = Data("already here".utf8)
+        try occupant.write(to: minified.appendingPathComponent("photo.png"))
+
+        let responder = answering(.keepBoth, on: model)
+        await model.process(urls: [photo, photo2])
+        await responder.value
+
+        XCTAssertNil(model.errorMessage)
+        XCTAssertEqual(
+            try Data(contentsOf: minified.appendingPathComponent("photo.png")), occupant,
+            "Keep Both must leave the file already there untouched"
+        )
+        let produced = try FileManager.default.contentsOfDirectory(atPath: minified.path).sorted()
+        XCTAssertEqual(
+            produced, ["photo 2.png", "photo 3.png", "photo.png"],
+            "the redirect must skip the name the uncolliding file is about to write"
+        )
+        let second = try Data(contentsOf: minified.appendingPathComponent("photo 2.png"))
+        let third = try Data(contentsOf: minified.appendingPathComponent("photo 3.png"))
+        XCTAssertNotEqual(second, third, "two different inputs must leave two different outputs")
+        XCTAssertEqual(model.rows.count, 2, "both files must have been shrunk")
+    }
+
+    /// The batch reserves every plan's destination, and a plan's own
+    /// reservation must not block that plan — but must still block a
+    /// duplicate of it.
+    ///
+    /// Only reachable when the occupying file disappears while the sheet is
+    /// up, so that is what this does: two duplicate plans, the occupant
+    /// deleted before Keep Both is answered. One plan may take the now-free
+    /// name; the other must not take it too.
+    func testKeepBothAfterTheOccupantVanishesStillGivesDuplicatesDistinctFiles() async throws {
+        let (model, _) = try makeModel()
+        let file = try staged()
+        let folder = file.deletingLastPathComponent()
+        await model.process(urls: [file])
+        let occupant = folder.appendingPathComponent("sample.min.png")
+
+        let responder = Task { @MainActor in
+            let deadline = Date().addingTimeInterval(10)
+            while model.pendingOverwrite == nil, Date() < deadline, !Task.isCancelled {
+                await Task.yield()
+            }
+            try? FileManager.default.removeItem(at: occupant)
+            model.answerOverwrite(.keepBoth)
+        }
+        await model.process(urls: [file, file])
+        await responder.value
+
+        let produced = try FileManager.default
+            .contentsOfDirectory(atPath: folder.path)
+            .filter { $0.hasPrefix("sample.min") }
+            .sorted()
+        XCTAssertEqual(
+            produced, ["sample.min 2.png", "sample.min.png"],
+            "one plan reclaims the freed name, the other gets a number — never both on one path"
+        )
+    }
 }
 
 /// Whether each of two overlapping batches actually returned. A small

@@ -198,6 +198,13 @@ final class AppModel: ObservableObject {
     /// The first name free both on disk and among the destinations this batch
     /// has already claimed.
     ///
+    /// "Claimed" means every destination some plan in the batch is going to
+    /// write — not only the ones Keep Both has already handed out. A plan that
+    /// collided with nothing never appears in a sheet, but its destination is
+    /// spoken for all the same: with originals replaced into `minified/`, a
+    /// redirect for `photo.png` would otherwise pick a free
+    /// `minified/photo 2.png` that `photo 2.png` is itself about to write.
+    ///
     /// `OutputPathResolver.uniqueDestination` answers the first half, and is
     /// left exactly as it is — it belongs to a closed task and the CLI depends
     /// on it. The second half is this batch's own business: `InputExpander`
@@ -212,10 +219,10 @@ final class AppModel: ObservableObject {
     /// resolver returns it unchanged, so feeding its own answer back to it
     /// would never terminate.
     private static func freeDestination(
-        for destination: URL, claimedInBatch claimed: Set<String>
+        for destination: URL, isClaimed: (String) -> Bool
     ) -> URL {
         let first = OutputPathResolver.uniqueDestination(for: destination)
-        guard claimed.contains(first.path) else { return first }
+        guard isClaimed(first.path) else { return first }
 
         let ext = destination.pathExtension
         let stem = destination.deletingPathExtension()
@@ -224,7 +231,7 @@ final class AppModel: ObservableObject {
             let numbered = URL(fileURLWithPath: stem.path + " \(counter)")
             let candidate = ext.isEmpty ? numbered : numbered.appendingPathExtension(ext)
             if !FileManager.default.fileExists(atPath: candidate.path),
-               !claimed.contains(candidate.path) {
+               !isClaimed(candidate.path) {
                 return candidate
             }
             counter += 1
@@ -300,6 +307,24 @@ final class AppModel: ObservableObject {
             // driving the second sheet's count negative.
             let collidingTotal = originals.count + existing.count
             let unaffectedCount = plans.count - collidingTotal
+            // Every destination this batch is going to write, counted per
+            // path, reserved before either question is asked.
+            //
+            // Batch-scoped, and seeded with *every* plan rather than only the
+            // ones a sheet redirects: a plan with no collision never appears
+            // in a sheet, yet a Keep Both redirect must not land on the path
+            // it is about to write — see `freeDestination`. And it outlives
+            // the first sheet, so the second sheet's redirects see the first
+            // sheet's.
+            //
+            // A count, not a set, so that a plan's own entry never blocks that
+            // plan while a *second* plan wanting the same path still does. The
+            // two cases are indistinguishable in a set, and the duplicate one
+            // (a folder dropped with a file inside it) is real.
+            var claims: [String: Int] = [:]
+            for plan in plans {
+                claims[plan.destination.path, default: 0] += 1
+            }
             // Stakes first: the irreversible question is asked before the
             // recoverable one. Two questions, each with its own answer, so
             // "keep both of my originals but replace the stale copies" is
@@ -321,22 +346,29 @@ final class AppModel: ObservableObject {
                     // is why the button says Skip rather than Cancel. A
                     // skipped file produces no row and no error: it is a
                     // choice the user made, not a failure.
+                    for plan in plans where colliding.contains(plan.destination.path) {
+                        claims[plan.destination.path, default: 0] -= 1
+                    }
                     plans.removeAll { colliding.contains($0.destination.path) }
                 case .keepBoth:
-                    // What this batch has already spoken for. Nothing is
-                    // written until every plan has been decided, so the
-                    // filesystem alone cannot tell two plans apart — see
-                    // `freeDestination`.
-                    var claimed: Set<String> = []
+                    // Nothing is written until every plan has been decided,
+                    // so the filesystem alone cannot tell two plans apart —
+                    // the batch's own `claims` does. See `freeDestination`.
                     plans = plans.map { plan in
                         guard colliding.contains(plan.destination.path) else { return plan }
+                        let own = plan.destination.path
                         // Only the destination moves. `writing(to:)` accepts
                         // any path without policing its extension, while
                         // `shrink` takes its scratch extension from the
                         // input's route — so the number goes into the name
                         // and the extension is left exactly as planned.
-                        let free = Self.freeDestination(for: plan.destination, claimedInBatch: claimed)
-                        claimed.insert(free.path)
+                        let free = Self.freeDestination(for: plan.destination) { path in
+                            // This plan's own claim on its own path does not
+                            // count against it; anyone else's does.
+                            (claims[path] ?? 0) > (path == own ? 1 : 0)
+                        }
+                        claims[own, default: 0] -= 1
+                        claims[free.path, default: 0] += 1
                         return plan.writing(to: free)
                     }
                 }

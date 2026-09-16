@@ -195,35 +195,48 @@ enumerable in tests.
 Converting to a format's own type (JPEG→JPEG, WebP→WebP, AVIF→AVIF) takes the
 same fast path as "keep" — it compresses, it does not round-trip.
 
-### The window footer
+### The session settings bar
 
-Pinned along the bottom of the window, below the scrolling history, are the
-three things worth changing between one drop and the next: **Convert all to**,
-**Quality** and **Max size**. On a narrow window they stack rather than crowd.
+Pinned along the bottom of the window, below the scrolling history, is one line
+saying what will happen to the next files you drop:
 
-**Convert all to** — JPEG, WebP, AVIF or PNG — is a session override. It
-replaces every per-format rule at once for as long as the app is open, without
-touching what you have stored, and it is gone the next time you launch.
-"App default" means your stored rules apply. It is in the window rather than in
-Settings deliberately: it is visible the whole time it is on, so nothing
-converts behind your back.
+    This session   WebP · High · Max 2000px   Reset            Adjust ⌃
 
-**Quality** is the same Super Low / Low / Standard / High setting that lives in
-Settings, put within reach so it can be changed without opening a panel. Unlike
-the override, it *is* saved.
+**Adjust** opens the three controls in place — **Convert all to**, **Quality**
+and **Max size** — and Done, Escape or a click anywhere above closes them again.
+Nothing is ever discarded by closing: a value applies the moment it is chosen.
+A dot appears beside the summary whenever any of the three differs from what the
+app would do on its own, and **Reset** puts all three back. On a narrow window
+the bar drops the "This session" prefix and the inline Reset rather than
+wrapping; the dot and the summary carry the meaning, and Reset is still in the
+panel.
 
-PNG is available in the override and nowhere else. As a stored rule it would sit
-next to "Keep PNG" meaning almost the same thing; as a one-off it is genuinely
-useful, for flattening a mixed folder to a single lossless format. PNG is
-lossless, so photographs converted to it usually get *larger* — a warning
-appears beside the control when you pick it, and the results row reports the
-negative saving honestly.
+**Everything in the bar applies to this session only.** It is typed in the
+window, it is never written to disk, and it is gone the next time you launch —
+the defaults each session starts from live in Settings. That is why the summary
+is always on screen: a setting that changes every file must never be invisible,
+which is the same argument that kept the format override out of Settings in the
+first place.
 
-**Max size** caps the longest side: a landscape image is scaled by its width
-and a portrait one by its height, always keeping the aspect ratio, and anything
+**Convert all to** — JPEG, WebP, AVIF or PNG — replaces every per-format rule at
+once, without touching what you have stored. "App default" means your stored
+rules apply.
+
+PNG is available here and nowhere else. As a stored rule it would sit next to
+"Keep PNG" meaning almost the same thing; as a one-off it is genuinely useful,
+for flattening a mixed folder to a single lossless format. PNG is lossless, so
+photographs converted to it usually get *larger* — a warning appears beside the
+control when you pick it, and the results row reports the negative saving
+honestly.
+
+**Quality** is the same Super Low / Low / Standard / High scale that lives in
+Settings, within reach without opening a panel. Changing it here changes this
+session; the stored default is left alone.
+
+**Max size** caps the longest side: a landscape image is scaled by its width and
+a portrait one by its height, always keeping the aspect ratio, and anything
 already inside the cap is left at the size it arrived. Leave it blank for no
-resizing. Like the override it is session-scoped — typed in the window, gone at
-quit — and it is in force the moment it is typed, with no Return to press.
+resizing. It is in force the moment it is typed, with no Return to press.
 
 Resizing is done by ImageIO for every still image, whichever encoder finishes
 the file, so a PNG and a WebP capped at the same number match. GIF is the
@@ -232,7 +245,7 @@ animation to one frame. SVG is unaffected — it is vector, so it has no pixel
 size to cap. And a resized file is written even if it comes out larger, the
 same exemption converting has: you asked for those dimensions.
 
-SVG and GIF ignore the override, exactly as they ignore the stored rules.
+SVG and GIF ignore the format override, exactly as they ignore the stored rules.
 
 ## Metadata
 
@@ -288,7 +301,7 @@ mozjpeg's progressive scans survive a metadata change intact.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/empty-state-compact-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/empty-state-compact-light.png">
-  <img src="docs/screenshots/empty-state-compact-dark.png" alt="The window at rest, showing a dashed drop zone reading “Drag files here — PNG, JPG, HEIC, WebP, AVIF, GIF and SVG”, and a footer with “Convert all to” set to App default beside a Quality setting.">
+  <img src="docs/screenshots/empty-state-compact-dark.png" alt="The window at rest, showing a dashed drop zone reading “Drag files here — PNG, JPG, HEIC, WebP, AVIF, GIF and SVG”, and the session settings bar reading “This session — App default · Standard · No limit” with an Adjust button.">
 </picture>
 
 Drop anywhere in the window, not just the dashed zone.

@@ -515,6 +515,104 @@ final class SessionOverrideTests: XCTestCase {
             "the max size must not be written into the settings snapshot"
         )
     }
+
+    // MARK: - Quality, which is now session state too
+
+    /// Untouched means "whatever Settings says", not a copy of it taken at
+    /// launch — so changing the stored default mid-session is still felt.
+    func testAnUntouchedQualityFollowsTheStoredDefault() async throws {
+        let (model, settings) = try makeModel()
+        settings.quality = .superLow
+
+        XCTAssertNil(model.sessionQuality)
+
+        await model.process(urls: [try staged("sample", "jpg")])
+        let atSuperLow = try XCTUnwrap(model.rows.first?.shrunkBytes)
+
+        settings.quality = .high
+        model.clearHistory()
+        await model.process(urls: [try staged("sample", "jpg")])
+        let atHigh = try XCTUnwrap(model.rows.first?.shrunkBytes)
+
+        XCTAssertLessThan(atSuperLow, atHigh, "the stored default must still reach the engine")
+    }
+
+    /// The change this bar made: choosing a quality in the window no longer
+    /// writes to UserDefaults. It applies to the session and the stored
+    /// default is left exactly as it was.
+    func testChoosingAQualityInTheBarDoesNotPersistIt() async throws {
+        let (model, settings) = try makeModel()
+        settings.quality = .standard
+
+        model.sessionQuality = .superLow
+        await model.process(urls: [try staged("sample", "jpg")])
+
+        XCTAssertEqual(
+            settings.quality, .standard,
+            "the session's quality must not be written back over the stored default"
+        )
+    }
+
+    func testTheSessionQualityReachesTheEngine() async throws {
+        let (model, settings) = try makeModel()
+        settings.quality = .high
+
+        model.sessionQuality = .superLow
+        await model.process(urls: [try staged("sample", "jpg")])
+        let overridden = try XCTUnwrap(model.rows.first?.shrunkBytes)
+
+        model.sessionQuality = nil
+        model.clearHistory()
+        await model.process(urls: [try staged("sample", "jpg")])
+        let stored = try XCTUnwrap(model.rows.first?.shrunkBytes)
+
+        XCTAssertLessThan(overridden, stored, "Super Low for this session must beat a stored High")
+    }
+
+    // MARK: - Reset
+
+    func testResetReturnsEverySessionSettingToTheAppDefaults() throws {
+        let (model, _) = try makeModel()
+        model.sessionFormat = .png
+        model.sessionQuality = .superLow
+        model.sessionMaxSizeText = "1200"
+
+        model.resetSessionSettings()
+
+        XCTAssertNil(model.sessionFormat)
+        XCTAssertNil(model.sessionQuality)
+        XCTAssertEqual(model.sessionMaxSizeText, "")
+        XCTAssertNil(model.sessionMaxDimension)
+    }
+
+    /// Reset is about the session, so it must leave the stored preferences
+    /// alone — including the quality it is visually "resetting".
+    func testResetLeavesStoredSettingsAlone() throws {
+        let (model, settings) = try makeModel()
+        settings.quality = .high
+        settings.pngConversion = .webp
+        model.sessionQuality = .low
+
+        model.resetSessionSettings()
+
+        XCTAssertEqual(settings.quality, .high)
+        XCTAssertEqual(settings.pngConversion, .webp)
+    }
+
+    // MARK: - The panel
+
+    func testThePanelStartsClosedAndADropClosesIt() async throws {
+        let (model, _) = try makeModel()
+        XCTAssertFalse(model.isSessionPanelExpanded)
+
+        model.isSessionPanelExpanded = true
+        model.handle(urls: [try staged("sample", "png")])
+
+        XCTAssertFalse(
+            model.isSessionPanelExpanded,
+            "a drop answers the question the panel was asking"
+        )
+    }
 }
 
 // MARK: - The overwrite guard

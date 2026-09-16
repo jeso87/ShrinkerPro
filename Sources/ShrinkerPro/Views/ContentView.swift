@@ -9,21 +9,34 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             DropZoneView(isTargeted: isTargeted)
+                // Clicking anywhere above the bar closes its panel, the third
+                // of the three ways out (Done and Escape are the others).
+                // Applied to the content rather than as a full-window overlay
+                // so it never sits between the window and its drop handler.
+                .simultaneousGesture(dismissPanelGesture)
             // No divider directly under the drop zone: the "Recent" header's
             // own top hairline (inside ResultsListView) is the only
             // separator, and it appears only once there's history to
             // separate from.
             ResultsListView()
+                .simultaneousGesture(dismissPanelGesture)
             // The footer is pinned and the history scrolls above it.
             // ResultsListView has no explicit frame, so it absorbs all the
             // leftover height and everything after it is already anchored to
             // the window's bottom edge — no safeAreaInset needed.
             //
-            // This divider, unlike the one above, is unconditional: rows
-            // scroll right up to the footer's edge, so without it the last
-            // visible row bleeds into the controls.
-            Divider()
-            WindowFooterView()
+            // No `Divider()` here any more: the session bar draws its own
+            // 0.5pt top hairline *inside* itself, so the separation survives
+            // the panel expanding without the divider moving or the bar
+            // gaining height it did not ask for.
+            SessionBarView()
+                // The bar stays visible but inert while a drag is over the
+                // window — the drop is the thing being aimed at, and a menu
+                // opening under the pointer mid-drag would be nobody's
+                // intention. `allowsHitTesting` rather than `.disabled`,
+                // which would grey the controls out for the length of a
+                // hover.
+                .allowsHitTesting(!isTargeted)
         }
         .frame(minWidth: 340, minHeight: 420)
         // Publishes whether there's history to clear up to the Scene, so
@@ -72,6 +85,16 @@ struct ContentView: View {
         // are answered immediately in `ask`.
         .onAppear { model.windowAppeared() }
         .onDisappear { model.windowDisappeared() }
+    }
+
+    /// Closes the session panel on a click outside it. A
+    /// `simultaneousGesture` rather than `onTapGesture`, so it never consumes
+    /// a click the results list or the drop zone wanted for themselves.
+    private var dismissPanelGesture: some Gesture {
+        TapGesture().onEnded {
+            guard model.isSessionPanelExpanded else { return }
+            withAnimation(.easeOut(duration: 0.22)) { model.isSessionPanelExpanded = false }
+        }
     }
 }
 

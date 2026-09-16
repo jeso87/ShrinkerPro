@@ -103,7 +103,12 @@ struct SettingsView: View {
                 // NOT claim PNG is lossless — pngquant quantises to a 256
                 // colour palette, so it very much isn't; it simply has no
                 // comparable quality dial, and neither does gifsicle's -O2.
-                Text("Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced.")
+                // Says "every session starts at" rather than simply "the
+                // quality" because the window's session bar can now sit on
+                // top of this without writing back to it — a user who
+                // changes quality there and then finds this row unmoved
+                // needs the two to explain each other.
+                Text("Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this.")
             }
             Section {
                 Picker("When shrinking, keep", selection: $settings.metadataPolicy) {

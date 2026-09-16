@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import AppKit
+import SwiftUI
 
 struct ResultRow: Identifiable, Equatable {
     let id = UUID()
@@ -77,7 +78,8 @@ final class AppModel: ObservableObject {
     /// it is gone next launch. (It sat *above* the list until the footer
     /// landed — the position changed, the argument did not: what mattered
     /// was the control never being off screen while an override is in
-    /// force. See `WindowFooterView`.)
+    /// force, and the bar's summary states it in words even when the control
+    /// itself is collapsed. See `SessionBarView`.)
     ///
     /// SVG and GIF are unaffected. They are short-circuited in
     /// `ShrinkEngine.plan` before any rule or override is consulted, so they
@@ -103,6 +105,39 @@ final class AppModel: ObservableObject {
     /// may keep, or `nil` for no resizing.
     var sessionMaxDimension: Int? {
         MaxSizeField.dimension(from: sessionMaxSizeText)
+    }
+
+    /// The encoder quality this session is using, or `nil` to use the stored
+    /// default from Settings.
+    ///
+    /// Quality is the one value in the bar that *used* to persist: the old
+    /// footer's picker was bound straight to `Settings.quality` and wrote to
+    /// UserDefaults on every change. It stopped doing that when the bar
+    /// became a statement about one session — "applies to this session only,
+    /// defaults live in Settings" has to be true of everything in the bar or
+    /// it is true of nothing in it. The stored preference is untouched and
+    /// still owns what each launch starts from; this only ever sits on top
+    /// of it.
+    ///
+    /// `nil` rather than a copy of the stored value, so that changing the
+    /// default in Settings mid-session is still felt by a session that never
+    /// overrode it.
+    @Published var sessionQuality: QualityLevel?
+
+    /// Whether the bar is showing its controls rather than its summary.
+    ///
+    /// On the model rather than in the view because the panel is closed by
+    /// things the view does not own — a drop, in particular, which arrives
+    /// through `handle(urls:)`.
+    @Published var isSessionPanelExpanded = false
+
+    /// Returns every session setting to the app's own defaults, which is what
+    /// the bar's Reset does. Deliberately not a "clear everything" — it
+    /// touches nothing that persists, so Settings is left exactly as it was.
+    func resetSessionSettings() {
+        sessionFormat = nil
+        sessionQuality = nil
+        sessionMaxSizeText = ""
     }
 
     /// The sheet the window should be showing, if any. One category at a
@@ -135,6 +170,12 @@ final class AppModel: ObservableObject {
 
     /// Entry point for drops, the file picker, and Finder open events.
     func handle(urls: [URL]) {
+        // A drop is an answer to "what should happen to these?", so the panel
+        // that was asking the question steps out of the way — and the summary
+        // it collapses to states what is about to happen to them.
+        if isSessionPanelExpanded {
+            withAnimation(.easeOut(duration: 0.22)) { isSessionPanelExpanded = false }
+        }
         Task { await process(urls: urls) }
     }
 
@@ -280,6 +321,9 @@ final class AppModel: ObservableObject {
             var snapshot = settings.outputSettings
             snapshot.sessionFormat = sessionFormat
             snapshot.maxDimension = sessionMaxDimension
+            // `outputSettings` has already resolved the stored quality, so
+            // this replaces it only when the session says otherwise.
+            if let sessionQuality { snapshot.quality = sessionQuality.settings }
             return snapshot
         }()
 

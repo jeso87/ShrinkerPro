@@ -139,6 +139,12 @@ converting.
 
 ## 7. The footer control
 
+> **Superseded the same day** by `2026-09-16-session-settings-bar-design.md`, which
+> replaces the inline footer row with a collapsing session bar. The field's *rules* below
+> (live parsing, digits only, blank and zero meaning off) all survive in `MaxSizeField`;
+> only its placement and its width changed, and a 1–20000 clamp was added.
+
+
 A third control in `WindowFooterView`: `Max size [____] px`.
 
 The field's text — not a parsed `Int?` — is what lives on `AppModel`, parsed on every

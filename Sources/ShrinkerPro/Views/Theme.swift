@@ -82,6 +82,48 @@ enum Theme {
 
     /// Tint for the drop-zone's radial-gradient glow.
     static let dropGlow = dynamic(darkHex: "#4B4FE0", darkAlpha: 0.16, lightHex: "#4B4FE0", lightAlpha: 0.10)
+
+    // MARK: Session settings bar
+
+    /// The bar and panel at the bottom of the window — `SessionBarView`.
+    ///
+    /// The dark values are the handoff's own, sampled from this app's
+    /// screenshots (`design_handoff_session_settings_bar`). The light ones
+    /// are derived here, because the handoff covers dark only and this app
+    /// tracks the system appearance. They are derived by keeping the
+    /// *relationships* rather than inverting the numbers: the bar sits a step
+    /// away from the content area in the same direction the window chrome
+    /// does, controls sit a step above the bar, and the field is recessed
+    /// below it. Text is left to `.primary`/`.secondary` rather than given
+    /// hexes of its own, so contrast keeps tracking the system's own
+    /// accessibility settings.
+    ///
+    /// Send the light column back to the designer rather than treating it as
+    /// settled — it is a faithful derivation, not a sampled value.
+    enum SessionBar {
+        /// The bar's own fill, distinct from the content area above it.
+        static let fill = dynamic(darkHex: "#1C1C1E", lightHex: "#F4F3F6")
+        /// The bar's top edge: a hairline drawn *inside* it, so turning it on
+        /// never changes the bar's height.
+        static let hairline = dynamic(
+            darkHex: "#FFFFFF", darkAlpha: 0.09, lightHex: "#000000", lightAlpha: 0.10
+        )
+        /// Popups and the Adjust/Done buttons.
+        static let controlFill = dynamic(darkHex: "#2F2F33", lightHex: "#E8E7EC")
+        static let controlFillHover = dynamic(darkHex: "#3A3A3E", lightHex: "#DCDAE2")
+        /// The max size field, recessed rather than raised — the one control
+        /// you type into rather than click.
+        static let fieldFill = dynamic(darkHex: "#17171A", lightHex: "#FFFFFF")
+        /// The 0.5pt inset stroke every control carries.
+        static let controlStroke = dynamic(
+            darkHex: "#FFFFFF", darkAlpha: 0.13, lightHex: "#000000", lightAlpha: 0.12
+        )
+        /// Shown when any session setting differs from the app's defaults.
+        /// A near-relative of `gradientStart`, and its light value is that
+        /// token's light value for the same reason: the dark violet reads as
+        /// a grey smudge at 5pt on white.
+        static let overrideDot = dynamic(darkHex: "#7A72F0", lightHex: "#5646C8")
+    }
 }
 
 private extension NSColor {

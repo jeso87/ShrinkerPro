@@ -4,6 +4,49 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.3.0 — 2026-09-16
+
+### Added
+
+**Max size.** Give Shrinker Pro a number and nothing comes out bigger than it
+on its longest side: a landscape image is scaled by its width, a portrait one
+by its height, always keeping the aspect ratio. Anything already inside the cap
+is left at the size it arrived — the number is a ceiling, not a target, and
+nothing is ever scaled up.
+
+Every still image is resized by the same resampler, whichever encoder finishes
+the file, so a PNG and a WebP capped at the same number match. GIF is the one
+exception, and it is resized by gifsicle precisely so an animation stays an
+animation. SVG is unaffected: it is vector, so it has no pixel size to cap.
+
+A resized file is written even if it comes out larger — the same exemption
+converting already had. You asked for those dimensions.
+
+**`--max-size` for the command line.**
+
+```
+shrinker --max-size 2000 ./camera-roll
+```
+
+### Changed
+
+**The window footer is now a session settings bar.** One line states what will
+happen to the next files you drop — `WebP · High · Max 2000px` — and **Adjust**
+opens Convert all to, Quality and Max size in place. Done, Escape, or a click
+anywhere above closes it again; nothing is discarded by closing, because every
+control applies the moment you use it. A dot marks any setting that differs
+from your defaults, and **Reset** puts all three back.
+
+The three controls in a row needed about 620pt of window. A summary fits any
+width, and it says something the row never did: these settings are the
+session's, not the app's.
+
+**Quality set in the window no longer changes your saved default.** It applies
+to that session and is gone at the next launch, which is now true of everything
+in the bar — the defaults each session starts from still live in Settings, and
+that is where to change them for good. If you never open the panel, nothing
+about your quality changes.
+
 ## 1.2.1 — 2026-09-14
 
 ### Added

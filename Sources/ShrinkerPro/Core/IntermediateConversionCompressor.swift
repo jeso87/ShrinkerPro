@@ -30,6 +30,17 @@ struct IntermediateConversionCompressor: Compressor {
     /// For a TGA carrier it is inert — TGA holds no metadata — and the JPEG
     /// that follows gets its metadata from the post-pass instead.
     var policy: MetadataPolicy = .all
+    /// The longest side the carrier may keep, applied by the ImageIO stage
+    /// below. `nil` — no resize — is every call made before the max size
+    /// existed.
+    ///
+    /// The point of putting it here rather than after the relay is that the
+    /// downstream encoder then receives an image that is *already* its final
+    /// size: cjpeg, cwebp and pngquant encode the pixels that survive rather
+    /// than a full-size carrier that is about to be scaled away. Neither of
+    /// the carriers is lossy, so nothing is lost by shrinking at this stage
+    /// instead of a later one.
+    var maxDimension: Int? = nil
 
     func compress(input: URL, output: URL) throws {
         let intermediateURL = FileManager.default.temporaryDirectory
@@ -48,8 +59,11 @@ struct IntermediateConversionCompressor: Compressor {
         // states that single-hop guarantee publicly. The carriers are TGA
         // and PNG, both lossless, so they would ignore the value anyway;
         // passing nothing says so rather than relying on their indifference.
-        try ImageIOCompressor(utType: intermediate.utType, quality: nil, policy: policy)
-            .compress(input: input, output: intermediateURL)
+        try ImageIOCompressor(
+            utType: intermediate.utType, quality: nil, policy: policy,
+            maxDimension: maxDimension
+        )
+        .compress(input: input, output: intermediateURL)
 
         try downstream.compress(input: intermediateURL, output: output)
     }

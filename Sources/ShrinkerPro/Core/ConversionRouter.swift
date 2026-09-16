@@ -183,6 +183,20 @@ struct RoutingContext: Equatable, Sendable {
     /// applied by authoring the intermediate rather than by flag.
     var policy: MetadataPolicy = .all
 
+    /// `true` when this file's longest side exceeds the session's max size
+    /// and it must therefore be scaled down.
+    ///
+    /// Routes like `isUpright == false`, and for the same underlying reason:
+    /// none of the three vendored CLI encoders that can be handed the user's
+    /// file directly is able to resize it. pngquant and cjpeg have no such
+    /// flag at all, and cwebp's `-resize` was deliberately not used — see
+    /// `2026-09-16-max-size-resize-design.md` §4. Two resamplers would mean
+    /// a PNG and a WebP capped at the same number not matching each other.
+    ///
+    /// A file already within the cap sets this `false` and routes exactly as
+    /// it did before the feature existed.
+    var needsResize: Bool = false
+
     static let `default` = RoutingContext()
 }
 
@@ -320,14 +334,14 @@ enum ConversionRouter {
         case .sameFormat(let native):
             switch native {
             case .jpeg:
-                // cjpeg cannot rotate. The TGA detour costs no extra
-                // generational loss: cjpeg already fully decodes and
-                // re-encodes, and TGA is lossless.
-                return context.isUpright
-                    ? route : .viaIntermediate(target: .jpeg, intermediate: .tga)
+                // cjpeg can neither rotate nor resize. The TGA detour costs
+                // no extra generational loss: cjpeg already fully decodes
+                // and re-encodes, and TGA is lossless.
+                return pixelsNeedRework(context)
+                    ? .viaIntermediate(target: .jpeg, intermediate: .tga) : route
             case .png:
-                return context.isUpright
-                    ? route : .viaIntermediate(target: .png, intermediate: .png)
+                return pixelsNeedRework(context)
+                    ? .viaIntermediate(target: .png, intermediate: .png) : route
             case .webp:
                 return cwebpNeedsNoHelp(context)
                     ? route : .viaIntermediate(target: .webp, intermediate: .png)
@@ -352,20 +366,33 @@ enum ConversionRouter {
         }
     }
 
+    /// Whether the pixels themselves have to be rewritten before any
+    /// encoder sees them — which only ImageIO, the app's one decoder, can
+    /// do. Rotation was the first reason; a resize is the second, and both
+    /// disqualify every vendored CLI encoder equally: none of cjpeg,
+    /// pngquant or cwebp can turn or scale an image.
+    ///
+    /// Shared by all three so that a third reason added later is written
+    /// once rather than three times, each of which could be forgotten
+    /// independently.
+    private static func pixelsNeedRework(_ context: RoutingContext) -> Bool {
+        !context.isUpright || context.needsResize
+    }
+
     /// Whether cwebp can be pointed at the user's original file.
     ///
     /// It can, on both counts, only when it needs no help: the pixels are
-    /// already upright (cwebp cannot rotate), and the policy is one its
-    /// `-metadata` flag can state exactly. That flag takes `all` or `none`
-    /// and has nothing in between, so `.copyright` has to be applied by
-    /// authoring the PNG intermediate with exactly the tags to keep and then
-    /// passing `-metadata all`.
+    /// already what they should be (cwebp can neither rotate nor resize),
+    /// and the policy is one its `-metadata` flag can state exactly. That
+    /// flag takes `all` or `none` and has nothing in between, so
+    /// `.copyright` has to be applied by authoring the PNG intermediate with
+    /// exactly the tags to keep and then passing `-metadata all`.
     ///
     /// WebP is the one output format with no post-pass available to correct
     /// any of this afterwards: ImageIO cannot write WebP at all, so whatever
     /// cwebp emits is final.
     private static func cwebpNeedsNoHelp(_ context: RoutingContext) -> Bool {
-        context.isUpright && context.policy != .copyright
+        !pixelsNeedRework(context) && context.policy != .copyright
     }
 }
 

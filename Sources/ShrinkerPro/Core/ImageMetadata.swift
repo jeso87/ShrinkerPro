@@ -16,18 +16,71 @@ enum ImageMetadata {
 
     // MARK: - Orientation
 
-    /// The source's declared orientation, or `.up` if it declares none.
+    /// What one header read yields: the two facts about a file that decide
+    /// its route before any pixel is decoded.
+    ///
+    /// They travel together because they come out of the same properties
+    /// dictionary, and because reading them separately would mean opening the
+    /// same `CGImageSource` twice for every file in a drop.
+    struct Header: Equatable {
+        var orientation: CGImagePropertyOrientation = .up
+        /// The size **as a viewer sees it** — width and height swapped for
+        /// the four 90° orientations, so a portrait phone photo reports its
+        /// portrait size rather than the landscape buffer it is stored as.
+        ///
+        /// `nil` when the file declares no dimensions at all, which for a
+        /// readable image means something is wrong with it. Callers treat
+        /// that as "no resize" rather than guessing.
+        var pixelSize: CGSize?
+
+        /// The dimension a max size is measured against — see
+        /// `2026-09-16-max-size-resize-design.md` §1. "Longest side" is the
+        /// whole rule: it caps a landscape image by its width and a portrait
+        /// one by its height without branching on which it is.
+        var longestSide: Double? {
+            pixelSize.map { Double(max($0.width, $0.height)) }
+        }
+    }
+
+    /// The source's declared orientation and oriented size, or `.up` with no
+    /// size if it declares neither.
     ///
     /// Cheap enough to call for every file: `CGImageSourceCopyPropertiesAtIndex`
     /// reads the container's header, it does not decode pixels. That is what
     /// lets `ShrinkEngine` consult it *before* choosing a route.
-    static func orientation(of url: URL) -> CGImagePropertyOrientation {
+    static func header(of url: URL) -> Header {
         guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
-              let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any],
-              let raw = properties[kCGImagePropertyOrientation] as? UInt32,
-              let orientation = CGImagePropertyOrientation(rawValue: raw)
-        else { return .up }
-        return orientation
+              let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any]
+        else { return Header() }
+
+        var header = Header()
+        if let raw = properties[kCGImagePropertyOrientation] as? UInt32,
+           let orientation = CGImagePropertyOrientation(rawValue: raw) {
+            header.orientation = orientation
+        }
+        // `as? Double`, not `as? CGFloat`: these arrive as `CFNumber`, which
+        // bridges to `NSNumber` and casts reliably to `Double`.
+        if let width = properties[kCGImagePropertyPixelWidth] as? Double,
+           let height = properties[kCGImagePropertyPixelHeight] as? Double {
+            // The stored buffer, turned the way the file says to turn it. The
+            // four 90° cases swap the axes; the flips and `.up` do not.
+            switch header.orientation {
+            case .left, .right, .leftMirrored, .rightMirrored:
+                header.pixelSize = CGSize(width: height, height: width)
+            case .up, .down, .upMirrored, .downMirrored:
+                header.pixelSize = CGSize(width: width, height: height)
+            }
+        }
+        return header
+    }
+
+    /// The source's declared orientation, or `.up` if it declares none.
+    ///
+    /// Kept as its own entry point for the callers that want nothing else —
+    /// `ImageIOCompressor` re-reads it from the intermediate it is handed,
+    /// where the size is already whatever the previous stage made it.
+    static func orientation(of url: URL) -> CGImagePropertyOrientation {
+        header(of: url).orientation
     }
 
     /// Redraws `image` so its *pixels* carry `orientation`, returning an

@@ -67,12 +67,14 @@ brew install jeso87/tap/shrinker
 shrinker photo.jpg                              # a .min copy beside it
 shrinker --quality super-low --to webp ./shots   # a whole folder
 shrinker --json --quality 85 diagram.jpg         # one JSON line per file
+shrinker --max-size 2000 ./camera-roll           # nothing wider or taller than 2000px
 ```
 
 | | |
 |---|---|
 | `--quality <level\|0-100>` | `super-low`, `low`, `standard` (default), `high` — or a number |
 | `--to <format>` | `jpeg`, `webp`, `avif`, `png` |
+| `--max-size <pixels>` | shrink any image whose longest side is bigger than this |
 | `--metadata <policy>` | `all` (default), `copyright`, `none` |
 | `--out <directory>` | write results here instead of beside each input |
 | `--in-place` | overwrite each original. This destroys the source |
@@ -195,9 +197,9 @@ same fast path as "keep" — it compresses, it does not round-trip.
 
 ### The window footer
 
-Pinned along the bottom of the window, below the scrolling history, are the two
-things worth changing between one drop and the next: **Convert all to** and
-**Quality**. On a narrow window they stack rather than crowd.
+Pinned along the bottom of the window, below the scrolling history, are the
+three things worth changing between one drop and the next: **Convert all to**,
+**Quality** and **Max size**. On a narrow window they stack rather than crowd.
 
 **Convert all to** — JPEG, WebP, AVIF or PNG — is a session override. It
 replaces every per-format rule at once for as long as the app is open, without
@@ -216,6 +218,19 @@ useful, for flattening a mixed folder to a single lossless format. PNG is
 lossless, so photographs converted to it usually get *larger* — a warning
 appears beside the control when you pick it, and the results row reports the
 negative saving honestly.
+
+**Max size** caps the longest side: a landscape image is scaled by its width
+and a portrait one by its height, always keeping the aspect ratio, and anything
+already inside the cap is left at the size it arrived. Leave it blank for no
+resizing. Like the override it is session-scoped — typed in the window, gone at
+quit — and it is in force the moment it is typed, with no Return to press.
+
+Resizing is done by ImageIO for every still image, whichever encoder finishes
+the file, so a PNG and a WebP capped at the same number match. GIF is the
+exception: gifsicle resizes it, because an ImageIO round trip would flatten an
+animation to one frame. SVG is unaffected — it is vector, so it has no pixel
+size to cap. And a resized file is written even if it comes out larger, the
+same exemption converting has: you asked for those dimensions.
 
 SVG and GIF ignore the override, exactly as they ignore the stored rules.
 

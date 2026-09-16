@@ -514,7 +514,8 @@ extension ShrinkPlan {
             needsMetadataPostPass: false,
             wasRotated: false,
             isSameFormat: true,
-            metadataPolicy: .all
+            metadataPolicy: .all,
+            wasResized: false
         )
     }
 }

@@ -34,6 +34,59 @@ enum WindowFooterState {
             ? "PNG is lossless — photos will usually get larger."
             : ""
     }
+
+    /// Whether the "Max size" label is emphasised, on the same terms as
+    /// "Convert all to": a session setting in force must read at a glance.
+    static func isMaxSizeActive(_ text: String) -> Bool {
+        MaxSizeField.dimension(from: text) != nil
+    }
+}
+
+/// The max size field's text, and what it means.
+///
+/// Its own type for the same reason `WindowFooterState` is: this project
+/// carries no view-tree testing dependency, so a rule left inline in a
+/// `body` — or in a `TextField` formatter — is a rule no test can reach.
+///
+/// The field stores **text**, not a parsed `Int?`, and every keystroke is
+/// filtered and re-parsed. That is deliberate, and it is the difference
+/// between working and almost working: a field that only committed on Return
+/// would let someone type "2000", drag a folder in, and get no resizing at
+/// all, with the number they typed still sitting on screen as evidence that
+/// it should have.
+enum MaxSizeField {
+
+    /// The longest a value may be. Five digits reaches 99,999px — past any
+    /// real image, and short enough that the field stays narrow enough not to
+    /// push the footer into its stacked layout.
+    static let maximumDigits = 5
+
+    /// `text` reduced to something the field is willing to hold: digits only,
+    /// no leading zeros, and no longer than `maximumDigits`.
+    ///
+    /// Applied on every change rather than on commit, so a rejected character
+    /// never appears at all. Idempotent — filtering filtered text returns it
+    /// unchanged — which is what makes it safe to run from a `didSet` that
+    /// assigns back to the property it observes.
+    static func filter(_ text: String) -> String {
+        let digits = text.filter(\.isNumber)
+        // Leading zeros are dropped rather than rejected, so pasting "02000"
+        // leaves "2000" instead of refusing the paste. An all-zero string
+        // collapses to empty, which is the off state — the same place "0"
+        // means, arrived at by the same route.
+        let withoutLeadingZeros = String(digits.drop(while: { $0 == "0" }))
+        return String(withoutLeadingZeros.prefix(maximumDigits))
+    }
+
+    /// The cap this text asks for, or `nil` for "no resizing".
+    ///
+    /// Blank and zero are both `nil`, and that equivalence is the point:
+    /// clearing the field and typing a zero are the same instruction, so
+    /// neither can leave a resize quietly switched on.
+    static func dimension(from text: String) -> Int? {
+        guard let value = Int(filter(text)), value > 0 else { return nil }
+        return value
+    }
 }
 
 /// The main window's persistent footer: the session-scoped format override
@@ -61,6 +114,10 @@ struct WindowFooterView: View {
         WindowFooterState.isOverrideActive(model.sessionFormat)
     }
 
+    private var isMaxSizeActive: Bool {
+        WindowFooterState.isMaxSizeActive(model.sessionMaxSizeText)
+    }
+
     var body: some View {
         HStack(spacing: 0) {
             // "Side by side if the space fits" declared rather than
@@ -69,14 +126,29 @@ struct WindowFooterView: View {
             // to two rows instead of clipping a menu. The Spacer is outside
             // the ViewThatFits on purpose — a greedy child inside it always
             // "fits", which would defeat the fallback entirely.
+            // Three variants now rather than two: the max size field is the
+            // widest of the three controls to add, so a window that fitted
+            // the original pair is not guaranteed to fit the trio. The
+            // middle variant keeps the two menus paired — they are what a
+            // user adjusts together — and drops only the field onto its own
+            // row, rather than collapsing straight to three stacked rows.
             ViewThatFits(in: .horizontal) {
                 HStack(spacing: 16) {
                     convertControl
                     qualityControl
+                    maxSizeControl
+                }
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack(spacing: 16) {
+                        convertControl
+                        qualityControl
+                    }
+                    maxSizeControl
                 }
                 VStack(alignment: .leading, spacing: 8) {
                     convertControl
                     qualityControl
+                    maxSizeControl
                 }
             }
             Spacer(minLength: 0)
@@ -129,6 +201,38 @@ struct WindowFooterView: View {
                 .accessibilityHidden(!WindowFooterState.showsGrowthWarning(for: model.sessionFormat))
                 .help(WindowFooterState.growthWarningHelp(for: model.sessionFormat))
         }
+    }
+
+    private var maxSizeControl: some View {
+        HStack(spacing: 8) {
+            Text("Max size")
+                .font(.system(size: 12, weight: isMaxSizeActive ? .semibold : .regular))
+                .foregroundStyle(isMaxSizeActive ? AnyShapeStyle(Color.accentColor) : AnyShapeStyle(.secondary))
+                .fixedSize()
+
+            // Bound to the model's text, which filters itself on every
+            // change — see `MaxSizeField`. There is no formatter and no
+            // `onSubmit`: a value typed here is in force the moment it is
+            // typed, so dropping files without pressing Return does what it
+            // looks like it will do.
+            TextField("", text: $model.sessionMaxSizeText)
+                .textFieldStyle(.roundedBorder)
+                .font(.system(size: 12))
+                .multilineTextAlignment(.trailing)
+                // Fixed rather than intrinsic: a field that grew with its
+                // contents would change the footer's width as digits are
+                // typed, and at a borderline window size that is enough to
+                // flip `ViewThatFits` into a stacked layout mid-keystroke.
+                // Same reasoning as the warning glyph's reserved space above.
+                .frame(width: 56)
+                .accessibilityLabel("Max size in pixels")
+
+            Text("px")
+                .font(.system(size: 12))
+                .foregroundStyle(.secondary)
+                .fixedSize()
+        }
+        .help("Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected. Not saved — it resets when you quit.")
     }
 
     private var qualityControl: some View {

@@ -58,6 +58,18 @@ struct ShrinkPlan: Sendable {
     /// `shrink(_:)` no longer receives the `OutputSettings` it used to read
     /// this from — a plan has to be the whole of what executing a file needs.
     let metadataPolicy: MetadataPolicy
+    /// Whether this file is being scaled down to the session's max size.
+    ///
+    /// Read by the never-grow guard below, which it exempts: a resize is an
+    /// explicit instruction about the file's dimensions, so silently
+    /// returning the full-size original because the bytes did not fall would
+    /// be ignoring what was asked rather than protecting anything.
+    ///
+    /// Carried on the plan rather than inferred from `targetExtension` or
+    /// `isSameFormat`, in keeping with those fields' own warnings: deriving
+    /// one property of a route from another is exactly what produced the bug
+    /// they document.
+    let wasResized: Bool
 
     /// The same plan, writing somewhere else. This is how Keep Both is
     /// applied: only the destination moves, so the route, the conversion and
@@ -66,7 +78,8 @@ struct ShrinkPlan: Sendable {
         ShrinkPlan(
             input: input, destination: newDestination, compressor: compressor,
             targetExtension: targetExtension, needsMetadataPostPass: needsMetadataPostPass,
-            wasRotated: wasRotated, isSameFormat: isSameFormat, metadataPolicy: metadataPolicy
+            wasRotated: wasRotated, isSameFormat: isSameFormat, metadataPolicy: metadataPolicy,
+            wasResized: wasResized
         )
     }
 }
@@ -151,7 +164,8 @@ final class ShrinkEngine {
             needsMetadataPostPass: routing.needsMetadataPostPass,
             wasRotated: routing.wasRotated,
             isSameFormat: routing.isSameFormat,
-            metadataPolicy: settings.metadataPolicy
+            metadataPolicy: settings.metadataPolicy,
+            wasResized: routing.wasResized
         )
     }
 
@@ -301,8 +315,16 @@ final class ShrinkEngine {
         // `.standard` (18,828 -> 18,864), which predates the quality setting
         // entirely.
         //
-        // Scoped to same-format compression and deliberately NOT applied to
-        // conversions. A conversion's growth is the user's own explicit
+        // Scoped to same-format compression that is also not being resized.
+        // A resize is an instruction about the file's dimensions, not a bet
+        // that its bytes will fall, so discarding the result when they don't
+        // would hand a full-size image back to someone who asked for a
+        // 2000px one, with nothing on screen to say why. `plan.wasResized`
+        // is checked rather than the extension, for the same reason
+        // `isSameFormat` is.
+        //
+        // Deliberately NOT applied to
+        // conversions either. A conversion's growth is the user's own explicit
         // request: PNG is offered precisely so a mixed folder can be
         // flattened to one lossless format, where a photo getting larger is
         // the expected outcome, stated in the README and warned about beside
@@ -325,7 +347,7 @@ final class ShrinkEngine {
         // The scratch file is simply not promoted, and `defer` above removes
         // it with the rest of the replacement directory. The result points at
         // `input`, because that is the file the user still has.
-        if plan.isSameFormat, shrunkBytes >= originalBytes {
+        if plan.isSameFormat, !plan.wasResized, shrunkBytes >= originalBytes {
             return ShrinkResult(
                 input: input,
                 output: input,
@@ -388,6 +410,9 @@ final class ShrinkEngine {
         /// nothing. Reading "same format" off that extension is what let the
         /// never-grow guard overwrite rotated originals with larger files.
         let isSameFormat: Bool
+        /// Whether this file is being scaled down — see `ShrinkPlan
+        /// .wasResized`, which this becomes.
+        let wasResized: Bool
     }
 
     /// Decides the compressor pipeline, the output extension, and whether a
@@ -411,15 +436,28 @@ final class ShrinkEngine {
         // ask — but they are same-format by definition (neither ever
         // converts), and the guard applies to them like anything else.
         case "svg":
+            // No max size applies: an SVG is vector, so there is no pixel
+            // size to cap. The setting's help text says so.
             return ShrinkPlanRouting(
                 compressor: svgCompressor, targetExtension: nil,
-                needsMetadataPostPass: false, wasRotated: false, isSameFormat: true
+                needsMetadataPostPass: false, wasRotated: false, isSameFormat: true,
+                wasResized: false
             )
         case "gif":
+            // The one format resized by something other than ImageIO — see
+            // `GIFCompressor.maxDimension`. The header read below is paid
+            // only when a max size is actually set, so a GIF still costs
+            // nothing extra in the ordinary case; it buys the answer to
+            // "was this resized?", which the never-grow guard needs and
+            // which gifsicle's own silent no-op would not reveal.
+            let resize = resizeDecision(for: input, settings: settings)
             return ShrinkPlanRouting(
-                compressor: GIFCompressor(executable: try helperProvider("gifsicle")),
+                compressor: GIFCompressor(
+                    executable: try helperProvider("gifsicle"),
+                    maxDimension: resize.appliedMaxDimension
+                ),
                 targetExtension: nil, needsMetadataPostPass: false, wasRotated: false,
-                isSameFormat: true
+                isSameFormat: true, wasResized: resize.needsResize
             )
         default:
             break
@@ -437,10 +475,13 @@ final class ShrinkEngine {
         // whether the file is upright is one of the things that *decides*
         // the route: a rotated file can never be handed straight to a CLI
         // encoder, none of which can rotate.
-        let orientation = ImageMetadata.orientation(of: input)
+        let header = ImageMetadata.header(of: input)
+        let orientation = header.orientation
+        let resize = resizeDecision(for: header, settings: settings)
         let context = RoutingContext(
             isUpright: orientation == .up,
-            policy: settings.metadataPolicy
+            policy: settings.metadataPolicy,
+            needsResize: resize.needsResize
         )
 
         // A session override replaces every stored rule at once, for every
@@ -469,13 +510,65 @@ final class ShrinkEngine {
 
         return ShrinkPlanRouting(
             compressor: try compressor(
-                for: route, policy: settings.metadataPolicy, quality: settings.quality
+                for: route, policy: settings.metadataPolicy, quality: settings.quality,
+                maxDimension: resize.appliedMaxDimension
             ),
             targetExtension: outputExtension(for: route),
             needsMetadataPostPass: route.needsMetadataPostPass,
             wasRotated: orientation != .up,
-            isSameFormat: route.isSameFormat(as: native)
+            isSameFormat: route.isSameFormat(as: native),
+            wasResized: resize.needsResize
         )
+    }
+
+    /// Whether one file is being scaled down, and the cap to hand whichever
+    /// compressor ends up doing it.
+    ///
+    /// One value rather than two so the two can never disagree: a plan that
+    /// says "resized" while handing a compressor no cap, or the reverse, is
+    /// not expressible.
+    private struct ResizeDecision {
+        /// The cap to pass along, or `nil` for "leave this file's dimensions
+        /// alone" — which covers both no max size at all and a file already
+        /// inside it. Compressors take `nil` to mean exactly that, so the
+        /// untouched case travels as the same value it did before this
+        /// feature existed.
+        let appliedMaxDimension: Int?
+
+        var needsResize: Bool { appliedMaxDimension != nil }
+
+        static let none = ResizeDecision(appliedMaxDimension: nil)
+    }
+
+    /// The decision for a file whose header has already been read — every
+    /// raster format, where the orientation read was needed anyway.
+    ///
+    /// A cap of zero or less is treated as no cap rather than rejected: the
+    /// UI cannot produce one (`MaxSizeField` maps blank and `0` to `nil`) and
+    /// the CLI refuses one at parse time, so this is a floor under a value
+    /// that should never arrive, not a second opinion about what is valid.
+    private func resizeDecision(
+        for header: ImageMetadata.Header, settings: OutputSettings
+    ) -> ResizeDecision {
+        guard let cap = settings.maxDimension, cap > 0,
+              let longestSide = header.longestSide,
+              // Strictly greater: a file whose longest side already equals the
+              // cap is within it, and re-encoding it at the same size would
+              // cost quality for no change in dimensions.
+              longestSide > Double(cap)
+        else { return .none }
+        return ResizeDecision(appliedMaxDimension: cap)
+    }
+
+    /// The decision for a file whose header has *not* been read — GIF, which
+    /// short-circuits the router and pays no header read of its own.
+    ///
+    /// The `guard` is what keeps that true when the feature is off: with no
+    /// max size set, no `CGImageSource` is opened and a GIF costs exactly
+    /// what it always cost.
+    private func resizeDecision(for input: URL, settings: OutputSettings) -> ResizeDecision {
+        guard settings.maxDimension != nil else { return .none }
+        return resizeDecision(for: ImageMetadata.header(of: input), settings: settings)
     }
 
     /// Turns a routing decision into an actual `Compressor`, supplying the
@@ -492,8 +585,15 @@ final class ShrinkEngine {
     /// anywhere below, and that is deliberate — see `QualityLevel`. pngquant's
     /// `--quality` is a floor with an abort rather than a dial, and gifsicle's
     /// `--lossy` inverts the axis against output that is lossless today.
+    /// `maxDimension` is `nil` for every file that is not being scaled down,
+    /// which keeps the decode on those files byte-for-byte the one they got
+    /// before the max size existed. Where it is non-nil it reaches ImageIO —
+    /// directly, or through the relay's carrier — because ImageIO is the only
+    /// component here that can resize at all. pngquant, cjpeg and cwebp never
+    /// see it.
     private func compressor(
-        for route: ConversionRoute, policy: MetadataPolicy, quality: QualitySettings
+        for route: ConversionRoute, policy: MetadataPolicy, quality: QualitySettings,
+        maxDimension: Int?
     ) throws -> Compressor {
         switch route {
         case .sameFormat(let native):
@@ -509,15 +609,24 @@ final class ShrinkEngine {
                     executable: try helperProvider("cwebp"), policy: policy, quality: quality.cwebpScale
                 )
             case .avif:
-                return ImageIOCompressor(utType: RasterUTType.avif, quality: quality.unitScale, policy: policy)
+                return ImageIOCompressor(
+                    utType: RasterUTType.avif, quality: quality.unitScale, policy: policy,
+                    maxDimension: maxDimension
+                )
             case .heic:
-                return ImageIOCompressor(utType: RasterUTType.heic, quality: quality.unitScale, policy: policy)
+                return ImageIOCompressor(
+                    utType: RasterUTType.heic, quality: quality.unitScale, policy: policy,
+                    maxDimension: maxDimension
+                )
             }
 
         case .direct(let target):
             switch target {
             case .avif:
-                return ImageIOCompressor(utType: RasterUTType.avif, quality: quality.unitScale, policy: policy)
+                return ImageIOCompressor(
+                    utType: RasterUTType.avif, quality: quality.unitScale, policy: policy,
+                    maxDimension: maxDimension
+                )
             case .webp:
                 return WebPCompressor(
                     executable: try helperProvider("cwebp"), policy: policy, quality: quality.cwebpScale
@@ -535,7 +644,8 @@ final class ShrinkEngine {
                     downstream: JPEGCompressor(
                         executable: try helperProvider("cjpeg"), quality: quality.cjpegQuality
                     ),
-                    policy: policy
+                    policy: policy,
+                    maxDimension: maxDimension
                 )
             case .webp:
                 return IntermediateConversionCompressor(
@@ -543,13 +653,15 @@ final class ShrinkEngine {
                     downstream: WebPCompressor(
                         executable: try helperProvider("cwebp"), policy: policy, quality: quality.cwebpScale
                     ),
-                    policy: policy
+                    policy: policy,
+                    maxDimension: maxDimension
                 )
             case .png:
                 return IntermediateConversionCompressor(
                     intermediate: intermediate,
                     downstream: PNGCompressor(executable: try helperProvider("pngquant")),
-                    policy: policy
+                    policy: policy,
+                    maxDimension: maxDimension
                 )
             }
         }

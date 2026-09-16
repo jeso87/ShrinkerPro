@@ -1,4 +1,6 @@
 import XCTest
+import ImageIO
+import CoreGraphics
 @testable import ShrinkerPro
 
 final class ShrinkEngineTests: XCTestCase {
@@ -833,5 +835,262 @@ final class ShrinkEngineTests: XCTestCase {
         let high = try shrunkBytes("sample", "heic", rules: ConversionRules(heic: .jpeg), quality: .high)
 
         XCTAssertLessThan(low, high, "quality must reach cjpeg through the intermediate")
+    }
+}
+
+// MARK: - The session max size
+
+/// End-to-end resizing: the pixels that come out, not the route that was
+/// chosen (`ResizeRoutingTests` covers that, IO-free). Every assertion here
+/// is about the finished file on disk, because the whole point of putting
+/// the resize inside ImageIO's decode is that no encoder downstream of it
+/// gets a say.
+final class MaxSizeTests: XCTestCase {
+
+    private struct MissingTestResource: Error {}
+
+    private func vendorCompressorsRoot() throws -> URL {
+        let repoRoot = ProcessInfo.processInfo.environment["SRCROOT"].map(URL.init(fileURLWithPath:))
+            ?? URL(fileURLWithPath: #filePath)
+                .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let vendor = repoRoot.appendingPathComponent("vendor/compressors")
+        guard FileManager.default.isExecutableFile(atPath: vendor.appendingPathComponent("cjpeg").path) else {
+            XCTFail("compressors not built — run scripts/build-compressors.sh")
+            throw MissingTestResource()
+        }
+        return vendor
+    }
+
+    private func makeEngine() throws -> ShrinkEngine {
+        let bundle = Bundle(for: MaxSizeTests.self)
+        guard let svgo = Bundle.main.url(forResource: "svgo.jsc", withExtension: "js")
+            ?? bundle.url(forResource: "svgo.jsc", withExtension: "js") else {
+            XCTFail("svgo.jsc.js not bundled — run scripts/prepare-svgo.sh, then xcodegen generate")
+            throw MissingTestResource()
+        }
+        let vendor = try vendorCompressorsRoot()
+        return try ShrinkEngine(
+            helperProvider: { vendor.appendingPathComponent($0) }, svgoScriptURL: svgo
+        )
+    }
+
+    private func stagedFixture(_ name: String, _ ext: String) throws -> URL {
+        let bundle = Bundle(for: MaxSizeTests.self)
+        guard let source = bundle.url(forResource: name, withExtension: ext, subdirectory: "Fixtures")
+            ?? bundle.url(forResource: name, withExtension: ext) else {
+            XCTFail("fixture \(name).\(ext) not found in test bundle")
+            throw MissingTestResource()
+        }
+        let dir = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("maxsize-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let staged = dir.appendingPathComponent("\(name).\(ext)")
+        try FileManager.default.copyItem(at: source, to: staged)
+        return staged
+    }
+
+    /// Measured from the finished file, oriented — which is the size a
+    /// viewer shows, and therefore the size the cap is a promise about.
+    private func size(of url: URL) -> CGSize? {
+        ImageMetadata.header(of: url).pixelSize
+    }
+
+    private func settings(maxDimension: Int?) -> OutputSettings {
+        OutputSettings(
+            saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true,
+            maxDimension: maxDimension
+        )
+    }
+
+    /// Every raster format, including the three whose encoders cannot resize
+    /// and are therefore relayed through ImageIO to get here.
+    func testEveryRasterFormatIsCappedToTheLongestSide() throws {
+        let engine = try makeEngine()
+        for ext in ["jpg", "png", "webp", "avif", "heic"] {
+            let input = try stagedFixture("sample", ext)
+            defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+            let original = try XCTUnwrap(size(of: input), "\(ext): fixture declares no size")
+
+            let result = try engine.shrink(input, settings: settings(maxDimension: 200))
+
+            let output = try XCTUnwrap(size(of: result.output), "\(ext): output declares no size")
+            XCTAssertEqual(
+                max(output.width, output.height), 200, accuracy: 1,
+                "\(ext): longest side should have been capped at 200, got \(output)"
+            )
+            XCTAssertEqual(
+                output.width / output.height, original.width / original.height, accuracy: 0.02,
+                "\(ext): aspect ratio changed — \(original) became \(output)"
+            )
+        }
+    }
+
+    /// The no-upscaling half of the rule, and the half that matters most:
+    /// the cap is a ceiling, not a target.
+    func testAnImageInsideTheCapIsLeftAtItsOwnSize() throws {
+        let engine = try makeEngine()
+        for ext in ["jpg", "png", "webp", "avif", "heic"] {
+            let input = try stagedFixture("sample", ext)
+            defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+            let original = try XCTUnwrap(size(of: input))
+
+            let result = try engine.shrink(input, settings: settings(maxDimension: 4000))
+
+            XCTAssertEqual(
+                size(of: result.output), original,
+                "\(ext): a file well inside the cap was resized anyway"
+            )
+        }
+    }
+
+    /// A file whose longest side already *equals* the cap is inside it.
+    /// Re-encoding it to the same dimensions would spend quality on nothing.
+    func testACapEqualToTheLongestSideResizesNothing() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "png")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+        let original = try XCTUnwrap(size(of: input))
+
+        let plan = try engine.plan(input, settings: settings(maxDimension: Int(original.width)))
+
+        XCTAssertFalse(plan.wasResized, "548px is within a 548px cap, not over it")
+    }
+
+    /// GIF is resized by gifsicle rather than ImageIO, and this is why: an
+    /// ImageIO round trip writes one frame, so the animation would arrive at
+    /// the user as a still. A passing dimension check alone would not notice.
+    func testAnimatedGIFKeepsEveryFrameWhenResized() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "gif")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        let framesBefore = frameCount(of: input)
+        XCTAssertGreaterThan(framesBefore, 1, "the fixture must be animated for this test to mean anything")
+
+        let result = try engine.shrink(input, settings: settings(maxDimension: 60))
+
+        let output = try XCTUnwrap(size(of: result.output))
+        XCTAssertEqual(max(output.width, output.height), 60, accuracy: 1)
+        XCTAssertEqual(
+            frameCount(of: result.output), framesBefore,
+            "the animation was flattened by the resize"
+        )
+    }
+
+    func testSVGIgnoresTheMaxSize() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "svg")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        let plan = try engine.plan(input, settings: settings(maxDimension: 10))
+
+        XCTAssertFalse(plan.wasResized, "a vector has no pixel size to cap")
+    }
+
+    /// The plan reports the resize whatever route it took — including the
+    /// relayed ones, whose non-nil `targetExtension` makes them look like
+    /// conversions. This is the flag the never-grow guard reads.
+    func testThePlanReportsWhetherItResized() throws {
+        let engine = try makeEngine()
+        for ext in ["jpg", "png", "webp", "avif", "heic", "gif"] {
+            let input = try stagedFixture("sample", ext)
+            defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+            XCTAssertTrue(
+                try engine.plan(input, settings: settings(maxDimension: 64)).wasResized,
+                "\(ext): a 548px image under a 64px cap is being resized"
+            )
+            XCTAssertFalse(
+                try engine.plan(input, settings: settings(maxDimension: nil)).wasResized,
+                "\(ext): no max size means no resize"
+            )
+        }
+    }
+
+    /// With the max size off, nothing about the plan moves — the promise
+    /// that the feature is free when unused, checked where a user would
+    /// feel it.
+    func testAnUnsetMaxSizeLeavesThePlanExactlyAsItWas() throws {
+        let engine = try makeEngine()
+        for ext in ["jpg", "png", "webp", "avif", "heic", "gif", "svg"] {
+            let input = try stagedFixture("sample", ext)
+            defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+            let plan = try engine.plan(input, settings: settings(maxDimension: nil))
+            let baseline = try engine.plan(
+                input,
+                settings: OutputSettings(
+                    saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true
+                )
+            )
+
+            XCTAssertEqual(plan.destination, baseline.destination, "\(ext)")
+            XCTAssertEqual(plan.targetExtension, baseline.targetExtension, "\(ext)")
+            XCTAssertEqual(plan.isSameFormat, baseline.isSameFormat, "\(ext)")
+            XCTAssertFalse(plan.wasResized, "\(ext)")
+        }
+    }
+
+    private func frameCount(of url: URL) -> Int {
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil) else { return 0 }
+        return CGImageSourceGetCount(source)
+    }
+
+    // MARK: - The never-grow guard's resize exemption
+
+    /// Driven through hand-built plans with a compressor that grows the file
+    /// on purpose, rather than by hunting for a real image that inflates when
+    /// scaled down. The guard's condition is the thing under test, and a
+    /// fixture that happened to stop inflating after an encoder update would
+    /// turn this into a test that passes without checking anything.
+    func testAResizedFileIsWrittenEvenWhenItGrows() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "png")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+        let destination = input.deletingLastPathComponent().appendingPathComponent("grown.png")
+
+        let result = try engine.shrink(
+            growingPlan(input: input, destination: destination, wasResized: true)
+        )
+
+        XCTAssertEqual(
+            result.output, destination,
+            "a resize is an instruction about dimensions — it must not be discarded for growing"
+        )
+        XCTAssertGreaterThan(result.shrunkBytes, result.originalBytes)
+    }
+
+    /// The other half, so the test above cannot pass because the guard was
+    /// removed outright.
+    func testAnUnresizedSameFormatFileThatGrowsIsStillDiscarded() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "png")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+        let destination = input.deletingLastPathComponent().appendingPathComponent("grown.png")
+
+        let result = try engine.shrink(
+            growingPlan(input: input, destination: destination, wasResized: false)
+        )
+
+        XCTAssertEqual(result.output, input, "the original is what the user still has")
+        XCTAssertEqual(result.shrunkBytes, result.originalBytes, "and the saving is reported as none")
+        XCTAssertFalse(FileManager.default.fileExists(atPath: destination.path))
+    }
+
+    private func growingPlan(input: URL, destination: URL, wasResized: Bool) -> ShrinkPlan {
+        ShrinkPlan(
+            input: input, destination: destination, compressor: GrowingCompressor(),
+            targetExtension: nil, needsMetadataPostPass: false, wasRotated: false,
+            isSameFormat: true, metadataPolicy: .all, wasResized: wasResized
+        )
+    }
+}
+
+/// Writes an output larger than its input, every time — the case the
+/// never-grow guard exists for.
+private struct GrowingCompressor: Compressor {
+    func compress(input: URL, output: URL) throws {
+        let original = try Data(contentsOf: input)
+        try (original + Data(count: original.count)).write(to: output)
     }
 }

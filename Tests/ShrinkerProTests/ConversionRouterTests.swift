@@ -435,3 +435,126 @@ final class MetadataPostPassRoutingTests: XCTestCase {
         XCTAssertFalse(ConversionRoute.viaIntermediate(target: .webp, intermediate: .png).needsMetadataPostPass)
     }
 }
+
+// MARK: - Resizing, which routes like rotation
+
+/// A max size does not change what format a file comes out in — it changes
+/// *who decodes it*. None of the three vendored CLI encoders can scale an
+/// image, so every route that would hand one the user's own file is
+/// rewritten onto the relay that puts ImageIO in front of it, exactly as a
+/// rotated file already is. See `2026-09-16-max-size-resize-design.md` §4.
+final class ResizeRoutingTests: XCTestCase {
+
+    private let resizing = RoutingContext(needsResize: true)
+
+    func testCLIEncoderRoutesAreRelayedWhenResizing() {
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, target: .jpeg, context: resizing),
+            .viaIntermediate(target: .jpeg, intermediate: .tga),
+            "cjpeg cannot resize, so a JPEG staying a JPEG still needs ImageIO in front of it"
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .png, target: .png, context: resizing),
+            .viaIntermediate(target: .png, intermediate: .png),
+            "pngquant cannot resize"
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .webp, target: .webp, context: resizing),
+            .viaIntermediate(target: .webp, intermediate: .png),
+            "cwebp has a -resize flag, but using it would mean a second resampler — see the design"
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .png, target: .webp, context: resizing),
+            .viaIntermediate(target: .webp, intermediate: .png),
+            "the direct PNG->WebP route hands cwebp the original, so it is relayed too"
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, target: .webp, context: resizing),
+            .viaIntermediate(target: .webp, intermediate: .png)
+        )
+    }
+
+    /// Everything already going through ImageIO resizes where it stands.
+    func testImageIORoutesAreUnchangedWhenResizing() {
+        XCTAssertEqual(
+            ConversionRouter.route(native: .avif, target: .avif, context: resizing), .sameFormat(.avif)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .heic, target: .avif, context: resizing), .direct(target: .avif)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .png, target: .avif, context: resizing), .direct(target: .avif)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .heic, target: .jpeg, context: resizing),
+            .viaIntermediate(target: .jpeg, intermediate: .tga),
+            "already relayed; resizing gives it nothing new to do"
+        )
+    }
+
+    /// A resize never changes the destination format. Stated as its own
+    /// property because the rewrites above all *look* like conversions —
+    /// `.sameFormat(.jpeg)` becoming `.viaIntermediate(target: .jpeg, ...)`
+    /// is the shape that already fooled the never-grow guard once.
+    func testResizingNeverChangesTheOutputFormat() {
+        for native: NativeFormat in [.png, .jpeg, .webp, .avif, .heic] {
+            for target: TargetFormat in [.png, .jpeg, .webp, .avif] {
+                XCTAssertEqual(
+                    ConversionRouter.route(native: native, target: target, context: resizing)
+                        .destinationFormat,
+                    ConversionRouter.route(native: native, target: target).destinationFormat,
+                    "\(native) -> \(target) came out in a different format merely because it was resized"
+                )
+            }
+        }
+    }
+
+    /// The guarantee that the feature costs nothing when it is off: with no
+    /// resize in force, the whole table is the one this project had before
+    /// `needsResize` existed.
+    func testNotResizingReproducesEveryExistingRoute() {
+        for native: NativeFormat in [.png, .jpeg, .webp, .avif, .heic] {
+            for target: TargetFormat in [.png, .jpeg, .webp, .avif] {
+                for policy: MetadataPolicy in [.all, .copyright, .stripped] {
+                    for isUpright in [true, false] {
+                        let unresized = RoutingContext(
+                            isUpright: isUpright, policy: policy, needsResize: false
+                        )
+                        XCTAssertEqual(
+                            ConversionRouter.route(native: native, target: target, context: unresized),
+                            ConversionRouter.route(
+                                native: native, target: target,
+                                context: RoutingContext(isUpright: isUpright, policy: policy)
+                            ),
+                            "\(native) -> \(target) (\(policy), upright: \(isUpright)) changed route with the max size switched off"
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    /// Rotation and resizing are independent reasons for the same rewrite,
+    /// so a file that is both must not route differently from one that is
+    /// only rotated — there is no "twice as relayed".
+    func testRotationAndResizingCompose() {
+        for (native, target) in [
+            (NativeFormat.png, TargetFormat.png),
+            (.jpeg, .jpeg),
+            (.webp, .webp),
+            (.png, .webp),
+        ] {
+            XCTAssertEqual(
+                ConversionRouter.route(
+                    native: native, target: target,
+                    context: RoutingContext(isUpright: false, needsResize: true)
+                ),
+                ConversionRouter.route(
+                    native: native, target: target,
+                    context: RoutingContext(isUpright: false)
+                ),
+                "\(native) -> \(target): resizing a rotated file should take the route rotation already forced"
+            )
+        }
+    }
+}

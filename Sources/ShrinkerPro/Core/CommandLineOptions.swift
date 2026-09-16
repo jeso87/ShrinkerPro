@@ -51,6 +51,16 @@ struct CommandLineOptions: Equatable {
     /// of any conversion at all.
     var convertTo: SessionFormat?
 
+    /// `--max-size`: scale any image whose longest side exceeds this down to
+    /// it, preserving the aspect ratio. `nil` — the default — leaves every
+    /// image at the size it arrived.
+    ///
+    /// The app's equivalent is a session-scoped field in the window footer,
+    /// not a stored preference, so there is nothing here for a headless run
+    /// to decline to read: the flag is the only way to ask for it, in both
+    /// places by design.
+    var maxDimension: Int?
+
     /// `--metadata`: what survives compression. Defaults to `.all`, matching
     /// the app, which is the only value that doesn't silently discard EXIF
     /// the tool would otherwise have carried across.
@@ -407,6 +417,8 @@ extension CommandLineOptions {
       --quality <level|0-100>  super-low, low, standard (default), high — or a
                                number, for a value no level names
       --to <format>            convert every image: jpeg, webp, avif, png
+      --max-size <pixels>      shrink any image whose longest side is bigger
+                               than this, keeping its aspect ratio
       --metadata <policy>      all (default), copyright, none
       --out <directory>        write results here instead of beside each input
       --in-place               overwrite each original instead of writing a
@@ -425,17 +437,20 @@ extension CommandLineOptions {
       cannot open one, so keeping it is rarely what anyone wants.
       PNG and GIF ignore --quality — the tools that optimise them have no
       comparable setting, so those files are identical at every level.
+      SVG ignores --max-size: it is vector, so it has no pixel size to cap.
+      An image already within --max-size is left at the size it arrived.
 
     Compressing never makes a file bigger. If a same-format result comes out
     larger than its source it is discarded, your original is kept, and the
-    saving is reported as 0%. Converting is exempt: growth there is the thing
-    you asked for.
+    saving is reported as 0%. Converting and resizing are exempt: growth
+    there is the thing you asked for.
 
     EXAMPLES
       shrinker photo.jpg
       shrinker --quality super-low --to webp ./screenshots
       shrinker --json --quality 85 diagram.png
       shrinker --if-exists keep-both --quality 60 photo.jpg
+      shrinker --max-size 2000 ./camera-roll
     """
 
     /// These options as the engine wants them.
@@ -466,7 +481,8 @@ extension CommandLineOptions {
             conversionRules: ConversionRules(),
             metadataPolicy: metadata,
             quality: quality.settings,
-            sessionFormat: convertTo
+            sessionFormat: convertTo,
+            maxDimension: maxDimension
         )
     }
 
@@ -549,6 +565,18 @@ extension CommandLineOptions {
                     throw CommandLineParseError.invalidValue(flag: argument, value: raw)
                 }
                 options.quality = choice
+            case "--max-size":
+                let raw = try nextValue(for: argument)
+                // Rejected rather than clamped: zero and negatives are not a
+                // quieter way of saying "no resizing", they are a value that
+                // cannot mean anything, and silently treating one as "off"
+                // would run a whole batch at full size while looking like it
+                // had been told otherwise. Omitting the flag is how you say
+                // off.
+                guard let size = Int(raw), size > 0 else {
+                    throw CommandLineParseError.invalidValue(flag: argument, value: raw)
+                }
+                options.maxDimension = size
             case "--to":
                 let raw = try nextValue(for: argument)
                 guard let format = Self.parseFormat(raw) else {

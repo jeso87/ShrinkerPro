@@ -47,6 +47,22 @@ struct OutputSettings: Equatable {
     /// session is doing instead". SVG and GIF ignore it, the same way they
     /// ignore the rules.
     var sessionFormat: SessionFormat? = nil
+    /// The longest side, in pixels, an image is allowed to keep — the main
+    /// window's other session-scoped setting. `nil` means no resizing, and
+    /// means it *thoroughly*: with this unset no dimension is read and every
+    /// file takes exactly the route it took before the setting existed.
+    ///
+    /// Shares `sessionFormat`'s lifetime and its reasoning. A stored
+    /// dimension cap would be the same object
+    /// `2026-09-10-format-conversion.md` rejected for conversion — a setting
+    /// that quietly changes every file forever — so this is not persisted
+    /// either, and the control stays visible for as long as it is switched
+    /// on. See `2026-09-16-max-size-resize-design.md` §2.
+    ///
+    /// SVG ignores it (a vector has no pixel size to cap); GIF honours it,
+    /// via gifsicle rather than ImageIO, because it is the only resizer here
+    /// that leaves an animation animated.
+    var maxDimension: Int? = nil
 }
 
 /// Port of upstream `generateNewPath` in image-shrinker's main.js.

@@ -1,4 +1,5 @@
 import XCTest
+import CoreGraphics
 @testable import ShrinkerPro
 
 @MainActor
@@ -465,6 +466,54 @@ final class SessionOverrideTests: XCTestCase {
 
         let extensions = Set(model.rows.map(\.output.pathExtension))
         XCTAssertEqual(extensions, ["svg", "gif"])
+    }
+
+    // MARK: - The max size, the window's other session setting
+
+    func testTheMaxSizeDefaultsToOff() throws {
+        let (model, _) = try makeModel()
+
+        XCTAssertEqual(model.sessionMaxSizeText, "")
+        XCTAssertNil(model.sessionMaxDimension, "no resizing until a number is typed")
+    }
+
+    /// The field filters itself as it is typed, so a rejected character never
+    /// appears in it — there is no commit step where it could be cleaned up
+    /// later.
+    func testTheFieldFiltersWhatIsTypedIntoIt() throws {
+        let (model, _) = try makeModel()
+
+        model.sessionMaxSizeText = "2a0*0/0"
+
+        XCTAssertEqual(model.sessionMaxSizeText, "2000")
+        XCTAssertEqual(model.sessionMaxDimension, 2000)
+    }
+
+    /// Typed, not committed: a value is in force the moment it is entered,
+    /// which is the whole reason the field holds text rather than a number.
+    func testATypedValueResizesADroppedFileWithoutBeingCommitted() async throws {
+        let (model, _) = try makeModel()
+        model.sessionMaxSizeText = "100"
+
+        await model.process(urls: [try staged("sample", "png")])
+
+        let output = try XCTUnwrap(model.rows.first?.output)
+        let size = try XCTUnwrap(ImageMetadata.header(of: output).pixelSize)
+        XCTAssertEqual(max(size.width, size.height), 100, accuracy: 1)
+    }
+
+    /// Session state, like the format override: it must never reach the
+    /// defaults database.
+    func testTheMaxSizeIsNeverPersisted() async throws {
+        let (model, settings) = try makeModel()
+        model.sessionMaxSizeText = "100"
+
+        await model.process(urls: [try staged("sample", "png")])
+
+        XCTAssertNil(
+            settings.outputSettings.maxDimension,
+            "the max size must not be written into the settings snapshot"
+        )
     }
 }
 

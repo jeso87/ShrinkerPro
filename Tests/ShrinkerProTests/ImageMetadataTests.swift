@@ -42,6 +42,50 @@ final class ImageMetadataTests: XCTestCase {
         XCTAssertEqual(ImageMetadata.orientation(of: missing), .up)
     }
 
+    // MARK: - The header read the max size depends on
+
+    /// The size is reported as a viewer sees it. `rotated.jpg` stores a
+    /// 200x100 buffer with `.right`, so it is a 100x200 image — and capping
+    /// the wrong axis would produce a file that is the requested size in its
+    /// header and the wrong size on screen.
+    func testTheSizeIsOrientedRatherThanStored() throws {
+        let rotated = ImageMetadata.header(of: try fixture("rotated", "jpg"))
+
+        XCTAssertEqual(rotated.orientation, .right)
+        XCTAssertEqual(rotated.pixelSize, CGSize(width: 100, height: 200))
+        XCTAssertEqual(rotated.longestSide, 200)
+    }
+
+    func testAnUprightFileReportsItsStoredSize() throws {
+        let upright = ImageMetadata.header(of: try fixture("sample", "png"))
+
+        XCTAssertEqual(upright.pixelSize, CGSize(width: 548, height: 547))
+        XCTAssertEqual(upright.longestSide, 548)
+    }
+
+    /// Every rotated fixture, so the swap is not a property of one encoder.
+    func testEveryRotatedFixtureReportsThePortraitSize() throws {
+        for ext in ["jpg", "png", "heic"] {
+            let header = ImageMetadata.header(of: try fixture("rotated", ext))
+            XCTAssertEqual(
+                header.pixelSize, CGSize(width: 100, height: 200),
+                "rotated.\(ext) should measure 100x200 once its orientation is honoured"
+            )
+        }
+    }
+
+    /// The same fallback `orientation(of:)` has: an unreadable file is not a
+    /// crash, and with no size there is nothing to resize against.
+    func testAnUnreadableFileHasNoSize() throws {
+        let missing = try scratchDirectory().appendingPathComponent("nope.jpg")
+
+        let header = ImageMetadata.header(of: missing)
+
+        XCTAssertNil(header.pixelSize)
+        XCTAssertNil(header.longestSide)
+        XCTAssertEqual(header.orientation, .up)
+    }
+
     // MARK: - The bake
 
     /// The load-bearing test for the whole rotation fix.

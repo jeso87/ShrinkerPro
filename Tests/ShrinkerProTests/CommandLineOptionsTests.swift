@@ -694,3 +694,43 @@ final class CommandLineOptionsTests: XCTestCase {
         }
     }
 }
+
+// MARK: - --max-size
+
+final class MaxSizeFlagTests: XCTestCase {
+
+    func testItParses() throws {
+        let options = try CommandLineOptions.parse(["--max-size", "2000", "photo.jpg"])
+
+        XCTAssertEqual(options.maxDimension, 2000)
+        XCTAssertEqual(options.outputSettings.maxDimension, 2000)
+    }
+
+    func testTheDefaultIsNoResizing() throws {
+        let options = try CommandLineOptions.parse(["photo.jpg"])
+
+        XCTAssertNil(options.maxDimension)
+        XCTAssertNil(options.outputSettings.maxDimension)
+    }
+
+    /// Rejected rather than quietly treated as "off": a run that looks like
+    /// it was told to resize and silently was not is worse than a refusal.
+    func testZeroAndNegativeAndNonsenseAreRejected() {
+        for value in ["0", "-100", "big", "2000px", ""] {
+            XCTAssertThrowsError(
+                try CommandLineOptions.parse(["--max-size", value, "photo.jpg"]),
+                "--max-size \(value) should not be accepted"
+            )
+        }
+    }
+
+    func testAMissingValueIsAnError() {
+        XCTAssertThrowsError(try CommandLineOptions.parse(["--max-size"]))
+    }
+
+    /// The house rule: a flag the parser honours but help never mentions is
+    /// invisible.
+    func testHelpDocumentsIt() {
+        XCTAssertTrue(CommandLineOptions.helpText.contains("--max-size"))
+    }
+}

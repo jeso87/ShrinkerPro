@@ -84,6 +84,27 @@ final class AppModel: ObservableObject {
     /// need no exemption of their own here.
     @Published var sessionFormat: SessionFormat?
 
+    /// The max size field's contents, as typed. Session-scoped exactly like
+    /// `sessionFormat` above, and for the same reasons.
+    ///
+    /// Text rather than `Int?` because the field is the source of truth and
+    /// is parsed on every keystroke — see `MaxSizeField`, which owns the
+    /// rules and is where they are tested. The `didSet` filters in place, so
+    /// a character the field will not accept never appears in it; `filter` is
+    /// idempotent, which is what stops the assignment below recurring.
+    @Published var sessionMaxSizeText: String = "" {
+        didSet {
+            let filtered = MaxSizeField.filter(sessionMaxSizeText)
+            if filtered != sessionMaxSizeText { sessionMaxSizeText = filtered }
+        }
+    }
+
+    /// What the field above means to the engine: the longest side an image
+    /// may keep, or `nil` for no resizing.
+    var sessionMaxDimension: Int? {
+        MaxSizeField.dimension(from: sessionMaxSizeText)
+    }
+
     /// The sheet the window should be showing, if any. One category at a
     /// time: the originals-at-risk question is asked and answered before the
     /// second is raised, so each carries its own independent answer.
@@ -258,6 +279,7 @@ final class AppModel: ObservableObject {
         let outputSettings: OutputSettings = {
             var snapshot = settings.outputSettings
             snapshot.sessionFormat = sessionFormat
+            snapshot.maxDimension = sessionMaxDimension
             return snapshot
         }()
 

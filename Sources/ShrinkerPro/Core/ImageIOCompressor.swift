@@ -38,12 +38,23 @@ struct ImageIOCompressor: Compressor {
     /// it back out with `-metadata all`, and ImageIO cannot write WebP to
     /// correct it afterwards.
     var policy: MetadataPolicy = .all
+    /// The longest side the decoded image may keep, or `nil` to decode at
+    /// full size — which is every call made before the max size existed, and
+    /// every call for a file already within it.
+    ///
+    /// Applied during the decode this type already performs rather than as a
+    /// pass after it, which is what keeps the README's single-lossy-hop
+    /// guarantee true: resizing adds no encode. On a relayed route it also
+    /// means the carrier written for cjpeg, cwebp or pngquant is already the
+    /// final size, so the downstream encoder does less work rather than
+    /// encoding pixels that were about to be thrown away.
+    var maxDimension: Int? = nil
 
     func compress(input: URL, output: URL) throws {
         guard let source = CGImageSourceCreateWithURL(input as CFURL, nil) else {
             throw ShrinkError.conversionFailed("could not open \(input.lastPathComponent) for reading")
         }
-        guard let decoded = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+        guard let decoded = decode(source) else {
             throw ShrinkError.conversionFailed("could not decode \(input.lastPathComponent) — unrecognized or corrupt image data")
         }
 
@@ -83,6 +94,47 @@ struct ImageIOCompressor: Compressor {
         guard CGImageDestinationFinalize(destination) else {
             throw ShrinkError.conversionFailed("ImageIO failed to encode \(output.lastPathComponent) as \(utType)")
         }
+    }
+
+    /// The stored pixel buffer, at full size or scaled down to `maxDimension`.
+    ///
+    /// The resizing decode is `CGImageSourceCreateThumbnailAtIndex` with
+    /// `kCGImageSourceThumbnailMaxPixelSize`, whose semantics *are* the rule
+    /// this feature promises: it constrains the larger dimension and
+    /// preserves the aspect ratio. Expressing the rule by choosing that API,
+    /// rather than by computing a target size here, is what keeps
+    /// "landscape by width, portrait by height" from being an arithmetic
+    /// branch that could be got backwards.
+    ///
+    /// `kCGImageSourceCreateThumbnailWithTransform` is deliberately **not**
+    /// set. It would apply the source's orientation itself, and this type
+    /// bakes orientation in one place — `ImageMetadata.applyingOrientation`,
+    /// verified against ImageIO's own transform output for all eight cases —
+    /// so letting the thumbnail API do it too would turn rotated images
+    /// twice. The cap is unaffected by which of the two runs first: rotating
+    /// swaps the axes without changing the longest side.
+    ///
+    /// `kCGImageSourceCreateThumbnailFromImageAlways` is set because an
+    /// embedded thumbnail is not the image — it is a small, often stale
+    /// preview, and `ThumbnailFromImageIfAbsent` would silently hand one
+    /// back in place of the photo the user dropped.
+    private func decode(_ source: CGImageSource) -> CGImage? {
+        guard let maxDimension else {
+            return CGImageSourceCreateImageAtIndex(source, 0, nil)
+        }
+        let options: [CFString: Any] = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailWithTransform: false,
+            kCGImageSourceThumbnailMaxPixelSize: maxDimension,
+        ]
+        return CGImageSourceCreateThumbnailAtIndex(source, 0, options as CFDictionary)
+            // A source ImageIO can open but cannot produce a thumbnail from
+            // is not a reason to fail the whole shrink: fall back to the
+            // full-size decode. The file then comes out compressed but
+            // un-resized, which is the same outcome as a file already within
+            // the cap, rather than an error for something the user can't act
+            // on.
+            ?? CGImageSourceCreateImageAtIndex(source, 0, nil)
     }
 }
 

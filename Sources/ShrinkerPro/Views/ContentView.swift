@@ -8,23 +8,39 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            DropZoneView(isTargeted: isTargeted)
-                // Clicking anywhere above the bar closes its panel, the third
-                // of the three ways out (Done and Escape are the others).
-                // Applied to the content rather than as a full-window overlay
-                // so it never sits between the window and its drop handler.
-                .simultaneousGesture(dismissPanelGesture)
-            // No divider directly under the drop zone: the "Recent" header's
-            // own top hairline (inside ResultsListView) is the only
-            // separator, and it appears only once there's history to
-            // separate from.
-            ResultsListView()
-                .simultaneousGesture(dismissPanelGesture)
-            // The footer is pinned and the history scrolls above it.
-            // ResultsListView has no explicit frame, so it absorbs all the
-            // leftover height and everything after it is already anchored to
-            // the window's bottom edge — no safeAreaInset needed.
+            // The window above the bar, grouped so the dismiss overlay below
+            // covers exactly it and never the bar itself.
             //
+            // The bar is pinned and the history scrolls above it:
+            // ResultsListView has no explicit frame, so it absorbs all the
+            // leftover height and everything after this stack is already
+            // anchored to the window's bottom edge — no safeAreaInset needed.
+            VStack(spacing: 0) {
+                DropZoneView(isTargeted: isTargeted)
+                // No divider directly under the drop zone: the "Recent"
+                // header's own top hairline (inside ResultsListView) is the
+                // only separator, and it appears only once there's history to
+                // separate from.
+                ResultsListView()
+            }
+            // Clicking anywhere above the bar closes its panel — the third
+            // way out, with Done and Escape.
+            //
+            // A transparent AppKit view rather than a SwiftUI tap gesture,
+            // and both of the obvious SwiftUI answers were tried first: a
+            // gesture on the content is swallowed by the results list's
+            // `ScrollView`, and an `onTapGesture` on a `Color.clear` overlay
+            // never fired here either. `mouseDown` on an `NSView` has no such
+            // ambiguity. The overlay exists only while the panel is open, is
+            // registered for no dragged types, and so leaves the window's
+            // `onDrop` (on this whole stack) covering the rectangle it
+            // always did.
+            .overlay {
+                if model.isSessionPanelExpanded {
+                    PanelDismissCatcher { collapseSessionPanel() }
+                }
+            }
+
             // No `Divider()` here any more: the session bar draws its own
             // 0.5pt top hairline *inside* itself, so the separation survives
             // the panel expanding without the divider moving or the bar
@@ -87,13 +103,41 @@ struct ContentView: View {
         .onDisappear { model.windowDisappeared() }
     }
 
-    /// Closes the session panel on a click outside it. A
-    /// `simultaneousGesture` rather than `onTapGesture`, so it never consumes
-    /// a click the results list or the drop zone wanted for themselves.
-    private var dismissPanelGesture: some Gesture {
-        TapGesture().onEnded {
-            guard model.isSessionPanelExpanded else { return }
-            withAnimation(.easeOut(duration: 0.22)) { model.isSessionPanelExpanded = false }
+    private func collapseSessionPanel() {
+        withAnimation(.easeOut(duration: 0.22)) { model.setSessionPanel(expanded: false) }
+    }
+}
+
+/// A transparent click target that closes the session panel. See the
+/// overlay above for why this is AppKit rather than an `onTapGesture`.
+///
+/// `mouseDown` rather than `mouseUp` so the click that dismisses is the same
+/// gesture that would have started an interaction underneath — the panel is
+/// out of the way before the second half of the click lands.
+private struct PanelDismissCatcher: NSViewRepresentable {
+    let action: () -> Void
+
+    func makeNSView(context: Context) -> NSView {
+        CatcherView(action: action)
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        (nsView as? CatcherView)?.action = action
+    }
+
+    private final class CatcherView: NSView {
+        var action: () -> Void
+
+        init(action: @escaping () -> Void) {
+            self.action = action
+            super.init(frame: .zero)
+        }
+
+        @available(*, unavailable)
+        required init?(coder: NSCoder) { fatalError("not loaded from a nib") }
+
+        override func mouseDown(with event: NSEvent) {
+            action()
         }
     }
 }

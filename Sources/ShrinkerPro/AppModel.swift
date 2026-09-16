@@ -129,7 +129,23 @@ final class AppModel: ObservableObject {
     /// On the model rather than in the view because the panel is closed by
     /// things the view does not own — a drop, in particular, which arrives
     /// through `handle(urls:)`.
-    @Published var isSessionPanelExpanded = false
+    @Published private(set) var isSessionPanelExpanded = false
+
+    /// Opens or closes the panel, and on the way closed, settles the max size
+    /// field.
+    ///
+    /// Closing is where an out-of-range number snaps into range, because it
+    /// is the one moment every route out of the panel shares — Done, Escape,
+    /// a click outside, and a drop all arrive here. Leaving that to the
+    /// field's own end-of-editing left "99999" on screen whenever the panel
+    /// was closed by something that did not first take focus away from it,
+    /// while the engine was already being handed the clamped 20000.
+    func setSessionPanel(expanded: Bool) {
+        if !expanded {
+            sessionMaxSizeText = MaxSizeField.committed(sessionMaxSizeText)
+        }
+        isSessionPanelExpanded = expanded
+    }
 
     /// Returns every session setting to the app's own defaults, which is what
     /// the bar's Reset does. Deliberately not a "clear everything" — it
@@ -174,7 +190,7 @@ final class AppModel: ObservableObject {
         // that was asking the question steps out of the way — and the summary
         // it collapses to states what is about to happen to them.
         if isSessionPanelExpanded {
-            withAnimation(.easeOut(duration: 0.22)) { isSessionPanelExpanded = false }
+            withAnimation(.easeOut(duration: 0.22)) { setSessionPanel(expanded: false) }
         }
         Task { await process(urls: urls) }
     }

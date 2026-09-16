@@ -162,8 +162,6 @@ struct SessionBarView: View {
     @EnvironmentObject private var model: AppModel
     @EnvironmentObject private var settings: Settings
 
-    @FocusState private var maxSizeFocused: Bool
-
     private var isModified: Bool {
         SessionBarState.isModified(
             format: model.sessionFormat, quality: model.sessionQuality,
@@ -195,9 +193,7 @@ struct SessionBarView: View {
                 .fill(Theme.SessionBar.hairline)
                 .frame(height: 0.5)
         }
-        // Escape closes the panel, the same as Done. Values are kept: there
-        // is nothing to cancel, since every change has already applied.
-        .onExitCommand { if model.isSessionPanelExpanded { setExpanded(false) } }
+
     }
 
     // MARK: Collapsed
@@ -333,6 +329,23 @@ struct SessionBarView: View {
                 Spacer(minLength: 0)
                 doneButton
             }
+            // Escape closes the panel, the same as Done. Values are kept:
+            // there is nothing to cancel, since every change has already
+            // applied.
+            //
+            // A zero-sized button carrying the cancel shortcut rather than
+            // `.onExitCommand`, which never fired here: the key press goes to
+            // whatever holds focus inside the panel — the max size field,
+            // usually — and does not travel back out to the container the
+            // modifier was attached to. In the `background` rather than in
+            // the row, because even a zero-width child still takes the
+            // stack's 8pt of spacing and shifted the helper text sideways.
+            .background {
+                Button("Close session settings") { setExpanded(false) }
+                    .keyboardShortcut(.cancelAction)
+                    .opacity(0)
+                    .accessibilityHidden(true)
+            }
         }
         .padding(.top, 12)
         .padding(.horizontal, 13)
@@ -353,24 +366,17 @@ struct SessionBarView: View {
 
     private var maxSizeField: some View {
         HStack(spacing: 6) {
-            // Bound to the model's text, which filters itself on every
-            // change — see `MaxSizeField`. There is no formatter and no
-            // required Return: a value typed here is in force the moment it
-            // is typed, so dropping files without committing does what it
-            // looks like it will do. Out-of-range values snap only once
-            // editing ends, which is what stops "20000" being rewritten
+            // A value typed here is in force the moment it is typed — no
+            // Return to press — so dropping files straight after typing does
+            // what it looks like it will do. Out-of-range values snap only
+            // once editing ends, which is what stops "20000" being rewritten
             // while it is still being typed.
-            TextField("No limit", text: $model.sessionMaxSizeText)
-                .textFieldStyle(.plain)
-                .font(.system(size: 12.5))
-                .focused($maxSizeFocused)
-                .onSubmit { model.sessionMaxSizeText = MaxSizeField.committed(model.sessionMaxSizeText) }
-                .onChange(of: maxSizeFocused) { _, focused in
-                    if !focused {
-                        model.sessionMaxSizeText = MaxSizeField.committed(model.sessionMaxSizeText)
-                    }
-                }
-                .accessibilityLabel("Max size in pixels")
+            DigitsOnlyField(
+                text: $model.sessionMaxSizeText,
+                placeholder: "No limit",
+                onCommit: { model.sessionMaxSizeText = MaxSizeField.committed(model.sessionMaxSizeText) }
+            )
+            .accessibilityLabel("Max size in pixels")
 
             Text("px")
                 .font(.system(size: 12.5))
@@ -418,7 +424,7 @@ struct SessionBarView: View {
 
     private func setExpanded(_ expanded: Bool) {
         withAnimation(.easeOut(duration: 0.22)) {
-            model.isSessionPanelExpanded = expanded
+            model.setSessionPanel(expanded: expanded)
         }
     }
 
@@ -431,6 +437,104 @@ struct SessionBarView: View {
             get: { model.sessionQuality ?? settings.quality },
             set: { model.sessionQuality = $0 == settings.quality ? nil : $0 }
         )
+    }
+}
+
+/// The max size field itself, as an `NSTextField` rather than a SwiftUI
+/// `TextField`.
+///
+/// Not a preference: a SwiftUI `TextField` could not be made to reject what
+/// it is given. Filtering in the model's `didSet` and again in the binding's
+/// setter both left "2a000" on screen while the model held "2000" and the
+/// engine was being handed 2000 — an AppKit field owns its text for as long
+/// as it is being edited, and a value changed underneath it mid-edit does not
+/// win. The two SwiftUI-shaped fixes for that (`TextField(value:formatter:)`,
+/// or committing on submit) both give up the property that matters more: the
+/// value applying as it is typed.
+///
+/// So the rejection happens where the typing does. The formatter's
+/// `isPartialStringValid` refuses a keystroke outright — which covers pasting
+/// too, where a keystroke-level filter would not — and the delegate publishes
+/// every accepted change immediately.
+private struct DigitsOnlyField: NSViewRepresentable {
+    @Binding var text: String
+    let placeholder: String
+    let onCommit: () -> Void
+
+    func makeNSView(context: Context) -> NSTextField {
+        let field = NSTextField(string: text)
+        field.delegate = context.coordinator
+        field.formatter = DigitsOnlyFormatter()
+        field.isBordered = false
+        field.drawsBackground = false
+        // AppKit's own focus ring, not the design's 2pt accent one. Drawing
+        // that ring meant telling SwiftUI when editing began, and the state
+        // change that followed rebuilt this view mid-edit: the field lost
+        // first responder and the keystrokes that arrived during the rebuild
+        // went nowhere. A focus ring is not worth a field that silently drops
+        // what you type.
+        field.placeholderString = placeholder
+        field.font = .systemFont(ofSize: 12.5)
+        field.lineBreakMode = .byClipping
+        // The field is 112pt wide by design, so it must not insist on being
+        // as wide as its own placeholder plus padding.
+        field.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        field.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        return field
+    }
+
+    func updateNSView(_ field: NSTextField, context: Context) {
+        context.coordinator.parent = self
+        // Only when it actually differs: assigning during editing would move
+        // the insertion point to the end on every keystroke.
+        if field.stringValue != text { field.stringValue = text }
+    }
+
+    func makeCoordinator() -> Coordinator { Coordinator(parent: self) }
+
+    final class Coordinator: NSObject, NSTextFieldDelegate {
+        var parent: DigitsOnlyField
+
+        init(parent: DigitsOnlyField) { self.parent = parent }
+
+        func controlTextDidChange(_ notification: Notification) {
+            guard let field = notification.object as? NSTextField else { return }
+            parent.text = MaxSizeField.filter(field.stringValue)
+        }
+
+        /// Editing ending — focus lost, Return, or Tab — is where an
+        /// out-of-range number snaps into range.
+        func controlTextDidEndEditing(_ notification: Notification) {
+            parent.onCommit()
+        }
+    }
+}
+
+/// Refuses anything that is not a short run of digits, at the point the
+/// character is typed or pasted. AppKit beeps and keeps the previous text.
+private final class DigitsOnlyFormatter: Formatter {
+
+    override func string(for obj: Any?) -> String? {
+        obj as? String
+    }
+
+    override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        obj?.pointee = string as NSString
+        return true
+    }
+
+    override func isPartialStringValid(
+        _ partialString: String,
+        newEditingString: AutoreleasingUnsafeMutablePointer<NSString?>?,
+        errorDescription: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        // An empty field is valid — it is how "no limit" is said.
+        partialString.allSatisfy(\.isNumber)
+            && partialString.count <= MaxSizeField.maximumDigits
     }
 }
 

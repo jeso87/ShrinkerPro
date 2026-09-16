@@ -601,11 +601,24 @@ final class SessionOverrideTests: XCTestCase {
 
     // MARK: - The panel
 
+    /// Closing is where an out-of-range number settles, because it is the
+    /// one moment Done, Escape, a click outside and a drop all share.
+    func testClosingThePanelSnapsAnOutOfRangeMaxSize() throws {
+        let (model, _) = try makeModel()
+        model.setSessionPanel(expanded: true)
+        model.sessionMaxSizeText = "99999"
+
+        model.setSessionPanel(expanded: false)
+
+        XCTAssertEqual(model.sessionMaxSizeText, "20000")
+        XCTAssertEqual(model.sessionMaxDimension, 20_000)
+    }
+
     func testThePanelStartsClosedAndADropClosesIt() async throws {
         let (model, _) = try makeModel()
         XCTAssertFalse(model.isSessionPanelExpanded)
 
-        model.isSessionPanelExpanded = true
+        model.setSessionPanel(expanded: true)
         model.handle(urls: [try staged("sample", "png")])
 
         XCTAssertFalse(

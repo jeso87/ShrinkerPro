@@ -1,6 +1,57 @@
 import SwiftUI
 import AppKit
 
+/// How tall the Settings window is allowed to get.
+///
+/// This exists because it once had no answer. `SettingsView`'s `Form` carried
+/// `.fixedSize(horizontal: false, vertical: true)`, which pins a view to its
+/// full intrinsic height — and a grouped `Form` on macOS is otherwise a
+/// scrollable list. Pinned, it never compressed and never scrolled, so the
+/// window grew to whatever its five sections added up to (roughly 850pt) and
+/// on a 13" display the bottom of it went off the screen with no way to
+/// reach it.
+///
+/// The bound is **measured, not chosen**. A constant would be the same defect
+/// wearing a different number: the window was too tall for a screen nobody
+/// had measured, so the fix has to ask the screen. `SettingsView` reads
+/// `NSScreen.visibleFrame` — which already excludes the menu bar and the Dock
+/// — and hands the height here.
+///
+/// Pure, and out of the `body`, for the reason `MaxSizeField`,
+/// `SessionBarState`, `OutputNaming` and `OutputWarning` are: this project
+/// carries no view-tree testing dependency, so a rule left inline in a view
+/// is a rule no test can reach. See `SettingsWindowMetricsTests`.
+enum SettingsWindowMetrics {
+
+    /// Room for the tab toolbar, the title bar and the window's own frame —
+    /// everything between the visible screen area and the space the `Form`
+    /// actually gets. Generous rather than exact: erring high costs a little
+    /// unused height, and erring low puts the bottom of the window back off
+    /// the screen, which is the bug.
+    static let chromeAllowance: CGFloat = 120
+
+    /// Below this a Settings window stops being usable — too short to show a
+    /// section header and a control together, so scrolling it would be all
+    /// the user ever did.
+    static let minimumContentHeight: CGFloat = 320
+
+    /// The tallest the `Form` may be on a screen with `visible` points of
+    /// usable height.
+    ///
+    /// The outer `min` is what keeps `minimumContentHeight` a floor rather
+    /// than an override: on a display shorter than the floor itself, honouring
+    /// the floor would hand back a window taller than the screen and
+    /// reintroduce exactly the defect above. The screen always wins.
+    ///
+    /// A non-positive reading — `NSScreen` reporting nothing mid-reconfiguration,
+    /// or no main screen at all — falls back to the floor rather than to zero,
+    /// because a window with no height is worse than one that has to scroll.
+    static func maxContentHeight(forVisibleHeight visible: CGFloat) -> CGFloat {
+        guard visible > 0 else { return minimumContentHeight }
+        return min(visible, max(minimumContentHeight, visible - chromeAllowance))
+    }
+}
+
 struct SettingsView: View {
     @EnvironmentObject private var settings: Settings
 

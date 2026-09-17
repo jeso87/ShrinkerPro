@@ -3,6 +3,21 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.3.1</title>
+            <pubDate>Thu, 17 Sep 2026 05:21:40 -0400</pubDate>
+            <sparkle:version>8</sparkle:version>
+            <sparkle:shortVersionString>1.3.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[**Settings says what it actually does.** The choice about `.min` used to read "Keep originals, save a .min copy" or "Replace originals" no matter where your files were going. If you send them to another folder, or to a "minified" subfolder, nothing of yours can be replaced — so it now simply asks whether to add `.min`, and shows you the filename either way. Where your files go, and what they are called, has not changed.
+
+**Shrinker Pro now checks for updates once a day, and the setting for it is gone.** This app is free and open source, and most releases are here because somebody asked for what is in them — so an install that never hears about a new version is the thing worth fixing.
+
+Checking is not installing. You are still told about a new version and still decide whether to take it, and **Check for Updates…** in the menu works as before.
+]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.3.1/ShrinkerPro-1.3.1.dmg" length="3466312" type="application/octet-stream" sparkle:edSignature="4aKCsT1coXKO4zP3BUUaE00KcLkWmAxYO2TDAGc0+Zw3k84GQH6mVL1w5EhD0PQqoemZSKPtrA6ZlPx4Gx+0AQ=="/>
+        </item>
+        <item>
             <title>1.3.0</title>
             <pubDate>Thu, 17 Sep 2026 01:52:53 -0400</pubDate>
             <sparkle:version>7</sparkle:version>
@@ -27,15 +42,6 @@
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.2.0/ShrinkerPro-1.2.0.dmg" length="3422854" type="application/octet-stream" sparkle:edSignature="iQjklT40MXeaJGHl7GnhsC4kNuAJ2CwFTiz+KaM6BSI5w1NZsxksVm9uTGoSSkHI+x/HOVJeGkp0lQinUACVBw=="/>
-        </item>
-        <item>
-            <title>1.1.0</title>
-            <pubDate>Fri, 11 Sep 2026 00:18:33 -0400</pubDate>
-            <sparkle:version>4</sparkle:version>
-            <sparkle:shortVersionString>1.1.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.1.0/ShrinkerPro-1.1.0.dmg" length="3411133" type="application/octet-stream" sparkle:edSignature="YNy7Bo+QvU6MV70CsQoor/t0RAnSeNQEn+ATZvWKAS7cv/V7s02tRFqIEfbk6UY7tec/Ui+VpGgG4KBrTHpjCg=="/>
         </item>
     </channel>
 </rss>

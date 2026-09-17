@@ -4,6 +4,39 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.3.1 — 2026-09-17
+
+### Changed
+
+**Settings no longer offers a choice that does nothing.** The Output section's
+second choice decides whether `.min` is added to the filename — but it was
+labelled "Keep originals, save a .min copy" and "Replace originals", which is
+only what it means when the shrunken file lands in the original's own folder.
+Send output to a chosen folder or a "minified" subfolder and the original is
+untouchable either way, so the panel was offering to replace files it could
+not reach.
+
+It now says what it does. With output going elsewhere the row is headed
+**Filenames** and reads *Add .min — photo.min.png* / *Leave as is —
+photo.png*. In the one arrangement where the suffix really is all that stands
+between you and an overwritten file, the wording is unchanged, and so is the
+warning underneath it.
+
+Nothing about where your files go, or what they are called, has changed — this
+is what the panel says, not what it does.
+
+**Shrinker Pro now always checks for updates, once a day.** The "Check for
+updates" toggle is gone from Settings, including for anyone who had switched
+it off.
+
+This app is open source and free, and most releases exist because somebody
+asked for the thing in them. An install that never hears about those is the
+failure case, not the private one.
+
+Checking is not installing. A new version is still something you are told
+about and agree to; nothing downloads or replaces itself behind you, and
+**Check for Updates…** in the app menu still works the way it always has.
+
 ## 1.3.0 — 2026-09-16
 
 ### Added

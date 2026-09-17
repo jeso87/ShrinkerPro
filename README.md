@@ -318,7 +318,23 @@ Drop anywhere in the window, not just the dashed zone.
 </picture>
 
 Output location, notifications, per-format conversion rules, quality and
-metadata.
+metadata — the defaults every session starts from.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/session-bar-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/session-bar-light.png">
+  <img src="docs/screenshots/session-bar-dark.png" width="500" alt="The session settings panel: “Convert all to” set to WebP, Quality set to High, Max size set to 2000 pixels, beside a Reset link and a Done button.">
+</picture>
+
+The session settings bar, opened. Collapsed it is one line — `WebP · High ·
+Max 2000px` — saying what the next files you drop will become; **Adjust**
+opens the three controls that decide it. Everything in it lasts until you
+quit and leaves your saved defaults alone.
 
 </td>
 </tr>

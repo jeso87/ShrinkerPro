@@ -4,6 +4,26 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.4.0 — unreleased
+
+### Fixed
+
+**The Settings window can be read on a small screen.** It is a little over
+1000 points tall, and a 13" laptop has roughly 745 points of usable height, so
+the Metadata and General sections — and half of Quality — sat below the bottom
+of the screen with no way to reach them. The window would not scroll, and it
+could not be resized to make it.
+
+The cause was a single layout instruction pinning the settings list to its full
+height. A list that is pinned can only overflow; unpinned, it scrolls. The
+window is now as tall as its content where the display allows that, as tall as
+the display where it does not, and it scrolls the difference.
+
+Because macOS hides scroll bars until you are already scrolling, a window that
+has more below now says so: the last row fades out and a small chevron sits at
+the bottom edge. Both appear only on displays where something is actually
+hidden, so nothing changes on a large monitor.
+
 ## 1.3.1 — 2026-09-17
 
 ### Changed

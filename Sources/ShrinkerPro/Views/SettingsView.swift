@@ -9,6 +9,27 @@ struct SettingsView: View {
     /// flash on screen before the system has been asked.
     @State private var notificationPermission: NotificationPermission = .notDetermined
 
+    /// Whether the Files/Filenames radio pair is choosing between keeping
+    /// and replacing the user's own files, or merely naming a copy that
+    /// lands somewhere else. Recomputed from the two rows above it, so
+    /// switching on the subfolder relabels it immediately.
+    private var naming: OutputNaming {
+        OutputNaming.style(
+            saveInSameFolder: settings.saveInSameFolder,
+            savePath: settings.savePath,
+            useSubfolder: settings.useSubfolder
+        )
+    }
+
+    /// One radio's label: the choice, and — where the choice is only about a
+    /// filename — the filename it produces, in secondary text so the option
+    /// still reads as one short phrase. Concatenated `Text` rather than an
+    /// `HStack` because `.radioGroup` lays out its options itself.
+    private func optionLabel(_ title: String, example: String?) -> Text {
+        guard let example else { return Text(title) }
+        return Text(title) + Text("  —  \(example)").foregroundStyle(.secondary)
+    }
+
     var body: some View {
         Form {
             Section {
@@ -36,9 +57,17 @@ struct SettingsView: View {
                 // switch whose off-state you had to infer. Both branches now
                 // state their own consequence. The binding and its "suffix"
                 // key are unchanged — this is presentation only.
-                Picker("Files", selection: $settings.keepOriginal) {
-                    Text("Keep originals, save a .min copy").tag(true)
-                    Text("Replace originals").tag(false)
+                //
+                // Which consequence they state depends on where the output
+                // lands, because `keepOriginal` only appends `.min`; the
+                // rows above decide whether an original is in the firing
+                // line at all. See `OutputNaming`, which owns that table and
+                // is what `OutputWarning` below reads too.
+                Picker(naming.rowLabel, selection: $settings.keepOriginal) {
+                    optionLabel(naming.suffixOnTitle, example: naming.suffixOnExample)
+                        .tag(true)
+                    optionLabel(naming.suffixOffTitle, example: naming.suffixOffExample)
+                        .tag(false)
                 }
                 .pickerStyle(.radioGroup)
 

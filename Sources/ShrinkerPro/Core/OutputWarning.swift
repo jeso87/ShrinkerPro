@@ -9,10 +9,12 @@ import Foundation
 /// `body` is logic no test can reach — and this one decides whether a
 /// destructive-action warning appears at all.
 ///
-/// It mirrors `OutputPathResolver.destination`, which is the only reason it
-/// can be trusted: the resolver redirects only when a save path actually
-/// exists, appends `minified/` when asked, and appends `.min` when originals
-/// are kept. Any of those three moves the output off the input's path.
+/// It now defers to `OutputNaming.style` for the half of the question that
+/// is about *where* the file lands. That type mirrors
+/// `OutputPathResolver.destination` and is documented against it; keeping a
+/// second copy of the same three conditions here is how the warning and the
+/// radio labels above it would eventually come to disagree about which
+/// combinations are dangerous.
 enum OutputWarning {
 
     static func replacesOriginals(
@@ -22,11 +24,15 @@ enum OutputWarning {
         useSubfolder: Bool
     ) -> Bool {
         // `.min` alone guarantees a different name.
-        if keepOriginal { return false }
-        // minified/ is a different directory.
-        if useSubfolder { return false }
-        // A redirect only happens when there is somewhere to redirect to.
-        if !saveInSameFolder, savePath != nil { return false }
-        return true
+        guard !keepOriginal else { return false }
+
+        // Everything else — the subfolder, and a redirect that has somewhere
+        // to redirect to — is a question about the destination directory,
+        // which is `OutputNaming`'s to answer.
+        return OutputNaming.style(
+            saveInSameFolder: saveInSameFolder,
+            savePath: savePath,
+            useSubfolder: useSubfolder
+        ) == .besideOriginals
     }
 }

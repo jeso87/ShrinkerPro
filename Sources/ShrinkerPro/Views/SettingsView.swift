@@ -175,7 +175,6 @@ struct SettingsView: View {
                     }
                 }
                 Toggle("Clear result list when shrinking new images", isOn: $settings.clearList)
-                Toggle("Check for updates", isOn: $settings.updateCheck)
             } header: {
                 Text("General")
             }

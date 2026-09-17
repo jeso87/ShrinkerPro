@@ -13,6 +13,13 @@ import Sparkle
 /// in Info.plist). Both delegates are nil — no customization hook is used;
 /// Sparkle's default standard UI covers everything this app needs.
 ///
+/// Checking is unconditional and daily. It used to follow a "Check for
+/// updates" toggle in Settings, which is gone: Shrinker Pro is open source
+/// and releases keep adding things people asked for, so an install that
+/// never hears about them is the failure case. What is *not* automatic is
+/// installing — `automaticallyDownloadsUpdates` is left alone (false), so a
+/// new version is still something the user is told about and agrees to.
+///
 /// The "Check for Updates…" menu item is left permanently enabled rather
 /// than reactively tracking `SPUUpdater.canCheckForUpdates` via KVO:
 /// Sparkle's own UI already handles a repeat click while a check is in
@@ -24,28 +31,27 @@ import Sparkle
 final class AppUpdater {
     private let controller: SPUStandardUpdaterController
 
-    init(settings: Settings) {
+    init() {
         controller = SPUStandardUpdaterController(
             startingUpdater: true,
             updaterDelegate: nil,
             userDriverDelegate: nil
         )
-        // Wire to the existing "Check for updates" setting rather than
-        // trusting Info.plist's SUEnableAutomaticChecks (which is only a
-        // bootstrap default — see the comment on that key) or Sparkle's own
-        // separately-persisted preference.
-        controller.updater.automaticallyChecksForUpdates = settings.updateCheck
+        // Set explicitly rather than trusting Info.plist's
+        // SUEnableAutomaticChecks/SUScheduledCheckInterval (bootstrap
+        // defaults — see the comment on those keys) or Sparkle's own
+        // separately-persisted preference, which is what a user who turned
+        // the old toggle off would still be carrying.
+        controller.updater.automaticallyChecksForUpdates = true
+        // Sparkle's own default is also 86400. Stating it is the point: with
+        // the Settings toggle gone, this one number is the entire update
+        // policy, and a policy that exists only as somebody else's default
+        // is one nobody knows they are relying on.
+        controller.updater.updateCheckInterval = 86_400
     }
 
     /// Target of the "Check for Updates…" command in ShrinkerProApp.
     func checkForUpdates() {
         controller.updater.checkForUpdates()
-    }
-
-    /// Called whenever the "Check for updates" toggle in Settings changes,
-    /// so Sparkle's background polling tracks that one toggle live instead
-    /// of only being read once at launch.
-    func setAutomaticChecksEnabled(_ enabled: Bool) {
-        controller.updater.automaticallyChecksForUpdates = enabled
     }
 }

@@ -18,7 +18,6 @@ final class Settings: ObservableObject {
         /// migration with a real chance of reading somebody's existing
         /// preference backwards, for no benefit they could see.
         static let suffix = "suffix"
-        static let updatecheck = "updatecheck"
         static let subfolder = "subfolder"
         static let conversionPNG = "conversionPNG"
         static let conversionJPEG = "conversionJPEG"
@@ -38,7 +37,6 @@ final class Settings: ObservableObject {
     @Published var saveInSameFolder: Bool { didSet { defaults.set(saveInSameFolder, forKey: Key.folderswitch) } }
     @Published var clearList: Bool { didSet { defaults.set(clearList, forKey: Key.clearlist) } }
     @Published var keepOriginal: Bool { didSet { defaults.set(keepOriginal, forKey: Key.suffix) } }
-    @Published var updateCheck: Bool { didSet { defaults.set(updateCheck, forKey: Key.updatecheck) } }
     @Published var useSubfolder: Bool { didSet { defaults.set(useSubfolder, forKey: Key.subfolder) } }
 
     @Published var savePath: URL? {
@@ -105,7 +103,6 @@ final class Settings: ObservableObject {
             Key.folderswitch: true,
             Key.clearlist: false,
             Key.suffix: true,
-            Key.updatecheck: true,
             Key.subfolder: false,
             Key.conversionPNG: ConversionTarget.keep.rawValue,
             Key.conversionJPEG: ConversionTarget.keep.rawValue,
@@ -127,7 +124,6 @@ final class Settings: ObservableObject {
         saveInSameFolder = defaults.bool(forKey: Key.folderswitch)
         clearList = defaults.bool(forKey: Key.clearlist)
         keepOriginal = defaults.bool(forKey: Key.suffix)
-        updateCheck = defaults.bool(forKey: Key.updatecheck)
         useSubfolder = defaults.bool(forKey: Key.subfolder)
         savePath = defaults.string(forKey: Key.savepath).map(URL.init(fileURLWithPath:))
         pngConversion = Self.readTarget(defaults, Key.conversionPNG, default: .keep)

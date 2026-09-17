@@ -15,7 +15,6 @@ final class SettingsTests: XCTestCase {
         XCTAssertTrue(settings.saveInSameFolder)
         XCTAssertFalse(settings.clearList)
         XCTAssertTrue(settings.keepOriginal)
-        XCTAssertTrue(settings.updateCheck)
         XCTAssertFalse(settings.useSubfolder)
         XCTAssertNil(settings.savePath)
     }

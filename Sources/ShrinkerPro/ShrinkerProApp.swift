@@ -33,7 +33,7 @@ struct ShrinkerProApp: App {
     init() {
         let settings = Settings()
         _settings = StateObject(wrappedValue: settings)
-        _appUpdater = State(wrappedValue: AppUpdater(settings: settings))
+        _appUpdater = State(wrappedValue: AppUpdater())
 
         // ShrinkEngine.init can throw ShrinkError.helperMissing when
         // svgo.jsc.js is missing from the bundle — a damaged or
@@ -81,15 +81,6 @@ struct ShrinkerProApp: App {
             // "not configured yet" from "confirmed no model coming"; see
             // AppDelegate.swift.
             .onAppear { appDelegate.model = model }
-            // The only place settings.updateCheck ever changes is the
-            // "Check for updates" toggle in SettingsView, so observing it
-            // here (rather than a Combine subscription held for the app's
-            // whole lifetime) is sufficient to keep Sparkle's background
-            // polling live-synced with it, with no ObjC-KVO/Sendable-closure
-            // concerns to work around.
-            .onChange(of: settings.updateCheck) { _, newValue in
-                appUpdater.setAutomaticChecksEnabled(newValue)
-            }
         }
         .defaultSize(width: 500, height: 620)
         .windowResizability(.contentMinSize)

@@ -50,8 +50,9 @@ by design — see below.
 
 Updates are handled in-app by [Sparkle](https://sparkle-project.org/):
 Shrinker Pro checks once a day and on "Check for Updates…" in the app menu,
-and every update's signature is verified before it is installed. You can turn
-the automatic check off in Settings.
+and every update's signature is verified before it is installed. Checking is
+not installing — you are told about a new version and decide whether to take
+it.
 
 ### The command line
 
@@ -286,8 +287,11 @@ mozjpeg's progressive scans survive a metadata change intact.
   for the app in System Settings, the panel says so rather than failing quietly.
 - Settings persist across launches (backed by `UserDefaults`).
 - Updates via [Sparkle](https://sparkle-project.org/) 2.9.6: "Check for
-  Updates…" in the app menu, plus an automatic background check gated by
-  the same "Check for updates" toggle in Settings. Sparkle polls
+  Updates…" in the app menu, plus an automatic background check every 24
+  hours, which is not optional and has no Settings toggle — `AppUpdater`
+  sets `automaticallyChecksForUpdates` and `updateCheckInterval` itself, and
+  `UpdateSchedulingTests` pins both in the built `Info.plist`. Nothing is
+  ever downloaded or installed without the user agreeing to it. Sparkle polls
   `appcast.xml` (published by `scripts/release.sh`, served from this repo's
   GitHub Pages) and verifies every update's EdDSA signature before offering
   to install it. What the update window shows people is written by hand in
@@ -314,7 +318,7 @@ Drop anywhere in the window, not just the dashed zone.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/settings-light.png">
-  <img src="docs/screenshots/settings-dark.png" alt="Settings showing output location, the “Keep original files” toggle, notification and update toggles, the per-format conversion rules, the Quality level, and the metadata policy.">
+  <img src="docs/screenshots/settings-dark.png" alt="Settings showing where output goes and how it is named, the per-format conversion rules, the Quality level, the metadata policy, and the notification and result-list toggles.">
 </picture>
 
 Output location, notifications, per-format conversion rules, quality and

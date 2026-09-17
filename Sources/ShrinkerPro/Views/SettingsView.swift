@@ -23,12 +23,14 @@ import AppKit
 /// is a rule no test can reach. See `SettingsWindowMetricsTests`.
 enum SettingsWindowMetrics {
 
-    /// Room for the tab toolbar, the title bar and the window's own frame —
-    /// everything between the visible screen area and the space the `Form`
-    /// actually gets. Generous rather than exact: erring high costs a little
-    /// unused height, and erring low puts the bottom of the window back off
-    /// the screen, which is the bug.
-    static let chromeAllowance: CGFloat = 120
+    /// Room for the title bar and the window's own frame, plus a little air so
+    /// the window is not shoved flush against the Dock or the menu bar.
+    /// Measured at 28 points of title bar; the rest is that margin.
+    ///
+    /// Erring high costs a strip of unused height. Erring low puts the bottom
+    /// of the window back off the screen, which is the whole defect, so this
+    /// leans high on purpose.
+    static let chromeAllowance: CGFloat = 60
 
     /// Below this a Settings window stops being usable — too short to show a
     /// section header and a control together, so scrolling it would be all
@@ -50,10 +52,63 @@ enum SettingsWindowMetrics {
         guard visible > 0 else { return minimumContentHeight }
         return min(visible, max(minimumContentHeight, visible - chromeAllowance))
     }
+
+    /// How much has to be hidden before the window bothers saying so.
+    ///
+    /// `SettingsView.contentHeight` is a measurement, not a guarantee — it can
+    /// be a few points out from what the `Form` actually lays out, and it will
+    /// drift the first time a row changes. Without this tolerance a display
+    /// that misses by ten points would draw a fade and a chevron over a pane
+    /// that is, to the eye, entirely visible. Observed exactly that way on a
+    /// display with 1050 points of usable height.
+    ///
+    /// The cost is a narrow band — less than one row — where something is
+    /// clipped and nothing announces it. That is the better failure: a
+    /// chevron pointing at nothing teaches people to ignore chevrons.
+    static let scrollAffordanceThreshold: CGFloat = 24
+
+    /// Whether enough of `content` is hidden on a screen with `visible` points
+    /// of usable height to be worth telling the user about.
+    ///
+    /// Drives the fade and chevron at the bottom of the window, and is its own
+    /// function so they appear on exactly the displays that need them. A
+    /// permanent affordance would be a lie on a large monitor, where nothing
+    /// is hidden and there is nothing to scroll to.
+    static func contentScrolls(contentHeight content: CGFloat, visibleHeight visible: CGFloat) -> Bool {
+        content - maxContentHeight(forVisibleHeight: visible) > scrollAffordanceThreshold
+    }
 }
 
 struct SettingsView: View {
     @EnvironmentObject private var settings: Settings
+
+    /// How tall the five sections come to, measured from the build that still
+    /// pinned them: a 1027 point window, less 28 points of title bar.
+    ///
+    /// A constant here, unlike the screen bound below, and the difference is
+    /// who owns the number. The display belongs to the user, and guessing it
+    /// is the defect being fixed. This describes our own five sections, which
+    /// nobody can change without editing the `Form` a few lines down — and if
+    /// it ever goes stale the window simply scrolls a little sooner or shows a
+    /// little slack, rather than losing anything.
+    private static let contentHeight: CGFloat = 1000
+
+    /// Read on each render rather than captured once, so the bound follows the
+    /// window if it is dragged to a second display. `visibleFrame` already
+    /// excludes the menu bar and the Dock.
+    private var maxContentHeight: CGFloat {
+        SettingsWindowMetrics.maxContentHeight(
+            forVisibleHeight: NSScreen.main?.visibleFrame.height ?? 0
+        )
+    }
+
+    /// Whether this display is too short to show every setting at once.
+    private var isScrollable: Bool {
+        SettingsWindowMetrics.contentScrolls(
+            contentHeight: Self.contentHeight,
+            visibleHeight: NSScreen.main?.visibleFrame.height ?? 0
+        )
+    }
 
     /// Starts as `.notDetermined` (which renders nothing) and is replaced
     /// with the real answer by the `.task` below, so the warning can never
@@ -231,8 +286,60 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 420)
-        .fixedSize(horizontal: false, vertical: true)
+        // The scroll bar is asked for explicitly rather than left to the
+        // system's "show on scrolling" default. The window is taller than it
+        // can show on most displays, so whether there is more below is the
+        // first thing someone needs to know — and a scroll bar that only
+        // appears once you have already scrolled cannot tell them.
+        .scrollIndicators(.visible)
+        // `fixedSize(horizontal: false, vertical: true)` used to stand here,
+        // and it was the bug. It pins a view to its intrinsic height, and a
+        // grouped `Form` is otherwise a scrollable list — pinned, it could
+        // only overflow, so on any display shorter than about 1030 points the
+        // bottom of this window went off the screen with no way to reach it.
+        //
+        // Given a height instead, the `Form` fills it and scrolls. The height
+        // is the content's own where the screen allows it, and the screen's
+        // where it does not.
+        .frame(
+            width: 420,
+            height: min(Self.contentHeight, maxContentHeight)
+        )
+        // Something has to say "there is more below", because macOS will not.
+        // `scrollIndicators(.visible)` above asks for a scroll bar, but
+        // AppKit's overlay scrollers still fade out when idle unless the user
+        // has set Appearance ▸ Show scroll bars to Always — verified here, on
+        // a clamped window that showed no indicator at all. So the window says
+        // it itself.
+        //
+        // Only when there is genuinely something below: on a display tall
+        // enough to show all of it, a fade would be claiming hidden content
+        // that does not exist.
+        .overlay(alignment: .bottom) {
+            if isScrollable {
+                ZStack(alignment: .bottom) {
+                    LinearGradient(
+                        colors: [
+                            Color(nsColor: .windowBackgroundColor).opacity(0),
+                            Color(nsColor: .windowBackgroundColor),
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    // A fade alone is the conventional cue and was tried
+                    // first. It is nearly invisible here, because it fades to
+                    // the very colour it sits on — so it gets a glyph.
+                    Image(systemName: "chevron.down")
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundStyle(.secondary)
+                        .padding(.bottom, 6)
+                }
+                .frame(height: 44)
+                // Decoration. Clicks belong to whatever row is underneath it.
+                .allowsHitTesting(false)
+                .accessibilityHidden(true)
+            }
+        }
         .task { notificationPermission = await .current() }
         // Re-check when the app is brought back to the front: the whole
         // point of the button above is that the user leaves for System

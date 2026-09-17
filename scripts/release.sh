@@ -346,6 +346,29 @@ APPCAST_STAGE="build/appcast-stage"
 rm -rf "$APPCAST_STAGE"
 mkdir -p "$APPCAST_STAGE"
 cp "$DMG" "$APPCAST_STAGE/"
+
+# What the updater shows people before they install.
+#
+# generate_appcast picks up a .md/.html/.txt file sitting beside the archive
+# with the same base name, so the notes are staged as <dmg name>.md and end
+# up embedded in the feed as the item's <description>. Embedded, not linked:
+# nothing extra to host, and the notes are already downloaded by the time
+# the update window needs them.
+#
+# A hard failure rather than a warning, and written by hand rather than
+# lifted from CHANGELOG.md. The changelog is for people who work on this;
+# these notes are for people who use it, and the difference is not something
+# a script can make for itself. An update with an empty notes pane is the
+# kind of thing nobody notices until it has already shipped.
+RELEASE_NOTES="$ROOT/docs/release-notes/$VERSION.md"
+if [ ! -f "$RELEASE_NOTES" ]; then
+  echo "FAIL  no release notes at docs/release-notes/$VERSION.md" >&2
+  echo "      Sparkle shows these to every user before they install $VERSION." >&2
+  echo "      Write a few plain sentences about what changed, then re-run." >&2
+  exit 1
+fi
+cp "$RELEASE_NOTES" "$APPCAST_STAGE/$(basename "$DMG" .dmg).md"
+echo "    release notes: docs/release-notes/$VERSION.md"
 # generate_appcast only looks for a pre-existing appcast.xml to extend
 # inside its own archives-source-dir (not wherever -o points), and dist/ is
 # gitignored/ephemeral — so the previously-published feed is copied in here
@@ -402,7 +425,11 @@ if [ -f "$APPCAST_STAGE/appcast.xml" ]; then
 fi
 echo "    build $BUILD_NUMBER (Sparkle compares this, not $VERSION)"
 
+# --embed-release-notes because the notes are Markdown: without it,
+# generate_appcast embeds only HTML and would otherwise expect a
+# --release-notes-url-prefix to link to instead.
 "$SPARKLE_BIN/generate_appcast" \
+  --embed-release-notes \
   --download-url-prefix "https://github.com/$GITHUB_REPO/releases/download/$RELEASE_TAG/" \
   "$APPCAST_STAGE"
 

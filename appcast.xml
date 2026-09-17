@@ -3,6 +3,23 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.3.0</title>
+            <pubDate>Thu, 17 Sep 2026 01:52:53 -0400</pubDate>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>1.3.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[**Set a maximum size.** Type a number at the bottom of the window and nothing comes out bigger than that on its longest side. Pictures keep their proportions, and anything already smaller is left alone.
+
+**The bottom of the window now says what will happen** to the next files you drop — the format, the quality and the size limit, all on one line. Click **Adjust** to change them. These apply until you quit; your usual settings stay as they are.
+
+**Shrinker Pro asks before replacing a file.** If a file is about to be written over, you choose: skip it, keep both, or replace it.
+
+**Settings is easier to read**, grouped into clearly labelled sections.
+]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.3.0/ShrinkerPro-1.3.0.dmg" length="3465629" type="application/octet-stream" sparkle:edSignature="72dBmJYKjVZhNKtdhEwM/xBUnRQUV3cDTo6rZBPBcLe6UvgjbLeSQvH54/sRB9QdK2+Cy5EFfnil7u4Dii/cCw=="/>
+        </item>
+        <item>
             <title>1.2.0</title>
             <pubDate>Sun, 13 Sep 2026 22:15:09 -0400</pubDate>
             <sparkle:version>5</sparkle:version>
@@ -19,15 +36,6 @@
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.1.0/ShrinkerPro-1.1.0.dmg" length="3411133" type="application/octet-stream" sparkle:edSignature="YNy7Bo+QvU6MV70CsQoor/t0RAnSeNQEn+ATZvWKAS7cv/V7s02tRFqIEfbk6UY7tec/Ui+VpGgG4KBrTHpjCg=="/>
-        </item>
-        <item>
-            <title>1.0.2</title>
-            <pubDate>Thu, 10 Sep 2026 21:22:18 -0400</pubDate>
-            <sparkle:version>3</sparkle:version>
-            <sparkle:shortVersionString>1.0.2</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.0.2/ShrinkerPro-1.0.2.dmg" length="3387895" type="application/octet-stream" sparkle:edSignature="vbBKGzGczoZMOeasdU8ZwwVvIDe0iPul5R48J532aMXTE/C/JRJTPnJ5XyDHrchtGnYvlU0lFpSVXuPHpz6SCQ=="/>
         </item>
     </channel>
 </rss>

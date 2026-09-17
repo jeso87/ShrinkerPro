@@ -290,7 +290,9 @@ mozjpeg's progressive scans survive a metadata change intact.
   the same "Check for updates" toggle in Settings. Sparkle polls
   `appcast.xml` (published by `scripts/release.sh`, served from this repo's
   GitHub Pages) and verifies every update's EdDSA signature before offering
-  to install it.
+  to install it. What the update window shows people is written by hand in
+  `docs/release-notes/<version>.md` and embedded in the feed; `release.sh`
+  refuses to build a release that has none.
 
 ## Screenshots
 

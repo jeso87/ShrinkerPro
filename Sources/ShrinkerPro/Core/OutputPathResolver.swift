@@ -63,6 +63,24 @@ struct OutputSettings: Equatable {
     /// via gifsicle rather than ImageIO, because it is the only resizer here
     /// that leaves an animation animated.
     var maxDimension: Int? = nil
+    /// The shape — and in `.pixels` mode the size — every raster image is
+    /// cropped to from its center, the window's third session-scoped setting.
+    ///
+    /// `nil` means no cropping, and means it as thoroughly as `maxDimension`
+    /// does: with this and the cap both unset no dimension is read and every
+    /// file takes byte-for-byte the route it took before either existed.
+    ///
+    /// Shares `sessionFormat`'s lifetime and its reasoning, and the argument
+    /// against persisting it is the strongest of the three — a crop throws
+    /// pixels away. See `2026-09-17-center-crop-design.md` §2.
+    ///
+    /// Composes with `maxDimension` in one order, in both modes: crop, then
+    /// the crop's own pixel target, then the cap. Whichever asks for less
+    /// wins, and §3 of that spec records the consequence.
+    ///
+    /// SVG ignores it (a vector has no pixels to cut); GIF honours it, via
+    /// gifsicle rather than ImageIO, for the reason it honours the cap there.
+    var cropTarget: CropTarget? = nil
 }
 
 /// Port of upstream `generateNewPath` in image-shrinker's main.js.

@@ -61,6 +61,15 @@ struct CommandLineOptions: Equatable {
     /// places by design.
     var maxDimension: Int?
 
+    /// `--crop`: cut the largest centered rectangle of this shape out of every
+    /// image, and in pixel mode scale it down to this size. `nil` — the
+    /// default — leaves every image the shape it arrived.
+    ///
+    /// Session-scoped in the app for reasons that do not apply to a headless
+    /// run, where every invocation is its own session: the flag is the only
+    /// way to ask for it here, and it lasts exactly as long as the command.
+    var crop: CropTarget?
+
     /// `--metadata`: what survives compression. Defaults to `.all`, matching
     /// the app, which is the only value that doesn't silently discard EXIF
     /// the tool would otherwise have carried across.
@@ -419,6 +428,9 @@ extension CommandLineOptions {
       --to <format>            convert every image: jpeg, webp, avif, png
       --max-size <pixels>      shrink any image whose longest side is bigger
                                than this, keeping its aspect ratio
+      --crop <WxH|W:H>         crop the center of each image to this shape.
+                               1200x1200 also scales it down to that size;
+                               1:1 only changes the shape
       --metadata <policy>      all (default), copyright, none
       --out <directory>        write results here instead of beside each input
       --in-place               overwrite each original instead of writing a
@@ -437,13 +449,22 @@ extension CommandLineOptions {
       cannot open one, so keeping it is rarely what anyone wants.
       PNG and GIF ignore --quality — the tools that optimise them have no
       comparable setting, so those files are identical at every level.
-      SVG ignores --max-size: it is vector, so it has no pixel size to cap.
+      SVG ignores --max-size and --crop: it is vector, so it has no pixels.
       An image already within --max-size is left at the size it arrived.
+      --crop is applied exactly as given, so a portrait photo cropped to
+      16:9 comes out a landscape strip rather than a 9:16 portrait one.
+      Nothing is ever enlarged: an 800x600 image asked for --crop 1200x1200
+      comes out 600x600, the right shape and smaller than asked.
+      Note that 1:1 and 1x1 are both valid and mean very different things —
+      a square crop at full resolution, and a one-pixel image.
+      With --crop and --max-size together the crop happens first and the cap
+      applies to what it leaves, so --crop 1200x1200 --max-size 500 gives
+      500x500.
 
     Compressing never makes a file bigger. If a same-format result comes out
     larger than its source it is discarded, your original is kept, and the
-    saving is reported as 0%. Converting and resizing are exempt: growth
-    there is the thing you asked for.
+    saving is reported as 0%. Converting, resizing and cropping are exempt:
+    growth there is the thing you asked for.
 
     EXAMPLES
       shrinker photo.jpg
@@ -451,6 +472,7 @@ extension CommandLineOptions {
       shrinker --json --quality 85 diagram.png
       shrinker --if-exists keep-both --quality 60 photo.jpg
       shrinker --max-size 2000 ./camera-roll
+      shrinker --crop 1:1 --max-size 1200 ./avatars
     """
 
     /// These options as the engine wants them.
@@ -482,7 +504,8 @@ extension CommandLineOptions {
             metadataPolicy: metadata,
             quality: quality.settings,
             sessionFormat: convertTo,
-            maxDimension: maxDimension
+            maxDimension: maxDimension,
+            cropTarget: crop
         )
     }
 
@@ -499,6 +522,49 @@ extension CommandLineOptions {
         let normalised = value.lowercased()
         if normalised == "jpg" { return .jpeg }
         return SessionFormat.allCases.first { $0.rawValue.lowercased() == normalised }
+    }
+
+    /// `--crop`'s two spellings, told apart by their separator.
+    ///
+    /// `1200x1200` is a pixel size — crop to that shape, then scale down to
+    /// those numbers. `16:9` is a bare ratio — crop to that shape and leave
+    /// the resolution alone. The separator means the same thing it means in
+    /// the app, where the field shows `×` in pixel mode and `:` in ratio mode,
+    /// so what someone reads in the window is what they can type here.
+    ///
+    /// `X` and `×` are accepted alongside `x` for the reason `--to jpg` is:
+    /// someone copying `Crop 1200×1200` out of the app's own summary line
+    /// should not be told it is invalid.
+    ///
+    /// Everything else is refused rather than repaired, matching `--max-size`:
+    /// omitting the flag is how you say "no cropping", so a value that cannot
+    /// mean anything must not quietly become one that can. The range is the
+    /// same 1...20000 both front ends enforce.
+    ///
+    /// Worth knowing, and stated in `--help` because nothing can warn about
+    /// it: `1:1` and `1x1` are both valid and wildly different — a square crop
+    /// at full resolution, and a one-pixel image.
+    private static func parseCrop(_ value: String) -> CropTarget? {
+        let mode: CropTarget.Mode
+        let separator: Character
+        if value.contains(":") {
+            mode = .ratio
+            separator = ":"
+        } else if let found = value.first(where: { "xX\u{00D7}".contains($0) }) {
+            mode = .pixels
+            separator = found
+        } else {
+            return nil
+        }
+
+        let parts = value.split(separator: separator, omittingEmptySubsequences: false)
+        guard parts.count == 2 else { return nil }
+        guard let width = Int(parts[0]), let height = Int(parts[1]) else { return nil }
+        guard (CropTarget.minimumSide...CropTarget.maximumSide).contains(width),
+              (CropTarget.minimumSide...CropTarget.maximumSide).contains(height)
+        else { return nil }
+
+        return CropTarget(width: width, height: height, mode: mode)
     }
 
     /// `--metadata`'s vocabulary, matched against the stored rawValues.
@@ -577,6 +643,12 @@ extension CommandLineOptions {
                     throw CommandLineParseError.invalidValue(flag: argument, value: raw)
                 }
                 options.maxDimension = size
+            case "--crop":
+                let raw = try nextValue(for: argument)
+                guard let target = Self.parseCrop(raw) else {
+                    throw CommandLineParseError.invalidValue(flag: argument, value: raw)
+                }
+                options.crop = target
             case "--to":
                 let raw = try nextValue(for: argument)
                 guard let format = Self.parseFormat(raw) else {

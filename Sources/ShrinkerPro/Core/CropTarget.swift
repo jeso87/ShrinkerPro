@@ -27,9 +27,19 @@ struct CropTarget: Equatable, Sendable {
         case ratio
     }
 
-    /// Both are 1...20000, enforced by `CropField` on one side and `--crop` on
-    /// the other. `CropGeometry` treats anything else as no crop rather than
-    /// trusting it.
+    /// The smallest side worth expressing. Zero has no shape, and a negative
+    /// one has no meaning.
+    static let minimumSide = 1
+
+    /// The largest. Past this a "crop" stops describing anything anyone is
+    /// shrinking, and the bound exists so a slipped keypress cannot ask for
+    /// one. Shared with `MaxSizeField`, so the three numeric fields in the
+    /// session bar cannot drift apart.
+    static let maximumSide = 20_000
+
+    /// Both sides are `minimumSide...maximumSide`, enforced by `CropField` on
+    /// one side and `--crop` on the other. `CropGeometry` treats anything else
+    /// as no crop rather than trusting it.
     let width: Int
     let height: Int
     let mode: Mode

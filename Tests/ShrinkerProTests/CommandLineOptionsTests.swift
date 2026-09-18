@@ -733,4 +733,128 @@ final class MaxSizeFlagTests: XCTestCase {
     func testHelpDocumentsIt() {
         XCTAssertTrue(CommandLineOptions.helpText.contains("--max-size"))
     }
+
+    // MARK: - --crop
+
+    /// Pixel mode: the separator is `x`, and it means crop to that shape and
+    /// then scale down to exactly those numbers.
+    func testCropAcceptsAPixelSize() throws {
+        let options = try CommandLineOptions.parse(["--crop", "1200x800", "a.png"])
+        XCTAssertEqual(
+            options.crop, CropTarget(width: 1200, height: 800, mode: .pixels)
+        )
+    }
+
+    /// Ratio mode: the separator is `:`, and it means crop to that shape and
+    /// leave the resolution alone.
+    func testCropAcceptsARatio() throws {
+        let options = try CommandLineOptions.parse(["--crop", "16:9", "a.png"])
+        XCTAssertEqual(
+            options.crop, CropTarget(width: 16, height: 9, mode: .ratio)
+        )
+    }
+
+    /// **One character apart, and enormously different.** `1:1` is a square
+    /// crop at whatever resolution the source allows; `1x1` is a one-pixel
+    /// image. Both are legal, so nothing can warn about the wrong one — which
+    /// is why `--help` says so and why this pair is pinned here.
+    func testCropDistinguishesAOneByOnePixelFromASquareRatio() throws {
+        XCTAssertEqual(
+            try CommandLineOptions.parse(["--crop", "1:1", "a.png"]).crop,
+            CropTarget(width: 1, height: 1, mode: .ratio)
+        )
+        XCTAssertEqual(
+            try CommandLineOptions.parse(["--crop", "1x1", "a.png"]).crop,
+            CropTarget(width: 1, height: 1, mode: .pixels)
+        )
+    }
+
+    /// `X` and the multiplication sign are accepted alongside `x`, for the
+    /// same reason `--to jpg` works: someone copying `Crop 1200×1200` out of
+    /// the app's own summary line should not be told it is invalid.
+    func testCropAcceptsTheSpellingsPeopleActuallyType() throws {
+        for spelling in ["1200x800", "1200X800", "1200\u{00D7}800"] {
+            XCTAssertEqual(
+                try CommandLineOptions.parse(["--crop", spelling, "a.png"]).crop,
+                CropTarget(width: 1200, height: 800, mode: .pixels),
+                spelling
+            )
+        }
+    }
+
+    /// Rejected rather than clamped, matching `--max-size`: omitting the flag
+    /// is how you say "no cropping", so a value that cannot mean anything is
+    /// an error rather than a quiet "off" that would run a whole batch
+    /// uncropped while looking like it had been told otherwise.
+    func testCropRejectsValuesThatCannotMeanAnything() {
+        for raw in [
+            "1200",        // no separator at all
+            "1200x",       // half a size
+            "x800",
+            "axb",         // not numbers
+            "12ax9",
+            "0x100",       // zero has no shape
+            "100x0",
+            "0:1",
+            "-1x100",      // negatives
+            "1:2x3",       // two separators
+            "",            // nothing
+            "20001x100",   // outside the range both front ends enforce
+            "100:1000",
+        ] {
+            XCTAssertThrowsError(
+                try CommandLineOptions.parse(["--crop", raw, "a.png"]), raw
+            ) { error in
+                XCTAssertEqual(
+                    error as? CommandLineParseError,
+                    .invalidValue(flag: "--crop", value: raw),
+                    raw
+                )
+            }
+        }
+    }
+
+    func testCropWithoutAValueIsAMissingValueError() {
+        XCTAssertThrowsError(try CommandLineOptions.parse(["--crop"])) { error in
+            XCTAssertEqual(error as? CommandLineParseError, .missingValue("--crop"))
+        }
+    }
+
+    /// The flag reaches the engine by the same channel every other setting
+    /// does, so the CLI and the app cannot drift apart.
+    func testCropReachesOutputSettings() throws {
+        let options = try CommandLineOptions.parse(["--crop", "4:5", "a.png"])
+        XCTAssertEqual(
+            options.outputSettings.cropTarget,
+            CropTarget(width: 4, height: 5, mode: .ratio)
+        )
+    }
+
+    /// `--crop` and `--max-size` compose rather than conflict, so they are not
+    /// a contradictory pair — but the cap can win, which is surprising enough
+    /// that `--help` says so.
+    func testCropAndMaxSizeCanBeSetTogether() throws {
+        let options = try CommandLineOptions.parse(
+            ["--crop", "1200x1200", "--max-size", "500", "a.png"]
+        )
+        XCTAssertEqual(options.outputSettings.cropTarget?.width, 1200)
+        XCTAssertEqual(options.outputSettings.maxDimension, 500)
+    }
+
+    /// Absent unless asked for. The default has to stay off, because a crop
+    /// nobody requested would silently throw pixels away.
+    func testNoCropByDefault() throws {
+        XCTAssertNil(try CommandLineOptions.parse(["a.png"]).crop)
+        XCTAssertNil(try CommandLineOptions.parse(["a.png"]).outputSettings.cropTarget)
+    }
+
+    /// The help text has to mention the rules that would otherwise be found
+    /// out by surprise: that nothing is enlarged, that the shape is applied
+    /// literally, and that `--max-size` can win.
+    func testHelpExplainsTheCropRules() {
+        let help = CommandLineOptions.helpText
+        XCTAssertTrue(help.contains("--crop"), "the flag itself")
+        XCTAssertTrue(help.contains("1:1"), "the ratio spelling")
+        XCTAssertTrue(help.lowercased().contains("enlarged"), "the never-upscale rule")
+    }
 }

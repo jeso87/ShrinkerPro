@@ -132,11 +132,17 @@ final class AppModel: ObservableObject {
 
     /// Whether the two numbers are a pixel size or a bare ratio.
     ///
-    /// Changing it deliberately does **not** clear them: someone comparing
-    /// "1200 × 1200" with "1200 : 1200" is asking one question about the same
-    /// pair of numbers, and emptying the fields under them would make the
+    /// **Ratio is the default**, because it is the mode that composes with
+    /// everything else the bar does: a shape says nothing about size, so the
+    /// max size still applies and nothing has to be switched off to make room
+    /// for it. Pixel mode states a size outright, which is a stronger and
+    /// narrower thing to ask for, and it takes the max size out of play.
+    ///
+    /// Changing it deliberately does **not** clear the numbers: someone
+    /// comparing "1200 × 1200" with "1200 : 1200" is asking one question about
+    /// the same pair, and emptying the fields under them would make the
     /// comparison impossible to make twice.
-    @Published var sessionCropMode: CropTarget.Mode = .pixels
+    @Published var sessionCropMode: CropTarget.Mode = .ratio
 
     /// Exactly one of the two crop fields holds a number.
     ///
@@ -222,7 +228,7 @@ final class AppModel: ObservableObject {
         sessionMaxSizeText = ""
         sessionCropWidthText = ""
         sessionCropHeightText = ""
-        sessionCropMode = .pixels
+        sessionCropMode = .ratio
     }
 
     /// The sheet the window should be showing, if any. One category at a

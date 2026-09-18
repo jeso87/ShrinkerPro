@@ -66,36 +66,35 @@ enum SessionBarState {
         }
     }
 
-    /// Whether the max size will override the crop's exact size, and what the
-    /// result will actually be.
+    /// Whether the max size is out of play because a pixel crop has already
+    /// stated the output size.
     ///
-    /// Both settings compose in one order — crop, then the crop's own pixel
-    /// target, then the cap — and the cap can win. Someone who typed
-    /// 1200×1200 into the crop field and left 500 in the max size field gets a
-    /// 500×500 file, which is the correct composition and a genuine surprise.
-    /// The bar says so rather than the engine quietly picking a winner.
+    /// The two are answers to one question, and the crop is the more specific
+    /// of them: there is nothing a cap could add that typing smaller numbers
+    /// into the crop would not say better. Composing them meant "Crop
+    /// 1200×1200, Max 500px" quietly writing 500×500 files, which needed a
+    /// warning in the window to be survivable — and a warning about two
+    /// controls fighting is a sign that one of them should not be there.
     ///
-    /// Only in pixel mode: a ratio crop makes no promise about size, so a cap
-    /// deciding it is not overriding anything.
-    static func capOverridesCrop(crop: CropTarget?, maxDimension: Int?) -> Bool {
-        guard let crop, crop.mode == .pixels, let maxDimension else { return false }
-        return max(crop.width, crop.height) > maxDimension
+    /// So the field is disabled rather than overruled. A ratio crop is the
+    /// opposite case and leaves it alone entirely: a shape says nothing about
+    /// size, so the cap is the only thing sizing the result.
+    ///
+    /// Keyed on a *complete* pixel crop rather than on the mode alone. With
+    /// the fields empty there is no crop, nothing has stated a size, and
+    /// disabling the one control that could would leave the panel unable to
+    /// resize anything at all.
+    static func maxSizeIsSupersededByCrop(crop: CropTarget?) -> Bool {
+        crop?.exactSize != nil
     }
 
-    /// Empty whenever the warning is not shown, for the reason
-    /// `growthWarningHelp` is: the glyph holds its space permanently so the
-    /// row's height never shifts, and an empty string is what stops it showing
-    /// a tooltip for something nobody can see.
-    static func capOverridesCropHelp(crop: CropTarget?, maxDimension: Int?) -> String {
-        guard capOverridesCrop(crop: crop, maxDimension: maxDimension),
-              let crop, let maxDimension
-        else { return "" }
-        let longest = max(crop.width, crop.height)
-        let scale = Double(maxDimension) / Double(longest)
-        let width = max(1, Int((Double(crop.width) * scale).rounded()))
-        let height = max(1, Int((Double(crop.height) * scale).rounded()))
-        return "Your max size is smaller than the crop — images will come out "
-            + "\(width)×\(height), not \(crop.width)×\(crop.height)."
+    /// Empty when the field is live, for the reason `growthWarningHelp` is:
+    /// a tooltip nobody can see is worse than none.
+    static func maxSizeSupersededHelp(crop: CropTarget?) -> String {
+        guard let crop, maxSizeIsSupersededByCrop(crop: crop) else { return "" }
+        return "The crop already sets the size — every image comes out "
+            + "\(crop.width)×\(crop.height). Switch the crop to a ratio, or clear it, "
+            + "to use a max size."
     }
 
     /// The crop row's widths, and whether they fit.
@@ -498,17 +497,16 @@ struct SessionBarView: View {
 
             row("Max size") {
                 maxSizeField
-                // The crop's exact size loses to a smaller cap. Held in place
-                // with `opacity` rather than inserted conditionally, like the
-                // PNG growth warning above, so the row's height never shifts.
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundStyle(.orange)
-                    .font(.system(size: 11))
-                    .opacity(capOverridesCrop ? 1 : 0)
+                    .disabled(maxSizeIsSuperseded)
+                    // Dimmed rather than hidden: the value stays readable and
+                    // comes back the moment the crop is cleared or switched to
+                    // a ratio, so nothing the user typed is lost and the rule
+                    // is visible rather than remembered.
+                    .opacity(maxSizeIsSuperseded ? 0.4 : 1)
                     .help(
-                        SessionBarState.capOverridesCropHelp(
-                            crop: model.sessionCropTarget, maxDimension: model.sessionMaxDimension
-                        )
+                        maxSizeIsSuperseded
+                            ? SessionBarState.maxSizeSupersededHelp(crop: model.sessionCropTarget)
+                            : "Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected."
                     )
             }
 
@@ -614,13 +612,10 @@ struct SessionBarView: View {
         // longer belongs in it. It also leaves the three controls a similar
         // size, which a full-width field did not.
         .frame(width: 112)
-        .help("Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected.")
     }
 
-    private var capOverridesCrop: Bool {
-        SessionBarState.capOverridesCrop(
-            crop: model.sessionCropTarget, maxDimension: model.sessionMaxDimension
-        )
+    private var maxSizeIsSuperseded: Bool {
+        SessionBarState.maxSizeIsSupersededByCrop(crop: model.sessionCropTarget)
     }
 
     /// `[ W ] × [ H ]  [ px | ratio ]`.
@@ -680,9 +675,12 @@ struct SessionBarView: View {
                     )
             )
 
+            // Ratio first, because it is the default and the milder of the
+            // two: a shape leaves every other control alone, where a pixel
+            // size switches the max size off.
             Picker("Crop mode", selection: $model.sessionCropMode) {
-                Text("px").tag(CropTarget.Mode.pixels)
                 Text("ratio").tag(CropTarget.Mode.ratio)
+                Text("px").tag(CropTarget.Mode.pixels)
             }
             .labelsHidden()
             .pickerStyle(.segmented)
@@ -703,7 +701,8 @@ struct SessionBarView: View {
         case .pixels:
             return "Crops the center of each image to this shape, then scales it down to "
                 + "this size. Images already smaller are cropped but never enlarged, so a "
-                + "mixed batch may not come out all one size. " + shared
+                + "mixed batch may not come out all one size. This sets the output size "
+                + "outright, so the max size above does not apply. " + shared
         case .ratio:
             return "Crops the center of each image to this shape and leaves the size "
                 + "alone. The session's max size, if set, still applies. " + shared

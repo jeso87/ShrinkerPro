@@ -256,14 +256,18 @@ final class CenterCropTests: XCTestCase {
 
     // MARK: - Composition with the max size
 
-    /// Crop, then the crop's own pixel target, then the cap. Here the cap asks
-    /// for less, so it wins — and the file comes out 100×100 rather than the
-    /// 400×400 that was typed into the crop field.
+    /// **A pixel crop ignores the max size entirely**, even one asking for
+    /// less. The two are answers to one question and the crop is the more
+    /// specific: there is no size a cap could impose that smaller numbers in
+    /// the crop would not state better.
     ///
-    /// This is §3's surprise, pinned: the exact-size promise is broken by a cap
-    /// set for an unrelated reason, which is why the session bar warns about it
-    /// rather than the engine quietly picking a winner.
-    func testTheMaxSizeWinsWhenItAsksForLessThanTheCrop() throws {
+    /// Composing them was tried first, and produced 100×100 here — correct
+    /// arithmetic, and a file the size of neither thing the user typed. It
+    /// needed a warning in the window to be survivable, and a warning about
+    /// two controls fighting is a sign one of them should not be there. Both
+    /// front ends now refuse the pair instead: the window disables the field,
+    /// and `--crop WxH` with `--max-size` is a parse error.
+    func testAPixelCropIgnoresTheMaxSize() throws {
         let engine = try makeEngine()
         let input = try stagedFixture("sample", "png")
         defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
@@ -273,8 +277,8 @@ final class CenterCropTests: XCTestCase {
         )
 
         let output = try XCTUnwrap(size(of: result.output))
-        XCTAssertEqual(output.width, 100)
-        XCTAssertEqual(output.height, 100)
+        XCTAssertEqual(output.width, 400, "the cap overruled an exact crop")
+        XCTAssertEqual(output.height, 400)
     }
 
     /// A ratio crop with a cap: the shape comes from the crop, the size from

@@ -323,64 +323,53 @@ final class CropFieldTests: XCTestCase {
         XCTAssertEqual(CropField.committed("99999"), "20000")
     }
 
-    // MARK: - When the cap beats the crop
+    // MARK: - When the crop supersedes the max size
 
-    /// `Crop 1200×1200` with `Max 500px` produces a 500×500 file. That is the
-    /// only coherent composition of the two, and a genuine surprise, so the
-    /// bar says which number wins rather than letting it be discovered.
-    func testTheWarningAppearsWhenTheCapIsSmallerThanTheCrop() {
-        XCTAssertTrue(
-            SessionBarState.capOverridesCrop(crop: pixels(1200, 1200), maxDimension: 500)
-        )
-        XCTAssertFalse(
-            SessionBarState.capOverridesCrop(crop: pixels(1200, 1200), maxDimension: 2000)
-        )
-        XCTAssertFalse(
-            SessionBarState.capOverridesCrop(crop: pixels(1200, 1200), maxDimension: nil)
-        )
-        XCTAssertFalse(
-            SessionBarState.capOverridesCrop(crop: nil, maxDimension: 500)
-        )
+    /// A pixel crop states the output size outright, so the max size has
+    /// nothing left to cap and the field is switched off rather than
+    /// overruled. Composing them meant "Crop 1200×1200, Max 500px" quietly
+    /// writing 500×500 files — correct arithmetic, and a warning about two
+    /// controls fighting, which is a sign one of them should not be there.
+    func testAPixelCropSupersedesTheMaxSize() {
+        XCTAssertTrue(SessionBarState.maxSizeIsSupersededByCrop(crop: pixels(1200, 1200)))
+        XCTAssertTrue(SessionBarState.maxSizeIsSupersededByCrop(crop: pixels(40, 40)))
     }
 
-    /// A cap equal to the crop's longest side overrides nothing — the crop
-    /// already asks for exactly that.
-    func testACapEqualToTheCropIsNotAnOverride() {
-        XCTAssertFalse(
-            SessionBarState.capOverridesCrop(crop: pixels(1200, 800), maxDimension: 1200)
-        )
+    /// A ratio crop is the opposite case: it says nothing about size, so the
+    /// cap is the only thing sizing the result and stays live.
+    func testARatioCropLeavesTheMaxSizeAlone() {
+        XCTAssertFalse(SessionBarState.maxSizeIsSupersededByCrop(crop: ratio(1, 1)))
+        XCTAssertFalse(SessionBarState.maxSizeIsSupersededByCrop(crop: ratio(16, 9)))
     }
 
-    /// A ratio crop makes no promise about size, so a cap is not overriding
-    /// anything — it is doing the only sizing there is.
-    func testARatioCropIsNeverOverriddenByTheCap() {
-        XCTAssertFalse(
-            SessionBarState.capOverridesCrop(crop: ratio(1, 1), maxDimension: 10)
-        )
+    /// And with no crop at all the field is live, obviously — but worth
+    /// pinning, because keying this on the mode rather than on a finished
+    /// crop would disable the one control that can resize anything the moment
+    /// someone touched the mode switch.
+    func testNoCropLeavesTheMaxSizeAlone() {
+        XCTAssertFalse(SessionBarState.maxSizeIsSupersededByCrop(crop: nil))
     }
 
-    /// The warning states the size that will actually be written, because
-    /// "your max size is smaller" alone leaves the reader to do the
-    /// arithmetic.
-    func testTheWarningNamesTheSizeThatWillActuallyBeWritten() {
-        let help = SessionBarState.capOverridesCropHelp(
-            crop: pixels(1200, 800), maxDimension: 600
-        )
-        XCTAssertTrue(help.contains("600×400"), help)
+    /// The explanation names the size that will actually be written and both
+    /// ways out, because "does not apply" alone leaves the reader stuck.
+    func testTheExplanationNamesTheSizeAndTheWayOut() {
+        let help = SessionBarState.maxSizeSupersededHelp(crop: pixels(1200, 800))
         XCTAssertTrue(help.contains("1200×800"), help)
+        XCTAssertTrue(help.lowercased().contains("ratio"), help)
     }
 
-    /// Empty when there is nothing to warn about, so the glyph that holds its
-    /// space permanently does not show a tooltip for something invisible.
-    func testTheWarningIsEmptyWhenTheCapDoesNotWin() {
-        XCTAssertTrue(
-            SessionBarState.capOverridesCropHelp(
-                crop: pixels(1200, 1200), maxDimension: 2000
-            ).isEmpty
-        )
-        XCTAssertTrue(
-            SessionBarState.capOverridesCropHelp(crop: nil, maxDimension: 500).isEmpty
-        )
+    /// Empty while the field is live, so a dimmed-looking control never shows
+    /// a tooltip explaining a state it is not in.
+    func testTheExplanationIsEmptyWhileTheFieldIsLive() {
+        XCTAssertTrue(SessionBarState.maxSizeSupersededHelp(crop: ratio(1, 1)).isEmpty)
+        XCTAssertTrue(SessionBarState.maxSizeSupersededHelp(crop: nil).isEmpty)
+    }
+
+    /// Ratio leads the control and the enum, and is what a session starts on:
+    /// it is the milder of the two, leaving every other control alone where a
+    /// pixel size switches the max size off.
+    func testRatioIsTheFirstModeOffered() {
+        XCTAssertEqual(CropTarget.Mode.allCases, [.ratio, .pixels])
     }
 
     // MARK: - Does the row fit

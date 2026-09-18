@@ -59,8 +59,8 @@ it takes today. Stated as a requirement rather than an expectation because §9 t
 
 ## 3. Composition with the max size
 
-**Crop, then the crop's own pixel target, then the cap.** One order, in both modes, with
-no branch. Each step can only shrink what the last produced, which is why "never upscale"
+**Crop, then the crop's own pixel target, then the cap — and the cap only in ratio
+mode.** Each step can only shrink what the last produced, which is why "never upscale"
 needs no clause of its own: it is the shape of the function.
 
 | set | result |
@@ -68,13 +68,27 @@ needs no clause of its own: it is the shape of the function.
 | ratio only | crop to shape, keep the cropped size |
 | ratio + cap | crop to shape, then the cap over what is left |
 | pixels only | crop to shape, scale down to W×H — or to the cropped size, if that is smaller |
-| pixels + cap | as above, then the cap; whichever asks for less wins |
+| pixels + cap | **refused**: the crop has already set the size |
 
-The consequence worth naming: **`Crop 1200×1200` with `Max 500px` produces a 500×500
-file.** The exact-size promise is broken by a cap that was set for an unrelated reason.
-This is the only coherent composition of two constraints, so the answer is not to change
-the rule but to say so — §7 puts a warning beside the max size field whenever the cap is
-the one that will win.
+**A pixel crop and a max size are two answers to one question**, and the crop is the more
+specific of them. There is no size a cap could impose that smaller numbers in the crop
+would not state better, so a cap can only contradict it.
+
+Composing them was implemented first, and it worked: `Crop 1200×1200` with `Max 500px`
+produced a 500×500 file — correct arithmetic, and a file the size of neither thing the
+user had typed. It needed a warning beside the max size field to be survivable, and a
+warning about two controls fighting is a sign that one of them should not be there.
+
+So neither front end lets the pair through. The window disables and dims the max size
+field while a pixel crop is set, naming the size that will be written and both ways back
+(switch the crop to a ratio, or clear it). The CLI refuses `--crop WxH` alongside
+`--max-size` as contradictory flags, rather than accepting a flag and silently dropping
+it. A ratio crop is the opposite case throughout: it says nothing about size, the cap is
+the only thing sizing the result, and the two compose exactly as they did before cropping
+existed.
+
+**Ratio is therefore the default mode.** It is the milder of the two — it leaves every
+other control in the bar alone — and it is the one that composes.
 
 ## 4. Reading the size
 

@@ -523,6 +523,7 @@ final class SessionOverrideTests: XCTestCase {
     /// will do.
     func testATypedCropReachesADroppedFileWithoutBeingCommitted() async throws {
         let (model, _) = try makeModel()
+        model.sessionCropMode = .pixels
         model.sessionCropWidthText = "120"
         model.sessionCropHeightText = "80"
 
@@ -565,6 +566,7 @@ final class SessionOverrideTests: XCTestCase {
     /// having once been in it.
     func testCompletingTheCropUnblocksTheDrop() async throws {
         let (model, _) = try makeModel()
+        model.sessionCropMode = .pixels
         model.sessionCropWidthText = "120"
         model.sessionCropHeightText = "80"
 
@@ -632,6 +634,7 @@ final class SessionOverrideTests: XCTestCase {
     /// stored crop would quietly throw pixels away from every file forever.
     func testTheCropIsNeverPersisted() async throws {
         let (model, settings) = try makeModel()
+        model.sessionCropMode = .pixels
         model.sessionCropWidthText = "120"
         model.sessionCropHeightText = "80"
 
@@ -643,7 +646,7 @@ final class SessionOverrideTests: XCTestCase {
         )
     }
 
-    func testResetClearsTheCropAndReturnsToPixelMode() {
+    func testResetClearsTheCropAndReturnsToRatioMode() {
         let (model, _) = try! makeModel()
         model.sessionCropWidthText = "120"
         model.sessionCropHeightText = "80"
@@ -653,7 +656,7 @@ final class SessionOverrideTests: XCTestCase {
 
         XCTAssertEqual(model.sessionCropWidthText, "")
         XCTAssertEqual(model.sessionCropHeightText, "")
-        XCTAssertEqual(model.sessionCropMode, .pixels)
+        XCTAssertEqual(model.sessionCropMode, .ratio, "a session starts on ratio")
         XCTAssertNil(model.sessionCropTarget)
     }
 
@@ -678,13 +681,13 @@ final class SessionOverrideTests: XCTestCase {
         model.sessionCropWidthText = "1200"
         model.sessionCropHeightText = "1200"
 
-        model.sessionCropMode = .ratio
-        XCTAssertEqual(model.sessionCropTarget, CropTarget(width: 1200, height: 1200, mode: .ratio))
-
         model.sessionCropMode = .pixels
+        XCTAssertEqual(model.sessionCropTarget, CropTarget(width: 1200, height: 1200, mode: .pixels))
+
+        model.sessionCropMode = .ratio
         XCTAssertEqual(model.sessionCropWidthText, "1200")
         XCTAssertEqual(model.sessionCropHeightText, "1200")
-        XCTAssertEqual(model.sessionCropTarget, CropTarget(width: 1200, height: 1200, mode: .pixels))
+        XCTAssertEqual(model.sessionCropTarget, CropTarget(width: 1200, height: 1200, mode: .ratio))
     }
 
     // MARK: - Quality, which is now session state too

@@ -838,15 +838,39 @@ final class CropFlagTests: XCTestCase {
         )
     }
 
-    /// `--crop` and `--max-size` compose rather than conflict, so they are not
-    /// a contradictory pair — but the cap can win, which is surprising enough
-    /// that `--help` says so.
-    func testCropAndMaxSizeCanBeSetTogether() throws {
+    /// A ratio crop says nothing about size, so a cap is the only thing
+    /// sizing the result and the two compose exactly as they always have.
+    func testARatioCropComposesWithMaxSize() throws {
         let options = try CommandLineOptions.parse(
-            ["--crop", "1200x1200", "--max-size", "500", "a.png"]
+            ["--crop", "16:9", "--max-size", "1200", "a.png"]
         )
-        XCTAssertEqual(options.outputSettings.cropTarget?.width, 1200)
-        XCTAssertEqual(options.outputSettings.maxDimension, 500)
+        XCTAssertEqual(options.outputSettings.cropTarget?.mode, .ratio)
+        XCTAssertEqual(options.outputSettings.maxDimension, 1200)
+    }
+
+    /// A pixel crop has already stated the output size, so a cap has nothing
+    /// to add and can only contradict it. Refused rather than ignored: a flag
+    /// accepted and silently dropped is worse than one rejected with a reason.
+    func testAPixelCropAndMaxSizeAreRefusedTogether() {
+        XCTAssertThrowsError(
+            try CommandLineOptions.parse(["--crop", "1200x1200", "--max-size", "500", "a.png"])
+        ) { error in
+            guard case .contradictoryFlags(let one, let other, _) =
+                error as? CommandLineParseError
+            else { return XCTFail("expected contradictoryFlags, got \(error)") }
+            XCTAssertEqual(one, "--crop")
+            XCTAssertEqual(other, "--max-size")
+        }
+    }
+
+    /// `--help` still works alongside the refused pair, like every other
+    /// contradiction here: asking what the flags mean must not be answered
+    /// with a complaint about them.
+    func testHelpStillWorksWithTheRefusedPair() throws {
+        let options = try CommandLineOptions.parse(
+            ["--help", "--crop", "1200x1200", "--max-size", "500"]
+        )
+        XCTAssertTrue(options.showsHelp)
     }
 
     /// Absent unless asked for. The default has to stay off, because a crop

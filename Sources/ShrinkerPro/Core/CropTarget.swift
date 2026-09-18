@@ -19,12 +19,20 @@ import Foundation
 struct CropTarget: Equatable, Sendable {
 
     /// What the two numbers mean.
+    ///
+    /// Declared ratio first because that is the order they are offered in and
+    /// the one that is chosen by default — this project's other pickers are
+    /// driven straight off `allCases`, so keeping the declaration and the
+    /// control in step is the convention rather than a coincidence.
     enum Mode: String, Equatable, Sendable, CaseIterable {
-        /// `1200 × 1200` — crop to that shape, then scale down to that size.
-        case pixels
         /// `1 : 1` — crop to that shape and leave the resolution alone. The
         /// session's max size, if one is set, still applies to what is left.
+        /// The default, because it composes with everything else the bar does.
         case ratio
+        /// `1200 × 1200` — crop to that shape, then scale down to that size.
+        /// States the output size outright, which takes the max size out of
+        /// play.
+        case pixels
     }
 
     /// The smallest side worth expressing. Zero has no shape, and a negative

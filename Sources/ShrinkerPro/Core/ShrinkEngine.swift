@@ -596,10 +596,24 @@ final class ShrinkEngine {
             output = exact
         }
 
-        // 3. The session's max size, over whatever is left. Whichever of the
-        //    two constraints asks for less wins, and neither has to know the
-        //    other exists.
-        if let cap, output.longestSide > cap {
+        // 3. The session's max size, over whatever is left — but only when
+        //    the crop has not already stated an exact size.
+        //
+        //    A cap and a pixel crop are two answers to one question. The crop
+        //    is the more specific of them, and there is nothing a cap could
+        //    add to it that typing smaller numbers into the crop would not say
+        //    better, so the cap can only contradict it. Composing them meant
+        //    "Crop 1200×1200, Max 500px" quietly writing 500×500 files, which
+        //    needed a warning in the window to be survivable — a warning about
+        //    two controls fighting, which is a sign that one of them should
+        //    not have been there.
+        //
+        //    A ratio crop is the opposite case: it says nothing about size, so
+        //    the cap is the only thing sizing the result and composes with it
+        //    exactly as it did before cropping existed. Both front ends say so
+        //    in their own way — the window disables the field, and `--crop
+        //    WxH` with `--max-size` is refused at parse time.
+        if crop?.exactSize == nil, let cap, output.longestSide > cap {
             let scale = Double(cap) / Double(output.longestSide)
             output = PixelSize(
                 width: max(1, Int((Double(output.width) * scale).rounded())),

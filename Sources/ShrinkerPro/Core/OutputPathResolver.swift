@@ -74,9 +74,12 @@ struct OutputSettings: Equatable {
     /// against persisting it is the strongest of the three — a crop throws
     /// pixels away. See `2026-09-17-center-crop-design.md` §2.
     ///
-    /// Composes with `maxDimension` in one order, in both modes: crop, then
-    /// the crop's own pixel target, then the cap. Whichever asks for less
-    /// wins, and §3 of that spec records the consequence.
+    /// Composes with `maxDimension` only in `.ratio` mode, where the crop says
+    /// nothing about size and the cap is the only thing sizing the result. In
+    /// `.pixels` mode the crop has already stated the size and the cap is not
+    /// applied at all — two answers to one question, of which the crop is the
+    /// more specific. Both front ends refuse the combination rather than
+    /// letting it arrive here silently.
     ///
     /// SVG ignores it (a vector has no pixels to cut); GIF honours it, via
     /// gifsicle rather than ImageIO, for the reason it honours the cap there.

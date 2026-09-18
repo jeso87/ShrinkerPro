@@ -457,9 +457,9 @@ extension CommandLineOptions {
       comes out 600x600, the right shape and smaller than asked.
       Note that 1:1 and 1x1 are both valid and mean very different things —
       a square crop at full resolution, and a one-pixel image.
-      With --crop and --max-size together the crop happens first and the cap
-      applies to what it leaves, so --crop 1200x1200 --max-size 500 gives
-      500x500.
+      --max-size composes with a ratio crop, which says nothing about size:
+      --crop 16:9 --max-size 1200 crops the shape and then caps it. It is
+      refused alongside a pixel crop, which has already set the size.
 
     Compressing never makes a file bigger. If a same-format result comes out
     larger than its source it is discarded, your original is kept, and the
@@ -707,6 +707,23 @@ extension CommandLineOptions {
                 "--in-place", "--if-exists",
                 reason: "'--in-place' always overwrites the original itself, "
                     + "so there is no separate destination for '--if-exists' to decide about"
+            )
+        }
+
+        // A pixel crop states the output size outright, so a cap has nothing
+        // to add and can only contradict it — there is no size a cap could
+        // impose that smaller numbers in the crop would not say better.
+        // Refused rather than ignored, for the reason above: a flag that is
+        // accepted and does nothing is worse than one that is rejected and
+        // says why. The window makes the same rule visible by disabling the
+        // field. A ratio crop is the opposite case and composes with a cap
+        // exactly as it always has.
+        if options.crop?.exactSize != nil, options.maxDimension != nil, !options.showsHelp {
+            throw CommandLineParseError.contradictoryFlags(
+                "--crop", "--max-size",
+                reason: "a crop given in pixels already sets the output size, "
+                    + "so there is nothing left for '--max-size' to cap — "
+                    + "use a ratio like '--crop 16:9' if you want both"
             )
         }
 

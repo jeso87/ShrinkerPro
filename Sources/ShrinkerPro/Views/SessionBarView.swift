@@ -18,9 +18,13 @@ enum SessionBarState {
     /// settings would not", so someone whose stored quality is High and who
     /// has not touched the bar is not overriding anything.
     static func isModified(
-        format: SessionFormat?, quality: QualityLevel?, storedQuality: QualityLevel, maxDimension: Int?
+        format: SessionFormat?, quality: QualityLevel?, storedQuality: QualityLevel,
+        maxDimension: Int?, crop: CropTarget?
     ) -> Bool {
-        format != nil || (quality != nil && quality != storedQuality) || maxDimension != nil
+        format != nil
+            || (quality != nil && quality != storedQuality)
+            || maxDimension != nil
+            || crop != nil
     }
 
     /// The one-line summary of what will happen to the next files dropped.
@@ -29,13 +33,59 @@ enum SessionBarState {
     /// Max 2000px" — because the bar's job when collapsed is to answer "what
     /// is this about to do?", not to name its own controls.
     static func summary(
-        format: SessionFormat?, quality: QualityLevel?, storedQuality: QualityLevel, maxDimension: Int?
+        format: SessionFormat?, quality: QualityLevel?, storedQuality: QualityLevel,
+        maxDimension: Int?, crop: CropTarget?
     ) -> String {
         [
             format?.displayName ?? "App default",
             (quality ?? storedQuality).displayName,
             maxDimension.map { "Max \($0)px" } ?? "No limit",
+            crop.map(cropFragment) ?? "No crop",
         ].joined(separator: " · ")
+    }
+
+    /// `Crop 1200×1200` or `Crop 1:1`.
+    ///
+    /// The separator is the same glyph the field shows, so the summary reads
+    /// back as what was typed — and it is the only thing distinguishing "a
+    /// 1200 by 1200 image" from "a square, whatever size the source allows".
+    static func cropFragment(_ crop: CropTarget) -> String {
+        switch crop.mode {
+        case .pixels: return "Crop \(crop.width)×\(crop.height)"
+        case .ratio: return "Crop \(crop.width):\(crop.height)"
+        }
+    }
+
+    /// Whether the max size will override the crop's exact size, and what the
+    /// result will actually be.
+    ///
+    /// Both settings compose in one order — crop, then the crop's own pixel
+    /// target, then the cap — and the cap can win. Someone who typed
+    /// 1200×1200 into the crop field and left 500 in the max size field gets a
+    /// 500×500 file, which is the correct composition and a genuine surprise.
+    /// The bar says so rather than the engine quietly picking a winner.
+    ///
+    /// Only in pixel mode: a ratio crop makes no promise about size, so a cap
+    /// deciding it is not overriding anything.
+    static func capOverridesCrop(crop: CropTarget?, maxDimension: Int?) -> Bool {
+        guard let crop, crop.mode == .pixels, let maxDimension else { return false }
+        return max(crop.width, crop.height) > maxDimension
+    }
+
+    /// Empty whenever the warning is not shown, for the reason
+    /// `growthWarningHelp` is: the glyph holds its space permanently so the
+    /// row's height never shifts, and an empty string is what stops it showing
+    /// a tooltip for something nobody can see.
+    static func capOverridesCropHelp(crop: CropTarget?, maxDimension: Int?) -> String {
+        guard capOverridesCrop(crop: crop, maxDimension: maxDimension),
+              let crop, let maxDimension
+        else { return "" }
+        let longest = max(crop.width, crop.height)
+        let scale = Double(maxDimension) / Double(longest)
+        let width = max(1, Int((Double(crop.width) * scale).rounded()))
+        let height = max(1, Int((Double(crop.height) * scale).rounded()))
+        return "Your max size is smaller than the crop — images will come out "
+            + "\(width)×\(height), not \(crop.width)×\(crop.height)."
     }
 
     /// The width below which the bar drops its optional parts — the "This
@@ -50,6 +100,52 @@ enum SessionBarState {
 
     static func showsInlineDetails(atWidth width: CGFloat) -> Bool {
         width >= inlineDetailsMinimumWidth
+    }
+
+    /// The crop row's widths, and whether they fit.
+    ///
+    /// The expanded panel has no narrow-width fallback: its rows fit at
+    /// `ContentView`'s 340pt floor or they overflow it, and SwiftUI's response
+    /// to overflow is to squeeze the children rather than to complain. The
+    /// first version of this row did overflow — 220pt of content in 202pt of
+    /// space — and looked almost right on screen, which is exactly why the fit
+    /// is arithmetic pinned by a test rather than a layout somebody eyeballed.
+    enum CropRow {
+        /// Every control in this panel is this wide, because the max size
+        /// field is — see `SessionBarView.maxSizeField`. Matching it is what
+        /// gives the four rows one right edge; the crop's first attempt put
+        /// the mode picker beside the fields instead, which ran 170pt past
+        /// everything above it and made the panel look accidental.
+        static let controlWidth: CGFloat = 112
+
+        /// Inside the recessed capsule, each side.
+        static let capsulePadding: CGFloat = 9
+        /// Between the fields and the separator.
+        static let innerSpacing: CGFloat = 4
+        /// The `×` / `:` between them.
+        static let separatorWidth: CGFloat = 10
+
+        /// Each of the two number fields: whatever is left of the capsule once
+        /// its padding and the separator are taken out, shared equally.
+        /// Derived rather than written down, so the three cannot disagree.
+        static var fieldWidth: CGFloat {
+            (controlWidth - capsulePadding * 2 - separatorWidth - innerSpacing * 2) / 2
+        }
+
+        /// Between the fields and the mode control stacked beneath them.
+        static let rowSpacing: CGFloat = 6
+
+        static var width: CGFloat { controlWidth }
+    }
+
+    /// The panel's own chrome: 13pt gutters either side, a 104pt label column,
+    /// and 8pt between the label and its control.
+    static let panelGutters: CGFloat = 26
+    static let labelColumnWidth: CGFloat = 104
+    static let labelSpacing: CGFloat = 8
+
+    static func cropRowFits(atWindowWidth width: CGFloat) -> Bool {
+        width - panelGutters - labelColumnWidth - labelSpacing >= CropRow.width
     }
 
     /// PNG is the one override target whose consequence is genuinely
@@ -138,6 +234,50 @@ enum MaxSizeField {
     }
 }
 
+/// The crop fields' contents, and what the pair of them means.
+///
+/// Beside `MaxSizeField` and for the same reason: a rule left inline in a
+/// `body` is a rule no test can reach. It delegates filtering and clamping to
+/// that type rather than restating them, so the three numeric fields in this
+/// panel cannot drift apart — one range, one set of keystroke rules, one place
+/// to change them.
+enum CropField {
+
+    /// Digits only, no leading zeros, capped at five — `MaxSizeField`'s rules
+    /// exactly. Nothing special is done to a ratio like 20000:1: it asks for a
+    /// one-pixel strip, which is what was typed. Second-guessing it would
+    /// contradict the rule the whole feature rests on, that the target is
+    /// applied literally.
+    static func filter(_ text: String) -> String { MaxSizeField.filter(text) }
+
+    /// The text a field should settle on once editing ends, snapped into
+    /// range. Blank stays blank.
+    static func committed(_ text: String) -> String { MaxSizeField.committed(text) }
+
+    /// Whether exactly one side has been typed — the state the panel shows its
+    /// hint for. Not an error: someone halfway through typing a crop has not
+    /// done anything wrong yet.
+    static func isHalfFilled(width: String, height: String) -> Bool {
+        (MaxSizeField.dimension(from: width) == nil)
+            != (MaxSizeField.dimension(from: height) == nil)
+    }
+
+    /// The crop these two fields ask for, or `nil` for no cropping.
+    ///
+    /// **Both sides are required, and this is the rule that matters most
+    /// here.** A half-filled crop has to mean no crop, or someone types
+    /// "1200", drags a folder in, and every file is cropped to a height nobody
+    /// chose. It is the same failure the live parse was introduced to prevent,
+    /// one field along — and worse, because a wrong size can be redone from
+    /// the original while a wrong crop has thrown pixels away.
+    static func target(width: String, height: String, mode: CropTarget.Mode) -> CropTarget? {
+        guard let width = MaxSizeField.dimension(from: width),
+              let height = MaxSizeField.dimension(from: height)
+        else { return nil }
+        return CropTarget(width: width, height: height, mode: mode)
+    }
+}
+
 /// The window's session settings bar: one line saying what will happen to the
 /// next files dropped, and an Adjust button that expands the three controls
 /// in place.
@@ -165,14 +305,16 @@ struct SessionBarView: View {
     private var isModified: Bool {
         SessionBarState.isModified(
             format: model.sessionFormat, quality: model.sessionQuality,
-            storedQuality: settings.quality, maxDimension: model.sessionMaxDimension
+            storedQuality: settings.quality, maxDimension: model.sessionMaxDimension,
+            crop: model.sessionCropTarget
         )
     }
 
     private var summary: String {
         SessionBarState.summary(
             format: model.sessionFormat, quality: model.sessionQuality,
-            storedQuality: settings.quality, maxDimension: model.sessionMaxDimension
+            storedQuality: settings.quality, maxDimension: model.sessionMaxDimension,
+            crop: model.sessionCropTarget
         )
     }
 
@@ -281,7 +423,7 @@ struct SessionBarView: View {
                     // Left at its intrinsic width, and the handoff's
                     // full-width popups are the one place this bar departs
                     // from it. A macOS `.menu` picker does not stretch its
-                    // chrome: given a wider frame it centres the same button
+                    // chrome: given a wider frame it centers the same button
                     // inside it, which leaves the two popups' left edges
                     // ragged against the label column. Drawing the popup by
                     // hand would buy the design's exact fill at the cost of
@@ -318,14 +460,34 @@ struct SessionBarView: View {
 
             row("Max size") {
                 maxSizeField
+                // The crop's exact size loses to a smaller cap. Held in place
+                // with `opacity` rather than inserted conditionally, like the
+                // PNG growth warning above, so the row's height never shifts.
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.orange)
+                    .font(.system(size: 11))
+                    .opacity(capOverridesCrop ? 1 : 0)
+                    .help(
+                        SessionBarState.capOverridesCropHelp(
+                            crop: model.sessionCropTarget, maxDimension: model.sessionMaxDimension
+                        )
+                    )
+            }
+
+            stackedRow("Crop to") {
+                cropFields
             }
 
             HStack(spacing: 8) {
+                // Wraps rather than truncates. It was "Applies to this
+                // session only. Defaults live…" at every width the window
+                // actually gets used at, which is a sentence explaining the
+                // panel that the panel would not let you read.
                 Text("Applies to this session only. Defaults live in Settings.")
                     .font(.system(size: 11.5))
                     .foregroundStyle(.secondary)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .multilineTextAlignment(.leading)
                 Spacer(minLength: 0)
                 doneButton
             }
@@ -355,13 +517,34 @@ struct SessionBarView: View {
     private func row<Control: View>(
         _ label: String, @ViewBuilder control: () -> Control
     ) -> some View {
-        HStack(spacing: 8) {
-            Text(label)
-                .font(.system(size: 12.5))
-                .foregroundStyle(.secondary)
-                .frame(width: 104, alignment: .leading)
+        HStack(spacing: SessionBarState.labelSpacing) {
+            rowLabel(label)
             control()
         }
+    }
+
+    /// A row whose control is taller than one line, with the label centered
+    /// against the whole of it.
+    ///
+    /// The crop needs two: the numbers, and what they mean. Setting the mode
+    /// beside them instead made the row far wider than the three above it and
+    /// left the panel with a ragged right edge, so it goes underneath and the
+    /// label spans both — which also reads as one grouped control rather than
+    /// two unrelated ones that happen to share a line.
+    private func stackedRow<Control: View>(
+        _ label: String, @ViewBuilder control: () -> Control
+    ) -> some View {
+        HStack(alignment: .center, spacing: SessionBarState.labelSpacing) {
+            rowLabel(label)
+            control()
+        }
+    }
+
+    private func rowLabel(_ label: String) -> some View {
+        Text(label)
+            .font(.system(size: 12.5))
+            .foregroundStyle(.secondary)
+            .frame(width: SessionBarState.labelColumnWidth, alignment: .leading)
     }
 
     private var maxSizeField: some View {
@@ -399,6 +582,104 @@ struct SessionBarView: View {
         // size, which a full-width field did not.
         .frame(width: 112)
         .help("Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected.")
+    }
+
+    private var capOverridesCrop: Bool {
+        SessionBarState.capOverridesCrop(
+            crop: model.sessionCropTarget, maxDimension: model.sessionMaxDimension
+        )
+    }
+
+    /// `[ W ] × [ H ]  [ px | ratio ]`.
+    ///
+    /// **The separator does double duty**: `×` in pixel mode and `:` in ratio
+    /// mode. It is the cheapest possible signal that the mode has changed,
+    /// placed exactly where the numbers are, and it makes both modes read as
+    /// what people already write — `1200×1200`, `16:9`. The collapsed
+    /// summary uses the same two glyphs so the bar reads back as what was
+    /// typed.
+    ///
+    /// The mode is a segmented control rather than a third `.menu` picker,
+    /// which is a third control idiom in a four-row panel and is recorded as a
+    /// deviation in `2026-09-17-center-crop-design.md` §7 rather than left for
+    /// the designer to find. The reason: the mode is binary, and the two
+    /// numbers mean something entirely different depending on it, so it has to
+    /// be readable without opening anything.
+    private var cropFields: some View {
+        VStack(alignment: .leading, spacing: SessionBarState.CropRow.rowSpacing) {
+            HStack(spacing: SessionBarState.CropRow.innerSpacing) {
+                DigitsOnlyField(
+                    text: $model.sessionCropWidthText,
+                    placeholder: "W",
+                    onCommit: {
+                        model.sessionCropWidthText =
+                            CropField.committed(model.sessionCropWidthText)
+                    }
+                )
+                .accessibilityLabel("Crop width")
+                .frame(width: SessionBarState.CropRow.fieldWidth)
+
+                Text(model.sessionCropMode == .pixels ? "×" : ":")
+                    .font(.system(size: 12.5))
+                    .foregroundStyle(.secondary)
+                    .frame(width: SessionBarState.CropRow.separatorWidth)
+
+                DigitsOnlyField(
+                    text: $model.sessionCropHeightText,
+                    placeholder: "H",
+                    onCommit: {
+                        model.sessionCropHeightText =
+                            CropField.committed(model.sessionCropHeightText)
+                    }
+                )
+                .accessibilityLabel("Crop height")
+                .frame(width: SessionBarState.CropRow.fieldWidth)
+            }
+            .padding(.horizontal, SessionBarState.CropRow.capsulePadding)
+            .padding(.vertical, 5)
+            .frame(width: SessionBarState.CropRow.controlWidth)
+            .background(
+                RoundedRectangle(cornerRadius: 7)
+                    .fill(Theme.SessionBar.fieldFill)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 7)
+                            .strokeBorder(Theme.SessionBar.controlStroke, lineWidth: 0.5)
+                    )
+            )
+
+            Picker("Crop mode", selection: $model.sessionCropMode) {
+                Text("px").tag(CropTarget.Mode.pixels)
+                Text("ratio").tag(CropTarget.Mode.ratio)
+            }
+            .labelsHidden()
+            .pickerStyle(.segmented)
+            .controlSize(.small)
+            // `alignment: .leading`, because a segmented picker draws itself
+            // at its natural width and centres that inside whatever frame it
+            // is given — so the plain `width:` form left it indented under the
+            // capsule by half the difference. The same trap the `.menu`
+            // pickers above are documented for, in the other direction.
+            .frame(width: SessionBarState.CropRow.controlWidth, alignment: .leading)
+        }
+        .help(cropHelp)
+    }
+
+    /// Mode-dependent, and the only place the two rules people are most likely
+    /// to be surprised by are stated: that the shape is used exactly as typed,
+    /// and that nothing is ever enlarged.
+    private var cropHelp: String {
+        let shared = "Both sides are needed. The shape is used exactly as typed, "
+            + "so a portrait photo cropped to 16:9 comes out as a landscape strip. "
+            + "SVG is unaffected. Not saved — it resets when you quit."
+        switch model.sessionCropMode {
+        case .pixels:
+            return "Crops the center of each image to this shape, then scales it down to "
+                + "this size. Images already smaller are cropped but never enlarged, so a "
+                + "mixed batch may not come out all one size. " + shared
+        case .ratio:
+            return "Crops the center of each image to this shape and leaves the size "
+                + "alone. The session's max size, if set, still applies. " + shared
+        }
     }
 
     // MARK: Buttons

@@ -56,7 +56,7 @@ final class SessionBarStateTests: XCTestCase {
     func testNothingSetIsNotModified() {
         XCTAssertFalse(
             SessionBarState.isModified(
-                format: nil, quality: nil, storedQuality: .standard, maxDimension: nil
+                format: nil, quality: nil, storedQuality: .standard, maxDimension: nil, crop: nil
             )
         )
     }
@@ -64,19 +64,19 @@ final class SessionBarStateTests: XCTestCase {
     func testAnyOneSettingMakesItModified() {
         XCTAssertTrue(
             SessionBarState.isModified(
-                format: .webp, quality: nil, storedQuality: .standard, maxDimension: nil
+                format: .webp, quality: nil, storedQuality: .standard, maxDimension: nil, crop: nil
             ),
             "a format override"
         )
         XCTAssertTrue(
             SessionBarState.isModified(
-                format: nil, quality: .high, storedQuality: .standard, maxDimension: nil
+                format: nil, quality: .high, storedQuality: .standard, maxDimension: nil, crop: nil
             ),
             "a quality that differs from the stored default"
         )
         XCTAssertTrue(
             SessionBarState.isModified(
-                format: nil, quality: nil, storedQuality: .standard, maxDimension: 2000
+                format: nil, quality: nil, storedQuality: .standard, maxDimension: 2000, crop: nil
             ),
             "a max size"
         )
@@ -88,12 +88,12 @@ final class SessionBarStateTests: XCTestCase {
     func testMatchingTheStoredQualityIsNotAnOverride() {
         XCTAssertFalse(
             SessionBarState.isModified(
-                format: nil, quality: .high, storedQuality: .high, maxDimension: nil
+                format: nil, quality: .high, storedQuality: .high, maxDimension: nil, crop: nil
             )
         )
         XCTAssertTrue(
             SessionBarState.isModified(
-                format: nil, quality: .standard, storedQuality: .high, maxDimension: nil
+                format: nil, quality: .standard, storedQuality: .high, maxDimension: nil, crop: nil
             ),
             "choosing Standard when the stored default is High IS an override"
         )
@@ -104,18 +104,18 @@ final class SessionBarStateTests: XCTestCase {
     func testTheDefaultSummaryNamesTheDefaults() {
         XCTAssertEqual(
             SessionBarState.summary(
-                format: nil, quality: nil, storedQuality: .standard, maxDimension: nil
+                format: nil, quality: nil, storedQuality: .standard, maxDimension: nil, crop: nil
             ),
-            "App default · Standard · No limit"
+            "App default · Standard · No limit · No crop"
         )
     }
 
     func testTheSummaryStatesEverySessionValue() {
         XCTAssertEqual(
             SessionBarState.summary(
-                format: .webp, quality: .high, storedQuality: .standard, maxDimension: 2000
+                format: .webp, quality: .high, storedQuality: .standard, maxDimension: 2000, crop: nil
             ),
-            "WebP · High · Max 2000px"
+            "WebP · High · Max 2000px · No crop"
         )
     }
 
@@ -124,9 +124,9 @@ final class SessionBarStateTests: XCTestCase {
     func testAnUntouchedQualityShowsTheStoredDefault() {
         XCTAssertEqual(
             SessionBarState.summary(
-                format: nil, quality: nil, storedQuality: .superLow, maxDimension: nil
+                format: nil, quality: nil, storedQuality: .superLow, maxDimension: nil, crop: nil
             ),
-            "App default · Super Low · No limit"
+            "App default · Super Low · No limit · No crop"
         )
     }
 
@@ -136,7 +136,7 @@ final class SessionBarStateTests: XCTestCase {
         for level in QualityLevel.allCases {
             XCTAssertTrue(
                 SessionBarState.summary(
-                    format: nil, quality: level, storedQuality: .standard, maxDimension: nil
+                    format: nil, quality: level, storedQuality: .standard, maxDimension: nil, crop: nil
                 )
                 .contains(level.displayName),
                 "\(level) is missing from its own summary"
@@ -221,5 +221,200 @@ final class MaxSizeFieldTests: XCTestCase {
         XCTAssertEqual(MaxSizeField.committed("2000"), "2000")
         XCTAssertEqual(MaxSizeField.committed("0"), "", "zero commits to the off state")
         XCTAssertEqual(MaxSizeField.committed(""), "")
+    }
+}
+
+/// `CropField`, and the parts of `SessionBarState` the crop row drives.
+///
+/// Its own class rather than an appendix to `MaxSizeFieldTests`: the two
+/// fields share their keystroke rules deliberately, and one test here asserts
+/// exactly that, but everything else about a crop is its own subject.
+final class CropFieldTests: XCTestCase {
+
+    // MARK: - The crop
+
+    private func pixels(_ w: Int, _ h: Int) -> CropTarget {
+        CropTarget(width: w, height: h, mode: .pixels)
+    }
+
+    private func ratio(_ w: Int, _ h: Int) -> CropTarget {
+        CropTarget(width: w, height: h, mode: .ratio)
+    }
+
+    /// The separator is the whole difference between "a 1200 by 1200 image"
+    /// and "a square, whatever size the source allows", and the summary uses
+    /// the same two glyphs the field does so the bar reads back as what was
+    /// typed.
+    func testTheSummaryDistinguishesThePixelAndRatioModes() {
+        XCTAssertEqual(SessionBarState.cropFragment(pixels(1200, 1200)), "Crop 1200×1200")
+        XCTAssertEqual(SessionBarState.cropFragment(ratio(1, 1)), "Crop 1:1")
+        XCTAssertEqual(SessionBarState.cropFragment(ratio(16, 9)), "Crop 16:9")
+    }
+
+    func testTheSummaryStatesTheCropAlongsideEverythingElse() {
+        XCTAssertEqual(
+            SessionBarState.summary(
+                format: .webp, quality: .high, storedQuality: .standard,
+                maxDimension: 2000, crop: pixels(1200, 1200)
+            ),
+            "WebP · High · Max 2000px · Crop 1200×1200"
+        )
+    }
+
+    func testTheSummarySaysSoWhenThereIsNoCrop() {
+        XCTAssertEqual(
+            SessionBarState.summary(
+                format: nil, quality: nil, storedQuality: .standard,
+                maxDimension: nil, crop: nil
+            ),
+            "App default · Standard · No limit · No crop"
+        )
+    }
+
+    func testACropAloneMakesTheSessionModified() {
+        XCTAssertTrue(
+            SessionBarState.isModified(
+                format: nil, quality: nil, storedQuality: .standard,
+                maxDimension: nil, crop: ratio(1, 1)
+            )
+        )
+    }
+
+    // MARK: - Both sides are needed
+
+    /// **A half-filled crop is no crop.** Otherwise someone types "1200", drags
+    /// a folder in, and every file is cropped to a height nobody chose — the
+    /// same failure the live parse was introduced to prevent, one field along,
+    /// and worse: a wrong size can be redone from the original, a wrong crop
+    /// has already thrown pixels away.
+    func testOneSideAloneIsNotACrop() {
+        XCTAssertNil(CropField.target(width: "1200", height: "", mode: .pixels))
+        XCTAssertNil(CropField.target(width: "", height: "1200", mode: .pixels))
+        XCTAssertNil(CropField.target(width: "", height: "", mode: .ratio))
+        // Zero is the off state for a field, so it behaves as blank does.
+        XCTAssertNil(CropField.target(width: "1200", height: "0", mode: .pixels))
+    }
+
+    func testBothSidesTogetherAreACrop() {
+        XCTAssertEqual(
+            CropField.target(width: "1200", height: "800", mode: .pixels),
+            pixels(1200, 800)
+        )
+        XCTAssertEqual(
+            CropField.target(width: "16", height: "9", mode: .ratio),
+            ratio(16, 9)
+        )
+    }
+
+    /// The hint's condition: exactly one side typed. Neither and both are
+    /// settled states, and neither deserves a nag.
+    func testTheHintAppearsOnlyWhileExactlyOneSideIsTyped() {
+        XCTAssertTrue(CropField.isHalfFilled(width: "1200", height: ""))
+        XCTAssertTrue(CropField.isHalfFilled(width: "", height: "800"))
+        XCTAssertFalse(CropField.isHalfFilled(width: "", height: ""))
+        XCTAssertFalse(CropField.isHalfFilled(width: "1200", height: "800"))
+    }
+
+    /// The three numeric fields in this panel share one set of rules, so a
+    /// change to one cannot quietly leave the others behind.
+    func testTheCropFieldsFilterExactlyAsTheMaxSizeFieldDoes() {
+        for raw in ["12a3", "0012", "999999", "", "0", "  45  ", "1.5"] {
+            XCTAssertEqual(CropField.filter(raw), MaxSizeField.filter(raw), raw)
+            XCTAssertEqual(CropField.committed(raw), MaxSizeField.committed(raw), raw)
+        }
+    }
+
+    func testAnOutOfRangeSideSnapsOnCommit() {
+        XCTAssertEqual(CropField.committed("99999"), "20000")
+    }
+
+    // MARK: - When the cap beats the crop
+
+    /// `Crop 1200×1200` with `Max 500px` produces a 500×500 file. That is the
+    /// only coherent composition of the two, and a genuine surprise, so the
+    /// bar says which number wins rather than letting it be discovered.
+    func testTheWarningAppearsWhenTheCapIsSmallerThanTheCrop() {
+        XCTAssertTrue(
+            SessionBarState.capOverridesCrop(crop: pixels(1200, 1200), maxDimension: 500)
+        )
+        XCTAssertFalse(
+            SessionBarState.capOverridesCrop(crop: pixels(1200, 1200), maxDimension: 2000)
+        )
+        XCTAssertFalse(
+            SessionBarState.capOverridesCrop(crop: pixels(1200, 1200), maxDimension: nil)
+        )
+        XCTAssertFalse(
+            SessionBarState.capOverridesCrop(crop: nil, maxDimension: 500)
+        )
+    }
+
+    /// A cap equal to the crop's longest side overrides nothing — the crop
+    /// already asks for exactly that.
+    func testACapEqualToTheCropIsNotAnOverride() {
+        XCTAssertFalse(
+            SessionBarState.capOverridesCrop(crop: pixels(1200, 800), maxDimension: 1200)
+        )
+    }
+
+    /// A ratio crop makes no promise about size, so a cap is not overriding
+    /// anything — it is doing the only sizing there is.
+    func testARatioCropIsNeverOverriddenByTheCap() {
+        XCTAssertFalse(
+            SessionBarState.capOverridesCrop(crop: ratio(1, 1), maxDimension: 10)
+        )
+    }
+
+    /// The warning states the size that will actually be written, because
+    /// "your max size is smaller" alone leaves the reader to do the
+    /// arithmetic.
+    func testTheWarningNamesTheSizeThatWillActuallyBeWritten() {
+        let help = SessionBarState.capOverridesCropHelp(
+            crop: pixels(1200, 800), maxDimension: 600
+        )
+        XCTAssertTrue(help.contains("600×400"), help)
+        XCTAssertTrue(help.contains("1200×800"), help)
+    }
+
+    /// Empty when there is nothing to warn about, so the glyph that holds its
+    /// space permanently does not show a tooltip for something invisible.
+    func testTheWarningIsEmptyWhenTheCapDoesNotWin() {
+        XCTAssertTrue(
+            SessionBarState.capOverridesCropHelp(
+                crop: pixels(1200, 1200), maxDimension: 2000
+            ).isEmpty
+        )
+        XCTAssertTrue(
+            SessionBarState.capOverridesCropHelp(crop: nil, maxDimension: 500).isEmpty
+        )
+    }
+
+    // MARK: - Does the row fit
+
+    /// The expanded panel has no narrow-width fallback — its rows fit at
+    /// `ContentView`'s 340pt floor or they overflow it — and SwiftUI answers
+    /// overflow by squeezing the children rather than by complaining. The
+    /// first version of this row overflowed by 18pt and looked very nearly
+    /// right on screen, which is why the fit is asserted here rather than
+    /// eyeballed.
+    func testTheCropRowFitsAtTheWindowsNarrowestWidth() {
+        XCTAssertTrue(SessionBarState.cropRowFits(atWindowWidth: 340))
+    }
+
+    /// And the test has to be capable of failing: a row that fits at any width
+    /// would pass the assertion above while telling us nothing.
+    func testTheFitCheckActuallyRefusesAWindowTooNarrow() {
+        XCTAssertFalse(SessionBarState.cropRowFits(atWindowWidth: 200))
+    }
+
+    /// Stated as a number so that changing any one width has to be a
+    /// deliberate act rather than a quiet accumulation.
+    func testTheCropRowsWidthIsWhatItsPartsAddUpTo() {
+        XCTAssertEqual(SessionBarState.CropRow.width, 112)
+        XCTAssertEqual(
+            SessionBarState.CropRow.width, 112,
+            "the crop row must be exactly as wide as the max size field above it"
+        )
+        // 112 = 9 + 38 + 4 + 10 + 4 + 38 + 9
+        XCTAssertEqual(SessionBarState.CropRow.fieldWidth, 38)
     }
 }

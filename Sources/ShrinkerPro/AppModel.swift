@@ -107,6 +107,45 @@ final class AppModel: ObservableObject {
         MaxSizeField.dimension(from: sessionMaxSizeText)
     }
 
+    /// The crop fields' contents, as typed, and which of the two modes those
+    /// numbers are in. Session-scoped exactly like the settings above, and for
+    /// the same reasons — with the argument against persisting a crop being
+    /// the strongest of the three, because a crop throws pixels away.
+    ///
+    /// Two strings and a mode rather than a `CropTarget?`, because the fields
+    /// are the source of truth and are parsed on every keystroke. The `didSet`
+    /// filters in place; `CropField.filter` is idempotent, which is what stops
+    /// the assignment recurring.
+    @Published var sessionCropWidthText: String = "" {
+        didSet {
+            let filtered = CropField.filter(sessionCropWidthText)
+            if filtered != sessionCropWidthText { sessionCropWidthText = filtered }
+        }
+    }
+
+    @Published var sessionCropHeightText: String = "" {
+        didSet {
+            let filtered = CropField.filter(sessionCropHeightText)
+            if filtered != sessionCropHeightText { sessionCropHeightText = filtered }
+        }
+    }
+
+    /// Whether the two numbers are a pixel size or a bare ratio.
+    ///
+    /// Changing it deliberately does **not** clear them: someone comparing
+    /// "1200 × 1200" with "1200 : 1200" is asking one question about the same
+    /// pair of numbers, and emptying the fields under them would make the
+    /// comparison impossible to make twice.
+    @Published var sessionCropMode: CropTarget.Mode = .pixels
+
+    /// What the fields above mean to the engine, or `nil` for no cropping —
+    /// which is what a half-filled pair means too. See `CropField.target`.
+    var sessionCropTarget: CropTarget? {
+        CropField.target(
+            width: sessionCropWidthText, height: sessionCropHeightText, mode: sessionCropMode
+        )
+    }
+
     /// The encoder quality this session is using, or `nil` to use the stored
     /// default from Settings.
     ///
@@ -143,6 +182,8 @@ final class AppModel: ObservableObject {
     func setSessionPanel(expanded: Bool) {
         if !expanded {
             sessionMaxSizeText = MaxSizeField.committed(sessionMaxSizeText)
+            sessionCropWidthText = CropField.committed(sessionCropWidthText)
+            sessionCropHeightText = CropField.committed(sessionCropHeightText)
         }
         isSessionPanelExpanded = expanded
     }
@@ -154,6 +195,9 @@ final class AppModel: ObservableObject {
         sessionFormat = nil
         sessionQuality = nil
         sessionMaxSizeText = ""
+        sessionCropWidthText = ""
+        sessionCropHeightText = ""
+        sessionCropMode = .pixels
     }
 
     /// The sheet the window should be showing, if any. One category at a
@@ -337,6 +381,7 @@ final class AppModel: ObservableObject {
             var snapshot = settings.outputSettings
             snapshot.sessionFormat = sessionFormat
             snapshot.maxDimension = sessionMaxDimension
+            snapshot.cropTarget = sessionCropTarget
             // `outputSettings` has already resolved the stored quality, so
             // this replaces it only when the session says otherwise.
             if let sessionQuality { snapshot.quality = sessionQuality.settings }

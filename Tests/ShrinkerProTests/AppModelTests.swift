@@ -516,6 +516,98 @@ final class SessionOverrideTests: XCTestCase {
         )
     }
 
+    // MARK: - The crop, which is session state too
+
+    /// Typed and in force, without a Return and without closing the panel —
+    /// so dropping files straight after typing does what it looks like it
+    /// will do.
+    func testATypedCropReachesADroppedFileWithoutBeingCommitted() async throws {
+        let (model, _) = try makeModel()
+        model.sessionCropWidthText = "120"
+        model.sessionCropHeightText = "80"
+
+        await model.process(urls: [try staged("sample", "png")])
+
+        let output = try XCTUnwrap(model.rows.first?.output)
+        let size = try XCTUnwrap(ImageMetadata.header(of: output).pixelSize)
+        XCTAssertEqual(size.width, 120)
+        XCTAssertEqual(size.height, 80)
+    }
+
+    /// **Half a crop is no crop.** With only one side typed the drop must be
+    /// processed uncropped, rather than against a height nobody chose.
+    func testAHalfTypedCropLeavesADroppedFileAlone() async throws {
+        let (model, _) = try makeModel()
+        model.sessionCropWidthText = "120"
+
+        await model.process(urls: [try staged("sample", "png")])
+
+        let output = try XCTUnwrap(model.rows.first?.output)
+        let size = try XCTUnwrap(ImageMetadata.header(of: output).pixelSize)
+        XCTAssertEqual(size.width, 548, "the file was cropped on one number")
+        XCTAssertEqual(size.height, 547)
+    }
+
+    /// Session state, like the format override and the max size: it must never
+    /// reach the defaults database. The argument is strongest here, because a
+    /// stored crop would quietly throw pixels away from every file forever.
+    func testTheCropIsNeverPersisted() async throws {
+        let (model, settings) = try makeModel()
+        model.sessionCropWidthText = "120"
+        model.sessionCropHeightText = "80"
+
+        await model.process(urls: [try staged("sample", "png")])
+
+        XCTAssertNil(
+            settings.outputSettings.cropTarget,
+            "the crop must not be written into the settings snapshot"
+        )
+    }
+
+    func testResetClearsTheCropAndReturnsToPixelMode() {
+        let (model, _) = try! makeModel()
+        model.sessionCropWidthText = "120"
+        model.sessionCropHeightText = "80"
+        model.sessionCropMode = .ratio
+
+        model.resetSessionSettings()
+
+        XCTAssertEqual(model.sessionCropWidthText, "")
+        XCTAssertEqual(model.sessionCropHeightText, "")
+        XCTAssertEqual(model.sessionCropMode, .pixels)
+        XCTAssertNil(model.sessionCropTarget)
+    }
+
+    /// Closing the panel settles both fields, the same moment the max size
+    /// settles — Done, Escape, a click outside and a drop all arrive there.
+    func testClosingThePanelSnapsBothCropFieldsIntoRange() {
+        let (model, _) = try! makeModel()
+        model.setSessionPanel(expanded: true)
+        model.sessionCropWidthText = "99999"
+        model.sessionCropHeightText = "99999"
+
+        model.setSessionPanel(expanded: false)
+
+        XCTAssertEqual(model.sessionCropWidthText, "20000")
+        XCTAssertEqual(model.sessionCropHeightText, "20000")
+    }
+
+    /// Switching mode is a question about the same two numbers, so it must not
+    /// empty the fields under them.
+    func testSwitchingCropModeKeepsTheNumbers() {
+        let (model, _) = try! makeModel()
+        model.sessionCropWidthText = "1200"
+        model.sessionCropHeightText = "1200"
+
+        model.sessionCropMode = .ratio
+        XCTAssertEqual(model.sessionCropTarget, CropTarget(width: 1200, height: 1200, mode: .ratio))
+
+        model.sessionCropMode = .pixels
+        XCTAssertEqual(model.sessionCropWidthText, "1200")
+        XCTAssertEqual(model.sessionCropHeightText, "1200")
+        XCTAssertEqual(model.sessionCropTarget, CropTarget(width: 1200, height: 1200, mode: .pixels))
+    }
+
     // MARK: - Quality, which is now session state too
 
     /// Untouched means "whatever Settings says", not a copy of it taken at

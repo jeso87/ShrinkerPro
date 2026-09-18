@@ -32,9 +32,19 @@ enum SessionBarState {
     /// Reads as a sentence of values rather than of labels — "WebP · High ·
     /// Max 2000px" — because the bar's job when collapsed is to answer "what
     /// is this about to do?", not to name its own controls.
+    /// What a half-typed crop says in the summary.
+    ///
+    /// A crop with one number is not a crop, so nothing is cropped — and
+    /// saying nothing about it would reproduce exactly the defect the live
+    /// parse was built to prevent: a number sitting on screen as evidence that
+    /// something should have happened, and a batch processed as though it had
+    /// never been typed. The bar exists to state what will happen to the next
+    /// files dropped, so it states this too.
+    static let halfFilledCropSummary = "Crop needs both sides"
+
     static func summary(
         format: SessionFormat?, quality: QualityLevel?, storedQuality: QualityLevel,
-        maxDimension: Int?, crop: CropTarget?
+        maxDimension: Int?, crop: CropTarget?, cropIsHalfFilled: Bool = false
     ) -> String {
         [
             format?.displayName ?? "App default",
@@ -46,7 +56,7 @@ enum SessionBarState {
             // default summary past the width of the default window, and a
             // summary that truncates while saying nothing is worse than a
             // shorter one. A crop that *is* set is worth the characters.
-            crop.map(cropFragment),
+            crop.map(cropFragment) ?? (cropIsHalfFilled ? halfFilledCropSummary : nil),
         ].compactMap { $0 }.joined(separator: " · ")
     }
 
@@ -305,11 +315,20 @@ struct SessionBarView: View {
         )
     }
 
+    /// Exactly one of the two crop fields holds a number, which means no crop
+    /// at all. Surfaced rather than left silent — see
+    /// `SessionBarState.halfFilledCropSummary`.
+    private var cropIsHalfFilled: Bool {
+        CropField.isHalfFilled(
+            width: model.sessionCropWidthText, height: model.sessionCropHeightText
+        )
+    }
+
     private var summary: String {
         SessionBarState.summary(
             format: model.sessionFormat, quality: model.sessionQuality,
             storedQuality: settings.quality, maxDimension: model.sessionMaxDimension,
-            crop: model.sessionCropTarget
+            crop: model.sessionCropTarget, cropIsHalfFilled: cropIsHalfFilled
         )
     }
 
@@ -506,6 +525,17 @@ struct SessionBarView: View {
 
             row("Crop to") {
                 cropFields
+                // Holds its space with `opacity`, like the two warnings above,
+                // so the row's height never shifts as it is typed into.
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.orange)
+                    .font(.system(size: 11))
+                    .opacity(cropIsHalfFilled ? 1 : 0)
+                    .help(
+                        cropIsHalfFilled
+                            ? "A crop needs both sides. With only one filled in, nothing is cropped."
+                            : ""
+                    )
             }
 
             HStack(spacing: 8) {

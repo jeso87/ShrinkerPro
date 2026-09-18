@@ -733,6 +733,14 @@ final class MaxSizeFlagTests: XCTestCase {
     func testHelpDocumentsIt() {
         XCTAssertTrue(CommandLineOptions.helpText.contains("--max-size"))
     }
+}
+
+/// `--crop`, its two spellings, and everything it refuses.
+///
+/// Its own class rather than an appendix to the max size flag's, because the
+/// two settings compose rather than overlap and a reader looking for one
+/// should not have to scroll through the other.
+final class CropFlagTests: XCTestCase {
 
     // MARK: - --crop
 
@@ -800,7 +808,7 @@ final class MaxSizeFlagTests: XCTestCase {
             "1:2x3",       // two separators
             "",            // nothing
             "20001x100",   // outside the range both front ends enforce
-            "100:1000",
+            "100:20001", // outside the range on the other side
         ] {
             XCTAssertThrowsError(
                 try CommandLineOptions.parse(["--crop", raw, "a.png"]), raw

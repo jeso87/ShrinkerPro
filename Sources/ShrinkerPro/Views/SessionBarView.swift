@@ -335,59 +335,93 @@ struct SessionBarView: View {
 
     // MARK: Collapsed
 
-    /// Two lines: a header naming what this is and carrying the controls, and
-    /// the summary beneath it.
+    /// One line while it fits, and two when it does not.
     ///
-    /// It was one line until a fourth setting was added to it. With the
-    /// summary sharing a line with "This session", Reset and Adjust, it had
-    /// perhaps half the bar to work with, and the answer to a long summary was
-    /// first an ellipsis, then wrapping to a second line that *also* ended in
-    /// an ellipsis. Giving the summary the whole width instead means it almost
-    /// always fits on one line, and there is nothing left to hide.
+    /// **`ViewThatFits` works here, and the warning against it does not
+    /// apply.** The old bar could not use it because its summary truncated,
+    /// and a child that truncates always "fits" — it shrinks to whatever it is
+    /// given and reports success, so the fallback never runs. The one-line
+    /// candidate below is `fixedSize`, so it reports the width it genuinely
+    /// needs and is rejected the moment the window cannot give it.
     ///
-    /// The width thresholds that used to drop "This session" and the inline
-    /// Reset went with it, and so did the `GeometryReader` that fed them:
-    /// with the controls on their own line everything fits at `ContentView`'s
-    /// 340pt floor, so there is nothing left to measure or decide.
+    /// That is also why the fallback is a layout rather than a smaller font or
+    /// a dropped element: nothing here is decoration. The summary states what
+    /// will happen to the next files dropped, and a value hidden behind an
+    /// ellipsis is a value not stated.
     private var collapsed: some View {
+        ViewThatFits(in: .horizontal) {
+            oneLineBar
+            stackedBar
+        }
+    }
+
+    /// Everything on one line: the shipped shape, and what the bar still looks
+    /// like at any reasonable window size.
+    private var oneLineBar: some View {
+        HStack(spacing: 8) {
+            overrideDot
+            sessionLabel
+            summaryText
+                // The whole point of this candidate: no truncation, so it
+                // measures what it actually needs and `ViewThatFits` can tell
+                // whether it has it.
+                .fixedSize()
+            if isModified {
+                resetButton
+                    .padding(.leading, 6)
+            }
+            Spacer(minLength: 0)
+            adjustButton
+        }
+        .padding(.horizontal, 13)
+        .frame(height: 38)
+    }
+
+    /// The narrow fallback: the label and the controls on a header line, and
+    /// the summary beneath them with the whole width of the bar.
+    ///
+    /// The summary carries no line limit even here. Two lines are what it
+    /// normally needs; at the very narrowest it takes three, and that is still
+    /// better than an ellipsis over the one thing the bar exists to say.
+    private var stackedBar: some View {
         VStack(alignment: .leading, spacing: 3) {
             HStack(spacing: 8) {
-                if isModified {
-                    Circle()
-                        .fill(Theme.SessionBar.overrideDot)
-                        .frame(width: 5, height: 5)
-                        .accessibilityHidden(true)
-                }
-
-                Text("This session")
-                    .font(.system(size: 12.5))
-                    .foregroundStyle(.secondary)
-                    .fixedSize()
-
+                overrideDot
+                sessionLabel
                 Spacer(minLength: 0)
-
-                if isModified {
-                    resetButton
-                }
-
+                if isModified { resetButton }
                 adjustButton
             }
-
-            // Wraps rather than truncating. The bar's whole purpose is to
-            // state what will happen to the next files dropped, and a value
-            // hidden behind an ellipsis is a value not stated — so there is no
-            // line limit here at all. Capping it at two was tried and was
-            // still wrong: at a narrow window two lines are not enough either,
-            // and the cap only moved the ellipsis onto the second line.
-            Text(summary)
-                .font(.system(size: 12.5))
-                .foregroundStyle(isModified ? AnyShapeStyle(.primary) : AnyShapeStyle(.secondary))
+            summaryText
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .accessibilityLabel("This session: \(summary)")
         }
         .padding(.horizontal, 13)
         .padding(.vertical, 8)
+    }
+
+    @ViewBuilder
+    private var overrideDot: some View {
+        if isModified {
+            Circle()
+                .fill(Theme.SessionBar.overrideDot)
+                .frame(width: 5, height: 5)
+                .accessibilityHidden(true)
+        }
+    }
+
+    private var sessionLabel: some View {
+        Text("This session")
+            .font(.system(size: 12.5))
+            .foregroundStyle(.secondary)
+            .fixedSize()
+    }
+
+    private var summaryText: some View {
+        Text(summary)
+            .font(.system(size: 12.5))
+            .foregroundStyle(isModified ? AnyShapeStyle(.primary) : AnyShapeStyle(.secondary))
+            .accessibilityLabel("This session: \(summary)")
     }
 
     // MARK: Expanded

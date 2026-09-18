@@ -106,7 +106,7 @@ final class SessionBarStateTests: XCTestCase {
             SessionBarState.summary(
                 format: nil, quality: nil, storedQuality: .standard, maxDimension: nil, crop: nil
             ),
-            "App default · Standard · No limit · No crop"
+            "App default · Standard · No limit"
         )
     }
 
@@ -115,7 +115,7 @@ final class SessionBarStateTests: XCTestCase {
             SessionBarState.summary(
                 format: .webp, quality: .high, storedQuality: .standard, maxDimension: 2000, crop: nil
             ),
-            "WebP · High · Max 2000px · No crop"
+            "WebP · High · Max 2000px"
         )
     }
 
@@ -126,7 +126,7 @@ final class SessionBarStateTests: XCTestCase {
             SessionBarState.summary(
                 format: nil, quality: nil, storedQuality: .superLow, maxDimension: nil, crop: nil
             ),
-            "App default · Super Low · No limit · No crop"
+            "App default · Super Low · No limit"
         )
     }
 
@@ -261,14 +261,17 @@ final class CropFieldTests: XCTestCase {
         )
     }
 
-    func testTheSummarySaysSoWhenThereIsNoCrop() {
-        XCTAssertEqual(
-            SessionBarState.summary(
-                format: nil, quality: nil, storedQuality: .standard,
-                maxDimension: nil, crop: nil
-            ),
-            "App default · Standard · No limit · No crop"
+    /// The other three settings always state themselves, off values included.
+    /// The crop does not, and that asymmetry is deliberate: a fourth "No crop"
+    /// pushed the default summary past the width of the *default* window, and
+    /// a line that truncates while saying nothing is worse than a shorter one.
+    func testTheSummaryIsSilentWhenThereIsNoCrop() {
+        let summary = SessionBarState.summary(
+            format: nil, quality: nil, storedQuality: .standard,
+            maxDimension: nil, crop: nil
         )
+        XCTAssertEqual(summary, "App default · Standard · No limit")
+        XCTAssertFalse(summary.lowercased().contains("crop"))
     }
 
     func testACropAloneMakesTheSessionModified() {
@@ -409,12 +412,8 @@ final class CropFieldTests: XCTestCase {
     /// Stated as a number so that changing any one width has to be a
     /// deliberate act rather than a quiet accumulation.
     func testTheCropRowsWidthIsWhatItsPartsAddUpTo() {
-        XCTAssertEqual(SessionBarState.CropRow.width, 112)
-        XCTAssertEqual(
-            SessionBarState.CropRow.width, 112,
-            "the crop row must be exactly as wide as the max size field above it"
-        )
-        // 112 = 9 + 38 + 4 + 10 + 4 + 38 + 9
-        XCTAssertEqual(SessionBarState.CropRow.fieldWidth, 38)
+        // 106 capsule (9 + 36 + 4 + 8 + 4 + 36 + 9) + 8 + 88 mode control.
+        XCTAssertEqual(SessionBarState.CropRow.capsuleWidth, 106)
+        XCTAssertEqual(SessionBarState.CropRow.width, 202)
     }
 }

@@ -40,8 +40,14 @@ enum SessionBarState {
             format?.displayName ?? "App default",
             (quality ?? storedQuality).displayName,
             maxDimension.map { "Max \($0)px" } ?? "No limit",
-            crop.map(cropFragment) ?? "No crop",
-        ].joined(separator: " · ")
+            // Named only when there is one. The other three always state
+            // themselves, including their off values, because each has exactly
+            // one line's worth to say — but a fourth "No crop" pushed the
+            // default summary past the width of the default window, and a
+            // summary that truncates while saying nothing is worse than a
+            // shorter one. A crop that *is* set is worth the characters.
+            crop.map(cropFragment),
+        ].compactMap { $0 }.joined(separator: " · ")
     }
 
     /// `Crop 1200×1200` or `Crop 1:1`.
@@ -110,32 +116,35 @@ enum SessionBarState {
     /// first version of this row did overflow — 220pt of content in 202pt of
     /// space — and looked almost right on screen, which is exactly why the fit
     /// is arithmetic pinned by a test rather than a layout somebody eyeballed.
+    /// The crop row's widths, and whether they fit.
+    ///
+    /// Every number here is doing the same job: getting two fields and a mode
+    /// control onto one line inside the 202pt a 340pt window leaves after its
+    /// gutters and label column. The row was tried at 220pt, which overflowed
+    /// and which SwiftUI answered by squeezing rather than complaining, and
+    /// then stacked onto two lines, which fitted easily and looked cheap. This
+    /// is the width that makes one line work.
     enum CropRow {
-        /// Every control in this panel is this wide, because the max size
-        /// field is — see `SessionBarView.maxSizeField`. Matching it is what
-        /// gives the four rows one right edge; the crop's first attempt put
-        /// the mode picker beside the fields instead, which ran 170pt past
-        /// everything above it and made the panel look accidental.
-        static let controlWidth: CGFloat = 112
-
-        /// Inside the recessed capsule, each side.
-        static let capsulePadding: CGFloat = 9
+        /// Each of the two number fields. Holds five digits, which is the most
+        /// either can contain.
+        static let fieldWidth: CGFloat = 36
+        /// The `×` / `:` between them.
+        static let separatorWidth: CGFloat = 8
         /// Between the fields and the separator.
         static let innerSpacing: CGFloat = 4
-        /// The `×` / `:` between them.
-        static let separatorWidth: CGFloat = 10
+        /// Inside the recessed capsule, each side.
+        static let capsulePadding: CGFloat = 9
+        /// Between the capsule and the mode control.
+        static let spacing: CGFloat = 8
+        /// The px / ratio segmented control, at its natural drawn width — it
+        /// does not stretch, and anything narrower clips "ratio".
+        static let modeWidth: CGFloat = 88
 
-        /// Each of the two number fields: whatever is left of the capsule once
-        /// its padding and the separator are taken out, shared equally.
-        /// Derived rather than written down, so the three cannot disagree.
-        static var fieldWidth: CGFloat {
-            (controlWidth - capsulePadding * 2 - separatorWidth - innerSpacing * 2) / 2
+        static var capsuleWidth: CGFloat {
+            fieldWidth * 2 + separatorWidth + innerSpacing * 2 + capsulePadding * 2
         }
 
-        /// Between the fields and the mode control stacked beneath them.
-        static let rowSpacing: CGFloat = 6
-
-        static var width: CGFloat { controlWidth }
+        static var width: CGFloat { capsuleWidth + spacing + modeWidth }
     }
 
     /// The panel's own chrome: 13pt gutters either side, a 104pt label column,
@@ -234,6 +243,14 @@ enum MaxSizeField {
     }
 }
 
+/// Carries the collapsed bar's measured width out of its background.
+private struct BarWidthKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
 /// The crop fields' contents, and what the pair of them means.
 ///
 /// Beside `MaxSizeField` and for the same reason: a rule left inline in a
@@ -302,6 +319,9 @@ struct SessionBarView: View {
     @EnvironmentObject private var model: AppModel
     @EnvironmentObject private var settings: Settings
 
+    /// The bar's own width, measured rather than proposed — see `collapsed`.
+    @State private var barWidth: CGFloat = 0
+
     private var isModified: Bool {
         SessionBarState.isModified(
             format: model.sessionFormat, quality: model.sessionQuality,
@@ -344,15 +364,23 @@ struct SessionBarView: View {
     /// `SessionBarState.inlineDetailsMinimumWidth` the optional items are
     /// dropped instead.
     ///
-    /// A `GeometryReader` is safe here specifically because the row's height
-    /// is fixed: it takes all the space offered, which is 38pt tall and as
-    /// wide as the window, rather than collapsing the way one wrapped around
-    /// intrinsically-sized content would.
+    /// The width is measured from a `GeometryReader` in the **background**
+    /// rather than one wrapped around the content, because the row is no
+    /// longer a fixed height: a summary long enough to need two lines makes
+    /// the bar taller, and a `GeometryReader` wrapped around
+    /// intrinsically-sized content would take all the space offered instead of
+    /// reporting what the content wants. A background is laid out against its
+    /// host and changes nothing about it.
     private var collapsed: some View {
-        GeometryReader { proxy in
-            collapsedRow(width: proxy.size.width)
-        }
-        .frame(height: 38)
+        collapsedRow(width: barWidth)
+            .background {
+                GeometryReader { proxy in
+                    Color.clear.preference(key: BarWidthKey.self, value: proxy.size.width)
+                }
+            }
+            .onPreferenceChange(BarWidthKey.self) { width in
+                barWidth = width
+            }
     }
 
     private func collapsedRow(width: CGFloat) -> some View {
@@ -372,13 +400,21 @@ struct SessionBarView: View {
             }
 
             // The only element allowed to shrink. Everything else is
-            // `fixedSize`, so a long summary truncates rather than squeezing
-            // the Adjust button off the end.
+            // `fixedSize`, so a long summary wraps rather than squeezing the
+            // Adjust button off the end.
+            //
+            // **It wraps rather than truncating**, which it did not always do.
+            // Three settings fitted one line at the window's default width;
+            // a fourth did not, and "App default · Standard…" is a summary
+            // that has stopped doing its job — the bar's whole purpose is to
+            // state what will happen to the next files dropped, and a value
+            // hidden behind an ellipsis is a value not stated. Two lines are
+            // cheap; the bar grows and the window does not.
             Text(summary)
                 .font(.system(size: 12.5))
                 .foregroundStyle(isModified ? AnyShapeStyle(.primary) : AnyShapeStyle(.secondary))
-                .lineLimit(1)
-                .truncationMode(.tail)
+                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
                 .accessibilityLabel("This session: \(summary)")
 
             if isModified && SessionBarState.showsInlineDetails(atWidth: width) {
@@ -391,7 +427,9 @@ struct SessionBarView: View {
             adjustButton
         }
         .padding(.horizontal, 13)
-        .frame(height: 38)
+        // A floor, not a height: one line keeps the bar exactly the 38pt it
+        // has always been, and two lines grow it rather than clipping.
+        .frame(minHeight: 38)
     }
 
     // MARK: Expanded
@@ -474,7 +512,7 @@ struct SessionBarView: View {
                     )
             }
 
-            stackedRow("Crop to") {
+            row("Crop to") {
                 cropFields
             }
 
@@ -518,23 +556,6 @@ struct SessionBarView: View {
         _ label: String, @ViewBuilder control: () -> Control
     ) -> some View {
         HStack(spacing: SessionBarState.labelSpacing) {
-            rowLabel(label)
-            control()
-        }
-    }
-
-    /// A row whose control is taller than one line, with the label centered
-    /// against the whole of it.
-    ///
-    /// The crop needs two: the numbers, and what they mean. Setting the mode
-    /// beside them instead made the row far wider than the three above it and
-    /// left the panel with a ragged right edge, so it goes underneath and the
-    /// label spans both — which also reads as one grouped control rather than
-    /// two unrelated ones that happen to share a line.
-    private func stackedRow<Control: View>(
-        _ label: String, @ViewBuilder control: () -> Control
-    ) -> some View {
-        HStack(alignment: .center, spacing: SessionBarState.labelSpacing) {
             rowLabel(label)
             control()
         }
@@ -606,7 +627,7 @@ struct SessionBarView: View {
     /// numbers mean something entirely different depending on it, so it has to
     /// be readable without opening anything.
     private var cropFields: some View {
-        VStack(alignment: .leading, spacing: SessionBarState.CropRow.rowSpacing) {
+        HStack(spacing: SessionBarState.CropRow.spacing) {
             HStack(spacing: SessionBarState.CropRow.innerSpacing) {
                 DigitsOnlyField(
                     text: $model.sessionCropWidthText,
@@ -637,7 +658,7 @@ struct SessionBarView: View {
             }
             .padding(.horizontal, SessionBarState.CropRow.capsulePadding)
             .padding(.vertical, 5)
-            .frame(width: SessionBarState.CropRow.controlWidth)
+            .frame(width: SessionBarState.CropRow.capsuleWidth)
             .background(
                 RoundedRectangle(cornerRadius: 7)
                     .fill(Theme.SessionBar.fieldFill)
@@ -654,12 +675,7 @@ struct SessionBarView: View {
             .labelsHidden()
             .pickerStyle(.segmented)
             .controlSize(.small)
-            // `alignment: .leading`, because a segmented picker draws itself
-            // at its natural width and centres that inside whatever frame it
-            // is given — so the plain `width:` form left it indented under the
-            // capsule by half the difference. The same trap the `.menu`
-            // pickers above are documented for, in the other direction.
-            .frame(width: SessionBarState.CropRow.controlWidth, alignment: .leading)
+            .frame(width: SessionBarState.CropRow.modeWidth)
         }
         .help(cropHelp)
     }

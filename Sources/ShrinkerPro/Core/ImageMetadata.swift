@@ -83,6 +83,36 @@ enum ImageMetadata {
         header(of: url).orientation
     }
 
+    /// A drawing context of `width` × `height` that `image` can be drawn into.
+    ///
+    /// A fixed 8-bit RGBA layout rather than the source image's own
+    /// bitmapInfo/colorSpace: `CGContext` rejects a good number of the layouts
+    /// a real file decodes to (16-bit HEIC, indexed PNG, grayscale with
+    /// alpha), and a nil context means silently skipping whatever the draw was
+    /// for — which, when this lived inside `applyingOrientation`, was the
+    /// rotation bug it had been written to fix. The colour space is preserved
+    /// where the source has one, so this normalises layout, not colour.
+    ///
+    /// Shared by the rotation above and by the scale in `ImageIOCompressor`.
+    /// Extracted rather than duplicated because the fallback ladder is the
+    /// part that took measuring, and a second copy would be a second place to
+    /// get it wrong. The eight-orientation equivalence test is what says the
+    /// extraction changed nothing.
+    static func makeBitmapContext(width: Int, height: Int, like image: CGImage) -> CGContext? {
+        let colorSpace = image.colorSpace ?? CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue
+            | CGBitmapInfo.byteOrder32Big.rawValue
+        return CGContext(
+            data: nil, width: width, height: height,
+            bitsPerComponent: 8, bytesPerRow: 0,
+            space: colorSpace, bitmapInfo: bitmapInfo
+        ) ?? CGContext(
+            data: nil, width: width, height: height,
+            bitsPerComponent: 8, bytesPerRow: 0,
+            space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo
+        )
+    }
+
     /// Redraws `image` so its *pixels* carry `orientation`, returning an
     /// upright image with width and height swapped for the four 90° cases.
     /// Returns `image` untouched for `.up`, which is the overwhelmingly
@@ -112,24 +142,8 @@ enum ImageMetadata {
         let outputWidth = quarterTurned ? height : width
         let outputHeight = quarterTurned ? width : height
 
-        // A fixed 8-bit RGBA context rather than the source image's own
-        // bitmapInfo/colorSpace: CGContext rejects a good number of the
-        // layouts a real file decodes to (16-bit HEIC, indexed PNG,
-        // grayscale with alpha), and a nil context here would mean silently
-        // skipping the rotation — the exact bug being fixed. The colour
-        // space is preserved where the source has one, so this is not a
-        // colour conversion, only a layout normalisation.
-        let colorSpace = image.colorSpace ?? CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue
-            | CGBitmapInfo.byteOrder32Big.rawValue
-        guard let context = CGContext(
-            data: nil, width: outputWidth, height: outputHeight,
-            bitsPerComponent: 8, bytesPerRow: 0,
-            space: colorSpace, bitmapInfo: bitmapInfo
-        ) ?? CGContext(
-            data: nil, width: outputWidth, height: outputHeight,
-            bitsPerComponent: 8, bytesPerRow: 0,
-            space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo
+        guard let context = makeBitmapContext(
+            width: outputWidth, height: outputHeight, like: image
         ) else { return nil }
 
         let w = CGFloat(width)

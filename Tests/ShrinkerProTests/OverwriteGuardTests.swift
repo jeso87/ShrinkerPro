@@ -515,7 +515,7 @@ extension ShrinkPlan {
             wasRotated: false,
             isSameFormat: true,
             metadataPolicy: .all,
-            wasResized: false
+            dimensionsChanged: false
         )
     }
 }

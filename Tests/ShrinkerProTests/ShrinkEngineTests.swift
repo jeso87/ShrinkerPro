@@ -953,7 +953,7 @@ final class MaxSizeTests: XCTestCase {
 
         let plan = try engine.plan(input, settings: settings(maxDimension: Int(original.width)))
 
-        XCTAssertFalse(plan.wasResized, "548px is within a 548px cap, not over it")
+        XCTAssertFalse(plan.dimensionsChanged, "548px is within a 548px cap, not over it")
     }
 
     /// GIF is resized by gifsicle rather than ImageIO, and this is why: an
@@ -984,7 +984,7 @@ final class MaxSizeTests: XCTestCase {
 
         let plan = try engine.plan(input, settings: settings(maxDimension: 10))
 
-        XCTAssertFalse(plan.wasResized, "a vector has no pixel size to cap")
+        XCTAssertFalse(plan.dimensionsChanged, "a vector has no pixel size to cap")
     }
 
     /// The plan reports the resize whatever route it took — including the
@@ -997,11 +997,11 @@ final class MaxSizeTests: XCTestCase {
             defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
 
             XCTAssertTrue(
-                try engine.plan(input, settings: settings(maxDimension: 64)).wasResized,
+                try engine.plan(input, settings: settings(maxDimension: 64)).dimensionsChanged,
                 "\(ext): a 548px image under a 64px cap is being resized"
             )
             XCTAssertFalse(
-                try engine.plan(input, settings: settings(maxDimension: nil)).wasResized,
+                try engine.plan(input, settings: settings(maxDimension: nil)).dimensionsChanged,
                 "\(ext): no max size means no resize"
             )
         }
@@ -1027,7 +1027,7 @@ final class MaxSizeTests: XCTestCase {
             XCTAssertEqual(plan.destination, baseline.destination, "\(ext)")
             XCTAssertEqual(plan.targetExtension, baseline.targetExtension, "\(ext)")
             XCTAssertEqual(plan.isSameFormat, baseline.isSameFormat, "\(ext)")
-            XCTAssertFalse(plan.wasResized, "\(ext)")
+            XCTAssertFalse(plan.dimensionsChanged, "\(ext)")
         }
     }
 
@@ -1050,7 +1050,7 @@ final class MaxSizeTests: XCTestCase {
         let destination = input.deletingLastPathComponent().appendingPathComponent("grown.png")
 
         let result = try engine.shrink(
-            growingPlan(input: input, destination: destination, wasResized: true)
+            growingPlan(input: input, destination: destination, dimensionsChanged: true)
         )
 
         XCTAssertEqual(
@@ -1069,7 +1069,7 @@ final class MaxSizeTests: XCTestCase {
         let destination = input.deletingLastPathComponent().appendingPathComponent("grown.png")
 
         let result = try engine.shrink(
-            growingPlan(input: input, destination: destination, wasResized: false)
+            growingPlan(input: input, destination: destination, dimensionsChanged: false)
         )
 
         XCTAssertEqual(result.output, input, "the original is what the user still has")
@@ -1077,11 +1077,11 @@ final class MaxSizeTests: XCTestCase {
         XCTAssertFalse(FileManager.default.fileExists(atPath: destination.path))
     }
 
-    private func growingPlan(input: URL, destination: URL, wasResized: Bool) -> ShrinkPlan {
+    private func growingPlan(input: URL, destination: URL, dimensionsChanged: Bool) -> ShrinkPlan {
         ShrinkPlan(
             input: input, destination: destination, compressor: GrowingCompressor(),
             targetExtension: nil, needsMetadataPostPass: false, wasRotated: false,
-            isSameFormat: true, metadataPolicy: .all, wasResized: wasResized
+            isSameFormat: true, metadataPolicy: .all, dimensionsChanged: dimensionsChanged
         )
     }
 }

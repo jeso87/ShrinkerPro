@@ -183,19 +183,28 @@ struct RoutingContext: Equatable, Sendable {
     /// applied by authoring the intermediate rather than by flag.
     var policy: MetadataPolicy = .all
 
-    /// `true` when this file's longest side exceeds the session's max size
-    /// and it must therefore be scaled down.
+    /// `true` when this file's pixels must come out a different size or a
+    /// different shape from the ones that went in — scaled down to the
+    /// session's max size, cropped to its crop target, or both.
     ///
     /// Routes like `isUpright == false`, and for the same underlying reason:
     /// none of the three vendored CLI encoders that can be handed the user's
-    /// file directly is able to resize it. pngquant and cjpeg have no such
-    /// flag at all, and cwebp's `-resize` was deliberately not used — see
+    /// file directly is able to resize or crop it. pngquant and cjpeg have no
+    /// such flag at all, and cwebp's `-resize` was deliberately not used — see
     /// `2026-09-16-max-size-resize-design.md` §4. Two resamplers would mean
-    /// a PNG and a WebP capped at the same number not matching each other.
+    /// a PNG and a WebP capped at the same number not matching each other, and
+    /// cwebp cannot crop in any case.
     ///
-    /// A file already within the cap sets this `false` and routes exactly as
-    /// it did before the feature existed.
-    var needsResize: Bool = false
+    /// Cropping is a **third reason for the identical rewrite**, not a new
+    /// kind of rewrite, which is why it shares this flag rather than adding
+    /// one beside it: two booleans the router always ORs together would be two
+    /// names for one fact, and an invitation to add a third reason and wire up
+    /// only one of them. The rewrite table in §4 of the max size spec is
+    /// unchanged — no route case and no compressor type is added.
+    ///
+    /// A file already within the cap and already the right shape sets this
+    /// `false` and routes exactly as it did before either feature existed.
+    var needsPixelRework: Bool = false
 
     static let `default` = RoutingContext()
 }
@@ -376,7 +385,7 @@ enum ConversionRouter {
     /// once rather than three times, each of which could be forgotten
     /// independently.
     private static func pixelsNeedRework(_ context: RoutingContext) -> Bool {
-        !context.isUpright || context.needsResize
+        !context.isUpright || context.needsPixelRework
     }
 
     /// Whether cwebp can be pointed at the user's original file.

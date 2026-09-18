@@ -445,31 +445,31 @@ final class MetadataPostPassRoutingTests: XCTestCase {
 /// rotated file already is. See `2026-09-16-max-size-resize-design.md` §4.
 final class ResizeRoutingTests: XCTestCase {
 
-    private let resizing = RoutingContext(needsResize: true)
+    private let reworking = RoutingContext(needsPixelRework: true)
 
     func testCLIEncoderRoutesAreRelayedWhenResizing() {
         XCTAssertEqual(
-            ConversionRouter.route(native: .jpeg, target: .jpeg, context: resizing),
+            ConversionRouter.route(native: .jpeg, target: .jpeg, context: reworking),
             .viaIntermediate(target: .jpeg, intermediate: .tga),
             "cjpeg cannot resize, so a JPEG staying a JPEG still needs ImageIO in front of it"
         )
         XCTAssertEqual(
-            ConversionRouter.route(native: .png, target: .png, context: resizing),
+            ConversionRouter.route(native: .png, target: .png, context: reworking),
             .viaIntermediate(target: .png, intermediate: .png),
             "pngquant cannot resize"
         )
         XCTAssertEqual(
-            ConversionRouter.route(native: .webp, target: .webp, context: resizing),
+            ConversionRouter.route(native: .webp, target: .webp, context: reworking),
             .viaIntermediate(target: .webp, intermediate: .png),
             "cwebp has a -resize flag, but using it would mean a second resampler — see the design"
         )
         XCTAssertEqual(
-            ConversionRouter.route(native: .png, target: .webp, context: resizing),
+            ConversionRouter.route(native: .png, target: .webp, context: reworking),
             .viaIntermediate(target: .webp, intermediate: .png),
             "the direct PNG->WebP route hands cwebp the original, so it is relayed too"
         )
         XCTAssertEqual(
-            ConversionRouter.route(native: .jpeg, target: .webp, context: resizing),
+            ConversionRouter.route(native: .jpeg, target: .webp, context: reworking),
             .viaIntermediate(target: .webp, intermediate: .png)
         )
     }
@@ -477,16 +477,16 @@ final class ResizeRoutingTests: XCTestCase {
     /// Everything already going through ImageIO resizes where it stands.
     func testImageIORoutesAreUnchangedWhenResizing() {
         XCTAssertEqual(
-            ConversionRouter.route(native: .avif, target: .avif, context: resizing), .sameFormat(.avif)
+            ConversionRouter.route(native: .avif, target: .avif, context: reworking), .sameFormat(.avif)
         )
         XCTAssertEqual(
-            ConversionRouter.route(native: .heic, target: .avif, context: resizing), .direct(target: .avif)
+            ConversionRouter.route(native: .heic, target: .avif, context: reworking), .direct(target: .avif)
         )
         XCTAssertEqual(
-            ConversionRouter.route(native: .png, target: .avif, context: resizing), .direct(target: .avif)
+            ConversionRouter.route(native: .png, target: .avif, context: reworking), .direct(target: .avif)
         )
         XCTAssertEqual(
-            ConversionRouter.route(native: .heic, target: .jpeg, context: resizing),
+            ConversionRouter.route(native: .heic, target: .jpeg, context: reworking),
             .viaIntermediate(target: .jpeg, intermediate: .tga),
             "already relayed; resizing gives it nothing new to do"
         )
@@ -500,7 +500,7 @@ final class ResizeRoutingTests: XCTestCase {
         for native: NativeFormat in [.png, .jpeg, .webp, .avif, .heic] {
             for target: TargetFormat in [.png, .jpeg, .webp, .avif] {
                 XCTAssertEqual(
-                    ConversionRouter.route(native: native, target: target, context: resizing)
+                    ConversionRouter.route(native: native, target: target, context: reworking)
                         .destinationFormat,
                     ConversionRouter.route(native: native, target: target).destinationFormat,
                     "\(native) -> \(target) came out in a different format merely because it was resized"
@@ -511,14 +511,14 @@ final class ResizeRoutingTests: XCTestCase {
 
     /// The guarantee that the feature costs nothing when it is off: with no
     /// resize in force, the whole table is the one this project had before
-    /// `needsResize` existed.
+    /// `needsPixelRework` existed.
     func testNotResizingReproducesEveryExistingRoute() {
         for native: NativeFormat in [.png, .jpeg, .webp, .avif, .heic] {
             for target: TargetFormat in [.png, .jpeg, .webp, .avif] {
                 for policy: MetadataPolicy in [.all, .copyright, .stripped] {
                     for isUpright in [true, false] {
                         let unresized = RoutingContext(
-                            isUpright: isUpright, policy: policy, needsResize: false
+                            isUpright: isUpright, policy: policy, needsPixelRework: false
                         )
                         XCTAssertEqual(
                             ConversionRouter.route(native: native, target: target, context: unresized),
@@ -547,7 +547,7 @@ final class ResizeRoutingTests: XCTestCase {
             XCTAssertEqual(
                 ConversionRouter.route(
                     native: native, target: target,
-                    context: RoutingContext(isUpright: false, needsResize: true)
+                    context: RoutingContext(isUpright: false, needsPixelRework: true)
                 ),
                 ConversionRouter.route(
                     native: native, target: target,

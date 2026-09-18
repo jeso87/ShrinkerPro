@@ -36,11 +36,12 @@ struct IntermediateConversionCompressor: Compressor {
     ///
     /// The point of putting it here rather than after the relay is that the
     /// downstream encoder then receives an image that is *already* its final
-    /// size: cjpeg, cwebp and pngquant encode the pixels that survive rather
-    /// than a full-size carrier that is about to be scaled away. Neither of
-    /// the carriers is lossy, so nothing is lost by shrinking at this stage
-    /// instead of a later one.
-    var maxDimension: Int? = nil
+    /// shape and its final size: cjpeg, cwebp and pngquant encode the pixels
+    /// that survive rather than a full-size carrier that is about to be
+    /// cropped and scaled away. Neither of the carriers is lossy, so nothing
+    /// is lost by reshaping at this stage instead of a later one — and none of
+    /// the three could crop or scale it themselves in any case.
+    var resize: ResizePlan? = nil
 
     func compress(input: URL, output: URL) throws {
         let intermediateURL = FileManager.default.temporaryDirectory
@@ -61,7 +62,7 @@ struct IntermediateConversionCompressor: Compressor {
         // passing nothing says so rather than relying on their indifference.
         try ImageIOCompressor(
             utType: intermediate.utType, quality: nil, policy: policy,
-            maxDimension: maxDimension
+            resize: resize
         )
         .compress(input: input, output: intermediateURL)
 

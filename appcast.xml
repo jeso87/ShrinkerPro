@@ -3,6 +3,50 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.4.0</title>
+            <pubDate>Thu, 17 Sep 2026 22:37:27 -0400</pubDate>
+            <sparkle:version>9</sparkle:version>
+            <sparkle:shortVersionString>1.4.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[### Crop from the center
+
+A fourth control in the session bar: **Crop to**, with two numbers and a
+choice of what they mean.
+
+**`16 : 9`** crops the largest centered rectangle of that shape out of every
+image and leaves the resolution alone. **`1200 × 1200 px`** crops to that
+shape and then scales it down to exactly that size — which is what you want
+for a folder of product photos that all have to come out the same.
+
+Nothing is ever enlarged. An 800×600 image asked for 1200×1200 comes out
+600×600: the right shape, smaller than asked. The shape is used exactly as
+typed, so a portrait photo cropped to 16:9 comes out as a landscape strip
+rather than being quietly turned on its side to suit.
+
+Every format is cropped by the same code that already handles rotation and
+resizing, so a PNG and a WebP cropped to the same numbers match. Animated
+GIFs keep every frame. SVG is unaffected — it is vector, so it has no pixels
+to cut. Nothing is saved to disk: the crop lasts for the session, like the
+format override and the max size beside it.
+
+The headless `shrinker` command gains the same thing as `--crop 16:9` or
+`--crop 1200x1200`.
+
+### The Settings window fits on your screen
+
+It was a little over 1000 points tall and would not scroll, so on a laptop
+the Metadata and General sections sat below the bottom edge with no way to
+reach them. It now scrolls, and it is never taller than the display it is
+actually on — including after you change that display's resolution, or drag
+the window to a different one.
+
+When there is more below, the last row fades out and a small chevron marks
+the edge, because macOS hides scroll bars until you are already scrolling.
+]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.4.0/ShrinkerPro-1.4.0.dmg" length="3494606" type="application/octet-stream" sparkle:edSignature="wudbn5xSTvPLvHqmMr1Ky7a9agFDDYyM+2x9ia1/MVGuExHxU2iWr3JH4MnLt7I5icqTjF5wF+kum7Z5GTwVBQ=="/>
+        </item>
+        <item>
             <title>1.3.1</title>
             <pubDate>Thu, 17 Sep 2026 05:21:40 -0400</pubDate>
             <sparkle:version>8</sparkle:version>
@@ -33,15 +77,6 @@ Checking is not installing. You are still told about a new version and still dec
 **Settings is easier to read**, grouped into clearly labelled sections.
 ]]></description>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.3.0/ShrinkerPro-1.3.0.dmg" length="3465629" type="application/octet-stream" sparkle:edSignature="72dBmJYKjVZhNKtdhEwM/xBUnRQUV3cDTo6rZBPBcLe6UvgjbLeSQvH54/sRB9QdK2+Cy5EFfnil7u4Dii/cCw=="/>
-        </item>
-        <item>
-            <title>1.2.0</title>
-            <pubDate>Sun, 13 Sep 2026 22:15:09 -0400</pubDate>
-            <sparkle:version>5</sparkle:version>
-            <sparkle:shortVersionString>1.2.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.2.0/ShrinkerPro-1.2.0.dmg" length="3422854" type="application/octet-stream" sparkle:edSignature="iQjklT40MXeaJGHl7GnhsC4kNuAJ2CwFTiz+KaM6BSI5w1NZsxksVm9uTGoSSkHI+x/HOVJeGkp0lQinUACVBw=="/>
         </item>
     </channel>
 </rss>

@@ -94,20 +94,6 @@ enum SessionBarState {
             + "\(width)×\(height), not \(crop.width)×\(crop.height)."
     }
 
-    /// The width below which the bar drops its optional parts — the "This
-    /// session" prefix and the inline Reset — keeping the dot, the summary
-    /// and Adjust, which are what carry the meaning.
-    ///
-    /// A threshold rather than a `ViewThatFits`: the summary is allowed to
-    /// truncate, and a truncating child always "fits", which would defeat
-    /// the fallback entirely. The footer above this one learned that the
-    /// hard way — see the `Spacer` note in its layout.
-    static let inlineDetailsMinimumWidth: CGFloat = 380
-
-    static func showsInlineDetails(atWidth width: CGFloat) -> Bool {
-        width >= inlineDetailsMinimumWidth
-    }
-
     /// The crop row's widths, and whether they fit.
     ///
     /// The expanded panel has no narrow-width fallback: its rows fit at
@@ -243,14 +229,6 @@ enum MaxSizeField {
     }
 }
 
-/// Carries the collapsed bar's measured width out of its background.
-private struct BarWidthKey: PreferenceKey {
-    static let defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = max(value, nextValue())
-    }
-}
-
 /// The crop fields' contents, and what the pair of them means.
 ///
 /// Beside `MaxSizeField` and for the same reason: a rule left inline in a
@@ -319,9 +297,6 @@ struct SessionBarView: View {
     @EnvironmentObject private var model: AppModel
     @EnvironmentObject private var settings: Settings
 
-    /// The bar's own width, measured rather than proposed — see `collapsed`.
-    @State private var barWidth: CGFloat = 0
-
     private var isModified: Bool {
         SessionBarState.isModified(
             format: model.sessionFormat, quality: model.sessionQuality,
@@ -360,76 +335,59 @@ struct SessionBarView: View {
 
     // MARK: Collapsed
 
-    /// Measured rather than assumed, because the bar must never wrap: below
-    /// `SessionBarState.inlineDetailsMinimumWidth` the optional items are
-    /// dropped instead.
+    /// Two lines: a header naming what this is and carrying the controls, and
+    /// the summary beneath it.
     ///
-    /// The width is measured from a `GeometryReader` in the **background**
-    /// rather than one wrapped around the content, because the row is no
-    /// longer a fixed height: a summary long enough to need two lines makes
-    /// the bar taller, and a `GeometryReader` wrapped around
-    /// intrinsically-sized content would take all the space offered instead of
-    /// reporting what the content wants. A background is laid out against its
-    /// host and changes nothing about it.
+    /// It was one line until a fourth setting was added to it. With the
+    /// summary sharing a line with "This session", Reset and Adjust, it had
+    /// perhaps half the bar to work with, and the answer to a long summary was
+    /// first an ellipsis, then wrapping to a second line that *also* ended in
+    /// an ellipsis. Giving the summary the whole width instead means it almost
+    /// always fits on one line, and there is nothing left to hide.
+    ///
+    /// The width thresholds that used to drop "This session" and the inline
+    /// Reset went with it, and so did the `GeometryReader` that fed them:
+    /// with the controls on their own line everything fits at `ContentView`'s
+    /// 340pt floor, so there is nothing left to measure or decide.
     private var collapsed: some View {
-        collapsedRow(width: barWidth)
-            .background {
-                GeometryReader { proxy in
-                    Color.clear.preference(key: BarWidthKey.self, value: proxy.size.width)
+        VStack(alignment: .leading, spacing: 3) {
+            HStack(spacing: 8) {
+                if isModified {
+                    Circle()
+                        .fill(Theme.SessionBar.overrideDot)
+                        .frame(width: 5, height: 5)
+                        .accessibilityHidden(true)
                 }
-            }
-            .onPreferenceChange(BarWidthKey.self) { width in
-                barWidth = width
-            }
-    }
 
-    private func collapsedRow(width: CGFloat) -> some View {
-        HStack(spacing: 8) {
-            if isModified {
-                Circle()
-                    .fill(Theme.SessionBar.overrideDot)
-                    .frame(width: 5, height: 5)
-                    .accessibilityHidden(true)
-            }
-
-            if SessionBarState.showsInlineDetails(atWidth: width) {
                 Text("This session")
                     .font(.system(size: 12.5))
                     .foregroundStyle(.secondary)
                     .fixedSize()
+
+                Spacer(minLength: 0)
+
+                if isModified {
+                    resetButton
+                }
+
+                adjustButton
             }
 
-            // The only element allowed to shrink. Everything else is
-            // `fixedSize`, so a long summary wraps rather than squeezing the
-            // Adjust button off the end.
-            //
-            // **It wraps rather than truncating**, which it did not always do.
-            // Three settings fitted one line at the window's default width;
-            // a fourth did not, and "App default · Standard…" is a summary
-            // that has stopped doing its job — the bar's whole purpose is to
+            // Wraps rather than truncating. The bar's whole purpose is to
             // state what will happen to the next files dropped, and a value
-            // hidden behind an ellipsis is a value not stated. Two lines are
-            // cheap; the bar grows and the window does not.
+            // hidden behind an ellipsis is a value not stated — so there is no
+            // line limit here at all. Capping it at two was tried and was
+            // still wrong: at a narrow window two lines are not enough either,
+            // and the cap only moved the ellipsis onto the second line.
             Text(summary)
                 .font(.system(size: 12.5))
                 .foregroundStyle(isModified ? AnyShapeStyle(.primary) : AnyShapeStyle(.secondary))
-                .lineLimit(2)
                 .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .accessibilityLabel("This session: \(summary)")
-
-            if isModified && SessionBarState.showsInlineDetails(atWidth: width) {
-                resetButton
-                    .padding(.leading, 6)
-            }
-
-            Spacer(minLength: 0)
-
-            adjustButton
         }
         .padding(.horizontal, 13)
-        // A floor, not a height: one line keeps the bar exactly the 38pt it
-        // has always been, and two lines grow it rather than clipping.
-        .frame(minHeight: 38)
+        .padding(.vertical, 8)
     }
 
     // MARK: Expanded

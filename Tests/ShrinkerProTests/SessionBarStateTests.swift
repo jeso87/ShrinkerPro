@@ -146,14 +146,6 @@ final class SessionBarStateTests: XCTestCase {
 
     // MARK: - Narrow windows
 
-    /// The bar must never wrap. Below the threshold it drops the parts that
-    /// repeat what the dot and the summary already say.
-    func testInlineDetailsAreDroppedOnANarrowBar() {
-        XCTAssertTrue(SessionBarState.showsInlineDetails(atWidth: 500))
-        XCTAssertTrue(SessionBarState.showsInlineDetails(atWidth: 380))
-        XCTAssertFalse(SessionBarState.showsInlineDetails(atWidth: 379))
-        XCTAssertFalse(SessionBarState.showsInlineDetails(atWidth: 320))
-    }
 }
 
 /// The max size field's rules. They live in `MaxSizeField` rather than in a

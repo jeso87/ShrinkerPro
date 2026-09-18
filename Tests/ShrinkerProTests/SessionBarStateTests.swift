@@ -411,49 +411,30 @@ final class CropFieldTests: XCTestCase {
 
     // MARK: - A crop with one number
 
-    /// **The bar says so rather than saying nothing.** A crop needs both
-    /// sides, so one number crops nothing — and staying silent about that
-    /// reproduces the defect the live parse was built to prevent: a number
-    /// sitting on screen as evidence that something should have happened, and
-    /// a batch processed as though it had never been typed.
-    func testTheSummarySaysWhenACropIsMissingASide() {
-        let summary = SessionBarState.summary(
-            format: nil, quality: nil, storedQuality: .standard,
-            maxDimension: nil, crop: nil, cropIsHalfFilled: true
-        )
-        XCTAssertEqual(
-            summary, "App default · Standard · No limit · Crop needs both sides"
-        )
-    }
-
-    /// And says nothing once both are in, because then there is a crop to name.
-    func testTheSummaryNamesTheCropOnceBothSidesAreIn() {
-        let summary = SessionBarState.summary(
-            format: nil, quality: nil, storedQuality: .standard,
-            maxDimension: nil, crop: pixels(1200, 800), cropIsHalfFilled: false
-        )
-        XCTAssertEqual(summary, "App default · Standard · No limit · Crop 1200×800")
-        XCTAssertFalse(summary.contains("needs"))
-    }
-
-    /// A real crop wins over the warning if both are somehow passed, because a
-    /// crop that exists is the more useful thing to state.
-    func testARealCropTakesPrecedenceOverTheWarning() {
-        let summary = SessionBarState.summary(
-            format: nil, quality: nil, storedQuality: .standard,
-            maxDimension: nil, crop: ratio(1, 1), cropIsHalfFilled: true
-        )
-        XCTAssertTrue(summary.contains("Crop 1:1"))
-        XCTAssertFalse(summary.contains("needs"))
-    }
-
-    /// Nothing typed at all is not a half-filled crop — it is the off state,
-    /// and the bar stays quiet about it.
-    func testAnEmptyCropSaysNothing() {
+    /// `isHalfFilled` is what `AppModel.cropIsIncomplete` is built on, and
+    /// therefore what blocks the panel and the drop. Nothing typed at all is
+    /// not half filled — that is the off state — and neither is a full pair.
+    func testHalfFilledIsExactlyOneSide() {
+        XCTAssertTrue(CropField.isHalfFilled(width: "1200", height: ""))
+        XCTAssertTrue(CropField.isHalfFilled(width: "", height: "800"))
         XCTAssertFalse(CropField.isHalfFilled(width: "", height: ""))
+        XCTAssertFalse(CropField.isHalfFilled(width: "1200", height: "800"))
+    }
+
+    /// Zero is a field's off state, so it counts as empty on both sides of
+    /// the question rather than as a number that happens to be unusable.
+    func testZeroCountsAsEmptyForTheHalfFilledCheck() {
+        XCTAssertTrue(CropField.isHalfFilled(width: "1200", height: "0"))
+        XCTAssertFalse(CropField.isHalfFilled(width: "0", height: "0"))
+    }
+
+    /// The summary has no case for a half-typed crop and does not need one:
+    /// the panel cannot be closed while one exists, so the bar is never
+    /// collapsed in that state.
+    func testTheSummaryHasNoHalfFilledCase() {
         let summary = SessionBarState.summary(
             format: nil, quality: nil, storedQuality: .standard,
-            maxDimension: nil, crop: nil, cropIsHalfFilled: false
+            maxDimension: nil, crop: nil
         )
         XCTAssertFalse(summary.lowercased().contains("crop"))
     }

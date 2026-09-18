@@ -32,19 +32,13 @@ enum SessionBarState {
     /// Reads as a sentence of values rather than of labels — "WebP · High ·
     /// Max 2000px" — because the bar's job when collapsed is to answer "what
     /// is this about to do?", not to name its own controls.
-    /// What a half-typed crop says in the summary.
-    ///
-    /// A crop with one number is not a crop, so nothing is cropped — and
-    /// saying nothing about it would reproduce exactly the defect the live
-    /// parse was built to prevent: a number sitting on screen as evidence that
-    /// something should have happened, and a batch processed as though it had
-    /// never been typed. The bar exists to state what will happen to the next
-    /// files dropped, so it states this too.
-    static let halfFilledCropSummary = "Crop needs both sides"
-
+    /// The summary has no case for a half-typed crop, and does not need one:
+    /// the panel cannot be closed while one exists, so the bar is never
+    /// collapsed in that state. `AppModel.cropIsIncomplete` is what enforces
+    /// that, and the panel says it there instead.
     static func summary(
         format: SessionFormat?, quality: QualityLevel?, storedQuality: QualityLevel,
-        maxDimension: Int?, crop: CropTarget?, cropIsHalfFilled: Bool = false
+        maxDimension: Int?, crop: CropTarget?
     ) -> String {
         [
             format?.displayName ?? "App default",
@@ -56,7 +50,7 @@ enum SessionBarState {
             // default summary past the width of the default window, and a
             // summary that truncates while saying nothing is worse than a
             // shorter one. A crop that *is* set is worth the characters.
-            crop.map(cropFragment) ?? (cropIsHalfFilled ? halfFilledCropSummary : nil),
+            crop.map(cropFragment),
         ].compactMap { $0 }.joined(separator: " · ")
     }
 
@@ -315,20 +309,15 @@ struct SessionBarView: View {
         )
     }
 
-    /// Exactly one of the two crop fields holds a number, which means no crop
-    /// at all. Surfaced rather than left silent — see
-    /// `SessionBarState.halfFilledCropSummary`.
-    private var cropIsHalfFilled: Bool {
-        CropField.isHalfFilled(
-            width: model.sessionCropWidthText, height: model.sessionCropHeightText
-        )
-    }
+    /// Half a crop blocks the panel and blocks a drop — see
+    /// `AppModel.cropIsIncomplete`, which owns the rule.
+    private var cropIsIncomplete: Bool { model.cropIsIncomplete }
 
     private var summary: String {
         SessionBarState.summary(
             format: model.sessionFormat, quality: model.sessionQuality,
             storedQuality: settings.quality, maxDimension: model.sessionMaxDimension,
-            crop: model.sessionCropTarget, cropIsHalfFilled: cropIsHalfFilled
+            crop: model.sessionCropTarget
         )
     }
 
@@ -530,10 +519,10 @@ struct SessionBarView: View {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundStyle(.orange)
                     .font(.system(size: 11))
-                    .opacity(cropIsHalfFilled ? 1 : 0)
+                    .opacity(cropIsIncomplete ? 1 : 0)
                     .help(
-                        cropIsHalfFilled
-                            ? "A crop needs both sides. With only one filled in, nothing is cropped."
+                        cropIsIncomplete
+                            ? "A crop needs both sides. Fill in the other number, or clear this one — files cannot be shrunk until you do."
                             : ""
                     )
             }
@@ -565,6 +554,7 @@ struct SessionBarView: View {
             .background {
                 Button("Close session settings") { setExpanded(false) }
                     .keyboardShortcut(.cancelAction)
+                    .disabled(cropIsIncomplete)
                     .opacity(0)
                     .accessibilityHidden(true)
             }
@@ -728,8 +718,19 @@ struct SessionBarView: View {
             .accessibilityHint("Shows the format, quality and max size controls")
     }
 
+    /// Disabled while the crop is missing a side, so that the one control
+    /// whose whole job is "close this" says plainly that it cannot. The model
+    /// refuses the close in any case — Escape and a click above the bar arrive
+    /// at the same guard — but a Done button that simply did nothing when
+    /// pressed would read as a bug rather than as a rule.
     private var doneButton: some View {
         SessionBarButton(title: "Done", chevron: "chevron.down") { setExpanded(false) }
+            .disabled(cropIsIncomplete)
+            .help(
+                cropIsIncomplete
+                    ? "Finish the crop, or clear it, before closing."
+                    : ""
+            )
             .accessibilityLabel("Done adjusting session settings")
     }
 
@@ -738,7 +739,7 @@ struct SessionBarView: View {
             .buttonStyle(.plain)
             .font(.system(size: 11.5))
             .foregroundStyle(Theme.savingsAccent)
-            .help("Returns format, quality and max size to the app's defaults")
+            .help("Returns format, quality, max size and crop to the app's defaults")
     }
 
     private func setExpanded(_ expanded: Bool) {

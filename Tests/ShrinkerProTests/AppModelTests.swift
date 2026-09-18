@@ -534,18 +534,97 @@ final class SessionOverrideTests: XCTestCase {
         XCTAssertEqual(size.height, 80)
     }
 
-    /// **Half a crop is no crop.** With only one side typed the drop must be
-    /// processed uncropped, rather than against a height nobody chose.
-    func testAHalfTypedCropLeavesADroppedFileAlone() async throws {
+    // MARK: - Half a crop blocks everything
+
+    /// **A crop missing a side stops the batch before it starts.** Shrinking
+    /// the files as though the number had never been typed is the one outcome
+    /// that cannot be undone: the originals may be replaced, and a crop cannot
+    /// be re-applied to pixels already thrown away.
+    func testAnIncompleteCropRefusesTheDrop() throws {
         let (model, _) = try makeModel()
         model.sessionCropWidthText = "120"
+
+        model.handle(urls: [try staged("sample", "png")])
+
+        XCTAssertTrue(model.rows.isEmpty, "the drop was processed anyway")
+        XCTAssertNotNil(model.errorMessage, "and nothing said why")
+    }
+
+    /// The refusal opens the panel, because the thing that needs fixing is in
+    /// it and the summary cannot be shown in this state.
+    func testARefusedDropOpensThePanel() throws {
+        let (model, _) = try makeModel()
+        model.sessionCropWidthText = "120"
+
+        model.handle(urls: [try staged("sample", "png")])
+
+        XCTAssertTrue(model.isSessionPanelExpanded)
+    }
+
+    /// Finishing the pair unblocks it. The guard is about the state, not about
+    /// having once been in it.
+    func testCompletingTheCropUnblocksTheDrop() async throws {
+        let (model, _) = try makeModel()
+        model.sessionCropWidthText = "120"
+        model.sessionCropHeightText = "80"
 
         await model.process(urls: [try staged("sample", "png")])
 
         let output = try XCTUnwrap(model.rows.first?.output)
         let size = try XCTUnwrap(ImageMetadata.header(of: output).pixelSize)
-        XCTAssertEqual(size.width, 548, "the file was cropped on one number")
-        XCTAssertEqual(size.height, 547)
+        XCTAssertEqual(size.width, 120)
+        XCTAssertEqual(size.height, 80)
+    }
+
+    /// Clearing the lone number unblocks it too, which is the other way out.
+    func testClearingTheLoneNumberUnblocksTheDrop() throws {
+        let (model, _) = try makeModel()
+        model.sessionCropWidthText = "120"
+        XCTAssertTrue(model.cropIsIncomplete)
+
+        model.sessionCropWidthText = ""
+
+        XCTAssertFalse(model.cropIsIncomplete)
+    }
+
+    /// The panel refuses to close, whichever of the four ways asked it to —
+    /// they all arrive at `setSessionPanel(expanded:)`, which is why the rule
+    /// lives there rather than on the Done button.
+    func testThePanelWillNotCloseWithHalfACrop() {
+        let (model, _) = try! makeModel()
+        model.setSessionPanel(expanded: true)
+        model.sessionCropWidthText = "120"
+
+        model.setSessionPanel(expanded: false)
+
+        XCTAssertTrue(model.isSessionPanelExpanded, "the panel closed on half a crop")
+    }
+
+    func testThePanelClosesOnceTheCropIsFinished() {
+        let (model, _) = try! makeModel()
+        model.setSessionPanel(expanded: true)
+        model.sessionCropWidthText = "120"
+        model.setSessionPanel(expanded: false)
+        XCTAssertTrue(model.isSessionPanelExpanded)
+
+        model.sessionCropHeightText = "80"
+        model.setSessionPanel(expanded: false)
+
+        XCTAssertFalse(model.isSessionPanelExpanded)
+    }
+
+    /// Reset is the escape hatch that always works, including from a state the
+    /// panel will not otherwise let go of.
+    func testResetClearsAnIncompleteCropAndFreesThePanel() {
+        let (model, _) = try! makeModel()
+        model.setSessionPanel(expanded: true)
+        model.sessionCropWidthText = "120"
+
+        model.resetSessionSettings()
+
+        XCTAssertFalse(model.cropIsIncomplete)
+        model.setSessionPanel(expanded: false)
+        XCTAssertFalse(model.isSessionPanelExpanded)
     }
 
     /// Session state, like the format override and the max size: it must never

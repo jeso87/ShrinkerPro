@@ -138,6 +138,25 @@ final class AppModel: ObservableObject {
     /// comparison impossible to make twice.
     @Published var sessionCropMode: CropTarget.Mode = .pixels
 
+    /// Exactly one of the two crop fields holds a number.
+    ///
+    /// **A blocking state, not a warning.** A crop needs both sides, and one
+    /// number crops nothing — so rather than let a batch run as though the
+    /// number had never been typed, the panel refuses to close and a drop
+    /// refuses to start until the pair is finished or cleared. There are two
+    /// ways out and both are in the panel: type the other number, or Reset.
+    ///
+    /// This is a stricter answer than the rest of the bar gives, and
+    /// deliberately so. Every other session setting has a meaningful off
+    /// state that the summary can name; half a crop has none. It is not "no
+    /// crop" — that is an empty pair — it is an instruction that cannot be
+    /// carried out, and the only honest thing to do with one is to stop.
+    var cropIsIncomplete: Bool {
+        CropField.isHalfFilled(
+            width: sessionCropWidthText, height: sessionCropHeightText
+        )
+    }
+
     /// What the fields above mean to the engine, or `nil` for no cropping —
     /// which is what a half-filled pair means too. See `CropField.target`.
     var sessionCropTarget: CropTarget? {
@@ -181,6 +200,12 @@ final class AppModel: ObservableObject {
     /// while the engine was already being handed the clamped 20000.
     func setSessionPanel(expanded: Bool) {
         if !expanded {
+            // Half a crop keeps the panel open, whichever way it was asked to
+            // close — Done, Escape, a click above it, or a drop. All four
+            // arrive here, which is the whole reason the refusal lives in the
+            // model rather than on the Done button.
+            guard !cropIsIncomplete else { return }
+
             sessionMaxSizeText = MaxSizeField.committed(sessionMaxSizeText)
             sessionCropWidthText = CropField.committed(sessionCropWidthText)
             sessionCropHeightText = CropField.committed(sessionCropHeightText)
@@ -230,6 +255,26 @@ final class AppModel: ObservableObject {
 
     /// Entry point for drops, the file picker, and Finder open events.
     func handle(urls: [URL]) {
+        // An unfinished crop stops the batch before it starts. Shrinking these
+        // files as though the number had never been typed is the one outcome
+        // that cannot be undone from here — the originals may be replaced, and
+        // a crop cannot be re-applied to pixels that have already been thrown
+        // away.
+        //
+        // Every way files arrive comes through this method — a drop, ⌘O, and
+        // Finder's own open — so this is the only place it has to be said.
+        guard !cropIsIncomplete else {
+            if !isSessionPanelExpanded {
+                withAnimation(.easeOut(duration: 0.22)) { isSessionPanelExpanded = true }
+            }
+            errorMessage = """
+                The crop is missing a side, so it is not clear what these files \
+                should be cropped to. Fill in both numbers, or clear the crop, \
+                and drop them again.
+                """
+            return
+        }
+
         // A drop is an answer to "what should happen to these?", so the panel
         // that was asking the question steps out of the way — and the summary
         // it collapses to states what is about to happen to them.

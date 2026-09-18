@@ -69,6 +69,8 @@ shrinker photo.jpg                              # a .min copy beside it
 shrinker --quality super-low --to webp ./shots   # a whole folder
 shrinker --json --quality 85 diagram.jpg         # one JSON line per file
 shrinker --max-size 2000 ./camera-roll           # nothing wider or taller than 2000px
+shrinker --crop 1:1 ./avatars                    # square, from the center
+shrinker --crop 1200x1200 ./product-shots        # square and exactly 1200px
 ```
 
 | | |
@@ -76,6 +78,7 @@ shrinker --max-size 2000 ./camera-roll           # nothing wider or taller than 
 | `--quality <level\|0-100>` | `super-low`, `low`, `standard` (default), `high` — or a number |
 | `--to <format>` | `jpeg`, `webp`, `avif`, `png` |
 | `--max-size <pixels>` | shrink any image whose longest side is bigger than this |
+| `--crop <WxH\|W:H>` | crop the center to this shape. `1200x1200` also scales to that size; `1:1` only changes the shape |
 | `--metadata <policy>` | `all` (default), `copyright`, `none` |
 | `--out <directory>` | write results here instead of beside each input |
 | `--in-place` | overwrite each original. This destroys the source |
@@ -203,14 +206,13 @@ saying what will happen to the next files you drop:
 
     This session   WebP · High · Max 2000px   Reset            Adjust ⌃
 
-**Adjust** opens the three controls in place — **Convert all to**, **Quality**
-and **Max size** — and Done, Escape or a click anywhere above closes them again.
-Nothing is ever discarded by closing: a value applies the moment it is chosen.
-A dot appears beside the summary whenever any of the three differs from what the
-app would do on its own, and **Reset** puts all three back. On a narrow window
-the bar drops the "This session" prefix and the inline Reset rather than
-wrapping; the dot and the summary carry the meaning, and Reset is still in the
-panel.
+**Adjust** opens the four controls in place — **Convert all to**, **Quality**,
+**Max size** and **Crop to** — and Done, Escape or a click anywhere above closes
+them again. Nothing is ever discarded by closing: a value applies the moment it
+is chosen. A dot appears beside the summary whenever any of them differs from
+what the app would do on its own, and **Reset** puts them all back. On a narrow
+window the summary moves to a line of its own beneath the controls rather than
+truncating, because a value hidden behind an ellipsis is a value not stated.
 
 **Everything in the bar applies to this session only.** It is typed in the
 window, it is never written to disk, and it is gone the next time you launch —
@@ -239,12 +241,35 @@ a portrait one by its height, always keeping the aspect ratio, and anything
 already inside the cap is left at the size it arrived. Leave it blank for no
 resizing. It is in force the moment it is typed, with no Return to press.
 
-Resizing is done by ImageIO for every still image, whichever encoder finishes
-the file, so a PNG and a WebP capped at the same number match. GIF is the
-exception: gifsicle resizes it, because an ImageIO round trip would flatten an
-animation to one frame. SVG is unaffected — it is vector, so it has no pixel
-size to cap. And a resized file is written even if it comes out larger, the
-same exemption converting has: you asked for those dimensions.
+**Crop to** cuts the largest centered rectangle of a given shape out of every
+image. Two numbers, and a choice of what they mean: **ratio** — `16 : 9` —
+crops to that shape and leaves the resolution alone, and **px** — `1200 × 1200`
+— crops to that shape and then scales it down to exactly that size, which is
+what you want for a folder of product photos that all have to come out the same.
+
+Nothing is ever enlarged. An 800×600 image asked for 1200×1200 comes out
+600×600: the right shape, smaller than asked. The shape is used exactly as
+typed, so a portrait photo cropped to 16:9 comes out as a landscape strip rather
+than being quietly turned on its side to suit.
+
+Both numbers are needed. With only one filled in nothing can be cropped, so the
+panel will not close and files will not be shrunk until you finish the pair or
+clear it — the alternative was running a whole batch as though the number had
+never been typed, which is not undoable once the originals have been replaced.
+
+A **px** crop sets the output size outright, so the Max size field is dimmed
+while one is in force: the two would be answers to the same question, and there
+is no size a cap could impose that smaller numbers in the crop would not state
+better. A **ratio** crop says nothing about size, so Max size still applies to
+what it leaves.
+
+Resizing and cropping are done by ImageIO for every still image, whichever
+encoder finishes the file, so a PNG and a WebP given the same numbers match. GIF
+is the exception: gifsicle handles it, because an ImageIO round trip would
+flatten an animation to one frame. SVG is unaffected — it is vector, so it has
+no pixels to cap or to cut. And a resized or cropped file is written even if it
+comes out larger, the same exemption converting has: you asked for those
+dimensions.
 
 SVG and GIF ignore the format override, exactly as they ignore the stored rules.
 

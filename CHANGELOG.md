@@ -4,7 +4,42 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
-## 1.4.0 — unreleased
+## 1.4.0 — 2026-09-17
+
+### Added
+
+**Crop from the center.** A fourth control in the session bar takes two numbers
+and a choice of what they mean. **`16 : 9`** crops the largest centered
+rectangle of that shape out of every image and leaves the resolution alone.
+**`1200 × 1200 px`** crops to that shape and then scales it down to exactly that
+size — which is what you want for a folder of product photos that all have to
+come out one size.
+
+Nothing is ever enlarged: an 800×600 image asked for 1200×1200 comes out
+600×600, the right shape and smaller than asked. The shape is used exactly as
+typed, so a portrait photo cropped to 16:9 comes out as a landscape strip rather
+than being quietly turned on its side to suit. Both consequences are stated in
+the control's own tooltip rather than left to be discovered.
+
+Every still format is cropped by the same code that already handles rotation and
+resizing, so a PNG and a WebP given the same numbers match. Animated GIFs keep
+every frame — gifsicle does the work, because an ImageIO round trip would write
+a still. SVG is unaffected; it is vector, so it has no pixels to cut. And like
+the format override and the max size beside it, the crop lasts for the session
+and is never written to disk.
+
+Both numbers are required. With one filled in there is no shape to crop to, so
+the panel will not close and nothing is shrunk until the pair is finished or
+cleared — running a whole batch as though the number had never been typed is not
+undoable once the originals have been replaced.
+
+A pixel crop sets the output size outright, so it takes the max size out of
+play: the window dims that field, and the command line refuses `--crop 1200x1200`
+alongside `--max-size`. A ratio crop says nothing about size, so the two still
+compose exactly as they did.
+
+The headless `shrinker` command gains the same thing as `--crop 16:9` or
+`--crop 1200x1200`.
 
 ### Fixed
 

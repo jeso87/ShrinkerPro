@@ -93,20 +93,27 @@ struct SettingsView: View {
     /// little slack, rather than losing anything.
     private static let contentHeight: CGFloat = 1000
 
-    /// Read on each render rather than captured once, so the bound follows the
-    /// window if it is dragged to a second display. `visibleFrame` already
-    /// excludes the menu bar and the Dock.
+    /// The usable height of the display this window is **actually on**,
+    /// reported by `SettingsWindowScreen` below and updated whenever the
+    /// window moves or the screens are reconfigured.
+    ///
+    /// It was `NSScreen.main?.visibleFrame.height`, read inline, and that was
+    /// wrong twice over. `NSScreen.main` is the screen with keyboard focus,
+    /// not the screen this window is on — measured on a four-display setup it
+    /// reported 1804pt while the window sat somewhere else entirely — and it
+    /// is a plain global, so SwiftUI had no reason to re-evaluate the body
+    /// when a display's resolution changed. The window kept whatever height it
+    /// had been given at launch.
+    @State private var visibleHeight: CGFloat = SettingsWindowScreen.conservativeHeight()
+
     private var maxContentHeight: CGFloat {
-        SettingsWindowMetrics.maxContentHeight(
-            forVisibleHeight: NSScreen.main?.visibleFrame.height ?? 0
-        )
+        SettingsWindowMetrics.maxContentHeight(forVisibleHeight: visibleHeight)
     }
 
     /// Whether this display is too short to show every setting at once.
     private var isScrollable: Bool {
         SettingsWindowMetrics.contentScrolls(
-            contentHeight: Self.contentHeight,
-            visibleHeight: NSScreen.main?.visibleFrame.height ?? 0
+            contentHeight: Self.contentHeight, visibleHeight: visibleHeight
         )
     }
 
@@ -340,6 +347,7 @@ struct SettingsView: View {
                 .accessibilityHidden(true)
             }
         }
+        .background(SettingsWindowScreen(visibleHeight: $visibleHeight))
         .task { notificationPermission = await .current() }
         // Re-check when the app is brought back to the front: the whole
         // point of the button above is that the user leaves for System
@@ -357,6 +365,93 @@ struct SettingsView: View {
         panel.canCreateDirectories = true
         panel.allowsMultipleSelection = false
         if panel.runModal() == .OK { settings.savePath = panel.url }
+    }
+}
+
+/// Reports the usable height of the display the Settings window is on, and
+/// keeps reporting it as that changes.
+///
+/// A zero-sized `NSView` in the window's background, because this is a
+/// question only AppKit can answer: SwiftUI has no notion of which screen a
+/// window landed on, and `NSScreen.main` answers a different question — which
+/// screen has keyboard focus. On a multi-display setup those are routinely
+/// different, and a window sized against the wrong one is exactly the defect
+/// this whole bound exists to prevent.
+///
+/// Two notifications keep it honest. `didChangeScreenParameters` fires when a
+/// display is added, removed, or has its resolution changed — the case that
+/// reported this bug. `NSWindow.didMoveNotification` fires when the window is
+/// dragged between displays, which changes the answer without changing
+/// anything about the screens themselves.
+private struct SettingsWindowScreen: NSViewRepresentable {
+    @Binding var visibleHeight: CGFloat
+
+    func makeNSView(context: Context) -> NSView {
+        let view = ReporterView()
+        view.onChange = { height in
+            // Assigned asynchronously: this fires during layout, and writing
+            // to SwiftUI state inside a layout pass is what produces
+            // "Modifying state during view update".
+            DispatchQueue.main.async {
+                if visibleHeight != height { visibleHeight = height }
+            }
+        }
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        (nsView as? ReporterView)?.report()
+    }
+
+    final class ReporterView: NSView {
+        var onChange: ((CGFloat) -> Void)?
+        private var observers: [NSObjectProtocol] = []
+
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            observers.forEach(NotificationCenter.default.removeObserver)
+            observers = []
+            guard window != nil else { return }
+
+            let centre = NotificationCenter.default
+            for name in [
+                NSApplication.didChangeScreenParametersNotification,
+                NSWindow.didMoveNotification,
+            ] {
+                observers.append(
+                    centre.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                        self?.report()
+                    }
+                )
+            }
+            report()
+        }
+
+        // No `deinit` cleanup: `viewDidMoveToWindow` fires again with a nil
+        // window when the view is removed, and unsubscribes there. Swift 6
+        // will not let a nonisolated deinit touch the token array anyway, and
+        // reaching for an unchecked box to get around that would be papering
+        // over a lifetime AppKit already tells us about.
+        func report() {
+            // `window.screen` is the display the window is actually on. It is
+            // nil while the window is being placed, which is what the
+            // conservative fallback is for: too short for a moment is
+            // recoverable, too tall is the bug.
+            let height = window?.screen?.visibleFrame.height
+                ?? SettingsWindowScreen.conservativeHeight()
+            onChange?(height)
+        }
+    }
+
+    /// The shortest display attached, used until the window says which one it
+    /// is on.
+    ///
+    /// Deliberately pessimistic. Guessing high means the window opens taller
+    /// than the screen it lands on, which is the defect; guessing low means it
+    /// opens a little short and corrects itself on the next layout pass, which
+    /// nobody notices.
+    static func conservativeHeight() -> CGFloat {
+        NSScreen.screens.map(\.visibleFrame.height).min() ?? 800
     }
 }
 

@@ -457,7 +457,12 @@ final class AppModel: ObservableObject {
                 // not a typed ShrinkError. `localizedDescription` still
                 // renders something sane for those; LocalizedError cases
                 // use their own tailored text.
-                errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+                // AppDisplayableError first: errorDescription is the CLI's
+                // English, this is the app's translated text. See the
+                // localization spec's "The Core seam".
+                errorMessage = (error as? AppDisplayableError)?.localizedMessage
+                    ?? (error as? LocalizedError)?.errorDescription
+                    ?? error.localizedDescription
             }
         }
 
@@ -587,7 +592,12 @@ final class AppModel: ObservableObject {
             } catch {
                 // Same reasoning as the planning loop above: not every failure
                 // that reaches here is a typed ShrinkError.
-                errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+                // AppDisplayableError first: errorDescription is the CLI's
+                // English, this is the app's translated text. See the
+                // localization spec's "The Core seam".
+                errorMessage = (error as? AppDisplayableError)?.localizedMessage
+                    ?? (error as? LocalizedError)?.errorDescription
+                    ?? error.localizedDescription
             }
         }
 

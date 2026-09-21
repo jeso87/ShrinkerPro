@@ -26,6 +26,22 @@ protocol Compressor: Sendable {
     func compress(input: URL, output: URL) throws
 }
 
+/// An error that carries a separate, translated message for the app's alert.
+///
+/// `Core` compiles into both the app and the `shrinker` CLI, so
+/// `LocalizedError.errorDescription` cannot be translated: `main.swift`
+/// prints it to stderr and scripts parse that. This protocol is the app's
+/// half of that split — `AppModel` prefers `localizedMessage`, the CLI never
+/// reads it.
+///
+/// The duplication is deliberate. Relying instead on `String(localized:)`
+/// falling back to its key because the CLI's `Bundle.main` has no catalog
+/// would produce English today, but only by accident of bundle layout.
+/// See `docs/design/specs/2026-09-20-localization-design.md`.
+protocol AppDisplayableError {
+    var localizedMessage: String { get }
+}
+
 enum ShrinkError: Error, LocalizedError {
     case unsupportedFormat(String)
     case helperMissing(String)
@@ -52,6 +68,32 @@ enum ShrinkError: Error, LocalizedError {
             return "No output was written to \(url.lastPathComponent)."
         case .conversionFailed(let message):
             return "Image conversion failed: \(message)"
+        }
+    }
+}
+
+extension ShrinkError: AppDisplayableError {
+    var localizedMessage: String {
+        switch self {
+        case .unsupportedFormat(let ext):
+            return String(localized: "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"\(ext)\").",
+                          comment: "Alert body when a dropped file is a format the app cannot read.")
+        case .helperMissing(let name):
+            return String(localized: "The bundled \(name) tool is missing. The app may be damaged — try reinstalling.",
+                          comment: "Alert body when a bundled compressor binary is absent. The placeholder is a tool name such as cjpeg.")
+        case .compressorFailed(let tool, let code, let message):
+            let detail = message.isEmpty ? "" : ": \(message)"
+            return String(localized: "\(tool) failed with exit code \(code)\(detail)",
+                          comment: "Alert body when a compressor exits non-zero. Placeholders: tool name, exit code, optional detail.")
+        case .javascriptFailed(let message):
+            return String(localized: "SVG optimization failed: \(message)",
+                          comment: "Alert body when svgo fails.")
+        case .outputNotWritten(let url):
+            return String(localized: "No output was written to \(url.lastPathComponent).",
+                          comment: "Alert body when a compressor reported success but produced no file.")
+        case .conversionFailed(let message):
+            return String(localized: "Image conversion failed: \(message)",
+                          comment: "Alert body when an ImageIO decode or encode step fails.")
         }
     }
 }

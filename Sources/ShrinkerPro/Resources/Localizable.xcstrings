@@ -1,6 +1,15 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ failed with exit code %d%@" : {
+      "comment" : "Alert body when a compressor exits non-zero. Placeholders: tool name, exit code, optional detail.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ failed with exit code %d%@" }
+        }
+      }
+    },
     "%lld images shrunk" : {
       "comment" : "Notification title after a batch finishes. The one-file form reads 'Image shrunk' with no number.",
       "extractionState" : "manual",
@@ -16,6 +25,51 @@
               }
             }
           }
+        }
+      }
+    },
+    "Image conversion failed: %@" : {
+      "comment" : "Alert body when an ImageIO decode or encode step fails.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Image conversion failed: %@" }
+        }
+      }
+    },
+    "No output was written to %@." : {
+      "comment" : "Alert body when a compressor reported success but produced no file.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "No output was written to %@." }
+        }
+      }
+    },
+    "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"%@\")." : {
+      "comment" : "Alert body when a dropped file is a format the app cannot read.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"%@\")." }
+        }
+      }
+    },
+    "SVG optimization failed: %@" : {
+      "comment" : "Alert body when svgo fails.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "SVG optimization failed: %@" }
+        }
+      }
+    },
+    "The bundled %@ tool is missing. The app may be damaged — try reinstalling." : {
+      "comment" : "Alert body when a bundled compressor binary is absent. The placeholder is a tool name such as cjpeg.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "The bundled %@ tool is missing. The app may be damaged — try reinstalling." }
         }
       }
     }

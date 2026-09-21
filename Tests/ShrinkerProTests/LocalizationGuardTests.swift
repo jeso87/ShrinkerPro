@@ -134,6 +134,44 @@ final class LocalizationGuardTests: XCTestCase {
         XCTAssertGreaterThan(examined, 0, "no plural entries were examined — the test would have passed vacuously")
     }
 
+    /// `errorDescription` is the CLI's. `main.swift` prints it to stderr at
+    /// lines 196 and 382, and scripts parse that output, so it must stay
+    /// English whatever the app is running in. The app reads
+    /// `localizedMessage` instead.
+    func testErrorDescriptionStaysEnglishForTheCLI() {
+        let error = ShrinkError.unsupportedFormat("tiff")
+
+        XCTAssertEqual(
+            error.errorDescription,
+            "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"tiff\").",
+            "errorDescription is the CLI's contract — see the localization spec's 'The Core seam'"
+        )
+    }
+
+    /// The app's path is separate, and for English says the same thing.
+    func testLocalizedMessageExistsAndMatchesEnglish() {
+        let error = ShrinkError.unsupportedFormat("tiff")
+
+        XCTAssertEqual(error.localizedMessage, error.errorDescription)
+    }
+
+    /// Every ShrinkError case must answer both, or the app will silently
+    /// fall back to English for one of them.
+    func testEveryShrinkErrorCaseHasBothForms() {
+        let cases: [ShrinkError] = [
+            .unsupportedFormat("tiff"),
+            .helperMissing("cjpeg"),
+            .compressorFailed(tool: "cjpeg", code: 1, message: "bad"),
+            .javascriptFailed("boom"),
+            .outputNotWritten(URL(fileURLWithPath: "/tmp/x.png")),
+            .conversionFailed("boom"),
+        ]
+        for error in cases {
+            XCTAssertFalse(error.localizedMessage.isEmpty, "\(error) has no localizedMessage")
+            XCTAssertFalse(error.errorDescription?.isEmpty ?? true, "\(error) has no errorDescription")
+        }
+    }
+
     // MARK: - Helpers
 
     static func catalogURL(named name: String) throws -> URL {

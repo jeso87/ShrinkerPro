@@ -1,6 +1,15 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@  —  %@" : {
+      "comment" : "One radio option's label in the Files/Filenames setting: the choice, then the filename it produces, in secondary text. Placeholders are the option's own title and the example filename it produces.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
+        }
+      }
+    },
     "%@ → %@" : {
       "comment" : "A result row's before-and-after sizes. The arrow points from the original size to the shrunk size; in right-to-left languages it should point the other way (←).",
       "extractionState" : "manual",

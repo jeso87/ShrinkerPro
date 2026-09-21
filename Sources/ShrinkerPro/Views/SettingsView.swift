@@ -136,11 +136,31 @@ struct SettingsView: View {
 
     /// One radio's label: the choice, and — where the choice is only about a
     /// filename — the filename it produces, in secondary text so the option
-    /// still reads as one short phrase. Concatenated `Text` rather than an
-    /// `HStack` because `.radioGroup` lays out its options itself.
+    /// still reads as one short phrase. Can't be an `HStack` because
+    /// `.radioGroup` lays out its own options.
+    ///
+    /// This used to build the label from two concatenated `Text` views, one
+    /// holding the title and the other the em dash and the example. That
+    /// fixed the example after the title, English's word order and its
+    /// left-to-right assumption, and handed a translator "  —  %@" as an
+    /// isolated fragment with no sentence to place it in. Now the whole label is one
+    /// catalog entry with both the title and the example as placeholders,
+    /// and the example run is located within the formatted result by its
+    /// own content (as `RecentHeaderFormatter.aggregate` does for the size
+    /// run) — never a fixed offset, since a reordered translation would
+    /// move it. A translation is free to put the words in whatever order
+    /// its grammar wants; the right run still gets the secondary colour.
     private func optionLabel(_ title: String, example: String?) -> Text {
         guard let example else { return Text(title) }
-        return Text(title) + Text("  —  \(example)").foregroundStyle(.secondary)
+
+        let label = String(localized: "\(title)  —  \(example)",
+                            comment: "One radio option's label in the Files/Filenames setting: the choice, then the filename it produces, in secondary text. Placeholders are the option's own title and the example filename it produces.")
+
+        var attributed = AttributedString(label)
+        if let range = attributed.range(of: example, options: .backwards) {
+            attributed[range].foregroundColor = .secondary
+        }
+        return Text(attributed)
     }
 
     var body: some View {

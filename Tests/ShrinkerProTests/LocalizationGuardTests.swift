@@ -501,12 +501,30 @@ final class LocalizationGuardTests: XCTestCase {
         XCTAssertGreaterThan(checked, 0, "no plural entries examined — this would have passed vacuously")
     }
 
-    /// A dropped or reordered placeholder is a crash or a corrupted sentence,
+    /// A dropped or invented placeholder is a crash or a corrupted sentence,
     /// and it is invisible to anyone who cannot read the language. So the
-    /// specifiers are compared rather than trusted: same kinds, same count.
+    /// specifiers are compared rather than trusted, and the rule differs by
+    /// entry shape:
     ///
-    /// Compared as a multiset, not a sequence — a language is free to reorder
-    /// its arguments, which is exactly why the positional forms exist.
+    /// - **Flat entries** (a single `stringUnit`) require the translation's
+    ///   specifier set to equal English's exactly — neither dropped nor
+    ///   invented. There is only one rendering of the sentence, so there is
+    ///   no legitimate reason for it to diverge either way.
+    /// - **Plural entries** keep a looser per-variant rule — a variant may
+    ///   not invent a specifier, but it may drop one, because English's own
+    ///   `"%lld images shrunk"` has a `one` form reading "Image shrunk" with
+    ///   no count in it at all. That licence is scoped to individual
+    ///   variants, not to the entry as a whole: the *union* of specifiers
+    ///   across every one of a key's translated variants must still equal
+    ///   the union of English's for that key — a specifier may vanish from
+    ///   one variant, but not from all of them, or the language has
+    ///   silently lost it. English passes its own check under this rule:
+    ///   `"%lld images shrunk"`'s `one` form contributes `{}` and `other`
+    ///   contributes `{%lld}`, so the union is `{%lld}` — exactly English's
+    ///   union for that key.
+    ///
+    /// Compared as sets, not sequences — a language is free to reorder its
+    /// arguments, which is exactly why the positional forms exist.
     ///
     /// Skipped when no language has landed yet, the same as
     /// `testEveryLanguagePresentIsComplete` above: an empty `translations/`
@@ -536,18 +554,43 @@ final class LocalizationGuardTests: XCTestCase {
             let expected = Self.specifiers(in: Self.values(of: english).joined(separator: " "))
             guard !expected.isEmpty else { continue }
 
+            let isPlural = ((english["variations"] as? [String: Any])?["plural"] as? [String: Any]) != nil
+
             for (language, body) in localizations where language != "en" {
                 guard let body = body as? [String: Any] else { continue }
-                for value in Self.values(of: body) {
-                    let found = Self.specifiers(in: value)
-                    // A plural variant may legitimately drop the count (English's
-                    // own "Image shrunk" does), so this asserts no specifier is
-                    // INVENTED and none is of a kind English did not use.
-                    XCTAssertTrue(
-                        found.isSubset(of: expected),
-                        "\(key) in \(language) uses \(found.subtracting(expected).sorted()), which English does not: \(value)"
+                let values = Self.values(of: body)
+
+                if isPlural {
+                    // Per-variant: no invented specifiers, but a variant may
+                    // legitimately drop one (see the doc comment above).
+                    var union: Set<String> = []
+                    for value in values {
+                        let found = Self.specifiers(in: value)
+                        XCTAssertTrue(
+                            found.isSubset(of: expected),
+                            "\(key) in \(language) uses \(found.subtracting(expected).sorted()), which English does not: \(value)"
+                        )
+                        union.formUnion(found)
+                        compared += 1
+                    }
+                    // Entry-wide: every specifier English uses anywhere in
+                    // this key must survive in at least one variant.
+                    XCTAssertEqual(
+                        union, expected,
+                        "\(key) in \(language): no variant together keeps \(expected.subtracting(union).sorted()), which English uses somewhere in this entry"
                     )
-                    compared += 1
+                } else {
+                    // Flat entry: exactly English's specifiers, no more, no
+                    // fewer — there is only one rendering, so nothing here
+                    // is allowed to diverge.
+                    for value in values {
+                        let found = Self.specifiers(in: value)
+                        XCTAssertEqual(
+                            found, expected,
+                            "\(key) in \(language) drops \(expected.subtracting(found).sorted()) and/or invents \(found.subtracting(expected).sorted()): \(value)"
+                        )
+                        compared += 1
+                    }
                 }
             }
         }
@@ -567,14 +610,17 @@ final class LocalizationGuardTests: XCTestCase {
         }
     }
 
+    /// Hoisted out of `specifiers(in:)`: that function runs inside nested
+    /// per-key/per-language/per-variant loops over the whole catalog, and
+    /// compiling the same pattern fresh on every call would be wasted work.
+    static let specifierRegex = try! NSRegularExpression(pattern: #"%(?:\d+\$)?(?:lld|ld|d|@|f)"#)
+
     /// The format specifiers in a string, normalised so `%1$@` and `%@` count
     /// as the same kind — a translation may reorder arguments freely.
     static func specifiers(in text: String) -> Set<String> {
-        let pattern = #"%(?:\d+\$)?(?:lld|ld|d|@|f)"#
-        let regex = try! NSRegularExpression(pattern: pattern)
         let range = NSRange(text.startIndex..<text.endIndex, in: text)
         var found: Set<String> = []
-        regex.enumerateMatches(in: text, range: range) { match, _, _ in
+        specifierRegex.enumerateMatches(in: text, range: range) { match, _, _ in
             guard let match, let r = Range(match.range, in: text) else { return }
             found.insert(String(text[r]).replacingOccurrences(
                 of: #"^%\d+\$"#, with: "%", options: .regularExpression))

@@ -78,7 +78,9 @@ private struct ResultRowView: View {
                 .monospacedDigit()
                 .foregroundStyle(percentColor)
 
-            PillButtonView(title: "Reveal", action: reveal)
+            PillButtonView(title: String(localized: "Reveal",
+                                         comment: "Result row button that reveals the shrunk file in Finder."),
+                           action: reveal)
         }
         .padding(.vertical, 11)
         .padding(.horizontal, 18)

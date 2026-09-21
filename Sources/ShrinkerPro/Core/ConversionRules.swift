@@ -61,7 +61,10 @@ extension ConversionTarget {
     /// instead — see `SettingsView.ConversionRuleRow`.
     var displayName: String {
         switch self {
-        case .keep: return "Keep"
+        // Only `.keep` is prose. The three format names stay English — see
+        // the localization spec's "What stays English".
+        case .keep: return String(localized: "Keep",
+                                  comment: "Conversion rule option meaning 'leave this format alone'.")
         case .jpeg: return "JPEG"
         case .webp: return "WebP"
         case .avif: return "AVIF"

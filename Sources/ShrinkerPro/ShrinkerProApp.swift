@@ -76,7 +76,9 @@ struct ShrinkerProApp: App {
                         .environmentObject(model)
                         .environmentObject(settings)
                 } else {
-                    LaunchFailureView(message: launchError ?? "Shrinker Pro couldn't start.")
+                    LaunchFailureView(message: launchError
+                        ?? String(localized: "Shrinker Pro couldn't start.",
+                                  comment: "Fallback body of the launch-failure screen when the error carried no message of its own."))
                 }
             }
             // Fires once the scene has resolved which branch above is

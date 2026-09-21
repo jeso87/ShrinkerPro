@@ -58,24 +58,30 @@ enum OutputNaming: Equatable {
     /// The picker's own label — the left-hand column of the row.
     var rowLabel: String {
         switch self {
-        case .besideOriginals: return "Files"
-        case .separateDestination: return "Filenames"
+        case .besideOriginals: return String(localized: "Files",
+                                             comment: "Settings row label when outputs land beside the originals, so the choice is about the files themselves.")
+        case .separateDestination: return String(localized: "Filenames",
+                                                 comment: "Settings row label when outputs land in a separate folder, so the choice is only about naming.")
         }
     }
 
     /// Title for `keepOriginal == true`.
     var suffixOnTitle: String {
         switch self {
-        case .besideOriginals: return "Keep originals, save a .min copy"
-        case .separateDestination: return "Add .min"
+        case .besideOriginals: return String(localized: "Keep originals, save a .min copy",
+                                             comment: "Output option: write alongside the original and leave it in place. '.min' is a filename suffix and stays as-is.")
+        case .separateDestination: return String(localized: "Add .min",
+                                                 comment: "Output option: add the '.min' suffix to the written filename. '.min' stays as-is.")
         }
     }
 
     /// Title for `keepOriginal == false`.
     var suffixOffTitle: String {
         switch self {
-        case .besideOriginals: return "Replace originals"
-        case .separateDestination: return "Leave as is"
+        case .besideOriginals: return String(localized: "Replace originals",
+                                             comment: "Output option: overwrite the original file in place.")
+        case .separateDestination: return String(localized: "Leave as is",
+                                                 comment: "Output option: write the file under its original name, with no suffix added.")
         }
     }
 

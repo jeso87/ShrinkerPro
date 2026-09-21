@@ -864,6 +864,231 @@
           "stringUnit" : { "state" : "translated", "value" : "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone." }
         }
       }
+    },
+    "Add .min" : {
+      "comment" : "Output option: add the '.min' suffix to the written filename. '.min' stays as-is.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Add .min" }
+        }
+      }
+    },
+    "Adjust" : {
+      "comment" : "Button that opens the session settings panel.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Adjust" }
+        }
+      }
+    },
+    "All metadata" : {
+      "comment" : "Metadata policy: keep everything the original carried.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "All metadata" }
+        }
+      }
+    },
+    "Clear" : {
+      "comment" : "Recent header button that empties the result list.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Clear" }
+        }
+      }
+    },
+    "Copyright and credit only" : {
+      "comment" : "Metadata policy: keep only the copyright and creator fields.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Copyright and credit only" }
+        }
+      }
+    },
+    "Crop to" : {
+      "comment" : "Session bar row label for the crop width/height fields.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Crop to" }
+        }
+      }
+    },
+    "Done" : {
+      "comment" : "Button that closes the session settings panel.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Done" }
+        }
+      }
+    },
+    "Filenames" : {
+      "comment" : "Settings row label when outputs land in a separate folder, so the choice is only about naming.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Filenames" }
+        }
+      }
+    },
+    "Files" : {
+      "comment" : "Settings row label when outputs land beside the originals, so the choice is about the files themselves.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Files" }
+        }
+      }
+    },
+    "H" : {
+      "comment" : "One-letter placeholder for the crop HEIGHT field. Keep it to a single character if the language allows.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "H" }
+        }
+      }
+    },
+    "High" : {
+      "comment" : "Quality level: the gentlest of the four.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "High" }
+        }
+      }
+    },
+    "Keep" : {
+      "comment" : "Conversion rule option meaning 'leave this format alone'.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Keep" }
+        }
+      }
+    },
+    "Keep %@" : {
+      "comment" : "Conversion rule option meaning 'do not convert'. The placeholder is a format name such as PNG, which stays English.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Keep %@" }
+        }
+      }
+    },
+    "Keep originals, save a .min copy" : {
+      "comment" : "Output option: write alongside the original and leave it in place. '.min' is a filename suffix and stays as-is.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Keep originals, save a .min copy" }
+        }
+      }
+    },
+    "Leave as is" : {
+      "comment" : "Output option: write the file under its original name, with no suffix added.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Leave as is" }
+        }
+      }
+    },
+    "Low" : {
+      "comment" : "Quality level, between Super Low and Standard.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Low" }
+        }
+      }
+    },
+    "Max size" : {
+      "comment" : "Session bar row label for the max-dimension field.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Max size" }
+        }
+      }
+    },
+    "No folder chosen" : {
+      "comment" : "Shown in place of a path when no output folder has been picked yet.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "No folder chosen" }
+        }
+      }
+    },
+    "No metadata" : {
+      "comment" : "Metadata policy: strip everything.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "No metadata" }
+        }
+      }
+    },
+    "Replace originals" : {
+      "comment" : "Output option: overwrite the original file in place.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Replace originals" }
+        }
+      }
+    },
+    "Reveal" : {
+      "comment" : "Result row button that reveals the shrunk file in Finder.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Reveal" }
+        }
+      }
+    },
+    "Shrinker Pro couldn't start." : {
+      "comment" : "Fallback body of the launch-failure screen when the error carried no message of its own.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro couldn't start." }
+        }
+      }
+    },
+    "Standard" : {
+      "comment" : "Quality level: the default. Not 'Default' — a neighbouring menu already offers 'App default'.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Standard" }
+        }
+      }
+    },
+    "Super Low" : {
+      "comment" : "Quality level: the most aggressive of the four.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Super Low" }
+        }
+      }
+    },
+    "W" : {
+      "comment" : "One-letter placeholder for the crop WIDTH field. Keep it to a single character if the language allows.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "W" }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -110,10 +110,14 @@ enum QualityLevel: String, CaseIterable, Sendable {
     /// menus each offering a "Default" would be ambiguous about which.
     var displayName: String {
         switch self {
-        case .superLow: return "Super Low"
-        case .low: return "Low"
-        case .standard: return "Standard"
-        case .high: return "High"
+        case .superLow: return String(localized: "Super Low",
+                                      comment: "Quality level: the most aggressive of the four.")
+        case .low: return String(localized: "Low",
+                                 comment: "Quality level, between Super Low and Standard.")
+        case .standard: return String(localized: "Standard",
+                                      comment: "Quality level: the default. Not 'Default' — a neighbouring menu already offers 'App default'.")
+        case .high: return String(localized: "High",
+                                  comment: "Quality level: the gentlest of the four.")
         }
     }
 }

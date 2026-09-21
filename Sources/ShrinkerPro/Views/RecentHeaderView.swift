@@ -86,7 +86,9 @@ struct RecentHeaderView: View {
             // PillButtonView) so it reads as the same family of control
             // rather than a stray button, right-aligned after the
             // aggregate.
-            PillButtonView(title: "Clear", action: onClear)
+            PillButtonView(title: String(localized: "Clear",
+                                         comment: "Recent header button that empties the result list."),
+                           action: onClear)
         }
         .padding(.horizontal, 18)
         .padding(.top, 4)

@@ -174,7 +174,9 @@ struct SettingsView: View {
 
                 if !settings.saveInSameFolder {
                     HStack {
-                        Text(settings.savePath?.path ?? "No folder chosen")
+                        Text(settings.savePath?.path
+                            ?? String(localized: "No folder chosen",
+                                      comment: "Shown in place of a path when no output folder has been picked yet."))
                             .font(.caption)
                             .foregroundStyle(settings.savePath == nil ? .secondary : .primary)
                             .lineLimit(1)
@@ -491,7 +493,10 @@ private struct ConversionRuleRow: View {
     var body: some View {
         Picker(rowLabel, selection: $selection) {
             ForEach(ConversionTarget.allCases, id: \.self) { target in
-                Text(target == .keep ? "Keep \(ownFormatName)" : target.displayName).tag(target)
+                Text(target == .keep
+                     ? String(localized: "Keep \(ownFormatName)",
+                              comment: "Conversion rule option meaning 'do not convert'. The placeholder is a format name such as PNG, which stays English.")
+                     : target.displayName).tag(target)
             }
         }
     }

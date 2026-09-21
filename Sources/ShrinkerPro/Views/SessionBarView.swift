@@ -41,7 +41,8 @@ enum SessionBarState {
         maxDimension: Int?, crop: CropTarget?
     ) -> String {
         [
-            format?.displayName ?? "App default",
+            format?.displayName ?? String(localized: "App default",
+                                          comment: "Collapsed session-bar summary when no format override is set."),
             (quality ?? storedQuality).displayName,
             maxDimension.map {
                 String(localized: "Max \($0, format: .number.grouping(.never))px",
@@ -452,7 +453,8 @@ struct SessionBarView: View {
                 if isModified { resetButton }
             }
 
-            row("Convert all to") {
+            row(String(localized: "Convert all to",
+                       comment: "Session bar row label for the format-override picker.")) {
                 HStack(spacing: 8) {
                     Picker("Convert all to", selection: $model.sessionFormat) {
                         // The "no override" case is still the absence of a
@@ -489,7 +491,8 @@ struct SessionBarView: View {
                 .help("Converts every raster file for the rest of this session. SVG and GIF are always left in their own format.")
             }
 
-            row("Quality") {
+            row(String(localized: "Quality",
+                       comment: "Session bar row label for the quality picker.")) {
                 // Bound to the session value, defaulting to the stored one:
                 // picking a level here changes this session, not the
                 // preference the next launch starts from.
@@ -503,7 +506,8 @@ struct SessionBarView: View {
                 .help("Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose.")
             }
 
-            row("Max size") {
+            row(String(localized: "Max size",
+                       comment: "Session bar row label for the max-dimension field.")) {
                 maxSizeField
                     .disabled(maxSizeIsSuperseded)
                     // Dimmed rather than hidden: the value stays readable and
@@ -519,7 +523,8 @@ struct SessionBarView: View {
                     )
             }
 
-            row("Crop to") {
+            row(String(localized: "Crop to",
+                       comment: "Session bar row label for the crop width/height fields.")) {
                 cropFields
                 // Holds its space with `opacity`, like the two warnings above,
                 // so the row's height never shifts as it is typed into.
@@ -597,7 +602,8 @@ struct SessionBarView: View {
             // while it is still being typed.
             DigitsOnlyField(
                 text: $model.sessionMaxSizeText,
-                placeholder: "No limit",
+                placeholder: String(localized: "No limit",
+                                    comment: "Placeholder in the max size field when no limit is set."),
                 onCommit: { model.sessionMaxSizeText = MaxSizeField.committed(model.sessionMaxSizeText) }
             )
             .accessibilityLabel("Max size in pixels")
@@ -648,7 +654,8 @@ struct SessionBarView: View {
             HStack(spacing: SessionBarState.CropRow.innerSpacing) {
                 DigitsOnlyField(
                     text: $model.sessionCropWidthText,
-                    placeholder: "W",
+                    placeholder: String(localized: "W",
+                                        comment: "One-letter placeholder for the crop WIDTH field. Keep it to a single character if the language allows."),
                     onCommit: {
                         model.sessionCropWidthText =
                             CropField.committed(model.sessionCropWidthText)
@@ -664,7 +671,8 @@ struct SessionBarView: View {
 
                 DigitsOnlyField(
                     text: $model.sessionCropHeightText,
-                    placeholder: "H",
+                    placeholder: String(localized: "H",
+                                        comment: "One-letter placeholder for the crop HEIGHT field. Keep it to a single character if the language allows."),
                     onCommit: {
                         model.sessionCropHeightText =
                             CropField.committed(model.sessionCropHeightText)
@@ -719,7 +727,9 @@ struct SessionBarView: View {
     // MARK: Buttons
 
     private var adjustButton: some View {
-        SessionBarButton(title: "Adjust", chevron: "chevron.up") { setExpanded(true) }
+        SessionBarButton(title: String(localized: "Adjust",
+                                       comment: "Button that opens the session settings panel."),
+                         chevron: "chevron.up") { setExpanded(true) }
             .accessibilityLabel("Adjust session settings")
             .accessibilityHint("Shows the format, quality and max size controls")
     }
@@ -730,7 +740,9 @@ struct SessionBarView: View {
     /// at the same guard — but a Done button that simply did nothing when
     /// pressed would read as a bug rather than as a rule.
     private var doneButton: some View {
-        SessionBarButton(title: "Done", chevron: "chevron.down") { setExpanded(false) }
+        SessionBarButton(title: String(localized: "Done",
+                                       comment: "Button that closes the session settings panel."),
+                         chevron: "chevron.down") { setExpanded(false) }
             .disabled(cropIsIncomplete)
             .help(
                 cropIsIncomplete

@@ -38,9 +38,12 @@ enum MetadataPolicy: String, CaseIterable, Equatable, Sendable {
 
     var displayName: String {
         switch self {
-        case .all: return "All metadata"
-        case .copyright: return "Copyright and credit only"
-        case .stripped: return "No metadata"
+        case .all: return String(localized: "All metadata",
+                                 comment: "Metadata policy: keep everything the original carried.")
+        case .copyright: return String(localized: "Copyright and credit only",
+                                       comment: "Metadata policy: keep only the copyright and creator fields.")
+        case .stripped: return String(localized: "No metadata",
+                                      comment: "Metadata policy: strip everything.")
         }
     }
 }

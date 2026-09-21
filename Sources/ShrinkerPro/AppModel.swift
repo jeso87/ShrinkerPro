@@ -641,7 +641,16 @@ final class AppModel: ObservableObject {
         let saved = max(0, original - shrunk)
         let formatter = ByteCountFormatter()
         formatter.countStyle = .file
-        return "\(formatter.string(fromByteCount: Int64(saved))) saved"
+        // One catalog entry rather than a size with " saved" appended.
+        // `notificationTitle(count:)` directly above has been a catalog
+        // plural since Task 2; this half of the same banner was simply
+        // overlooked, and a bare interpolation never reaches .stringsdata
+        // at all — so neither the extraction nor sync-catalog.py could
+        // have noticed. `ByteCountFormatter` localizes its own output, so
+        // the placeholder is `%@` and needs no number format style; what
+        // the catalog supplies is where the word goes.
+        return String(localized: "\(formatter.string(fromByteCount: Int64(saved))) saved",
+                      comment: "Notification body after a batch of two or more files. The placeholder is an already-formatted size such as '1.2 MB'.")
     }
 
 }

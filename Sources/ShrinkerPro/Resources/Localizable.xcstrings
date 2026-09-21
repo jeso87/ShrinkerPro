@@ -10,6 +10,33 @@
         }
       }
     },
+    "%@, …and %lld more" : {
+      "comment" : "Tail of a truncated filename list. First placeholder is the listed names, second is how many were not listed.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@, …and %lld more" }
+        }
+      }
+    },
+    "%lld files are already there: %@" : {
+      "comment" : "Overwrite sheet body for existing files. First placeholder is the file count and drives the plural; the singular form does not print it. Second is the filename list.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ is already there and will be replaced." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "These %1$lld files are already there and will be replaced: %2$@" }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld images shrunk" : {
       "comment" : "Notification title after a batch finishes. The one-file form reads 'Image shrunk' with no number.",
       "extractionState" : "manual",
@@ -22,6 +49,24 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%lld images shrunk" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld originals will be overwritten: %@" : {
+      "comment" : "Overwrite sheet body for originals. First placeholder is the file count and drives the plural; the singular form does not print it. Second is the filename list.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ will be overwritten and cannot be recovered." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "These %1$lld originals will be overwritten and cannot be recovered: %2$@" }
               }
             }
           }
@@ -55,6 +100,96 @@
         }
       }
     },
+    "Replace %lld files in “%@”?" : {
+      "comment" : "Overwrite sheet title for existing files sharing one folder. Second placeholder is the folder name.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Replace 1 file in “%2$@”?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Replace %1$lld files in “%2$@”?" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Replace %lld files?" : {
+      "comment" : "Overwrite sheet title when existing files would be replaced and they are not all in one folder.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Replace 1 file?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Replace %lld files?" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Replace %lld originals in “%@”?" : {
+      "comment" : "Overwrite sheet title for originals sharing one folder. Second placeholder is the folder name.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Replace 1 original in “%2$@”?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Replace %1$lld originals in “%2$@”?" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Replace %lld originals?" : {
+      "comment" : "Overwrite sheet title when the user's own originals would be destroyed and they are not all in one folder.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Replace 1 original?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Replace %lld originals?" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Skip These" : {
+      "comment" : "Overwrite sheet's cancel-role button when more than one file is affected. Declines these files; the rest of the batch still runs.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Skip These" }
+        }
+      }
+    },
+    "Skip This" : {
+      "comment" : "Overwrite sheet's cancel-role button when exactly one file is affected. Declines these files; the rest of the batch still runs.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Skip This" }
+        }
+      }
+    },
     "SVG optimization failed: %@" : {
       "comment" : "Alert body when svgo fails.",
       "extractionState" : "manual",
@@ -70,6 +205,33 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "The bundled %@ tool is missing. The app may be damaged — try reinstalling." }
+        }
+      }
+    },
+    "The other %lld files are unaffected." : {
+      "comment" : "Reassurance that the rest of the batch still runs.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "The other file is unaffected." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "The other %lld files are unaffected." }
+              }
+            }
+          }
+        }
+      }
+    },
+    "filename list separator" : {
+      "comment" : "Separates filenames in the overwrite sheet's list. English uses a comma and a space; CJK languages use 、",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : ", " }
         }
       }
     }

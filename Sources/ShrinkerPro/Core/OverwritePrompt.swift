@@ -64,52 +64,74 @@ struct OverwriteRequest: Identifiable {
 
     private var names: String {
         let all = displayNames
-        let listed = all.prefix(Self.listedNameLimit).joined(separator: ", ")
+        // Deliberately not ListFormatter: in English it would insert an
+        // "and" this list does not have, and the truncated case would read
+        // "…, and 5.png, …and 3 more". This is a truncated enumeration, not
+        // a grammatical list. The separator is a catalog entry so CJK can
+        // use "、" without English changing.
+        let separator = String(localized: "filename list separator",
+                               defaultValue: ", ",
+                               comment: "Separates filenames in the overwrite sheet's list. English uses a comma and a space; CJK languages use 、")
+        let listed = all.prefix(Self.listedNameLimit).joined(separator: separator)
         let rest = all.count - Self.listedNameLimit
-        return rest > 0 ? "\(listed), …and \(rest) more" : listed
+        guard rest > 0 else { return listed }
+        return String(localized: "\(listed), …and \(rest) more",
+                      comment: "Tail of a truncated filename list. First placeholder is the listed names, second is how many were not listed.")
     }
 
     var title: String {
-        let counted: String
+        guard let folder = sharedParent else {
+            switch category {
+            case .original:
+                return String(localized: "Replace \(paths.count) originals?",
+                              comment: "Overwrite sheet title when the user's own originals would be destroyed and they are not all in one folder.")
+            case .existingFile:
+                return String(localized: "Replace \(paths.count) files?",
+                              comment: "Overwrite sheet title when existing files would be replaced and they are not all in one folder.")
+            }
+        }
+        let name = folder.lastPathComponent
         switch category {
         case .original:
-            counted = paths.count == 1 ? "1 original" : "\(paths.count) originals"
+            return String(localized: "Replace \(paths.count) originals in “\(name)”?",
+                          comment: "Overwrite sheet title for originals sharing one folder. Second placeholder is the folder name.")
         case .existingFile:
-            counted = paths.count == 1 ? "1 file" : "\(paths.count) files"
+            return String(localized: "Replace \(paths.count) files in “\(name)”?",
+                          comment: "Overwrite sheet title for existing files sharing one folder. Second placeholder is the folder name.")
         }
-        guard let folder = sharedParent else { return "Replace \(counted)?" }
-        return "Replace \(counted) in “\(folder.lastPathComponent)”?"
     }
 
     var message: String {
         var lines: [String] = []
         switch category {
         case .original:
-            lines.append(
-                paths.count == 1
-                    ? "\(names) will be overwritten and cannot be recovered."
-                    : "These will be overwritten and cannot be recovered: \(names)"
-            )
+            lines.append(String(localized: "\(paths.count) originals will be overwritten: \(names)",
+                                comment: "Overwrite sheet body for originals. First placeholder is the file count and drives the plural; the singular form does not print it. Second is the filename list."))
         case .existingFile:
-            lines.append(
-                paths.count == 1
-                    ? "\(names) is already there and will be replaced."
-                    : "These are already there and will be replaced: \(names)"
-            )
+            lines.append(String(localized: "\(paths.count) files are already there: \(names)",
+                                comment: "Overwrite sheet body for existing files. First placeholder is the file count and drives the plural; the singular form does not print it. Second is the filename list."))
         }
         if unaffectedCount > 0 {
-            lines.append(
-                unaffectedCount == 1
-                    ? "The other file is unaffected."
-                    : "The other \(unaffectedCount) files are unaffected."
-            )
+            lines.append(String(localized: "The other \(unaffectedCount) files are unaffected.",
+                                comment: "Reassurance that the rest of the batch still runs."))
         }
         return lines.joined(separator: "\n\n")
     }
 
     /// Not "Cancel": it does not cancel the drop, it declines these files.
+    ///
+    /// Not a catalog plural variation: `xcstringstool` requires a plural
+    /// entry to reference the number in at least one of its forms, and
+    /// neither "Skip This" nor "Skip These" does — this is demonstrative
+    /// ("this"/"these") agreement, not a count being spelled out. Two
+    /// top-level strings, chosen here, is what the compiler itself
+    /// recommends for that case.
     var skipButtonTitle: String {
-        paths.count == 1 ? "Skip This" : "Skip These"
+        paths.count == 1
+            ? String(localized: "Skip This",
+                     comment: "Overwrite sheet's cancel-role button when exactly one file is affected. Declines these files; the rest of the batch still runs.")
+            : String(localized: "Skip These",
+                     comment: "Overwrite sheet's cancel-role button when more than one file is affected. Declines these files; the rest of the batch still runs.")
     }
 }
 

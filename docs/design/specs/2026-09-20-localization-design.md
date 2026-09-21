@@ -129,10 +129,21 @@ Under CLDR, the 36 languages divide three ways:
 
 - **Six categories:** Arabic (zero, one, two, few, many, other).
 - **Four:** Polish, Russian, Ukrainian, Czech, Slovak, Slovenian.
-- **Three:** Croatian, Romanian, Hebrew.
+- **Three or four:** Croatian, Romanian, Hebrew. Hebrew in particular has
+  carried different category sets across CLDR releases, including a dual
+  form.
 - **Two** (English's shape): the remaining nineteen.
 - **One:** Japanese, Korean, Thai, Vietnamese and the three Chinese
   variants inflect no nouns for number at all.
+
+**This list is illustrative, not authoritative.** It is a hand-written
+summary of CLDR, it is the kind of table that goes stale between CLDR
+releases, and getting one row wrong means a language ships missing a plural
+form. So nothing may depend on it: Phase 2's guard test must derive each
+language's required categories from the platform's own CLDR data at test
+time, never from a table in this document. The list is here to convey the
+*shape* of the problem — that a two-branch ternary cannot express it — and
+for nothing else.
 
 So in ten of the 36 a two-branch ternary cannot produce grammatical text, no
 matter what strings are poured into it, and in a further seven it invents a
@@ -255,10 +266,10 @@ A new `LocalizationGuardTests`, in the style of the existing
 
 - Every key in `Localizable.xcstrings` has a translation in all 36 languages.
 - No entry is left in `needs_review` state.
-- Plural entries carry the categories their language actually requires —
-  six for Arabic, four for Polish, Russian, Ukrainian, Czech, Slovak and
-  Slovenian, three for Croatian, Romanian and Hebrew. A catalog with only
-  `one`/`other` for Arabic is the failure this catches.
+- Plural entries carry the categories their language actually requires,
+  **as read from the platform's CLDR data at test time** rather than from
+  any hand-written list. A catalog with only `one`/`other` for Arabic is the
+  failure this catches.
 - **The CLI stays English.** `errorDescription` and `helpText` return
   identical strings under a forced non-English locale.
 

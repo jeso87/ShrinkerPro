@@ -289,6 +289,37 @@ final class LocalizationGuardTests: XCTestCase {
         }
     }
 
+    /// The glossary names English terms that must render consistently. A term
+    /// that no longer appears anywhere in the catalog is guidance about a
+    /// string that no longer exists — which is how a glossary quietly rots
+    /// into being wrong rather than merely stale.
+    func testEveryGlossaryTermStillAppearsInTheCatalog() throws {
+        let glossary = try String(
+            contentsOf: Self.repoRoot().appendingPathComponent("docs/localization-glossary.md"),
+            encoding: .utf8
+        )
+        let terms = glossary
+            .split(separator: "\n")
+            .compactMap { line -> String? in
+                guard line.hasPrefix("- **"),
+                      let close = line.range(of: "**", range: line.index(line.startIndex, offsetBy: 4)..<line.endIndex)
+                else { return nil }
+                return String(line[line.index(line.startIndex, offsetBy: 4)..<close.lowerBound])
+            }
+        XCTAssertFalse(terms.isEmpty, "parsed no terms — has the glossary's format changed?")
+
+        let data = try Data(contentsOf: Self.catalogURL(named: "Localizable"))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let keys = try XCTUnwrap(json["strings"] as? [String: Any]).keys.joined(separator: "\n").lowercased()
+
+        for term in terms {
+            XCTAssertTrue(
+                keys.contains(term.lowercased()),
+                "glossary term '\(term)' appears in no catalog key — remove it or fix the term"
+            )
+        }
+    }
+
     // MARK: - Helpers
 
     static func catalogURL(named name: String) throws -> URL {

@@ -7,6 +7,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
         }
       }
     },
@@ -15,6 +18,9 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
+        },
+        "de" : {
           "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
         }
       }
@@ -25,6 +31,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop %1$@:%2$@" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zuschnitt %1$@:%2$@" }
         }
       }
     },
@@ -34,6 +43,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop %1$@×%2$@" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zuschnitt %1$@×%2$@" }
         }
       }
     },
@@ -43,6 +55,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Max %@px" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Max. %@ px" }
         }
       }
     },
@@ -52,6 +67,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No limit" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Keine Begrenzung" }
         }
       }
     },
@@ -61,6 +79,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%@, …and %lld more" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@, …und %lld weitere" }
         }
       }
     },
@@ -76,6 +97,18 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "These %1$lld files are already there and will be replaced: %2$@" }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ ist bereits vorhanden und wird ersetzt." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Diese %1$lld Dateien sind bereits vorhanden und werden ersetzt: %2$@" }
               }
             }
           }
@@ -97,6 +130,18 @@
               }
             }
           }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Bild verkleinert" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld Bilder verkleinert" }
+              }
+            }
+          }
         }
       }
     },
@@ -115,6 +160,18 @@
               }
             }
           }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ wird überschrieben und kann nicht wiederhergestellt werden." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Diese %1$lld Originale werden überschrieben und können nicht wiederhergestellt werden: %2$@" }
+              }
+            }
+          }
         }
       }
     },
@@ -124,6 +181,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "A crop needs both sides. Fill in the other number, or clear this one — files cannot be shrunk until you do." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ein Zuschnitt braucht beide Seiten. Ergänze die andere Zahl oder entferne diese — bis dahin lassen sich keine Dateien verkleinern." }
         }
       }
     },
@@ -133,6 +193,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Both sides are needed. The shape is used exactly as typed, so a portrait photo cropped to 16:9 comes out as a landscape strip. SVG is unaffected. Not saved — it resets when you quit." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Beide Seiten werden gebraucht. Die Form wird genau so verwendet, wie sie eingetippt ist: Ein Hochformat-Foto auf 16:9 zugeschnitten ergibt einen querformatigen Streifen. SVG bleibt unberührt. Wird nicht gesichert — beim Beenden setzt sie sich zurück." }
         }
       }
     },
@@ -142,6 +205,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crops the center of each image to this shape and leaves the size alone. The session's max size, if set, still applies." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Schneidet die Mitte jedes Bildes auf diese Form zu und lässt die Größe unangetastet. Die Maximalgröße der Sitzung gilt weiterhin, sofern eine gesetzt ist." }
         }
       }
     },
@@ -151,6 +217,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crops the center of each image to this shape, then scales it down to this size. Images already smaller are cropped but never enlarged, so a mixed batch may not come out all one size. This sets the output size outright, so the max size above does not apply." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Schneidet die Mitte jedes Bildes auf diese Form zu und skaliert es dann auf diese Größe herunter. Bereits kleinere Bilder werden zugeschnitten, aber nie vergrößert — ein gemischter Stapel kommt deshalb womöglich nicht in einer einheitlichen Größe heraus. Damit steht die Ausgabegröße fest, und die Maximalgröße darüber gilt nicht." }
         }
       }
     },
@@ -160,6 +229,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Finish the crop, or clear it, before closing." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vor dem Schließen muss der Zuschnitt vervollständigt oder entfernt werden." }
         }
       }
     },
@@ -169,6 +241,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Image conversion failed: %@" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Die Bildkonvertierung ist fehlgeschlagen: %@" }
         }
       }
     },
@@ -178,6 +253,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No output was written to %@." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nach %@ wurde keine Ausgabe geschrieben." }
         }
       }
     },
@@ -187,6 +265,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"%@\")." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nur SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC und HEIF werden unterstützt (erhalten: „%@“)." }
         }
       }
     },
@@ -196,6 +277,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "PNG is lossless — photos will usually get larger." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG ist verlustfrei — Fotos werden dadurch meist größer." }
         }
       }
     },
@@ -211,6 +295,18 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Replace %1$lld files in “%2$@”?" }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 Datei in „%2$@“ ersetzen?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld Dateien in „%2$@“ ersetzen?" }
               }
             }
           }
@@ -232,6 +328,18 @@
               }
             }
           }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 Datei ersetzen?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld Dateien ersetzen?" }
+              }
+            }
+          }
         }
       }
     },
@@ -247,6 +355,18 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Replace %1$lld originals in “%2$@”?" }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 Original in „%2$@“ ersetzen?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld Originale in „%2$@“ ersetzen?" }
               }
             }
           }
@@ -268,6 +388,18 @@
               }
             }
           }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 Original ersetzen?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld Originale ersetzen?" }
+              }
+            }
+          }
         }
       }
     },
@@ -277,6 +409,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Verkleinert Bilder so, dass die längste Seite höchstens so viele Pixel hat. Kleinere Bilder bleiben unverändert. SVG bleibt unberührt." }
         }
       }
     },
@@ -286,6 +421,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Skip These" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Diese Dateien überspringen" }
         }
       }
     },
@@ -295,6 +433,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Skip This" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Diese Datei überspringen" }
         }
       }
     },
@@ -304,6 +445,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "SVG optimization failed: %@" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Die SVG-Optimierung ist fehlgeschlagen: %@" }
         }
       }
     },
@@ -313,6 +457,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "The bundled %@ tool is missing. The app may be damaged — try reinstalling." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Das mitgelieferte Werkzeug %@ fehlt. Die App ist möglicherweise beschädigt — installiere sie neu." }
         }
       }
     },
@@ -322,6 +469,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "The crop already sets the size — every image comes out %1$@×%2$@. Switch the crop to a ratio, or clear it, to use a max size." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Der Zuschnitt legt die Größe bereits fest — jedes Bild kommt mit %1$@×%2$@ heraus. Stelle den Zuschnitt auf eine Form um oder entferne ihn, um eine Maximalgröße zu nutzen." }
         }
       }
     },
@@ -340,6 +490,18 @@
               }
             }
           }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Die übrige Datei ist nicht betroffen." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Die übrigen %lld Dateien sind nicht betroffen." }
+              }
+            }
+          }
         }
       }
     },
@@ -349,6 +511,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : ", " }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : ", " }
         }
       }
     },
@@ -357,6 +522,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "About Shrinker Pro" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Über Shrinker Pro" }
         }
       }
     },
@@ -365,6 +533,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Adjust session settings" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sitzungseinstellungen anpassen" }
         }
       }
     },
@@ -373,6 +544,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "App default" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "App-Vorgabe" }
         }
       }
     },
@@ -381,6 +555,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gilt für JPEG, WebP, AVIF und HEIC. PNG und GIF werden von Werkzeugen optimiert, die keine vergleichbare Einstellung haben, und sehen deshalb bei jeder Wahl gleich aus." }
         }
       }
     },
@@ -389,6 +566,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gilt für JPEG, WebP, AVIF und HEIC. PNG und GIF werden von Werkzeugen optimiert, die keine vergleichbare Einstellung haben, und sehen deshalb bei jeder Wahl gleich aus. Standard entspricht dem, was frühere Versionen von Shrinker Pro erzeugt haben. Jede Sitzung beginnt hier; die Sitzungsleiste im Fenster kann den Wert für eine Sitzung ändern, ohne diese Einstellung zu ändern." }
         }
       }
     },
@@ -397,6 +577,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Applies to this session only. Defaults live in Settings." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gilt nur für diese Sitzung. Die Vorgaben stehen in den Einstellungen." }
         }
       }
     },
@@ -405,6 +588,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Check for Updates…" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nach Updates suchen …" }
         }
       }
     },
@@ -413,6 +599,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Choose folder…" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ordner wählen …" }
         }
       }
     },
@@ -421,6 +610,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Choose…" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wählen …" }
         }
       }
     },
@@ -429,6 +621,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Clear History" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Verlauf löschen" }
         }
       }
     },
@@ -437,6 +632,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Clear Menu" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Einträge löschen" }
         }
       }
     },
@@ -445,6 +643,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Clear result list when shrinking new images" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ergebnisliste beim Verkleinern neuer Bilder leeren" }
         }
       }
     },
@@ -453,6 +654,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Close session settings" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sitzungseinstellungen schließen" }
         }
       }
     },
@@ -461,6 +665,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Conversion" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Konvertierung" }
         }
       }
     },
@@ -469,6 +676,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Convert all to" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Konvertieren in" }
         }
       }
     },
@@ -477,6 +687,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Converts every raster file for the rest of this session. SVG and GIF are always left in their own format." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Konvertiert für den Rest dieser Sitzung jede Rasterdatei. SVG und GIF bleiben immer in ihrem eigenen Format." }
         }
       }
     },
@@ -485,6 +698,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop height" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Höhe des Zuschnitts" }
         }
       }
     },
@@ -493,6 +709,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop mode" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zuschnittmodus" }
         }
       }
     },
@@ -501,6 +720,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop width" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Breite des Zuschnitts" }
         }
       }
     },
@@ -509,6 +731,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Done adjusting session settings" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Anpassen der Sitzungseinstellungen abschließen" }
         }
       }
     },
@@ -517,6 +742,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Drag files here" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dateien hierher ziehen" }
         }
       }
     },
@@ -525,6 +753,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Enable notifications" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mitteilungen aktivieren" }
         }
       }
     },
@@ -533,6 +764,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Encode at" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kodieren mit" }
         }
       }
     },
@@ -541,6 +775,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "General" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Allgemein" }
         }
       }
     },
@@ -549,6 +786,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Keep Both" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Beide behalten" }
         }
       }
     },
@@ -557,6 +797,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Max size in pixels" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Maximale Größe in Pixeln" }
         }
       }
     },
@@ -565,6 +808,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Metadata" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Metadaten" }
         }
       }
     },
@@ -573,6 +819,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No Recent Files" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Keine benutzten Dokumente" }
         }
       }
     },
@@ -581,6 +830,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Notifications are turned off for Shrinker Pro in System Settings, so none will appear." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mitteilungen sind für Shrinker Pro in den Systemeinstellungen deaktiviert — es wird also keine geben." }
         }
       }
     },
@@ -588,6 +840,9 @@
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "OK" }
+        },
+        "de" : {
           "stringUnit" : { "state" : "translated", "value" : "OK" }
         }
       }
@@ -597,6 +852,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Open Files…" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dateien öffnen …" }
         }
       }
     },
@@ -605,6 +863,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Open Notification Settings…" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mitteilungseinstellungen öffnen …" }
         }
       }
     },
@@ -613,6 +874,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Open Recent" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Benutzte Dokumente" }
         }
       }
     },
@@ -621,6 +885,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Output" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ausgabe" }
         }
       }
     },
@@ -629,6 +896,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF und SVG — oder ⌘O drücken" }
         }
       }
     },
@@ -637,6 +907,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Put them in a \"minified\" subfolder" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "In einen Unterordner „minified“ legen" }
         }
       }
     },
@@ -644,6 +917,9 @@
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "px" }
+        },
+        "de" : {
           "stringUnit" : { "state" : "translated", "value" : "px" }
         }
       }
@@ -653,6 +929,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Quality" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Qualität" }
         }
       }
     },
@@ -661,6 +940,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Quit" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Beenden" }
         }
       }
     },
@@ -669,6 +951,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "ratio" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Form" }
         }
       }
     },
@@ -677,6 +962,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "RECENT" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "ZULETZT" }
         }
       }
     },
@@ -685,6 +973,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Replace" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ersetzen" }
         }
       }
     },
@@ -693,6 +984,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Reset" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zurücksetzen" }
         }
       }
     },
@@ -701,6 +995,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Returns format, quality, max size and crop to the app's defaults" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Setzt Format, Qualität, Maximalgröße und Zuschnitt auf die Vorgaben der App zurück" }
         }
       }
     },
@@ -709,6 +1006,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Die Drehung wird immer auf das Bild selbst angewendet — Fotos stehen deshalb in jeder App aufrecht, welche Option du auch wählst." }
         }
       }
     },
@@ -717,6 +1017,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Same folder as original" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gleicher Ordner wie das Original" }
         }
       }
     },
@@ -725,6 +1028,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "SESSION SETTINGS" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "SITZUNGSEINSTELLUNGEN" }
         }
       }
     },
@@ -733,6 +1039,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Settings" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Einstellungen" }
         }
       }
     },
@@ -741,6 +1050,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shows the format, quality and max size controls" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zeigt die Bedienelemente für Format, Qualität und Maximalgröße" }
         }
       }
     },
@@ -748,6 +1060,9 @@
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
+        },
+        "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
         }
       }
@@ -757,6 +1072,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro can't start" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro kann nicht starten" }
         }
       }
     },
@@ -765,6 +1083,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Something went wrong" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Etwas ist schiefgelaufen" }
         }
       }
     },
@@ -773,6 +1094,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "SVG- und GIF-Dateien werden immer in ihrem eigenen Format optimiert. SVG ist vektorbasiert, GIF meist animiert — eine Konvertierung würde jeweils genau das zerstören, was sie nützlich macht." }
         }
       }
     },
@@ -781,6 +1105,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "This session" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Diese Sitzung" }
         }
       }
     },
@@ -789,6 +1116,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "This session: %@" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Diese Sitzung: %@" }
         }
       }
     },
@@ -797,6 +1127,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Warn before replacing a file" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vor dem Ersetzen einer Datei warnen" }
         }
       }
     },
@@ -805,6 +1138,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "When shrinking, keep" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Beim Verkleinern behalten" }
         }
       }
     },
@@ -813,6 +1149,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Where" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wohin" }
         }
       }
     },
@@ -821,6 +1160,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Deine Originale werden überschrieben und können nicht wiederhergestellt werden. Konvertierte Dateien behalten eine eigene Dateiendung — diese Originale bleiben also unangetastet." }
         }
       }
     },
@@ -830,6 +1172,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ failed with exit code %d" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ ist mit Exit-Code %d fehlgeschlagen" }
         }
       }
     },
@@ -839,6 +1184,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ failed with exit code %d: %@" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ ist mit Exit-Code %d fehlgeschlagen: %@" }
         }
       }
     },
@@ -854,6 +1202,18 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%1$lld files · %2$@ larger" }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 Datei · %2$@ größer" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld Dateien · %2$@ größer" }
               }
             }
           }
@@ -875,6 +1235,18 @@
               }
             }
           }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 Datei · %2$@ eingespart" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld Dateien · %2$@ eingespart" }
+              }
+            }
+          }
         }
       }
     },
@@ -884,6 +1256,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Add .min" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : ".min anhängen" }
         }
       }
     },
@@ -893,6 +1268,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Adjust" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Anpassen" }
         }
       }
     },
@@ -902,6 +1280,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "All metadata" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Alle Metadaten" }
         }
       }
     },
@@ -911,6 +1292,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Clear" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Leeren" }
         }
       }
     },
@@ -920,6 +1304,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Copyright and credit only" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nur Copyright und Urheber" }
         }
       }
     },
@@ -929,6 +1316,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop to" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zuschnitt auf" }
         }
       }
     },
@@ -938,6 +1328,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Done" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fertig" }
         }
       }
     },
@@ -947,6 +1340,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Filenames" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dateinamen" }
         }
       }
     },
@@ -956,6 +1352,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Files" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dateien" }
         }
       }
     },
@@ -964,6 +1363,9 @@
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "H" }
+        },
+        "de" : {
           "stringUnit" : { "state" : "translated", "value" : "H" }
         }
       }
@@ -974,6 +1376,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "High" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Hoch" }
         }
       }
     },
@@ -983,6 +1388,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Keep" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Behalten" }
         }
       }
     },
@@ -992,6 +1400,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Keep %@" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ behalten" }
         }
       }
     },
@@ -1001,6 +1412,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Keep originals, save a .min copy" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Originale behalten, .min-Kopie sichern" }
         }
       }
     },
@@ -1010,6 +1424,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Leave as is" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Unverändert lassen" }
         }
       }
     },
@@ -1019,6 +1436,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Low" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Niedrig" }
         }
       }
     },
@@ -1028,6 +1448,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Max size" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Max. Größe" }
         }
       }
     },
@@ -1037,6 +1460,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No folder chosen" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kein Ordner gewählt" }
         }
       }
     },
@@ -1046,6 +1472,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No metadata" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Keine Metadaten" }
         }
       }
     },
@@ -1055,6 +1484,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Replace originals" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Originale ersetzen" }
         }
       }
     },
@@ -1064,6 +1496,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Reveal" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Im Finder zeigen" }
         }
       }
     },
@@ -1082,6 +1517,18 @@
               }
             }
           }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro kann diese Datei nicht öffnen" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro kann diese %lld Dateien nicht öffnen" }
+              }
+            }
+          }
         }
       }
     },
@@ -1091,6 +1538,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro couldn't start." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro konnte nicht starten." }
         }
       }
     },
@@ -1109,6 +1559,18 @@
               }
             }
           }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro konnte nicht starten und kann die geöffnete Datei deshalb nicht komprimieren. Beende die App und starte sie neu, um es erneut zu versuchen." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro konnte nicht starten und kann die %lld geöffneten Dateien deshalb nicht komprimieren. Beende die App und starte sie neu, um es erneut zu versuchen." }
+              }
+            }
+          }
         }
       }
     },
@@ -1117,6 +1579,9 @@
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Standard" }
+        },
+        "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Standard" }
         }
       }
@@ -1127,6 +1592,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Super Low" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sehr niedrig" }
         }
       }
     },
@@ -1136,6 +1604,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "The crop is missing a side, so it is not clear what these files should be cropped to. Fill in both numbers, or clear the crop, and drop them again." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dem Zuschnitt fehlt eine Seite, daher ist unklar, worauf diese Dateien zugeschnitten werden sollen. Gib beide Zahlen ein oder entferne den Zuschnitt und lege die Dateien erneut ab." }
         }
       }
     },
@@ -1145,6 +1616,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "W" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "B" }
         }
       }
     },
@@ -1154,6 +1628,9 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ saved" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ eingespart" }
         }
       }
     }

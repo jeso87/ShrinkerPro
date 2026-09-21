@@ -358,6 +358,16 @@ final class CropFieldTests: XCTestCase {
         XCTAssertTrue(help.lowercased().contains("ratio"), help)
     }
 
+    /// Pins the full sentence, not just its substrings, so a future split of
+    /// this string around its interpolation — the mistake this text was
+    /// rewritten to fix — is caught here rather than only by a translator.
+    func testTheExplanationIsOneWholeSentence() {
+        XCTAssertEqual(
+            SessionBarState.maxSizeSupersededHelp(crop: pixels(1200, 800)),
+            "The crop already sets the size — every image comes out 1200×800. Switch the crop to a ratio, or clear it, to use a max size."
+        )
+    }
+
     /// Empty while the field is live, so a dimmed-looking control never shows
     /// a tooltip explaining a state it is not in.
     func testTheExplanationIsEmptyWhileTheFieldIsLive() {

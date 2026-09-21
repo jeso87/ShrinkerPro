@@ -92,9 +92,8 @@ enum SessionBarState {
     /// a tooltip nobody can see is worse than none.
     static func maxSizeSupersededHelp(crop: CropTarget?) -> String {
         guard let crop, maxSizeIsSupersededByCrop(crop: crop) else { return "" }
-        return "The crop already sets the size — every image comes out "
-            + "\(crop.width)×\(crop.height). Switch the crop to a ratio, or clear it, "
-            + "to use a max size."
+        return String(localized: "The crop already sets the size — every image comes out \(crop.width, format: .number.grouping(.never))×\(crop.height, format: .number.grouping(.never)). Switch the crop to a ratio, or clear it, to use a max size.",
+                      comment: "Help text when a pixel crop makes the max size field irrelevant. Placeholders are the crop's width and height in pixels.")
     }
 
     /// The crop row's widths, and whether they fit.
@@ -161,7 +160,8 @@ enum SessionBarState {
     /// can see.
     static func growthWarningHelp(for override: SessionFormat?) -> String {
         showsGrowthWarning(for: override)
-            ? "PNG is lossless — photos will usually get larger."
+            ? String(localized: "PNG is lossless — photos will usually get larger.",
+                     comment: "Warning when the session's format override is PNG, which usually grows photographs.")
             : ""
     }
 }
@@ -506,7 +506,8 @@ struct SessionBarView: View {
                     .help(
                         maxSizeIsSuperseded
                             ? SessionBarState.maxSizeSupersededHelp(crop: model.sessionCropTarget)
-                            : "Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected."
+                            : String(localized: "Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected.",
+                                    comment: "Help text for the max size field when it is live.")
                     )
             }
 
@@ -520,7 +521,8 @@ struct SessionBarView: View {
                     .opacity(cropIsIncomplete ? 1 : 0)
                     .help(
                         cropIsIncomplete
-                            ? "A crop needs both sides. Fill in the other number, or clear this one — files cannot be shrunk until you do."
+                            ? String(localized: "A crop needs both sides. Fill in the other number, or clear this one — files cannot be shrunk until you do.",
+                                    comment: "Help text for the warning glyph shown while a crop has only one side filled in.")
                             : ""
                     )
             }
@@ -694,18 +696,15 @@ struct SessionBarView: View {
     /// to be surprised by are stated: that the shape is used exactly as typed,
     /// and that nothing is ever enlarged.
     private var cropHelp: String {
-        let shared = "Both sides are needed. The shape is used exactly as typed, "
-            + "so a portrait photo cropped to 16:9 comes out as a landscape strip. "
-            + "SVG is unaffected. Not saved — it resets when you quit."
+        let shared = String(localized: "Both sides are needed. The shape is used exactly as typed, so a portrait photo cropped to 16:9 comes out as a landscape strip. SVG is unaffected. Not saved — it resets when you quit.",
+                            comment: "Shared tail of both crop help texts.")
         switch model.sessionCropMode {
         case .pixels:
-            return "Crops the center of each image to this shape, then scales it down to "
-                + "this size. Images already smaller are cropped but never enlarged, so a "
-                + "mixed batch may not come out all one size. This sets the output size "
-                + "outright, so the max size above does not apply. " + shared
+            return String(localized: "Crops the center of each image to this shape, then scales it down to this size. Images already smaller are cropped but never enlarged, so a mixed batch may not come out all one size. This sets the output size outright, so the max size above does not apply.",
+                          comment: "Crop help in pixel mode, where the crop states the output size outright.") + " " + shared
         case .ratio:
-            return "Crops the center of each image to this shape and leaves the size "
-                + "alone. The session's max size, if set, still applies. " + shared
+            return String(localized: "Crops the center of each image to this shape and leaves the size alone. The session's max size, if set, still applies.",
+                          comment: "Crop help in ratio mode, where the crop sets shape but not size.") + " " + shared
         }
     }
 
@@ -727,7 +726,8 @@ struct SessionBarView: View {
             .disabled(cropIsIncomplete)
             .help(
                 cropIsIncomplete
-                    ? "Finish the crop, or clear it, before closing."
+                    ? String(localized: "Finish the crop, or clear it, before closing.",
+                            comment: "Help text on the disabled Done button while the crop is missing a side.")
                     : ""
             )
             .accessibilityLabel("Done adjusting session settings")

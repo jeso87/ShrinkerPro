@@ -105,6 +105,51 @@
         }
       }
     },
+    "A crop needs both sides. Fill in the other number, or clear this one — files cannot be shrunk until you do." : {
+      "comment" : "Help text for the warning glyph shown while a crop has only one side filled in.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "A crop needs both sides. Fill in the other number, or clear this one — files cannot be shrunk until you do." }
+        }
+      }
+    },
+    "Both sides are needed. The shape is used exactly as typed, so a portrait photo cropped to 16:9 comes out as a landscape strip. SVG is unaffected. Not saved — it resets when you quit." : {
+      "comment" : "Shared tail of both crop help texts.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Both sides are needed. The shape is used exactly as typed, so a portrait photo cropped to 16:9 comes out as a landscape strip. SVG is unaffected. Not saved — it resets when you quit." }
+        }
+      }
+    },
+    "Crops the center of each image to this shape and leaves the size alone. The session's max size, if set, still applies." : {
+      "comment" : "Crop help in ratio mode, where the crop sets shape but not size.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Crops the center of each image to this shape and leaves the size alone. The session's max size, if set, still applies." }
+        }
+      }
+    },
+    "Crops the center of each image to this shape, then scales it down to this size. Images already smaller are cropped but never enlarged, so a mixed batch may not come out all one size. This sets the output size outright, so the max size above does not apply." : {
+      "comment" : "Crop help in pixel mode, where the crop states the output size outright.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Crops the center of each image to this shape, then scales it down to this size. Images already smaller are cropped but never enlarged, so a mixed batch may not come out all one size. This sets the output size outright, so the max size above does not apply." }
+        }
+      }
+    },
+    "Finish the crop, or clear it, before closing." : {
+      "comment" : "Help text on the disabled Done button while the crop is missing a side.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Finish the crop, or clear it, before closing." }
+        }
+      }
+    },
     "Image conversion failed: %@" : {
       "comment" : "Alert body when an ImageIO decode or encode step fails.",
       "extractionState" : "manual",
@@ -129,6 +174,15 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"%@\")." }
+        }
+      }
+    },
+    "PNG is lossless — photos will usually get larger." : {
+      "comment" : "Warning when the session's format override is PNG, which usually grows photographs.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG is lossless — photos will usually get larger." }
         }
       }
     },
@@ -204,6 +258,15 @@
         }
       }
     },
+    "Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected." : {
+      "comment" : "Help text for the max size field when it is live.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected." }
+        }
+      }
+    },
     "Skip These" : {
       "comment" : "Overwrite sheet's cancel-role button when more than one file is affected. Declines these files; the rest of the batch still runs.",
       "extractionState" : "manual",
@@ -237,6 +300,15 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "The bundled %@ tool is missing. The app may be damaged — try reinstalling." }
+        }
+      }
+    },
+    "The crop already sets the size — every image comes out %@×%@. Switch the crop to a ratio, or clear it, to use a max size." : {
+      "comment" : "Help text when a pixel crop makes the max size field irrelevant. Placeholders are the crop's width and height in pixels.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "The crop already sets the size — every image comes out %1$@×%2$@. Switch the crop to a ratio, or clear it, to use a max size." }
         }
       }
     },

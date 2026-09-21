@@ -94,8 +94,8 @@ import sys
 from pathlib import Path
 from typing import NoReturn
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-CATALOG_PATH = REPO_ROOT / "Sources" / "ShrinkerPro" / "Resources" / "Localizable.xcstrings"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from catalog_format import REPO_ROOT, CATALOG_PATH, find_matching_brace
 
 # Configuration and architecture are globbed, not pinned -- see the module
 # docstring. The trailing component is the file glob, so one pass finds both
@@ -269,36 +269,6 @@ def insert_entries(text: str, to_add: list[str], found: dict[str, str]) -> str:
 
     new_blocks = ",\n".join(format_entry(key, found[key]) for key in to_add)
     return before + ",\n" + new_blocks + text[idx:]
-
-
-def find_matching_brace(text: str, open_idx: int) -> int:
-    """Given the index of an opening '{' in `text`, returns the index of
-    its matching '}', respecting JSON string literals -- so a stray '{' or
-    '}' inside a quoted value never miscounts the depth."""
-    depth = 0
-    in_string = False
-    escape = False
-    i = open_idx
-    while i < len(text):
-        ch = text[i]
-        if in_string:
-            if escape:
-                escape = False
-            elif ch == "\\":
-                escape = True
-            elif ch == '"':
-                in_string = False
-        else:
-            if ch == '"':
-                in_string = True
-            elif ch == "{":
-                depth += 1
-            elif ch == "}":
-                depth -= 1
-                if depth == 0:
-                    return i
-        i += 1
-    raise ValueError(f"Unbalanced braces starting at {open_idx}")
 
 
 def remove_entry(text: str, key: str) -> str:

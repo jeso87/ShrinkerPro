@@ -6,33 +6,47 @@ import SwiftUI
 /// `RecentHeaderFormatterTests`).
 enum RecentHeaderFormatter {
 
-    /// `"1 file"` / `"6 files"`.
+    /// `"1 file"` / `"6 files"`. The plural lives in the catalog.
     static func fileCountLabel(_ count: Int) -> String {
-        count == 1 ? "1 file" : "\(count) files"
+        String(localized: "\(count) files",
+               comment: "File count in the Recent header's trailing aggregate.")
     }
 
-    /// Splits the aggregate into three runs so the caller can colour only
-    /// the middle (size) run in `Theme.savingsAccent` and leave the rest
-    /// secondary — building one composed `Text`, not two views jammed
-    /// together with a space.
+    /// The Recent header's trailing aggregate, as one localized sentence
+    /// with the size run accented.
+    ///
+    /// This used to return (prefix, size, suffix) so the view could colour
+    /// the middle. That worked, but it fixed " saved" after the number —
+    /// English's word order, and not every language's. Now the whole
+    /// sentence is one catalog entry and the size run is located within the
+    /// result, so a translation may put the words wherever its grammar wants
+    /// and the right run is still the accented one.
     ///
     /// `SessionSummary.bytesSaved` can be negative when this session's
-    /// outputs grew overall — summed honestly rather than clamped (see
-    /// `SessionSummary.record`). `SessionSummary.bytesSavedFormatted` would
-    /// render that as e.g. `"-1.2 MB"`, and pairing a bare minus sign with
-    /// "saved" reads as nonsense ("you saved -1.2 MB"). Instead this formats
-    /// the *magnitude* of the regression and swaps the trailing word, so a
-    /// net-growth session reads as "1.2 MB larger" — an honest, plain-English
-    /// statement of what happened, matching how individual rows already
-    /// render a negative `savedPercent` as "File grew by N%" rather than a
-    /// negative percentage.
-    static func aggregateParts(for session: SessionSummary) -> (prefix: String, size: String, suffix: String) {
+    /// outputs grew overall (summed honestly rather than clamped — see
+    /// `SessionSummary.record`). Pairing a bare minus sign with "saved"
+    /// reads as nonsense, so a net-growth session formats the *magnitude*
+    /// and swaps the word: "1.2 MB larger".
+    static func aggregate(for session: SessionSummary) -> AttributedString {
         let grew = session.bytesSaved < 0
-        return (
-            prefix: "\(fileCountLabel(session.fileCount)) · ",
-            size: formatMagnitude(abs(session.bytesSaved)),
-            suffix: grew ? " larger" : " saved"
-        )
+        let size = formatMagnitude(abs(session.bytesSaved))
+        let files = fileCountLabel(session.fileCount)
+
+        let sentence = grew
+            ? String(localized: "\(files) · \(size) larger",
+                     comment: "Recent header aggregate when this session's outputs grew overall. First placeholder is a file count such as '3 files', second is a size such as '1.2 MB'.")
+            : String(localized: "\(files) · \(size) saved",
+                     comment: "Recent header aggregate. First placeholder is a file count such as '3 files', second is a size such as '1.2 MB'.")
+
+        var attributed = AttributedString(sentence)
+        // The size is our own substring, so locating it is exact rather than
+        // a guess. `.last` because a file count can never contain a byte
+        // size, but a size could in principle repeat.
+        if let range = attributed.range(of: size, options: .backwards) {
+            attributed[range].foregroundColor = Theme.savingsAccent
+            attributed[range].font = .system(size: 11.5, weight: .semibold)
+        }
+        return attributed
     }
 
     private static func formatMagnitude(_ bytes: Int) -> String {
@@ -80,9 +94,7 @@ struct RecentHeaderView: View {
     }
 
     private var aggregateText: Text {
-        let parts = RecentHeaderFormatter.aggregateParts(for: session)
-        return Text(parts.prefix).foregroundColor(.secondary)
-            + Text(parts.size).foregroundColor(Theme.savingsAccent).fontWeight(.semibold)
-            + Text(parts.suffix).foregroundColor(.secondary)
+        Text(RecentHeaderFormatter.aggregate(for: session))
+            .foregroundColor(.secondary)
     }
 }

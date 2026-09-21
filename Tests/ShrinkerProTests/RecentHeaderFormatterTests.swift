@@ -25,52 +25,66 @@ final class RecentHeaderFormatterTests: XCTestCase {
         XCTAssertEqual(RecentHeaderFormatter.fileCountLabel(6), "6 files")
     }
 
-    // MARK: - aggregateParts
+    // MARK: - aggregate
 
-    func testAggregatePartsForPositiveSavingsEndsWithSaved() {
+    /// The old `aggregateParts` returned (prefix, size, suffix) so the view
+    /// could colour the middle run. That shape put " saved" permanently
+    /// after the number, which is English's word order and not everyone's.
+    /// The replacement returns one localized sentence with the size run
+    /// attributed, so a language may put the words in any order.
+
+    func testAggregateReadsAsSavedForPositiveSavings() {
         var session = SessionSummary()
         session.record(originalBytes: 5_000_000, shrunkBytes: 1_000_000)
 
-        let parts = RecentHeaderFormatter.aggregateParts(for: session)
+        let text = String(RecentHeaderFormatter.aggregate(for: session).characters)
 
-        XCTAssertEqual(parts.prefix, "1 file · ")
-        XCTAssertEqual(parts.size, expectedMagnitude(4_000_000))
-        XCTAssertEqual(parts.suffix, " saved")
+        XCTAssertEqual(text, "1 file · \(expectedMagnitude(4_000_000)) saved")
     }
 
-    func testAggregatePartsPluralisesMultipleFiles() {
+    func testAggregatePluralisesMultipleFiles() {
         var session = SessionSummary()
         session.record(originalBytes: 3_000_000, shrunkBytes: 1_000_000)
         session.record(originalBytes: 2_000_000, shrunkBytes: 500_000)
 
-        let parts = RecentHeaderFormatter.aggregateParts(for: session)
+        let text = String(RecentHeaderFormatter.aggregate(for: session).characters)
 
-        XCTAssertEqual(parts.prefix, "2 files · ")
+        XCTAssertTrue(text.hasPrefix("2 files · "), text)
     }
 
-    /// `SessionSummary.bytesSaved` can be negative when outputs grew overall
-    /// (summed honestly, not clamped — see `SessionSummary.record`).
-    /// `"−1.2 MB saved"` would read as nonsense, so a net-growth session
-    /// must format the *magnitude* (no leading minus sign) and switch the
-    /// trailing word to "larger" instead.
-    func testAggregatePartsForNegativeSavingsReportsLargerWithPositiveMagnitude() {
+    /// A net-growth session must format the magnitude and swap the word, so
+    /// it never reads "you saved -1.2 MB".
+    func testAggregateForNegativeSavingsReportsLargerWithPositiveMagnitude() {
         var session = SessionSummary()
-        session.record(originalBytes: 100, shrunkBytes: 1_300_100) // grew by 1.3 MB-ish
+        session.record(originalBytes: 100, shrunkBytes: 1_300_100)
 
-        let parts = RecentHeaderFormatter.aggregateParts(for: session)
+        let text = String(RecentHeaderFormatter.aggregate(for: session).characters)
 
         XCTAssertEqual(session.bytesSaved, -1_300_000)
-        XCTAssertEqual(parts.size, expectedMagnitude(1_300_000), "must format the magnitude, not the signed value")
-        XCTAssertFalse(parts.size.contains("-"), "must never show a bare minus sign paired with \"larger\" or \"saved\"")
-        XCTAssertEqual(parts.suffix, " larger")
+        XCTAssertEqual(text, "1 file · \(expectedMagnitude(1_300_000)) larger")
+        XCTAssertFalse(text.contains("-"), "must never show a bare minus sign")
     }
 
-    func testAggregatePartsForZeroSavingsReadsAsSaved() {
+    func testAggregateForZeroSavingsReadsAsSaved() {
         var session = SessionSummary()
         session.record(originalBytes: 1_000, shrunkBytes: 1_000)
 
-        let parts = RecentHeaderFormatter.aggregateParts(for: session)
+        let text = String(RecentHeaderFormatter.aggregate(for: session).characters)
 
-        XCTAssertEqual(parts.suffix, " saved", "a wash (net zero) is not a regression, so it should not read as \"larger\"")
+        XCTAssertTrue(text.hasSuffix(" saved"), "a wash is not a regression")
+    }
+
+    /// The size run — and only the size run — is accented, whatever order
+    /// the language puts the words in.
+    func testOnlyTheSizeRunIsAccented() {
+        var session = SessionSummary()
+        session.record(originalBytes: 5_000_000, shrunkBytes: 1_000_000)
+
+        let attributed = RecentHeaderFormatter.aggregate(for: session)
+        let accented = attributed.runs
+            .filter { $0.foregroundColor == Theme.savingsAccent }
+            .map { String(attributed[$0.range].characters) }
+
+        XCTAssertEqual(accented, [expectedMagnitude(4_000_000)])
     }
 }

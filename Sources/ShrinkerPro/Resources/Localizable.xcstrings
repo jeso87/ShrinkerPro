@@ -19,6 +19,38 @@
         }
       }
     },
+    "%@ · %@ larger" : {
+      "comment" : "Recent header aggregate when this session's outputs grew overall. First placeholder is a file count such as '3 files', second is a size such as '1.2 MB'.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ · %2$@ larger" }
+        }
+      }
+    },
+    "%@ · %@ saved" : {
+      "comment" : "Recent header aggregate. First placeholder is a file count such as '3 files', second is a size such as '1.2 MB'.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ · %2$@ saved" }
+        }
+      }
+    },
+    "%lld files" : {
+      "comment" : "File count in the Recent header's trailing aggregate.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : { "stringUnit" : { "state" : "translated", "value" : "1 file" } },
+              "other" : { "stringUnit" : { "state" : "translated", "value" : "%lld files" } }
+            }
+          }
+        }
+      }
+    },
     "%lld files are already there: %@" : {
       "comment" : "Overwrite sheet body for existing files. First placeholder is the file count and drives the plural; the singular form does not print it. Second is the filename list.",
       "extractionState" : "manual",

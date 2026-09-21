@@ -396,6 +396,88 @@ final class LocalizationGuardTests: XCTestCase {
         )
     }
 
+    /// Which plural categories a language actually reaches for whole numbers,
+    /// asked of the platform rather than read from a table.
+    ///
+    /// Phase 1's spec demoted its own hand-written CLDR table to
+    /// "illustrative" after a reviewer disputed a row nobody could settle.
+    /// This is the replacement: it cannot go stale, because it is measured.
+    static func pluralCategories(for language: String) throws -> Set<String> {
+        let dir = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("plural-\(language)-\(UUID().uuidString)")
+            .appendingPathComponent("\(language).lproj")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir.deletingLastPathComponent()) }
+
+        let dict: [String: Any] = [
+            "probe": [
+                "NSStringLocalizedFormatKey": "%#@n@",
+                "n": [
+                    "NSStringFormatSpecTypeKey": "NSStringPluralRuleType",
+                    "NSStringFormatValueTypeKey": "lld",
+                    "one": "one", "two": "two", "few": "few", "many": "many", "other": "other",
+                ],
+            ],
+        ]
+        let data = try PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
+        try data.write(to: dir.appendingPathComponent("Localizable.stringsdict"))
+
+        let bundle = try XCTUnwrap(Bundle(path: dir.path), "could not load the probe bundle for \(language)")
+        let format = bundle.localizedString(forKey: "probe", value: nil, table: "Localizable")
+        var seen: Set<String> = []
+        for n in 0...220 {
+            seen.insert(String(format: format, locale: Locale(identifier: language), n))
+        }
+        return seen
+    }
+
+    /// Guards the probe itself. English must come back as exactly one/other;
+    /// Japanese inflects no nouns for number and must come back as other
+    /// alone. If the probe ever returns the raw category names for these, it
+    /// has stopped selecting and is reporting its own input.
+    func testThePluralProbeAgreesWithTwoLanguagesWeCanCheck() throws {
+        XCTAssertEqual(try Self.pluralCategories(for: "en"), ["one", "other"])
+        XCTAssertEqual(try Self.pluralCategories(for: "ja"), ["other"])
+    }
+
+    /// Arabic is the one language here that reaches five categories for whole
+    /// numbers. If this ever returns two, the probe is resolving against the
+    /// wrong bundle and every per-language assertion built on it is worthless.
+    func testThePluralProbeFindsArabicsFiveCategories() throws {
+        XCTAssertEqual(try Self.pluralCategories(for: "ar"), ["one", "two", "few", "many", "other"])
+    }
+
+    /// Every plural entry must carry the categories its language actually
+    /// reaches, plus `other` as the format's universal fallback. Languages
+    /// with no translations yet are skipped, so this tightens on its own as
+    /// Phase 2 lands each one.
+    func testPluralEntriesCarryTheCategoriesTheirLanguageNeeds() throws {
+        let data = try Data(contentsOf: Self.catalogURL(named: "Localizable"))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let strings = try XCTUnwrap(json["strings"] as? [String: Any])
+
+        var checked = 0
+        for (key, entry) in strings {
+            guard let entry = entry as? [String: Any],
+                  let localizations = entry["localizations"] as? [String: Any] else { continue }
+
+            for (language, body) in localizations {
+                guard let body = body as? [String: Any],
+                      let variations = body["variations"] as? [String: Any],
+                      let plural = variations["plural"] as? [String: Any] else { continue }
+
+                let required = try Self.pluralCategories(for: language).union(["other"])
+                let supplied = Set(plural.keys).subtracting(["zero"])   // zero is always optional
+                XCTAssertTrue(
+                    required.isSubset(of: supplied),
+                    "\(key) in \(language) is missing \(required.subtracting(supplied).sorted())"
+                )
+                checked += 1
+            }
+        }
+        XCTAssertGreaterThan(checked, 0, "no plural entries examined — this would have passed vacuously")
+    }
+
     // MARK: - Helpers
 
     static func catalogURL(named name: String) throws -> URL {

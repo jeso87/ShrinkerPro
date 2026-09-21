@@ -501,6 +501,87 @@ final class LocalizationGuardTests: XCTestCase {
         XCTAssertGreaterThan(checked, 0, "no plural entries examined — this would have passed vacuously")
     }
 
+    /// A dropped or reordered placeholder is a crash or a corrupted sentence,
+    /// and it is invisible to anyone who cannot read the language. So the
+    /// specifiers are compared rather than trusted: same kinds, same count.
+    ///
+    /// Compared as a multiset, not a sequence — a language is free to reorder
+    /// its arguments, which is exactly why the positional forms exist.
+    ///
+    /// Skipped when no language has landed yet, the same as
+    /// `testEveryLanguagePresentIsComplete` above: an empty `translations/`
+    /// means there is nothing yet to compare, not a defect to fail on. Once
+    /// Task 6 lands German this skip stops firing on its own — `compared`
+    /// stays live as a check against a malformed localization block that
+    /// parses to zero values even though translations exist.
+    func testEveryTranslationKeepsItsPlaceholders() throws {
+        let root = Self.repoRoot()
+        let dir = root.appendingPathComponent("translations")
+        let files = (try? FileManager.default.contentsOfDirectory(atPath: dir.path)) ?? []
+        try XCTSkipIf(
+            files.filter { $0.hasSuffix(".json") }.isEmpty,
+            "no languages have landed yet — Task 6 is the first"
+        )
+
+        let data = try Data(contentsOf: Self.catalogURL(named: "Localizable"))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let strings = try XCTUnwrap(json["strings"] as? [String: Any])
+
+        var compared = 0
+        for (key, entry) in strings {
+            guard let entry = entry as? [String: Any],
+                  let localizations = entry["localizations"] as? [String: Any],
+                  let english = localizations["en"] as? [String: Any] else { continue }
+
+            let expected = Self.specifiers(in: Self.values(of: english).joined(separator: " "))
+            guard !expected.isEmpty else { continue }
+
+            for (language, body) in localizations where language != "en" {
+                guard let body = body as? [String: Any] else { continue }
+                for value in Self.values(of: body) {
+                    let found = Self.specifiers(in: value)
+                    // A plural variant may legitimately drop the count (English's
+                    // own "Image shrunk" does), so this asserts no specifier is
+                    // INVENTED and none is of a kind English did not use.
+                    XCTAssertTrue(
+                        found.isSubset(of: expected),
+                        "\(key) in \(language) uses \(found.subtracting(expected).sorted()), which English does not: \(value)"
+                    )
+                    compared += 1
+                }
+            }
+        }
+        XCTAssertGreaterThan(compared, 0, "no translated values compared — did any language land?")
+    }
+
+    /// Every `stringUnit` value in a localization, flat or plural.
+    static func values(of localization: [String: Any]) -> [String] {
+        if let unit = localization["stringUnit"] as? [String: Any],
+           let value = unit["value"] as? String {
+            return [value]
+        }
+        guard let variations = localization["variations"] as? [String: Any],
+              let plural = variations["plural"] as? [String: Any] else { return [] }
+        return plural.values.compactMap {
+            (($0 as? [String: Any])?["stringUnit"] as? [String: Any])?["value"] as? String
+        }
+    }
+
+    /// The format specifiers in a string, normalised so `%1$@` and `%@` count
+    /// as the same kind — a translation may reorder arguments freely.
+    static func specifiers(in text: String) -> Set<String> {
+        let pattern = #"%(?:\d+\$)?(?:lld|ld|d|@|f)"#
+        let regex = try! NSRegularExpression(pattern: pattern)
+        let range = NSRange(text.startIndex..<text.endIndex, in: text)
+        var found: Set<String> = []
+        regex.enumerateMatches(in: text, range: range) { match, _, _ in
+            guard let match, let r = Range(match.range, in: text) else { return }
+            found.insert(String(text[r]).replacingOccurrences(
+                of: #"^%\d+\$"#, with: "%", options: .regularExpression))
+        }
+        return found
+    }
+
     // MARK: - Helpers
 
     static func catalogURL(named name: String) throws -> URL {

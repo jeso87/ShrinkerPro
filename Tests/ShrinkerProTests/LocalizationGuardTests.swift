@@ -402,6 +402,24 @@ final class LocalizationGuardTests: XCTestCase {
     /// Phase 1's spec demoted its own hand-written CLDR table to
     /// "illustrative" after a reviewer disputed a row nobody could settle.
     /// This is the replacement: it cannot go stale, because it is measured.
+    ///
+    /// `zero` is deliberately absent from the categories offered below.
+    /// Apple's stringsdict honours a `zero` override for a literal 0 in
+    /// *every* language, English and Japanese included — it is an Apple
+    /// extension layered on top of CLDR, not something CLDR itself grants
+    /// only to some languages. Offering it here would make all 36
+    /// languages appear to reach it, which measures nothing. The cost of
+    /// that omission is real, not just theoretical: CLDR *does* define
+    /// `zero` as a genuine plural category for Arabic, and this probe
+    /// cannot tell that apart from the universal Apple override — there is
+    /// no observation that separates the two. So `pluralCategories` can
+    /// never report `zero`, and the completeness guard below therefore
+    /// treats `zero` as always optional for every language, Arabic
+    /// included. An Arabic plural entry missing its `zero` variant will
+    /// not be caught here; Apple falls back to `other` at runtime, which
+    /// is grammatically wrong for a count of zero in Arabic. Whoever
+    /// authors the Arabic translation must supply `zero` themselves — this
+    /// guard cannot verify it.
     static func pluralCategories(for language: String) throws -> Set<String> {
         let dir = URL(fileURLWithPath: NSTemporaryDirectory())
             .appendingPathComponent("plural-\(language)-\(UUID().uuidString)")
@@ -466,8 +484,13 @@ final class LocalizationGuardTests: XCTestCase {
                       let variations = body["variations"] as? [String: Any],
                       let plural = variations["plural"] as? [String: Any] else { continue }
 
+                // `required` never contains "zero" — see the note on
+                // `pluralCategories` above for why not, and what that
+                // costs for Arabic. So `supplied` needs no corresponding
+                // subtraction: `isSubset(of:)` already ignores any extra
+                // keys `plural` supplies, "zero" included.
                 let required = try Self.pluralCategories(for: language).union(["other"])
-                let supplied = Set(plural.keys).subtracting(["zero"])   // zero is always optional
+                let supplied = Set(plural.keys)
                 XCTAssertTrue(
                     required.isSubset(of: supplied),
                     "\(key) in \(language) is missing \(required.subtracting(supplied).sorted())"

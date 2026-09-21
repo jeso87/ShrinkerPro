@@ -91,6 +91,33 @@ final class LocalizationGuardTests: XCTestCase {
         let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
         let strings = try XCTUnwrap(json["strings"] as? [String: Any])
 
+        // Anchor on the walking-skeleton entry by name before drilling into
+        // the general loop below. Without this, a corruption that turns the
+        // plural entry into a flat stringUnit (or a catalog that regresses
+        // to zero entries) just gets skipped by the loop's `guard ... else
+        // { continue }` — the very failure this test exists to catch.
+        let notificationTitleKey = "%lld images shrunk"
+        let notificationTitleEntry = try XCTUnwrap(
+            strings[notificationTitleKey] as? [String: Any],
+            "the walking-skeleton plural entry '\(notificationTitleKey)' is gone from the catalog"
+        )
+        let notificationTitlePlural = try XCTUnwrap(
+            ((notificationTitleEntry["localizations"] as? [String: Any])?["en"] as? [String: Any])
+                .flatMap { ($0["variations"] as? [String: Any])?["plural"] as? [String: Any] },
+            "'\(notificationTitleKey)' has no English plural variations"
+        )
+        XCTAssertNotNil(notificationTitlePlural["one"], "\(notificationTitleKey) has no 'one' form for English")
+        XCTAssertNotNil(notificationTitlePlural["other"], "\(notificationTitleKey) has no 'other' form for English")
+
+        // General sweep over every plural entry, so later tasks' plurals
+        // get covered without editing this test again. `examined` guards
+        // against the same vacuous-pass risk the anchor above closes for
+        // one key: if the catalog stopped declaring any plural entries at
+        // all, this loop's body would run zero times and silently report
+        // success. Do not remove this count in a later cleanup — a loop
+        // with no assertions inside it that ever fired is not a passing
+        // test, it's an untested one.
+        var examined = 0
         for (key, entry) in strings {
             guard
                 let entry = entry as? [String: Any],
@@ -100,9 +127,11 @@ final class LocalizationGuardTests: XCTestCase {
                 let plural = variations["plural"] as? [String: Any]
             else { continue }
 
+            examined += 1
             XCTAssertNotNil(plural["one"], "\(key) has no 'one' form for English")
             XCTAssertNotNil(plural["other"], "\(key) has no 'other' form for English")
         }
+        XCTAssertGreaterThan(examined, 0, "no plural entries were examined — the test would have passed vacuously")
     }
 
     // MARK: - Helpers

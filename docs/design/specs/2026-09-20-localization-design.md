@@ -296,6 +296,46 @@ release updates the site in the same pass.
 Phase 1 is a prerequisite for 2 and 3. Phases 2 and 3 are independent of each
 other and could ship separately.
 
+## Carried out of Phase 1
+
+Phase 1 is done. Three things it surfaced are deliberately not fixed there,
+recorded here so they are not rediscovered from scratch.
+
+**For Phase 2 — the diagnostic payloads.** `ImageIOCompressor`, `ImageMetadata`
+and `SVGCompressor` throw `conversionFailed` and `javascriptFailed` carrying
+about fourteen English diagnostic strings. The app's alert therefore localizes
+its frame ("Image conversion failed: %@") but not its detail. This is the Core
+seam again in miniature: the same payload is what `main.swift` prints to
+stderr, so localizing it in place would translate CLI output. The choice is to
+promote each diagnostic to its own `ShrinkError` case carrying both
+`errorDescription` and `localizedMessage`, or to accept English detail behind a
+translated frame. Not decided.
+
+**For Phase 2 — the count-varying strings that cannot show their count.**
+`xcstringstool` refuses a plural entry unless some variant references the
+number. Where a string must vary by count but must not display it — the
+overwrite sheet's Skip button is the live case — the only option is separate
+top-level strings chosen in Swift, which caps that string at two forms. Arabic's
+this / these-two / these cannot be expressed. If that proves unacceptable for a
+language, the fix is to show the count or to split the key by category.
+
+**For Phase 3 — two controls that truncate.** A pseudolocalization run (the
+Debug build under `-NSDoubleLocalizedStrings YES`) found exactly two places
+where a longer string is clipped rather than wrapped:
+
+- The session bar's max size field renders its placeholder as "No limit N…" —
+  the field's fixed width cannot hold a longer value. German's "Keine
+  Begrenzung" is twice the length of "No limit", so this will truncate in real
+  translations, at every window width.
+- Settings › Metadata renders "All metadata All meta…" — the same shape, a
+  fixed-width popup against a long localized value.
+
+Everything else held: row labels wrapped to two lines instead of clipping, the
+long explanatory paragraphs reflowed, the session panel did not overflow at the
+window's 340pt minimum, and the Settings window stayed on screen. A third,
+cosmetic item: the drop zone's headline ellipsises at minimum width, which is a
+constrained headline behaving as designed.
+
 ## Costs worth stating plainly
 
 **This is permanent overhead.** Every future release that adds or changes UI

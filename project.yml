@@ -163,6 +163,12 @@ targets:
         # ShrinkerPro`. Pin the module name explicitly instead.
         PRODUCT_MODULE_NAME: ShrinkerPro
         INFOPLIST_FILE: Sources/ShrinkerPro/Resources/Info.plist
+        DEVELOPMENT_LANGUAGE: en
+        SWIFT_EMIT_LOC_STRINGS: YES
+        KNOWN_REGIONS: [en, ar, ca, cs, da, de, el, es, fa, fi, fr, he, hr,
+                        hu, is, it, ja, ko, nb, nl, nn, pl, pt-BR, pt-PT, ro,
+                        ru, sk, sl, sv, th, tr, uk, vi, zh-Hans, zh-Hant,
+                        zh-HK]
         PRODUCT_BUNDLE_IDENTIFIER: com.eightseven.shrinkerpro
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Manual

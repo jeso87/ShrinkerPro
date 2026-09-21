@@ -49,7 +49,12 @@ struct ShrinkerProApp: App {
             _launchError = State(wrappedValue: nil)
         } catch {
             _model = State(wrappedValue: nil)
-            _launchError = State(wrappedValue: (error as? LocalizedError)?.errorDescription ?? error.localizedDescription)
+            // AppDisplayableError first: errorDescription is the CLI's
+            // English, this is the app's translated text. See the
+            // localization spec's "The Core seam".
+            _launchError = State(wrappedValue: (error as? AppDisplayableError)?.localizedMessage
+                ?? (error as? LocalizedError)?.errorDescription
+                ?? error.localizedDescription)
         }
     }
 

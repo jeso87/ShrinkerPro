@@ -383,6 +383,486 @@
           "stringUnit" : { "state" : "translated", "value" : ", " }
         }
       }
+    },
+    "  —  %@" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "  —  %@" }
+        }
+      }
+    },
+    "About Shrinker Pro" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "About Shrinker Pro" }
+        }
+      }
+    },
+    "Adjust session settings" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Adjust session settings" }
+        }
+      }
+    },
+    "App default" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "App default" }
+        }
+      }
+    },
+    "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose." }
+        }
+      }
+    },
+    "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this." }
+        }
+      }
+    },
+    "Applies to this session only. Defaults live in Settings." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Applies to this session only. Defaults live in Settings." }
+        }
+      }
+    },
+    "Check for Updates…" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Check for Updates…" }
+        }
+      }
+    },
+    "Choose folder…" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Choose folder…" }
+        }
+      }
+    },
+    "Choose…" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Choose…" }
+        }
+      }
+    },
+    "Clear History" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Clear History" }
+        }
+      }
+    },
+    "Clear Menu" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Clear Menu" }
+        }
+      }
+    },
+    "Clear result list when shrinking new images" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Clear result list when shrinking new images" }
+        }
+      }
+    },
+    "Close session settings" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Close session settings" }
+        }
+      }
+    },
+    "Conversion" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conversion" }
+        }
+      }
+    },
+    "Convert all to" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Convert all to" }
+        }
+      }
+    },
+    "Converts every raster file for the rest of this session. SVG and GIF are always left in their own format." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Converts every raster file for the rest of this session. SVG and GIF are always left in their own format." }
+        }
+      }
+    },
+    "Crop height" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Crop height" }
+        }
+      }
+    },
+    "Crop mode" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Crop mode" }
+        }
+      }
+    },
+    "Crop width" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Crop width" }
+        }
+      }
+    },
+    "Done adjusting session settings" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Done adjusting session settings" }
+        }
+      }
+    },
+    "Drag files here" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Drag files here" }
+        }
+      }
+    },
+    "Enable notifications" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Enable notifications" }
+        }
+      }
+    },
+    "Encode at" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Encode at" }
+        }
+      }
+    },
+    "General" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "General" }
+        }
+      }
+    },
+    "Keep Both" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Keep Both" }
+        }
+      }
+    },
+    "Max size in pixels" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Max size in pixels" }
+        }
+      }
+    },
+    "Metadata" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Metadata" }
+        }
+      }
+    },
+    "No Recent Files" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "No Recent Files" }
+        }
+      }
+    },
+    "Notifications are turned off for Shrinker Pro in System Settings, so none will appear." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Notifications are turned off for Shrinker Pro in System Settings, so none will appear." }
+        }
+      }
+    },
+    "OK" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "OK" }
+        }
+      }
+    },
+    "Open Files…" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Open Files…" }
+        }
+      }
+    },
+    "Open Notification Settings…" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Open Notification Settings…" }
+        }
+      }
+    },
+    "Open Recent" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Open Recent" }
+        }
+      }
+    },
+    "Output" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Output" }
+        }
+      }
+    },
+    "PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O" }
+        }
+      }
+    },
+    "Put them in a \"minified\" subfolder" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Put them in a \"minified\" subfolder" }
+        }
+      }
+    },
+    "px" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "px" }
+        }
+      }
+    },
+    "Quality" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Quality" }
+        }
+      }
+    },
+    "Quit" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Quit" }
+        }
+      }
+    },
+    "ratio" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "ratio" }
+        }
+      }
+    },
+    "RECENT" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "RECENT" }
+        }
+      }
+    },
+    "Replace" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Replace" }
+        }
+      }
+    },
+    "Reset" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Reset" }
+        }
+      }
+    },
+    "Returns format, quality, max size and crop to the app's defaults" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Returns format, quality, max size and crop to the app's defaults" }
+        }
+      }
+    },
+    "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose." }
+        }
+      }
+    },
+    "Same folder as original" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Same folder as original" }
+        }
+      }
+    },
+    "SESSION SETTINGS" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "SESSION SETTINGS" }
+        }
+      }
+    },
+    "Settings" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Settings" }
+        }
+      }
+    },
+    "Shows the format, quality and max size controls" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shows the format, quality and max size controls" }
+        }
+      }
+    },
+    "Shrinker Pro" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
+        }
+      }
+    },
+    "Shrinker Pro can't start" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro can't start" }
+        }
+      }
+    },
+    "Something went wrong" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Something went wrong" }
+        }
+      }
+    },
+    "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful." }
+        }
+      }
+    },
+    "This session" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "This session" }
+        }
+      }
+    },
+    "This session: %@" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "This session: %@" }
+        }
+      }
+    },
+    "Warn before replacing a file" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Warn before replacing a file" }
+        }
+      }
+    },
+    "When shrinking, keep" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "When shrinking, keep" }
+        }
+      }
+    },
+    "Where" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Where" }
+        }
+      }
+    },
+    "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone." }
+        }
+      }
     }
   },
   "version" : "1.0"

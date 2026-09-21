@@ -172,6 +172,25 @@ final class LocalizationGuardTests: XCTestCase {
         }
     }
 
+    /// Nothing may ship needing review. In this phase that means every entry
+    /// has English; in Phase 2 this same test covers all 36 languages.
+    func testNoEntryIsLeftNeedingReview() throws {
+        let data = try Data(contentsOf: Self.catalogURL(named: "Localizable"))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let strings = try XCTUnwrap(json["strings"] as? [String: Any])
+
+        XCTAssertFalse(strings.isEmpty, "the catalog is empty — did extraction run?")
+
+        for (key, entry) in strings {
+            guard let entry = entry as? [String: Any] else { continue }
+            if let state = entry["extractionState"] as? String {
+                XCTAssertNotEqual(state, "stale", "\(key) is stale — it is in the catalog but no longer in the source")
+            }
+            let localizations = entry["localizations"] as? [String: Any]
+            XCTAssertNotNil(localizations?["en"], "\(key) has no English")
+        }
+    }
+
     // MARK: - Helpers
 
     static func catalogURL(named name: String) throws -> URL {

@@ -1,7 +1,13 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-
+    "CFBundleTypeName" : {
+      "comment" : "How Finder names the file kind this app opens.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Image" } }
+      }
+    }
   },
   "version" : "1.0"
 }

@@ -95,7 +95,7 @@ from pathlib import Path
 from typing import NoReturn
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from catalog_format import REPO_ROOT, CATALOG_PATH, find_matching_brace
+from catalog_format import REPO_ROOT, CATALOG_PATH, find_matching_brace, write_catalog_text
 
 # Configuration and architecture are globbed, not pinned -- see the module
 # docstring. The trailing component is the file glob, so one pass finds both
@@ -300,32 +300,6 @@ def remove_entry(text: str, key: str) -> str:
     return text[:start] + text[end:]
 
 
-def verify_spliced(text: str, expected_keys: set[str]) -> dict:
-    """Re-parses the spliced text before anything is written with it.
-
-    Everything above works on the catalog as RAW TEXT, deliberately -- that
-    is what keeps existing entries byte-identical, which is the whole point
-    of the tool. The cost of that choice is that a splice bug produces a
-    corrupt file rather than an exception, and the corruption lands in the
-    one file Phase 2 translates 36 times. One parse and one key-set
-    comparison is the cheapest possible proof that the text about to be
-    written is still the catalog it claims to be."""
-    try:
-        parsed = json.loads(text)
-    except json.JSONDecodeError as exc:
-        die_internal(f"the spliced catalog is not valid JSON, so nothing was written: {exc}")
-
-    actual_keys = set(parsed.get("strings", {}))
-    if actual_keys != expected_keys:
-        unexpected = sorted(actual_keys - expected_keys)
-        lost = sorted(expected_keys - actual_keys)
-        die_internal(
-            "the spliced catalog does not hold the keys it should, so nothing was "
-            f"written. Unexpectedly present: {unexpected}. Unexpectedly gone: {lost}."
-        )
-    return parsed
-
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("stringsdata", nargs="?", default=None, help="Directory, glob, or single .stringsdata file. Defaults to the most recently built ShrinkerPro DerivedData.")
@@ -360,23 +334,29 @@ def main() -> None:
             new_text = remove_entry(new_text, key)
 
     changed = new_text != text
-    if changed:
-        expected_keys = existing_keys | set(to_add)
-        if args.prune:
-            expected_keys -= set(orphans)
-        spliced = verify_spliced(new_text, expected_keys)
-    else:
-        spliced = catalog
+    expected_keys = existing_keys | set(to_add)
+    if args.prune:
+        expected_keys -= set(orphans)
 
     if changed and not args.check:
-        CATALOG_PATH.write_text(new_text, encoding="utf-8")
+        # write_catalog_text re-parses new_text and checks its "strings"
+        # keys against expected_keys before writing anything -- the same
+        # proof verify_spliced used to do locally, now shared with
+        # merge-translations.py so the two scripts can't grow two
+        # different ideas of what a valid splice looks like. A failure
+        # here is this script's own internal error, so it gets converted
+        # to the die_internal/exit-4 path rather than propagating.
+        try:
+            write_catalog_text(new_text, expected_keys)
+        except ValueError as exc:
+            die_internal(str(exc))
 
     if args.prune and not args.check:
-        # Recomputed from the catalog that was actually written, rather
+        # Recomputed from the keys just validated and written, rather
         # than assumed empty. The documented exit-1 case "removing them
         # somehow left some behind" could never fire while this was a
         # hardcoded [].
-        remaining_orphans = sorted(k for k in spliced["strings"] if k not in found)
+        remaining_orphans = sorted(k for k in expected_keys if k not in found)
     else:
         remaining_orphans = orphans
 

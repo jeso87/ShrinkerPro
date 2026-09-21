@@ -22,6 +22,8 @@ the scripts that use this module, not to the module itself.
 from __future__ import annotations
 
 import json
+import os
+import tempfile
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -65,7 +67,8 @@ def load_catalog_text() -> str:
 
 
 def write_catalog_text(text: str, expected_keys: set[str]) -> None:
-    """Validates spliced catalog text before it is written, then writes it.
+    """Validates spliced catalog text before it is written, then writes it
+    atomically.
 
     Everything upstream of this call works on the catalog as raw text,
     deliberately -- that is what keeps existing entries byte-identical,
@@ -78,7 +81,13 @@ def write_catalog_text(text: str, expected_keys: set[str]) -> None:
 
     Raises ValueError if the text does not parse as JSON, or if its
     top-level "strings" keys do not exactly match `expected_keys`. Writes
-    only if both checks pass.
+    only if both checks pass -- and the write itself goes to a sibling
+    temp file first, then `os.replace()`s it into position, so a process
+    killed mid-write or a full disk leaves the checked-in catalog either
+    fully old or fully new, never truncated. `CATALOG_PATH.write_text()`
+    would truncate in place, which is fine for a bug caught by the
+    key-set check above but not for a crash or a full disk that happens
+    after that check has already passed.
     """
     try:
         parsed = json.loads(text)
@@ -94,4 +103,19 @@ def write_catalog_text(text: str, expected_keys: set[str]) -> None:
             f"Unexpectedly present: {unexpected}. Unexpectedly gone: {lost}."
         )
 
-    CATALOG_PATH.write_text(text, encoding="utf-8")
+    fd, tmp_name = tempfile.mkstemp(
+        dir=CATALOG_PATH.parent, prefix=CATALOG_PATH.name + ".", suffix=".tmp"
+    )
+    tmp_path = Path(tmp_name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as tmp_file:
+            tmp_file.write(text)
+        if CATALOG_PATH.exists():
+            # Match the catalog's existing permissions rather than
+            # mkstemp's default 0600 -- os.replace() would otherwise
+            # silently tighten them on every write.
+            os.chmod(tmp_path, CATALOG_PATH.stat().st_mode)
+        os.replace(tmp_path, CATALOG_PATH)
+    except BaseException:
+        tmp_path.unlink(missing_ok=True)
+        raise

@@ -29,14 +29,27 @@ Options:
     --check   Dry run: never writes the catalog, even if there are keys to
               add or --prune is also given. For callers (tests, CI) that
               want the report and the exit code without risking a mutation
-              as a side effect of merely checking.
+              as a side effect of merely checking. Under --check a key the
+              build emits but the catalog lacks is a FAILURE (exit 3), not
+              a silent to-do: without --check the script would have written
+              it, so with --check the only honest report is that the
+              checked-in catalog does not match the source.
 
 With no positional argument, the script looks under
 ~/Library/Developer/Xcode/DerivedData for the most recently built
 ShrinkerPro target's .stringsdata directory:
 
-    <DerivedData>/Build/Intermediates.noindex/ShrinkerPro.build/Debug/
-    ShrinkerPro.build/Objects-normal/arm64/*.stringsdata
+    <DerivedData>/Build/Intermediates.noindex/ShrinkerPro.build/
+    <configuration>/ShrinkerPro.build/Objects-normal/<arch>/*.stringsdata
+
+Configuration and architecture are globbed rather than pinned to
+Debug/arm64: a Release build, or an Intel machine, writes the same files
+under a different pair of directory names, and a script that resolved
+nothing there would exit 2 and take the guard test silently down with it.
+"Most recently built" is measured by the newest .stringsdata file, not by
+the directory's own mtime -- an incremental rebuild rewrites the files
+without touching the directory, so a directory mtime can be arbitrarily
+older than its contents.
 
 The argument lets tests (and anyone re-running this without a fresh build)
 point the script at a specific directory, glob, or single file instead.
@@ -53,13 +66,22 @@ Rules:
   letters.
 
 Exit status:
-    0   Ran to completion; the catalog has no un-pruned orphans.
+    0   Ran to completion; the catalog matches the build.
     1   Ran to completion; orphaned catalog entries remain (i.e. --prune
         was not given, or removing them somehow left some behind).
     2   Could not run at all -- no DerivedData / .stringsdata found. This
         is an environment problem, not a catalog problem: it means no
         build has happened yet, so the comparison has nothing to compare
         against.
+    3   --check only: the build emits keys the catalog does not have. This
+        is the expensive direction and the one worth failing loudest on --
+        an orphan costs 36 wasted translations, but a MISSING key ships a
+        visible string untranslated in all 36 languages. Takes precedence
+        over 1 when both are true; the report lists both either way.
+    4   The script itself failed -- unreadable .stringsdata, a catalog
+        whose format it does not recognise, a splice that did not come
+        back as the JSON it should be. Distinct from 1 and 3 so a caller
+        can tell "the tool broke" from "the tool found something".
 """
 from __future__ import annotations
 
@@ -70,15 +92,31 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+from typing import NoReturn
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CATALOG_PATH = REPO_ROOT / "Sources" / "ShrinkerPro" / "Resources" / "Localizable.xcstrings"
 
-STRINGSDATA_RELATIVE = Path(
-    "Build/Intermediates.noindex/ShrinkerPro.build/Debug/ShrinkerPro.build/Objects-normal/arm64"
+# Configuration and architecture are globbed, not pinned -- see the module
+# docstring. The trailing component is the file glob, so one pass finds both
+# the directory and the mtimes that rank it.
+STRINGSDATA_GLOB = (
+    "Build/Intermediates.noindex/ShrinkerPro.build/*/ShrinkerPro.build/"
+    "Objects-normal/*/*.stringsdata"
 )
 
 NO_BUILD_FOUND = 2
+ORPHANS_FOUND = 1
+KEYS_MISSING = 3
+INTERNAL_ERROR = 4
+
+
+def die_internal(message: str) -> NoReturn:
+    """The script itself could not do its job. Deliberately NOT exit 1:
+    that code means "found orphans", and a caller that cannot tell a
+    finding from a crash reports the crash as a finding."""
+    print(f"sync-catalog.py: internal error: {message}", file=sys.stderr)
+    sys.exit(INTERNAL_ERROR)
 
 
 def default_stringsdata_dir() -> Path:
@@ -88,15 +126,21 @@ def default_stringsdata_dir() -> Path:
         print(f"No DerivedData directory at {dd_root}", file=sys.stderr)
         sys.exit(NO_BUILD_FOUND)
 
-    candidates = []
+    # Ranked by the newest .stringsdata file each directory holds, not by
+    # the directory's own mtime: an incremental rebuild rewrites files in
+    # place without touching the directory, so directory mtime can point
+    # at a stale build.
+    newest: dict[Path, float] = {}
     for name in os.listdir(dd_root):
         if "ShrinkerPro" not in name:
             continue
-        stringsdata_dir = dd_root / name / STRINGSDATA_RELATIVE
-        if stringsdata_dir.is_dir() and any(stringsdata_dir.glob("*.stringsdata")):
-            candidates.append(stringsdata_dir)
+        for match in (dd_root / name).glob(STRINGSDATA_GLOB):
+            directory = match.parent
+            mtime = match.stat().st_mtime
+            if mtime > newest.get(directory, 0.0):
+                newest[directory] = mtime
 
-    if not candidates:
+    if not newest:
         print(
             "No ShrinkerPro DerivedData with .stringsdata files found under "
             f"{dd_root}. Build the app first (xcodebuild build -scheme ShrinkerPro), "
@@ -105,8 +149,7 @@ def default_stringsdata_dir() -> Path:
         )
         sys.exit(NO_BUILD_FOUND)
 
-    candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
-    return candidates[0]
+    return max(newest, key=lambda directory: newest[directory])
 
 
 def find_stringsdata_files(override: str | None) -> list[str]:
@@ -138,8 +181,11 @@ def convert_to_json(path: str) -> dict:
         text=True,
     )
     if result.returncode != 0:
-        sys.exit(f"plutil failed to convert {path}:\n{result.stderr.strip()}")
-    return json.loads(result.stdout)
+        die_internal(f"plutil failed to convert {path}:\n{result.stderr.strip()}")
+    try:
+        return json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        die_internal(f"plutil produced unreadable JSON for {path}: {exc}")
 
 
 def is_junk(key: str) -> bool:
@@ -215,11 +261,11 @@ def insert_entries(text: str, to_add: list[str], found: dict[str, str]) -> str:
     anchor = '\n  },\n  "version"'
     idx = text.rfind(anchor)
     if idx == -1:
-        sys.exit('Could not find the end of the "strings" object -- has the catalog format changed?')
+        die_internal('could not find the end of the "strings" object -- has the catalog format changed?')
 
     before = text[:idx]
     if not before.endswith("    }"):
-        sys.exit("Unexpected formatting immediately before the closing brace -- refusing to guess.")
+        die_internal("unexpected formatting immediately before the closing brace -- refusing to guess.")
 
     new_blocks = ",\n".join(format_entry(key, found[key]) for key in to_add)
     return before + ",\n" + new_blocks + text[idx:]
@@ -267,7 +313,10 @@ def remove_entry(text: str, key: str) -> str:
         return text  # already gone
 
     open_brace = start + len(marker) - 1
-    close_brace = find_matching_brace(text, open_brace)
+    try:
+        close_brace = find_matching_brace(text, open_brace)
+    except ValueError as exc:
+        die_internal(f"could not delimit the entry for {key!r}: {exc}")
     end = close_brace + 1
 
     if text[end:end + 2] == ",\n":
@@ -281,11 +330,37 @@ def remove_entry(text: str, key: str) -> str:
     return text[:start] + text[end:]
 
 
+def verify_spliced(text: str, expected_keys: set[str]) -> dict:
+    """Re-parses the spliced text before anything is written with it.
+
+    Everything above works on the catalog as RAW TEXT, deliberately -- that
+    is what keeps existing entries byte-identical, which is the whole point
+    of the tool. The cost of that choice is that a splice bug produces a
+    corrupt file rather than an exception, and the corruption lands in the
+    one file Phase 2 translates 36 times. One parse and one key-set
+    comparison is the cheapest possible proof that the text about to be
+    written is still the catalog it claims to be."""
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError as exc:
+        die_internal(f"the spliced catalog is not valid JSON, so nothing was written: {exc}")
+
+    actual_keys = set(parsed.get("strings", {}))
+    if actual_keys != expected_keys:
+        unexpected = sorted(actual_keys - expected_keys)
+        lost = sorted(expected_keys - actual_keys)
+        die_internal(
+            "the spliced catalog does not hold the keys it should, so nothing was "
+            f"written. Unexpectedly present: {unexpected}. Unexpectedly gone: {lost}."
+        )
+    return parsed
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("stringsdata", nargs="?", default=None, help="Directory, glob, or single .stringsdata file. Defaults to the most recently built ShrinkerPro DerivedData.")
     parser.add_argument("--prune", action="store_true", help="Remove orphaned catalog entries instead of only reporting them.")
-    parser.add_argument("--check", action="store_true", help="Dry run: report and set the exit status, but never write the catalog.")
+    parser.add_argument("--check", action="store_true", help="Dry run: report and set the exit status, but never write the catalog. Missing keys fail with exit 3, orphans with exit 1.")
     return parser.parse_args()
 
 
@@ -315,13 +390,33 @@ def main() -> None:
             new_text = remove_entry(new_text, key)
 
     changed = new_text != text
+    if changed:
+        expected_keys = existing_keys | set(to_add)
+        if args.prune:
+            expected_keys -= set(orphans)
+        spliced = verify_spliced(new_text, expected_keys)
+    else:
+        spliced = catalog
+
     if changed and not args.check:
         CATALOG_PATH.write_text(new_text, encoding="utf-8")
 
-    remaining_orphans = [] if (args.prune and not args.check) else orphans
+    if args.prune and not args.check:
+        # Recomputed from the catalog that was actually written, rather
+        # than assumed empty. The documented exit-1 case "removing them
+        # somehow left some behind" could never fire while this was a
+        # hardcoded [].
+        remaining_orphans = sorted(k for k in spliced["strings"] if k not in found)
+    else:
+        remaining_orphans = orphans
+
+    # Under --check nothing was written, so a key the build emits and the
+    # catalog lacks is a finding rather than a to-do. Without --check it
+    # was just written, so it is neither.
+    missing = to_add if args.check else []
 
     print(f"Keys found in .stringsdata: {len(found)}")
-    print(f"Added: {len(to_add)}")
+    print(f"{'Missing from catalog' if args.check else 'Added'}: {len(to_add)}")
     for key in to_add:
         print(f"  + {key!r}")
     print(f"Skipped as junk: {len(junk)}")
@@ -335,7 +430,21 @@ def main() -> None:
     if args.check and changed:
         print("(--check: catalog left unmodified)")
 
-    sys.exit(0 if not remaining_orphans else 1)
+    if missing:
+        print(
+            f"FAIL: {len(missing)} key(s) the build emits are not in the catalog. "
+            "Run `python3 scripts/sync-catalog.py` to merge them in.",
+            file=sys.stderr,
+        )
+        sys.exit(KEYS_MISSING)
+    if remaining_orphans:
+        print(
+            f"FAIL: {len(remaining_orphans)} catalog entry/entries the build no longer produces. "
+            "Run `python3 scripts/sync-catalog.py --prune` to remove them.",
+            file=sys.stderr,
+        )
+        sys.exit(ORPHANS_FOUND)
+    sys.exit(0)
 
 
 if __name__ == "__main__":

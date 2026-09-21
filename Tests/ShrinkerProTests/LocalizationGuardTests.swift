@@ -82,10 +82,14 @@ final class LocalizationGuardTests: XCTestCase {
     }
 
     /// Every plural entry must carry at least `one` and `other` for English.
-    /// When translations land (Phase 2) this test grows to assert the
-    /// per-language categories — six for Arabic, four for Polish, Russian,
-    /// Ukrainian, Czech, Slovak and Slovenian, three for Croatian, Romanian
-    /// and Hebrew.
+    ///
+    /// When translations land (Phase 2) this test grows to assert each
+    /// language's own categories — and it must read them from the
+    /// platform's CLDR data at test time, never from a table written out
+    /// by hand. Commit `0febcf7` amended the spec specifically to disown
+    /// such a table: it goes stale between CLDR releases, and one wrong
+    /// row means a language ships missing a plural form. Do not reinstate
+    /// one here.
     func testEnglishPluralEntriesHaveBothCategories() throws {
         let data = try Data(contentsOf: Self.catalogURL(named: "Localizable"))
         let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
@@ -148,25 +152,51 @@ final class LocalizationGuardTests: XCTestCase {
         )
     }
 
-    /// The app's path is separate, and for English says the same thing.
-    func testLocalizedMessageExistsAndMatchesEnglish() {
-        let error = ShrinkError.unsupportedFormat("tiff")
+    /// One sample of every `ShrinkError` case, including both shapes of
+    /// `compressorFailed` — the tool said something, and the tool said
+    /// nothing — because those resolve through two different catalog
+    /// entries rather than one with a Swift-built separator.
+    static let everyShrinkErrorCase: [ShrinkError] = [
+        .unsupportedFormat("tiff"),
+        .helperMissing("cjpeg"),
+        .compressorFailed(tool: "cjpeg", code: 1, message: "bad"),
+        .compressorFailed(tool: "cjpeg", code: 1, message: ""),
+        .javascriptFailed("boom"),
+        .outputNotWritten(URL(fileURLWithPath: "/tmp/x.png")),
+        .conversionFailed("boom"),
+    ]
 
-        XCTAssertEqual(error.localizedMessage, error.errorDescription)
+    /// The app's path is separate, and for English says the same thing —
+    /// for *every* case, not one sampled case. `Compressor.swift` writes
+    /// each of these sentences out twice, once for the CLI and once for the
+    /// catalog, and a divergence between the two copies is invisible until
+    /// someone reads them side by side. This is that reading.
+    ///
+    /// Skipped unless the app itself resolves to English. The comparison
+    /// puts a *translated* value (`localizedMessage`) against an English
+    /// one (`errorDescription`), so from Phase 2 on it would fail on a
+    /// German machine for a reason that is not a defect — the seam working
+    /// exactly as the spec's "The Core seam" intends.
+    func testLocalizedMessageMatchesEnglishForEveryCase() throws {
+        try XCTSkipUnless(
+            Bundle.main.preferredLocalizations.first?.hasPrefix("en") == true,
+            "localizedMessage resolves through the catalog, so it only matches the English errorDescription when the app resolves to English. Running as: \(Bundle.main.preferredLocalizations)"
+        )
+
+        for error in Self.everyShrinkErrorCase {
+            XCTAssertEqual(
+                error.localizedMessage,
+                error.errorDescription,
+                "the catalog's English and the CLI's English have drifted apart for \(error)"
+            )
+        }
     }
 
     /// Every ShrinkError case must answer both, or the app will silently
-    /// fall back to English for one of them.
+    /// fall back to English for one of them. Unlike the test above this one
+    /// is locale-independent: it asserts only that neither form is empty.
     func testEveryShrinkErrorCaseHasBothForms() {
-        let cases: [ShrinkError] = [
-            .unsupportedFormat("tiff"),
-            .helperMissing("cjpeg"),
-            .compressorFailed(tool: "cjpeg", code: 1, message: "bad"),
-            .javascriptFailed("boom"),
-            .outputNotWritten(URL(fileURLWithPath: "/tmp/x.png")),
-            .conversionFailed("boom"),
-        ]
-        for error in cases {
+        for error in Self.everyShrinkErrorCase {
             XCTAssertFalse(error.localizedMessage.isEmpty, "\(error) has no localizedMessage")
             XCTAssertFalse(error.errorDescription?.isEmpty ?? true, "\(error) has no errorDescription")
         }
@@ -191,11 +221,17 @@ final class LocalizationGuardTests: XCTestCase {
         }
     }
 
+    /// The catalog and the build must agree in BOTH directions.
+    ///
     /// Nothing may sit in the catalog once the source that produced it is
-    /// gone. Phase 2 translates this catalog into 36 languages, so an
+    /// gone: Phase 2 translates this catalog into 36 languages, so an
     /// orphaned entry is a fragment someone pays to translate 36 times for
-    /// no reason — catching it here is what keeps that cost from
-    /// compounding release over release.
+    /// no reason. And nothing the build emits may be missing from the
+    /// catalog, which is the more expensive direction of the two — an
+    /// orphan wastes 36 translations, a missing key ships a string the
+    /// user can actually see untranslated in all 36 languages. Catching
+    /// either here is what keeps the cost from compounding release over
+    /// release.
     ///
     /// The `extractionState == "stale"` assertion above can never actually
     /// fire in this pipeline: marking an entry stale is an Xcode.app IDE
@@ -213,7 +249,7 @@ final class LocalizationGuardTests: XCTestCase {
     /// recursively invoking itself. When no prior build is found, the
     /// comparison is genuinely inconclusive rather than trivially green,
     /// so it is skipped rather than reported as passing.
-    func testCatalogHasNoOrphanedEntries() throws {
+    func testCatalogMatchesTheBuildsExtractedKeys() throws {
         let script = Self.repoRoot().appendingPathComponent("scripts/sync-catalog.py")
 
         let process = Process()
@@ -231,17 +267,26 @@ final class LocalizationGuardTests: XCTestCase {
         let stdout = String(data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
         let stderr = String(data: stderrPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
 
-        // Exit status 2: sync-catalog.py couldn't find a prior build to
-        // compare against at all (see its own docstring) — an environment
-        // gap, not a catalog defect.
-        if process.terminationStatus == 2 {
-            throw XCTSkip("No prior ShrinkerPro build found under DerivedData, so sync-catalog.py --check has nothing to compare the catalog against. Run `xcodebuild build -scheme ShrinkerPro` first. (\(stderr.trimmingCharacters(in: .whitespacesAndNewlines)))")
+        // The script's exit codes are a vocabulary, not a boolean: each
+        // one says something different about the catalog, and collapsing
+        // them would report a broken tool as a catalog finding.
+        let report = "\n\(stdout)\(stderr)"
+        switch process.terminationStatus {
+        case 0:
+            break
+        case 1:
+            XCTFail("sync-catalog.py --check found ORPHANED catalog entries — keys in Localizable.xcstrings the build no longer produces. Run `python3 scripts/sync-catalog.py --prune`.\(report)")
+        case 2:
+            // An environment gap, not a catalog defect: no prior build to
+            // compare against at all (see the script's own docstring).
+            throw XCTSkip("No prior ShrinkerPro build found under DerivedData, so sync-catalog.py --check has nothing to compare the catalog against. Run `xcodebuild build -scheme ShrinkerPro` first.\(report)")
+        case 3:
+            XCTFail("sync-catalog.py --check found keys the build emits that are MISSING from Localizable.xcstrings — those strings would ship untranslated in all 36 languages. Run `python3 scripts/sync-catalog.py`.\(report)")
+        case 4:
+            XCTFail("sync-catalog.py itself failed — this is a tooling defect, not a catalog finding, and the catalog is UNCHECKED until it is fixed.\(report)")
+        default:
+            XCTFail("sync-catalog.py could not be run (exit \(process.terminationStatus)) — is python3 on PATH? The catalog is unchecked.\(report)")
         }
-
-        XCTAssertEqual(
-            process.terminationStatus, 0,
-            "sync-catalog.py --check found orphaned catalog entries — keys in Localizable.xcstrings the build no longer produces:\n\(stdout)\(stderr)"
-        )
     }
 
     // MARK: - Helpers

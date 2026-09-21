@@ -18,8 +18,10 @@ struct DropZoneView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Drag files here")
                     .font(.system(size: 16, weight: .semibold))
-                    // Latin-only: negative letter-spacing breaks the glyph
-                    // joining that Arabic and Persian depend on.
+                    // Off for Arabic, Persian and Hebrew (see
+                    // `needsRelaxedTracking`): negative letter-spacing
+                    // crowds those scripts, and breaks outright the glyph
+                    // joining that the two cursive ones depend on.
                     .tracking(Self.needsRelaxedTracking ? 0 : -0.16)
                     .foregroundStyle(.primary)
                 Text("PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O")

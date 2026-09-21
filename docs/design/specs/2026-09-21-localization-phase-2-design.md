@@ -30,8 +30,11 @@ the machinery to check it.
 
 - Changing any English string. Phase 1's pinned tests still govern.
 - Translating the `shrinker` CLI, the README, the website or release notes.
-- Fixing the two controls that truncate. That is Phase 3, though this phase
-  will make them concrete (below).
+- Layout work. The two controls that clipped — the session bar's max size
+  field and the Settings metadata popup — were fixed before this phase began
+  (commit `b5a942b`). Both now measure the strings actually loaded, with the
+  English widths as floors, so they adapt to whatever these 36 languages turn
+  out to need rather than to German specifically.
 
 ## What the platform actually says about plurals
 
@@ -143,12 +146,12 @@ German first, alone, all the way through: author, merge, build, confirm
 `de.lproj` appears, run the guard tests, and read it.
 
 German is the right pilot for two reasons. Its compounds are the longest of
-the 36, so it stresses the layout hardest — and Phase 1's pseudolocalization
-already identified two controls that clip, the session bar's max-size
-placeholder and the Settings metadata popup. German will make those concrete
-rather than hypothetical, which is the most useful thing a pilot can do here.
-Second, it is a language the author can actually read, so the editorial gate
-has a human check exactly once before it is trusted 34 more times.
+the 36, so if any language is going to find a layout that still does not
+adapt, it is this one — the two known offenders are fixed and measured, but
+"measured" is a claim about the controls that were looked at, not a proof
+about the ones that were not. Second, it is a language the author can
+actually read, so the editorial gate gets a human check exactly once before
+it is trusted 34 more times.
 
 Only when German is proven do the remaining 34 run, one language per agent so
 each sees the whole catalog and stays internally consistent, batched for
@@ -171,7 +174,9 @@ gate narrows that; it does not close it. The honest description is: idiomatic,
 conventional, and reviewed by a machine — with German alone reviewed by a
 person.
 
-**The truncation findings will get worse before Phase 3 fixes them.** German
-is the language most likely to clip, and this phase will ship it. That is a
-deliberate ordering choice: better to see the real damage in one language now
-than to discover it in 36 later.
+**Layout is adaptive now, not proven.** The two controls that clipped were
+fixed before this phase, and both derive their width from the strings loaded
+rather than from English. That fixes the class, but it was verified with
+pseudolocalized doubling, not with real translations. German arriving first is
+the check on that — and a control nobody thought to measure is exactly the
+kind of thing it would expose.

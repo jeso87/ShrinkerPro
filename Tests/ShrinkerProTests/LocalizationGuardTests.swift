@@ -81,6 +81,30 @@ final class LocalizationGuardTests: XCTestCase {
         }
     }
 
+    /// Every plural entry must carry at least `one` and `other` for English.
+    /// When translations land (Phase 2) this test grows to assert the
+    /// per-language categories — six for Arabic, four for Polish, Russian,
+    /// Ukrainian, Czech, Slovak and Slovenian, three for Croatian, Romanian
+    /// and Hebrew.
+    func testEnglishPluralEntriesHaveBothCategories() throws {
+        let data = try Data(contentsOf: Self.catalogURL(named: "Localizable"))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let strings = try XCTUnwrap(json["strings"] as? [String: Any])
+
+        for (key, entry) in strings {
+            guard
+                let entry = entry as? [String: Any],
+                let localizations = entry["localizations"] as? [String: Any],
+                let english = localizations["en"] as? [String: Any],
+                let variations = english["variations"] as? [String: Any],
+                let plural = variations["plural"] as? [String: Any]
+            else { continue }
+
+            XCTAssertNotNil(plural["one"], "\(key) has no 'one' form for English")
+            XCTAssertNotNil(plural["other"], "\(key) has no 'other' form for English")
+        }
+    }
+
     // MARK: - Helpers
 
     static func catalogURL(named name: String) throws -> URL {

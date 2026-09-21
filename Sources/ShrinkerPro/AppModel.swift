@@ -606,8 +606,14 @@ final class AppModel: ObservableObject {
 
     /// "Image shrunk" for one file, matching upstream's wording, and a count
     /// for a batch.
+    ///
+    /// The singular/plural split lives in the string catalog rather than in
+    /// a ternary here. English needs two forms; Arabic needs six and
+    /// Japanese needs one, and a `count == 1 ? :` can only ever express
+    /// English's shape. See the localization spec's "Plural forms".
     static func notificationTitle(count: Int) -> String {
-        count == 1 ? "Image shrunk" : "\(count) images shrunk"
+        String(localized: "\(count) images shrunk",
+               comment: "Notification title after a batch finishes. The one-file form reads 'Image shrunk' with no number.")
     }
 
     /// The filename for a single file (upstream's behaviour — with one file

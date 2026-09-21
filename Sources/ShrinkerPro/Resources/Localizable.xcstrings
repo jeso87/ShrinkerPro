@@ -1,7 +1,24 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-
+    "%lld images shrunk" : {
+      "comment" : "Notification title after a batch finishes. The one-file form reads 'Image shrunk' with no number.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Image shrunk" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld images shrunk" }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }

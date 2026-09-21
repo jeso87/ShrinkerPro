@@ -55,53 +55,12 @@
         }
       }
     },
-    "%@ failed with exit code %d%@" : {
-      "comment" : "Alert body when a compressor exits non-zero. Placeholders: tool name, exit code, optional detail.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : { "state" : "translated", "value" : "%@ failed with exit code %d%@" }
-        }
-      }
-    },
     "%@, …and %lld more" : {
       "comment" : "Tail of a truncated filename list. First placeholder is the listed names, second is how many were not listed.",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%@, …and %lld more" }
-        }
-      }
-    },
-    "%@ · %@ larger" : {
-      "comment" : "Recent header aggregate when this session's outputs grew overall. First placeholder is a file count such as '3 files', second is a size such as '1.2 MB'.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : { "state" : "translated", "value" : "%1$@ · %2$@ larger" }
-        }
-      }
-    },
-    "%@ · %@ saved" : {
-      "comment" : "Recent header aggregate. First placeholder is a file count such as '3 files', second is a size such as '1.2 MB'.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : { "state" : "translated", "value" : "%1$@ · %2$@ saved" }
-        }
-      }
-    },
-    "%lld files" : {
-      "comment" : "File count in the Recent header's trailing aggregate.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "variations" : {
-            "plural" : {
-              "one" : { "stringUnit" : { "state" : "translated", "value" : "1 file" } },
-              "other" : { "stringUnit" : { "state" : "translated", "value" : "%lld files" } }
-            }
-          }
         }
       }
     },
@@ -865,6 +824,60 @@
         }
       }
     },
+    "%@ failed with exit code %d" : {
+      "comment" : "Alert body when a compressor exits non-zero and said nothing else. Placeholders: tool name, exit code.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ failed with exit code %d" }
+        }
+      }
+    },
+    "%@ failed with exit code %d: %@" : {
+      "comment" : "Alert body when a compressor exits non-zero with a message of its own. Placeholders: tool name, exit code, the tool's message.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ failed with exit code %d: %@" }
+        }
+      }
+    },
+    "%lld files · %@ larger" : {
+      "comment" : "Recent header aggregate when this session's outputs grew overall. First placeholder is the file count, second is a size such as '1.2 MB'. The one-file form reads '1 file' with no number of its own.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 file · %2$@ larger" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld files · %2$@ larger" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld files · %@ saved" : {
+      "comment" : "Recent header aggregate. First placeholder is the file count, second is a size such as '1.2 MB'. The one-file form reads '1 file' with no number of its own.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 file · %2$@ saved" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld files · %2$@ saved" }
+              }
+            }
+          }
+        }
+      }
+    },
     "Add .min" : {
       "comment" : "Output option: add the '.min' suffix to the written filename. '.min' stays as-is.",
       "extractionState" : "extracted_with_value",
@@ -1054,12 +1067,48 @@
         }
       }
     },
+    "Shrinker Pro Can't Open %lld Files" : {
+      "comment" : "Title of the alert shown when files are opened but the app failed to start. The one-file form reads 'This File' with no number.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro Can't Open This File" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro Can't Open These %lld Files" }
+              }
+            }
+          }
+        }
+      }
+    },
     "Shrinker Pro couldn't start." : {
       "comment" : "Fallback body of the launch-failure screen when the error carried no message of its own.",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro couldn't start." }
+        }
+      }
+    },
+    "Shrinker Pro failed to start, so it can't compress the %lld files you opened. Quit and relaunch to try again." : {
+      "comment" : "Body of the alert shown when files are opened but the app failed to start. The one-file form reads 'the file' with no number.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro failed to start, so it can't compress the file you opened. Quit and relaunch to try again." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro failed to start, so it can't compress the %lld files you opened. Quit and relaunch to try again." }
+              }
+            }
+          }
         }
       }
     },
@@ -1078,6 +1127,15 @@
       "localizations" : {
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Super Low" }
+        }
+      }
+    },
+    "The crop is missing a side, so it is not clear what these files should be cropped to. Fill in both numbers, or clear the crop, and drop them again." : {
+      "comment" : "Alert body when a whole drop is refused because the crop has only one of its two sides filled in.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "The crop is missing a side, so it is not clear what these files should be cropped to. Fill in both numbers, or clear the crop, and drop them again." }
         }
       }
     },

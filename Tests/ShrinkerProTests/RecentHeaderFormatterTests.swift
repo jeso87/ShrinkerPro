@@ -13,19 +13,14 @@ final class RecentHeaderFormatterTests: XCTestCase {
         return formatter.string(fromByteCount: Int64(bytes))
     }
 
-    // MARK: - fileCountLabel
-
-    func testFileCountLabelIsSingularForOne() {
-        XCTAssertEqual(RecentHeaderFormatter.fileCountLabel(1), "1 file")
-    }
-
-    func testFileCountLabelIsPluralForZeroAndMultiple() {
-        XCTAssertEqual(RecentHeaderFormatter.fileCountLabel(0), "0 files")
-        XCTAssertEqual(RecentHeaderFormatter.fileCountLabel(2), "2 files")
-        XCTAssertEqual(RecentHeaderFormatter.fileCountLabel(6), "6 files")
-    }
-
     // MARK: - aggregate
+    //
+    // `fileCountLabel` used to be a separate function with its own tests,
+    // resolving the plural `"3 files"` on its own so `aggregate` could
+    // interpolate the finished fragment. That defeated the plural
+    // mechanism (see the spec's "Plural forms"): the count is now part of
+    // the aggregate's own catalog entry, so the singular and plural forms
+    // are asserted here, through the sentence that actually ships.
 
     /// The old `aggregateParts` returned (prefix, size, suffix) so the view
     /// could colour the middle run. That shape put " saved" permanently
@@ -40,6 +35,15 @@ final class RecentHeaderFormatterTests: XCTestCase {
         let text = String(RecentHeaderFormatter.aggregate(for: session).characters)
 
         XCTAssertEqual(text, "1 file · \(expectedMagnitude(4_000_000)) saved")
+    }
+
+    /// Zero is the `other` category in English, not a category of its own.
+    func testAggregatePluralisesZeroFiles() {
+        let session = SessionSummary()
+
+        let text = String(RecentHeaderFormatter.aggregate(for: session).characters)
+
+        XCTAssertTrue(text.hasPrefix("0 files · "), text)
     }
 
     func testAggregatePluralisesMultipleFiles() {

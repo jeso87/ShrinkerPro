@@ -277,11 +277,10 @@ final class AppModel: ObservableObject {
             if !isSessionPanelExpanded {
                 withAnimation(.easeOut(duration: 0.22)) { isSessionPanelExpanded = true }
             }
-            errorMessage = """
-                The crop is missing a side, so it is not clear what these files \
-                should be cropped to. Fill in both numbers, or clear the crop, \
-                and drop them again.
-                """
+            errorMessage = String(
+                localized: "The crop is missing a side, so it is not clear what these files should be cropped to. Fill in both numbers, or clear the crop, and drop them again.",
+                comment: "Alert body when a whole drop is refused because the crop has only one of its two sides filled in."
+            )
             return
         }
 

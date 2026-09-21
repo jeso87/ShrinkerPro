@@ -82,9 +82,15 @@ extension ShrinkError: AppDisplayableError {
             return String(localized: "The bundled \(name) tool is missing. The app may be damaged — try reinstalling.",
                           comment: "Alert body when a bundled compressor binary is absent. The placeholder is a tool name such as cjpeg.")
         case .compressorFailed(let tool, let code, let message):
-            let detail = message.isEmpty ? "" : ": \(message)"
-            return String(localized: "\(tool) failed with exit code \(code)\(detail)",
-                          comment: "Alert body when a compressor exits non-zero. Placeholders: tool name, exit code, optional detail.")
+            // Two entries rather than one with a Swift-built ": " separator:
+            // the space before a colon is not universal (French sets one),
+            // so the punctuation belongs to the translator, not to us.
+            if message.isEmpty {
+                return String(localized: "\(tool) failed with exit code \(code)",
+                              comment: "Alert body when a compressor exits non-zero and said nothing else. Placeholders: tool name, exit code.")
+            }
+            return String(localized: "\(tool) failed with exit code \(code): \(message)",
+                          comment: "Alert body when a compressor exits non-zero with a message of its own. Placeholders: tool name, exit code, the tool's message.")
         case .javascriptFailed(let message):
             return String(localized: "SVG optimization failed: \(message)",
                           comment: "Alert body when svgo fails.")

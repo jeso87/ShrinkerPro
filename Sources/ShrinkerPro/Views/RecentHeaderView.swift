@@ -6,12 +6,6 @@ import SwiftUI
 /// `RecentHeaderFormatterTests`).
 enum RecentHeaderFormatter {
 
-    /// `"1 file"` / `"6 files"`. The plural lives in the catalog.
-    static func fileCountLabel(_ count: Int) -> String {
-        String(localized: "\(count) files",
-               comment: "File count in the Recent header's trailing aggregate.")
-    }
-
     /// The Recent header's trailing aggregate, as one localized sentence
     /// with the size run accented.
     ///
@@ -22,6 +16,13 @@ enum RecentHeaderFormatter {
     /// result, so a translation may put the words wherever its grammar wants
     /// and the right run is still the accented one.
     ///
+    /// The file count lives *inside* this entry rather than being resolved
+    /// separately and interpolated in as a finished `"3 files"`. A plural
+    /// entry has to be one catalog string containing the number — see the
+    /// spec's "Plural forms" — because in many languages the words around
+    /// the count inflect with it, and a pre-resolved fragment gives them
+    /// nothing to agree with.
+    ///
     /// `SessionSummary.bytesSaved` can be negative when this session's
     /// outputs grew overall (summed honestly rather than clamped — see
     /// `SessionSummary.record`). Pairing a bare minus sign with "saved"
@@ -30,18 +31,18 @@ enum RecentHeaderFormatter {
     static func aggregate(for session: SessionSummary) -> AttributedString {
         let grew = session.bytesSaved < 0
         let size = formatMagnitude(abs(session.bytesSaved))
-        let files = fileCountLabel(session.fileCount)
 
         let sentence = grew
-            ? String(localized: "\(files) · \(size) larger",
-                     comment: "Recent header aggregate when this session's outputs grew overall. First placeholder is a file count such as '3 files', second is a size such as '1.2 MB'.")
-            : String(localized: "\(files) · \(size) saved",
-                     comment: "Recent header aggregate. First placeholder is a file count such as '3 files', second is a size such as '1.2 MB'.")
+            ? String(localized: "\(session.fileCount) files · \(size) larger",
+                     comment: "Recent header aggregate when this session's outputs grew overall. First placeholder is the file count, second is a size such as '1.2 MB'. The one-file form reads '1 file' with no number of its own.")
+            : String(localized: "\(session.fileCount) files · \(size) saved",
+                     comment: "Recent header aggregate. First placeholder is the file count, second is a size such as '1.2 MB'. The one-file form reads '1 file' with no number of its own.")
 
         var attributed = AttributedString(sentence)
         // The size is our own substring, so locating it is exact rather than
-        // a guess. `.last` because a file count can never contain a byte
-        // size, but a size could in principle repeat.
+        // a guess. Searched `.backwards` — i.e. the LAST match wins —
+        // because a file count can never contain a byte size, but a size
+        // could in principle repeat.
         if let range = attributed.range(of: size, options: .backwards) {
             attributed[range].foregroundColor = Theme.savingsAccent
             attributed[range].font = .system(size: 11.5, weight: .semibold)

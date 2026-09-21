@@ -37,8 +37,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     var presentLaunchFailureAlert: (_ fileCount: Int) -> Void = { fileCount in
         let alert = NSAlert()
         alert.alertStyle = .warning
-        alert.messageText = "Shrinker Pro Can't Open \(fileCount == 1 ? "This File" : "These Files")"
-        alert.informativeText = "Shrinker Pro failed to start, so it can't compress \(fileCount == 1 ? "the file" : "the files") you opened. Quit and relaunch to try again."
+        // Two catalog plural entries rather than two English ternaries: the
+        // one/other split is English's plural rule, and ten of the declared
+        // languages need more categories than a two-branch ternary can
+        // express. The plural forms name the count ("These 3 Files") because
+        // `xcstringstool` refuses a plural entry no variant of which
+        // references the number; the one-file forms are unchanged.
+        alert.messageText = String(localized: "Shrinker Pro Can't Open \(fileCount) Files",
+                                   comment: "Title of the alert shown when files are opened but the app failed to start. The one-file form reads 'This File' with no number.")
+        alert.informativeText = String(localized: "Shrinker Pro failed to start, so it can't compress the \(fileCount) files you opened. Quit and relaunch to try again.",
+                                       comment: "Body of the alert shown when files are opened but the app failed to start. The one-file form reads 'the file' with no number.")
         alert.runModal()
     }
 

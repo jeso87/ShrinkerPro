@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 /// Pure derivations for `SessionBarView` — factored out for the same reason
 /// `RecentHeaderFormatter` is factored out of `RecentHeaderView`: this
@@ -152,6 +153,62 @@ enum SessionBarState {
 
     static func cropRowFits(atWindowWidth width: CGFloat) -> Bool {
         width - panelGutters - labelColumnWidth - labelSpacing >= CropRow.width
+    }
+
+    /// The narrowest the window is allowed to get — `ContentView`'s own
+    /// `minWidth`. Repeated here because the panel's widths are derived from
+    /// it, and a silent disagreement between the two would show up as a
+    /// clipped control rather than as a build error.
+    static let minimumWindowWidth: CGFloat = 340
+
+    /// The max size field's designed width, and the floor every language gets.
+    ///
+    /// Five digits is the most the field will ever contain, and a field
+    /// several times wider than its longest value reads as though something
+    /// much longer belongs in it.
+    static let baseMaxSizeFieldWidth: CGFloat = 112
+
+    /// 9pt either side of the field group's contents.
+    static let maxSizeFieldPadding: CGFloat = 18
+    /// Between the number and its unit.
+    static let maxSizeFieldUnitSpacing: CGFloat = 6
+
+    /// The widest the max size field group may be and still leave its row
+    /// fitting the narrowest window.
+    ///
+    /// Note this is the whole group — the number, the gap and the unit — so it
+    /// does not vary with the unit's own width. A longer unit eats into the
+    /// group rather than enlarging it.
+    static var maxSizeFieldWidthCap: CGFloat {
+        minimumWindowWidth - panelGutters - labelColumnWidth - labelSpacing
+    }
+
+    /// The width of the max size field group, measured from the placeholder
+    /// and unit actually loaded.
+    ///
+    /// Phase 1's pseudolocalization run caught this clipping: the group was a
+    /// hardcoded 112pt and the field inside it used `.byClipping`, so a
+    /// doubled "No limit" rendered as "No limit N". English measures under
+    /// 112pt, so `baseMaxSizeFieldWidth` is a floor rather than a starting
+    /// point and nothing moves for an English reader. A longer placeholder —
+    /// German's "Keine Begrenzung" is twice the length — is given room up to
+    /// `maxSizeFieldWidthCap`, past which the field stops growing and
+    /// `DigitsOnlyField` ellipsises rather than cutting mid-glyph.
+    static func maxSizeFieldWidth(placeholder: String, unit: String) -> CGFloat {
+        let needed = maxSizeFieldPadding
+            + textWidth(placeholder)
+            + maxSizeFieldUnitSpacing
+            + textWidth(unit)
+        return min(max(baseMaxSizeFieldWidth, needed), maxSizeFieldWidthCap)
+    }
+
+    /// How wide a string draws in the session bar's own 12.5pt system font —
+    /// the size `DigitsOnlyField` and the unit label both use.
+    static func textWidth(_ string: String) -> CGFloat {
+        (string as NSString)
+            .size(withAttributes: [.font: NSFont.systemFont(ofSize: 12.5)])
+            .width
+            .rounded(.up)
     }
 
     /// PNG is the one override target whose consequence is genuinely
@@ -594,7 +651,15 @@ struct SessionBarView: View {
     }
 
     private var maxSizeField: some View {
-        HStack(spacing: 6) {
+        // Hoisted so the same strings that are drawn are the ones measured —
+        // a width computed from a different literal than the one on screen is
+        // the bug this replaces, one step removed.
+        let placeholder = String(localized: "No limit",
+                                 comment: "Placeholder in the max size field when no limit is set.")
+        let unit = String(localized: "px",
+                          comment: "Unit beside the max size field. Abbreviation for pixels.")
+
+        return HStack(spacing: SessionBarState.maxSizeFieldUnitSpacing) {
             // A value typed here is in force the moment it is typed — no
             // Return to press — so dropping files straight after typing does
             // what it looks like it will do. Out-of-range values snap only
@@ -602,13 +667,12 @@ struct SessionBarView: View {
             // while it is still being typed.
             DigitsOnlyField(
                 text: $model.sessionMaxSizeText,
-                placeholder: String(localized: "No limit",
-                                    comment: "Placeholder in the max size field when no limit is set."),
+                placeholder: placeholder,
                 onCommit: { model.sessionMaxSizeText = MaxSizeField.committed(model.sessionMaxSizeText) }
             )
             .accessibilityLabel("Max size in pixels")
 
-            Text("px")
+            Text(unit)
                 .font(.system(size: 12.5))
                 .foregroundStyle(.secondary)
         }
@@ -627,7 +691,11 @@ struct SessionBarView: View {
         // times wider than its longest value reads as though something much
         // longer belongs in it. It also leaves the three controls a similar
         // size, which a full-width field did not.
-        .frame(width: 112)
+        //
+        // Measured rather than fixed, because 112pt fits "No limit" and not
+        // "Keine Begrenzung". English measures under the floor, so this is
+        // still exactly 112pt for an English reader.
+        .frame(width: SessionBarState.maxSizeFieldWidth(placeholder: placeholder, unit: unit))
     }
 
     private var maxSizeIsSuperseded: Bool {
@@ -814,9 +882,13 @@ private struct DigitsOnlyField: NSViewRepresentable {
         // what you type.
         field.placeholderString = placeholder
         field.font = .systemFont(ofSize: 12.5)
-        field.lineBreakMode = .byClipping
-        // The field is 112pt wide by design, so it must not insist on being
-        // as wide as its own placeholder plus padding.
+        // Truncating, not clipping: the frame is measured to fit the
+        // placeholder, but a language that needs more than the row can give
+        // is capped, and an ellipsis says so where a hard clip mid-glyph
+        // just looks broken.
+        field.lineBreakMode = .byTruncatingTail
+        // The frame is measured by SessionBarState, so the field must not
+        // insist on being as wide as its own placeholder plus padding.
         field.setContentHuggingPriority(.defaultLow, for: .horizontal)
         field.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return field

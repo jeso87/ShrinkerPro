@@ -1,6 +1,51 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ → %@" : {
+      "comment" : "A result row's before-and-after sizes. The arrow points from the original size to the shrunk size; in right-to-left languages it should point the other way (←).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
+        }
+      }
+    },
+    "Crop %@:%@" : {
+      "comment" : "Collapsed session-bar summary of a ratio crop. Placeholders are the two sides of the ratio.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Crop %1$@:%2$@" }
+        }
+      }
+    },
+    "Crop %@×%@" : {
+      "comment" : "Collapsed session-bar summary of a pixel crop. Placeholders are width and height in pixels; the × is the same glyph the field shows.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Crop %1$@×%2$@" }
+        }
+      }
+    },
+    "Max %@px" : {
+      "comment" : "Collapsed session-bar summary of the max size. Placeholder is a pixel count; 'px' placement varies by language.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Max %@px" }
+        }
+      }
+    },
+    "No limit" : {
+      "comment" : "Collapsed session-bar summary when no max size is set.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "No limit" }
+        }
+      }
+    },
     "%@ failed with exit code %d%@" : {
       "comment" : "Alert body when a compressor exits non-zero. Placeholders: tool name, exit code, optional detail.",
       "extractionState" : "manual",

@@ -11,10 +11,14 @@ struct ResultRow: Identifiable, Equatable {
     let savedPercent: Int
 
     /// `"3.1 MB → 1.2 MB"`, built with `ByteCountFormatter`'s `.file` count
-    /// style so the numbers match what Finder would show for the same
-    /// files.
+    /// style so the numbers match what Finder would show for the same files.
+    ///
+    /// The arrow is part of the catalog entry rather than hardcoded between
+    /// the placeholders: it encodes reading direction, and in a
+    /// right-to-left language it must point the other way.
     var sizeSummary: String {
-        "\(Self.formatBytes(originalBytes)) → \(Self.formatBytes(shrunkBytes))"
+        String(localized: "\(Self.formatBytes(originalBytes)) → \(Self.formatBytes(shrunkBytes))",
+               comment: "A result row's before-and-after sizes. The arrow points from the original size to the shrunk size; in right-to-left languages it should point the other way (←).")
     }
 
     private static func formatBytes(_ count: Int) -> String {

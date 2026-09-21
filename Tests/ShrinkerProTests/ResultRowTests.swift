@@ -69,4 +69,21 @@ final class ResultRowTests: XCTestCase {
 
         XCTAssertEqual(session.bytesSavedFormatted, expectedFileCountString(4_000_000))
     }
+
+    /// The arrow encodes reading direction, so it cannot be hardcoded
+    /// around the interpolation — a right-to-left language needs it the
+    /// other way. English is unchanged.
+    func testSizeSummaryKeepsItsEnglishForm() {
+        let row = ResultRow(output: URL(fileURLWithPath: "/tmp/a.png"),
+                            originalBytes: 3_100_000,
+                            shrunkBytes: 1_200_000,
+                            savedPercent: 61)
+
+        let formatter = ByteCountFormatter()
+        formatter.countStyle = .file
+        let before = formatter.string(fromByteCount: 3_100_000)
+        let after = formatter.string(fromByteCount: 1_200_000)
+
+        XCTAssertEqual(row.sizeSummary, "\(before) → \(after)")
+    }
 }

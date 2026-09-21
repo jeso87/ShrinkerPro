@@ -43,7 +43,11 @@ enum SessionBarState {
         [
             format?.displayName ?? "App default",
             (quality ?? storedQuality).displayName,
-            maxDimension.map { "Max \($0)px" } ?? "No limit",
+            maxDimension.map {
+                String(localized: "Max \($0, format: .number.grouping(.never))px",
+                       comment: "Collapsed session-bar summary of the max size. Placeholder is a pixel count; 'px' placement varies by language.")
+            } ?? String(localized: "No limit",
+                        comment: "Collapsed session-bar summary when no max size is set."),
             // Named only when there is one. The other three always state
             // themselves, including their off values, because each has exactly
             // one line's worth to say — but a fourth "No crop" pushed the
@@ -61,8 +65,12 @@ enum SessionBarState {
     /// 1200 by 1200 image" from "a square, whatever size the source allows".
     static func cropFragment(_ crop: CropTarget) -> String {
         switch crop.mode {
-        case .pixels: return "Crop \(crop.width)×\(crop.height)"
-        case .ratio: return "Crop \(crop.width):\(crop.height)"
+        case .pixels:
+            return String(localized: "Crop \(crop.width, format: .number.grouping(.never))×\(crop.height, format: .number.grouping(.never))",
+                          comment: "Collapsed session-bar summary of a pixel crop. Placeholders are width and height in pixels; the × is the same glyph the field shows.")
+        case .ratio:
+            return String(localized: "Crop \(crop.width, format: .number.grouping(.never)):\(crop.height, format: .number.grouping(.never))",
+                          comment: "Collapsed session-bar summary of a ratio crop. Placeholders are the two sides of the ratio.")
         }
     }
 

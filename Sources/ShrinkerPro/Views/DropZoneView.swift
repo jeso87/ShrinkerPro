@@ -18,7 +18,9 @@ struct DropZoneView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Drag files here")
                     .font(.system(size: 16, weight: .semibold))
-                    .tracking(-0.16)
+                    // Latin-only: negative letter-spacing breaks the glyph
+                    // joining that Arabic and Persian depend on.
+                    .tracking(Self.isCursiveScript ? 0 : -0.16)
                     .foregroundStyle(.primary)
                 Text("PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O")
                     .font(.system(size: 12.5))
@@ -114,6 +116,14 @@ struct DropZoneView: View {
                 continuation.resume(returning: url)
             }
         }
+    }
+
+    /// Arabic, Persian and Urdu join their letters; tightening the tracking
+    /// pulls the joins apart. Hebrew does not join, but has no need of the
+    /// tightening either.
+    private static var isCursiveScript: Bool {
+        guard let code = Locale.current.language.languageCode?.identifier else { return false }
+        return ["ar", "fa", "ur", "he"].contains(code)
     }
 
     private func pickFiles() {

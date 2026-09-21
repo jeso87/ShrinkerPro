@@ -471,7 +471,7 @@
           "stringUnit" : { "state" : "translated", "value" : "The crop already sets the size — every image comes out %1$@×%2$@. Switch the crop to a ratio, or clear it, to use a max size." }
         },
         "de" : {
-          "stringUnit" : { "state" : "translated", "value" : "Der Zuschnitt legt die Größe bereits fest — jedes Bild kommt mit %1$@×%2$@ heraus. Stelle den Zuschnitt auf eine Form um oder entferne ihn, um eine Maximalgröße zu nutzen." }
+          "stringUnit" : { "state" : "translated", "value" : "Der Zuschnitt legt die Größe bereits fest — jedes Bild kommt mit %1$@×%2$@ heraus. Stelle den Zuschnitt auf ein Verhältnis um oder entferne ihn, um eine Maximalgröße zu nutzen." }
         }
       }
     },
@@ -953,7 +953,7 @@
           "stringUnit" : { "state" : "translated", "value" : "ratio" }
         },
         "de" : {
-          "stringUnit" : { "state" : "translated", "value" : "Form" }
+          "stringUnit" : { "state" : "translated", "value" : "Verhältnis" }
         }
       }
     },

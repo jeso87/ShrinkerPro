@@ -68,21 +68,35 @@ HEIC, HEIF, GIF, SVG), `px`, `.min` and `minified`.
 
 ## Judgement calls
 
-Four places where the obvious German was not the one chosen. All four would
-benefit from a second opinion.
+Four places where the obvious German was not the first one chosen. The first
+was reviewed and reversed — it was a bug in the layout, not a question about
+the language — and is kept here because the reasoning is what the remaining 34
+languages should copy.
 
-1. **`ratio` → `Form`, not `Verhältnis`.** The crop-mode segmented control is a
-   hardcoded 88pt (`SessionBarState.CropRow.modeWidth`), with a comment saying
-   anything narrower clips "ratio". Measured with a real `NSSegmentedControl`
-   at the control size the view uses: `ratio | px` is 82pt, `Verhältnis | px`
-   is 115pt — it would be clipped, and that width is not measured per language
-   the way the max-size field and the Settings window are. `Form | px` is 86pt
-   and fits. "Form" also matches the help text, which calls it a shape
-   ("Crops the center of each image to this shape"), so the control and the
-   prose say the same word; the two help strings that mention the mode were
-   written to agree ("auf diese Form zu", "auf eine Form um"). `Verh.`
-   (86.5pt) fits too, but reads as an abbreviation of something the user has
-   to guess.
+1. **`ratio` → `Verhältnis`, after fixing the control it would not fit.**
+   This started as a translation compromise and turned out to be a layout bug.
+   The crop-mode segmented control was a hardcoded 88pt
+   (`SessionBarState.CropRow.modeWidth`), the third fixed-width control in the
+   panel after the max-size field and the Settings window, and the only one
+   still not measuring what it held. Measured on a real `NSSegmentedControl`
+   at the control size the view actually uses, `.small`: `ratio | px` is 82pt,
+   so English sat inside the 88pt frame with room to spare and was never
+   clipped — but `Verhältnis | px` is 115pt and would have been cut. The first
+   draft of this file answered that by choosing `Form`, a shorter and weaker
+   word, to fit a number measured against English. That is a translation being
+   bent around a layout constant, and it would have happened again quietly in
+   each of the 34 languages still to come.
+
+   The control is now measured from the labels the language actually loaded,
+   with 88pt as the floor and a cap, exactly as `maxSizeFieldWidth` and
+   `SettingsWindowMetrics.contentWidth` already work. English measures 82pt,
+   clamps to the 88pt floor and does not move a pixel; German gets its 115pt.
+   So the word here is now simply the right one.
+
+   `Form` survives in the three help strings that translate English's own word
+   "shape" ("Crops the center of each image to this shape") — that is English's
+   wording, not the control's name. The one help string that names the control's
+   option, "Switch the crop to a ratio", says `auf ein Verhältnis um`.
 
 2. **`Convert all to` → `Konvertieren in`, dropping "all".** The session bar's
    label column is a fixed 104pt (`SessionBarState.labelColumnWidth`).
@@ -271,7 +285,7 @@ what the placeholder guard checks.
 - DE &nbsp; px
 
 - EN &nbsp; ratio
-- DE &nbsp; Form
+- DE &nbsp; Verhältnis
 
 - EN &nbsp; Applies to this session only. Defaults live in Settings.
 - DE &nbsp; Gilt nur für diese Sitzung. Die Vorgaben stehen in den Einstellungen.
@@ -295,7 +309,7 @@ what the placeholder guard checks.
 **Key** `The crop already sets the size — every image comes out %@×%@. Switch the crop to a ratio, or clear it, to use a max size.`
 
 - EN &nbsp; The crop already sets the size — every image comes out %1$@×%2$@. Switch the crop to a ratio, or clear it, to use a max size.
-- DE &nbsp; Der Zuschnitt legt die Größe bereits fest — jedes Bild kommt mit %1$@×%2$@ heraus. Stelle den Zuschnitt auf eine Form um oder entferne ihn, um eine Maximalgröße zu nutzen.
+- DE &nbsp; Der Zuschnitt legt die Größe bereits fest — jedes Bild kommt mit %1$@×%2$@ heraus. Stelle den Zuschnitt auf ein Verhältnis um oder entferne ihn, um eine Maximalgröße zu nutzen.
 - <sub>Help text when a pixel crop makes the max size field irrelevant. Placeholders are the crop's width and height in pixels.</sub>
 
 - EN &nbsp; Crops the center of each image to this shape and leaves the size alone. The session's max size, if set, still applies.

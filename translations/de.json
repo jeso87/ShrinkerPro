@@ -142,7 +142,7 @@
   "Standard": "Standard",
   "Super Low": "Sehr niedrig",
   "The bundled %@ tool is missing. The app may be damaged — try reinstalling.": "Das mitgelieferte Werkzeug %@ fehlt. Die App ist möglicherweise beschädigt — installiere sie neu.",
-  "The crop already sets the size — every image comes out %@×%@. Switch the crop to a ratio, or clear it, to use a max size.": "Der Zuschnitt legt die Größe bereits fest — jedes Bild kommt mit %1$@×%2$@ heraus. Stelle den Zuschnitt auf eine Form um oder entferne ihn, um eine Maximalgröße zu nutzen.",
+  "The crop already sets the size — every image comes out %@×%@. Switch the crop to a ratio, or clear it, to use a max size.": "Der Zuschnitt legt die Größe bereits fest — jedes Bild kommt mit %1$@×%2$@ heraus. Stelle den Zuschnitt auf ein Verhältnis um oder entferne ihn, um eine Maximalgröße zu nutzen.",
   "The crop is missing a side, so it is not clear what these files should be cropped to. Fill in both numbers, or clear the crop, and drop them again.": "Dem Zuschnitt fehlt eine Seite, daher ist unklar, worauf diese Dateien zugeschnitten werden sollen. Gib beide Zahlen ein oder entferne den Zuschnitt und lege die Dateien erneut ab.",
   "The other %lld files are unaffected.": {
     "one": "Die übrige Datei ist nicht betroffen.",
@@ -157,5 +157,5 @@
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Deine Originale werden überschrieben und können nicht wiederhergestellt werden. Konvertierte Dateien behalten eine eigene Dateiendung — diese Originale bleiben also unangetastet.",
   "filename list separator": ", ",
   "px": "px",
-  "ratio": "Form"
+  "ratio": "Verhältnis"
 }

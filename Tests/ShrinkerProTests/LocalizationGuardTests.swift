@@ -191,6 +191,59 @@ final class LocalizationGuardTests: XCTestCase {
         }
     }
 
+    /// Nothing may sit in the catalog once the source that produced it is
+    /// gone. Phase 2 translates this catalog into 36 languages, so an
+    /// orphaned entry is a fragment someone pays to translate 36 times for
+    /// no reason — catching it here is what keeps that cost from
+    /// compounding release over release.
+    ///
+    /// The `extractionState == "stale"` assertion above can never actually
+    /// fire in this pipeline: marking an entry stale is an Xcode.app IDE
+    /// behaviour, and the catalog is merged by `scripts/sync-catalog.py`
+    /// instead, which never writes that state. So this test drives the
+    /// real script — which does its own orphan comparison against a real
+    /// build's `.stringsdata` — rather than re-implementing that
+    /// comparison here in Swift, where the two could quietly drift apart.
+    /// `--check` guarantees the run cannot mutate the catalog as a side
+    /// effect of merely checking it.
+    ///
+    /// This needs a previous `xcodebuild build` to have produced
+    /// `.stringsdata` under DerivedData — there is no way to trigger a
+    /// fresh build from inside a test without this test's own xcodebuild
+    /// recursively invoking itself. When no prior build is found, the
+    /// comparison is genuinely inconclusive rather than trivially green,
+    /// so it is skipped rather than reported as passing.
+    func testCatalogHasNoOrphanedEntries() throws {
+        let script = Self.repoRoot().appendingPathComponent("scripts/sync-catalog.py")
+
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+        process.arguments = ["python3", script.path, "--check"]
+
+        let stdoutPipe = Pipe()
+        let stderrPipe = Pipe()
+        process.standardOutput = stdoutPipe
+        process.standardError = stderrPipe
+
+        try process.run()
+        process.waitUntilExit()
+
+        let stdout = String(data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+        let stderr = String(data: stderrPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+
+        // Exit status 2: sync-catalog.py couldn't find a prior build to
+        // compare against at all (see its own docstring) — an environment
+        // gap, not a catalog defect.
+        if process.terminationStatus == 2 {
+            throw XCTSkip("No prior ShrinkerPro build found under DerivedData, so sync-catalog.py --check has nothing to compare the catalog against. Run `xcodebuild build -scheme ShrinkerPro` first. (\(stderr.trimmingCharacters(in: .whitespacesAndNewlines)))")
+        }
+
+        XCTAssertEqual(
+            process.terminationStatus, 0,
+            "sync-catalog.py --check found orphaned catalog entries — keys in Localizable.xcstrings the build no longer produces:\n\(stdout)\(stderr)"
+        )
+    }
+
     // MARK: - Helpers
 
     static func catalogURL(named name: String) throws -> URL {

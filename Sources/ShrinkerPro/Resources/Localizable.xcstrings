@@ -393,14 +393,6 @@
         }
       }
     },
-    "  —  %@" : {
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : { "state" : "translated", "value" : "  —  %@" }
-        }
-      }
-    },
     "About Shrinker Pro" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {

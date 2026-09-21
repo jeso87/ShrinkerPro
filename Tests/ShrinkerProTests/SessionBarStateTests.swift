@@ -438,3 +438,74 @@ final class CropFieldTests: XCTestCase {
         XCTAssertFalse(summary.lowercased().contains("crop"))
     }
 }
+
+// MARK: - The max size field's width
+
+/// Phase 1's pseudolocalization run found the max size field clipping its own
+/// placeholder: a doubled "No limit" rendered as "No limit N". The field was a
+/// hardcoded 112pt with `.byClipping`, which fits English and nothing longer —
+/// German's "Keine Begrenzung" is twice the length.
+///
+/// The width is now measured from the placeholder actually loaded, with 112pt
+/// as the floor so English does not move a pixel, and a cap so the field can
+/// never push the row past the window's 340pt minimum.
+final class MaxSizeFieldWidthTests: XCTestCase {
+
+    func testEnglishKeepsTheOriginalHardcodedWidth() {
+        let width = SessionBarState.maxSizeFieldWidth(placeholder: "No limit", unit: "px")
+
+        XCTAssertEqual(
+            width, 112,
+            "English must render exactly as before — 112pt was the designed width"
+        )
+    }
+
+    func testALongerPlaceholderWidensTheField() {
+        let english = SessionBarState.maxSizeFieldWidth(placeholder: "No limit", unit: "px")
+        let german = SessionBarState.maxSizeFieldWidth(placeholder: "Keine Begrenzung", unit: "px")
+
+        XCTAssertGreaterThan(
+            german, english,
+            "a placeholder that does not fit 112pt must be given room, not clipped"
+        )
+    }
+
+    func testTheFieldNeverOutgrowsTheNarrowestWindow() {
+        let absurd = String(repeating: "Begrenzung ", count: 20)
+
+        let width = SessionBarState.maxSizeFieldWidth(placeholder: absurd, unit: "px")
+
+        XCTAssertLessThanOrEqual(
+            width, SessionBarState.maxSizeFieldWidthCap,
+            "past the cap the field must stop growing and let the text ellipsise"
+        )
+    }
+
+    /// The cap is derived from the panel's own geometry, not guessed: whatever
+    /// is left of a 340pt window after the gutters, the label column and the
+    /// unit label.
+    func testTheCapLeavesTheRowFittingAtMinimumWindowWidth() {
+        let cap = SessionBarState.maxSizeFieldWidthCap
+        let consumed = SessionBarState.panelGutters
+            + SessionBarState.labelColumnWidth
+            + SessionBarState.labelSpacing
+            + cap
+
+        XCTAssertLessThanOrEqual(consumed, 340, "the max size row must fit the narrowest window")
+    }
+
+    /// The unit label lives inside the field group, so a longer one consumes
+    /// the group's own width rather than changing what the row may take.
+    func testAWiderUnitLabelConsumesTheFieldsOwnWidth() {
+        // Measured above the floor: with a short placeholder both clamp to
+        // 112pt and the unit's contribution is invisible.
+        let px = SessionBarState.maxSizeFieldWidth(placeholder: "Keine Begrenzung", unit: "px")
+        let pixel = SessionBarState.maxSizeFieldWidth(placeholder: "Keine Begrenzung", unit: "Pixel")
+
+        XCTAssertGreaterThan(px, SessionBarState.baseMaxSizeFieldWidth, "guard: must be above the floor")
+        XCTAssertGreaterThan(
+            pixel, px,
+            "a wider unit pushes the group wider, since both sit inside the same frame"
+        )
+    }
+}

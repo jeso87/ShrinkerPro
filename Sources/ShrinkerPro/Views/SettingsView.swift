@@ -37,6 +37,46 @@ enum SettingsWindowMetrics {
     /// the user ever did.
     static let minimumContentHeight: CGFloat = 320
 
+    /// The Settings window's designed width, and the floor every language gets.
+    static let baseContentWidth: CGFloat = 420
+
+    /// Everything in a Form row that is not the label or the value: the form's
+    /// own insets either side, the gap between the label column and the
+    /// control, and the popup button's padding and chevron.
+    ///
+    /// Measured with headroom, for the same reason `chromeAllowance` is:
+    /// erring high costs a strip of unused window, while erring low puts the
+    /// value back under an ellipsis, which is the whole defect. English's
+    /// widest row measures 284pt, so at 120 it still lands on the floor with
+    /// room to spare.
+    static let rowChrome: CGFloat = 120
+
+    /// How wide the window must be for no row to clip its own value.
+    ///
+    /// Phase 1's pseudolocalization run caught the Metadata popup rendering
+    /// "All metadata All meta…" inside a hardcoded 420pt window. The height
+    /// beside this was already measured rather than fixed; this is the same
+    /// idea one axis over. English measures under the floor, so
+    /// `baseContentWidth` is a floor rather than a starting point and nothing
+    /// moves for an English reader.
+    ///
+    /// Both halves are measured because either can be the long one: German
+    /// tends to lengthen the label, while a language with no short word for
+    /// "metadata" lengthens the value.
+    static func contentWidth(rowLabels: [String], optionLabels: [String]) -> CGFloat {
+        let widestLabel = rowLabels.map(textWidth).max() ?? 0
+        let widestOption = optionLabels.map(textWidth).max() ?? 0
+        return max(baseContentWidth, widestLabel + widestOption + rowChrome)
+    }
+
+    /// How wide a string draws in the Form's own 13pt system font.
+    static func textWidth(_ string: String) -> CGFloat {
+        (string as NSString)
+            .size(withAttributes: [.font: NSFont.systemFont(ofSize: 13)])
+            .width
+            .rounded(.up)
+    }
+
     /// The tallest the `Form` may be on a screen with `visible` points of
     /// usable height.
     ///
@@ -126,6 +166,31 @@ struct SettingsView: View {
     /// and replacing the user's own files, or merely naming a copy that
     /// lands somewhere else. Recomputed from the two rows above it, so
     /// switching on the subfolder relabels it immediately.
+    /// The row labels that can actually get long enough to widen the window.
+    ///
+    /// The conversion rows are deliberately absent: their labels are format
+    /// names (PNG, JPEG, HEIC / HEIF) which stay English in every language, so
+    /// measuring them would only ever return the same number.
+    static func measuredRowLabels(naming: OutputNaming) -> [String] {
+        [
+            String(localized: "Where", comment: "Settings row label for where output files are saved."),
+            naming.rowLabel,
+            String(localized: "Encode at", comment: "Settings row label for the quality picker."),
+            String(localized: "When shrinking, keep", comment: "Settings row label for the metadata picker."),
+        ]
+    }
+
+    /// Every value a popup in this window can display. The metadata policies
+    /// are the long ones in English and were what clipped; a different
+    /// language may well make a different row the widest, which is why all of
+    /// them are measured rather than just that one.
+    static func measuredOptionLabels(naming: OutputNaming) -> [String] {
+        MetadataPolicy.allCases.map(\.displayName)
+            + QualityLevel.allCases.map(\.displayName)
+            + ConversionTarget.allCases.map(\.displayName)
+            + [naming.suffixOnTitle, naming.suffixOffTitle]
+    }
+
     private var naming: OutputNaming {
         OutputNaming.style(
             saveInSameFolder: settings.saveInSameFolder,
@@ -331,7 +396,10 @@ struct SettingsView: View {
         // is the content's own where the screen allows it, and the screen's
         // where it does not.
         .frame(
-            width: 420,
+            width: SettingsWindowMetrics.contentWidth(
+                rowLabels: Self.measuredRowLabels(naming: naming),
+                optionLabels: Self.measuredOptionLabels(naming: naming)
+            ),
             height: min(Self.contentHeight, maxContentHeight)
         )
         // Something has to say "there is more below", because macOS will not.

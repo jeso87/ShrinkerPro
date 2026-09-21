@@ -155,3 +155,76 @@ final class SettingsWindowMetricsTests: XCTestCase {
         }
     }
 }
+
+// MARK: - Width
+
+/// Phase 1's pseudolocalization run found the Metadata popup clipping its own
+/// value: a doubled "All metadata" rendered as "All metadata All meta…". The
+/// window was a hardcoded 420pt wide, which fits English and nothing longer.
+///
+/// The width is now measured the way the height already was — from the content
+/// actually loaded, with 420pt as the floor so English does not move.
+final class SettingsWindowWidthTests: XCTestCase {
+
+    /// The widest row label and widest popup value that ship in English today.
+    private let englishLabels = ["When shrinking, keep", "Encode at", "Where"]
+    private let englishOptions = ["Copyright and credit only", "All metadata", "No metadata"]
+
+    func testEnglishKeepsTheOriginalHardcodedWidth() {
+        let width = SettingsWindowMetrics.contentWidth(
+            rowLabels: englishLabels, optionLabels: englishOptions
+        )
+
+        XCTAssertEqual(
+            width, SettingsWindowMetrics.baseContentWidth,
+            "English must render exactly as before — 420pt was the designed width"
+        )
+    }
+
+    func testLongerContentWidensTheWindow() {
+        let english = SettingsWindowMetrics.contentWidth(
+            rowLabels: englishLabels, optionLabels: englishOptions
+        )
+        let doubled = SettingsWindowMetrics.contentWidth(
+            rowLabels: englishLabels.map { "\($0) \($0)" },
+            optionLabels: englishOptions.map { "\($0) \($0)" }
+        )
+
+        XCTAssertGreaterThan(
+            doubled, english,
+            "content that does not fit 420pt must be given room, not clipped"
+        )
+    }
+
+    func testTheWidthIsNeverBelowTheFloor() {
+        let width = SettingsWindowMetrics.contentWidth(rowLabels: ["a"], optionLabels: ["b"])
+
+        XCTAssertEqual(
+            width, SettingsWindowMetrics.baseContentWidth,
+            "a language with very short words must not shrink the window"
+        )
+    }
+
+    /// Both halves matter: a long label with short options, and short labels
+    /// with a long option, each have to be able to widen the window on their
+    /// own.
+    func testEitherHalfCanWidenTheWindowAlone() {
+        let base = SettingsWindowMetrics.baseContentWidth
+        let longLabel = SettingsWindowMetrics.contentWidth(
+            rowLabels: [String(repeating: "label ", count: 12)], optionLabels: ["x"]
+        )
+        let longOption = SettingsWindowMetrics.contentWidth(
+            rowLabels: ["x"], optionLabels: [String(repeating: "option ", count: 12)]
+        )
+
+        XCTAssertGreaterThan(longLabel, base)
+        XCTAssertGreaterThan(longOption, base)
+    }
+
+    func testEmptyInputFallsBackToTheFloor() {
+        XCTAssertEqual(
+            SettingsWindowMetrics.contentWidth(rowLabels: [], optionLabels: []),
+            SettingsWindowMetrics.baseContentWidth
+        )
+    }
+}

@@ -320,6 +320,82 @@ final class LocalizationGuardTests: XCTestCase {
         }
     }
 
+    /// The merge script is the only thing that writes translations into the
+    /// catalog, so it is worth knowing it round-trips without disturbing
+    /// English. Driven through a throwaway language so the test needs no real
+    /// translations and leaves nothing behind.
+    func testMergingALanguageLeavesEnglishUntouched() throws {
+        let root = Self.repoRoot()
+        let catalog = try Self.catalogURL(named: "Localizable")
+        let before = try String(contentsOf: catalog, encoding: .utf8)
+        let probe = root.appendingPathComponent("translations/zz.json")
+
+        defer {
+            try? FileManager.default.removeItem(at: probe)
+            try? before.write(to: catalog, atomically: true, encoding: .utf8)
+        }
+
+        try #"{ "Reveal" : "ZZ-REVEAL" }"#.write(to: probe, atomically: true, encoding: .utf8)
+
+        let run = Process()
+        run.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+        run.arguments = ["python3", root.appendingPathComponent("scripts/merge-translations.py").path]
+        let pipe = Pipe()
+        run.standardOutput = pipe
+        run.standardError = pipe
+        try run.run()
+        run.waitUntilExit()
+        let output = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+        XCTAssertEqual(run.terminationStatus, 0, output)
+
+        let after = try String(contentsOf: catalog, encoding: .utf8)
+        XCTAssertTrue(after.contains("ZZ-REVEAL"), "the translation was not merged")
+
+        // English is untouched: every "en" block in the before-text still
+        // appears verbatim in the after-text.
+        let data = try Data(contentsOf: catalog)
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let strings = try XCTUnwrap(json["strings"] as? [String: Any])
+        let reveal = try XCTUnwrap(strings["Reveal"] as? [String: Any])
+        let locs = try XCTUnwrap(reveal["localizations"] as? [String: Any])
+        let en = try XCTUnwrap(locs["en"] as? [String: Any])
+        let unit = try XCTUnwrap(en["stringUnit"] as? [String: Any])
+        XCTAssertEqual(unit["value"] as? String, "Reveal", "English must survive the merge byte-for-byte")
+    }
+
+    /// Every language that exists must carry every key. A language merged
+    /// while half-written would otherwise sit in the catalog looking finished
+    /// and fall back to English at runtime for whatever it is missing —
+    /// invisible to anyone who cannot read it.
+    func testEveryLanguagePresentIsComplete() throws {
+        let root = Self.repoRoot()
+        let dir = root.appendingPathComponent("translations")
+        let files = (try? FileManager.default.contentsOfDirectory(atPath: dir.path)) ?? []
+        try XCTSkipIf(
+            files.filter { $0.hasSuffix(".json") }.isEmpty,
+            "no languages have landed yet — Task 6 is the first"
+        )
+
+        let run = Process()
+        run.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+        run.arguments = [
+            "python3",
+            root.appendingPathComponent("scripts/merge-translations.py").path,
+            "--check",
+        ]
+        let pipe = Pipe()
+        run.standardOutput = pipe
+        run.standardError = pipe
+        try run.run()
+        run.waitUntilExit()
+        let output = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+
+        XCTAssertEqual(
+            run.terminationStatus, 0,
+            "merge-translations.py --check reported an incomplete language:\n\(output)"
+        )
+    }
+
     // MARK: - Helpers
 
     static func catalogURL(named name: String) throws -> URL {

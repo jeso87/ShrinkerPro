@@ -20,7 +20,7 @@ struct DropZoneView: View {
                     .font(.system(size: 16, weight: .semibold))
                     // Latin-only: negative letter-spacing breaks the glyph
                     // joining that Arabic and Persian depend on.
-                    .tracking(Self.isCursiveScript ? 0 : -0.16)
+                    .tracking(Self.needsRelaxedTracking ? 0 : -0.16)
                     .foregroundStyle(.primary)
                 Text("PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O")
                     .font(.system(size: 12.5))
@@ -118,12 +118,28 @@ struct DropZoneView: View {
         }
     }
 
-    /// Arabic, Persian and Urdu join their letters; tightening the tracking
-    /// pulls the joins apart. Hebrew does not join, but has no need of the
-    /// tightening either.
-    private static var isCursiveScript: Bool {
-        guard let code = Locale.current.language.languageCode?.identifier else { return false }
-        return ["ar", "fa", "ur", "he"].contains(code)
+    /// Whether the headline should skip the Latin, tightened letter-spacing:
+    /// Arabic and Persian join their letters, and
+    /// tightening pulls those joins apart; Hebrew does not join, but the
+    /// tightening buys it nothing either.
+    ///
+    /// Reads `Bundle.main.preferredLocalizations` rather than
+    /// `Locale.current`: the locale reflects the user's *region* setting,
+    /// which is independent of which language the app actually renders.
+    /// `String(localized:)` and SwiftUI resolve strings through
+    /// `preferredLocalizations` — the user's language list intersected with
+    /// the app's declared localizations, honouring a per-app language
+    /// override in System Settings — so that is the signal to match.
+    /// `preferredLocalizations` returns a localization identifier, which
+    /// may carry a script or region subtag (e.g. `zh-Hans`), so the
+    /// language subtag is extracted via `Locale` rather than comparing the
+    /// whole string. Urdu is not among the app's 36 declared languages
+    /// (`LocalizationGuardTests.expectedRegions`), so it can never be
+    /// resolved and is left out.
+    private static var needsRelaxedTracking: Bool {
+        guard let identifier = Bundle.main.preferredLocalizations.first else { return false }
+        guard let code = Locale(identifier: identifier).language.languageCode?.identifier else { return false }
+        return ["ar", "fa", "he"].contains(code)
     }
 
     private func pickFiles() {

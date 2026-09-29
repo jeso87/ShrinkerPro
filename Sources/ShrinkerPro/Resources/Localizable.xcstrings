@@ -2592,7 +2592,7 @@
           "stringUnit" : { "state" : "translated", "value" : "Minden kép közepét erre az alakra vágja, majd erre a méretre kicsinyíti. A már eleve kisebb képeket levágja, de soha nem nagyítja fel, ezért egy vegyes köteg nem feltétlenül lesz egyforma méretű. Ez közvetlenül megadja a kimeneti méretet, így a fenti max. méret nem érvényes." }
         },
         "is" : {
-          "stringUnit" : { "state" : "translated", "value" : "Sker miðju hverrar myndar í þetta form og minnkar hana síðan niður í þessa stærð. Myndir sem eru þegar minni eru skornar en aldrei stækkaðar, svo að blandaður hópur kemur kannski ekki allur út í sömu stærð. Þtta ákveður úttaksstærðina beint, svo að hámarksstærðin hér að ofan gildir ekki." }
+          "stringUnit" : { "state" : "translated", "value" : "Sker miðju hverrar myndar í þetta form og minnkar hana síðan niður í þessa stærð. Myndir sem eru þegar minni eru skornar en aldrei stækkaðar, svo að blandaður hópur kemur kannski ekki allur út í sömu stærð. Þetta ákveður úttaksstærðina beint, svo að hámarksstærðin hér að ofan gildir ekki." }
         },
         "it" : {
           "stringUnit" : { "state" : "translated", "value" : "Ritaglia il centro di ogni immagine secondo questa forma, poi la riduce a questa dimensione. Le immagini già più piccole vengono ritagliate, ma mai ingrandite: un lotto misto può quindi non uscire tutto della stessa dimensione. In questo modo la dimensione di output è già fissata e la dimensione max. qui sopra non si applica." }

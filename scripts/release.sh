@@ -437,6 +437,19 @@ cp "$APPCAST_STAGE/appcast.xml" "$ROOT/appcast.xml"
 rm -rf "$APPCAST_STAGE"
 echo "    wrote $ROOT/appcast.xml"
 
+# generate_appcast embeds exactly one set of notes — the .md staged beside
+# the archive — so the other thirty-five are spliced in here as xml:lang
+# siblings. Sparkle then shows the update's notes in the language the Mac is
+# set to, which matters because the dialog around them is already localized:
+# without this, a German user reads German chrome wrapped around English
+# prose.
+#
+# After generate_appcast, never before: it rewrites the feed wholesale and
+# would discard anything added first.
+echo "==> localizing release notes in the feed"
+python3 "$ROOT/scripts/localize-appcast.py" "$VERSION"
+python3 "$ROOT/scripts/localize-appcast.py" "$VERSION" --check
+
 # --- shrinker CLI, part two: the expensive half ----------------------------
 #
 # Everything above the DMG notarization was the part that can fail cheaply.

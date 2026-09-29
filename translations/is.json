@@ -55,7 +55,7 @@
   "Crop to": "Skera í",
   "Crop width": "Breidd tilskurðar",
   "Crops the center of each image to this shape and leaves the size alone. The session's max size, if set, still applies.": "Sker miðju hverrar myndar í þetta form og lætur stærðina í friði. Hámarksstærð lotunnar gildir áfram ef hún er stillt.",
-  "Crops the center of each image to this shape, then scales it down to this size. Images already smaller are cropped but never enlarged, so a mixed batch may not come out all one size. This sets the output size outright, so the max size above does not apply.": "Sker miðju hverrar myndar í þetta form og minnkar hana síðan niður í þessa stærð. Myndir sem eru þegar minni eru skornar en aldrei stækkaðar, svo að blandaður hópur kemur kannski ekki allur út í sömu stærð. Þtta ákveður úttaksstærðina beint, svo að hámarksstærðin hér að ofan gildir ekki.",
+  "Crops the center of each image to this shape, then scales it down to this size. Images already smaller are cropped but never enlarged, so a mixed batch may not come out all one size. This sets the output size outright, so the max size above does not apply.": "Sker miðju hverrar myndar í þetta form og minnkar hana síðan niður í þessa stærð. Myndir sem eru þegar minni eru skornar en aldrei stækkaðar, svo að blandaður hópur kemur kannski ekki allur út í sömu stærð. Þetta ákveður úttaksstærðina beint, svo að hámarksstærðin hér að ofan gildir ekki.",
   "Done": "Lokið",
   "Done adjusting session settings": "Lokið við að stilla lotustillingar",
   "Drag files here": "Dragðu skrár hingað",

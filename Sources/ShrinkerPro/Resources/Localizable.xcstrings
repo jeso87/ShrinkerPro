@@ -77,6 +77,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
         },
@@ -186,6 +189,9 @@
           "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
         },
         "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
+        },
+        "ro" : {
           "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
         },
         "ru" : {
@@ -299,6 +305,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Recorte %1$@:%2$@" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Decupare %1$@:%2$@" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Обрезка %1$@:%2$@" }
         },
@@ -409,6 +418,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Recorte %1$@×%2$@" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Decupare %1$@×%2$@" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Обрезка %1$@×%2$@" }
@@ -521,6 +533,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Máx. %@ px" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Max. %@ px" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Макс. %@ px" }
         },
@@ -632,6 +647,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Sem limite" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fără limită" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Без ограничения" }
         },
@@ -742,6 +760,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "%@, …e mais %lld" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@, …și încă %lld" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "%@, …и ещё %lld" }
@@ -1087,6 +1108,21 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Estes %1$lld ficheiros já existem e serão substituídos: %2$@" }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ există deja și va fi înlocuit." }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Aceste %1$lld fișiere există deja și vor fi înlocuite: %2$@" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Aceste %1$lld de fișiere există deja și vor fi înlocuite: %2$@" }
               }
             }
           }
@@ -1544,6 +1580,21 @@
             }
           }
         },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Imagine micșorată" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld imagini micșorate" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld de imagini micșorate" }
+              }
+            }
+          }
+        },
         "ru" : {
           "variations" : {
             "plural" : {
@@ -1997,6 +2048,21 @@
             }
           }
         },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ va fi suprascris și nu va putea fi recuperat." }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Aceste %1$lld originale vor fi suprascrise și nu vor putea fi recuperate: %2$@" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Aceste %1$lld de originale vor fi suprascrise și nu vor putea fi recuperate: %2$@" }
+              }
+            }
+          }
+        },
         "ru" : {
           "variations" : {
             "plural" : {
@@ -2213,6 +2279,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Um recorte precisa dos dois lados. Preencha o outro número, ou limpe este — até lá, não é possível reduzir ficheiros." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "O decupare are nevoie de ambele laturi. Completați celălalt număr sau ștergeți-l pe acesta — până atunci, fișierele nu pot fi micșorate." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Для обрезки нужны обе стороны. Укажите второе число или очистите это — до тех пор файлы уменьшать нельзя." }
         },
@@ -2323,6 +2392,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "São necessários os dois lados. A forma é usada exatamente como a escreve, pelo que uma fotografia vertical recortada para 16:9 sai como uma faixa horizontal. Os ficheiros SVG não são afetados. Não fica guardada — é reposta ao sair da aplicação." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sunt necesare ambele laturi. Forma este folosită exact așa cum o tastați: o fotografie în format portret decupată la 16:9 iese ca o fâșie în format peisaj. SVG nu este afectat. Nu se salvează — se resetează când închideți aplicația." }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Нужны обе стороны. Форма используется ровно так, как её ввели: вертикальное фото, обрезанное до 16:9, выйдет горизонтальной полосой. SVG не затрагивается. Не сохраняется — при завершении программы сбрасывается." }
@@ -2435,6 +2507,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Recorta o centro de cada imagem nesta forma e não altera o tamanho. O tamanho máx. da sessão, se estiver definido, continua a aplicar-se." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Decupează centrul fiecărei imagini la această formă și lasă dimensiunea neatinsă. Dimensiunea max. a sesiunii, dacă este stabilită, se aplică în continuare." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Обрезает центр каждого изображения до этой формы и не меняет размер. Максимальный размер сеанса, если он задан, продолжает действовать." }
         },
@@ -2545,6 +2620,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Recorta o centro de cada imagem nesta forma e reduz-a depois para este tamanho. As imagens que já são mais pequenas são recortadas, mas nunca ampliadas, pelo que um lote misto pode não sair todo do mesmo tamanho. Isto define desde logo o tamanho de saída, pelo que o tamanho máx. acima não se aplica." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Decupează centrul fiecărei imagini la această formă, apoi o micșorează la această dimensiune. Imaginile deja mai mici sunt decupate, dar niciodată mărite, așa că un lot mixt poate să nu iasă tot la aceeași dimensiune. Astfel, dimensiunea de ieșire este stabilită direct, iar dimensiunea max. de mai sus nu se aplică." }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Обрезает центр каждого изображения до этой формы, а затем уменьшает его до этого размера. Изображения, которые уже меньше, обрезаются, но никогда не увеличиваются, поэтому смешанная партия может выйти разного размера. Так размер результата задаётся напрямую, поэтому максимальный размер выше не действует." }
@@ -2657,6 +2735,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Conclua o recorte, ou limpe-o, antes de fechar." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Finalizați decuparea sau ștergeți-o înainte de închidere." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Перед закрытием завершите обрезку или очистите её." }
         },
@@ -2767,6 +2848,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "A conversão da imagem falhou: %@" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conversia imaginii a eșuat: %@" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Не удалось конвертировать изображение: %@" }
@@ -2879,6 +2963,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Não foi escrita qualquer saída em %@." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nu s-a scris niciun fișier în %@." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "В %@ ничего не записано." }
         },
@@ -2990,6 +3077,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Só são suportados SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC e HEIF (recebido: “%@”)." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sunt acceptate doar SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC și HEIF (s-a primit „%@”)." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Поддерживаются только SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC и HEIF (получено «%@»)." }
         },
@@ -3100,6 +3190,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "O PNG é sem perdas — normalmente, as fotografias ficam maiores." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG este fără pierderi — de obicei, fotografiile devin mai mari." }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "PNG сжимает без потерь — фотографии обычно станут больше." }
@@ -3445,6 +3538,21 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Substituir %1$lld ficheiros em “%2$@”?" }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți 1 fișier din „%2$@”?" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți %1$lld fișiere din „%2$@”?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți %1$lld de fișiere din „%2$@”?" }
               }
             }
           }
@@ -3902,6 +4010,21 @@
             }
           }
         },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți 1 fișier?" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți %lld fișiere?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți %lld de fișiere?" }
+              }
+            }
+          }
+        },
         "ru" : {
           "variations" : {
             "plural" : {
@@ -4351,6 +4474,21 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Substituir %1$lld originais em “%2$@”?" }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți 1 original din „%2$@”?" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți %1$lld originale din „%2$@”?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți %1$lld de originale din „%2$@”?" }
               }
             }
           }
@@ -4808,6 +4946,21 @@
             }
           }
         },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți 1 original?" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți %lld originale?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Înlocuiți %lld de originale?" }
+              }
+            }
+          }
+        },
         "ru" : {
           "variations" : {
             "plural" : {
@@ -5024,6 +5177,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Reduz as imagens para que o lado mais comprido tenha no máximo este número de píxeis. As imagens mais pequenas ficam como estão. Os ficheiros SVG não são afetados." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Micșorează imaginile astfel încât latura cea mai lungă să aibă cel mult atâția pixeli. Imaginile mai mici rămân neatinse. SVG nu este afectat." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Уменьшает изображения так, чтобы длинная сторона была не больше указанного числа пикселей. Изображения меньшего размера остаются без изменений. SVG не затрагивается." }
         },
@@ -5134,6 +5290,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Ignorar estes ficheiros" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Omiteți aceste fișiere" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Пропустить эти файлы" }
@@ -5246,6 +5405,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Ignorar este ficheiro" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Omiteți acest fișier" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Пропустить этот файл" }
         },
@@ -5356,6 +5518,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "A otimização do SVG falhou: %@" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Optimizarea SVG a eșuat: %@" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Не удалось оптимизировать SVG: %@" }
@@ -5468,6 +5633,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Falta a ferramenta %@ incluída na aplicação. A aplicação pode estar danificada — experimente reinstalá-la." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Instrumentul %@ inclus în aplicație lipsește. Este posibil ca aplicația să fie deteriorată — încercați să o reinstalați." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Встроенный инструмент %@ отсутствует. Возможно, программа повреждена — переустановите её." }
         },
@@ -5578,6 +5746,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "O recorte já define o tamanho — todas as imagens saem com %1$@×%2$@. Mude o recorte para proporção, ou limpe-o, para usar um tamanho máx." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Decuparea stabilește deja dimensiunea — fiecare imagine iese la %1$@×%2$@. Comutați decuparea pe un raport sau ștergeți-o pentru a folosi o dimensiune max." }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Обрезка уже задаёт размер — каждое изображение выйдет %1$@×%2$@. Переключите обрезку на пропорции или очистите её, чтобы задать максимальный размер." }
@@ -5927,6 +6098,21 @@
             }
           }
         },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Celălalt fișier nu este afectat." }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Celelalte %lld fișiere nu sunt afectate." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Celelalte %lld de fișiere nu sunt afectate." }
+              }
+            }
+          }
+        },
         "ru" : {
           "variations" : {
             "plural" : {
@@ -6143,6 +6329,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : ", " }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : ", " }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : ", " }
         },
@@ -6252,6 +6441,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Acerca de Shrinker Pro" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Despre Shrinker Pro" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "О программе Shrinker Pro" }
@@ -6363,6 +6555,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Ajustar as definições da sessão" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ajustați configurările sesiunii" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Изменить настройки сеанса" }
         },
@@ -6472,6 +6667,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Predefinição da aplicação" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Implicit din aplicație" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "По умолчанию" }
@@ -6583,6 +6781,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, AVIF e HEIC. Os ficheiros PNG e GIF são otimizados por ferramentas sem uma definição equivalente, pelo que ficam iguais, seja qual for a opção escolhida." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Se aplică pentru JPEG, WebP, AVIF și HEIC. PNG și GIF sunt optimizate de instrumente care nu au o configurare echivalentă, așa că arată la fel indiferent ce alegeți." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Относится к JPEG, WebP, AVIF и HEIC. PNG и GIF оптимизируются инструментами, у которых нет похожей настройки, поэтому они выглядят одинаково при любом выборе." }
         },
@@ -6692,6 +6893,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, AVIF e HEIC. Os ficheiros PNG e GIF são otimizados por ferramentas sem uma definição equivalente, pelo que ficam iguais, seja qual for a opção escolhida. Padrão corresponde ao que as versões anteriores do Shrinker Pro produziam. Todas as sessões começam aqui; a barra de sessão da janela pode alterar este valor durante uma sessão, sem alterar esta definição." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Se aplică pentru JPEG, WebP, AVIF și HEIC. PNG și GIF sunt optimizate de instrumente care nu au o configurare echivalentă, așa că arată la fel indiferent ce alegeți. Standard corespunde cu ceea ce produceau versiunile anterioare ale Shrinker Pro. Fiecare sesiune pornește de aici; bara de sesiune a ferestrei o poate schimba pentru o singură sesiune, fără a modifica această configurare." }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Относится к JPEG, WebP, AVIF и HEIC. PNG и GIF оптимизируются инструментами, у которых нет похожей настройки, поэтому они выглядят одинаково при любом выборе. Стандартное качество соответствует тому, что давали прежние версии Shrinker Pro. Каждый сеанс начинается с этого значения; панель сеанса в окне может изменить его на один сеанс, не меняя саму настройку." }
@@ -6803,6 +7007,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Aplica-se apenas a esta sessão. As predefinições estão em Definições." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Se aplică doar acestei sesiuni. Valorile implicite se află în Configurări." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Относится только к этому сеансу. Значения по умолчанию задаются в Настройках." }
         },
@@ -6912,6 +7119,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Procurar atualizações…" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Căutați actualizări…" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Проверить наличие обновлений…" }
@@ -7023,6 +7233,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Escolher pasta…" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Selectați dosarul…" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Выбрать папку…" }
         },
@@ -7132,6 +7345,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Escolher…" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Selectați…" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Выбрать…" }
@@ -7243,6 +7459,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Limpar histórico" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Degajați istoricul" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Очистить историю" }
         },
@@ -7352,6 +7571,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Limpar menu" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Degajați meniul" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Очистить меню" }
@@ -7463,6 +7685,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Limpar a lista de resultados ao reduzir novas imagens" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Degajați lista de rezultate la micșorarea unor imagini noi" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Очищать список результатов при уменьшении новых изображений" }
         },
@@ -7572,6 +7797,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Fechar as definições da sessão" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Închideți configurările sesiunii" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Закрыть настройки сеанса" }
@@ -7683,6 +7911,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Conversão" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conversie" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Конвертация" }
         },
@@ -7792,6 +8023,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Converter tudo para" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Convertiți toate în" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Конвертировать всё в" }
@@ -7903,6 +8137,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Converte todos os ficheiros raster durante o resto desta sessão. Os ficheiros SVG e GIF são sempre mantidos no seu próprio formato." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Convertește fiecare fișier raster pentru restul acestei sesiuni. SVG și GIF rămân întotdeauna în propriul format." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Конвертирует каждый растровый файл до конца этого сеанса. SVG и GIF всегда остаются в своём формате." }
         },
@@ -8012,6 +8249,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Altura do recorte" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Înălțimea decupării" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Высота обрезки" }
@@ -8123,6 +8363,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Modo de recorte" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mod de decupare" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Режим обрезки" }
         },
@@ -8232,6 +8475,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Largura do recorte" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Lățimea decupării" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Ширина обрезки" }
@@ -8343,6 +8589,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Concluir o ajuste das definições da sessão" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Terminați ajustarea configurărilor sesiunii" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Завершить изменение настроек сеанса" }
         },
@@ -8452,6 +8701,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Arraste os ficheiros para aqui" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Trageți fișierele aici" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Перетащите файлы сюда" }
@@ -8563,6 +8815,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Ativar notificações" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Activați notificările" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Включить уведомления" }
         },
@@ -8672,6 +8927,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Codificar com" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Codificare la calitatea" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Кодировать с качеством" }
@@ -8783,6 +9041,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Geral" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "General" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Основные" }
         },
@@ -8892,6 +9153,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Manter ambos" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Păstrați ambele" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Оставить оба" }
@@ -9003,6 +9267,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Tamanho máximo em píxeis" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dimensiunea maximă în pixeli" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Максимальный размер в пикселях" }
         },
@@ -9112,6 +9379,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Metadados" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Metadate" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Метаданные" }
@@ -9223,6 +9493,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Nenhum ficheiro recente" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Niciun document recent" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Нет недавних файлов" }
         },
@@ -9333,6 +9606,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "As notificações do Shrinker Pro estão desativadas nas Definições do Sistema, pelo que não aparecerá nenhuma." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Notificările sunt dezactivate pentru Shrinker Pro în Configurări sistem, așa că nu va apărea niciuna." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Уведомления для Shrinker Pro отключены в Системных настройках, поэтому они не будут появляться." }
         },
@@ -9441,6 +9717,9 @@
           "stringUnit" : { "state" : "translated", "value" : "OK" }
         },
         "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "OK" }
+        },
+        "ro" : {
           "stringUnit" : { "state" : "translated", "value" : "OK" }
         },
         "ru" : {
@@ -9553,6 +9832,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Abrir ficheiros…" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Deschideți fișiere…" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Открыть файлы…" }
         },
@@ -9662,6 +9944,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Abrir definições das notificações…" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Deschideți configurările pentru notificări…" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Открыть настройки уведомлений…" }
@@ -9773,6 +10058,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Abrir documento recente" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Deschideți recente" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Открытие недавних" }
         },
@@ -9882,6 +10170,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Saída" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ieșire" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Выходные файлы" }
@@ -9993,6 +10284,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF e SVG — ou prima ⌘O" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF și SVG — sau apăsați ⌘O" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF и SVG — или нажмите ⌘O" }
         },
@@ -10103,6 +10397,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Colocar numa subpasta “minified”" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Puneți-le într-un subdosar „minified”" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Помещать их во вложенную папку «minified»" }
         },
@@ -10211,6 +10508,9 @@
           "stringUnit" : { "state" : "translated", "value" : "px" }
         },
         "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "px" }
+        },
+        "ro" : {
           "stringUnit" : { "state" : "translated", "value" : "px" }
         },
         "ru" : {
@@ -10323,6 +10623,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Qualidade" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Calitate" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Качество" }
         },
@@ -10432,6 +10735,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Sair" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Închideți aplicația" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Завершить" }
@@ -10543,6 +10849,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "proporção" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "raport" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "пропорции" }
         },
@@ -10652,6 +10961,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "RECENTES" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "RECENTE" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "НЕДАВНИЕ" }
@@ -10763,6 +11075,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Substituir" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Înlocuiți" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Заменить" }
         },
@@ -10872,6 +11187,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Repor" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Resetați" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Сбросить" }
@@ -10983,6 +11301,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Repõe o formato, a qualidade, o tamanho máx. e o recorte nas predefinições da aplicação" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Readuce formatul, calitatea, dimensiunea max. și decuparea la valorile implicite ale aplicației" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Возвращает формат, качество, максимальный размер и обрезку к значениям по умолчанию" }
         },
@@ -11092,6 +11413,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "A rotação é sempre aplicada à própria imagem, pelo que as fotografias ficam direitas em qualquer aplicação, seja qual for a opção escolhida." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotirea este aplicată întotdeauna imaginii în sine, așa că fotografiile rămân drepte în orice aplicație, indiferent ce opțiune alegeți." }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Поворот всегда применяется к самому изображению, поэтому фотографии стоят прямо в любой программе, какой бы вариант Вы ни выбрали." }
@@ -11203,6 +11527,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Mesma pasta do original" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Același dosar ca originalul" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Та же папка, что и у оригинала" }
         },
@@ -11312,6 +11639,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "DEFINIÇÕES DA SESSÃO" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "CONFIGURĂRILE SESIUNII" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "НАСТРОЙКИ СЕАНСА" }
@@ -11423,6 +11753,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Definições" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Configurări" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Настройки" }
         },
@@ -11533,6 +11866,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Mostra os controlos de formato, qualidade e tamanho máx." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Afișează comenzile pentru format, calitate și dimensiune max." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Показывает элементы управления форматом, качеством и максимальным размером" }
         },
@@ -11641,6 +11977,9 @@
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
         },
         "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
+        },
+        "ro" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
         },
         "ru" : {
@@ -11753,6 +12092,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "O Shrinker Pro não consegue iniciar" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nu poate porni" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro не может запуститься" }
         },
@@ -11862,6 +12204,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Ocorreu um erro" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ceva nu a funcționat" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Что-то пошло не так" }
@@ -11973,6 +12318,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Os ficheiros SVG e GIF são sempre otimizados no seu próprio formato. O SVG é vetorial e o GIF é normalmente animado — converter qualquer um deles perderia justamente o que o torna útil." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fișierele SVG și GIF sunt optimizate întotdeauna în propriul format. SVG este vectorial, iar GIF este de obicei animat — convertirea oricăruia dintre ele ar pierde tocmai ceea ce îl face util." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Файлы SVG и GIF всегда оптимизируются в своём формате. SVG — векторный формат, а GIF обычно анимированный: конвертация отняла бы у каждого именно то, ради чего он нужен." }
         },
@@ -12082,6 +12430,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Esta sessão" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Această sesiune" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Этот сеанс" }
@@ -12193,6 +12544,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Esta sessão: %@" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Această sesiune: %@" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Этот сеанс: %@" }
         },
@@ -12302,6 +12656,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Avisar antes de substituir um ficheiro" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Avertizați înainte de înlocuirea unui fișier" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Предупреждать перед заменой файла" }
@@ -12413,6 +12770,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Ao reduzir, manter" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "La micșorare, păstrați" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "При уменьшении сохранять" }
         },
@@ -12523,6 +12883,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Onde" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Unde" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Куда" }
         },
@@ -12632,6 +12995,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Os seus originais serão substituídos definitivamente e não é possível recuperá-los. Os ficheiros convertidos mantêm uma extensão diferente, pelo que esses originais ficam intactos." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Originalele dvs. vor fi suprascrise și nu vor putea fi recuperate. Fișierele convertite păstrează o extensie separată, așa că acele originale rămân neatinse." }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Ваши оригиналы будут перезаписаны, и восстановить их не удастся. У конвертированных файлов другое расширение, поэтому их оригиналы остаются нетронутыми." }
@@ -12744,6 +13110,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ falhou com o código de saída %d" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ a eșuat cu codul de ieșire %d" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Инструмент %@ завершился с кодом %d" }
         },
@@ -12854,6 +13223,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ falhou com o código de saída %d: %@" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ a eșuat cu codul de ieșire %d: %@" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Инструмент %@ завершился с кодом %d: %@" }
@@ -13199,6 +13571,21 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%1$lld ficheiros · %2$@ a mais" }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 fișier · %2$@ în plus" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld fișiere · %2$@ în plus" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld de fișiere · %2$@ în plus" }
               }
             }
           }
@@ -13656,6 +14043,21 @@
             }
           }
         },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 fișier · %2$@ economisiți" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld fișiere · %2$@ economisiți" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld de fișiere · %2$@ economisiți" }
+              }
+            }
+          }
+        },
         "ru" : {
           "variations" : {
             "plural" : {
@@ -13872,6 +14274,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Adicionar .min" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Adăugați .min" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Добавлять .min" }
         },
@@ -13982,6 +14387,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Ajustar" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ajustați" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Изменить" }
@@ -14094,6 +14502,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Todos os metadados" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Toate metadatele" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Все метаданные" }
         },
@@ -14204,6 +14615,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Limpar" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Degajați" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Очистить" }
@@ -14316,6 +14730,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Apenas copyright e autor" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Doar copyright și autor" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Только авторские права и автор" }
         },
@@ -14426,6 +14843,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Recortar para" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Decupare la" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Обрезать до" }
@@ -14538,6 +14958,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Concluído" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "OK" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Готово" }
         },
@@ -14648,6 +15071,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Nomes dos ficheiros" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nume de fișiere" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Имена файлов" }
@@ -14760,6 +15186,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Ficheiros" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fișiere" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Файлы" }
         },
@@ -14870,6 +15299,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "A" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Î" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "В" }
@@ -14982,6 +15414,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Alta" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ridicată" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Высокое" }
         },
@@ -15092,6 +15527,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Manter" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Păstrați" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Оставить" }
@@ -15204,6 +15642,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Manter %@" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Păstrați %@" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Оставить %@" }
         },
@@ -15314,6 +15755,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Manter os originais e guardar uma cópia .min" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Păstrați originalele, salvați o copie .min" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Оставлять оригиналы и сохранять копию .min" }
@@ -15426,6 +15870,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Deixar como está" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Lăsați neschimbat" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Оставлять как есть" }
         },
@@ -15536,6 +15983,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Baixa" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Scăzută" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Низкое" }
@@ -15648,6 +16098,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Tamanho máx." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dimensiune max." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Макс. размер" }
         },
@@ -15758,6 +16211,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Nenhuma pasta escolhida" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Niciun dosar selectat" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Папка не выбрана" }
@@ -15870,6 +16326,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Sem metadados" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fără metadate" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Без метаданных" }
         },
@@ -15981,6 +16440,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Substituir os originais" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Înlocuiți originalele" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Заменять оригиналы" }
         },
@@ -16091,6 +16553,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Mostrar no Finder" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Arătați în Finder" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Показать в Finder" }
@@ -16440,6 +16905,21 @@
             }
           }
         },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nu poate deschide acest fișier" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nu poate deschide aceste %lld fișiere" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nu poate deschide aceste %lld de fișiere" }
+              }
+            }
+          }
+        },
         "ru" : {
           "variations" : {
             "plural" : {
@@ -16655,6 +17135,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "O Shrinker Pro não conseguiu iniciar." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nu a putut porni." }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Не удалось запустить Shrinker Pro." }
@@ -17004,6 +17487,21 @@
             }
           }
         },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nu a putut porni, așa că nu poate comprima fișierul pe care l-ați deschis. Închideți aplicația și relansați-o pentru a încerca din nou." }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nu a putut porni, așa că nu poate comprima cele %lld fișiere pe care le-ați deschis. Închideți aplicația și relansați-o pentru a încerca din nou." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nu a putut porni, așa că nu poate comprima cele %lld de fișiere pe care le-ați deschis. Închideți aplicația și relansați-o pentru a încerca din nou." }
+              }
+            }
+          }
+        },
         "ru" : {
           "variations" : {
             "plural" : {
@@ -17220,6 +17718,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Padrão" }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Standard" }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Стандартное" }
         },
@@ -17330,6 +17831,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Muito baixa" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Foarte scăzută" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Очень низкое" }
@@ -17442,6 +17946,9 @@
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "Falta um lado ao recorte, pelo que não é claro em que forma estes ficheiros devem ser recortados. Preencha os dois números, ou limpe o recorte, e volte a largá-los." }
         },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Decupării îi lipsește o latură, așa că nu este clar la ce formă ar trebui decupate aceste fișiere. Completați ambele numere sau ștergeți decuparea, apoi eliberați-le din nou." }
+        },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "У обрезки не хватает одной стороны, поэтому непонятно, до чего обрезать эти файлы. Укажите оба числа или очистите обрезку и перетащите файлы снова." }
         },
@@ -17551,6 +18058,9 @@
           "stringUnit" : { "state" : "translated", "value" : "L" }
         },
         "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "L" }
+        },
+        "ro" : {
           "stringUnit" : { "state" : "translated", "value" : "L" }
         },
         "ru" : {
@@ -17663,6 +18173,9 @@
         },
         "pt-PT" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ poupados" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ economisiți" }
         },
         "ru" : {
           "stringUnit" : { "state" : "translated", "value" : "Сэкономлено %@" }

@@ -546,6 +546,7 @@ final class LocalizationGuardTests: XCTestCase {
         let strings = try XCTUnwrap(json["strings"] as? [String: Any])
 
         var compared = 0
+        var languagesSeen: Set<String> = []
         for (key, entry) in strings {
             guard let entry = entry as? [String: Any],
                   let localizations = entry["localizations"] as? [String: Any],
@@ -558,6 +559,7 @@ final class LocalizationGuardTests: XCTestCase {
 
             for (language, body) in localizations where language != "en" {
                 guard let body = body as? [String: Any] else { continue }
+                languagesSeen.insert(language)
                 let values = Self.values(of: body)
 
                 if isPlural {
@@ -595,6 +597,15 @@ final class LocalizationGuardTests: XCTestCase {
             }
         }
         XCTAssertGreaterThan(compared, 0, "no translated values compared — did any language land?")
+        // `compared` alone would let one language go missing behind the
+        // other thirty-four: a block that parses to zero values contributes
+        // nothing and the count stays comfortably positive. Assert the set
+        // instead, so a language that vanishes from the catalog, or arrives
+        // malformed enough to yield no values, names itself here.
+        XCTAssertEqual(
+            languagesSeen, Self.expectedRegions.subtracting(["en"]),
+            "the placeholder guard did not reach every language the app declares"
+        )
     }
 
     /// Every `stringUnit` value in a localization, flat or plural.

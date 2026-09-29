@@ -8,7 +8,25 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
+        },
         "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
+        },
+        "zh-Hans" : {
           "stringUnit" : { "state" : "translated", "value" : "%1$@  —  %2$@" }
         }
       }
@@ -20,7 +38,25 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ ← %2$@" }
+        },
         "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ ← %2$@" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
+        },
+        "zh-Hans" : {
           "stringUnit" : { "state" : "translated", "value" : "%1$@ → %2$@" }
         }
       }
@@ -32,8 +68,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop %1$@:%2$@" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "اقتصاص %1$@:%2$@" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Zuschnitt %1$@:%2$@" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Recadrage %1$@:%2$@" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חיתוך %1$@:%2$@" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "切り取り%1$@:%2$@" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kadr %1$@:%2$@" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "裁剪 %1$@:%2$@" }
         }
       }
     },
@@ -44,8 +98,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop %1$@×%2$@" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "اقتصاص %1$@×%2$@" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Zuschnitt %1$@×%2$@" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Recadrage %1$@×%2$@" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חיתוך %1$@×%2$@" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "切り取り%1$@×%2$@" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kadr %1$@×%2$@" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "裁剪 %1$@×%2$@" }
         }
       }
     },
@@ -56,8 +128,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Max %@px" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "بحد أقصى %@ px" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Max. %@ px" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Max. %@ px" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "עד %@ px" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "最大%@px" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Maks. %@ px" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "最大 %@ px" }
         }
       }
     },
@@ -68,8 +158,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No limit" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "بلا حد" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Keine Begrenzung" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aucune limite" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ללא הגבלה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "制限なし" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Bez ograniczeń" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "不限制" }
         }
       }
     },
@@ -80,8 +188,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%@, …and %lld more" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@، …و%lld أخرى" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "%@, …und %lld weitere" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@, …et %lld autres" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@, …ועוד %lld" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@、ほか%lld件" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@, …i %lld więcej" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@，以及另外 %lld 个" }
         }
       }
     },
@@ -101,6 +227,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملفات موجودة بالفعل وسيتم استبدالها: %2$@" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملفًا موجودة بالفعل وسيتم استبدالها: %2$@" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ موجود بالفعل وسيتم استبداله." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملف موجود بالفعل وسيتم استبداله: %2$@" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "ملفان موجودان بالفعل وسيتم استبدالهما: %2$@" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملف موجود بالفعل وسيتم استبداله: %2$@" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -109,6 +259,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Diese %1$lld Dateien sind bereits vorhanden und werden ersetzt: %2$@" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ est déjà présent et sera remplacé." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Ces %1$lld fichiers sont déjà présents et seront remplacés : %2$@" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ כבר קיים ויוחלף." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld קבצים כבר קיימים ויוחלפו: %2$@" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "שני קבצים כבר קיימים ויוחלפו: %2$@" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld個のファイルがすでに存在し、置き換えられます:%2$@" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Plik %2$@ już tam jest i zostanie zastąpiony." }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Te %1$lld pliki już tam są i zostaną zastąpione: %2$@" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Tych %1$lld plików już tam jest i zostanie zastąpionych: %2$@" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Tych %1$lld plików już tam jest i zostanie zastąpionych: %2$@" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "这 %1$lld 个文件已存在，将被替换：%2$@" }
               }
             }
           }
@@ -131,6 +344,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "تم تصغير %lld صور" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "تم تصغير %lld صورة" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "تم تصغير صورة" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "تم تصغير %lld صورة" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "تم تصغير صورتين" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "تم تصغير %lld صورة" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -139,6 +376,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%lld Bilder verkleinert" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Image réduite" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld images réduites" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "התמונה כווצה" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld תמונות כווצו" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "שתי תמונות כווצו" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld枚の画像を圧縮しました" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zmniejszono obraz" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zmniejszono %lld obrazy" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zmniejszono %lld obrazów" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zmniejszono %lld obrazów" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "已压缩 %lld 张图片" }
               }
             }
           }
@@ -161,6 +461,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "ستتم الكتابة فوق %1$lld ملفات أصلية ولا يمكن استرجاعها: %2$@" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "ستتم الكتابة فوق %1$lld ملفًا أصليًا ولا يمكن استرجاعه: %2$@" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "ستتم الكتابة فوق %2$@ ولا يمكن استرجاعه." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "ستتم الكتابة فوق %1$lld ملف أصلي ولا يمكن استرجاعه: %2$@" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "ستتم الكتابة فوق ملفين أصليين ولا يمكن استرجاعهما: %2$@" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "ستتم الكتابة فوق %1$lld ملف أصلي ولا يمكن استرجاعه: %2$@" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -169,6 +493,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Diese %1$lld Originale werden überschrieben und können nicht wiederhergestellt werden: %2$@" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ sera écrasé et ne pourra pas être récupéré." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Ces %1$lld originaux seront écrasés et ne pourront pas être récupérés : %2$@" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "%2$@ ישוכתב ולא ניתן יהיה לשחזר אותו." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld קבצי מקור ישוכתבו ולא ניתן יהיה לשחזר אותם: %2$@" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "שני קבצי מקור ישוכתבו ולא ניתן יהיה לשחזר אותם: %2$@" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld個のオリジナルが上書きされ、復元できなくなります:%2$@" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Oryginał %2$@ zostanie nadpisany i nie będzie można go odzyskać." }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Te %1$lld oryginały zostaną nadpisane i nie będzie można ich odzyskać: %2$@" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Tych %1$lld oryginałów zostanie nadpisanych i nie będzie można ich odzyskać: %2$@" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Tych %1$lld oryginałów zostanie nadpisanych i nie będzie można ich odzyskać: %2$@" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "这 %1$lld 个原始文件将被覆盖，且无法恢复：%2$@" }
               }
             }
           }
@@ -182,8 +569,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "A crop needs both sides. Fill in the other number, or clear this one — files cannot be shrunk until you do." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الاقتصاص يحتاج إلى الجانبين معًا. أدخل الرقم الآخر أو امسح هذا الرقم — لا يمكن تصغير الملفات قبل ذلك." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Ein Zuschnitt braucht beide Seiten. Ergänze die andere Zahl oder entferne diese — bis dahin lassen sich keine Dateien verkleinern." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Un recadrage a besoin de ses deux côtés. Saisissez l’autre nombre, ou effacez celui-ci — d’ici là, aucun fichier ne peut être réduit." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חיתוך דורש את שתי הצלעות. יש למלא את המספר השני או לנקות את זה — עד אז לא ניתן לכווץ קבצים." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "切り取りには両方の辺が必要です。もう一方の数値を入力するか、こちらを消してください。それまでファイルは圧縮できません。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kadrowanie wymaga obu boków. Uzupełnij drugą liczbę lub usuń tę — do tego czasu nie można zmniejszać plików." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "裁剪需要两条边。请填写另一个数字，或清除这一个；在此之前无法压缩文件。" }
         }
       }
     },
@@ -194,8 +599,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Both sides are needed. The shape is used exactly as typed, so a portrait photo cropped to 16:9 comes out as a landscape strip. SVG is unaffected. Not saved — it resets when you quit." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الجانبان مطلوبان معًا. وتُستخدم النسبة كما تُكتب تمامًا، فالصورة الطولية المقتصَّة إلى 16:9 تخرج شريطًا عرضيًا. لا يتأثر SVG. ولا يُحفظ هذا الإعداد — فهو يعود إلى حالته الأولى عند الإنهاء." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Beide Seiten werden gebraucht. Die Form wird genau so verwendet, wie sie eingetippt ist: Ein Hochformat-Foto auf 16:9 zugeschnitten ergibt einen querformatigen Streifen. SVG bleibt unberührt. Wird nicht gesichert — beim Beenden setzt sie sich zurück." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Les deux côtés sont nécessaires. La forme est utilisée exactement telle qu’elle est saisie : une photo en portrait recadrée en 16:9 ressort en bande paysage. SVG n’est pas concerné. Non enregistré — le réglage se réinitialise quand vous quittez l’app." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "יש צורך בשתי הצלעות. הצורה משמשת בדיוק כפי שהוקלדה, ולכן תצלום לאורך שנחתך ליחס 16:9 יוצא כרצועה לרוחב. קבצי SVG אינם מושפעים. הערך אינו נשמר — הוא מתאפס עם סיום היישום." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "両方の辺が必要です。形は入力したとおりに使われるため、縦長の写真を16:9で切り取ると横長の帯になります。SVGは影響を受けません。保存されないため、終了するとリセットされます。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Potrzebne są oba boki. Kształt jest używany dokładnie tak, jak go wpiszesz, więc zdjęcie pionowe skadrowane do 16:9 wyjdzie jako poziomy pasek. SVG pozostaje nietknięty. Nie jest zachowywane — po zakończeniu aplikacji wraca do stanu wyjściowego." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "两条边都需要填写。形状会完全按照输入的方式使用，因此一张竖幅照片裁剪为 16:9 后会变成横向的窄条。SVG 不受影响。此设置不会存储，退出时即还原。" }
         }
       }
     },
@@ -206,8 +629,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crops the center of each image to this shape and leaves the size alone. The session's max size, if set, still applies." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يقتصّ مركز كل صورة إلى هذه النسبة ويترك الحجم كما هو. ويظل الحد الأقصى للحجم في هذه الجلسة ساريًا إن كان محددًا." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Schneidet die Mitte jedes Bildes auf diese Form zu und lässt die Größe unangetastet. Die Maximalgröße der Sitzung gilt weiterhin, sofern eine gesetzt ist." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Recadre le centre de chaque image selon cette forme et laisse la taille inchangée. La taille max. de la session, si elle est définie, s’applique toujours." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חותך את מרכז כל תמונה לצורה הזו ומשאיר את הגודל כמו שהוא. הגודל המרבי של ההפעלה, אם הוגדר, עדיין חל." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "各画像の中央をこの形に切り取り、サイズはそのままにします。セッションの最大サイズを設定している場合は、そちらも引き続き適用されます。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kadruje środek każdego obrazu do tego kształtu i nie zmienia rozmiaru. Maksymalny rozmiar sesji, jeśli jest ustawiony, nadal obowiązuje." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "将每张图片的中心裁剪为这个形状，尺寸保持不变。如果设置了本次会话的最大尺寸，它仍然生效。" }
         }
       }
     },
@@ -218,8 +659,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crops the center of each image to this shape, then scales it down to this size. Images already smaller are cropped but never enlarged, so a mixed batch may not come out all one size. This sets the output size outright, so the max size above does not apply." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يقتصّ مركز كل صورة إلى هذه النسبة ثم يصغّرها إلى هذا الحجم. والصور الأصغر من ذلك تُقتصّ ولا تُكبَّر أبدًا، لذا قد لا تخرج الدفعة المختلطة بحجم واحد. وهذا يحدد حجم المُخرجات تمامًا، فلا ينطبق الحد الأقصى للحجم أعلاه." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Schneidet die Mitte jedes Bildes auf diese Form zu und skaliert es dann auf diese Größe herunter. Bereits kleinere Bilder werden zugeschnitten, aber nie vergrößert — ein gemischter Stapel kommt deshalb womöglich nicht in einer einheitlichen Größe heraus. Damit steht die Ausgabegröße fest, und die Maximalgröße darüber gilt nicht." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Recadre le centre de chaque image selon cette forme, puis la redimensionne à cette taille. Les images déjà plus petites sont recadrées, mais jamais agrandies : un lot hétérogène peut donc ne pas ressortir d’une seule taille. La taille de sortie est ainsi fixée, et la taille max. ci-dessus ne s’applique pas." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חותך את מרכז כל תמונה לצורה הזו ואז מקטין אותה לגודל הזה. תמונות שכבר קטנות יותר נחתכות אך לעולם אינן מוגדלות, ולכן אצווה מעורבת עשויה לצאת בגדלים שונים. כך נקבע גודל הפלט באופן מוחלט, ולכן הגודל המרבי שלמעלה אינו חל." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "各画像の中央をこの形に切り取り、このサイズまで縮小します。すでに小さい画像は切り取られますが拡大はされないため、大きさがまちまちのバッチでは仕上がりのサイズがそろわないことがあります。これで出力サイズが決まるため、上の最大サイズは適用されません。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kadruje środek każdego obrazu do tego kształtu, a następnie skaluje go w dół do tego rozmiaru. Obrazy już mniejsze są kadrowane, ale nigdy nie powiększane, więc mieszana partia może nie wyjść w jednym rozmiarze. To ustala rozmiar wyjściowy wprost, więc maksymalny rozmiar powyżej nie obowiązuje." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "将每张图片的中心裁剪为这个形状，然后缩小到这个尺寸。本身更小的图片会被裁剪，但绝不会被放大，因此一批尺寸不一的图片输出后可能大小不一。这会直接决定输出尺寸，所以上面的最大尺寸不再适用。" }
         }
       }
     },
@@ -230,8 +689,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Finish the crop, or clear it, before closing." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "أكمل الاقتصاص أو امسحه قبل الإغلاق." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Vor dem Schließen muss der Zuschnitt vervollständigt oder entfernt werden." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Complétez le recadrage, ou effacez-le, avant de fermer." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "יש להשלים את החיתוך או לנקות אותו לפני הסגירה." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "閉じる前に、切り取りを完成させるか消去してください。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Przed zamknięciem dokończ kadrowanie lub je usuń." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "请先完成或清除裁剪，然后再关闭。" }
         }
       }
     },
@@ -242,8 +719,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Image conversion failed: %@" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "فشل تحويل الصورة: %@" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Die Bildkonvertierung ist fehlgeschlagen: %@" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "La conversion de l’image a échoué : %@" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "המרת התמונה נכשלה: %@" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "画像の変換に失敗しました:%@" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Konwersja obrazu nie powiodła się: %@" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "图片转换失败：%@" }
         }
       }
     },
@@ -254,8 +749,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No output was written to %@." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "لم تُكتب أي مُخرجات إلى %@." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Nach %@ wurde keine Ausgabe geschrieben." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aucune sortie n’a été écrite dans %@." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "לא נכתב פלט אל %@." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@に出力が書き込まれませんでした。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Do %@ nie zapisano żadnych danych." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "没有向 %@ 写入任何输出。" }
         }
       }
     },
@@ -266,8 +779,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"%@\")." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "التنسيقات المدعومة هي SVG وPNG وGIF وJPEG وWebP وAVIF وHEIC وHEIF فقط (ورد \"%@\")." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Nur SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC und HEIF werden unterstützt (erhalten: „%@“)." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Seuls SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC et HEIF sont pris en charge (reçu : « %@ »)." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "נתמכים רק SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC ו-HEIF (התקבל ״%@״)." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "対応しているのはSVG、PNG、GIF、JPEG、WebP、AVIF、HEIC、HEIFのみです(「%@」を受け取りました)。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Obsługiwane są tylko SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC i HEIF (otrzymano „%@”)." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "仅支持 SVG、PNG、GIF、JPEG、WebP、AVIF、HEIC 和 HEIF（收到“%@”）。" }
         }
       }
     },
@@ -278,8 +809,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "PNG is lossless — photos will usually get larger." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG بلا فقدان — والصور الفوتوغرافية تكبر عادةً." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "PNG ist verlustfrei — Fotos werden dadurch meist größer." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG est sans perte — les photos deviendront généralement plus lourdes." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "פורמט PNG הוא ללא אובדן נתונים — תצלומים בדרך כלל יגדלו." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNGは可逆圧縮のため、写真はたいてい大きくなります。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG jest bezstratny — zdjęcia zwykle się powiększą." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG 是无损格式，照片通常会变大。" }
         }
       }
     },
@@ -299,6 +848,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %1$lld ملفات في “%2$@”؟" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %1$lld ملفًا في “%2$@”؟" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال ملف واحد في “%2$@”؟" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %1$lld ملف في “%2$@”؟" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال ملفين في “%2$@”؟" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %1$lld ملف في “%2$@”؟" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -307,6 +880,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%1$lld Dateien in „%2$@“ ersetzen?" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Remplacer 1 fichier dans « %2$@ » ?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Remplacer %1$lld fichiers dans « %2$@ » ?" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף קובץ אחד ב״%2$@״?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף %1$lld קבצים ב״%2$@״?" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף שני קבצים ב״%2$@״?" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "「%2$@」内の%1$lld個のファイルを置き換えますか?" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić 1 plik w „%2$@”?" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %1$lld pliki w „%2$@”?" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %1$lld plików w „%2$@”?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %1$lld plików w „%2$@”?" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "替换“%2$@”中的 %1$lld 个文件？" }
               }
             }
           }
@@ -329,6 +965,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %lld ملفات؟" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %lld ملفًا؟" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال ملف واحد؟" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %lld ملف؟" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال ملفين؟" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %lld ملف؟" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -337,6 +997,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%lld Dateien ersetzen?" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Remplacer 1 fichier ?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Remplacer %lld fichiers ?" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף קובץ אחד?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף %lld קבצים?" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף שני קבצים?" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld個のファイルを置き換えますか?" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić 1 plik?" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %lld pliki?" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %lld plików?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %lld plików?" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "替换 %lld 个文件？" }
               }
             }
           }
@@ -359,6 +1082,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %1$lld ملفات أصلية في “%2$@”؟" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %1$lld ملفًا أصليًا في “%2$@”؟" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال ملف أصلي واحد في “%2$@”؟" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %1$lld ملف أصلي في “%2$@”؟" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال ملفين أصليين في “%2$@”؟" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %1$lld ملف أصلي في “%2$@”؟" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -367,6 +1114,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%1$lld Originale in „%2$@“ ersetzen?" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Remplacer 1 original dans « %2$@ » ?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Remplacer %1$lld originaux dans « %2$@ » ?" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף קובץ מקור אחד ב״%2$@״?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף %1$lld קבצי מקור ב״%2$@״?" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף שני קבצי מקור ב״%2$@״?" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "「%2$@」内の%1$lld個のオリジナルを置き換えますか?" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić 1 oryginał w „%2$@”?" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %1$lld oryginały w „%2$@”?" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %1$lld oryginałów w „%2$@”?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %1$lld oryginałów w „%2$@”?" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "替换“%2$@”中的 %1$lld 个原始文件？" }
               }
             }
           }
@@ -389,6 +1199,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %lld ملفات أصلية؟" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %lld ملفًا أصليًا؟" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال ملف أصلي واحد؟" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %lld ملف أصلي؟" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال ملفين أصليين؟" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "استبدال %lld ملف أصلي؟" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -397,6 +1231,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%lld Originale ersetzen?" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Remplacer 1 original ?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Remplacer %lld originaux ?" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף קובץ מקור אחד?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף %lld קבצי מקור?" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "להחליף שני קבצי מקור?" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld個のオリジナルを置き換えますか?" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić 1 oryginał?" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %lld oryginały?" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %lld oryginałów?" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Zastąpić %lld oryginałów?" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "替换 %lld 个原始文件？" }
               }
             }
           }
@@ -410,8 +1307,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinks images so the longest side is at most this many pixels. Smaller images are left alone. SVG is unaffected." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يصغّر الصور بحيث لا يتجاوز أطول ضلع هذا العدد من وحدات البكسل. والصور الأصغر تُترك كما هي. لا يتأثر SVG." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Verkleinert Bilder so, dass die längste Seite höchstens so viele Pixel hat. Kleinere Bilder bleiben unverändert. SVG bleibt unberührt." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Réduit les images pour que leur côté le plus long ne dépasse pas ce nombre de pixels. Les images plus petites restent inchangées. SVG n’est pas concerné." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "מכווץ תמונות כך שהצלע הארוכה ביותר לא תעלה על מספר הפיקסלים הזה. תמונות קטנות יותר נשארות כמו שהן. קבצי SVG אינם מושפעים." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "長辺がこのピクセル数以下になるように画像を縮小します。これより小さい画像はそのままです。SVGは影響を受けません。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zmniejsza obrazy tak, by najdłuższy bok miał co najwyżej tyle pikseli. Mniejsze obrazy pozostają bez zmian. SVG pozostaje nietknięty." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "压缩图片，使最长边不超过这个像素数。更小的图片保持不变。SVG 不受影响。" }
         }
       }
     },
@@ -422,8 +1337,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Skip These" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تخطي هذه الملفات" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Diese Dateien überspringen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ignorer ces fichiers" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "דילוג על קבצים אלה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "これらをスキップ" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pomiń te pliki" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "跳过这些文件" }
         }
       }
     },
@@ -434,8 +1367,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Skip This" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تخطي هذا الملف" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Diese Datei überspringen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ignorer ce fichier" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "דילוג על קובץ זה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "これをスキップ" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pomiń ten plik" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "跳过此文件" }
         }
       }
     },
@@ -446,8 +1397,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "SVG optimization failed: %@" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "فشل تحسين SVG: %@" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Die SVG-Optimierung ist fehlgeschlagen: %@" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "L’optimisation SVG a échoué : %@" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "מיטוב ה-SVG נכשל: %@" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "SVGの最適化に失敗しました:%@" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Optymalizacja SVG nie powiodła się: %@" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "SVG 优化失败：%@" }
         }
       }
     },
@@ -458,8 +1427,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "The bundled %@ tool is missing. The app may be damaged — try reinstalling." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "أداة %@ المُضمّنة مفقودة. قد يكون التطبيق تالفًا — جرّب إعادة تثبيته." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Das mitgelieferte Werkzeug %@ fehlt. Die App ist möglicherweise beschädigt — installiere sie neu." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "L’outil %@ fourni avec l’app est introuvable. L’app est peut-être endommagée — réinstallez-la." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "הכלי המצורף %@ חסר. ייתכן שהיישום פגום — ניתן לנסות להתקין אותו מחדש." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "同梱の%@ツールが見つかりません。Appが壊れている可能性があります。再インストールしてください。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Brakuje dołączonego narzędzia %@. Aplikacja może być uszkodzona — zainstaluj ją ponownie." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "找不到随附的 %@ 工具。App 可能已损坏，请尝试重新安装。" }
         }
       }
     },
@@ -470,8 +1457,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "The crop already sets the size — every image comes out %1$@×%2$@. Switch the crop to a ratio, or clear it, to use a max size." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الاقتصاص يحدد الحجم بالفعل — فكل صورة تخرج بمقاس %1$@×%2$@. حوّل الاقتصاص إلى نسبة أو امسحه لاستخدام حد أقصى للحجم." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Der Zuschnitt legt die Größe bereits fest — jedes Bild kommt mit %1$@×%2$@ heraus. Stelle den Zuschnitt auf ein Verhältnis um oder entferne ihn, um eine Maximalgröße zu nutzen." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Le recadrage fixe déjà la taille — chaque image ressort en %1$@×%2$@. Passez le recadrage en ratio, ou effacez-le, pour utiliser une taille max." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "החיתוך כבר קובע את הגודל — כל תמונה יוצאת בגודל %1$@×%2$@. יש להחליף את החיתוך ליחס, או לנקות אותו, כדי להשתמש בגודל מרבי." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "切り取りですでにサイズが決まっているため、すべての画像が%1$@×%2$@になります。最大サイズを使うには、切り取りを比率に切り替えるか消去してください。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kadrowanie już ustala rozmiar — każdy obraz wyjdzie jako %1$@×%2$@. Przełącz kadrowanie na proporcje lub usuń je, aby korzystać z maksymalnego rozmiaru." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "裁剪已经决定了尺寸，每张图片都会输出为 %1$@×%2$@。若要使用最大尺寸，请将裁剪切换为比例，或清除裁剪。" }
         }
       }
     },
@@ -491,6 +1496,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "لن تتأثر %lld ملفات أخرى." }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "لن يتأثر %lld ملفًا آخر." }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "لن يتأثر الملف الآخر." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "لن يتأثر %lld ملف آخر." }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "لن يتأثر الملفان الآخران." }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "لن يتأثر %lld ملف آخر." }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -499,6 +1528,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Die übrigen %lld Dateien sind nicht betroffen." }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "L’autre fichier n’est pas concerné." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Les %lld autres fichiers ne sont pas concernés." }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "הקובץ האחר אינו מושפע." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%lld הקבצים האחרים אינם מושפעים." }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "שני הקבצים האחרים אינם מושפעים." }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "ほかの%lld個のファイルには影響ありません。" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Pozostały plik nie zostanie zmieniony." }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Pozostałe %lld pliki nie zostaną zmienione." }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Pozostałe %lld plików nie zostanie zmienionych." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Pozostałe %lld plików nie zostanie zmienionych." }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "其余 %lld 个文件不受影响。" }
               }
             }
           }
@@ -512,8 +1604,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : ", " }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "، " }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : ", " }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : ", " }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : ", " }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "、" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : ", " }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "、" }
         }
       }
     },
@@ -523,8 +1633,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "About Shrinker Pro" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "حول Shrinker Pro" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Über Shrinker Pro" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "À propos de Shrinker Pro" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "מידע על Shrinker Pro" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Proについて" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro — informacje" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "关于 Shrinker Pro" }
         }
       }
     },
@@ -534,8 +1662,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Adjust session settings" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تعديل إعدادات الجلسة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Sitzungseinstellungen anpassen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ajuster les réglages de session" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "התאמת הגדרות ההפעלה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "セッション設定を調整" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dostosuj ustawienia sesji" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "调整会话设置" }
         }
       }
     },
@@ -545,8 +1691,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "App default" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الافتراضي للتطبيق" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "App-Vorgabe" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Par défaut" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ברירת המחדל של היישום" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "Appのデフォルト" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Domyślne aplikacji" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "App 默认值" }
         }
       }
     },
@@ -556,8 +1720,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ينطبق على JPEG وWebP وAVIF وHEIC. أما PNG وGIF فتُحسَّن بأدوات لا تملك إعدادًا مماثلًا، ولذلك تبدو كما هي أيًا كان اختيارك." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Gilt für JPEG, WebP, AVIF und HEIC. PNG und GIF werden von Werkzeugen optimiert, die keine vergleichbare Einstellung haben, und sehen deshalb bei jeder Wahl gleich aus." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "S’applique à JPEG, WebP, AVIF et HEIC. PNG et GIF sont optimisés par des outils qui n’ont pas de réglage comparable : ils ont donc le même aspect quel que soit votre choix." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חל על JPEG, WebP, AVIF ו-HEIC. קבצי PNG ו-GIF עוברים מיטוב בכלים שאין להם הגדרה מקבילה, ולכן הם ייראו אותו הדבר בכל בחירה." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "JPEG、WebP、AVIF、HEICに適用されます。PNGとGIFは同等の設定を持たないツールで最適化されるため、どれを選んでも仕上がりは変わりません。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dotyczy JPEG, WebP, AVIF i HEIC. PNG i GIF są optymalizowane przez narzędzia bez porównywalnego ustawienia, więc wyglądają tak samo niezależnie od wyboru." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "适用于 JPEG、WebP、AVIF 和 HEIC。PNG 和 GIF 由没有同类设置的工具来优化，因此无论你选哪一项，它们看起来都一样。" }
         }
       }
     },
@@ -567,8 +1749,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ينطبق على JPEG وWebP وAVIF وHEIC. أما PNG وGIF فتُحسَّن بأدوات لا تملك إعدادًا مماثلًا، ولذلك تبدو كما هي أيًا كان اختيارك. و\"قياسية\" تطابق ما كانت تنتجه الإصدارات السابقة من Shrinker Pro. تبدأ كل جلسة من هنا؛ ويمكن لشريط الجلسة في النافذة تغيير ذلك لجلسة واحدة دون تغيير هذا الإعداد." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Gilt für JPEG, WebP, AVIF und HEIC. PNG und GIF werden von Werkzeugen optimiert, die keine vergleichbare Einstellung haben, und sehen deshalb bei jeder Wahl gleich aus. Standard entspricht dem, was frühere Versionen von Shrinker Pro erzeugt haben. Jede Sitzung beginnt hier; die Sitzungsleiste im Fenster kann den Wert für eine Sitzung ändern, ohne diese Einstellung zu ändern." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "S’applique à JPEG, WebP, AVIF et HEIC. PNG et GIF sont optimisés par des outils qui n’ont pas de réglage comparable : ils ont donc le même aspect quel que soit votre choix. Standard correspond à ce que produisaient les versions précédentes de Shrinker Pro. Chaque session démarre ici ; la barre de session de la fenêtre peut le changer pour une seule session sans modifier ce réglage." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חל על JPEG, WebP, AVIF ו-HEIC. קבצי PNG ו-GIF עוברים מיטוב בכלים שאין להם הגדרה מקבילה, ולכן הם ייראו אותו הדבר בכל בחירה. הערך ״רגילה״ תואם את מה שגרסאות קודמות של Shrinker Pro ייצרו. כל הפעלה מתחילה כאן; סרגל ההפעלה בחלון יכול לשנות את הערך להפעלה אחת בלבד, בלי לשנות את ההגדרה הזו." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "JPEG、WebP、AVIF、HEICに適用されます。PNGとGIFは同等の設定を持たないツールで最適化されるため、どれを選んでも仕上がりは変わりません。標準は、以前のバージョンのShrinker Proと同じ仕上がりです。どのセッションもここから始まります。ウインドウのセッションバーを使うと、この設定を変えずに1回のセッションだけ変更できます。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dotyczy JPEG, WebP, AVIF i HEIC. PNG i GIF są optymalizowane przez narzędzia bez porównywalnego ustawienia, więc wyglądają tak samo niezależnie od wyboru. Jakość standardowa odpowiada temu, co dawały wcześniejsze wersje Shrinker Pro. Każda sesja zaczyna się od tej wartości; pasek sesji w oknie może ją zmienić na jedną sesję, nie zmieniając tego ustawienia." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "适用于 JPEG、WebP、AVIF 和 HEIC。PNG 和 GIF 由没有同类设置的工具来优化，因此无论你选哪一项，它们看起来都一样。“标准”与 Shrinker Pro 早期版本生成的结果一致。每次会话都从这里开始；窗口中的会话栏可以只为一次会话更改它，而不改动这项设置。" }
         }
       }
     },
@@ -578,8 +1778,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Applies to this session only. Defaults live in Settings." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ينطبق على هذه الجلسة فقط. أما القيم الافتراضية فتوجد في الإعدادات." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Gilt nur für diese Sitzung. Die Vorgaben stehen in den Einstellungen." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ne s’applique qu’à cette session. Les valeurs par défaut se trouvent dans les Réglages." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חל על הפעלה זו בלבד. ברירות המחדל נמצאות ב״הגדרות״." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "このセッションにのみ適用されます。デフォルトは設定にあります。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dotyczy tylko tej sesji. Wartości domyślne znajdziesz w Ustawieniach." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "仅适用于本次会话。默认值在“设置”中。" }
         }
       }
     },
@@ -589,8 +1807,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Check for Updates…" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "التحقق من وجود تحديثات…" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Nach Updates suchen …" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rechercher des mises à jour…" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חיפוש עדכונים…" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "アップデートを確認…" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sprawdź uaktualnienia…" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "检查更新…" }
         }
       }
     },
@@ -600,8 +1836,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Choose folder…" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "اختيار مجلد…" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Ordner wählen …" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Choisir un dossier…" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "בחירת תיקיה…" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "フォルダを選択…" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wybierz folder…" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "选取文件夹…" }
         }
       }
     },
@@ -611,8 +1865,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Choose…" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "اختيار…" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Wählen …" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Choisir…" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "בחירה…" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "選択…" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wybierz…" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "选取…" }
         }
       }
     },
@@ -622,8 +1894,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Clear History" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "مسح السجل" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Verlauf löschen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Effacer l’historique" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ניקוי ההיסטוריה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "履歴を消去" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wymaż historię" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "清除历史记录" }
         }
       }
     },
@@ -633,8 +1923,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Clear Menu" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "مسح القائمة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Einträge löschen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Effacer le menu" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ניקוי התפריט" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "メニューを消去" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wyczyść menu" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "清除菜单" }
         }
       }
     },
@@ -644,8 +1952,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Clear result list when shrinking new images" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "مسح قائمة النتائج عند تصغير صور جديدة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Ergebnisliste beim Verkleinern neuer Bilder leeren" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Effacer la liste des résultats quand de nouvelles images sont réduites" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ניקוי רשימת התוצאות בעת כיווץ תמונות חדשות" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "新しい画像を圧縮するときに結果リストを消去" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Czyść listę wyników przy zmniejszaniu nowych obrazów" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "压缩新图片时清空结果列表" }
         }
       }
     },
@@ -655,8 +1981,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Close session settings" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "إغلاق إعدادات الجلسة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Sitzungseinstellungen schließen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fermer les réglages de session" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "סגירת הגדרות ההפעלה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "セッション設定を閉じる" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zamknij ustawienia sesji" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "关闭会话设置" }
         }
       }
     },
@@ -666,8 +2010,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Conversion" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "التحويل" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Konvertierung" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conversion" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "המרה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "変換" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Konwersja" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "转换" }
         }
       }
     },
@@ -677,8 +2039,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Convert all to" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تحويل الكل إلى" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Konvertieren in" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tout convertir en" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "המרת הכול ל-" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "すべてを変換" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Konwertuj wszystko na" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "全部转换为" }
         }
       }
     },
@@ -688,8 +2068,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Converts every raster file for the rest of this session. SVG and GIF are always left in their own format." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يحوّل كل ملف نقطي فيما تبقى من هذه الجلسة. ويُترك SVG وGIF دائمًا بتنسيقهما الأصلي." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Konvertiert für den Rest dieser Sitzung jede Rasterdatei. SVG und GIF bleiben immer in ihrem eigenen Format." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Convertit tous les fichiers matriciels pour le reste de cette session. SVG et GIF sont toujours conservés dans leur propre format." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ממיר כל קובץ רסטר עד סוף ההפעלה הזו. קבצי SVG ו-GIF נשארים תמיד בפורמט שלהם." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "このセッションの残りの間、すべてのラスター画像を変換します。SVGとGIFは常に元の形式のまま残ります。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Konwertuje każdy plik rastrowy do końca tej sesji. SVG i GIF zawsze pozostają we własnym formacie." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "在本次会话的剩余时间内转换每个位图文件。SVG 和 GIF 始终保持各自的格式。" }
         }
       }
     },
@@ -699,8 +2097,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop height" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ارتفاع الاقتصاص" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Höhe des Zuschnitts" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Hauteur du recadrage" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "גובה החיתוך" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "切り取りの高さ" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wysokość kadru" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "裁剪高度" }
         }
       }
     },
@@ -710,8 +2126,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop mode" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "وضع الاقتصاص" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Zuschnittmodus" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mode de recadrage" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "מצב החיתוך" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "切り取りモード" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tryb kadrowania" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "裁剪模式" }
         }
       }
     },
@@ -721,8 +2155,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop width" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "عرض الاقتصاص" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Breite des Zuschnitts" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Largeur du recadrage" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "רוחב החיתוך" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "切り取りの幅" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Szerokość kadru" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "裁剪宽度" }
         }
       }
     },
@@ -732,8 +2184,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Done adjusting session settings" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الانتهاء من تعديل إعدادات الجلسة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Anpassen der Sitzungseinstellungen abschließen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Terminer l’ajustement des réglages de session" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "סיום התאמת הגדרות ההפעלה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "セッション設定の調整を終了" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zakończ dostosowywanie ustawień sesji" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "完成会话设置的调整" }
         }
       }
     },
@@ -743,8 +2213,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Drag files here" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "اسحب الملفات إلى هنا" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Dateien hierher ziehen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Glissez vos fichiers ici" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "יש לגרור קבצים לכאן" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "ここにファイルをドラッグ" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Przeciągnij pliki tutaj" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "将文件拖到这里" }
         }
       }
     },
@@ -754,8 +2242,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Enable notifications" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تفعيل الإشعارات" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Mitteilungen aktivieren" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Activer les notifications" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "קבלת עדכונים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "通知を有効にする" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Włącz powiadomienia" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "启用通知" }
         }
       }
     },
@@ -765,8 +2271,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Encode at" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الترميز بجودة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Kodieren mit" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Encoder en qualité" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "קידוד באיכות" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "エンコード品質" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Koduj z jakością" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "编码质量" }
         }
       }
     },
@@ -776,8 +2300,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "General" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "عام" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Allgemein" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Général" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "כללי" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "一般" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ogólne" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "通用" }
         }
       }
     },
@@ -787,8 +2329,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Keep Both" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الاحتفاظ بالاثنين معًا" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Beide behalten" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conserver les deux" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "שמירת שניהם" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "両方とも残す" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pozostaw obie" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "两者都保留" }
         }
       }
     },
@@ -798,8 +2358,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Max size in pixels" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الحد الأقصى للحجم بالبكسل" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Maximale Größe in Pixeln" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Taille maximale en pixels" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "גודל מרבי בפיקסלים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "最大サイズ(ピクセル)" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Maksymalny rozmiar w pikselach" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "最大尺寸（像素）" }
         }
       }
     },
@@ -809,8 +2387,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Metadata" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "البيانات الوصفية" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Metadaten" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Métadonnées" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "מטא-נתונים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "メタデータ" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Metadane" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "元数据" }
         }
       }
     },
@@ -820,8 +2416,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No Recent Files" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "لا توجد عناصر أخيرة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Keine benutzten Dokumente" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aucun document récent" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "אין קבצים אחרונים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "最近使った項目はありません" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Brak ostatnich plików" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "没有最近使用的文件" }
         }
       }
     },
@@ -831,8 +2445,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Notifications are turned off for Shrinker Pro in System Settings, so none will appear." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الإشعارات مُعطَّلة لـ Shrinker Pro في إعدادات النظام، لذا لن يظهر أي إشعار." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Mitteilungen sind für Shrinker Pro in den Systemeinstellungen deaktiviert — es wird also keine geben." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Les notifications sont désactivées pour Shrinker Pro dans Réglages Système : aucune n’apparaîtra." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "העדכונים של Shrinker Pro כבויים ב״הגדרות המערכת״, ולכן לא יופיעו עדכונים." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "システム設定でShrinker Proの通知がオフになっているため、通知は表示されません。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Powiadomienia dla Shrinker Pro są wyłączone w Ustawieniach systemowych, więc żadne się nie pojawią." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "“系统设置”中已关闭 Shrinker Pro 的通知，因此不会显示任何通知。" }
         }
       }
     },
@@ -842,8 +2474,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "OK" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "موافق" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "OK" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "OK" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "אישור" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "OK" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "OK" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "好" }
         }
       }
     },
@@ -853,8 +2503,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Open Files…" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "فتح الملفات…" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Dateien öffnen …" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ouvrir des fichiers…" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "פתיחת קבצים…" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "ファイルを開く…" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Otwórz pliki…" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "打开文件…" }
         }
       }
     },
@@ -864,8 +2532,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Open Notification Settings…" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "فتح إعدادات الإشعارات…" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Mitteilungseinstellungen öffnen …" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ouvrir les réglages de notifications…" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "פתיחת הגדרות העדכונים…" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "通知設定を開く…" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Otwórz ustawienia powiadomień…" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "打开“通知”设置…" }
         }
       }
     },
@@ -875,8 +2561,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Open Recent" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "فتح العناصر الأخيرة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Benutzte Dokumente" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ouvrir un document récent" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "פתיחת האחרונים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "最近使った項目を開く" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Otwórz ostatnie" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "打开最近使用的" }
         }
       }
     },
@@ -886,8 +2590,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Output" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "المُخرجات" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Ausgabe" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sortie" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "פלט" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "出力" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pliki wyjściowe" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "输出" }
         }
       }
     },
@@ -897,8 +2619,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG وJPG وHEIC وWebP وAVIF وGIF وSVG — أو اضغط ⌘O" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF und SVG — oder ⌘O drücken" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF et SVG — ou appuyez sur ⌘O" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF ו-SVG — או הקשה על ⌘O" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、AVIF、GIF、SVG — または⌘O" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF i SVG — albo naciśnij ⌘O" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、AVIF、GIF 和 SVG，或按 ⌘O" }
         }
       }
     },
@@ -908,8 +2648,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Put them in a \"minified\" subfolder" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "وضعها في مجلد فرعي باسم \"minified\"" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "In einen Unterordner „minified“ legen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Les placer dans un sous-dossier « minified »" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "להניח אותם בתיקיית משנה בשם ״minified״" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "「minified」サブフォルダに入れる" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Umieść je w podfolderze „minified”" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "放入“minified”子文件夹" }
         }
       }
     },
@@ -919,7 +2677,25 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "px" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "px" }
+        },
         "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "px" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "px" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "px" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "px" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "px" }
+        },
+        "zh-Hans" : {
           "stringUnit" : { "state" : "translated", "value" : "px" }
         }
       }
@@ -930,8 +2706,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Quality" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الجودة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Qualität" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Qualité" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "איכות" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "品質" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Jakość" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "质量" }
         }
       }
     },
@@ -941,8 +2735,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Quit" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "إنهاء" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Beenden" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Quitter" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "סיום" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "終了" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zakończ" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "退出" }
         }
       }
     },
@@ -952,8 +2764,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "ratio" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "نسبة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Verhältnis" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "ratio" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "יחס" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "比率" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "proporcje" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "比例" }
         }
       }
     },
@@ -963,8 +2793,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "RECENT" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الأخيرة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "ZULETZT" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "RÉCENTS" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "אחרונים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "最近の結果" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "OSTATNIE" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "最近" }
         }
       }
     },
@@ -974,8 +2822,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Replace" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "استبدال" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Ersetzen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Remplacer" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "החלפה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "置き換える" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zastąp" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "替换" }
         }
       }
     },
@@ -985,8 +2851,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Reset" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "إعادة تعيين" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Zurücksetzen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Réinitialiser" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "איפוס" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "リセット" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wyzeruj" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "还原" }
         }
       }
     },
@@ -996,8 +2880,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Returns format, quality, max size and crop to the app's defaults" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يعيد التنسيق والجودة والحد الأقصى للحجم والاقتصاص إلى القيم الافتراضية للتطبيق" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Setzt Format, Qualität, Maximalgröße und Zuschnitt auf die Vorgaben der App zurück" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rétablit le format, la qualité, la taille max. et le recadrage aux valeurs par défaut de l’app" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "מחזיר את הפורמט, האיכות, הגודל המרבי והחיתוך לברירות המחדל של היישום" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "形式、品質、最大サイズ、切り取りをAppのデフォルトに戻します" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Przywraca format, jakość, maksymalny rozmiar i kadrowanie do wartości domyślnych aplikacji" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "将格式、质量、最大尺寸和裁剪还原为 App 的默认值" }
         }
       }
     },
@@ -1007,8 +2909,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يُطبَّق الدوران على الصورة نفسها دائمًا، فتبقى الصور معتدلة في أي تطبيق أيًا كان الخيار الذي تختاره." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Die Drehung wird immer auf das Bild selbst angewendet — Fotos stehen deshalb in jeder App aufrecht, welche Option du auch wählst." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "La rotation est toujours appliquée à l’image elle-même : vos photos restent droites dans toutes les apps, quelle que soit l’option choisie." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "הסיבוב מוחל תמיד על התמונה עצמה, ולכן תצלומים נשארים זקופים בכל יישום, ללא קשר לאפשרות הנבחרת." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "回転は常に画像そのものに適用されるため、どれを選んでも写真はどのAppでも正しい向きで表示されます。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Obrót jest zawsze zapisywany w samym obrazie, więc zdjęcia stoją prosto w każdej aplikacji, niezależnie od wybranej opcji." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "旋转始终会应用到图片本身，因此无论你选哪一项，照片在任何 App 中都保持正立。" }
         }
       }
     },
@@ -1018,8 +2938,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Same folder as original" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "المجلد نفسه الذي فيه الملف الأصلي" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Gleicher Ordner wie das Original" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Même dossier que l’original" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "אותה תיקיה כמו קובץ המקור" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "オリジナルと同じフォルダ" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ten sam folder co oryginał" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "与原始文件相同的文件夹" }
         }
       }
     },
@@ -1029,8 +2967,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "SESSION SETTINGS" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "إعدادات الجلسة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "SITZUNGSEINSTELLUNGEN" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "RÉGLAGES DE SESSION" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "הגדרות ההפעלה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "セッション設定" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "USTAWIENIA SESJI" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "会话设置" }
         }
       }
     },
@@ -1040,8 +2996,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Settings" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الإعدادات" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Einstellungen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Réglages" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "הגדרות" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "設定" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ustawienia" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "设置" }
         }
       }
     },
@@ -1051,8 +3025,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shows the format, quality and max size controls" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يُظهر عناصر التحكم في التنسيق والجودة والحد الأقصى للحجم" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Zeigt die Bedienelemente für Format, Qualität und Maximalgröße" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Affiche les commandes de format, de qualité et de taille max." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "מציג את הפקדים של הפורמט, האיכות והגודל המרבי" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "形式、品質、最大サイズのコントロールを表示します" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pokazuje elementy sterujące formatem, jakością i maksymalnym rozmiarem" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "显示格式、质量和最大尺寸的控件" }
         }
       }
     },
@@ -1062,7 +3054,25 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
+        },
         "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
+        },
+        "zh-Hans" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro" }
         }
       }
@@ -1073,8 +3083,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro can't start" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يتعذّر على Shrinker Pro البدء" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro kann nicht starten" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro ne peut pas démarrer" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro אינו מצליח להתחיל" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Proを起動できません" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nie może się uruchomić" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro 无法启动" }
         }
       }
     },
@@ -1084,8 +3112,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Something went wrong" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "حدث خطأ ما" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Etwas ist schiefgelaufen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Un problème est survenu" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "משהו השתבש" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "問題が発生しました" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Coś poszło nie tak" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "出错了" }
         }
       }
     },
@@ -1095,8 +3141,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تُحسَّن ملفات SVG وGIF دائمًا بتنسيقها الأصلي. فـ SVG متجهي، وGIF متحرك في الغالب — وتحويل أي منهما يُفقده ما يجعله مفيدًا." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "SVG- und GIF-Dateien werden immer in ihrem eigenen Format optimiert. SVG ist vektorbasiert, GIF meist animiert — eine Konvertierung würde jeweils genau das zerstören, was sie nützlich macht." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Les fichiers SVG et GIF sont toujours optimisés dans leur propre format. SVG est vectoriel et GIF est généralement animé — les convertir ferait perdre à chacun ce qui le rend utile." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "קבצי SVG ו-GIF תמיד עוברים מיטוב בפורמט שלהם. פורמט SVG הוא וקטורי, ו-GIF הוא בדרך כלל מונפש — המרה של כל אחד מהם תאבד בדיוק את מה שמועיל בו." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "SVGとGIFのファイルは常に元の形式のまま最適化されます。SVGはベクター、GIFはたいていアニメーションで、変換するとその利点が失われます。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pliki SVG i GIF są zawsze optymalizowane we własnym formacie. SVG jest wektorowy, a GIF zwykle animowany — konwersja odebrałaby im to, co czyni je przydatnymi." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "SVG 和 GIF 文件始终以各自的格式优化。SVG 是矢量图，GIF 通常是动画，转换任何一种都会失去它们的用处。" }
         }
       }
     },
@@ -1106,8 +3170,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "This session" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "هذه الجلسة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Diese Sitzung" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cette session" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "הפעלה זו" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "このセッション" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ta sesja" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "本次会话" }
         }
       }
     },
@@ -1117,8 +3199,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "This session: %@" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "هذه الجلسة: %@" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Diese Sitzung: %@" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cette session : %@" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "הפעלה זו: %@" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "このセッション:%@" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ta sesja: %@" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "本次会话：%@" }
         }
       }
     },
@@ -1128,8 +3228,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Warn before replacing a file" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "التنبيه قبل استبدال ملف" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Vor dem Ersetzen einer Datei warnen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Avertir avant de remplacer un fichier" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "הצגת אזהרה לפני החלפת קובץ" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "ファイルを置き換える前に警告" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ostrzegaj przed zastąpieniem pliku" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "替换文件前发出警告" }
         }
       }
     },
@@ -1139,8 +3257,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "When shrinking, keep" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "عند التصغير، احتفظ بـ" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Beim Verkleinern behalten" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Lors de la réduction, conserver" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "בעת הכיווץ יש לשמור" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "圧縮時に保持" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Przy zmniejszaniu zachowuj" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "压缩时保留" }
         }
       }
     },
@@ -1150,8 +3286,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Where" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الوجهة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Wohin" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Où" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "לאן" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "保存先" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gdzie" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "位置" }
         }
       }
     },
@@ -1161,8 +3315,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ستتم الكتابة فوق ملفاتك الأصلية ولن يمكن استرجاعها. أما الملفات المحوَّلة فتحتفظ بامتداد مختلف، ولذلك تبقى ملفاتها الأصلية كما هي." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Deine Originale werden überschrieben und können nicht wiederhergestellt werden. Konvertierte Dateien behalten eine eigene Dateiendung — diese Originale bleiben also unangetastet." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vos originaux seront écrasés et ne pourront pas être récupérés. Les fichiers convertis gardent une extension différente : ces originaux-là ne sont donc pas touchés." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "קבצי המקור שלך ישוכתבו ולא ניתן יהיה לשחזר אותם. קבצים שהומרו מקבלים סיומת נפרדת, ולכן קבצי המקור שלהם נשארים כמו שהם." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "オリジナルは上書きされ、復元できなくなります。変換したファイルは拡張子が別になるため、そのオリジナルはそのまま残ります。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Twoje oryginały zostaną nadpisane i nie będzie można ich odzyskać. Pliki po konwersji mają inne rozszerzenie, więc tamte oryginały pozostają nietknięte." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "你的原始文件将被覆盖，且无法恢复。转换后的文件会使用不同的扩展名，因此那些原始文件不受影响。" }
         }
       }
     },
@@ -1173,8 +3345,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ failed with exit code %d" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "فشل %@ برمز الخروج %d" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ ist mit Exit-Code %d fehlgeschlagen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ a échoué avec le code de sortie %d" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ נכשל עם קוד יציאה %d" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@が終了コード%dで失敗しました" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Narzędzie %@ zakończyło działanie z kodem wyjścia %d" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ 失败，退出代码为 %d" }
         }
       }
     },
@@ -1185,8 +3375,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ failed with exit code %d: %@" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "فشل %@ برمز الخروج %d: %@" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ ist mit Exit-Code %d fehlgeschlagen: %@" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ a échoué avec le code de sortie %d : %@" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ נכשל עם קוד יציאה %d: %@" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@が終了コード%dで失敗しました:%@" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Narzędzie %@ zakończyło działanie z kodem wyjścia %d: %@" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ 失败，退出代码为 %d：%@" }
         }
       }
     },
@@ -1206,6 +3414,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملفات · زيادة %2$@" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملفًا · زيادة %2$@" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "ملف واحد · زيادة %2$@" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملف · زيادة %2$@" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "ملفان · زيادة %2$@" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملف · زيادة %2$@" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -1214,6 +3446,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%1$lld Dateien · %2$@ größer" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 fichier · %2$@ en plus" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld fichiers · %2$@ en plus" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "קובץ אחד · גדול ב-%2$@" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld קבצים · גדולים ב-%2$@" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "שני קבצים · גדולים ב-%2$@" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld個のファイル · %2$@増加" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 plik · %2$@ więcej" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld pliki · %2$@ więcej" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld plików · %2$@ więcej" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld plików · %2$@ więcej" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld 个文件 · 增大 %2$@" }
               }
             }
           }
@@ -1236,6 +3531,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملفات · توفير %2$@" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملفًا · توفير %2$@" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "ملف واحد · توفير %2$@" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملف · توفير %2$@" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "ملفان · توفير %2$@" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld ملف · توفير %2$@" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -1244,6 +3563,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "%1$lld Dateien · %2$@ eingespart" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 fichier · %2$@ économisés" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld fichiers · %2$@ économisés" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "קובץ אחד · %2$@ נחסכו" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld קבצים · %2$@ נחסכו" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "שני קבצים · %2$@ נחסכו" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld個のファイル · %2$@削減" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "1 plik · %2$@ mniej" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld pliki · %2$@ mniej" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld plików · %2$@ mniej" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld plików · %2$@ mniej" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "%1$lld 个文件 · 节省 %2$@" }
               }
             }
           }
@@ -1257,8 +3639,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Add .min" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "إضافة ‎.min" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : ".min anhängen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ajouter .min" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "הוספת ‎.min" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : ".minを付ける" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dodaj .min" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "添加 .min" }
         }
       }
     },
@@ -1269,8 +3669,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Adjust" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تعديل" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Anpassen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ajuster" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "התאמה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "調整" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dostosuj" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "调整" }
         }
       }
     },
@@ -1281,8 +3699,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "All metadata" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "جميع البيانات الوصفية" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Alle Metadaten" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Toutes les métadonnées" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "כל המטא-נתונים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "すべてのメタデータ" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wszystkie metadane" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "全部元数据" }
         }
       }
     },
@@ -1293,8 +3729,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Clear" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "مسح" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Leeren" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Effacer" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ניקוי" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "消去" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wyczyść" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "清空" }
         }
       }
     },
@@ -1305,8 +3759,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Copyright and credit only" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "حقوق النشر واسم المُنشئ فقط" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Nur Copyright und Urheber" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Copyright et auteur uniquement" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "זכויות יוצרים וקרדיט בלבד" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "著作権とクレジットのみ" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tylko prawa autorskie i autor" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "仅版权和署名" }
         }
       }
     },
@@ -1317,8 +3789,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Crop to" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "اقتصاص إلى" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Zuschnitt auf" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Recadrer à" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חיתוך ל-" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "切り取り" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kadruj do" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "裁剪为" }
         }
       }
     },
@@ -1329,8 +3819,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Done" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تم" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Fertig" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Terminé" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "סיום" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "完了" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gotowe" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "完成" }
         }
       }
     },
@@ -1341,8 +3849,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Filenames" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "أسماء الملفات" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Dateinamen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Noms de fichiers" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "שמות הקבצים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "ファイル名" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nazwy plików" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "文件名" }
         }
       }
     },
@@ -1353,8 +3879,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Files" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الملفات" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Dateien" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fichiers" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "קבצים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "ファイル" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pliki" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "文件" }
         }
       }
     },
@@ -1365,8 +3909,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "H" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ط" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "H" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "H" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ג" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "高" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "W" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "高" }
         }
       }
     },
@@ -1377,8 +3939,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "High" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "عالية" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Hoch" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Élevée" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "גבוהה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "高" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wysoka" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "高" }
         }
       }
     },
@@ -1389,8 +3969,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Keep" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "إبقاء" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Behalten" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conserver" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "שמירה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "そのまま" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pozostaw" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "保留" }
         }
       }
     },
@@ -1401,8 +3999,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Keep %@" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "إبقاء %@" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ behalten" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conserver %@" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "שמירת %@" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@のまま" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pozostaw %@" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "保留 %@" }
         }
       }
     },
@@ -1413,8 +4029,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Keep originals, save a .min copy" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "إبقاء الملفات الأصلية وحفظ نسخة ‎.min" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Originale behalten, .min-Kopie sichern" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Conserver les originaux, enregistrer une copie .min" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "שמירת קבצי המקור ויצירת עותק ‎.min" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "オリジナルを残し、.minコピーを保存" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pozostaw oryginały, zachowaj kopię .min" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "保留原始文件，存储 .min 副本" }
         }
       }
     },
@@ -1425,8 +4059,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Leave as is" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تركه كما هو" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Unverändert lassen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Laisser tel quel" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "השארה ללא שינוי" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "元の名前のまま" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pozostaw bez zmian" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "保持原样" }
         }
       }
     },
@@ -1437,8 +4089,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Low" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "منخفضة" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Niedrig" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Basse" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "נמוכה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "低" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Niska" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "低" }
         }
       }
     },
@@ -1449,8 +4119,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Max size" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الحد الأقصى للحجم" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Max. Größe" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Taille max." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "גודל מרבי" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "最大サイズ" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Maks. rozmiar" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "最大尺寸" }
         }
       }
     },
@@ -1461,8 +4149,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No folder chosen" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "لم يتم اختيار مجلد" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Kein Ordner gewählt" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aucun dossier choisi" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "לא נבחרה תיקיה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "フォルダが選択されていません" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nie wybrano folderu" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "未选取文件夹" }
         }
       }
     },
@@ -1473,8 +4179,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "No metadata" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "بلا بيانات وصفية" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Keine Metadaten" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aucune métadonnée" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ללא מטא-נתונים" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "メタデータなし" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Bez metadanych" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "不保留元数据" }
         }
       }
     },
@@ -1485,8 +4209,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Replace originals" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "استبدال الملفات الأصلية" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Originale ersetzen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Remplacer les originaux" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "החלפת קבצי המקור" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "オリジナルを置き換える" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zastąp oryginały" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "替换原始文件" }
         }
       }
     },
@@ -1497,8 +4239,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Reveal" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "إظهار في فايندر" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Im Finder zeigen" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Afficher dans le Finder" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "הצגה ב-Finder" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "Finderに表示" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pokaż w Finderze" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "在访达中显示" }
         }
       }
     },
@@ -1518,6 +4278,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "يتعذّر على Shrinker Pro فتح %lld ملفات" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "يتعذّر على Shrinker Pro فتح %lld ملفًا" }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "يتعذّر على Shrinker Pro فتح هذا الملف" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "يتعذّر على Shrinker Pro فتح %lld ملف" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "يتعذّر على Shrinker Pro فتح هذين الملفين" }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "يتعذّر على Shrinker Pro فتح %lld ملف" }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -1526,6 +4310,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro kann diese %lld Dateien nicht öffnen" }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro ne peut pas ouvrir ce fichier" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro ne peut pas ouvrir ces %lld fichiers" }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro אינו יכול לפתוח את הקובץ הזה" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro אינו יכול לפתוח את %lld הקבצים האלה" }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro אינו יכול לפתוח את שני הקבצים האלה" }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Proは%lld個のファイルを開けません" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nie może otworzyć tego pliku" }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nie może otworzyć tych %lld plików" }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nie może otworzyć tych %lld plików" }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nie może otworzyć tych %lld plików" }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro 无法打开这 %lld 个文件" }
               }
             }
           }
@@ -1539,8 +4386,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro couldn't start." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تعذّر على Shrinker Pro البدء." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro konnte nicht starten." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro n’a pas pu démarrer." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro לא הצליח להתחיל." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Proを起動できませんでした。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nie udało się uruchomić Shrinker Pro." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro 无法启动。" }
         }
       }
     },
@@ -1560,6 +4425,30 @@
             }
           }
         },
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "تعذّر على Shrinker Pro البدء، ولذلك لا يمكنه ضغط %lld ملفات فتحتها. أنهِ التطبيق وأعد تشغيله للمحاولة مرة أخرى." }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "تعذّر على Shrinker Pro البدء، ولذلك لا يمكنه ضغط %lld ملفًا فتحتها. أنهِ التطبيق وأعد تشغيله للمحاولة مرة أخرى." }
+              },
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "تعذّر على Shrinker Pro البدء، ولذلك لا يمكنه ضغط الملف الذي فتحته. أنهِ التطبيق وأعد تشغيله للمحاولة مرة أخرى." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "تعذّر على Shrinker Pro البدء، ولذلك لا يمكنه ضغط %lld ملف فتحته. أنهِ التطبيق وأعد تشغيله للمحاولة مرة أخرى." }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "تعذّر على Shrinker Pro البدء، ولذلك لا يمكنه ضغط الملفين اللذين فتحتهما. أنهِ التطبيق وأعد تشغيله للمحاولة مرة أخرى." }
+              },
+              "zero" : {
+                "stringUnit" : { "state" : "translated", "value" : "تعذّر على Shrinker Pro البدء، ولذلك لا يمكنه ضغط %lld ملف فتحته. أنهِ التطبيق وأعد تشغيله للمحاولة مرة أخرى." }
+              }
+            }
+          }
+        },
         "de" : {
           "variations" : {
             "plural" : {
@@ -1568,6 +4457,69 @@
               },
               "other" : {
                 "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro konnte nicht starten und kann die %lld geöffneten Dateien deshalb nicht komprimieren. Beende die App und starte sie neu, um es erneut zu versuchen." }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro n’a pas pu démarrer et ne peut donc pas compresser le fichier que vous avez ouvert. Quittez l’app et relancez-la pour réessayer." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro n’a pas pu démarrer et ne peut donc pas compresser les %lld fichiers que vous avez ouverts. Quittez l’app et relancez-la pour réessayer." }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro לא הצליח להתחיל, ולכן אינו יכול לדחוס את הקובץ שנפתח. יש לסיים ולפתוח מחדש כדי לנסות שוב." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro לא הצליח להתחיל, ולכן אינו יכול לדחוס את %lld הקבצים שנפתחו. יש לסיים ולפתוח מחדש כדי לנסות שוב." }
+              },
+              "two" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro לא הצליח להתחיל, ולכן אינו יכול לדחוס את שני הקבצים שנפתחו. יש לסיים ולפתוח מחדש כדי לנסות שוב." }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Proが起動できなかったため、開いた%lld個のファイルを圧縮できません。終了して起動し直すと、もう一度試せます。" }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nie uruchomił się, więc nie może skompresować otwartego pliku. Zakończ aplikację i uruchom ją ponownie, aby spróbować jeszcze raz." }
+              },
+              "few" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nie uruchomił się, więc nie może skompresować %lld otwartych plików. Zakończ aplikację i uruchom ją ponownie, aby spróbować jeszcze raz." }
+              },
+              "many" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nie uruchomił się, więc nie może skompresować %lld otwartych plików. Zakończ aplikację i uruchom ją ponownie, aby spróbować jeszcze raz." }
+              },
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro nie uruchomił się, więc nie może skompresować %lld otwartych plików. Zakończ aplikację i uruchom ją ponownie, aby spróbować jeszcze raz." }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : { "state" : "translated", "value" : "Shrinker Pro 启动失败，无法压缩你打开的 %lld 个文件。请退出并重新启动后再试。" }
               }
             }
           }
@@ -1581,8 +4533,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Standard" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "قياسية" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Standard" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Standard" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "רגילה" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "標準" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Standardowa" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "标准" }
         }
       }
     },
@@ -1593,8 +4563,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "Super Low" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "منخفضة جدًا" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Sehr niedrig" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Très basse" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "נמוכה מאוד" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "最低" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Bardzo niska" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "极低" }
         }
       }
     },
@@ -1605,8 +4593,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "The crop is missing a side, so it is not clear what these files should be cropped to. Fill in both numbers, or clear the crop, and drop them again." }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ينقص الاقتصاص أحد جانبيه، فليس من الواضح إلى أي شكل ينبغي اقتصاص هذه الملفات. أدخل الرقمين معًا أو امسح الاقتصاص، ثم أفلت الملفات مرة أخرى." }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "Dem Zuschnitt fehlt eine Seite, daher ist unklar, worauf diese Dateien zugeschnitten werden sollen. Gib beide Zahlen ein oder entferne den Zuschnitt und lege die Dateien erneut ab." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Il manque un côté au recadrage : on ne sait donc pas selon quelle forme recadrer ces fichiers. Saisissez les deux nombres, ou effacez le recadrage, puis déposez-les à nouveau." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "לחיתוך חסרה צלע, ולכן לא ברור לאיזו צורה יש לחתוך את הקבצים האלה. יש למלא את שני המספרים, או לנקות את החיתוך, ולגרור אותם שוב." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "切り取りの辺が一方しかないため、これらのファイルをどの形に切り取ればよいか分かりません。両方の数値を入力するか、切り取りを消去してから、もう一度ドロップしてください。" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kadrowaniu brakuje jednego boku, więc nie wiadomo, do czego skadrować te pliki. Uzupełnij obie liczby lub usuń kadrowanie i upuść je ponownie." }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "裁剪缺少一条边，因此无法确定这些文件应裁剪成什么形状。请填写两个数字，或清除裁剪，然后重新拖入这些文件。" }
         }
       }
     },
@@ -1617,8 +4623,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "W" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ع" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "B" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "L" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "ר" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "幅" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "S" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "宽" }
         }
       }
     },
@@ -1629,8 +4653,26 @@
         "en" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ saved" }
         },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تم توفير %@" }
+        },
         "de" : {
           "stringUnit" : { "state" : "translated", "value" : "%@ eingespart" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ économisés" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ נחסכו" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@削減しました" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zaoszczędzono %@" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "节省 %@" }
         }
       }
     }

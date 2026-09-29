@@ -3,6 +3,1421 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.5.0</title>
+            <pubDate>Tue, 29 Sep 2026 08:38:43 -0400</pubDate>
+            <sparkle:version>10</sparkle:version>
+            <sparkle:shortVersionString>1.5.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[### Shrinker Pro now speaks 36 languages
+
+Arabic, Catalan, Chinese (Simplified, Traditional and Hong Kong), Croatian,
+Czech, Danish, Dutch, Finnish, French, German, Greek, Hebrew, Hungarian,
+Icelandic, Italian, Japanese, Korean, Norwegian (Bokmål and Nynorsk), Persian,
+Polish, Portuguese (Brazil and Portugal), Romanian, Russian, Slovak, Slovenian,
+Spanish, Swedish, Thai, Turkish, Ukrainian and Vietnamese.
+
+There is nothing to choose. The app follows the language macOS is already set
+to, and these are the same 36 the update dialog itself ships in, so you will
+never get a window in one language and an update notice in another.
+
+Where the system already has a word for something, the app uses that word
+rather than a fresh translation of it — **Reveal in Finder**, **Keep Both**,
+**Replace**, **Quality** and the rest were each read out of macOS's own
+resources. Arabic, Hebrew and Persian lay the whole window out right to left.
+
+The headless `shrinker` command stays in English, deliberately: its output is
+something scripts read, and a message that changes wording with the Mac's
+region setting is a message no script can match on.
+
+### Settings in two tabs
+
+The window was over a thousand points tall and had to scroll, which put the
+Metadata and General sections below the bottom edge of a laptop screen. It is
+now **Output** and **Conversion**, each short enough to need no scrolling at
+all, and the window sizes itself to whichever tab you are on.
+
+It also sizes itself to the language it is in. A row whose label and options no
+longer fit side by side stacks them instead of quietly cutting the text off.
+
+### Smaller things
+
+The crop fields hold five digits. They had always claimed to and never did —
+anything from `12345` up was silently truncated to an ellipsis while you typed
+it.
+
+The window's minimum width is now measured from the panel it has to hold
+rather than fixed at a number that happened to suit English.
+]]></description>
+            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### أصبح Shrinker Pro يتحدث 36 لغة
+
+الإسبانية، الألمانية، الأوكرانية، الأيسلندية، الإيطالية، البرتغالية (البرازيل
+والبرتغال)، البولندية، التايلاندية، التركية، التشيكية، الدنماركية، الروسية،
+الرومانية، السلوفاكية، السلوفينية، السويدية، الصينية (المبسطة والتقليدية
+وصينية هونغ كونغ)، العبرية، العربية، الفارسية، الفرنسية، الفنلندية،
+الفيتنامية، الكتالونية، الكرواتية، الكورية، المجرية، النرويجية (بوكمول
+ونينورسك)، الهولندية، اليابانية واليونانية.
+
+ليس هناك ما تختاره. يتبع التطبيق اللغة المضبوطة في macOS أصلًا، وهذه اللغات
+الـ36 هي نفسها التي يصدر بها مربع حوار التحديث، فلن تجد أبدًا نافذة بلغة
+وإشعار تحديث بلغة أخرى.
+
+وحيثما كان لدى النظام كلمة جاهزة لشيء ما، يستعمل التطبيق تلك الكلمة بدلًا من
+ترجمة جديدة لها — **إظهار في فايندر**، **الاحتفاظ بالاثنين معًا**،
+**استبدال**، **الجودة** وسواها مأخوذة كلها من موارد macOS نفسها. وفي العربية
+تُرتَّب النافذة كلها من اليمين إلى اليسار، وكذلك في العبرية والفارسية.
+
+أما أمر `shrinker` الذي يعمل بلا واجهة فيبقى بالإنجليزية عن قصد: مُخرجاته شيء
+تقرؤه البرامج النصية، والرسالة التي يتغير نصها بتغير إعداد المنطقة في الماك
+رسالة لا يستطيع أي برنامج نصي مطابقتها.
+
+### الإعدادات في تبويبين
+
+كانت النافذة تزيد على ألف نقطة طولًا وتضطر إلى التمرير، فوقع قسما
+البيانات الوصفية وعام تحت الحافة السفلية لشاشة حاسوب محمول. وهي الآن تبويب
+**المُخرجات** وتبويب **التحويل**، كلٌّ منهما قصير بما يكفي ليستغني عن التمرير
+تمامًا، والنافذة تضبط حجمها على التبويب الذي أنت فيه.
+
+وهي تضبط حجمها كذلك على اللغة التي تعمل بها. فالصف الذي لم يعد عنوانه وخياراته
+يتسعان جنبًا إلى جنب يرتّبهما فوق بعضهما بدلًا من أن يقتطع النص في صمت.
+
+### أمور أصغر
+
+حقول الاقتصاص تتسع لخمسة أرقام. كانت تدّعي ذلك دائمًا ولا تفعله — فكل رقم من
+`12345` فصاعدًا كان يُبتر في صمت إلى علامة حذف وأنت تكتبه.
+
+وصار أدنى عرض للنافذة يُقاس من اللوحة التي عليها أن تحتويها، بدلًا من أن يكون
+رقمًا ثابتًا صادف أن ناسب الإنجليزية.]]></description>
+            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Pro ara parla 36 idiomes
+
+Alemany, àrab, català, coreà, croat, danès, eslovac, eslovè, espanyol, finès,
+francès, grec, hebreu, hongarès, islandès, italià, japonès, neerlandès, noruec
+(bokmål i nynorsk), persa, polonès, portuguès (del Brasil i de Portugal),
+romanès, rus, suec, tailandès, turc, txec, ucraïnès, vietnamita i xinès
+(simplificat, tradicional i de Hong Kong).
+
+No has de triar res. L’app segueix l’idioma que ja té configurat el macOS, i
+aquests són els mateixos 36 en què ve el mateix diàleg d’actualització, així que
+mai no tindràs una finestra en un idioma i un avís d’actualització en un altre.
+
+Quan el sistema ja té una paraula per a alguna cosa, l’app fa servir aquesta
+paraula en comptes de traduir-la de nou — **Mostra al Finder**,
+**Conserva ambdós**, **Substitueix**, **Qualitat** i la resta s’han tret dels
+recursos del mateix macOS. L’àrab, l’hebreu i el persa disposen tota la finestra de dreta a
+esquerra.
+
+L’ordre `shrinker`, sense interfície, es queda en anglès expressament: la seva
+sortida la llegeixen scripts, i un missatge que canvia de paraules segons la
+configuració regional del Mac és un missatge que cap script no pot reconèixer.
+
+### La configuració, en dues pestanyes
+
+La finestra feia més de mil punts d’alçada i s’havia de desplaçar, cosa que
+deixava les seccions Metadades i General per sota de la vora inferior de la
+pantalla d’un portàtil. Ara són **Sortida** i **Conversió**, cadascuna prou
+curta perquè no calgui desplaçar res, i la finestra s’ajusta a la pestanya en
+què ets.
+
+També s’ajusta a l’idioma en què està. Una fila on l’etiqueta i les opcions ja
+no caben de costat les apila en comptes de retallar el text sense dir res.
+
+### Coses més petites
+
+Els camps d’escapçament admeten cinc xifres. Sempre havien dit que sí i mai no
+ho havien fet: a partir de `12345`, el número quedava retallat en uns punts
+suspensius mentre l’escrivies, sense cap avís.
+
+L’amplada mínima de la finestra ara es mesura a partir del panell que ha de
+contenir, en comptes de quedar fixada en un número que només anava bé a
+l’anglès.]]></description>
+            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Pro teď mluví 36 jazyky
+
+Arabština, čeština, čínština (zjednodušená, tradiční a hongkongská),
+dánština, finština, francouzština, hebrejština, chorvatština, islandština,
+italština, japonština, katalánština, korejština, maďarština, němčina,
+nizozemština, norština (bokmål a nynorsk), perština, polština, portugalština
+(Brazílie a Portugalsko), rumunština, ruština, řečtina, slovenština,
+slovinština, španělština, švédština, thajština, turečtina, ukrajinština
+a vietnamština.
+
+Není co vybírat. Aplikace se řídí jazykem, na který už je macOS nastavený,
+a je to stejných 36 jazyků, v nichž se dodává i samotný dialog
+aktualizace — nikdy tak nedostanete okno v jednom jazyce a oznámení
+o aktualizaci v jiném.
+
+Tam, kde už systém pro něco slovo má, používá aplikace jeho slovo, a ne nový
+překlad — **Zobrazit ve Finderu**, **Ponechat obojí**, **Nahradit**,
+**Kvalita** i zbytek byly jeden po druhém vyčteny z vlastních zdrojů
+macOS. Arabština, hebrejština a perština rozvrhnou celé okno zprava doleva.
+
+Příkaz `shrinker` bez grafického rozhraní zůstává záměrně v angličtině: jeho
+výstup čtou skripty a zpráva, která mění formulaci podle nastavení oblasti
+Macu, je zpráva, na kterou se žádný skript nedá navázat.
+
+### Nastavení ve dvou panelech
+
+Okno bylo přes tisíc bodů vysoké a muselo se posouvat, takže sekce Metadata
+a Obecné končily pod dolním okrajem obrazovky notebooku. Teď jsou to
+**Výstup** a **Převod**, každý tak krátký, že se posouvat nemusí vůbec,
+a okno se velikostí přizpůsobí tomu panelu, na kterém právě jste.
+
+Přizpůsobí se i jazyku, ve kterém běží. Řádek, jehož popisek a volby se už
+vedle sebe nevejdou, je naskládá pod sebe, místo aby text potichu ořízl.
+
+### Drobnosti
+
+Pole ořezu pojmou pět číslic. Vždycky to o sobě tvrdila a nikdy to
+neplatilo — všechno od `12345` výš se během psaní potichu zkrátilo na
+trojtečku.
+
+Minimální šířka okna se teď měří podle panelu, který musí pojmout, místo aby
+byla pevně dána číslem, které náhodou vyhovovalo angličtině.]]></description>
+            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Pro taler nu 36 sprog
+
+Arabisk, dansk, finsk, fransk, græsk, hebraisk, islandsk, italiensk, japansk,
+katalansk, kinesisk (forenklet, traditionelt og Hongkong), koreansk, kroatisk,
+nederlandsk, norsk (bokmål og nynorsk), persisk, polsk, portugisisk (Brasilien
+og Portugal), rumænsk, russisk, slovakisk, slovensk, spansk, svensk, thai,
+tjekkisk, tyrkisk, tysk, ukrainsk, ungarsk og vietnamesisk.
+
+Der er ikke noget at vælge. Appen følger det sprog, macOS allerede er sat til,
+og det er de samme 36, som opdateringsvinduet selv leveres på, så du får aldrig
+et vindue på ét sprog og en opdateringsbesked på et andet.
+
+Hvor systemet allerede har et ord for noget, bruger appen det ord frem for en ny
+oversættelse af det — **Vis i Finder**, **Bevar begge**, **Erstat**,
+**Kvalitet** og resten er hver især læst ud af macOS' egne ressourcer. Arabisk,
+hebraisk og persisk sætter hele vinduet op fra højre mod venstre.
+
+Kommandoen `shrinker` bliver på engelsk, med vilje: det, den skriver ud, er
+noget, scripts læser, og en besked, der skifter ordlyd med Mac'ens
+regionsindstilling, er en besked, intet script kan matche på.
+
+### Indstillinger i to faner
+
+Vinduet var over tusind punkter højt og måtte rulles, hvilket lagde afsnittene
+Metadata og Generelt neden for underkanten af en bærbar skærm. Nu er det
+**Output** og **Konvertering**, hver kort nok til slet ikke at skulle rulles, og
+vinduet tilpasser sin størrelse til den fane, du er på.
+
+Det tilpasser sig også det sprog, det er på. En række, hvis etiket og muligheder
+ikke længere kan være ved siden af hinanden, stabler dem i stedet for stille og
+roligt at skære teksten af.
+
+### Mindre ting
+
+Beskæringsfelterne rummer fem cifre. Det havde de altid hævdet og aldrig gjort —
+alt fra `12345` og opefter blev stiltiende forkortet til tre prikker, mens du
+skrev det ind.
+
+Vinduets mindste bredde måles nu ud fra det panel, det skal kunne rumme, i
+stedet for at være låst til et tal, der tilfældigvis passede til engelsk.]]></description>
+            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Pro spricht jetzt 36 Sprachen
+
+Arabisch, Chinesisch (vereinfacht, traditionell und Hongkong), Dänisch,
+Deutsch, Finnisch, Französisch, Griechisch, Hebräisch, Isländisch,
+Italienisch, Japanisch, Katalanisch, Koreanisch, Kroatisch, Niederländisch,
+Norwegisch (Bokmål und Nynorsk), Persisch, Polnisch, Portugiesisch (Brasilien
+und Portugal), Rumänisch, Russisch, Schwedisch, Slowakisch, Slowenisch,
+Spanisch, Thailändisch, Tschechisch, Türkisch, Ukrainisch, Ungarisch und
+Vietnamesisch.
+
+Es gibt nichts auszuwählen. Die App folgt der Sprache, auf die macOS ohnehin
+eingestellt ist, und es sind dieselben 36, in denen auch das Update-Fenster
+selbst ausgeliefert wird — du bekommst also nie ein Fenster in der einen und
+einen Update-Hinweis in einer anderen Sprache.
+
+Wo das System schon ein Wort für etwas hat, nimmt die App dieses Wort statt
+einer eigenen Übersetzung davon — **Im Finder zeigen**, **Beide behalten**,
+**Ersetzen**, **Qualität** und die übrigen wurden jeweils aus den Ressourcen
+von macOS selbst ausgelesen. Arabisch, Hebräisch und Persisch legen das ganze
+Fenster von rechts nach links an.
+
+Der `shrinker`-Befehl ohne Fenster bleibt bewusst englisch: Seine Ausgabe wird
+von Skripten gelesen, und eine Meldung, deren Wortlaut sich mit der
+Regionseinstellung des Macs ändert, ist eine Meldung, auf die kein Skript
+passen kann.
+
+### Einstellungen in zwei Tabs
+
+Das Fenster war über tausend Punkte hoch und musste scrollen, wodurch die
+Abschnitte Metadaten und Allgemein unter den unteren Rand eines
+Laptop-Bildschirms rutschten. Jetzt sind es **Ausgabe** und **Konvertierung**,
+jeder kurz genug, um gar nicht scrollen zu müssen, und das Fenster stellt seine
+Größe auf den Tab ein, auf dem du gerade bist.
+
+Es stellt sich auch auf die Sprache ein, in der es läuft. Eine Zeile, deren
+Beschriftung und Optionen nicht mehr nebeneinander passen, stapelt sie, statt
+den Text stillschweigend abzuschneiden.
+
+### Kleinere Dinge
+
+Die Zuschnittfelder fassen fünf Ziffern. Sie hatten das immer behauptet und nie
+getan — alles ab `12345` wurde beim Tippen stillschweigend auf ein
+Auslassungszeichen gekürzt.
+
+Die Mindestbreite des Fensters wird jetzt an dem Panel gemessen, das sie
+aufnehmen muss, statt auf eine Zahl festgelegt zu sein, die zufällig zum
+Englischen passte.]]></description>
+            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Το Shrinker Pro μιλά πλέον 36 γλώσσες
+
+Αραβικά, βιετναμέζικα, γαλλικά, γερμανικά, δανέζικα, εβραϊκά, ελληνικά,
+ιαπωνικά, ισλανδικά, ισπανικά, ιταλικά, καταλανικά, κινεζικά (απλοποιημένα,
+παραδοσιακά και Χονγκ Κονγκ), κορεατικά, κροατικά, νορβηγικά (bokmål και
+nynorsk), ολλανδικά, ουγγρικά, ουκρανικά, περσικά, πολωνικά, πορτογαλικά
+(Βραζιλίας και Πορτογαλίας), ρουμανικά, ρωσικά, σλοβακικά, σλοβενικά,
+σουηδικά, ταϊλανδέζικα, τουρκικά, τσεχικά και φινλανδικά.
+
+Δεν χρειάζεται να επιλέξετε τίποτα. Η εφαρμογή ακολουθεί τη γλώσσα στην οποία
+είναι ήδη ρυθμισμένο το macOS, και αυτές είναι οι ίδιες 36 γλώσσες στις οποίες
+κυκλοφορεί και το ίδιο το παράθυρο ενημέρωσης, οπότε δεν θα δείτε ποτέ το
+παράθυρο σε μία γλώσσα και την ειδοποίηση ενημέρωσης σε άλλη.
+
+Όπου το σύστημα έχει ήδη μια λέξη για κάτι, η εφαρμογή χρησιμοποιεί εκείνη τη
+λέξη αντί για μια καινούργια μετάφρασή της — τα **Εμφάνιση στο Finder**,
+**Διατήρηση αμφότερων**, **Αντικατάσταση**, **Ποιότητα** και τα υπόλοιπα
+διαβάστηκαν το καθένα από τους ίδιους τους πόρους του macOS. Στα αραβικά, στα
+εβραϊκά και στα περσικά ολόκληρο το παράθυρο διατάσσεται από τα δεξιά προς τα
+αριστερά.
+
+Η εντολή `shrinker`, που εκτελείται χωρίς παράθυρο, παραμένει σκόπιμα στα
+αγγλικά: την έξοδό της τη διαβάζουν σενάρια, και ένα μήνυμα που αλλάζει
+διατύπωση ανάλογα με τη ρύθμιση περιοχής του Mac είναι ένα μήνυμα με το οποίο
+δεν μπορεί να ταιριάξει κανένα σενάριο.
+
+### Ρυθμίσεις σε δύο καρτέλες
+
+Το παράθυρο ξεπερνούσε τα χίλια σημεία σε ύψος και χρειαζόταν κύλιση, πράγμα
+που έριχνε τις ενότητες Μεταδεδομένα και Γενικά κάτω από το κάτω άκρο μιας
+οθόνης φορητού. Τώρα υπάρχουν οι καρτέλες **Έξοδος** και **Μετατροπή**,
+καθεμιά αρκετά σύντομη ώστε να μη χρειάζεται καθόλου κύλιση, και το παράθυρο
+προσαρμόζει το μέγεθός του στην καρτέλα στην οποία βρίσκεστε.
+
+Προσαρμόζει επίσης το μέγεθός του στη γλώσσα στην οποία εμφανίζεται. Μια σειρά
+της οποίας η ετικέτα και οι επιλογές δεν χωρούν πια δίπλα δίπλα τις στοιβάζει
+τη μία πάνω στην άλλη, αντί να κόβει σιωπηλά το κείμενο.
+
+### Μικρότερες αλλαγές
+
+Τα πεδία περικοπής χωρούν πέντε ψηφία. Πάντα το ισχυρίζονταν και ποτέ δεν το
+έκαναν — οτιδήποτε από το `12345` και πάνω συντομευόταν σιωπηλά σε
+αποσιωπητικά ενώ το πληκτρολογούσατε.
+
+Το ελάχιστο πλάτος του παραθύρου υπολογίζεται πλέον από τον πίνακα που πρέπει
+να χωρέσει, αντί να είναι καθηλωμένο σε έναν αριθμό που έτυχε να ταιριάζει στα
+αγγλικά.]]></description>
+            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Pro ya habla 36 idiomas
+
+Alemán, árabe, catalán, checo, chino (simplificado, tradicional y Hong Kong),
+coreano, croata, danés, eslovaco, esloveno, español, finés, francés, griego,
+hebreo, húngaro, islandés, italiano, japonés, neerlandés, noruego (bokmål y
+nynorsk), persa, polaco, portugués (Brasil y Portugal), rumano, ruso, sueco,
+tailandés, turco, ucraniano y vietnamita.
+
+No hay nada que elegir. La app sigue el idioma en el que ya está macOS, y son
+los mismos 36 en los que se distribuye la propia ventana de actualización, así
+que nunca tendrás una ventana en un idioma y un aviso de actualización en otro.
+
+Donde el sistema ya tiene una palabra para algo, la app usa esa palabra en
+lugar de traducirla de nuevo: **Mostrar en el Finder**, **Guardar ambos**,
+**Reemplazar**, **Calidad** y las demás se han leído una a una de los propios
+recursos de macOS. El árabe, el hebreo y el persa disponen toda la ventana de
+derecha a izquierda.
+
+El comando `shrinker`, sin ventana, se queda en inglés a propósito: su salida
+la leen los scripts, y un mensaje cuya redacción cambia con el ajuste de región
+del Mac es un mensaje con el que ningún script puede cuadrar.
+
+### Los ajustes en dos pestañas
+
+La ventana medía más de mil puntos de alto y tenía que desplazarse, lo que
+dejaba las secciones Metadatos y General por debajo del borde inferior de la
+pantalla de un portátil. Ahora son **Salida** y **Conversión**, cada una lo
+bastante corta como para no necesitar ningún desplazamiento, y la ventana se
+ajusta a la pestaña en la que estés.
+
+También se ajusta al idioma en el que está. Una fila cuya etiqueta y opciones
+ya no caben una al lado de otra las apila, en vez de recortar el texto sin
+decir nada.
+
+### Cosas más pequeñas
+
+Los campos de recorte admiten cinco cifras. Siempre lo habían dado a entender y
+nunca lo habían hecho: a partir de `12345`, todo se truncaba en silencio con
+puntos suspensivos mientras escribías.
+
+La anchura mínima de la ventana ahora se mide a partir del panel que tiene que
+contener, en lugar de estar fijada en un número que por casualidad le venía
+bien al inglés.]]></description>
+            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### اکنون Shrinker Pro به 36 زبان سخن می‌گوید
+
+آلمانی، اسپانیایی، اسلواکی، اسلوونیایی، اوکراینی، ایتالیایی، ایسلندی،
+پرتغالی (برزیل و پرتغال)، تایلندی، ترکی، چکی، چینی (ساده‌شده، سنتی و
+هنگ‌کنگ)، دانمارکی، رومانیایی، روسی، ژاپنی، سوئدی، عبری، عربی، فارسی،
+فرانسوی، فنلاندی، کاتالان، کرواتی، کره‌ای، لهستانی، مجاری، نروژی (بوکمُل و
+نینوشک)، ویتنامی، هلندی و یونانی.
+
+چیزی برای انتخاب وجود ندارد. برنامه از همان زبانی پیروی می‌کند که macOS روی
+آن تنظیم شده است، و این همان 36 زبانی است که خودِ کادر به‌روزرسانی هم با
+آن‌ها عرضه می‌شود؛ بنابراین هرگز پنجره‌ای به یک زبان و اعلان به‌روزرسانی به
+زبانی دیگر نخواهید دید.
+
+هر جا سیستم از پیش واژه‌ای برای چیزی داشته باشد، برنامه همان واژه را به کار
+می‌برد نه ترجمه‌ای تازه از آن — **نمایش در Finder**، **نگه‌داشتن هر دو**،
+**جایگزینی**، **کیفیت** و بقیه هر کدام از منابع خودِ macOS بیرون کشیده
+شده‌اند. در فارسی — و همچنین در عربی و عبری — کل پنجره از راست به چپ چیده
+می‌شود.
+
+فرمان بی‌رابط `shrinker` عمداً انگلیسی می‌ماند: خروجی آن چیزی است که
+اسکریپت‌ها می‌خوانند، و پیامی که واژه‌هایش با تنظیم منطقهٔ مک عوض شود پیامی
+است که هیچ اسکریپتی نمی‌تواند با آن مطابقت دهد.
+
+### تنظیمات در دو زبانه
+
+پنجره بیش از هزار نقطه ارتفاع داشت و ناچار بود پیمایش شود، و همین بخش‌های
+فراداده و عمومی را به زیر لبهٔ پایینی صفحهٔ یک لپ‌تاپ می‌برد. اکنون دو
+زبانه است، **خروجی** و **تبدیل**، که هر یک آن‌قدر کوتاه است که هیچ پیمایشی
+لازم ندارد، و پنجره اندازهٔ خود را با زبانه‌ای که در آن هستید تطبیق می‌دهد.
+
+همچنین اندازهٔ خود را با زبانی که در آن اجرا می‌شود تطبیق می‌دهد. ردیفی که برچسب و
+گزینه‌هایش دیگر کنار هم جا نمی‌شوند، آن‌ها را روی هم می‌چیند به جای آنکه متن
+را بی‌سروصدا ببُرد.
+
+### چیزهای کوچک‌تر
+
+فیلدهای برش پنج رقم را در خود جای می‌دهند. همیشه چنین ادعایی داشتند و هرگز
+چنین نمی‌کردند — هر مقداری از `12345` به بالا هنگام تایپ بی‌سروصدا به یک
+نقطه‌چین کوتاه می‌شد.
+
+حداقل عرض پنجره اکنون از روی پنلی اندازه گرفته می‌شود که باید در خود جای دهد،
+نه ثابت روی عددی که تصادفاً به انگلیسی می‌خورد.]]></description>
+            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Pro puhuu nyt 36 kieltä
+
+Arabia, espanja, heprea, hollanti, islanti, italia, japani, katalaani, kiina
+(yksinkertaistettu, perinteinen ja hongkongilainen), korea, kreikka, kroatia,
+norja (bokmål ja nynorsk), persia, portugali (Brasilian ja Portugalin), puola,
+ranska, romania, ruotsi, saksa, slovakki, sloveeni, suomi, tanska, thai,
+tšekki, turkki, ukraina, unkari, venäjä ja vietnam.
+
+Mitään ei tarvitse valita. Appi seuraa sitä kieltä, joka macOS:ssa on jo
+valittuna, ja nämä ovat samat 36 kieltä, joilla myös päivitysikkuna itse
+toimitetaan, joten et saa koskaan ikkunaa yhdellä kielellä ja
+päivitysilmoitusta toisella.
+
+Kun järjestelmällä on jollekin jo oma sanansa, appi käyttää sitä sanaa eikä
+uutta käännöstä siitä — **Näytä Finderissa**, **Pidä molemmat**, **Korvaa**,
+**Laatu** ja muut luettiin kukin macOS:n omista resursseista. Arabia, heprea ja
+persia asettelevat koko ikkunan oikealta vasemmalle.
+
+Komentorivin `shrinker`-komento pysyy tarkoituksella englanniksi: sen tulostetta
+lukevat skriptit, ja viesti, jonka sanamuoto vaihtuu Macin alueasetuksen
+mukana, on viesti, johon mikään skripti ei voi täsmätä.
+
+### Asetukset kahdella välilehdellä
+
+Ikkuna oli yli tuhat pistettä korkea ja sitä piti vierittää, mikä jätti
+Metatiedot- ja Yleiset-osiot kannettavan näytön alareunan alapuolelle. Nyt
+tilalla ovat **Tuloste**- ja **Muunnos**-välilehdet, ja kumpikin on niin lyhyt,
+ettei vieritystä tarvita lainkaan, ja ikkuna mitoittaa itsensä sen välilehden
+mukaan, jolla olet.
+
+Se mitoittaa itsensä myös kieleen, jolla se on. Rivi, jonka teksti ja
+vaihtoehdot eivät enää mahdu vierekkäin, latoo ne päällekkäin sen sijaan, että
+katkaisisi tekstin huomaamatta.
+
+### Pienempiä asioita
+
+Rajauskenttiin mahtuu viisi numeroa. Ne olivat aina väittäneet niin mutta eivät
+koskaan tehneet niin — kaikki luvusta `12345` ylöspäin lyhennettiin
+huomaamatta kolmeksi pisteeksi jo kirjoittaessa.
+
+Ikkunan vähimmäisleveys mitataan nyt siitä paneelista, joka sen on
+mahdutettava, eikä se ole enää kiinnitetty lukuun, joka sattui sopimaan
+englannin kielelle.]]></description>
+            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Pro parle désormais 36 langues
+
+Allemand, arabe, catalan, chinois (simplifié, traditionnel et Hong Kong),
+coréen, croate, danois, espagnol, finnois, français, grec, hébreu, hongrois,
+islandais, italien, japonais, néerlandais, norvégien (bokmål et nynorsk),
+persan, polonais, portugais (Brésil et Portugal), roumain, russe, slovaque,
+slovène, suédois, tchèque, thaï, turc, ukrainien et vietnamien.
+
+Il n’y a rien à choisir. L’app suit la langue à laquelle macOS est déjà réglé,
+et ce sont les 36 mêmes que celles dans lesquelles la fenêtre de mise à jour
+est elle-même livrée : vous n’aurez donc jamais une fenêtre dans une langue et
+un avis de mise à jour dans une autre.
+
+Là où le système a déjà un mot pour quelque chose, l’app reprend ce mot plutôt
+qu’une traduction nouvelle : **Afficher dans le Finder**, **Conserver les
+deux**, **Remplacer**, **Qualité** et les autres ont chacun été lus dans les
+ressources de macOS. L’arabe, l’hébreu et le persan disposent toute la fenêtre
+de droite à gauche.
+
+La commande `shrinker`, sans fenêtre, reste en anglais, délibérément : sa
+sortie est lue par des scripts, et un message dont la formulation change avec
+le réglage de région du Mac est un message qu’aucun script ne peut reconnaître.
+
+### Les réglages en deux onglets
+
+La fenêtre dépassait mille points de haut et devait défiler, ce qui plaçait les
+sections Métadonnées et Général sous le bord inférieur d’un écran de portable.
+Elle tient maintenant en **Sortie** et **Conversion**, chacun assez court pour
+n’avoir besoin d’aucun défilement, et la fenêtre s’ajuste à l’onglet sur lequel
+vous êtes.
+
+Elle s’ajuste aussi à la langue dans laquelle elle s’affiche. Une rangée dont
+le libellé et les options ne tiennent plus côte à côte les empile, au lieu de
+couper le texte sans le dire.
+
+### Petites choses
+
+Les champs de recadrage acceptent cinq chiffres. Ils l’avaient toujours
+prétendu sans jamais le faire — à partir de `12345`, tout était silencieusement
+tronqué en points de suspension pendant que vous tapiez.
+
+La largeur minimale de la fenêtre est désormais mesurée à partir du panneau
+qu’elle doit contenir, au lieu d’être fixée à un nombre qui convenait par
+hasard à l’anglais.]]></description>
+            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### עכשיו Shrinker Pro דובר 36 שפות
+
+אוקראינית, איטלקית, איסלנדית, גרמנית, דנית, הולנדית, הונגרית, ויאטנמית,
+טורקית, יוונית, יפנית, נורווגית (בוקמול ונינורשק), סינית (מפושטת, מסורתית
+והונג קונג), סלובנית, סלובקית, ספרדית, עברית, ערבית, פולנית, פורטוגזית
+(ברזיל ופורטוגל), פינית, פרסית, צ'כית, צרפתית, קוריאנית, קטלאנית, קרואטית,
+רומנית, רוסית, שוודית ותאית.
+
+אין מה לבחור. היישום הולך אחרי השפה שבה macOS כבר מוגדר, ואלה אותן 36 שפות
+שבהן מגיע חלון העדכון עצמו, כך שלעולם לא יתקבל חלון בשפה אחת והודעת עדכון
+בשפה אחרת.
+
+במקום שבו למערכת כבר יש מילה לדבר מה, היישום משתמש במילה הזו ולא בתרגום חדש
+שלה — **הצגה ב-Finder**, **שמירת שניהם**, **החלפה**, **איכות** והשאר נקראו כל
+אחד מתוך המשאבים של macOS עצמה. בעברית — וכן בערבית ובפרסית — כל החלון נפרס
+מימין לשמאל.
+
+הפקודה `shrinker` חסרת הממשק נשארת באנגלית, במכוון: הפלט שלה הוא דבר
+שסקריפטים קוראים, והודעה שמשנה את ניסוחה לפי הגדרת האזור של המק היא הודעה
+ששום סקריפט לא יוכל להתאים אליה.
+
+### הגדרות בשתי לשוניות
+
+החלון היה גבוה מאלף נקודות והיה חייב לגלול, מה שהוריד את המקטעים מטא-נתונים
+וכללי אל מתחת לשולי המסך של מחשב נייד. עכשיו יש לשונית **פלט** ולשונית
+**המרה**, כל אחת קצרה מספיק כדי שלא תידרש גלילה כלל, והחלון קובע לעצמו גודל
+לפי הלשונית שפתוחה.
+
+הוא גם קובע לעצמו גודל לפי השפה שבה הוא פועל. שורה שהתווית והאפשרויות שלה כבר
+אינן נכנסות זו לצד זו עורמת אותן זו מעל זו, במקום לקטוע את הטקסט בשקט.
+
+### דברים קטנים יותר
+
+שדות החיתוך מכילים חמש ספרות. תמיד הם טענו זאת ומעולם לא עשו זאת — כל ערך
+מ-`12345` ומעלה נקטע בשקט לשלוש נקודות תוך כדי ההקלדה.
+
+הרוחב המזערי של החלון נמדד עכשיו מתוך הלוח שעליו להכיל, ולא מקובע במספר
+שבמקרה התאים לאנגלית.]]></description>
+            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Pro sada govori 36 jezika
+
+Arapski, češki, danski, finski, francuski, grčki, hebrejski, hrvatski,
+islandski, japanski, katalonski, kineski (pojednostavljeni, tradicionalni i
+hongkonški), korejski, mađarski, nizozemski, norveški (bokmål i nynorsk),
+njemački, perzijski, poljski, portugalski (brazilski i europski), rumunjski,
+ruski, slovački, slovenski, španjolski, švedski, tajlandski, talijanski,
+turski, ukrajinski i vijetnamski.
+
+Nema se što birati. Aplikacija slijedi jezik na koji je macOS već postavljen,
+a to je istih 36 jezika u kojima dolazi i sam prozor ažuriranja, pa nikada
+nećete dobiti prozor na jednom jeziku i obavijest o ažuriranju na drugom.
+
+Ondje gdje sustav za nešto već ima svoju riječ, aplikacija uzima baš nju, a ne
+novi prijevod — **Prikaži u Finderu**, **Zadrži obje**, **Zamijeni**,
+**Kvaliteta** i ostalo pročitani su redom iz vlastitih resursa macOS-a.
+Arapski, hebrejski i perzijski cijeli prozor slažu zdesna nalijevo.
+
+Naredba `shrinker` bez sučelja namjerno ostaje na engleskom: njezin ispis
+čitaju skripte, a poruka koja mijenja formulaciju s postavkom regije na Macu
+poruka je na koju se nijedna skripta ne može osloniti.
+
+### Postavke u dvije kartice
+
+Prozor je bio viši od tisuću točaka i moralo se listati, pa su odjeljci
+Metapodaci i Općenito završavali ispod donjeg ruba ekrana prijenosnog
+računala. Sada su to **Izlaz** i **Konverzija**, svaka dovoljno kratka da
+listanja uopće nema, a prozor si veličinu prilagođava kartici na kojoj ste.
+
+Prilagođava se i jeziku na kojem radi. Redak čija oznaka i opcije više ne
+stanu jedno uz drugo slaže ih jedno ispod drugoga umjesto da tekst tiho
+odreže.
+
+### Sitnice
+
+Polja rezanja primaju pet znamenki. Oduvijek su to tvrdila i nikada nije bilo
+tako — sve od `12345` naviše tiho se pri upisu skraćivalo na trotočje.
+
+Najmanja širina prozora sada se mjeri prema ploči koju mora primiti, umjesto
+da bude fiksirana na broju koji je slučajno odgovarao engleskom.]]></description>
+            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### A Shrinker Pro már 36 nyelven beszél
+
+Arab, cseh, dán, finn, francia, görög, héber, holland, horvát, izlandi, japán,
+katalán, kínai (egyszerűsített, hagyományos és hongkongi), koreai, lengyel,
+magyar, német, norvég (bokmål és nynorsk), olasz, orosz, perzsa, portugál
+(brazíliai és portugáliai), román, spanyol, svéd, szlovák, szlovén, thai,
+török, ukrán és vietnami.
+
+Nincs mit kiválasztani. Az app azt a nyelvet követi, amelyre a macOS már be van
+állítva, és ez ugyanaz a 36 nyelv, amelyet maga a frissítési ablak is tartalmaz,
+így soha nem fordulhat elő, hogy az ablak az egyik nyelven, a frissítési
+értesítés pedig egy másikon jelenjen meg.
+
+Ahol a rendszernek már van szava valamire, ott az app azt a szót használja, nem
+pedig annak egy újabb fordítását — a **Megjelenítés a Finderben**, a
+**Mindkettő megtartása**, a **Csere**, a **Minőség** és a többi mind a macOS
+saját erőforrásaiból származik. Az arab, a héber és a perzsa nyelvnél a teljes
+ablak jobbról balra rendeződik.
+
+A parancssori `shrinker` eszköz szándékosan angol marad: a kimenetét szkriptek
+olvassák, és egy olyan üzenet, amelynek a szövege a Mac területi beállításától
+függően változik, olyan üzenet, amelyre egyetlen szkript sem tud illeszkedni.
+
+### Beállítások két lapon
+
+Az ablak több mint ezer pont magas volt, és görgetni kellett, ami a Metaadatok
+és az Általános szakaszt egy laptopképernyő alsó széle alá tolta. Most a
+**Kimenet** és az **Átalakítás** lap van a helyükön; mindkettő elég rövid ahhoz,
+hogy egyáltalán ne kelljen görgetni, és az ablak ahhoz a laphoz igazítja a
+méretét, amelyiken éppen áll.
+
+A méretét ahhoz a nyelvhez is igazítja, amelyen megjelenik. Az a sor, amelynek a
+felirata és a beállításai már nem férnek el egymás mellett, egymás alá rendezi
+őket, ahelyett hogy a szöveget észrevétlenül levágná.
+
+### Apróságok
+
+A vágómezőkbe öt számjegy fér. Mindig is ezt állították magukról, de sosem így
+volt — ami elérte a `12345` számot, azt gépelés közben csendben három pontra
+rövidítette.
+
+Az ablak legkisebb szélességét most az a panel adja meg, amelyet be kell
+fogadnia, nem pedig egy rögzített szám, amely véletlenül éppen az angolhoz
+illett.]]></description>
+            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Pro talar nú 36 tungumál
+
+Arabíska, danska, finnska, franska, gríska, hebreska, hollenska, íslenska,
+ítalska, japanska, katalónska, kínverska (einfölduð, hefðbundin og Hong Kong),
+kóreska, króatíska, norska (bókmál og nýnorska), persneska, portúgalska
+(Brasilía og Portúgal), pólska, rúmenska, rússneska, slóvakíska, slóvenska,
+spænska, sænska, taílenska, tékkneska, tyrkneska, ungverska, úkraínska,
+víetnamska og þýska.
+
+Það er ekkert að velja. Forritið fylgir því tungumáli sem macOS er þegar stillt
+á, og þetta eru sömu 36 og uppfærsluglugginn sjálfur kemur á, svo að þú færð
+aldrei glugga á einu tungumáli og uppfærslutilkynningu á öðru.
+
+Þar sem kerfið á þegar orð yfir eitthvað notar forritið það orð frekar en nýja
+þýðingu á því — **Sýna í Finder**, **Halda báðum**, **Skipta út**, **Gæði** og
+hin voru hvert um sig lesin upp úr gögnum macOS sjálfs. Arabíska, hebreska og
+persneska stilla öllum glugganum upp frá hægri til vinstri.
+
+Skipunin `shrinker` verður áfram á ensku, af ásettu ráði: það sem hún skrifar út
+er eitthvað sem skriftur lesa, og skilaboð sem skipta um orðalag eftir
+svæðisstillingu vélarinnar eru skilaboð sem engin skrifta getur passað við.
+
+### Stillingar á tveimur flipum
+
+Glugginn var yfir þúsund punkta hár og þurfti að skruna, sem setti hlutana
+Lýsigögn og Almennt niður fyrir neðri brún fartölvuskjás. Nú eru þeir **Úttak**
+og **Umbreyting**, hvor um sig svo stuttur að alls ekki þarf að skruna, og
+glugginn stillir stærð sína eftir þeim flipa sem þú ert á.
+
+Hann stillir sig líka eftir tungumálinu sem hann er á. Röð þar sem heitið og
+valkostirnir komast ekki lengur fyrir hlið við hlið staflar þeim í staðinn fyrir
+að klippa textann hljóðlega af.
+
+### Smærri atriði
+
+Tilskurðarreitirnir taka fimm tölustafi. Þeir höfðu alltaf sagst gera það og
+gerðu það aldrei — allt frá `12345` og upp úr var hljóðlega stytt í þrípunkt á
+meðan þú slóst það inn.
+
+Minnsta breidd gluggans er nú mæld út frá spjaldinu sem hann þarf að rúma í stað
+þess að vera njörvuð við tölu sem hentaði ensku fyrir tilviljun.]]></description>
+            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Pro ora parla 36 lingue
+
+Arabo, catalano, ceco, cinese (semplificato, tradizionale e Hong Kong),
+coreano, croato, danese, ebraico, finlandese, francese, giapponese, greco,
+islandese, italiano, norvegese (bokmål e nynorsk), olandese, persiano,
+polacco, portoghese (Brasile e Portogallo), rumeno, russo, slovacco, sloveno,
+spagnolo, svedese, tailandese, tedesco, turco, ucraino, ungherese e vietnamita.
+
+Non c’è niente da scegliere. L’app segue la lingua su cui macOS è già
+impostato, e sono le stesse 36 in cui viene fornita anche la finestra di
+aggiornamento: non ti capiterà mai di avere una finestra in una lingua e un
+avviso di aggiornamento in un’altra.
+
+Dove il sistema ha già una parola per qualcosa, l’app usa quella parola invece
+di tradurla da capo — **Mostra nel Finder**, **Mantieni entrambi**,
+**Sostituisci**, **Qualità** e le altre sono state lette una per una dalle
+risorse di macOS. Arabo, ebraico e persiano dispongono l’intera finestra da
+destra a sinistra.
+
+Il comando `shrinker`, senza finestra, resta in inglese di proposito: il suo
+output viene letto dagli script, e un messaggio che cambia formulazione a
+seconda dell’impostazione di regione del Mac è un messaggio su cui nessuno
+script può fare affidamento.
+
+### Le impostazioni in due schede
+
+La finestra era alta più di mille punti e doveva scorrere, il che portava le
+sezioni Metadati e Generali sotto il bordo inferiore dello schermo di un
+portatile. Ora sono **Output** e **Conversione**, ciascuna abbastanza corta da
+non richiedere alcuno scorrimento, e la finestra si dimensiona in base alla
+scheda su cui ti trovi.
+
+Si dimensiona anche in base alla lingua in cui è. Una riga la cui etichetta e
+le cui opzioni non stanno più affiancate le impila, invece di tagliare il testo
+senza dirlo.
+
+### Cose più piccole
+
+I campi di ritaglio accettano cinque cifre. Lo avevano sempre dichiarato e non
+l’avevano mai fatto: da `12345` in su tutto veniva troncato in silenzio con dei
+puntini mentre lo digitavi.
+
+La larghezza minima della finestra ora si misura dal pannello che deve
+contenere, invece di essere fissata a un numero che per caso andava bene
+all’inglese.]]></description>
+            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Proが36の言語に対応しました
+
+アイスランド語、アラビア語、イタリア語、ウクライナ語、オランダ語、カタルーニャ語、韓国語、ギリシャ語、クロアチア語、スウェーデン語、スペイン語、スロバキア語、スロベニア語、タイ語、チェコ語、中国語(簡体字、繁体字、香港)、デンマーク語、ドイツ語、トルコ語、日本語、ノルウェー語(ブークモールとニーノシュク)、ハンガリー語、フィンランド語、フランス語、ベトナム語、ヘブライ語、ペルシア語、ポーランド語、ポルトガル語(ブラジルとポルトガル)、ルーマニア語、ロシア語。
+
+選ぶものはありません。AppはmacOSにすでに設定されている言語に従います。この36の言語は、アップデートのダイアログ自体が備えているものと同じなので、ウインドウが一つの言語で、アップデートのお知らせが別の言語になることはありません。
+
+システムにすでにその言葉があるところでは、Appは新しく訳した言葉ではなく、システムの言葉を使います。**Finderに表示**、**両方とも残す**、**置き換える**、**品質**などは、いずれもmacOS自身のリソースから読み取ったものです。アラビア語、ヘブライ語、ペルシア語では、ウインドウ全体が右から左へ配置されます。
+
+ヘッドレスの`shrinker`コマンドは、意図的に英語のままにしてあります。その出力はスクリプトが読むものであり、Macの地域設定によって文言が変わるメッセージは、どのスクリプトも一致させられないメッセージだからです。
+
+### 設定が2つのタブに
+
+ウインドウは高さが1,000ポイントを超えていてスクロールが必要で、メタデータと一般のセクションがノートブックの画面の下端より下に押し出されていました。今は**出力**と**変換**になり、どちらもスクロールがまったく要らない短さで、ウインドウは開いているタブに合わせて自分の大きさを決めます。
+
+表示中の言語に合わせても大きさを変えます。ラベルと選択肢が横に並びきらなくなった行は、文字を黙って切り詰めるのではなく、上下に積み重ねて表示します。
+
+### 細かな変更
+
+切り取りのフィールドに5桁の数字が入るようになりました。以前から5桁と謳っておきながら、実際には入りませんでした。`12345`以上の数字は、入力している途中で黙って省略記号に切り詰められていました。
+
+ウインドウの最小幅は、たまたま英語に合っていた数値に固定されるのではなく、収めるパネルから測って決まるようになりました。]]></description>
+            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Pro가 36개 언어를 지원합니다
+
+그리스어, 네덜란드어, 노르웨이어(보크몰, 뉘노르스크), 덴마크어, 독일어, 러시아어, 루마니아어, 베트남어, 스웨덴어, 스페인어, 슬로바키아어, 슬로베니아어, 아랍어, 아이슬란드어, 우크라이나어, 이탈리아어, 일본어, 중국어(간체, 번체, 홍콩), 체코어, 카탈루냐어, 크로아티아어, 태국어, 터키어, 페르시아어, 포르투갈어(브라질, 포르투갈), 폴란드어, 프랑스어, 핀란드어, 한국어, 헝가리어, 히브리어.
+
+고를 것은 없습니다. 앱은 macOS에 이미 설정된 언어를 따르며, 이 36개는 업데이트 대화상자 자체가 갖추고 있는 언어와 같습니다. 그래서 윈도우는 한 언어로 나오고 업데이트 알림은 다른 언어로 나오는 일이 없습니다.
+
+시스템에 이미 그 말이 있는 곳에서는, 앱이 새로 번역한 말 대신 시스템의 말을 그대로 씁니다. **Finder에서 보기**, **둘 다 유지**, **대치**, **품질** 등은 모두 macOS 자체의 리소스에서 읽어 온 것입니다. 아랍어, 히브리어, 페르시아어에서는 윈도우 전체가 오른쪽에서 왼쪽으로 배치됩니다.
+
+헤드리스 `shrinker` 명령은 의도적으로 영어 그대로 둡니다. 그 출력은 스크립트가 읽는 것이고, Mac의 지역 설정에 따라 문구가 달라지는 메시지는 어떤 스크립트도 일치시킬 수 없는 메시지이기 때문입니다.
+
+### 두 개의 탭으로 나뉜 설정
+
+윈도우는 높이가 1,000포인트를 넘어 스크롤해야 했고, 그 탓에 메타데이터와 일반 섹션이 노트북 화면의 아래쪽 가장자리 밖으로 밀려나 있었습니다. 이제는 **출력**과 **변환**이며, 둘 다 스크롤이 전혀 필요 없을 만큼 짧고, 윈도우는 지금 보고 있는 탭에 맞춰 크기를 정합니다.
+
+표시 중인 언어에 맞춰서도 크기를 정합니다. 레이블과 옵션이 더 이상 나란히 들어가지 않는 행은 텍스트를 소리 없이 잘라 내는 대신 위아래로 쌓아 보여 줍니다.
+
+### 그 밖의 작은 변화
+
+자르기 입력란에 다섯 자리 숫자가 들어갑니다. 전부터 그렇다고 해 놓고 실제로는 그렇지 않았습니다. `12345` 이상은 입력하는 도중에 소리 없이 말줄임표로 잘려 나갔습니다.
+
+윈도우의 최소 너비는 이제 영어에 우연히 들어맞던 숫자로 고정되지 않고, 담아야 할 패널에서 측정해 정합니다.]]></description>
+            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Pro snakker nå 36 språk
+
+Arabisk, dansk, finsk, fransk, gresk, hebraisk, islandsk, italiensk, japansk,
+katalansk, kinesisk (forenklet, tradisjonelt og Hongkong), koreansk, kroatisk,
+nederlandsk, norsk (bokmål og nynorsk), persisk, polsk, portugisisk (Brasil og
+Portugal), rumensk, russisk, slovakisk, slovensk, spansk, svensk, thai,
+tsjekkisk, tyrkisk, tysk, ukrainsk, ungarsk og vietnamesisk.
+
+Det er ingenting å velge. Appen følger språket macOS allerede er satt til, og
+dette er de samme 36 som oppdateringsvinduet selv leveres på, så du får aldri et
+vindu på ett språk og en oppdateringsmelding på et annet.
+
+Der systemet allerede har et ord for noe, bruker appen det ordet i stedet for en
+ny oversettelse av det — **Vis i Finder**, **Behold begge**, **Erstatt**,
+**Kvalitet** og resten er hentet ett for ett ut av macOS' egne ressurser.
+Arabisk, hebraisk og persisk setter opp hele vinduet fra høyre mot venstre.
+
+Kommandoen `shrinker` blir stående på engelsk, med vilje: det den skriver ut, er
+noe skript leser, og en melding som skifter ordlyd med regioninnstillingen på
+Macen, er en melding ingen skript kan treffe på.
+
+### Innstillinger i to faner
+
+Vinduet var over tusen punkter høyt og måtte rulles, noe som la seksjonene
+Metadata og Generelt nedenfor underkanten av en bærbar skjerm. Nå er det
+**Utdata** og **Konvertering**, hver kort nok til ikke å trenge rulling i det
+hele tatt, og vinduet tilpasser størrelsen til fanen du er på.
+
+Det tilpasser seg også språket det er på. En rad der etiketten og alternativene
+ikke lenger får plass ved siden av hverandre, stabler dem i stedet for stille og
+rolig å skjære av teksten.
+
+### Mindre ting
+
+Beskjæringsfeltene rommer fem sifre. Det hadde de alltid hevdet og aldri gjort —
+alt fra `12345` og oppover ble stilltiende forkortet til tre prikker mens du
+skrev det inn.
+
+Vinduets minste bredde måles nå ut fra panelet det må romme, i stedet for å være
+låst til et tall som tilfeldigvis passet engelsk.]]></description>
+            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Pro spreekt nu 36 talen
+
+Arabisch, Catalaans, Chinees (vereenvoudigd, traditioneel en Hongkong), Deens,
+Duits, Fins, Frans, Grieks, Hebreeuws, Hongaars, IJslands, Italiaans, Japans,
+Koreaans, Kroatisch, Nederlands, Noors (Bokmål en Nynorsk), Oekraïens, Perzisch,
+Pools, Portugees (Brazilië en Portugal), Roemeens, Russisch, Sloveens,
+Slowaaks, Spaans, Thai, Tsjechisch, Turks, Vietnamees en Zweeds.
+
+Er valt niets te kiezen. De app volgt de taal waarop macOS al staat ingesteld,
+en dit zijn dezelfde 36 talen waarin het updatevenster zelf wordt geleverd, dus
+je krijgt nooit een venster in de ene taal en een updatemelding in de andere.
+
+Waar het systeem al een woord voor iets heeft, gebruikt de app dat woord in
+plaats van een nieuwe vertaling ervan — **Toon in Finder**, **Bewaar beide**,
+**Vervang**, **Kwaliteit** en de rest zijn stuk voor stuk uit de bronnen van
+macOS zelf gehaald. Arabisch, Hebreeuws en Perzisch zetten het hele venster van
+rechts naar links.
+
+De headless opdracht `shrinker` blijft bewust Engels: de uitvoer ervan wordt
+door scripts gelezen, en een bericht dat van formulering verandert met de
+regio-instelling van de Mac is een bericht waar geen enkel script op kan
+matchen.
+
+### Instellingen in twee tabbladen
+
+Het venster was ruim duizend punten hoog en moest scrollen, waardoor de secties
+Metadata en Algemeen onder de onderrand van een laptopscherm vielen. Het is nu
+**Uitvoer** en **Conversie**, elk kort genoeg om helemaal niet te hoeven
+scrollen, en het venster past zijn grootte aan het tabblad aan waarop je bent.
+
+Het past zich ook aan de taal aan waarin het staat. Een rij waarvan het label en
+de opties niet meer naast elkaar passen, zet ze onder elkaar in plaats van de
+tekst stilletjes af te kappen.
+
+### Kleinere dingen
+
+De uitsnedevelden houden vijf cijfers. Dat hadden ze altijd al beweerd en deden
+ze nooit — alles vanaf `12345` werd tijdens het typen stilletjes tot een
+beletselteken ingekort.
+
+De minimale breedte van het venster wordt nu gemeten aan het paneel dat het moet
+bevatten, in plaats van vast te staan op een getal dat het Engels toevallig goed
+uitkwam.]]></description>
+            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Pro snakkar no 36 språk
+
+Arabisk, dansk, finsk, fransk, gresk, hebraisk, islandsk, italiensk, japansk,
+katalansk, kinesisk (forenkla, tradisjonelt og Hongkong), koreansk, kroatisk,
+nederlandsk, norsk (bokmål og nynorsk), persisk, polsk, portugisisk (Brasil og
+Portugal), rumensk, russisk, slovakisk, slovensk, spansk, svensk, thai,
+tsjekkisk, tyrkisk, tysk, ukrainsk, ungarsk og vietnamesisk.
+
+Det er ingenting å velje. Appen følgjer språket macOS alt er sett til, og dette
+er dei same 36 som oppdateringsvindauget sjølv kjem på, så du får aldri eit
+vindauge på eitt språk og ei oppdateringsmelding på eit anna.
+
+Der systemet alt har eit ord for noko, brukar appen det ordet i staden for ei ny
+omsetjing av det — **Vis i Finder**, **Behald begge**, **Erstatt**,
+**Kvalitet** og resten er henta eitt for eitt ut av dei eigne ressursane til
+macOS. Arabisk, hebraisk og persisk set opp heile vindauget frå høgre mot
+venstre.
+
+Kommandoen `shrinker` blir ståande på engelsk, med vilje: det han skriv ut, er
+noko skript les, og ei melding som skiftar ordlyd med regioninnstillinga på
+Macen, er ei melding ingen skript kan treffe på.
+
+### Innstillingar i to faner
+
+Vindauget var over tusen punkt høgt og måtte rullast, noko som la seksjonane
+Metadata og Generelt nedanfor underkanten av ein berbar skjerm. No er det
+**Utdata** og **Konvertering**, kvar av dei korte nok til ikkje å trenge rulling
+i det heile, og vindauget tilpassar storleiken til den fana du er på.
+
+Det tilpassar seg òg språket det er på. Ei rad der etiketten og alternativa
+ikkje lenger får plass ved sida av kvarandre, stablar dei i staden for stille og
+roleg å skjere av teksten.
+
+### Mindre ting
+
+Beskjeringsfelta rommar fem siffer. Det hadde dei alltid hevda og aldri gjort —
+alt frå `12345` og oppover vart stillteiande forkorta til tre prikkar medan du
+skreiv det inn.
+
+Den minste breidda på vindauget blir no målt ut frå panelet det må romme, i
+staden for å vere låst til eit tal som tilfeldigvis passa engelsk.]]></description>
+            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Pro mówi teraz w 36 językach
+
+Arabski, chiński (uproszczony, tradycyjny i hongkoński), chorwacki, czeski,
+duński, fiński, francuski, grecki, hebrajski, hiszpański, islandzki, japoński,
+kataloński, koreański, niderlandzki, niemiecki, norweski (bokmål
+i nynorsk), perski, polski, portugalski (brazylijski i europejski),
+rosyjski, rumuński, słowacki, słoweński, szwedzki, tajski, turecki, ukraiński,
+węgierski, wietnamski i włoski.
+
+Nie ma tu czego wybierać. Aplikacja idzie za językiem, na który macOS jest już
+ustawiony, a jest to tych samych 36 języków, w których dostarczane jest
+samo okno uaktualnienia — nigdy więc nie zobaczysz okna w jednym języku
+i powiadomienia o uaktualnieniu w innym.
+
+Tam, gdzie system ma już na coś swoje słowo, aplikacja używa właśnie jego,
+a nie świeżego tłumaczenia — **Pokaż w Finderze**, **Pozostaw oba**,
+**Zastąp**, **Jakość** i cała reszta zostały po kolei wyczytane
+z zasobów samego macOS. Arabski, hebrajski i perski układają całe okno od
+prawej do lewej.
+
+Polecenie `shrinker`, działające bez interfejsu, celowo pozostaje po
+angielsku: jego wyniki czytają skrypty, a komunikat zmieniający brzmienie
+wraz z ustawieniem regionu Maca to komunikat, którego żaden skrypt nie
+dopasuje.
+
+### Ustawienia na dwóch kartach
+
+Okno miało ponad tysiąc punktów wysokości i trzeba je było przewijać, przez
+co sekcje Metadane i Ogólne znajdowały się poniżej dolnej krawędzi ekranu
+laptopa. Teraz są to **Pliki wyjściowe** i **Konwersja**, każda na tyle
+krótka, że przewijanie jest zbędne, a okno samo dopasowuje rozmiar do karty,
+na której jesteś.
+
+Dopasowuje się też do języka, w którym działa. Wiersz, którego etykieta
+i opcje nie mieszczą się już obok siebie, układa je jedno pod drugim,
+zamiast po cichu obcinać tekst.
+
+### Drobiazgi
+
+Pola kadrowania mieszczą pięć cyfr. Zawsze to obiecywały i nigdy tak nie
+było — wszystko od `12345` wzwyż było w trakcie pisania po cichu skracane do
+wielokropka.
+
+Minimalna szerokość okna jest teraz mierzona od panelu, który okno musi
+pomieścić, a nie ustalona na liczbie, która akurat pasowała do angielskiego.]]></description>
+            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### O Shrinker Pro agora fala 36 idiomas
+
+Alemão, árabe, catalão, chinês (simplificado, tradicional e de Hong Kong),
+coreano, croata, dinamarquês, eslovaco, esloveno, espanhol, finlandês, francês,
+grego, hebraico, holandês, húngaro, islandês, italiano, japonês, norueguês
+(bokmål e nynorsk), persa, polonês, português (do Brasil e de Portugal), romeno,
+russo, sueco, tailandês, tcheco, turco, ucraniano e vietnamita.
+
+Não há nada para escolher. O app segue o idioma em que o macOS já está, e esses
+são os mesmos 36 em que vem a própria janela de atualização, então você nunca
+vai ter uma janela em um idioma e um aviso de atualização em outro.
+
+Onde o sistema já tem uma palavra para alguma coisa, o app usa essa palavra em
+vez de uma tradução nova — **Mostrar no Finder**, **Manter Ambos**,
+**Substituir**, **Qualidade** e as demais foram lidas dos próprios recursos do
+macOS. Árabe, hebraico e persa dispõem a janela inteira da direita para a
+esquerda.
+
+O comando `shrinker`, sem interface, continua em inglês de propósito: a saída
+dele é algo que scripts leem, e uma mensagem que muda de palavras conforme o
+ajuste de região do Mac é uma mensagem que script nenhum consegue reconhecer.
+
+### Ajustes em duas abas
+
+A janela tinha mais de mil pontos de altura e precisava rolar, o que deixava as
+seções Metadados e Geral abaixo da borda inferior da tela de um notebook. Agora
+são **Saída** e **Conversão**, cada uma curta o bastante para não precisar rolar
+nada, e a janela se ajusta à aba em que você está.
+
+Ela também se ajusta ao idioma em que está. Uma linha cujo rótulo e opções não
+cabem mais lado a lado empilha os dois, em vez de cortar o texto caladamente.
+
+### Coisas menores
+
+Os campos de recorte comportam cinco dígitos. Sempre disseram que sim e nunca
+foi verdade — de `12345` para cima, o número era truncado em reticências
+enquanto você digitava, sem avisar.
+
+A largura mínima da janela agora é medida a partir do painel que ela precisa
+conter, em vez de ficar fixa em um número que por acaso servia para o inglês.]]></description>
+            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### O Shrinker Pro fala agora 36 idiomas
+
+Alemão, árabe, catalão, checo, chinês (simplificado, tradicional e de Hong
+Kong), coreano, croata, dinamarquês, eslovaco, esloveno, espanhol, finlandês,
+francês, grego, hebraico, húngaro, islandês, italiano, japonês, neerlandês,
+norueguês (bokmål e nynorsk), persa, polaco, português (do Brasil e de
+Portugal), romeno, russo, sueco, tailandês, turco, ucraniano e vietnamita.
+
+Não há nada a escolher. A aplicação segue o idioma em que o macOS já está e
+estes são os mesmos 36 em que vem a própria janela de atualização, pelo que
+nunca terá uma janela num idioma e um aviso de atualização noutro.
+
+Sempre que o sistema já tem uma palavra para alguma coisa, a aplicação usa essa
+palavra em vez de uma tradução nova — **Mostrar no Finder**, **Manter ambos**,
+**Substituir**, **Qualidade** e as restantes foram lidas dos recursos do próprio
+macOS. O árabe, o hebraico e o persa dispõem toda a janela da direita para a
+esquerda.
+
+O comando `shrinker`, sem interface, mantém-se em inglês de propósito: aquilo
+que escreve é lido por scripts, e uma mensagem que muda de palavras consoante a
+definição de região do Mac é uma mensagem que nenhum script consegue reconhecer.
+
+### Definições em dois separadores
+
+A janela tinha mais de mil pontos de altura e obrigava a deslocar o conteúdo, o
+que deixava as secções Metadados e Geral abaixo da margem inferior do ecrã de um
+portátil. São agora **Saída** e **Conversão**, cada um suficientemente curto
+para não ser preciso deslocar nada, e a janela ajusta o seu tamanho ao separador
+em que está.
+
+Ajusta-se também ao idioma em que está. Uma linha cuja etiqueta e opções já não
+cabem lado a lado passa a empilhá-las, em vez de cortar o texto sem avisar.
+
+### Pormenores mais pequenos
+
+Os campos de recorte comportam cinco dígitos. Sempre o afirmaram e nunca o
+fizeram — de `12345` para cima, o número era truncado em reticências enquanto o
+escrevia, sem qualquer aviso.
+
+A largura mínima da janela é agora medida a partir do painel que tem de conter,
+em vez de ficar fixa num número que calhava assentar bem ao inglês.]]></description>
+            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Pro vorbește acum 36 de limbi
+
+Arabă, catalană, cehă, chineză (simplificată, tradițională și din Hong Kong),
+coreeană, croată, daneză, ebraică, finlandeză, franceză, germană, greacă,
+islandeză, italiană, japoneză, maghiară, neerlandeză, norvegiană (bokmål și
+nynorsk), persană, polonă, portugheză (braziliană și europeană), română, rusă,
+slovacă, slovenă, spaniolă, suedeză, thailandeză, turcă, ucraineană și
+vietnameză.
+
+Nu aveți nimic de ales. Aplicația urmează limba la care este deja setat macOS,
+iar acestea sunt aceleași 36 de limbi în care vine și fereastra de actualizare,
+așa că nu veți avea niciodată o fereastră într-o limbă și un anunț de
+actualizare în alta.
+
+Acolo unde sistemul are deja un cuvânt pentru ceva, aplicația folosește acel
+cuvânt în loc de o traducere nouă — **Arătați în Finder**, **Păstrați ambele**,
+**Înlocuiți**, **Calitate** și celelalte au fost preluate din resursele proprii
+ale macOS. Araba, ebraica și persana așază toată fereastra de la dreapta la
+stânga.
+
+Comanda `shrinker`, fără interfață, rămâne în engleză în mod deliberat: ceea ce
+scrie ea este citit de scripturi, iar un mesaj care își schimbă formularea în
+funcție de configurarea regională a Mac-ului este un mesaj pe care niciun script
+nu îl poate recunoaște.
+
+### Configurările, în două file
+
+Fereastra avea peste o mie de puncte înălțime și trebuia derulată, ceea ce
+împingea secțiunile Metadate și General sub marginea de jos a ecranului unui
+laptop. Acum sunt **Ieșire** și **Conversie**, fiecare destul de scurtă cât să
+nu fie nevoie de nicio derulare, iar fereastra își potrivește dimensiunea după
+fila pe care vă aflați.
+
+Își potrivește dimensiunea și după limba în care este. Un rând în care eticheta
+și opțiunile nu mai încap una lângă alta le așază una sub alta, în loc să reteze
+textul pe tăcute.
+
+### Lucruri mărunte
+
+Câmpurile de decupare acceptă cinci cifre. Întotdeauna au pretins asta și
+niciodată nu au făcut-o — de la `12345` în sus, numărul era retezat la un rând
+de puncte de suspensie în timp ce îl tastați, fără niciun avertisment.
+
+Lățimea minimă a ferestrei este acum măsurată pornind de la panoul pe care
+trebuie să îl cuprindă, în loc să fie fixată la un număr care se potrivea,
+întâmplător, englezei.]]></description>
+            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Pro теперь говорит на 36 языках
+
+Арабский, венгерский, вьетнамский, греческий, датский, иврит, исландский,
+испанский, итальянский, каталанский, китайский (упрощённый, традиционный
+и гонконгский), корейский, немецкий, нидерландский, норвежский (букмол
+и нюнорск), персидский, польский, португальский (бразильский
+и европейский), румынский, русский, словацкий, словенский, тайский,
+турецкий, украинский, финский, французский, хорватский, чешский, шведский
+и японский.
+
+Выбирать ничего не нужно. Программа следует языку, на который уже настроен
+macOS, и это те же 36 языков, на которых выходит само окно обновления, —
+так что окно на одном языке и уведомление об обновлении на другом вам не
+грозят.
+
+Там, где у системы уже есть слово для чего-то, программа берёт именно его,
+а не свежий перевод: **Показать в Finder**, **Оставить оба**, **Заменить**,
+**Качество** и остальное вычитаны по очереди из собственных ресурсов macOS.
+Арабский, иврит и персидский разворачивают всё окно справа налево.
+
+Команда `shrinker` без интерфейса намеренно остаётся на английском: её вывод
+читают скрипты, а сообщение, формулировка которого меняется вместе
+с настройкой региона на Mac, — это сообщение, на которое не сможет опереться
+ни один скрипт.
+
+### Настройки в двух вкладках
+
+Окно было больше тысячи пунктов в высоту, и его приходилось прокручивать,
+из-за чего разделы «Метаданные» и «Основные» оказывались ниже нижнего края
+экрана ноутбука. Теперь это **Выходные файлы** и **Конвертация**, и каждая
+настолько коротка, что прокрутка не нужна вовсе, а окно подбирает себе
+размер под ту вкладку, на которой вы находитесь.
+
+Оно подбирает размер и под язык, на котором работает. Строка, у которой
+название и варианты уже не помещаются рядом, складывает их друг под другом,
+а не обрезает текст молча.
+
+### Мелочи
+
+Поля обрезки вмещают пять цифр. Они всегда это обещали и никогда не делали:
+всё, начиная с `12345`, молча сокращалось до многоточия прямо во время
+набора.
+
+Минимальная ширина окна теперь измеряется по панели, которую окну нужно
+вместить, а не задана числом, которое когда-то подошло английскому.]]></description>
+            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Pro teraz hovorí 36 jazykmi
+
+Arabčina, čeština, čínština (zjednodušená, tradičná a hongkonská), dánčina,
+fínčina, francúzština, gréčtina, hebrejčina, holandčina, chorvátčina,
+islandčina, japončina, katalánčina, kórejčina, maďarčina, nemčina, nórčina
+(bokmål a nynorsk), perzština, poľština, portugalčina (Brazília
+a Portugalsko), rumunčina, ruština, slovenčina, slovinčina, španielčina,
+švédčina, taliančina, thajčina, turečtina, ukrajinčina a vietnamčina.
+
+Nie je čo vyberať. Aplikácia sa riadi jazykom, na ktorý už je macOS nastavený,
+a je to tých istých 36 jazykov, v ktorých sa dodáva aj samotné okno
+aktualizácie — nikdy tak nedostanete okno v jednom jazyku a hlásenie
+o aktualizácii v inom.
+
+Tam, kde už systém pre niečo slovo má, používa aplikácia jeho slovo, a nie
+nový preklad — **Zobraziť vo Finderi**, **Ponechať obidva**, **Nahradiť**,
+**Kvalita** aj zvyšok boli jeden po druhom vyčítané z vlastných zdrojov
+macOS. Arabčina, hebrejčina a perzština usporiadajú celé okno sprava doľava.
+
+Príkaz `shrinker` bez grafického rozhrania zostáva zámerne v angličtine:
+jeho výstup čítajú skripty a hlásenie, ktoré mení formuláciu podľa
+nastavenia oblasti Macu, je hlásenie, na ktoré sa žiadny skript nedá naviazať.
+
+### Nastavenia v dvoch taboch
+
+Okno malo cez tisíc bodov na výšku a muselo sa rolovať, takže sekcie
+Metadáta a Všeobecné končili pod dolným okrajom obrazovky notebooku. Teraz
+sú to **Výstup** a **Konverzia**, každý taký krátky, že rolovať netreba
+vôbec, a okno sa veľkosťou prispôsobí tomu tabu, v ktorom práve ste.
+
+Prispôsobí sa aj jazyku, v ktorom beží. Riadok, ktorého popis a voľby sa
+už vedľa seba nezmestia, ich naskladá pod seba namiesto toho, aby text potichu
+orezal.
+
+### Drobnosti
+
+Polia orezu pojmú päť číslic. Vždy to o sebe tvrdili a nikdy to neplatilo
+— všetko od `12345` vyššie sa počas písania potichu skrátilo na trojbodku.
+
+Minimálna šírka okna sa teraz meria podľa panela, ktorý musí pojať, namiesto
+toho, aby bola pevne daná číslom, ktoré náhodou vyhovovalo angličtine.]]></description>
+            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Pro zdaj govori 36 jezikov
+
+Arabščina, češčina, danščina, finščina, francoščina, grščina, hebrejščina,
+hrvaščina, islandščina, italijanščina, japonščina, katalonščina, kitajščina
+(poenostavljena, tradicionalna in hongkonška), korejščina, madžarščina,
+nemščina, nizozemščina, norveščina (bokmål in nynorsk), perzijščina,
+poljščina, portugalščina (brazilska in evropska), romunščina, ruščina,
+slovaščina, slovenščina, španščina, švedščina, tajščina, turščina,
+ukrajinščina in vietnamščina.
+
+Izbirati ni ničesar. Aplikacija sledi jeziku, na katerega je macOS že
+nastavljen, in to je istih 36 jezikov, v katerih izide tudi samo okno
+posodobitve, tako da okna v enem jeziku in obvestila o posodobitvi v drugem ne
+boste dobili nikoli.
+
+Kjer ima sistem za nekaj že svojo besedo, aplikacija vzame prav njo in ne
+svežega prevoda — **Prikaži v aplikaciji Finder**, **Obdrži obe**,
+**Zamenjaj**, **Kakovost** in drugo so po vrsti prebrani iz macOS-ovih
+lastnih virov. Arabščina, hebrejščina in perzijščina celotno okno postavijo od
+desne proti levi.
+
+Ukaz `shrinker` brez vmesnika namenoma ostaja v angleščini: njegov izpis
+berejo skripti, sporočilo, ki spreminja ubeseditev z nastavitvijo regije Maca,
+pa je sporočilo, na katero se noben skript ne more opreti.
+
+### Nastavitve v dveh zavihkih
+
+Okno je bilo več kot tisoč točk visoko in se je moralo pomikati, zato sta
+razdelka Metapodatki in Splošno padla pod spodnji rob prenosnikovega zaslona.
+Zdaj sta to **Izhodne datoteke** in **Pretvorba**, vsak dovolj kratek, da
+pomikanja sploh ni, okno pa si velikost prilagodi zavihku, na katerem ste.
+
+Prilagodi se tudi jeziku, v katerem teče. Vrstica, katere oznaka in možnosti
+ne gredo več druga ob drugo, ju zloži eno pod drugo, namesto da bi besedilo
+tiho odrezala.
+
+### Malenkosti
+
+Polja za obrezek sprejmejo pet števk. Vedno so to trdila in nikoli ni držalo —
+vse od `12345` navzgor se je med tipkanjem tiho skrajšalo na tri pike.
+
+Najmanjša širina okna se zdaj meri po plošči, ki jo mora okno sprejeti, in ne
+več po številki, ki je po naključju ustrezala angleščini.]]></description>
+            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Pro talar nu 36 språk
+
+Arabiska, danska, finska, franska, grekiska, hebreiska, isländska, italienska,
+japanska, katalanska, kinesiska (förenklad, traditionell och Hongkong),
+koreanska, kroatiska, nederländska, norska (bokmål och nynorsk), persiska,
+polska, portugisiska (Brasilien och Portugal), rumänska, ryska, slovakiska,
+slovenska, spanska, svenska, thailändska, tjeckiska, turkiska, tyska, ukrainska,
+ungerska och vietnamesiska.
+
+Det finns inget att välja. Appen följer det språk macOS redan är inställt på,
+och det är samma 36 som uppdateringsdialogen själv levereras i, så du får aldrig
+ett fönster på ett språk och ett uppdateringsmeddelande på ett annat.
+
+Där systemet redan har ett ord för något använder appen det ordet i stället för
+en ny översättning av det — **Visa i Finder**, **Behåll båda**, **Ersätt**,
+**Kvalitet** och resten lästes var för sig ut ur macOS egna resurser. Arabiska,
+hebreiska och persiska lägger ut hela fönstret från höger till vänster.
+
+Kommandot `shrinker` förblir på engelska, avsiktligt: det som kommandot skriver
+ut är något som skript läser, och ett meddelande som byter ordalydelse med
+Macens regioninställning är ett meddelande som inget skript kan matcha på.
+
+### Inställningar i två flikar
+
+Fönstret var över tusen punkter högt och måste rullas, vilket lade avsnitten
+Metadata och Allmänt nedanför underkanten på en bärbar skärm. Nu är det
+**Utdata** och **Konvertering**, var och en så kort att den inte behöver någon
+rullning alls, och fönstret anpassar sin storlek efter den flik du är på.
+
+Det anpassar sig också efter det språk det är på. En rad vars etikett och
+alternativ inte längre får plats bredvid varandra staplar dem i stället för att
+tyst klippa av texten.
+
+### Mindre saker
+
+Beskärningsfälten rymmer fem siffror. De hade alltid påstått det och aldrig gjort
+det — allt från `12345` och uppåt förkortades tyst till ett uteslutningstecken
+medan du skrev in det.
+
+Fönstrets minsta bredd mäts nu utifrån den panel det måste rymma i stället för
+att vara låst vid ett tal som råkade passa engelskan.]]></description>
+            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### ตอนนี้ Shrinker Pro รองรับ 36 ภาษา
+
+กรีก, เกาหลี, คาตาลัน, โครเอเชีย, จีน (ตัวย่อ, ตัวเต็ม และฮ่องกง), เช็ก, ญี่ปุ่น, ดัตช์, เดนมาร์ก, ตุรกี, ไทย,
+นอร์เวย์ (บ็อกมอลและนีนอร์สก์), เปอร์เซีย, โปรตุเกส (บราซิลและโปรตุเกส), โปแลนด์, ฝรั่งเศส, ฟินแลนด์,
+ยูเครน, เยอรมัน, รัสเซีย, โรมาเนีย, เวียดนาม, สวีเดน, สเปน, สโลวัก, สโลวีเนีย, อาหรับ, อิตาลี, ไอซ์แลนด์,
+ฮังการี และฮีบรู
+
+ไม่มีอะไรให้ต้องเลือก แอปจะใช้ภาษาที่ตั้งไว้ใน macOS อยู่แล้ว และทั้ง 36 ภาษานี้ก็เป็นชุดเดียวกับที่หน้าต่างอัปเดตมีมาให้
+คุณจึงไม่มีทางเจอหน้าต่างเป็นภาษาหนึ่งแล้วประกาศอัปเดตเป็นอีกภาษาหนึ่ง
+
+ที่ใดที่ระบบมีคำสำหรับสิ่งนั้นอยู่แล้ว แอปจะใช้คำนั้นแทนที่จะแปลขึ้นใหม่ — **แสดงใน Finder**, **เก็บไว้ทั้งคู่**,
+**แทนที่**, **คุณภาพ** และคำอื่น ๆ ล้วนอ่านมาจากทรัพยากรของ macOS เอง ส่วนภาษาอาหรับ ฮีบรู และเปอร์เซีย
+จะจัดวางทั้งหน้าต่างจากขวาไปซ้าย
+
+คำสั่ง `shrinker` ที่ไม่มีหน้าต่างยังคงเป็นภาษาอังกฤษโดยตั้งใจ เพราะผลลัพธ์ของมันเป็นสิ่งที่สคริปต์อ่าน
+และข้อความที่เปลี่ยนถ้อยคำไปตามการตั้งค่าภูมิภาคของเครื่อง Mac ก็คือข้อความที่ไม่มีสคริปต์ใดจับคู่ได้
+
+### การตั้งค่าในสองแท็บ
+
+หน้าต่างสูงกว่าหนึ่งพันพอยต์และต้องเลื่อน ส่วนเมตาดาต้าและทั่วไปจึงตกไปอยู่ใต้ขอบล่างของจอแล็ปท็อป
+ตอนนี้แยกเป็น **ผลลัพธ์** และ **การแปลง** ซึ่งแต่ละแท็บสั้นพอที่จะไม่ต้องเลื่อนเลย
+และหน้าต่างจะปรับขนาดตัวเองตามแท็บที่คุณอยู่
+
+หน้าต่างยังปรับขนาดตามภาษาที่ใช้อยู่ด้วย แถวที่ป้ายชื่อกับตัวเลือกวางเรียงข้างกันไม่พอดีอีกต่อไป
+จะจัดซ้อนกันแทน แทนที่จะตัดข้อความทิ้งไปเงียบ ๆ
+
+### สิ่งเล็ก ๆ น้อย ๆ
+
+ช่องครอบตัดรองรับตัวเลขห้าหลัก ที่ผ่านมาช่องนี้อ้างไว้เช่นนั้นเสมอแต่ไม่เคยทำได้จริง — ตั้งแต่ `12345` ขึ้นไป
+จะถูกตัดเหลือจุดไข่ปลาอย่างเงียบ ๆ ขณะที่คุณพิมพ์
+
+ความกว้างต่ำสุดของหน้าต่างตอนนี้วัดจากแผงที่หน้าต่างต้องบรรจุ
+แทนที่จะกำหนดตายตัวเป็นตัวเลขที่บังเอิญเหมาะกับภาษาอังกฤษ]]></description>
+            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Pro artık 36 dil konuşuyor
+
+Almanca, Arapça, Çekçe, Çince (basitleştirilmiş, geleneksel ve Hong Kong),
+Danca, Farsça, Felemenkçe, Fince, Fransızca, Hırvatça, İbranice, İspanyolca,
+İsveççe, İtalyanca, İzlandaca, Japonca, Katalanca, Korece, Lehçe, Macarca,
+Norveççe (bokmål ve nynorsk), Portekizce (Brezilya ve Portekiz), Romence,
+Rusça, Slovakça, Slovence, Tayca, Türkçe, Ukraynaca, Vietnamca ve Yunanca.
+
+Seçilecek bir şey yok. Uygulama, macOS’un zaten ayarlı olduğu dili izler ve
+bunlar, güncelleme penceresinin kendisinin de birlikte geldiği 36 dilin
+aynısıdır; dolayısıyla pencereyi bir dilde, güncelleme bildirimini başka bir
+dilde görmeniz hiçbir zaman söz konusu olmaz.
+
+Sistemin bir şey için zaten bir karşılığı varsa uygulama, onun yeni bir
+çevirisi yerine o karşılığı kullanır — **Finder’da Göster**, **Her İkisini de
+Tut**, **Değiştir**, **Kalite** ve diğerlerinin her biri macOS’un kendi
+kaynaklarından okundu. Arapça, İbranice ve Farsçada pencerenin tamamı sağdan
+sola yerleşir.
+
+Arayüzsüz `shrinker` komutu bilerek İngilizce kalıyor: çıktısını betikler okur
+ve Mac’in bölge ayarına göre ifadesi değişen bir ileti, hiçbir betiğin
+eşleştirebileceği bir ileti değildir.
+
+### Ayarlar iki sekmede
+
+Pencere bin noktadan uzundu ve kaydırmak gerekiyordu; bu da Üst veri ve Genel
+bölümlerini bir dizüstü ekranının alt kenarının altında bırakıyordu. Artık
+yerlerinde **Çıktı** ve **Dönüştürme** sekmeleri var; her biri hiç kaydırma
+gerektirmeyecek kadar kısa ve pencere, hangi sekmede olduğunuza göre kendi
+boyutunu ayarlıyor.
+
+Pencere ayrıca bulunduğu dile göre de boyutlanıyor. Etiketi ile seçenekleri
+artık yan yana sığmayan bir satır, metni sessizce kesmek yerine bunları alt
+alta diziyor.
+
+### Küçük şeyler
+
+Kırpma alanları beş basamak alıyor. Bunu hep iddia etmişler ama hiç
+yapmamışlardı — `12345` sayısından yukarısı, siz yazarken sessizce üç noktaya
+kısaltılıyordu.
+
+Pencerenin en küçük genişliği artık İngilizceye denk düşen sabit bir sayı
+yerine, içinde tutması gereken panelden ölçülüyor.]]></description>
+            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Pro тепер говорить 36 мовами
+
+Арабська, вʼєтнамська, грецька, данська, іврит, ісландська, іспанська,
+італійська, каталонська, китайська (спрощена, традиційна та гонконзька),
+корейська, нідерландська, німецька, норвезька (букмол і нюношк), перська,
+польська, португальська (бразильська та європейська), російська, румунська,
+словацька, словенська, тайська, турецька, угорська, українська, фінська,
+французька, хорватська, чеська, шведська та японська.
+
+Вибирати нічого не треба. Програма йде за мовою, на яку macOS уже
+налаштовано, і це ті самі 36 мов, якими виходить саме вікно оновлення, — тож
+ви ніколи не отримаєте вікно однією мовою, а сповіщення про оновлення іншою.
+
+Там, де в системи вже є слово для чогось, програма бере саме його, а не
+свіжий переклад: **Показати у Finder**, **Зберегти обидва**, **Замінити**,
+**Якість** і решту вичитано по черзі з власних ресурсів macOS. Арабська,
+іврит і перська розкладають усе вікно справа наліво.
+
+Команда `shrinker` без інтерфейсу навмисно лишається англійською: її вивід
+читають скрипти, а повідомлення, формулювання якого змінюється разом із
+регіональними параметрами Mac, — це повідомлення, на яке не здатен зіпертися
+жоден скрипт.
+
+### Параметри у двох вкладках
+
+Вікно було понад тисячу пунктів заввишки, і його доводилося прокручувати,
+через що розділи «Метадані» і «Загальні» опинялися нижче нижнього краю екрана
+ноутбука. Тепер це **Вихідні файли** і **Конвертування**, кожна настільки
+коротка, що прокручування не потрібне взагалі, а вікно саме добирає розмір до
+тієї вкладки, на якій ви зараз.
+
+Добирає розмір воно й до мови, якою працює. Рядок, у якого назва та варіанти
+вже не вміщаються поруч, складає їх одне під одним, а не обтинає текст мовчки.
+
+### Дрібниці
+
+Поля обтинання вміщають пʼять цифр. Вони завжди це обіцяли й ніколи цього не
+робили: усе, починаючи з `12345`, під час набору мовчки скорочувалося до
+трикрапки.
+
+Мінімальна ширина вікна тепер вимірюється за панеллю, яку вікну треба
+вмістити, а не задана числом, яке колись підійшло англійській.]]></description>
+            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Pro giờ nói được 36 ngôn ngữ
+
+Ả Rập, Ba Lan, Ba Tư, Bồ Đào Nha (Brazil và Bồ Đào Nha), Catalan, Croatia,
+Do Thái, Đan Mạch, Đức, Hà Lan, Hàn, Hungary, Hy Lạp, Iceland,
+Na Uy (Bokmål và Nynorsk), Nga, Nhật, Pháp, Phần Lan, Romania, Séc, Slovakia,
+Slovenia, Tây Ban Nha, Thái, Thổ Nhĩ Kỳ, Thụy Điển,
+Trung (Giản thể, Phồn thể và Hồng Kông), Ukraina, Việt và Ý.
+
+Không có gì phải chọn. Ứng dụng đi theo ngôn ngữ mà macOS vốn đã được đặt, và
+đây cũng chính là 36 ngôn ngữ mà hộp thoại cập nhật được phát hành kèm, nên bạn
+sẽ không bao giờ gặp cảnh cửa sổ ở một ngôn ngữ còn thông báo cập nhật ở ngôn
+ngữ khác.
+
+Ở đâu hệ thống đã có sẵn một từ cho điều gì đó, ứng dụng dùng đúng từ ấy thay vì
+dịch mới lại — **Hiển thị trong Finder**, **Giữ cả hai**, **Thay thế**,
+**Chất lượng** và những mục còn lại đều được đọc ra từ chính tài nguyên của
+macOS. Tiếng Ả Rập, Do Thái và Ba Tư bố trí toàn bộ cửa sổ từ phải sang trái.
+
+Lệnh `shrinker` không giao diện vẫn giữ tiếng Anh, một cách có chủ ý: kết quả
+của nó là thứ các script đọc, và một thông báo đổi cách diễn đạt theo cài đặt
+khu vực của máy Mac là thông báo mà không script nào khớp được.
+
+### Cài đặt trong hai thẻ
+
+Cửa sổ cao hơn một nghìn điểm và phải cuộn, khiến phần Siêu dữ liệu và
+Cài đặt chung nằm dưới mép dưới của màn hình máy tính xách tay. Giờ nó là **Đầu ra** và
+**Chuyển đổi**, mỗi thẻ đủ ngắn để không cần cuộn chút nào, và cửa sổ tự chỉnh
+kích cỡ theo thẻ bạn đang mở.
+
+Cửa sổ cũng tự chỉnh theo ngôn ngữ đang dùng. Một hàng có nhãn và các tùy chọn
+không còn vừa cạnh nhau sẽ xếp chồng chúng lại, thay vì lặng lẽ cắt cụt chữ.
+
+### Những điều nhỏ hơn
+
+Các ô cắt xén chứa được năm chữ số. Chúng vẫn luôn tự nhận như vậy mà chưa bao
+giờ làm được — bất cứ giá trị nào từ `12345` trở lên đều bị lặng lẽ rút gọn
+thành dấu ba chấm ngay khi bạn gõ.
+
+Chiều rộng tối thiểu của cửa sổ giờ được đo từ bảng điều khiển mà nó phải chứa,
+thay vì cố định ở một con số tình cờ hợp với tiếng Anh.]]></description>
+            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Pro現在支援36種語言
+
+土耳其語、中文（簡體、繁體和香港）、日語、丹麥語、加泰羅尼亞語、西班牙語、匈牙利語、冰島語、克羅地亞語、希伯來語、希臘語、芬蘭語、法語、波蘭語、波斯語、阿拉伯語、俄語、泰語、挪威語（博克馬爾和尼諾斯克）、烏克蘭語、荷蘭語、捷克語、斯洛伐克語、斯洛文尼亞語、越南語、瑞典語、葡萄牙語（巴西和葡萄牙）、意大利語、德語、韓語、羅馬尼亞語。
+
+沒有甚麼要選。App跟隨macOS已經設定的語言，而這36種正是更新對話框本身隨附的語言，所以你不會遇到視窗是一種語言、更新提示卻是另一種語言的情況。
+
+系統裡已經有這個詞的地方，App就沿用系統的詞，而不是重新翻譯一次。**在Finder顯示**、**兩者皆保留**、**取代**、**品質**等等，都是從macOS本身的資源裡讀出來。阿拉伯語、希伯來語和波斯語會將整個視窗由右至左排列。
+
+無介面的`shrinker`指令刻意保留英文：它的輸出是給腳本讀的，而一則措辭會隨Mac地區設定而改變的訊息，任何腳本都無法比對。
+
+### 設定分成兩個標籤頁
+
+視窗高度超過一千點，必須捲動，元數據和一般這兩個部分因此跌出手提電腦螢幕的下緣。現在它是**輸出**和**轉換**，各自都短到完全不用捲動，視窗亦會按照你身處的標籤頁調整自己的大小。
+
+它亦會按照所用的語言調整大小。當某一行的標籤和選項並排放不下時，它會將兩者上下排列，而不是靜靜地將文字截斷。
+
+### 一些小改動
+
+裁剪輸入格能容納五位數。它一直聲稱如此，卻從來沒有做到。`12345`或以上的數字，會在你輸入時被靜靜截斷成一個省略號。
+
+視窗的最小闊度現在是根據它必須容納的面板量出來，而不再固定為一個剛好適合英文的數值。]]></description>
+            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Pro 现在支持 36 种语言
+
+阿拉伯语、冰岛语、波兰语、波斯语、丹麦语、德语、俄语、法语、芬兰语、韩语、荷兰语、加泰罗尼亚语、捷克语、克罗地亚语、罗马尼亚语、挪威语（博克马尔和尼诺斯克）、葡萄牙语（巴西和葡萄牙）、日语、瑞典语、斯洛伐克语、斯洛文尼亚语、泰语、土耳其语、乌克兰语、西班牙语、希伯来语、希腊语、匈牙利语、意大利语、越南语、中文（简体、繁体和香港）。
+
+没有什么要选。App 跟随 macOS 已经设定的语言，而这 36 种也正是更新对话框本身附带的语言，所以你不会遇到窗口是一种语言、更新提示却是另一种语言的情况。
+
+系统里已经有这个词的地方，App 就用系统的词，而不是重新翻译一遍。**在访达中显示**、**两者都保留**、**替换**、**质量**等等，都是从 macOS 自己的资源里读出来的。阿拉伯语、希伯来语和波斯语会把整个窗口从右向左排布。
+
+无界面的 `shrinker` 命令有意保留英文：它的输出是给脚本读的，而一条措辞会随 Mac 地区设置改变的消息，是任何脚本都无法匹配的消息。
+
+### 设置分成两个标签页
+
+窗口高度超过一千点，必须滚动，元数据和通用这两部分因此落到了笔记本电脑屏幕的下边缘之外。现在它是**输出**和**转换**，各自都短到完全不用滚动，窗口也会按照你所在的标签页调整自己的大小。
+
+它也会按所处的语言调整大小。当一行的标签和选项并排放不下时，它会把两者上下排列，而不是悄悄把文字截断。
+
+### 一些小改动
+
+裁剪输入框能装下五位数。它一直声称如此，却从来做不到。`12345` 及以上的数字会在你输入时被悄悄截断成一个省略号。
+
+窗口的最小宽度现在是根据它必须容纳的面板量出来的，而不再固定为一个恰好适合英文的数值。]]></description>
+            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Pro現在支援36種語言
+
+冰島語、波蘭語、波斯語、葡萄牙語（巴西和葡萄牙）、法語、芬蘭語、德語、丹麥語、土耳其語、泰語、挪威語（博克馬爾和尼諾斯克）、羅馬尼亞語、克羅埃西亞語、荷蘭語、韓語、加泰隆尼亞語、捷克語、希伯來語、西班牙語、希臘語、匈牙利語、中文（簡體、繁體和香港）、日語、瑞典語、斯洛伐克語、斯洛維尼亞語、義大利語、烏克蘭語、越南語、阿拉伯語、俄語。
+
+沒有什麼要選。App跟隨macOS已經設定的語言，而這36種也正是更新對話框本身隨附的語言，所以你不會遇到視窗是一種語言、更新提示卻是另一種語言的情況。
+
+系統裡已經有這個詞的地方，App就沿用系統的詞，而不是重新翻譯一遍。**在Finder中顯示**、**兩者皆保留**、**取代**、**品質**等等，都是從macOS自己的資源裡讀出來的。阿拉伯語、希伯來語和波斯語會把整個視窗從右到左排列。
+
+無介面的`shrinker`指令刻意維持英文：它的輸出是給指令碼讀的，而一則措辭會隨Mac地區設定改變的訊息，是任何指令碼都無法比對的訊息。
+
+### 設定分成兩個標籤頁
+
+視窗高度超過一千點，必須捲動，後設資料和一般這兩個部分因此落到筆記型電腦螢幕的下緣之外。現在它是**輸出**和**轉換**，各自都短到完全不必捲動，視窗也會依照你所在的標籤頁調整自己的大小。
+
+它也會依照所處的語言調整大小。當某一行的標籤和選項並排放不下時，它會把兩者上下排列，而不是悄悄把文字截斷。
+
+### 一些小改動
+
+裁切輸入框能容納五位數。它一直聲稱如此，卻從來沒做到。`12345`以上的數字會在你輸入時被悄悄截斷成一個刪節號。
+
+視窗的最小寬度現在是依照它必須容納的面板量出來的，不再固定為一個剛好適合英文的數值。]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.5.0/ShrinkerPro-1.5.0.dmg" length="3665593" type="application/octet-stream" sparkle:edSignature="iWOR9bFZ4aP1ua8IpmgLVzcBDnj0QnT3kE4Ke7jXADD/xYMrdfdQpiSCanTJ4RlB88aVtMkb28BUBgKnybBGCw=="/>
+        </item>
+        <item>
             <title>1.4.0</title>
             <pubDate>Thu, 17 Sep 2026 22:37:27 -0400</pubDate>
             <sparkle:version>9</sparkle:version>
@@ -60,23 +1475,6 @@ the edge, because macOS hides scroll bars until you are already scrolling.
 Checking is not installing. You are still told about a new version and still decide whether to take it, and **Check for Updates…** in the menu works as before.
 ]]></description>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.3.1/ShrinkerPro-1.3.1.dmg" length="3466312" type="application/octet-stream" sparkle:edSignature="4aKCsT1coXKO4zP3BUUaE00KcLkWmAxYO2TDAGc0+Zw3k84GQH6mVL1w5EhD0PQqoemZSKPtrA6ZlPx4Gx+0AQ=="/>
-        </item>
-        <item>
-            <title>1.3.0</title>
-            <pubDate>Thu, 17 Sep 2026 01:52:53 -0400</pubDate>
-            <sparkle:version>7</sparkle:version>
-            <sparkle:shortVersionString>1.3.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[**Set a maximum size.** Type a number at the bottom of the window and nothing comes out bigger than that on its longest side. Pictures keep their proportions, and anything already smaller is left alone.
-
-**The bottom of the window now says what will happen** to the next files you drop — the format, the quality and the size limit, all on one line. Click **Adjust** to change them. These apply until you quit; your usual settings stay as they are.
-
-**Shrinker Pro asks before replacing a file.** If a file is about to be written over, you choose: skip it, keep both, or replace it.
-
-**Settings is easier to read**, grouped into clearly labelled sections.
-]]></description>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.3.0/ShrinkerPro-1.3.0.dmg" length="3465629" type="application/octet-stream" sparkle:edSignature="72dBmJYKjVZhNKtdhEwM/xBUnRQUV3cDTo6rZBPBcLe6UvgjbLeSQvH54/sRB9QdK2+Cy5EFfnil7u4Dii/cCw=="/>
         </item>
     </channel>
 </rss>

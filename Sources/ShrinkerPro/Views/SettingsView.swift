@@ -311,6 +311,14 @@ private struct SettingsOutputPane: View {
         // nothing left to overflow, and pinning is what makes the window fit
         // its content rather than clip it.
         .fixedSize(horizontal: false, vertical: true)
+        // A grouped `Form` is a scroll view whatever height it is given, so
+        // pinning it above stops it needing to scroll without stopping it
+        // being able to. What was left was a scroller flashing on every tab
+        // change and a pane that rubber-banded under the trackpad and sprang
+        // back — motion that says "there is more here" about a pane where
+        // there never is. Since the window is sized to the content, scrolling
+        // has nothing left to reach.
+        .scrollDisabled(true)
     }
 
     private func chooseFolder() {
@@ -388,6 +396,14 @@ private struct SettingsConversionPane: View {
         // nothing left to overflow, and pinning is what makes the window fit
         // its content rather than clip it.
         .fixedSize(horizontal: false, vertical: true)
+        // A grouped `Form` is a scroll view whatever height it is given, so
+        // pinning it above stops it needing to scroll without stopping it
+        // being able to. What was left was a scroller flashing on every tab
+        // change and a pane that rubber-banded under the trackpad and sprang
+        // back — motion that says "there is more here" about a pane where
+        // there never is. Since the window is sized to the content, scrolling
+        // has nothing left to reach.
+        .scrollDisabled(true)
     }
 }
 

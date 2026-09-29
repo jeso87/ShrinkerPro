@@ -33,8 +33,44 @@ than passed along as a tag, so a portrait iPhone shot comes out upright in
 every app, whatever format you convert it to.
 
 Everything happens on your Mac. The compressors are bundled inside the app,
-and the only network request it makes is the update check, which you can
-turn off in Settings.
+and the only network request it makes is the daily update check — which is
+deliberately not optional, and is described in full further down.
+
+## Languages
+
+Shrinker Pro is translated into 36 languages: Arabic, Catalan, Chinese
+(Simplified, Traditional and Hong Kong), Croatian, Czech, Danish, Dutch,
+English, Finnish, French, German, Greek, Hebrew, Hungarian, Icelandic,
+Italian, Japanese, Korean, Norwegian (Bokmål and Nynorsk), Persian, Polish,
+Portuguese (Brazil and Portugal), Romanian, Russian, Slovak, Slovenian,
+Spanish, Swedish, Thai, Turkish, Ukrainian and Vietnamese.
+
+There is nothing to choose — it follows the language macOS is set to. The set
+matches the 36 [Sparkle](https://sparkle-project.org/) ships, so the app and
+its update dialog can never be in different languages, and the update notes
+are translated too. Arabic, Hebrew and Persian lay the window out right to
+left.
+
+Where macOS already has a word for something, the app uses that word rather
+than a fresh translation of it: **Reveal in Finder**, **Keep Both**,
+**Replace** and the rest were each read out of the system's own shipping
+resources. Plural categories were measured from the platform per language
+rather than taken from a table — Arabic reaches five for whole numbers,
+Slovenian four, Polish and Russian never reach `other` at all — and so was
+typography, which is why Czech, Slovak, Polish and Russian carry non-breaking
+spaces after one-letter prepositions and Croatian, Slovenian and Ukrainian do
+not.
+
+**These are machine translations checked against the platform's own
+terminology, not native-speaker work.** No speaker of every language has
+reviewed them. Corrections are welcome and are a one-file change:
+`translations/<lang>.json`, one per language, merged into the string catalog
+by `scripts/merge-translations.py`. `docs/localization-glossary.md` records
+the terms that have to stay consistent and why.
+
+The headless `shrinker` command stays in English on purpose. Its output is
+something scripts parse, and a message that changes wording with the Mac's
+region is a message no script can match on.
 
 ## Install
 
@@ -343,11 +379,18 @@ Drop anywhere in the window, not just the dashed zone.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/settings-light.png">
-  <img src="docs/screenshots/settings-dark.png" alt="Settings showing where output goes and how it is named, the per-format conversion rules, the Quality level, the metadata policy, and the notification and result-list toggles.">
+  <img src="docs/screenshots/settings-dark.png" alt="The Output tab of Settings: where files are saved, whether they go in a “minified” subfolder, whether originals are kept or replaced, the metadata policy, and the notification and result-list toggles.">
 </picture>
 
-Output location, notifications, per-format conversion rules, quality and
-metadata — the defaults every session starts from.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-conversion-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/settings-conversion-light.png">
+  <img src="docs/screenshots/settings-conversion-dark.png" alt="The Conversion tab of Settings: one rule per format for PNG, JPEG, HEIC/HEIF, WebP and AVIF, and the Quality level used when encoding.">
+</picture>
+
+The **Output** tab: where files go, what they are called, what metadata
+survives. A second **Conversion** tab holds the per-format rules and the
+quality level. Together they are the defaults every session starts from.
 
 </td>
 </tr>

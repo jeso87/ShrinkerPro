@@ -289,6 +289,356 @@ final class LocalizationGuardTests: XCTestCase {
         }
     }
 
+    /// The glossary names English terms that must render consistently. A term
+    /// that no longer appears anywhere in the catalog is guidance about a
+    /// string that no longer exists — which is how a glossary quietly rots
+    /// into being wrong rather than merely stale.
+    func testEveryGlossaryTermStillAppearsInTheCatalog() throws {
+        let glossary = try String(
+            contentsOf: Self.repoRoot().appendingPathComponent("docs/localization-glossary.md"),
+            encoding: .utf8
+        )
+        let terms = glossary
+            .split(separator: "\n")
+            .compactMap { line -> String? in
+                guard line.hasPrefix("- **"),
+                      let close = line.range(of: "**", range: line.index(line.startIndex, offsetBy: 4)..<line.endIndex)
+                else { return nil }
+                return String(line[line.index(line.startIndex, offsetBy: 4)..<close.lowerBound])
+            }
+        XCTAssertFalse(terms.isEmpty, "parsed no terms — has the glossary's format changed?")
+
+        let data = try Data(contentsOf: Self.catalogURL(named: "Localizable"))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let keys = try XCTUnwrap(json["strings"] as? [String: Any]).keys.joined(separator: "\n").lowercased()
+
+        for term in terms {
+            XCTAssertTrue(
+                keys.contains(term.lowercased()),
+                "glossary term '\(term)' appears in no catalog key — remove it or fix the term"
+            )
+        }
+    }
+
+    /// The merge script is the only thing that writes translations into the
+    /// catalog, so it is worth knowing it round-trips without disturbing
+    /// English. Driven through a throwaway language so the test needs no real
+    /// translations and leaves nothing behind.
+    func testMergingALanguageLeavesEnglishUntouched() throws {
+        let root = Self.repoRoot()
+        let catalog = try Self.catalogURL(named: "Localizable")
+        let before = try String(contentsOf: catalog, encoding: .utf8)
+        let probe = root.appendingPathComponent("translations/zz.json")
+
+        defer {
+            try? FileManager.default.removeItem(at: probe)
+            try? before.write(to: catalog, atomically: true, encoding: .utf8)
+        }
+
+        try #"{ "Reveal" : "ZZ-REVEAL" }"#.write(to: probe, atomically: true, encoding: .utf8)
+
+        let run = Process()
+        run.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+        run.arguments = ["python3", root.appendingPathComponent("scripts/merge-translations.py").path]
+        let pipe = Pipe()
+        run.standardOutput = pipe
+        run.standardError = pipe
+        try run.run()
+        run.waitUntilExit()
+        let output = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+        XCTAssertEqual(run.terminationStatus, 0, output)
+
+        let after = try String(contentsOf: catalog, encoding: .utf8)
+        XCTAssertTrue(after.contains("ZZ-REVEAL"), "the translation was not merged")
+
+        // English is untouched: every "en" block in the before-text still
+        // appears verbatim in the after-text.
+        let data = try Data(contentsOf: catalog)
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let strings = try XCTUnwrap(json["strings"] as? [String: Any])
+        let reveal = try XCTUnwrap(strings["Reveal"] as? [String: Any])
+        let locs = try XCTUnwrap(reveal["localizations"] as? [String: Any])
+        let en = try XCTUnwrap(locs["en"] as? [String: Any])
+        let unit = try XCTUnwrap(en["stringUnit"] as? [String: Any])
+        XCTAssertEqual(unit["value"] as? String, "Reveal", "English must survive the merge byte-for-byte")
+    }
+
+    /// Every language that exists must carry every key. A language merged
+    /// while half-written would otherwise sit in the catalog looking finished
+    /// and fall back to English at runtime for whatever it is missing —
+    /// invisible to anyone who cannot read it.
+    func testEveryLanguagePresentIsComplete() throws {
+        let root = Self.repoRoot()
+        let dir = root.appendingPathComponent("translations")
+        let files = (try? FileManager.default.contentsOfDirectory(atPath: dir.path)) ?? []
+        try XCTSkipIf(
+            files.filter { $0.hasSuffix(".json") }.isEmpty,
+            "no languages have landed yet — Task 6 is the first"
+        )
+
+        let run = Process()
+        run.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+        run.arguments = [
+            "python3",
+            root.appendingPathComponent("scripts/merge-translations.py").path,
+            "--check",
+        ]
+        let pipe = Pipe()
+        run.standardOutput = pipe
+        run.standardError = pipe
+        try run.run()
+        run.waitUntilExit()
+        let output = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+
+        XCTAssertEqual(
+            run.terminationStatus, 0,
+            "merge-translations.py --check reported an incomplete language:\n\(output)"
+        )
+    }
+
+    /// Which plural categories a language actually reaches for whole numbers,
+    /// asked of the platform rather than read from a table.
+    ///
+    /// Phase 1's spec demoted its own hand-written CLDR table to
+    /// "illustrative" after a reviewer disputed a row nobody could settle.
+    /// This is the replacement: it cannot go stale, because it is measured.
+    ///
+    /// `zero` is deliberately absent from the categories offered below.
+    /// Apple's stringsdict honours a `zero` override for a literal 0 in
+    /// *every* language, English and Japanese included — it is an Apple
+    /// extension layered on top of CLDR, not something CLDR itself grants
+    /// only to some languages. Offering it here would make all 36
+    /// languages appear to reach it, which measures nothing. The cost of
+    /// that omission is real, not just theoretical: CLDR *does* define
+    /// `zero` as a genuine plural category for Arabic, and this probe
+    /// cannot tell that apart from the universal Apple override — there is
+    /// no observation that separates the two. So `pluralCategories` can
+    /// never report `zero`, and the completeness guard below therefore
+    /// treats `zero` as always optional for every language, Arabic
+    /// included. An Arabic plural entry missing its `zero` variant will
+    /// not be caught here; Apple falls back to `other` at runtime, which
+    /// is grammatically wrong for a count of zero in Arabic. Whoever
+    /// authors the Arabic translation must supply `zero` themselves — this
+    /// guard cannot verify it.
+    static func pluralCategories(for language: String) throws -> Set<String> {
+        let dir = URL(fileURLWithPath: NSTemporaryDirectory())
+            .appendingPathComponent("plural-\(language)-\(UUID().uuidString)")
+            .appendingPathComponent("\(language).lproj")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir.deletingLastPathComponent()) }
+
+        let dict: [String: Any] = [
+            "probe": [
+                "NSStringLocalizedFormatKey": "%#@n@",
+                "n": [
+                    "NSStringFormatSpecTypeKey": "NSStringPluralRuleType",
+                    "NSStringFormatValueTypeKey": "lld",
+                    "one": "one", "two": "two", "few": "few", "many": "many", "other": "other",
+                ],
+            ],
+        ]
+        let data = try PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0)
+        try data.write(to: dir.appendingPathComponent("Localizable.stringsdict"))
+
+        let bundle = try XCTUnwrap(Bundle(path: dir.path), "could not load the probe bundle for \(language)")
+        let format = bundle.localizedString(forKey: "probe", value: nil, table: "Localizable")
+        var seen: Set<String> = []
+        for n in 0...220 {
+            seen.insert(String(format: format, locale: Locale(identifier: language), n))
+        }
+        return seen
+    }
+
+    /// Guards the probe itself. English must come back as exactly one/other;
+    /// Japanese inflects no nouns for number and must come back as other
+    /// alone. If the probe ever returns the raw category names for these, it
+    /// has stopped selecting and is reporting its own input.
+    func testThePluralProbeAgreesWithTwoLanguagesWeCanCheck() throws {
+        XCTAssertEqual(try Self.pluralCategories(for: "en"), ["one", "other"])
+        XCTAssertEqual(try Self.pluralCategories(for: "ja"), ["other"])
+    }
+
+    /// Arabic is the one language here that reaches five categories for whole
+    /// numbers. If this ever returns two, the probe is resolving against the
+    /// wrong bundle and every per-language assertion built on it is worthless.
+    func testThePluralProbeFindsArabicsFiveCategories() throws {
+        XCTAssertEqual(try Self.pluralCategories(for: "ar"), ["one", "two", "few", "many", "other"])
+    }
+
+    /// Every plural entry must carry the categories its language actually
+    /// reaches, plus `other` as the format's universal fallback. Languages
+    /// with no translations yet are skipped, so this tightens on its own as
+    /// Phase 2 lands each one.
+    func testPluralEntriesCarryTheCategoriesTheirLanguageNeeds() throws {
+        let data = try Data(contentsOf: Self.catalogURL(named: "Localizable"))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let strings = try XCTUnwrap(json["strings"] as? [String: Any])
+
+        var checked = 0
+        for (key, entry) in strings {
+            guard let entry = entry as? [String: Any],
+                  let localizations = entry["localizations"] as? [String: Any] else { continue }
+
+            for (language, body) in localizations {
+                guard let body = body as? [String: Any],
+                      let variations = body["variations"] as? [String: Any],
+                      let plural = variations["plural"] as? [String: Any] else { continue }
+
+                // `required` never contains "zero" — see the note on
+                // `pluralCategories` above for why not, and what that
+                // costs for Arabic. So `supplied` needs no corresponding
+                // subtraction: `isSubset(of:)` already ignores any extra
+                // keys `plural` supplies, "zero" included.
+                let required = try Self.pluralCategories(for: language).union(["other"])
+                let supplied = Set(plural.keys)
+                XCTAssertTrue(
+                    required.isSubset(of: supplied),
+                    "\(key) in \(language) is missing \(required.subtracting(supplied).sorted())"
+                )
+                checked += 1
+            }
+        }
+        XCTAssertGreaterThan(checked, 0, "no plural entries examined — this would have passed vacuously")
+    }
+
+    /// A dropped or invented placeholder is a crash or a corrupted sentence,
+    /// and it is invisible to anyone who cannot read the language. So the
+    /// specifiers are compared rather than trusted, and the rule differs by
+    /// entry shape:
+    ///
+    /// - **Flat entries** (a single `stringUnit`) require the translation's
+    ///   specifier set to equal English's exactly — neither dropped nor
+    ///   invented. There is only one rendering of the sentence, so there is
+    ///   no legitimate reason for it to diverge either way.
+    /// - **Plural entries** keep a looser per-variant rule — a variant may
+    ///   not invent a specifier, but it may drop one, because English's own
+    ///   `"%lld images shrunk"` has a `one` form reading "Image shrunk" with
+    ///   no count in it at all. That licence is scoped to individual
+    ///   variants, not to the entry as a whole: the *union* of specifiers
+    ///   across every one of a key's translated variants must still equal
+    ///   the union of English's for that key — a specifier may vanish from
+    ///   one variant, but not from all of them, or the language has
+    ///   silently lost it. English passes its own check under this rule:
+    ///   `"%lld images shrunk"`'s `one` form contributes `{}` and `other`
+    ///   contributes `{%lld}`, so the union is `{%lld}` — exactly English's
+    ///   union for that key.
+    ///
+    /// Compared as sets, not sequences — a language is free to reorder its
+    /// arguments, which is exactly why the positional forms exist.
+    ///
+    /// Skipped when no language has landed yet, the same as
+    /// `testEveryLanguagePresentIsComplete` above: an empty `translations/`
+    /// means there is nothing yet to compare, not a defect to fail on. Once
+    /// Task 6 lands German this skip stops firing on its own — `compared`
+    /// stays live as a check against a malformed localization block that
+    /// parses to zero values even though translations exist.
+    func testEveryTranslationKeepsItsPlaceholders() throws {
+        let root = Self.repoRoot()
+        let dir = root.appendingPathComponent("translations")
+        let files = (try? FileManager.default.contentsOfDirectory(atPath: dir.path)) ?? []
+        try XCTSkipIf(
+            files.filter { $0.hasSuffix(".json") }.isEmpty,
+            "no languages have landed yet — Task 6 is the first"
+        )
+
+        let data = try Data(contentsOf: Self.catalogURL(named: "Localizable"))
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let strings = try XCTUnwrap(json["strings"] as? [String: Any])
+
+        var compared = 0
+        var languagesSeen: Set<String> = []
+        for (key, entry) in strings {
+            guard let entry = entry as? [String: Any],
+                  let localizations = entry["localizations"] as? [String: Any],
+                  let english = localizations["en"] as? [String: Any] else { continue }
+
+            let expected = Self.specifiers(in: Self.values(of: english).joined(separator: " "))
+            guard !expected.isEmpty else { continue }
+
+            let isPlural = ((english["variations"] as? [String: Any])?["plural"] as? [String: Any]) != nil
+
+            for (language, body) in localizations where language != "en" {
+                guard let body = body as? [String: Any] else { continue }
+                languagesSeen.insert(language)
+                let values = Self.values(of: body)
+
+                if isPlural {
+                    // Per-variant: no invented specifiers, but a variant may
+                    // legitimately drop one (see the doc comment above).
+                    var union: Set<String> = []
+                    for value in values {
+                        let found = Self.specifiers(in: value)
+                        XCTAssertTrue(
+                            found.isSubset(of: expected),
+                            "\(key) in \(language) uses \(found.subtracting(expected).sorted()), which English does not: \(value)"
+                        )
+                        union.formUnion(found)
+                        compared += 1
+                    }
+                    // Entry-wide: every specifier English uses anywhere in
+                    // this key must survive in at least one variant.
+                    XCTAssertEqual(
+                        union, expected,
+                        "\(key) in \(language): no variant together keeps \(expected.subtracting(union).sorted()), which English uses somewhere in this entry"
+                    )
+                } else {
+                    // Flat entry: exactly English's specifiers, no more, no
+                    // fewer — there is only one rendering, so nothing here
+                    // is allowed to diverge.
+                    for value in values {
+                        let found = Self.specifiers(in: value)
+                        XCTAssertEqual(
+                            found, expected,
+                            "\(key) in \(language) drops \(expected.subtracting(found).sorted()) and/or invents \(found.subtracting(expected).sorted()): \(value)"
+                        )
+                        compared += 1
+                    }
+                }
+            }
+        }
+        XCTAssertGreaterThan(compared, 0, "no translated values compared — did any language land?")
+        // `compared` alone would let one language go missing behind the
+        // other thirty-four: a block that parses to zero values contributes
+        // nothing and the count stays comfortably positive. Assert the set
+        // instead, so a language that vanishes from the catalog, or arrives
+        // malformed enough to yield no values, names itself here.
+        XCTAssertEqual(
+            languagesSeen, Self.expectedRegions.subtracting(["en"]),
+            "the placeholder guard did not reach every language the app declares"
+        )
+    }
+
+    /// Every `stringUnit` value in a localization, flat or plural.
+    static func values(of localization: [String: Any]) -> [String] {
+        if let unit = localization["stringUnit"] as? [String: Any],
+           let value = unit["value"] as? String {
+            return [value]
+        }
+        guard let variations = localization["variations"] as? [String: Any],
+              let plural = variations["plural"] as? [String: Any] else { return [] }
+        return plural.values.compactMap {
+            (($0 as? [String: Any])?["stringUnit"] as? [String: Any])?["value"] as? String
+        }
+    }
+
+    /// Hoisted out of `specifiers(in:)`: that function runs inside nested
+    /// per-key/per-language/per-variant loops over the whole catalog, and
+    /// compiling the same pattern fresh on every call would be wasted work.
+    static let specifierRegex = try! NSRegularExpression(pattern: #"%(?:\d+\$)?(?:lld|ld|d|@|f)"#)
+
+    /// The format specifiers in a string, normalised so `%1$@` and `%@` count
+    /// as the same kind — a translation may reorder arguments freely.
+    static func specifiers(in text: String) -> Set<String> {
+        let range = NSRange(text.startIndex..<text.endIndex, in: text)
+        var found: Set<String> = []
+        specifierRegex.enumerateMatches(in: text, range: range) { match, _, _ in
+            guard let match, let r = Range(match.range, in: text) else { return }
+            found.insert(String(text[r]).replacingOccurrences(
+                of: #"^%\d+\$"#, with: "%", options: .regularExpression))
+        }
+        return found
+    }
+
     // MARK: - Helpers
 
     static func catalogURL(named name: String) throws -> URL {

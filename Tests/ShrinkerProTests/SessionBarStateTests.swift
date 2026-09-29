@@ -384,14 +384,22 @@ final class CropFieldTests: XCTestCase {
 
     // MARK: - Does the row fit
 
-    /// The expanded panel has no narrow-width fallback — its rows fit at
-    /// `ContentView`'s 340pt floor or they overflow it — and SwiftUI answers
-    /// overflow by squeezing the children rather than by complaining. The
-    /// first version of this row overflowed by 18pt and looked very nearly
-    /// right on screen, which is why the fit is asserted here rather than
-    /// eyeballed.
+    /// The expanded panel has no narrow-width fallback — its rows fit the
+    /// narrowest window the app allows or they overflow it — and SwiftUI
+    /// answers overflow by squeezing the children rather than by
+    /// complaining. The first version of this row overflowed by 18pt and
+    /// looked very nearly right on screen, which is why the fit is asserted
+    /// here rather than eyeballed.
+    ///
+    /// Asserted against the *derived* minimum, not the 340pt base constant.
+    /// Widening the number fields to hold five digits pushed the row past
+    /// 340, so the base is no longer what any language is measured against —
+    /// which is precisely what deriving the minimum was for.
+    @MainActor
     func testTheCropRowFitsAtTheWindowsNarrowestWidth() {
-        XCTAssertTrue(SessionBarState.cropRowFits(atWindowWidth: 340))
+        let narrowest = SessionBarState.minimumWindowWidth(modeLabels: ["ratio", "px"])
+
+        XCTAssertTrue(SessionBarState.cropRowFits(atWindowWidth: narrowest))
     }
 
     /// And the test has to be capable of failing: a row that fits at any width
@@ -403,9 +411,9 @@ final class CropFieldTests: XCTestCase {
     /// Stated as a number so that changing any one width has to be a
     /// deliberate act rather than a quiet accumulation.
     func testTheCropRowsWidthIsWhatItsPartsAddUpTo() {
-        // 106 capsule (9 + 36 + 4 + 8 + 4 + 36 + 9) + 8 + 88 mode control.
-        XCTAssertEqual(SessionBarState.CropRow.capsuleWidth, 106)
-        XCTAssertEqual(SessionBarState.CropRow.width, 202)
+        // 114 capsule (9 + 40 + 4 + 8 + 4 + 40 + 9) + 8 + 88 mode control.
+        XCTAssertEqual(SessionBarState.CropRow.capsuleWidth, 114)
+        XCTAssertEqual(SessionBarState.CropRow.width, 210)
     }
 
     // MARK: - A crop with one number
@@ -506,6 +514,211 @@ final class MaxSizeFieldWidthTests: XCTestCase {
         XCTAssertGreaterThan(
             pixel, px,
             "a wider unit pushes the group wider, since both sit inside the same frame"
+        )
+    }
+}
+
+// MARK: - The crop mode control's width
+
+/// The third fixed-width control in the session panel, and the last to be
+/// measured rather than assumed — the max size field and the Settings window
+/// were both already doing this.
+///
+/// German found it. `ratio | px` draws at 82pt inside an 88pt frame, so
+/// English was never clipped and the old comment claiming "anything narrower
+/// clips ratio" was safe by accident; `Verhältnis | px` needs 115pt and would
+/// have been cut. The first German draft answered that by choosing a shorter,
+/// weaker word, which is a translation being bent around a layout constant —
+/// and the same trade would have been made silently in each of the 34
+/// languages still to come.
+///
+/// `@MainActor` because `modeWidth(labels:)` builds a real
+/// `NSSegmentedControl` to measure, and AppKit views are main-actor isolated.
+@MainActor
+final class CropModeWidthTests: XCTestCase {
+
+    func testEnglishKeepsTheOriginalHardcodedWidth() {
+        let width = SessionBarState.CropRow.modeWidth(labels: ["ratio", "px"])
+
+        XCTAssertEqual(
+            width, SessionBarState.CropRow.baseModeWidth,
+            "English draws under the floor, so it must land exactly on 88pt and not move"
+        )
+    }
+
+    /// The assertion above would pass just as happily if the function ignored
+    /// its labels and returned the floor. This is what separates a floor from
+    /// a hardcoded number.
+    func testALongerLabelWidensTheControl() {
+        let english = SessionBarState.CropRow.modeWidth(labels: ["ratio", "px"])
+        let german = SessionBarState.CropRow.modeWidth(labels: ["Verhältnis", "px"])
+
+        XCTAssertGreaterThan(
+            german, english,
+            "a label that does not fit 88pt must be given room, not clipped"
+        )
+    }
+
+    func testTheControlNeverOutgrowsItsCap() {
+        let absurd = String(repeating: "Verhältnis ", count: 20)
+
+        let width = SessionBarState.CropRow.modeWidth(labels: [absurd, "px"])
+
+        XCTAssertLessThanOrEqual(
+            width, SessionBarState.CropRow.modeWidthCap,
+            "past the cap the control must stop growing and compress instead"
+        )
+    }
+
+    /// English still fits the narrowest window the app allows, which is the
+    /// property the row's arithmetic has always existed to protect.
+    ///
+    /// It no longer fits the 340pt base constant, and that is the intended
+    /// result rather than a regression: the number fields were widened to
+    /// hold the five digits their own documentation had always claimed, so
+    /// English's floor rose with everyone else's. The invariant that matters
+    /// is that the row fits the window the app will actually open.
+    func testTheEnglishRowStillFitsTheNarrowestWindow() {
+        let width = SessionBarState.CropRow.modeWidth(labels: ["ratio", "px"])
+        let narrowest = SessionBarState.minimumWindowWidth(modeLabels: ["ratio", "px"])
+
+        XCTAssertTrue(
+            SessionBarState.cropRowFits(atWindowWidth: narrowest, modeWidth: width),
+            "English must fit the narrowest window the app will open for it"
+        )
+    }
+
+    /// And German does not — recorded rather than glossed over. The designed
+    /// row spends the whole 202pt a 340pt window leaves it, so any mode
+    /// control above the floor needs a wider window. It fits the width the
+    /// window actually opens at, which is what makes this a narrow-window
+    /// question rather than a clipped control.
+    func testAWiderLabelNeedsMoreThanTheNarrowestWindow() {
+        let german = SessionBarState.CropRow.modeWidth(labels: ["Verhältnis", "px"])
+
+        XCTAssertFalse(
+            SessionBarState.cropRowFits(
+                atWindowWidth: SessionBarState.baseMinimumWindowWidth, modeWidth: german
+            ),
+            "guard: if this ever fits the English floor, the cap or the floor has moved — this failing is what MinimumWindowWidthTests exists to answer"
+        )
+        XCTAssertTrue(
+            SessionBarState.cropRowFits(
+                atWindowWidth: SessionBarState.defaultWindowWidth, modeWidth: german
+            ),
+            "the row must fit the width the window actually opens at"
+        )
+    }
+
+    /// The cap is derived from the panel's own geometry rather than guessed,
+    /// and it has to come from the default window rather than the minimum
+    /// one: at 340pt the arithmetic yields the floor itself, and a cap equal
+    /// to its own floor is a control that can never grow.
+    func testTheCapIsWhatTheDefaultWindowLeavesTheControl() {
+        let cap = SessionBarState.CropRow.modeWidthCap
+        let consumed = SessionBarState.panelGutters
+            + SessionBarState.labelColumnWidth
+            + SessionBarState.labelSpacing
+            + SessionBarState.CropRow.capsuleWidth
+            + SessionBarState.CropRow.spacing
+            + cap
+
+        XCTAssertEqual(consumed, SessionBarState.defaultWindowWidth)
+        XCTAssertGreaterThan(
+            cap, SessionBarState.CropRow.baseModeWidth,
+            "a cap at or below the floor would leave the control unable to grow at all"
+        )
+    }
+
+    /// Measured at the control size the call site actually uses. The same two
+    /// labels at `.regular` come back 8pt wider, which would push every
+    /// language — English included — past a floor it currently sits under.
+    func testTheMeasurementUsesTheCallSitesControlSize() {
+        let regular = NSSegmentedControl(
+            labels: ["ratio", "px"], trackingMode: .selectOne, target: nil, action: nil
+        )
+        regular.sizeToFit()
+
+        XCTAssertGreaterThan(
+            regular.intrinsicContentSize.width, SessionBarState.CropRow.baseModeWidth,
+            "guard: at .regular English would exceed the floor, which is the wrong measurement"
+        )
+        XCTAssertEqual(
+            SessionBarState.CropRow.modeWidth(labels: ["ratio", "px"]),
+            SessionBarState.CropRow.baseModeWidth,
+            "at .small, the size the picker is actually drawn at, English stays on the floor"
+        )
+    }
+}
+
+// MARK: - The window's own minimum
+
+/// At 340 points with the session panel open, German did not degrade — it
+/// overflowed. The panel has a fixed intrinsic width, so the window clipped
+/// it from the left and ate the label column: "SITZUNGSEINSTELLUNGEN" rendered
+/// as "TZUNGSEINSTELLUNGEN", every row label lost its first characters.
+///
+/// `cropRowFits` already computed that this would happen and nothing consulted
+/// it — arithmetic with no caller. These tests make the window's minimum a
+/// derived number rather than a constant, so the floor is whatever the panel
+/// actually needs in the language being displayed.
+@MainActor
+final class MinimumWindowWidthTests: XCTestCase {
+
+    /// English's floor is now set by the crop row rather than by the base
+    /// constant. Widening the number fields from 36pt to 40pt, so a
+    /// five-digit crop value stops truncating, added 8pt to the capsule and
+    /// carried it through to here: 340 + 8 + 24 rather than 340 + 24.
+    ///
+    /// Stated as the arithmetic rather than as 372 so that the cost is
+    /// legible — if either the field width or the comfort margin moves
+    /// again, this says which one paid for it.
+    func testEnglishsFloorIsSetByTheRowItHasToHold() {
+        let width = SessionBarState.minimumWindowWidth(modeLabels: ["ratio", "px"])
+
+        let cropRow = SessionBarState.panelGutters + SessionBarState.labelColumnWidth
+            + SessionBarState.labelSpacing + SessionBarState.CropRow.width
+
+        XCTAssertEqual(
+            width, cropRow + SessionBarState.minimumComfortMargin,
+            "English gets what the crop row needs plus the slack that stops the panel filling the window edge to edge"
+        )
+        XCTAssertGreaterThan(
+            width, SessionBarState.baseMinimumWindowWidth + SessionBarState.minimumComfortMargin,
+            "the 40pt fields put English above the base constant — if this ever equalises again the fields have silently narrowed"
+        )
+    }
+
+    func testALanguageWithAWiderModeControlRaisesTheFloor() {
+        let english = SessionBarState.minimumWindowWidth(modeLabels: ["ratio", "px"])
+        let german = SessionBarState.minimumWindowWidth(modeLabels: ["Verhältnis", "px"])
+
+        XCTAssertGreaterThan(
+            german, english,
+            "German's mode control needs 115pt against the 88pt floor; the window has to follow"
+        )
+    }
+
+    /// The point of deriving it. Whatever the minimum comes out as, the crop
+    /// row must actually fit inside it — otherwise the two calculations
+    /// disagree and the overflow comes back in some language nobody measured.
+    func testTheDerivedMinimumAlwaysFitsTheCropRow() {
+        for labels in [["ratio", "px"], ["Verhältnis", "px"], ["коэффициент", "пкс"], ["比率", "px"]] {
+            let minimum = SessionBarState.minimumWindowWidth(modeLabels: labels)
+            let mode = SessionBarState.CropRow.modeWidth(labels: labels)
+
+            XCTAssertTrue(
+                SessionBarState.cropRowFits(atWindowWidth: minimum, modeWidth: mode),
+                "the crop row does not fit the minimum derived for \(labels)"
+            )
+        }
+    }
+
+    func testTheFloorIsNeverLoweredBelowTheDesignedMinimum() {
+        let tiny = SessionBarState.minimumWindowWidth(modeLabels: ["a", "b"])
+
+        XCTAssertGreaterThanOrEqual(
+            tiny, SessionBarState.baseMinimumWindowWidth + SessionBarState.minimumComfortMargin
         )
     }
 }

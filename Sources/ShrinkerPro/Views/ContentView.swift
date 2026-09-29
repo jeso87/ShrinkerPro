@@ -54,7 +54,21 @@ struct ContentView: View {
                 // hover.
                 .allowsHitTesting(!isTargeted)
         }
-        .frame(minWidth: 340, minHeight: 420)
+        // Derived, not a constant. The session panel has a fixed intrinsic
+        // width, so a window narrower than the panel needs does not squeeze
+        // it — it clips it from the left and eats the label column. German
+        // showed that at 340pt with the panel open. The floor is therefore
+        // whatever this language's own crop row asks for, and English still
+        // gets exactly the 340 it always had.
+        .frame(
+            minWidth: SessionBarState.minimumWindowWidth(
+                modeLabels: [
+                    String(localized: "ratio", comment: "Crop mode: the shape is a ratio, not a pixel size."),
+                    String(localized: "px", comment: "Unit beside the max size field. Abbreviation for pixels."),
+                ]
+            ),
+            minHeight: 420
+        )
         // Publishes whether there's history to clear up to the Scene, so
         // ShrinkerProApp's "Clear History" menu command (which lives
         // outside this view's own body and so does not otherwise observe

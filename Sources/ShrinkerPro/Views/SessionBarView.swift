@@ -125,7 +125,19 @@ enum SessionBarState {
     enum CropRow {
         /// Each of the two number fields. Holds five digits, which is the most
         /// either can contain.
-        static let fieldWidth: CGFloat = 36
+        ///
+        /// It did not, until measured. At 36pt this claim had always been
+        /// false: `12345` draws at 36.8pt in the field's own 12.5pt system
+        /// font and truncated to an ellipsis, in English, on an untouched
+        /// install. Four digits fit, so `3840` never showed the bug and
+        /// nothing in the app's own testing went wider. 40pt clears the
+        /// widest five-digit value (`99999`, 39.6pt) and leaves the longest
+        /// translated placeholder (Catalan `Ampl`, 29.9pt) 10pt of room.
+        ///
+        /// Costs 8pt on `minimumWindowWidth`, since `capsuleWidth` holds two
+        /// of these: a number you have typed being silently cut in half is
+        /// worse than a window floor 8pt higher.
+        static let fieldWidth: CGFloat = 40
         /// The `×` / `:` between them.
         static let separatorWidth: CGFloat = 8
         /// Between the fields and the separator.
@@ -134,15 +146,90 @@ enum SessionBarState {
         static let capsulePadding: CGFloat = 9
         /// Between the capsule and the mode control.
         static let spacing: CGFloat = 8
-        /// The px / ratio segmented control, at its natural drawn width — it
-        /// does not stretch, and anything narrower clips "ratio".
-        static let modeWidth: CGFloat = 88
+        /// The px / ratio segmented control's designed width, and the floor
+        /// every language gets.
+        ///
+        /// This used to be the control's only width, hardcoded, with a
+        /// comment saying anything narrower clipped "ratio" — which made it
+        /// the third fixed-width control in this panel, after the max size
+        /// field and the Settings window, and the only one still not
+        /// measuring what it actually holds. German is what found it:
+        /// `ratio | px` draws at 82pt and sits inside this 88pt frame with
+        /// room to spare, but `Verhältnis | px` needs 115pt and would have
+        /// been clipped. The first German draft picked a shorter, weaker
+        /// word to fit the number — a translation bent around a layout
+        /// constant rather than the other way round — and the same quiet
+        /// trade would have been made again in each of the 34 languages
+        /// still to come.
+        ///
+        /// Kept as a floor rather than a starting point, exactly as
+        /// `baseMaxSizeFieldWidth` is: English measures under it, so nothing
+        /// moves for an English reader.
+        static let baseModeWidth: CGFloat = 88
+
+        /// The widest the mode control may grow before it is left to
+        /// compress instead.
+        ///
+        /// Derived from the *default* window rather than the minimum one,
+        /// which is the single place this departs from
+        /// `maxSizeFieldWidthCap`. The crop row already consumes the whole
+        /// of what a 340pt window leaves it — `width` is exactly
+        /// `minimumWindowWidth - panelGutters - labelColumnWidth -
+        /// labelSpacing` — so a cap taken from the minimum window would come
+        /// out at 88pt, identical to the floor, and the control could never
+        /// grow at all. That is not a cap; it is the same bug with
+        /// arithmetic in front of it. Taken from the 500pt default instead,
+        /// it leaves every plausible label a whole line and still stops a
+        /// pathological one from pushing the panel out indefinitely.
+        static var modeWidthCap: CGFloat {
+            SessionBarState.defaultWindowWidth
+                - SessionBarState.panelGutters
+                - SessionBarState.labelColumnWidth
+                - SessionBarState.labelSpacing
+                - capsuleWidth
+                - spacing
+        }
+
+        /// The width the mode control needs for the labels this language
+        /// actually loaded, floored at `baseModeWidth` and capped at
+        /// `modeWidthCap`.
+        ///
+        /// Measured on a real `NSSegmentedControl` rather than by adding up
+        /// the labels' string widths: the padding inside a segment and the
+        /// divider between two of them are the control's own drawing, and a
+        /// sum of text widths can see neither. `controlSize` is set to match
+        /// the call site's `.controlSize(.small)` before measuring — the
+        /// same two labels at `.regular` report 8pt more, which is enough to
+        /// widen every language in the app for nothing.
+        ///
+        /// Not cached, for the same reason `maxSizeFieldWidth` is not: the
+        /// labels cannot change within a launch, and one control measured
+        /// per layout pass is cheaper than the shared mutable state that
+        /// caching it would need.
+        @MainActor
+        static func modeWidth(labels: [String]) -> CGFloat {
+            let control = NSSegmentedControl(
+                labels: labels, trackingMode: .selectOne, target: nil, action: nil
+            )
+            control.controlSize = .small
+            control.sizeToFit()
+            let needed = control.intrinsicContentSize.width.rounded(.up)
+            return min(max(baseModeWidth, needed), modeWidthCap)
+        }
 
         static var capsuleWidth: CGFloat {
             fieldWidth * 2 + separatorWidth + innerSpacing * 2 + capsulePadding * 2
         }
 
-        static var width: CGFloat { capsuleWidth + spacing + modeWidth }
+        /// The row at its designed width — the mode control sitting on its
+        /// floor, which is where English lands.
+        static var width: CGFloat { capsuleWidth + spacing + baseModeWidth }
+
+        /// The row with a mode control of some measured width, for a
+        /// language whose labels asked for more than the floor.
+        static func width(withModeWidth modeWidth: CGFloat) -> CGFloat {
+            capsuleWidth + spacing + modeWidth
+        }
     }
 
     /// The panel's own chrome: 13pt gutters either side, a 104pt label column,
@@ -152,14 +239,68 @@ enum SessionBarState {
     static let labelSpacing: CGFloat = 8
 
     static func cropRowFits(atWindowWidth width: CGFloat) -> Bool {
-        width - panelGutters - labelColumnWidth - labelSpacing >= CropRow.width
+        cropRowFits(atWindowWidth: width, modeWidth: CropRow.baseModeWidth)
     }
 
-    /// The narrowest the window is allowed to get — `ContentView`'s own
-    /// `minWidth`. Repeated here because the panel's widths are derived from
-    /// it, and a silent disagreement between the two would show up as a
-    /// clipped control rather than as a build error.
-    static let minimumWindowWidth: CGFloat = 340
+    /// The same question asked of a language whose mode control measured
+    /// wider than the floor.
+    ///
+    /// The crop row is the one row in this panel that can need more than the
+    /// window's own minimum: at 340pt it has exactly 202pt, which the
+    /// designed row spends to the last point, so any mode control above the
+    /// 88pt floor needs a wider window. German's `Verhältnis | px` measures
+    /// 115pt and wants about 367pt. Below that the row has nowhere to go and
+    /// SwiftUI squeezes it, which is the same failure the row's own arithmetic
+    /// exists to catch — recorded here rather than left to be discovered,
+    /// because the fix for it is a narrow-width fallback this panel has never
+    /// had, not a number.
+    static func cropRowFits(atWindowWidth width: CGFloat, modeWidth: CGFloat) -> Bool {
+        width - panelGutters - labelColumnWidth - labelSpacing
+            >= CropRow.width(withModeWidth: modeWidth)
+    }
+
+    /// The narrowest the window is allowed to get in English, and the floor
+    /// every other language starts from.
+    static let baseMinimumWindowWidth: CGFloat = 340
+
+    /// The narrowest the window may be and still lay this panel out in the
+    /// language actually loaded — `ContentView`'s own `minWidth`.
+    ///
+    /// This was a constant, and at 340pt German did not degrade, it
+    /// overflowed: the panel has a fixed intrinsic width, so the window
+    /// clipped it from the left and ate the label column. "Zuschnitt auf"
+    /// rendered as "uschnitt auf", and the section header lost four
+    /// characters. `cropRowFits` had computed that this would happen since
+    /// Task 6 and nothing consulted it — arithmetic with no caller.
+    ///
+    /// Deriving it makes the floor follow the content, the way the max size
+    /// field, the Settings window and the mode control itself already do. It
+    /// also dissolves the circularity `modeWidthCap` documents: the cap has
+    /// to come from the *default* window because a 340pt minimum leaves the
+    /// crop row exactly its designed width and nothing to grow into. With the
+    /// minimum derived from the row rather than the row squeezed into the
+    /// minimum, the two no longer chase each other.
+    /// Slack above what the widest row strictly needs.
+    ///
+    /// Without it the floor is the exact arithmetic minimum and the panel
+    /// fills the window edge to edge — correct, and indistinguishable from a
+    /// bug. English has always been at that edge: its crop row needs exactly
+    /// the 202 points a 340pt window leaves it. One more gutter's worth on
+    /// each side is enough for the narrowest window to look deliberate.
+    static let minimumComfortMargin: CGFloat = 24
+
+    @MainActor
+    static func minimumWindowWidth(modeLabels: [String]) -> CGFloat {
+        let cropRow = panelGutters + labelColumnWidth + labelSpacing
+            + CropRow.width(withModeWidth: CropRow.modeWidth(labels: modeLabels))
+        return (max(baseMinimumWindowWidth, cropRow) + minimumComfortMargin).rounded(.up)
+    }
+
+    /// The width the window opens at — `ShrinkerProApp`'s own `.defaultSize`.
+    /// Repeated here for the same reason `minimumWindowWidth` is: the mode
+    /// control's cap is derived from it, and a silent disagreement between the
+    /// two would show up as a clipped control rather than as a build error.
+    static let defaultWindowWidth: CGFloat = 500
 
     /// The max size field's designed width, and the floor every language gets.
     ///
@@ -180,7 +321,7 @@ enum SessionBarState {
     /// does not vary with the unit's own width. A longer unit eats into the
     /// group rather than enlarging it.
     static var maxSizeFieldWidthCap: CGFloat {
-        minimumWindowWidth - panelGutters - labelColumnWidth - labelSpacing
+        baseMinimumWindowWidth - panelGutters - labelColumnWidth - labelSpacing
     }
 
     /// The width of the max size field group, measured from the placeholder
@@ -718,7 +859,16 @@ struct SessionBarView: View {
     /// numbers mean something entirely different depending on it, so it has to
     /// be readable without opening anything.
     private var cropFields: some View {
-        HStack(spacing: SessionBarState.CropRow.spacing) {
+        // Hoisted for the reason `maxSizeField` hoists its own placeholder and
+        // unit: the strings that are drawn have to be the strings that are
+        // measured. A width computed from a different literal than the one on
+        // screen is the bug this whole approach replaces, one step removed.
+        let modeLabels = [
+            String(localized: "ratio"),
+            String(localized: "px"),
+        ]
+
+        return HStack(spacing: SessionBarState.CropRow.spacing) {
             HStack(spacing: SessionBarState.CropRow.innerSpacing) {
                 DigitsOnlyField(
                     text: $model.sessionCropWidthText,
@@ -765,13 +915,13 @@ struct SessionBarView: View {
             // two: a shape leaves every other control alone, where a pixel
             // size switches the max size off.
             Picker("Crop mode", selection: $model.sessionCropMode) {
-                Text("ratio").tag(CropTarget.Mode.ratio)
-                Text("px").tag(CropTarget.Mode.pixels)
+                Text(modeLabels[0]).tag(CropTarget.Mode.ratio)
+                Text(modeLabels[1]).tag(CropTarget.Mode.pixels)
             }
             .labelsHidden()
             .pickerStyle(.segmented)
             .controlSize(.small)
-            .frame(width: SessionBarState.CropRow.modeWidth)
+            .frame(width: SessionBarState.CropRow.modeWidth(labels: modeLabels))
         }
         .help(cropHelp)
     }

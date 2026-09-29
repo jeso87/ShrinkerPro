@@ -4,6 +4,76 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.5.0 — 2026-09-29
+
+### Added
+
+**Shrinker Pro is translated into 36 languages.** Arabic, Catalan, Chinese
+(Simplified, Traditional and Hong Kong), Croatian, Czech, Danish, Dutch,
+Finnish, French, German, Greek, Hebrew, Hungarian, Icelandic, Italian,
+Japanese, Korean, Norwegian (Bokmål and Nynorsk), Persian, Polish, Portuguese
+(Brazil and Portugal), Romanian, Russian, Slovak, Slovenian, Spanish, Swedish,
+Thai, Turkish, Ukrainian and Vietnamese.
+
+There is nothing to choose: the app follows the language macOS is set to. The
+set matches the 36 Sparkle itself ships, so the app and its update dialog can
+never appear in different languages, and the update notes are translated too.
+
+Where macOS already has a word for something, the app uses that word rather
+than a fresh translation of it. Every such term was read out of the system's
+own shipping resources rather than recalled — **Reveal in Finder**, **Keep
+Both**, **Replace**, **Quality** and the rest. Where the platform's word would
+be misleading in this app it was refused deliberately and the departure
+recorded: Russian's `Output` is `Выходные файлы`, because the system's own
+`Выход` means an audio output device.
+
+Typography follows each language rather than one house style, and which
+languages get what was measured rather than assumed. Czech, Slovak, Polish and
+Russian take a non-breaking space after one-letter prepositions; Croatian,
+Slovenian and Ukrainian do not, though the typography is otherwise alike.
+German and Slovenian are the only two that space a trailing ellipsis. French
+takes narrow no-break spaces before its high punctuation.
+
+Plural forms were measured from the platform for every language rather than
+taken from a table. Arabic reaches five categories for whole numbers, Slovenian
+four, Polish and Russian never reach `other` at all, and Romanian's `few`
+covers 0 and 2–19 — which is what carries its *de* rule.
+
+The headless `shrinker` command stays in English, deliberately. Its output is
+something scripts read, and a message that changes wording with the Mac's
+region is a message no script can match on.
+
+### Changed
+
+**Settings is two tabs and fits its content.** The window was over a thousand
+points tall and scrolled; 1.4.0 made it scroll properly, which was a fix to the
+symptom. It is now **Output** and **Conversion**, each short enough that
+nothing scrolls at all, and the window sizes itself to whichever tab is
+showing.
+
+It also sizes itself to the language. A row whose label and options no longer
+fit side by side stacks them rather than truncating, so the longest
+translations grow the window downward instead of cutting text off.
+
+**The window's minimum width is derived from the panel it has to hold.** It was
+a constant that happened to suit English. German found it: the session panel
+has a fixed intrinsic width, so at 340 points the window clipped it from the
+left and ate the label column — "SITZUNGSEINSTELLUNGEN" rendered as
+"TZUNGSEINSTELLUNGEN". The arithmetic that would have predicted this already
+existed and nothing consulted it.
+
+### Fixed
+
+**The crop fields hold five digits.** They had always been documented as
+holding five and never did: at 36 points a value from `12345` up drew wider
+than the field and was truncated to an ellipsis while you typed it. Four digits
+fit, so `1920` and `3840` never showed it. The fields are now 40 points, which
+costs 8 points on the window's minimum width.
+
+Found while measuring the translated `W`/`H` placeholders for clipping. Those
+were all fine — the widest, Catalan's `Ampl`, had room to spare. The typed
+value was the thing that did not fit.
+
 ## 1.4.0 — 2026-09-17
 
 ### Added

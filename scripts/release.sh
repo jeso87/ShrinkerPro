@@ -495,6 +495,22 @@ sed \
   | sed '1,/^class /{/^#/d;}' > "$CLI_FORMULA"
 echo "    wrote $CLI_FORMULA"
 
+# The cask, for the app. Same generation, same reason, different audience:
+# the formula installs the `shrinker` command from a personal tap, and this
+# installs the app from homebrew-cask, where nobody has to know the tap
+# exists first. Its sha256 is the DMG's, not the CLI zip's — the two
+# checksums are easy to transpose and a cask with the wrong one fails at
+# install time for everyone.
+CASK="dist/shrinker-pro.rb"
+DMG_SHA=$(shasum -a 256 "$DMG" | awk '{print $1}')
+sed \
+  -e "s|@@VERSION@@|$VERSION|g" \
+  -e "s|@@SHA256@@|$DMG_SHA|g" \
+  -e "s|@@REPO@@|$GITHUB_REPO|g" \
+  homebrew/shrinker-pro.rb.template \
+  | sed '1,/^cask /{/^#/d;}' > "$CASK"
+echo "    wrote $CASK (dmg sha256 ${DMG_SHA:0:12}…)"
+
 # --- GPL corresponding source ---------------------------------------------
 #
 # gifsicle (GPL-2.0) and pngquant (GPL-3.0) are distributed as binaries in

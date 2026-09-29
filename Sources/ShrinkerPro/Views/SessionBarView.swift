@@ -247,11 +247,42 @@ enum SessionBarState {
             >= CropRow.width(withModeWidth: modeWidth)
     }
 
-    /// The narrowest the window is allowed to get — `ContentView`'s own
-    /// `minWidth`. Repeated here because the panel's widths are derived from
-    /// it, and a silent disagreement between the two would show up as a
-    /// clipped control rather than as a build error.
-    static let minimumWindowWidth: CGFloat = 340
+    /// The narrowest the window is allowed to get in English, and the floor
+    /// every other language starts from.
+    static let baseMinimumWindowWidth: CGFloat = 340
+
+    /// The narrowest the window may be and still lay this panel out in the
+    /// language actually loaded — `ContentView`'s own `minWidth`.
+    ///
+    /// This was a constant, and at 340pt German did not degrade, it
+    /// overflowed: the panel has a fixed intrinsic width, so the window
+    /// clipped it from the left and ate the label column. "Zuschnitt auf"
+    /// rendered as "uschnitt auf", and the section header lost four
+    /// characters. `cropRowFits` had computed that this would happen since
+    /// Task 6 and nothing consulted it — arithmetic with no caller.
+    ///
+    /// Deriving it makes the floor follow the content, the way the max size
+    /// field, the Settings window and the mode control itself already do. It
+    /// also dissolves the circularity `modeWidthCap` documents: the cap has
+    /// to come from the *default* window because a 340pt minimum leaves the
+    /// crop row exactly its designed width and nothing to grow into. With the
+    /// minimum derived from the row rather than the row squeezed into the
+    /// minimum, the two no longer chase each other.
+    /// Slack above what the widest row strictly needs.
+    ///
+    /// Without it the floor is the exact arithmetic minimum and the panel
+    /// fills the window edge to edge — correct, and indistinguishable from a
+    /// bug. English has always been at that edge: its crop row needs exactly
+    /// the 202 points a 340pt window leaves it. One more gutter's worth on
+    /// each side is enough for the narrowest window to look deliberate.
+    static let minimumComfortMargin: CGFloat = 24
+
+    @MainActor
+    static func minimumWindowWidth(modeLabels: [String]) -> CGFloat {
+        let cropRow = panelGutters + labelColumnWidth + labelSpacing
+            + CropRow.width(withModeWidth: CropRow.modeWidth(labels: modeLabels))
+        return (max(baseMinimumWindowWidth, cropRow) + minimumComfortMargin).rounded(.up)
+    }
 
     /// The width the window opens at — `ShrinkerProApp`'s own `.defaultSize`.
     /// Repeated here for the same reason `minimumWindowWidth` is: the mode
@@ -278,7 +309,7 @@ enum SessionBarState {
     /// does not vary with the unit's own width. A longer unit eats into the
     /// group rather than enlarging it.
     static var maxSizeFieldWidthCap: CGFloat {
-        minimumWindowWidth - panelGutters - labelColumnWidth - labelSpacing
+        baseMinimumWindowWidth - panelGutters - labelColumnWidth - labelSpacing
     }
 
     /// The width of the max size field group, measured from the placeholder

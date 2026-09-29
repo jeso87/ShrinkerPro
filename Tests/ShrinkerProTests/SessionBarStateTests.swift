@@ -569,7 +569,7 @@ final class CropModeWidthTests: XCTestCase {
 
         XCTAssertTrue(
             SessionBarState.cropRowFits(
-                atWindowWidth: SessionBarState.minimumWindowWidth, modeWidth: width
+                atWindowWidth: SessionBarState.baseMinimumWindowWidth, modeWidth: width
             ),
             "English must be unchanged: the row fits 340pt exactly, as it always did"
         )
@@ -585,9 +585,9 @@ final class CropModeWidthTests: XCTestCase {
 
         XCTAssertFalse(
             SessionBarState.cropRowFits(
-                atWindowWidth: SessionBarState.minimumWindowWidth, modeWidth: german
+                atWindowWidth: SessionBarState.baseMinimumWindowWidth, modeWidth: german
             ),
-            "guard: if this ever fits 340pt the cap or the floor has moved"
+            "guard: if this ever fits the English floor, the cap or the floor has moved — this failing is what MinimumWindowWidthTests exists to answer"
         )
         XCTAssertTrue(
             SessionBarState.cropRowFits(
@@ -634,6 +634,63 @@ final class CropModeWidthTests: XCTestCase {
             SessionBarState.CropRow.modeWidth(labels: ["ratio", "px"]),
             SessionBarState.CropRow.baseModeWidth,
             "at .small, the size the picker is actually drawn at, English stays on the floor"
+        )
+    }
+}
+
+// MARK: - The window's own minimum
+
+/// At 340 points with the session panel open, German did not degrade — it
+/// overflowed. The panel has a fixed intrinsic width, so the window clipped
+/// it from the left and ate the label column: "SITZUNGSEINSTELLUNGEN" rendered
+/// as "TZUNGSEINSTELLUNGEN", every row label lost its first characters.
+///
+/// `cropRowFits` already computed that this would happen and nothing consulted
+/// it — arithmetic with no caller. These tests make the window's minimum a
+/// derived number rather than a constant, so the floor is whatever the panel
+/// actually needs in the language being displayed.
+@MainActor
+final class MinimumWindowWidthTests: XCTestCase {
+
+    func testEnglishKeepsTheOriginalFloor() {
+        let width = SessionBarState.minimumWindowWidth(modeLabels: ["ratio", "px"])
+
+        XCTAssertEqual(
+            width, SessionBarState.baseMinimumWindowWidth + SessionBarState.minimumComfortMargin,
+            "English gets the designed floor plus the slack that stops the panel filling the window edge to edge"
+        )
+    }
+
+    func testALanguageWithAWiderModeControlRaisesTheFloor() {
+        let english = SessionBarState.minimumWindowWidth(modeLabels: ["ratio", "px"])
+        let german = SessionBarState.minimumWindowWidth(modeLabels: ["Verhältnis", "px"])
+
+        XCTAssertGreaterThan(
+            german, english,
+            "German's mode control needs 115pt against the 88pt floor; the window has to follow"
+        )
+    }
+
+    /// The point of deriving it. Whatever the minimum comes out as, the crop
+    /// row must actually fit inside it — otherwise the two calculations
+    /// disagree and the overflow comes back in some language nobody measured.
+    func testTheDerivedMinimumAlwaysFitsTheCropRow() {
+        for labels in [["ratio", "px"], ["Verhältnis", "px"], ["коэффициент", "пкс"], ["比率", "px"]] {
+            let minimum = SessionBarState.minimumWindowWidth(modeLabels: labels)
+            let mode = SessionBarState.CropRow.modeWidth(labels: labels)
+
+            XCTAssertTrue(
+                SessionBarState.cropRowFits(atWindowWidth: minimum, modeWidth: mode),
+                "the crop row does not fit the minimum derived for \(labels)"
+            )
+        }
+    }
+
+    func testTheFloorIsNeverLoweredBelowTheDesignedMinimum() {
+        let tiny = SessionBarState.minimumWindowWidth(modeLabels: ["a", "b"])
+
+        XCTAssertGreaterThanOrEqual(
+            tiny, SessionBarState.baseMinimumWindowWidth + SessionBarState.minimumComfortMargin
         )
     }
 }

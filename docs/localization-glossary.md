@@ -36,3 +36,17 @@ action reads as foreign even when every individual word is correct — the
 error is not in the translation but in ignoring the platform convention
 around it. When in doubt, match the OS; do not translate the English source
 string as if the platform's own choice did not already exist.
+
+**Match the term, not the sentence it came from.** Apple's string was written
+for Apple's noun, and copying it verbatim can carry grammar that does not
+agree with ours. Polish found this: Apple's "Keep Both" is *Pozostaw obie*,
+whose feminine *obie* agrees with Apple's *rzecz* — while the thing being kept
+here is a *plik*, which is masculine. The platform convention is the word
+choice, not the inflection. Where the two conflict, keep Apple's vocabulary
+and fix the agreement to our own noun.
+
+The same caution applies to a platform term that is accurate for Apple's
+context and wrong for ours. Prefer the system's word where it means what we
+mean; where it does not, say so in your report rather than following it off a
+cliff — a term that is idiomatic in the OS and misleading in this app is worse
+than a plain translation.

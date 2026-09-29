@@ -7130,7 +7130,7 @@
           "stringUnit" : { "state" : "translated", "value" : "Vyhľadať aktualizácie…" }
         },
         "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Preveri, ali so na voljo posodobitve …" }
+          "stringUnit" : { "state" : "translated", "value" : "Preveri, ali so na voljo posodobitve …" }
         },
         "sv" : {
           "stringUnit" : { "state" : "translated", "value" : "Leta efter uppdateringar…" }
@@ -7243,7 +7243,7 @@
           "stringUnit" : { "state" : "translated", "value" : "Vybrať priečinok…" }
         },
         "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Izberi mapo …" }
+          "stringUnit" : { "state" : "translated", "value" : "Izberi mapo …" }
         },
         "sv" : {
           "stringUnit" : { "state" : "translated", "value" : "Välj mapp…" }
@@ -7356,7 +7356,7 @@
           "stringUnit" : { "state" : "translated", "value" : "Vybrať…" }
         },
         "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Izberi …" }
+          "stringUnit" : { "state" : "translated", "value" : "Izberi …" }
         },
         "sv" : {
           "stringUnit" : { "state" : "translated", "value" : "Välj…" }
@@ -9842,7 +9842,7 @@
           "stringUnit" : { "state" : "translated", "value" : "Otvoriť súbory…" }
         },
         "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Odpri datoteke …" }
+          "stringUnit" : { "state" : "translated", "value" : "Odpri datoteke …" }
         },
         "sv" : {
           "stringUnit" : { "state" : "translated", "value" : "Öppna filer…" }
@@ -9955,7 +9955,7 @@
           "stringUnit" : { "state" : "translated", "value" : "Otvoriť nastavenia hlásení…" }
         },
         "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Odpri nastavitve obvestil …" }
+          "stringUnit" : { "state" : "translated", "value" : "Odpri nastavitve obvestil …" }
         },
         "sv" : {
           "stringUnit" : { "state" : "translated", "value" : "Öppna notisinställningar…" }

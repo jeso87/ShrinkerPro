@@ -23,20 +23,6 @@ import AppKit
 /// is a rule no test can reach. See `SettingsWindowMetricsTests`.
 enum SettingsWindowMetrics {
 
-    /// Room for the title bar and the window's own frame, plus a little air so
-    /// the window is not shoved flush against the Dock or the menu bar.
-    /// Measured at 28 points of title bar; the rest is that margin.
-    ///
-    /// Erring high costs a strip of unused height. Erring low puts the bottom
-    /// of the window back off the screen, which is the whole defect, so this
-    /// leans high on purpose.
-    static let chromeAllowance: CGFloat = 60
-
-    /// Below this a Settings window stops being usable — too short to show a
-    /// section header and a control together, so scrolling it would be all
-    /// the user ever did.
-    static let minimumContentHeight: CGFloat = 320
-
     /// The Settings window's designed width, and the floor every language gets.
     static let baseContentWidth: CGFloat = 420
 
@@ -76,66 +62,17 @@ enum SettingsWindowMetrics {
             .width
             .rounded(.up)
     }
-
-    /// The tallest the `Form` may be on a screen with `visible` points of
-    /// usable height.
-    ///
-    /// The outer `min` is what keeps `minimumContentHeight` a floor rather
-    /// than an override: on a display shorter than the floor itself, honouring
-    /// the floor would hand back a window taller than the screen and
-    /// reintroduce exactly the defect above. The screen always wins.
-    ///
-    /// A non-positive reading — `NSScreen` reporting nothing mid-reconfiguration,
-    /// or no main screen at all — falls back to the floor rather than to zero,
-    /// because a window with no height is worse than one that has to scroll.
-    static func maxContentHeight(forVisibleHeight visible: CGFloat) -> CGFloat {
-        guard visible > 0 else { return minimumContentHeight }
-        return min(visible, max(minimumContentHeight, visible - chromeAllowance))
-    }
-
-    /// How much has to be hidden before the window bothers saying so.
-    ///
-    /// `SettingsView.contentHeight` is a measurement, not a guarantee — it can
-    /// be a few points out from what the `Form` actually lays out, and it will
-    /// drift the first time a row changes. Without this tolerance a display
-    /// that misses by ten points would draw a fade and a chevron over a pane
-    /// that is, to the eye, entirely visible. Observed exactly that way on a
-    /// display with 1050 points of usable height.
-    ///
-    /// The cost is a narrow band — less than one row — where something is
-    /// clipped and nothing announces it. That is the better failure: a
-    /// chevron pointing at nothing teaches people to ignore chevrons.
-    static let scrollAffordanceThreshold: CGFloat = 24
-
-    /// Whether enough of `content` is hidden on a screen with `visible` points
-    /// of usable height to be worth telling the user about.
-    ///
-    /// Drives the fade and chevron at the bottom of the window, and is its own
-    /// function so they appear on exactly the displays that need them. A
-    /// permanent affordance would be a lie on a large monitor, where nothing
-    /// is hidden and there is nothing to scroll to.
-    static func contentScrolls(contentHeight content: CGFloat, visibleHeight visible: CGFloat) -> Bool {
-        content - maxContentHeight(forVisibleHeight: visible) > scrollAffordanceThreshold
-    }
 }
 
+/// The Settings window: two tabs over one shared frame.
+///
+/// This view owns the window's size and the display it sits on; each tab owns
+/// its own sections. The split is by what a setting decides — where a file is
+/// written and what survives the trip, against what the image is encoded as.
 struct SettingsView: View {
     @EnvironmentObject private var settings: Settings
 
-    /// How tall the five sections come to, measured from the build that still
-    /// pinned them: a 1027 point window, less 28 points of title bar.
-    ///
-    /// A constant here, unlike the screen bound below, and the difference is
-    /// who owns the number. The display belongs to the user, and guessing it
-    /// is the defect being fixed. This describes our own five sections, which
-    /// nobody can change without editing the `Form` a few lines down — and if
-    /// it ever goes stale the window simply scrolls a little sooner or shows a
-    /// little slack, rather than losing anything.
-    private static let contentHeight: CGFloat = 1000
-
     /// The usable height of the display this window is **actually on**,
-    /// reported by `SettingsWindowScreen` below and updated whenever the
-    /// window moves or the screens are reconfigured.
     ///
     /// It was `NSScreen.main?.visibleFrame.height`, read inline, and that was
     /// wrong twice over. `NSScreen.main` is the screen with keyboard focus,
@@ -144,24 +81,13 @@ struct SettingsView: View {
     /// is a plain global, so SwiftUI had no reason to re-evaluate the body
     /// when a display's resolution changed. The window kept whatever height it
     /// had been given at launch.
-    @State private var visibleHeight: CGFloat = SettingsWindowScreen.conservativeHeight()
-
-    private var maxContentHeight: CGFloat {
-        SettingsWindowMetrics.maxContentHeight(forVisibleHeight: visibleHeight)
-    }
 
     /// Whether this display is too short to show every setting at once.
-    private var isScrollable: Bool {
-        SettingsWindowMetrics.contentScrolls(
-            contentHeight: Self.contentHeight, visibleHeight: visibleHeight
-        )
-    }
 
     /// Starts as `.notDetermined` (which renders nothing) and is replaced
     /// with the real answer by the `.task` below, so the warning can never
     /// flash on screen before the system has been asked.
     @State private var notificationPermission: NotificationPermission = .notDetermined
-
     /// Whether the Files/Filenames radio pair is choosing between keeping
     /// and replacing the user's own files, or merely naming a copy that
     /// lands somewhere else. Recomputed from the two rows above it, so
@@ -191,13 +117,52 @@ struct SettingsView: View {
             + [naming.suffixOnTitle, naming.suffixOffTitle]
     }
 
-    private var naming: OutputNaming {
+    /// Derived from `settings` rather than stored, and static so the output
+    /// tab can share it without either view keeping its own copy.
+    static func naming(for settings: Settings) -> OutputNaming {
         OutputNaming.style(
             saveInSameFolder: settings.saveInSameFolder,
             savePath: settings.savePath,
             useSubfolder: settings.useSubfolder
         )
     }
+
+    private var naming: OutputNaming { Self.naming(for: settings) }
+
+    var body: some View {
+        TabView {
+            SettingsOutputPane(notificationPermission: $notificationPermission)
+                .tabItem { Label("Output", systemImage: "folder") }
+            SettingsConversionPane()
+                .tabItem { Label("Conversion", systemImage: "arrow.triangle.2.circlepath") }
+        }
+        // Width only. The height is the content's own: two tabs put every
+        // section inside about 470 points, which fits any display macOS runs
+        // on, so the window no longer has to be told how tall to be.
+        .frame(
+            width: SettingsWindowMetrics.contentWidth(
+                rowLabels: Self.measuredRowLabels(naming: naming),
+                optionLabels: Self.measuredOptionLabels(naming: naming)
+            )
+        )
+        .task { notificationPermission = await .current() }
+        // Re-check when the app is brought back to the front: the whole
+        // point of the button above is that the user leaves for System
+        // Settings and changes the answer, and the warning has to
+        // disappear when they come back without needing a relaunch.
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            Task { notificationPermission = await .current() }
+        }
+    }
+}
+
+/// Where a file is written, what it is called, what survives the trip, and how
+/// the app behaves around it.
+private struct SettingsOutputPane: View {
+    @EnvironmentObject private var settings: Settings
+    @Binding var notificationPermission: NotificationPermission
+
+    private var naming: OutputNaming { SettingsView.naming(for: settings) }
 
     /// One radio's label: the choice, and — where the choice is only about a
     /// filename — the filename it produces, in secondary text so the option
@@ -291,53 +256,6 @@ struct SettingsView: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
-            } header: {
-                Text("Output")
-            }
-            // A separate Section (not folded into either toggle group above)
-            // so the five rules read as one group of related controls, per
-            // the spec, rather than being mixed in with unrelated toggles.
-            Section {
-                ConversionRuleRow(rowLabel: "PNG", ownFormatName: "PNG", selection: $settings.pngConversion)
-                ConversionRuleRow(rowLabel: "JPEG", ownFormatName: "JPEG", selection: $settings.jpegConversion)
-                HEICConversionRuleRow(rowLabel: "HEIC / HEIF", selection: $settings.heicConversion)
-                ConversionRuleRow(rowLabel: "WebP", ownFormatName: "WebP", selection: $settings.webpConversion)
-                ConversionRuleRow(rowLabel: "AVIF", ownFormatName: "AVIF", selection: $settings.avifConversion)
-            } header: {
-                Text("Conversion")
-            } footer: {
-                // Required copy (spec): SVG and GIF have no row above, and
-                // their absence needs explaining, not leaving the user to
-                // wonder whether it's an oversight. Must name both formats
-                // and give the reason for each — "some formats are
-                // excluded" is not actionable.
-                Text("SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.")
-            }
-            // Its own Section, placed directly after the conversion rules:
-            // quality governs the encoders those rules select, but it also
-            // applies to same-format compression, so folding it into the
-            // Conversion group would understate its reach.
-            Section {
-                Picker("Encode at", selection: $settings.quality) {
-                    ForEach(QualityLevel.allCases, id: \.self) { level in
-                        Text(level.displayName).tag(level)
-                    }
-                }
-            } header: {
-                Text("Quality")
-            } footer: {
-                // Naming the excluded formats for the same reason the
-                // Conversion footer names SVG and GIF: an exemption the user
-                // can't see is one they'll take for a bug. Deliberately does
-                // NOT claim PNG is lossless — pngquant quantises to a 256
-                // colour palette, so it very much isn't; it simply has no
-                // comparable quality dial, and neither does gifsicle's -O2.
-                // Says "every session starts at" rather than simply "the
-                // quality" because the window's session bar can now sit on
-                // top of this without writing back to it — a user who
-                // changes quality there and then finds this row unmoved
-                // needs the two to explain each other.
-                Text("Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this.")
             }
             Section {
                 Picker("When shrinking, keep", selection: $settings.metadataPolicy) {
@@ -380,72 +298,19 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        // The scroll bar is asked for explicitly rather than left to the
-        // system's "show on scrolling" default. The window is taller than it
-        // can show on most displays, so whether there is more below is the
-        // first thing someone needs to know — and a scroll bar that only
-        // appears once you have already scrolled cannot tell them.
-        .scrollIndicators(.visible)
-        // `fixedSize(horizontal: false, vertical: true)` used to stand here,
-        // and it was the bug. It pins a view to its intrinsic height, and a
-        // grouped `Form` is otherwise a scrollable list — pinned, it could
-        // only overflow, so on any display shorter than about 1030 points the
-        // bottom of this window went off the screen with no way to reach it.
+        // Pins the Form to its intrinsic height so the window sizes to the
+        // content instead of the other way round.
         //
-        // Given a height instead, the `Form` fills it and scrolls. The height
-        // is the content's own where the screen allows it, and the screen's
-        // where it does not.
-        .frame(
-            width: SettingsWindowMetrics.contentWidth(
-                rowLabels: Self.measuredRowLabels(naming: naming),
-                optionLabels: Self.measuredOptionLabels(naming: naming)
-            ),
-            height: min(Self.contentHeight, maxContentHeight)
-        )
-        // Something has to say "there is more below", because macOS will not.
-        // `scrollIndicators(.visible)` above asks for a scroll bar, but
-        // AppKit's overlay scrollers still fade out when idle unless the user
-        // has set Appearance ▸ Show scroll bars to Always — verified here, on
-        // a clamped window that showed no indicator at all. So the window says
-        // it itself.
-        //
-        // Only when there is genuinely something below: on a display tall
-        // enough to show all of it, a fade would be claiming hidden content
-        // that does not exist.
-        .overlay(alignment: .bottom) {
-            if isScrollable {
-                ZStack(alignment: .bottom) {
-                    LinearGradient(
-                        colors: [
-                            Color(nsColor: .windowBackgroundColor).opacity(0),
-                            Color(nsColor: .windowBackgroundColor),
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                    // A fade alone is the conventional cue and was tried
-                    // first. It is nearly invisible here, because it fades to
-                    // the very colour it sits on — so it gets a glyph.
-                    Image(systemName: "chevron.down")
-                        .font(.system(size: 11, weight: .semibold))
-                        .foregroundStyle(.secondary)
-                        .padding(.bottom, 6)
-                }
-                .frame(height: 44)
-                // Decoration. Clicks belong to whatever row is underneath it.
-                .allowsHitTesting(false)
-                .accessibilityHidden(true)
-            }
-        }
-        .background(SettingsWindowScreen(visibleHeight: $visibleHeight))
-        .task { notificationPermission = await .current() }
-        // Re-check when the app is brought back to the front: the whole
-        // point of the button above is that the user leaves for System
-        // Settings and changes the answer, and the warning has to
-        // disappear when they come back without needing a relaunch.
-        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
-            Task { notificationPermission = await .current() }
-        }
+        // This modifier used to be here, was removed as the cause of a bug,
+        // and is correct again now for the reason it was wrong then. A
+        // grouped `Form` is a scrollable list: unpinned it reports no height
+        // and simply fills whatever it is handed. Pinned, it can only
+        // overflow — which at 1000 points of single-column content pushed the
+        // window's bottom off any display shorter than about 1030, with no
+        // way to reach it. Two tabs put each pane near 470, so there is
+        // nothing left to overflow, and pinning is what makes the window fit
+        // its content rather than clip it.
+        .fixedSize(horizontal: false, vertical: true)
     }
 
     private func chooseFolder() {
@@ -458,90 +323,71 @@ struct SettingsView: View {
     }
 }
 
-/// Reports the usable height of the display the Settings window is on, and
-/// keeps reporting it as that changes.
-///
-/// A zero-sized `NSView` in the window's background, because this is a
-/// question only AppKit can answer: SwiftUI has no notion of which screen a
-/// window landed on, and `NSScreen.main` answers a different question — which
-/// screen has keyboard focus. On a multi-display setup those are routinely
-/// different, and a window sized against the wrong one is exactly the defect
-/// this whole bound exists to prevent.
-///
-/// Two notifications keep it honest. `didChangeScreenParameters` fires when a
-/// display is added, removed, or has its resolution changed — the case that
-/// reported this bug. `NSWindow.didMoveNotification` fires when the window is
-/// dragged between displays, which changes the answer without changing
-/// anything about the screens themselves.
-private struct SettingsWindowScreen: NSViewRepresentable {
-    @Binding var visibleHeight: CGFloat
+/// What the image is encoded as: the per-format rules, and the quality the
+/// encoders those rules select are run at.
+private struct SettingsConversionPane: View {
+    @EnvironmentObject private var settings: Settings
 
-    func makeNSView(context: Context) -> NSView {
-        let view = ReporterView()
-        view.onChange = { height in
-            // Assigned asynchronously: this fires during layout, and writing
-            // to SwiftUI state inside a layout pass is what produces
-            // "Modifying state during view update".
-            DispatchQueue.main.async {
-                if visibleHeight != height { visibleHeight = height }
+    var body: some View {
+        Form {
+            // A separate Section (not folded into either toggle group above)
+            // so the five rules read as one group of related controls, per
+            // the spec, rather than being mixed in with unrelated toggles.
+            Section {
+                ConversionRuleRow(rowLabel: "PNG", ownFormatName: "PNG", selection: $settings.pngConversion)
+                ConversionRuleRow(rowLabel: "JPEG", ownFormatName: "JPEG", selection: $settings.jpegConversion)
+                HEICConversionRuleRow(rowLabel: "HEIC / HEIF", selection: $settings.heicConversion)
+                ConversionRuleRow(rowLabel: "WebP", ownFormatName: "WebP", selection: $settings.webpConversion)
+                ConversionRuleRow(rowLabel: "AVIF", ownFormatName: "AVIF", selection: $settings.avifConversion)
+            } footer: {
+                // Required copy (spec): SVG and GIF have no row above, and
+                // their absence needs explaining, not leaving the user to
+                // wonder whether it's an oversight. Must name both formats
+                // and give the reason for each — "some formats are
+                // excluded" is not actionable.
+                Text("SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.")
             }
-        }
-        return view
-    }
-
-    func updateNSView(_ nsView: NSView, context: Context) {
-        (nsView as? ReporterView)?.report()
-    }
-
-    final class ReporterView: NSView {
-        var onChange: ((CGFloat) -> Void)?
-        private var observers: [NSObjectProtocol] = []
-
-        override func viewDidMoveToWindow() {
-            super.viewDidMoveToWindow()
-            observers.forEach(NotificationCenter.default.removeObserver)
-            observers = []
-            guard window != nil else { return }
-
-            let centre = NotificationCenter.default
-            for name in [
-                NSApplication.didChangeScreenParametersNotification,
-                NSWindow.didMoveNotification,
-            ] {
-                observers.append(
-                    centre.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
-                        self?.report()
+            // Its own Section, placed directly after the conversion rules:
+            // quality governs the encoders those rules select, but it also
+            // applies to same-format compression, so folding it into the
+            // Conversion group would understate its reach.
+            Section {
+                Picker("Encode at", selection: $settings.quality) {
+                    ForEach(QualityLevel.allCases, id: \.self) { level in
+                        Text(level.displayName).tag(level)
                     }
-                )
+                }
+            } header: {
+                Text("Quality")
+            } footer: {
+                // Naming the excluded formats for the same reason the
+                // Conversion footer names SVG and GIF: an exemption the user
+                // can't see is one they'll take for a bug. Deliberately does
+                // NOT claim PNG is lossless — pngquant quantises to a 256
+                // colour palette, so it very much isn't; it simply has no
+                // comparable quality dial, and neither does gifsicle's -O2.
+                // Says "every session starts at" rather than simply "the
+                // quality" because the window's session bar can now sit on
+                // top of this without writing back to it — a user who
+                // changes quality there and then finds this row unmoved
+                // needs the two to explain each other.
+                Text("Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this.")
             }
-            report()
         }
-
-        // No `deinit` cleanup: `viewDidMoveToWindow` fires again with a nil
-        // window when the view is removed, and unsubscribes there. Swift 6
-        // will not let a nonisolated deinit touch the token array anyway, and
-        // reaching for an unchecked box to get around that would be papering
-        // over a lifetime AppKit already tells us about.
-        func report() {
-            // `window.screen` is the display the window is actually on. It is
-            // nil while the window is being placed, which is what the
-            // conservative fallback is for: too short for a moment is
-            // recoverable, too tall is the bug.
-            let height = window?.screen?.visibleFrame.height
-                ?? SettingsWindowScreen.conservativeHeight()
-            onChange?(height)
-        }
-    }
-
-    /// The shortest display attached, used until the window says which one it
-    /// is on.
-    ///
-    /// Deliberately pessimistic. Guessing high means the window opens taller
-    /// than the screen it lands on, which is the defect; guessing low means it
-    /// opens a little short and corrects itself on the next layout pass, which
-    /// nobody notices.
-    static func conservativeHeight() -> CGFloat {
-        NSScreen.screens.map(\.visibleFrame.height).min() ?? 800
+        .formStyle(.grouped)
+        // Pins the Form to its intrinsic height so the window sizes to the
+        // content instead of the other way round.
+        //
+        // This modifier used to be here, was removed as the cause of a bug,
+        // and is correct again now for the reason it was wrong then. A
+        // grouped `Form` is a scrollable list: unpinned it reports no height
+        // and simply fills whatever it is handed. Pinned, it can only
+        // overflow — which at 1000 points of single-column content pushed the
+        // window's bottom off any display shorter than about 1030, with no
+        // way to reach it. Two tabs put each pane near 470, so there is
+        // nothing left to overflow, and pinning is what makes the window fit
+        // its content rather than clip it.
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
@@ -587,3 +433,4 @@ private struct HEICConversionRuleRow: View {
         }
     }
 }
+

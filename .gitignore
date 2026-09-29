@@ -53,3 +53,4 @@ build/DerivedData/
 
 # Python bytecode from the catalog scripts importing catalog_format.
 __pycache__/
+/internal logos

@@ -125,7 +125,19 @@ enum SessionBarState {
     enum CropRow {
         /// Each of the two number fields. Holds five digits, which is the most
         /// either can contain.
-        static let fieldWidth: CGFloat = 36
+        ///
+        /// It did not, until measured. At 36pt this claim had always been
+        /// false: `12345` draws at 36.8pt in the field's own 12.5pt system
+        /// font and truncated to an ellipsis, in English, on an untouched
+        /// install. Four digits fit, so `3840` never showed the bug and
+        /// nothing in the app's own testing went wider. 40pt clears the
+        /// widest five-digit value (`99999`, 39.6pt) and leaves the longest
+        /// translated placeholder (Catalan `Ampl`, 29.9pt) 10pt of room.
+        ///
+        /// Costs 8pt on `minimumWindowWidth`, since `capsuleWidth` holds two
+        /// of these: a number you have typed being silently cut in half is
+        /// worse than a window floor 8pt higher.
+        static let fieldWidth: CGFloat = 40
         /// The `×` / `:` between them.
         static let separatorWidth: CGFloat = 8
         /// Between the fields and the separator.

@@ -384,14 +384,22 @@ final class CropFieldTests: XCTestCase {
 
     // MARK: - Does the row fit
 
-    /// The expanded panel has no narrow-width fallback — its rows fit at
-    /// `ContentView`'s 340pt floor or they overflow it — and SwiftUI answers
-    /// overflow by squeezing the children rather than by complaining. The
-    /// first version of this row overflowed by 18pt and looked very nearly
-    /// right on screen, which is why the fit is asserted here rather than
-    /// eyeballed.
+    /// The expanded panel has no narrow-width fallback — its rows fit the
+    /// narrowest window the app allows or they overflow it — and SwiftUI
+    /// answers overflow by squeezing the children rather than by
+    /// complaining. The first version of this row overflowed by 18pt and
+    /// looked very nearly right on screen, which is why the fit is asserted
+    /// here rather than eyeballed.
+    ///
+    /// Asserted against the *derived* minimum, not the 340pt base constant.
+    /// Widening the number fields to hold five digits pushed the row past
+    /// 340, so the base is no longer what any language is measured against —
+    /// which is precisely what deriving the minimum was for.
+    @MainActor
     func testTheCropRowFitsAtTheWindowsNarrowestWidth() {
-        XCTAssertTrue(SessionBarState.cropRowFits(atWindowWidth: 340))
+        let narrowest = SessionBarState.minimumWindowWidth(modeLabels: ["ratio", "px"])
+
+        XCTAssertTrue(SessionBarState.cropRowFits(atWindowWidth: narrowest))
     }
 
     /// And the test has to be capable of failing: a row that fits at any width
@@ -403,9 +411,9 @@ final class CropFieldTests: XCTestCase {
     /// Stated as a number so that changing any one width has to be a
     /// deliberate act rather than a quiet accumulation.
     func testTheCropRowsWidthIsWhatItsPartsAddUpTo() {
-        // 106 capsule (9 + 36 + 4 + 8 + 4 + 36 + 9) + 8 + 88 mode control.
-        XCTAssertEqual(SessionBarState.CropRow.capsuleWidth, 106)
-        XCTAssertEqual(SessionBarState.CropRow.width, 202)
+        // 114 capsule (9 + 40 + 4 + 8 + 4 + 40 + 9) + 8 + 88 mode control.
+        XCTAssertEqual(SessionBarState.CropRow.capsuleWidth, 114)
+        XCTAssertEqual(SessionBarState.CropRow.width, 210)
     }
 
     // MARK: - A crop with one number
@@ -564,14 +572,19 @@ final class CropModeWidthTests: XCTestCase {
 
     /// English still fits the narrowest window the app allows, which is the
     /// property the row's arithmetic has always existed to protect.
+    ///
+    /// It no longer fits the 340pt base constant, and that is the intended
+    /// result rather than a regression: the number fields were widened to
+    /// hold the five digits their own documentation had always claimed, so
+    /// English's floor rose with everyone else's. The invariant that matters
+    /// is that the row fits the window the app will actually open.
     func testTheEnglishRowStillFitsTheNarrowestWindow() {
         let width = SessionBarState.CropRow.modeWidth(labels: ["ratio", "px"])
+        let narrowest = SessionBarState.minimumWindowWidth(modeLabels: ["ratio", "px"])
 
         XCTAssertTrue(
-            SessionBarState.cropRowFits(
-                atWindowWidth: SessionBarState.baseMinimumWindowWidth, modeWidth: width
-            ),
-            "English must be unchanged: the row fits 340pt exactly, as it always did"
+            SessionBarState.cropRowFits(atWindowWidth: narrowest, modeWidth: width),
+            "English must fit the narrowest window the app will open for it"
         )
     }
 
@@ -652,12 +665,27 @@ final class CropModeWidthTests: XCTestCase {
 @MainActor
 final class MinimumWindowWidthTests: XCTestCase {
 
-    func testEnglishKeepsTheOriginalFloor() {
+    /// English's floor is now set by the crop row rather than by the base
+    /// constant. Widening the number fields from 36pt to 40pt, so a
+    /// five-digit crop value stops truncating, added 8pt to the capsule and
+    /// carried it through to here: 340 + 8 + 24 rather than 340 + 24.
+    ///
+    /// Stated as the arithmetic rather than as 372 so that the cost is
+    /// legible — if either the field width or the comfort margin moves
+    /// again, this says which one paid for it.
+    func testEnglishsFloorIsSetByTheRowItHasToHold() {
         let width = SessionBarState.minimumWindowWidth(modeLabels: ["ratio", "px"])
 
+        let cropRow = SessionBarState.panelGutters + SessionBarState.labelColumnWidth
+            + SessionBarState.labelSpacing + SessionBarState.CropRow.width
+
         XCTAssertEqual(
+            width, cropRow + SessionBarState.minimumComfortMargin,
+            "English gets what the crop row needs plus the slack that stops the panel filling the window edge to edge"
+        )
+        XCTAssertGreaterThan(
             width, SessionBarState.baseMinimumWindowWidth + SessionBarState.minimumComfortMargin,
-            "English gets the designed floor plus the slack that stops the panel filling the window edge to edge"
+            "the 40pt fields put English above the base constant — if this ever equalises again the fields have silently narrowed"
         )
     }
 

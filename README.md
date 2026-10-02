@@ -5,7 +5,7 @@
 # Shrinker Pro
 
 **Minify images and graphics with one drop.**
-A native Apple Silicon (ARM) macOS app — M1 through M5, no Rosetta.
+A native Apple Silicon (ARM) macOS app — M1 through M6, no Rosetta.
 
 [![Download](https://img.shields.io/github/v/release/jeso87/ShrinkerPro?label=download&color=6C65E8)](https://github.com/jeso87/ShrinkerPro/releases/latest/download/ShrinkerPro.dmg)
 [![Platform](https://img.shields.io/badge/macOS-14%2B%20%C2%B7%20Apple%20Silicon-6FD7F5)](https://shrinkerpro.app)
@@ -414,7 +414,7 @@ quit and leaves your saved defaults alone.
 
 ## Requirements
 
-macOS 14 Sonoma or later on Apple Silicon — any M1, M2, M3, M4 or M5 Mac.
+macOS 14 Sonoma or later on Apple Silicon — any M1, M2, M3, M4, M5 or M6 Mac.
 Rosetta 2 is not needed, and there is no Intel build.
 
 ## Build

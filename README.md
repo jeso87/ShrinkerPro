@@ -13,14 +13,6 @@ A native Apple Silicon (ARM) macOS app — M1 through M6, no Rosetta.
 
 [shrinkerpro.app](https://shrinkerpro.app)
 
-<a href="https://alternativeto.net/software/shrinker-pro/about/?utm_source=badge&utm_medium=referral">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://alternativeto.net/static/badges/badge-wide-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://alternativeto.net/static/badges/badge-wide-light.svg">
-    <img src="https://alternativeto.net/static/badges/badge-wide-dark.svg" width="210" height="40" alt="Shrinker Pro on AlternativeTo">
-  </picture>
-</a>
-
 <!-- GitHub honours prefers-color-scheme in <picture>, so the screenshots
      follow the reader's theme instead of glaring at half of them. -->
 <picture>
@@ -28,6 +20,18 @@ A native Apple Silicon (ARM) macOS app — M1 through M6, no Rosetta.
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/main-window-light.png">
   <img src="docs/screenshots/main-window-dark.png" width="612" alt="Shrinker Pro compressing six images. Each row shows the filename, a savings bar, the before and after file sizes, and the percentage saved.">
 </picture>
+
+<!-- In a <p> of its own: left inline, the badge sits beside the screenshot
+     on the same line instead of under it. -->
+<p>
+  <a href="https://alternativeto.net/software/shrinker-pro/about/?utm_source=badge&utm_medium=referral">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://alternativeto.net/static/badges/badge-wide-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="https://alternativeto.net/static/badges/badge-wide-light.svg">
+      <img src="https://alternativeto.net/static/badges/badge-wide-dark.svg" width="210" height="40" alt="Shrinker Pro on AlternativeTo">
+    </picture>
+  </a>
+</p>
 
 </div>
 

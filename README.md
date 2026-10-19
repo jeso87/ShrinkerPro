@@ -406,7 +406,7 @@ mozjpeg's progressive scans survive a metadata change intact.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/empty-state-compact-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/empty-state-compact-light.png">
-  <img src="docs/screenshots/empty-state-compact-dark.png" alt="The window at rest, showing a dashed drop zone reading “Drag files here — PNG, JPG, HEIC, WebP, AVIF, GIF and SVG”, and the session settings bar reading “This session — App default · Standard · No limit” with an Adjust button.">
+  <img src="docs/screenshots/empty-state-compact-dark.png" alt="The window at rest, showing a dashed drop zone reading “Drag files here — PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG”, and the session settings bar reading “This session — App default · Standard · No limit” with an Adjust button.">
 </picture>
 
 Drop anywhere in the window, not just the dashed zone.
@@ -423,7 +423,7 @@ Drop anywhere in the window, not just the dashed zone.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/settings-conversion-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/screenshots/settings-conversion-light.png">
-  <img src="docs/screenshots/settings-conversion-dark.png" alt="The Conversion tab of Settings: one rule per format for PNG, JPEG, HEIC/HEIF, WebP and AVIF, and the Quality level used when encoding.">
+  <img src="docs/screenshots/settings-conversion-dark.png" alt="The Conversion tab of Settings: one rule per format for PNG, JPEG, HEIC/HEIF, WebP, AVIF and JPEG XL, and the Quality level used when encoding.">
 </picture>
 
 The **Output** tab: where files go, what they are called, what metadata

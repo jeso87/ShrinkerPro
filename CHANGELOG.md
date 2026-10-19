@@ -4,6 +4,19 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.6.1 — 2026-10-19
+
+### Fixed
+
+**The drop zone's format line fits again.** Adding JXL pushed it past the
+width of a new window, so "⌘O" wrapped onto a line of its own. The list now
+drops its "and" — "…GIF, SVG — or press ⌘O" — which fits on one line at the
+default size, and "or press ⌘O" is held together by no-break spaces, so a
+narrower window moves the whole phrase down rather than stranding "⌘O". Every
+translation does the same with its own wording, and most of them are long
+enough to wrap at any normal width, which is why the phrase has to hold
+together rather than the line merely being shorter.
+
 ## 1.6.0 — 2026-10-19
 
 ### Added

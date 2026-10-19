@@ -18099,116 +18099,116 @@
         }
       }
     },
-    "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF and SVG — or press ⌘O" : {
+    "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — or press ⌘O" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF and SVG — or press ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — or press ⌘O" }
         },
         "ar" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG وJPG وHEIC وWebP وJXL وAVIF وGIF وSVG — أو اضغط ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG وJPG وHEIC وWebP وJXL وAVIF وGIF وSVG — أو اضغط ⌘O" }
         },
         "ca" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF i SVG — o prem ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — o prem ⌘O" }
         },
         "cs" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF a SVG — nebo stiskněte ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — nebo stiskněte ⌘O" }
         },
         "da" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF og SVG — eller tryk på ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — eller tryk på ⌘O" }
         },
         "de" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF und SVG — oder ⌘O drücken" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — oder ⌘O drücken" }
         },
         "el" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF και SVG — ή πατήστε ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — ή πατήστε ⌘O" }
         },
         "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF y SVG — o pulsa ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — o pulsa ⌘O" }
         },
         "fa" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG، JPG، HEIC، WebP، JXL، AVIF، GIF و SVG — یا ⌘O را فشار دهید" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG، JPG، HEIC، WebP، JXL، AVIF، GIF، SVG — یا ⌘O را فشار دهید" }
         },
         "fi" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF ja SVG — tai paina ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — tai paina ⌘O" }
         },
         "fr" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF et SVG — ou appuyez sur ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — ou appuyez sur ⌘O" }
         },
         "he" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF ו-SVG — או הקשה על ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — או הקשה על ⌘O" }
         },
         "hr" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF i SVG — ili pritisnite ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — ili pritisnite ⌘O" }
         },
         "hu" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF és SVG — vagy nyomja meg a ⌘O billentyűparancsot" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — vagy nyomja meg a ⌘O billentyűparancsot" }
         },
         "is" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF og SVG — eða ýttu á ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — eða ýttu á ⌘O" }
         },
         "it" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF e SVG — oppure premi ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — oppure premi ⌘O" }
         },
         "ja" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF、SVG — または⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF、SVG — または⁠⌘O" }
         },
         "ko" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — 또는 ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — 또는 ⌘O" }
         },
         "nb" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF og SVG — eller trykk ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — eller trykk ⌘O" }
         },
         "nl" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF en SVG — of druk op ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — of druk op ⌘O" }
         },
         "nn" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF og SVG — eller trykk ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — eller trykk ⌘O" }
         },
         "pl" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF i SVG — albo naciśnij ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — albo naciśnij ⌘O" }
         },
         "pt-BR" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF e SVG — ou pressione ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — ou pressione ⌘O" }
         },
         "pt-PT" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF e SVG — ou prima ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — ou prima ⌘O" }
         },
         "ro" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF și SVG — sau apăsați ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — sau apăsați ⌘O" }
         },
         "ru" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF и SVG — или нажмите ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — или нажмите ⌘O" }
         },
         "sk" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF a SVG — alebo stlačte ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — alebo stlačte ⌘O" }
         },
         "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF in SVG — ali pritisnite ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — ali pritisnite ⌘O" }
         },
         "sv" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF och SVG — eller tryck på ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — eller tryck på ⌘O" }
         },
         "th" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF และ SVG — หรือกด ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — หรือกด ⌘O" }
         },
         "tr" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF ve SVG — ya da ⌘O tuşlarına basın" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — ya da ⌘O tuşlarına basın" }
         },
         "uk" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF і SVG — або натисніть ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — або натисніть ⌘O" }
         },
         "vi" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF và SVG — hoặc nhấn ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — hoặc nhấn ⌘O" }
         },
         "zh-HK" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF和SVG，或按⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF、SVG，或按⁠⌘O" }
         },
         "zh-Hans" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF 和 SVG，或按 ⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF、SVG，或按 ⌘O" }
         },
         "zh-Hant" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF和SVG，或按⌘O" }
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF、SVG，或按⁠⌘O" }
         }
       }
     }

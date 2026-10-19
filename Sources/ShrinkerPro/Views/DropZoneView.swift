@@ -24,7 +24,13 @@ struct DropZoneView: View {
                     // joining that the two cursive ones depend on.
                     .tracking(Self.needsRelaxedTracking ? 0 : -0.16)
                     .foregroundStyle(.primary)
-                Text("PNG, JPG, HEIC, WebP, JXL, AVIF, GIF and SVG — or press ⌘O")
+                // Sized to fit one line at the window's default 500pt
+                // width, which "…GIF and SVG" stopped doing when JXL
+                // joined the list: "⌘O" wrapped onto a line of its own.
+                // The no-break spaces keep "or press ⌘O" together at any
+                // width, and each translation glues its own phrase the
+                // same way, since most are too long for one line anyway.
+                Text("PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — or\u{00A0}press\u{00A0}⌘O")
                     .font(.system(size: 12.5))
                     .foregroundStyle(.secondary)
             }

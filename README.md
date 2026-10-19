@@ -93,6 +93,15 @@ Developer ID and notarized by Apple, with the notarization ticket stapled to
 the DMG, so it opens by double-clicking — no right-click-Open, no Gatekeeper
 warning, and no network round trip on first launch.
 
+Or with Homebrew:
+
+```sh
+brew install --cask jeso87/tap/shrinker-pro
+```
+
+In a `Brewfile`, that is `tap "jeso87/tap"` and `cask "shrinker-pro"`. The app
+still updates itself through Sparkle, and Homebrew knows to leave it to.
+
 Requires macOS 14 Sonoma or later on Apple Silicon. There is no Intel build,
 by design — see below.
 

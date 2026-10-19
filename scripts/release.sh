@@ -495,10 +495,9 @@ sed \
   | sed '1,/^class /{/^#/d;}' > "$CLI_FORMULA"
 echo "    wrote $CLI_FORMULA"
 
-# The cask, for the app. Same generation, same reason, different audience:
-# the formula installs the `shrinker` command from a personal tap, and this
-# installs the app from homebrew-cask, where nobody has to know the tap
-# exists first. Its sha256 is the DMG's, not the CLI zip's — the two
+# The cask, for the app. Same generation, same reason, same tap, different
+# audience: the formula installs the `shrinker` command, and this installs
+# the app. Its sha256 is the DMG's, not the CLI zip's — the two
 # checksums are easy to transpose and a cask with the wrong one fails at
 # install time for everyone.
 CASK="dist/shrinker-pro.rb"
@@ -593,18 +592,14 @@ echo "                                         if this asset is missing)"
 echo "       $SOURCES_ZIP   (GPL corresponding source — required)"
 echo "       $CLI_ZIP          (the shrinker CLI; the formula's"
 echo "                                         url points at this exact name)"
-echo "  2b. Publish the Homebrew FORMULA — the CLI — to your own tap:"
+echo "  2b. Publish both Homebrew files to your own tap — the FORMULA (the"
+echo "      CLI) and the CASK (the app) — in one commit, after the release"
+echo "      assets above are live, since both urls point at them:"
 echo "       cp $CLI_FORMULA <your homebrew-tap clone>/Formula/shrinker.rb"
-echo "       and commit it there. Users then get it with:"
+echo "       cp $CASK <your homebrew-tap clone>/Casks/shrinker-pro.rb"
+echo "      Users then get them with:"
 echo "         brew install $(dirname "$GITHUB_REPO")/tap/shrinker"
-echo "  2c. Optional, and NOT to your tap: the Homebrew CASK — the app —"
-echo "      goes to Homebrew/homebrew-cask as a pull request, which is the"
-echo "      point of it. A cask in your own tap reaches only people who"
-echo "      already added your tap; in homebrew-cask it reaches everyone:"
-echo "         $CASK  ->  Casks/s/shrinker-pro.rb"
-echo "      Check homebrew-cask's CONTRIBUTING.md first — it has a"
-echo "      notability bar and rejects submissions below it. A rejection"
-echo "      costs nothing and can be retried on a later release."
+echo "         brew install --cask $(dirname "$GITHUB_REPO")/tap/shrinker-pro"
 echo "      Neither .rb file is a release asset. Do not upload them above."
 echo "  3. Commit and push the regenerated feed so GitHub Pages serves it:"
 echo "       git add appcast.xml"

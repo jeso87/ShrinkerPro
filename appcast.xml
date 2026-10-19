@@ -3,6 +3,582 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.6.0</title>
+            <pubDate>Mon, 19 Oct 2026 00:38:06 -0400</pubDate>
+            <sparkle:version>11</sparkle:version>
+            <sparkle:shortVersionString>1.6.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[### JPEG XL, in and out
+
+Drop a `.jxl` file and it is shrunk like any other. JPEG XL is also a new
+format to convert *to*: it is offered in every rule on the **Conversion** tab,
+in the session bar's **Convert all to**, and for the `shrinker` command as
+`--to jxl`.
+
+### A JPEG converted to JPEG XL loses nothing
+
+The JPEG's own compressed data is carried across rather than decoded and
+encoded again, so the file comes out about a fifth smaller — 12.2 MB to 9.8 MB
+on a full-size photo — and the original JPEG can be rebuilt from it byte for
+byte.
+
+**Quality** has nothing to choose on that path, so it is not applied. A JPEG
+that is rotated, resized or cropped on the way is encoded again at the
+**Quality** you picked instead.
+]]></description>
+            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### JPEG XL، قراءةً وكتابةً
+
+أفلِت ملف `.jxl` وسيُصغَّر كأي ملف آخر. وصار JPEG XL أيضًا تنسيقًا جديدًا يمكن
+التحويل *إليه*: فهو متاح في كل قاعدة ضمن تبويب **التحويل**، وفي خيار
+**تحويل الكل إلى** في شريط الجلسة، ولأمر `shrinker` بالصيغة `--to jxl`.
+
+### صورة JPEG المحوَّلة إلى JPEG XL لا تخسر شيئًا
+
+تُنقل البيانات المضغوطة الخاصة بصورة JPEG كما هي بدلًا من فك ترميزها ثم
+ترميزها من جديد، فيخرج الملف أصغر بنحو الخُمس — من 12.2 MB إلى 9.8 MB في صورة
+بحجمها الكامل — ويمكن إعادة بناء صورة JPEG الأصلية منه بايتًا ببايت.
+
+أما خيار **الجودة** فليس فيه ما تختاره في هذا المسار، لذا لا يُطبَّق. وصورة JPEG
+التي تُدوَّر أو يُغيَّر حجمها أو تُقتصّ في الطريق يُعاد ترميزها بدلًا من ذلك
+بمستوى **الجودة** الذي اخترته.]]></description>
+            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### JPEG XL, d’entrada i de sortida
+
+Deixa anar un fitxer `.jxl` i es reduirà com qualsevol altre. El JPEG XL també
+és un format nou *al* qual convertir: s’ofereix a totes les regles de la pestanya
+**Conversió**, a l’opció **Converteix-ho tot a** de la barra de sessió i, per a
+l’ordre `shrinker`, com a `--to jxl`.
+
+### Un JPEG convertit a JPEG XL no perd res
+
+Les dades comprimides del mateix JPEG es traslladen tal qual en comptes de
+descodificar-se i tornar-se a codificar, així que el fitxer surt prop d’una
+cinquena part més petit (de 12,2 MB a 9,8 MB en una foto de mida completa) i el
+JPEG original se’n pot reconstruir byte a byte.
+
+A **Qualitat** no hi ha res a triar per aquest camí, així que no s’aplica. Un
+JPEG que es gira, es redimensiona o s’escapça pel camí es torna a codificar, en
+canvi, amb la **Qualitat** que hagis triat.]]></description>
+            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### JPEG XL dovnitř i ven
+
+Přetáhněte soubor `.jxl` a zmenší se jako kterýkoli jiný. JPEG XL je také nový
+formát, *do* kterého lze převádět: nabízí se v každém pravidle v panelu
+**Převod**, v panelu relace pod volbou **Převést vše na** a u příkazu
+`shrinker` jako `--to jxl`.
+
+### JPEG převedený na JPEG XL nic neztratí
+
+Vlastní komprimovaná data JPEGu se přenesou beze změny, místo aby se dekódovala
+a znovu kódovala, takže soubor vyjde zhruba o pětinu menší — u fotky v plné
+velikosti z 12,2 MB na 9,8 MB — a původní JPEG se z něj dá obnovit bajt po
+bajtu.
+
+U volby **Kvalita** není na této cestě co vybírat, a proto se nepoužije. JPEG,
+který se cestou otáčí, mění velikost nebo ořezává, se místo toho znovu zakóduje
+v nastavení **Kvalita**, které jste zvolili.]]></description>
+            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### JPEG XL, ind og ud
+
+Slip en `.jxl`-fil, og den bliver krympet som alle andre. JPEG XL er også et
+nyt format at konvertere *til*: Det kan vælges i hver regel på fanen
+**Konvertering**, i sessionslinjens **Konverter alt til** og for kommandoen
+`shrinker` som `--to jxl`.
+
+### En JPEG konverteret til JPEG XL mister intet
+
+JPEG-filens egne komprimerede data bliver ført direkte over i stedet for at
+blive afkodet og kodet igen, så filen bliver omkring en femtedel mindre — fra
+12,2 MB til 9,8 MB på et foto i fuld størrelse — og den oprindelige JPEG kan
+genskabes ud fra den byte for byte.
+
+Ved **Kvalitet** er der intet at vælge på den vej, så den bliver ikke anvendt.
+En JPEG, der bliver roteret, skaleret eller beskåret undervejs, bliver i stedet
+kodet igen med den **Kvalitet**, du har valgt.]]></description>
+            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### JPEG XL, rein und raus
+
+Zieh eine `.jxl`-Datei hinein, und sie wird verkleinert wie jede andere. JPEG XL
+ist außerdem ein neues Format, *in* das konvertiert werden kann: Es steht in
+jeder Regel im Tab **Konvertierung** zur Wahl, in der Sitzungsleiste unter
+**Konvertieren in** und beim Befehl `shrinker` als `--to jxl`.
+
+### Ein in JPEG XL konvertiertes JPEG verliert nichts
+
+Die komprimierten Daten des JPEG werden direkt übernommen, statt decodiert und
+neu codiert zu werden. Die Datei wird dadurch etwa ein Fünftel kleiner — bei
+einem Foto in voller Größe von 12,2 MB auf 9,8 MB —, und das ursprüngliche JPEG
+lässt sich daraus Byte für Byte wiederherstellen.
+
+Bei **Qualität** gibt es auf diesem Weg nichts auszuwählen, deshalb wird sie
+nicht angewendet. Ein JPEG, das unterwegs gedreht, skaliert oder zugeschnitten
+wird, wird stattdessen mit der gewählten **Qualität** neu codiert.]]></description>
+            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### JPEG XL, για είσοδο και έξοδο
+
+Αφήστε ένα αρχείο `.jxl` και θα σμικρυνθεί όπως κάθε άλλο. Το JPEG XL είναι
+επίσης μια νέα μορφή *προς* την οποία μπορείτε να κάνετε μετατροπή: προσφέρεται
+σε κάθε κανόνα της καρτέλας **Μετατροπή**, στην επιλογή **Μετατροπή όλων σε**
+της γραμμής συνεδρίας και, για την εντολή `shrinker`, ως `--to jxl`.
+
+### Ένα JPEG που μετατρέπεται σε JPEG XL δεν χάνει τίποτα
+
+Τα ίδια τα συμπιεσμένα δεδομένα του JPEG μεταφέρονται αυτούσια, αντί να
+αποκωδικοποιηθούν και να κωδικοποιηθούν ξανά, οπότε το αρχείο βγαίνει περίπου
+κατά ένα πέμπτο μικρότερο — από 12,2 MB σε 9,8 MB σε μια φωτογραφία πλήρους
+μεγέθους — και το αρχικό JPEG μπορεί να ανασυντεθεί από αυτό byte προς byte.
+
+Στην **Ποιότητα** δεν υπάρχει τίποτα να επιλέξετε σε αυτή τη διαδρομή, γι’ αυτό
+δεν εφαρμόζεται. Ένα JPEG που περιστρέφεται, αλλάζει μέγεθος ή περικόπτεται στην
+πορεία κωδικοποιείται αντίθετα ξανά με την **Ποιότητα** που επιλέξατε.]]></description>
+            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### JPEG XL, de entrada y de salida
+
+Suelta un archivo `.jxl` y se reducirá como cualquier otro. JPEG XL es además un
+nuevo formato *al* que convertir: se ofrece en todas las reglas de la pestaña
+**Conversión**, en la opción **Convertir todo a** de la barra de sesión y, para
+el comando `shrinker`, como `--to jxl`.
+
+### Un JPEG convertido a JPEG XL no pierde nada
+
+Los propios datos comprimidos del JPEG se trasladan tal cual, en lugar de
+descodificarse y volver a codificarse, así que el archivo sale alrededor de una
+quinta parte más pequeño (de 12,2 MB a 9,8 MB en una foto a tamaño completo) y
+el JPEG original puede reconstruirse a partir de él byte a byte.
+
+En **Calidad** no hay nada que elegir por esa vía, así que no se aplica. Un JPEG
+que se gira, se redimensiona o se recorta por el camino se vuelve a codificar,
+en cambio, con la **Calidad** que hayas elegido.]]></description>
+            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### JPEG XL، هم در ورودی و هم در خروجی
+
+یک فایل `.jxl` را رها کنید تا مانند هر فایل دیگری کوچک شود. JPEG XL همچنین
+قالب تازه‌ای است که می‌توان *به* آن تبدیل کرد: در هر قاعده در زبانهٔ
+**تبدیل**، در **تبدیل همه به** در نوار جلسه، و برای فرمان `shrinker` به صورت
+`--to jxl` در دسترس است.
+
+### فایل JPEG‌ای که به JPEG XL تبدیل شود چیزی از دست نمی‌دهد
+
+دادهٔ فشرده‌شدهٔ خودِ JPEG به جای آنکه کدگشایی و دوباره کدگذاری شود، بی‌تغییر
+منتقل می‌شود؛ بنابراین فایل حدود یک‌پنجم کوچک‌تر بیرون می‌آید — در یک عکس با
+اندازهٔ کامل از 12.2 MB به 9.8 MB — و JPEG اصلی را می‌توان بایت به بایت از روی
+آن بازسازی کرد.
+
+تنظیم **کیفیت** در این مسیر چیزی برای انتخاب ندارد، پس اعمال نمی‌شود. اما
+JPEG‌ای که در این میان چرخانده شود، اندازه‌اش تغییر کند یا برش بخورد، با همان
+**کیفیت** انتخابی شما دوباره کدگذاری می‌شود.]]></description>
+            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### JPEG XL sisään ja ulos
+
+Pudota `.jxl`-tiedosto, niin se pienennetään kuten mikä tahansa muu. JPEG XL
+on myös uusi muoto, *johon* muuntaa: se on tarjolla jokaisessa
+**Muunnos**-välilehden säännössä, istuntopalkin valinnassa **Muunna kaikki muotoon**
+sekä `shrinker`-komennolle muodossa `--to jxl`.
+
+### JPEG XL:ksi muunnettu JPEG ei menetä mitään
+
+JPEG:n oma pakattu data siirretään sellaisenaan sen sijaan, että se
+purettaisiin ja koodattaisiin uudelleen, joten tiedostosta tulee noin
+viidenneksen pienempi — täysikokoisessa valokuvassa 12,2 Mt:n sijaan 9,8 Mt —
+ja alkuperäinen JPEG voidaan palauttaa siitä tavu tavulta.
+
+**Laatu**-asetuksella ei ole tällä reitillä mitään valittavaa, joten sitä ei
+käytetä. Jos JPEG matkalla käännetään, sen kokoa muutetaan tai se rajataan, se
+koodataan sen sijaan uudelleen valitsemallasi **Laatu**-asetuksella.]]></description>
+            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### JPEG XL, en entrée comme en sortie
+
+Déposez un fichier `.jxl` et il est réduit comme n’importe quel autre. JPEG XL
+est aussi un nouveau format *vers* lequel convertir : il est proposé dans
+chaque règle de l’onglet **Conversion**, dans **Tout convertir en** de la barre
+de session, et pour la commande `shrinker` sous la forme `--to jxl`.
+
+### Un JPEG converti en JPEG XL ne perd rien
+
+Les données compressées du JPEG lui-même sont reprises telles quelles au lieu
+d’être décodées puis encodées à nouveau : le fichier en sort plus léger
+d’environ un cinquième — de 12,2 Mo à 9,8 Mo sur une photo en pleine
+taille — et le JPEG original peut en être reconstruit octet pour octet.
+
+Le réglage **Qualité** n’a rien à décider sur ce chemin, il n’est donc pas
+appliqué. Un JPEG pivoté, redimensionné ou recadré en cours de route est en
+revanche encodé à nouveau avec le réglage **Qualité** que vous avez choisi.]]></description>
+            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### JPEG XL כקלט וכפלט
+
+גוררים קובץ `.jxl` והוא מכווץ כמו כל קובץ אחר. JPEG XL הוא גם פורמט חדש
+להמרה *אליו*: הוא מוצע בכל כלל בלשונית **המרה**, בתפריט **המרת הכול ל-**
+שבסרגל ההפעלה, ובפקודה `shrinker` בתור `--to jxl`.
+
+### JPEG שהומר ל-JPEG XL לא מאבד דבר
+
+הנתונים הדחוסים של ה-JPEG עצמו מועברים כמות שהם במקום להיות מפוענחים
+ומקודדים מחדש, כך שהקובץ יוצא קטן בערך בחמישית — מ-12.2 MB ל-9.8 MB בתמונה
+בגודל מלא — ואפשר לשחזר ממנו את ה-JPEG המקורי בית אחר בית.
+
+להגדרה **איכות** אין מה לבחור במסלול הזה, ולכן היא לא מוחלת. JPEG שעובר
+בדרך סיבוב, שינוי גודל או חיתוך מקודד במקום זאת מחדש לפי ההגדרה **איכות**
+שנבחרה.]]></description>
+            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### JPEG XL, na ulazu i na izlazu
+
+Ispustite datoteku `.jxl` i smanjit će se kao i svaka druga. JPEG XL ujedno je
+i novi format *u* koji se može konvertirati: nudi se u svakom pravilu na
+kartici **Konverzija**, u izborniku **Konvertiraj sve u** na traci sesije te
+za naredbu `shrinker` kao `--to jxl`.
+
+### JPEG konvertiran u JPEG XL ne gubi ništa
+
+Vlastiti komprimirani podaci JPEG-a prenose se izravno umjesto da se
+dekodiraju i ponovno kodiraju, pa je datoteka otprilike za petinu manja — s
+12,2 MB na 9,8 MB kod fotografije pune veličine — a izvorni JPEG može se iz
+nje rekonstruirati bajt po bajt.
+
+Postavka **Kvaliteta** na tom putu nema što birati, pa se ne primjenjuje.
+JPEG koji se usput zakrene, kojemu se promijeni veličina ili koji se izreže
+umjesto toga ponovno se kodira s postavkom **Kvaliteta** koju ste odabrali.]]></description>
+            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### JPEG XL bemenetként és kimenetként
+
+Húzzon be egy `.jxl` fájlt, és az app ugyanúgy tömöríti, mint bármely
+másikat. A JPEG XL emellett új formátum, *amelyre* át is lehet alakítani: ott
+van az **Átalakítás** lap minden szabályában, a munkamenetsáv **Összes átalakítása erre**
+menüjében, a `shrinker` parancsnál pedig `--to jxl`
+formában.
+
+### A JPEG XL-re átalakított JPEG semmit sem veszít
+
+A JPEG saját tömörített adatai változatlanul átkerülnek ahelyett, hogy
+dekódolás után újra kódolódnának, így a fájl nagyjából egyötödével kisebb
+lesz — egy teljes méretű fotónál 12,2 MB helyett 9,8 MB —, és az eredeti JPEG
+bájtról bájtra visszaállítható belőle.
+
+Ezen az úton a **Minőség** beállításnak nincs mit eldöntenie, ezért nem
+érvényesül. Az útközben elforgatott, átméretezett vagy körbevágott JPEG-et
+viszont az app a választott **Minőség** értékkel kódolja újra.]]></description>
+            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### JPEG XL, inn og út
+
+Slepptu `.jxl`-skrá og hún er minnkuð eins og hver önnur. JPEG XL er líka nýtt
+snið til að umbreyta *í*: það er í boði í hverri reglu á flipanum
+**Umbreyting**, í **Umbreyta öllu í** á lotustikunni og fyrir skipunina
+`shrinker` sem `--to jxl`.
+
+### JPEG sem er umbreytt í JPEG XL tapar engu
+
+Þjöppuðu gögnin úr JPEG-myndinni sjálfri eru flutt yfir í stað þess að vera
+afkóðuð og kóðuð aftur, svo skráin verður um fimmtungi minni — úr 12,2 MB í
+9,8 MB á mynd í fullri stærð — og hægt er að endurgera upprunalegu JPEG-myndina
+úr henni bæti fyrir bæti.
+
+Stillingin **Gæði** hefur ekkert að velja á þeirri leið og er því ekki notuð.
+Ef JPEG-mynd er snúið, stærð hennar breytt eða hún skorin til á leiðinni er hún
+hins vegar kóðuð aftur samkvæmt stillingunni **Gæði** sem þú valdir.]]></description>
+            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### JPEG XL, in entrata e in uscita
+
+Trascina un file `.jxl` e viene ridotto come qualsiasi altro. JPEG XL è anche
+un nuovo formato *in* cui convertire: è disponibile in ogni regola della scheda
+**Conversione**, in **Converti tutto in** nella barra della sessione e, per il
+comando `shrinker`, come `--to jxl`.
+
+### Un JPEG convertito in JPEG XL non perde nulla
+
+I dati compressi del JPEG vengono trasferiti così come sono, invece di essere
+decodificati e codificati di nuovo, quindi il file risulta più piccolo di circa
+un quinto — da 12,2 MB a 9,8 MB su una foto a piena risoluzione — e il JPEG
+originale può esserne ricostruito byte per byte.
+
+Su questo percorso **Qualità** non ha nulla da scegliere, quindi non viene
+applicata. Un JPEG che lungo la strada viene ruotato, ridimensionato o
+ritagliato viene invece codificato di nuovo con il valore che hai scelto in
+**Qualità**.]]></description>
+            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### JPEG XL、読み込みも書き出しも
+
+`.jxl`ファイルをドロップすれば、ほかのファイルと同じように圧縮されます。JPEG XLは新しい変換先のフォーマットでもあります。**変換**タブのすべてのルールで選べるほか、セッションバーの**すべてを変換**でも選べ、`shrinker`コマンドでは`--to jxl`として指定できます。
+
+### JPEGからJPEG XLへの変換では何も失われません
+
+JPEG自体の圧縮データを、デコードしてエンコードし直すのではなく、そのまま引き継ぐので、ファイルはおよそ5分の1小さくなります(フルサイズの写真で12.2 MBから9.8 MBへ)。しかも、元のJPEGをそこから1バイトも違わずに復元できます。
+
+**品質**はこの経路では選ぶものがないため、適用されません。途中で回転、サイズ変更、切り取りが行われるJPEGは、代わりに指定した**品質**でエンコードし直されます。]]></description>
+            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### JPEG XL, 읽기와 쓰기 모두
+
+`.jxl` 파일을 놓으면 다른 파일과 똑같이 압축됩니다. JPEG XL은 새로 추가된 변환 대상 포맷이기도 합니다. **변환** 탭의 모든 규칙에서 고를 수 있고, 세션 막대의 **모두 변환**에서도 고를 수 있으며, `shrinker` 명령에서는 `--to jxl`로 지정할 수 있습니다.
+
+### JPEG를 JPEG XL로 변환하면 잃는 것이 없습니다
+
+JPEG 자체의 압축 데이터를 디코딩했다가 다시 인코딩하지 않고 그대로 옮겨 오기 때문에, 파일이 약 5분의 1만큼 작아지고(전체 크기 사진에서 12.2MB가 9.8MB로), 원래의 JPEG를 거기서 바이트 하나까지 그대로 복원할 수 있습니다.
+
+**품질**은 이 경로에서는 고를 것이 없으므로 적용되지 않습니다. 도중에 회전, 크기 조절, 자르기를 거치는 JPEG는 대신 선택한 **품질**로 다시 인코딩됩니다.]]></description>
+            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### JPEG XL, inn og ut
+
+Slipp en `.jxl`-fil, så krympes den som alle andre. JPEG XL er også et nytt
+format å konvertere *til*: det tilbys i hver regel på fanen **Konvertering**, i
+**Konverter alt til** på øktlinjen og for kommandoen `shrinker` som `--to jxl`.
+
+### En JPEG konvertert til JPEG XL mister ingenting
+
+JPEG-ens egne komprimerte data blir ført over i stedet for å bli dekodet og
+kodet på nytt, så filen blir omtrent en femtedel mindre — fra 12,2 MB til
+9,8 MB på et bilde i full størrelse — og den opprinnelige JPEG-en kan
+gjenskapes fra den byte for byte.
+
+Under **Kvalitet** er det ingenting å velge på den veien, så innstillingen blir
+ikke brukt. En JPEG som roteres, skaleres eller beskjæres underveis, blir i
+stedet kodet på nytt med verdien du har valgt under **Kvalitet**.]]></description>
+            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### JPEG XL, in en uit
+
+Sleep een `.jxl`-bestand erin en het wordt verkleind zoals elk ander. JPEG XL
+is ook een nieuw formaat om *naar* te converteren: het wordt aangeboden in elke
+regel op het tabblad **Conversie**, in **Converteer alles naar** in de
+sessiebalk en voor de opdracht `shrinker` als `--to jxl`.
+
+### Een JPEG die naar JPEG XL wordt geconverteerd, verliest niets
+
+De eigen gecomprimeerde gegevens van de JPEG worden overgenomen in plaats van
+gedecodeerd en opnieuw gecodeerd, dus het bestand wordt ongeveer een vijfde
+kleiner — van 12,2 MB naar 9,8 MB bij een foto op volle grootte — en de
+oorspronkelijke JPEG kan er byte voor byte uit worden gereconstrueerd.
+
+Bij **Kwaliteit** valt er op die route niets te kiezen, dus die wordt niet
+toegepast. Een JPEG die onderweg wordt gedraaid, geschaald of bijgesneden,
+wordt in plaats daarvan opnieuw gecodeerd met de waarde die je bij
+**Kwaliteit** hebt gekozen.]]></description>
+            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### JPEG XL, inn og ut
+
+Slepp ei `.jxl`-fil, så blir ho krympa som alle andre. JPEG XL er òg eit nytt
+format å konvertere *til*: det blir tilbode i kvar regel på fana
+**Konvertering**, i **Konverter alt til** på øktlinja og for kommandoen
+`shrinker` som `--to jxl`.
+
+### Ein JPEG konvertert til JPEG XL mistar ingenting
+
+Dei eigne komprimerte dataa til JPEG-en blir førte over i staden for å bli
+dekoda og koda på nytt, så fila blir om lag ein femdel mindre — frå 12,2 MB til
+9,8 MB på eit bilete i full storleik — og den opphavlege JPEG-en kan byggjast
+opp att byte for byte frå fila.
+
+Under **Kvalitet** er det ingenting å velje på den vegen, så innstillinga blir
+ikkje brukt. Ein JPEG som blir rotert, skalert eller beskoren undervegs, blir i
+staden koda på nytt med verdien du har valt under **Kvalitet**.]]></description>
+            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### JPEG XL na wejściu i na wyjściu
+
+Upuść plik `.jxl`, a zostanie zmniejszony jak każdy inny. JPEG XL to także nowy
+format, *na* który można konwertować: jest dostępny w każdej regule na karcie
+**Konwersja**, w opcji **Konwertuj wszystko na** na pasku sesji oraz
+w poleceniu `shrinker` jako `--to jxl`.
+
+### JPEG przekonwertowany na JPEG XL nic nie traci
+
+Skompresowane dane samego JPEG-a są przenoszone bez zmian, zamiast być
+dekodowane i kodowane od nowa, więc plik wychodzi mniej więcej o jedną piątą
+mniejszy — z 12,2 MB do 9,8 MB w przypadku zdjęcia w pełnym rozmiarze —
+a oryginalny JPEG można z niego odtworzyć bajt po bajcie.
+
+Opcja **Jakość** nie ma na tej ścieżce nic do wyboru, więc nie jest stosowana.
+JPEG, który po drodze jest obracany, skalowany lub kadrowany, zostaje natomiast
+zakodowany od nowa z wartością wybraną w opcji **Jakość**.]]></description>
+            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### JPEG XL, na entrada e na saída
+
+Solte um arquivo `.jxl` e ele é reduzido como qualquer outro. O JPEG XL também
+é um novo formato *para* o qual converter: ele aparece em todas as regras da
+aba **Conversão**, em **Converter tudo em** na barra da sessão e, no comando
+`shrinker`, como `--to jxl`.
+
+### Um JPEG convertido para JPEG XL não perde nada
+
+Os dados comprimidos do próprio JPEG são levados adiante em vez de serem
+decodificados e codificados de novo, então o arquivo sai cerca de um quinto
+menor — de 12,2 MB para 9,8 MB em uma foto em tamanho real — e o JPEG original
+pode ser reconstruído a partir dele byte por byte.
+
+A **Qualidade** não tem nada a escolher nesse caminho, então não é aplicada. Um
+JPEG que é girado, redimensionado ou recortado no meio do caminho é codificado
+de novo na **Qualidade** que você escolheu.]]></description>
+            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### JPEG XL, à entrada e à saída
+
+Largue um ficheiro `.jxl` e é reduzido como qualquer outro. O JPEG XL é também
+um novo formato *para* o qual converter: está disponível em todas as regras do
+separador **Conversão**, em **Converter tudo para** na barra da sessão e, no
+comando `shrinker`, como `--to jxl`.
+
+### Um JPEG convertido em JPEG XL não perde nada
+
+Os dados comprimidos do próprio JPEG são transportados tal como estão, em vez de
+serem descodificados e codificados de novo, pelo que o ficheiro fica cerca de um
+quinto mais pequeno — de 12,2 MB para 9,8 MB numa fotografia em tamanho real — e
+o JPEG original pode ser reconstruído a partir dele byte a byte.
+
+A **Qualidade** não tem nada a escolher nesse percurso, pelo que não é aplicada.
+Um JPEG que seja rodado, redimensionado ou recortado pelo caminho é codificado
+de novo com a **Qualidade** que escolheu.]]></description>
+            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### JPEG XL, la intrare și la ieșire
+
+Plasați un fișier `.jxl` și este micșorat ca oricare altul. JPEG XL este și un
+format nou *în* care puteți converti: este oferit în fiecare regulă din fila
+**Conversie**, în **Convertiți toate în** din bara sesiunii și, pentru comanda
+`shrinker`, ca `--to jxl`.
+
+### Un JPEG convertit în JPEG XL nu pierde nimic
+
+Datele comprimate proprii ale JPEG-ului sunt preluate ca atare, în loc să fie
+decodate și codate din nou, așa că fișierul iese cu aproximativ o cincime mai
+mic — de la 12,2 MB la 9,8 MB pentru o fotografie la dimensiune completă — iar
+JPEG-ul original poate fi refăcut din el octet cu octet.
+
+Opțiunea **Calitate** nu are nimic de ales pe această cale, așa că nu se aplică.
+Un JPEG care este rotit, redimensionat sau decupat pe parcurs este codat din nou
+cu valoarea **Calitate** pe care ați ales-o.]]></description>
+            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### JPEG XL на входе и на выходе
+
+Перетащите файл `.jxl` — и он уменьшится, как любой другой. JPEG XL — это ещё
+и новый формат, *в* который можно конвертировать: он есть в каждом правиле
+на вкладке **Конвертация**, в пункте **Конвертировать всё в** на панели сеанса
+и для команды `shrinker` как `--to jxl`.
+
+### JPEG, конвертированный в JPEG XL, ничего не теряет
+
+Собственные сжатые данные JPEG переносятся как есть, а не декодируются
+и кодируются заново, поэтому файл получается примерно на пятую часть меньше —
+с 12,2 МБ до 9,8 МБ на полноразмерной фотографии, — а исходный JPEG можно
+восстановить из него байт в байт.
+
+Параметру **Качество** на этом пути выбирать нечего, поэтому он
+не применяется. JPEG, который по дороге поворачивается, масштабируется или
+обрезается, кодируется заново с выбранным вами значением параметра **Качество**.]]></description>
+            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### JPEG XL na vstupe aj na výstupe
+
+Pustite súbor `.jxl` do okna a zmenší sa ako ktorýkoľvek iný. JPEG XL je
+zároveň nový formát, *na* ktorý sa dá konvertovať: ponúka sa v každom pravidle
+na tabe **Konverzia**, v ponuke **Konvertovať všetko na** na lište relácie
+a pre príkaz `shrinker` ako `--to jxl`.
+
+### JPEG skonvertovaný na JPEG XL nič nestratí
+
+Vlastné komprimované dáta JPEG sa prenesú tak, ako sú, namiesto toho, aby sa
+dekódovali a znova kódovali, takže súbor vyjde asi o pätinu menší — z 12,2 MB
+na 9,8 MB pri fotke v plnej veľkosti — a pôvodný JPEG sa z neho dá
+zrekonštruovať bajt po bajte.
+
+Voľba **Kvalita** nemá na tejto ceste čo vyberať, preto sa nepoužije. JPEG,
+ktorý sa cestou otočí, oreže alebo ktorému sa zmení veľkosť, sa namiesto toho
+znova zakóduje s nastavením **Kvalita**, ktoré ste vybrali.]]></description>
+            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### JPEG XL na vhodu in na izhodu
+
+Spustite datoteko `.jxl` v okno in zmanjša se kot vsaka druga. JPEG XL je tudi
+nova oblika zapisa, *v* katero lahko pretvarjate: na voljo je v vsakem pravilu
+na zavihku **Pretvorba**, v možnosti **Pretvori vse v** v vrstici seje in za
+ukaz `shrinker` kot `--to jxl`.
+
+### JPEG, pretvorjen v JPEG XL, ne izgubi ničesar
+
+Lastni stisnjeni podatki JPEG-a se prenesejo takšni, kot so, namesto da bi se
+dekodirali in znova kodirali, zato je datoteka na koncu približno petino manjša
+— z 12,2 MB na 9,8 MB pri fotografiji v polni velikosti — in izvirni JPEG je iz
+nje mogoče obnoviti bajt za bajtom.
+
+Nastavitev **Kakovost** na tej poti nima česa izbirati, zato se ne uporabi.
+JPEG, ki je med potjo zasukan, obrezan ali mu je spremenjena velikost, se
+namesto tega znova kodira z nastavitvijo **Kakovost**, ki ste jo izbrali.]]></description>
+            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### JPEG XL, in och ut
+
+Släpp en `.jxl`-fil så krymps den som vilken annan som helst. JPEG XL är också
+ett nytt format att konvertera *till*: det finns i varje regel på fliken
+**Konvertering**, i sessionsfältets **Konvertera allt till** och för kommandot
+`shrinker` som `--to jxl`.
+
+### En JPEG som konverteras till JPEG XL förlorar ingenting
+
+JPEG-filens egna komprimerade data förs över i stället för att avkodas och kodas
+om, så filen blir ungefär en femtedel mindre — från 12,2 MB till 9,8 MB för ett
+foto i full storlek — och den ursprungliga JPEG-filen kan återskapas ur den byte
+för byte.
+
+**Kvalitet** har inget att välja på den vägen, så den tillämpas inte. En JPEG
+som roteras, storleksändras eller beskärs på vägen kodas i stället om med den
+**Kvalitet** du valde.]]></description>
+            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### JPEG XL ทั้งขาเข้าและขาออก
+
+ลากไฟล์ `.jxl` มาวาง แล้วไฟล์จะถูกบีบอัดเหมือนไฟล์อื่น ๆ นอกจากนี้ JPEG XL ยังเป็นรูปแบบใหม่ที่แปลง*ไปเป็น*ได้ด้วย
+โดยมีให้เลือกในทุกกฎของแท็บ **การแปลง**, ในเมนู **แปลงทั้งหมดเป็น** ของแถบเซสชั่น และในคำสั่ง `shrinker` ในรูปแบบ `--to jxl`
+
+### JPEG ที่แปลงเป็น JPEG XL ไม่สูญเสียอะไรเลย
+
+ข้อมูลที่บีบอัดไว้แล้วของ JPEG จะถูกยกข้ามไปทั้งชุด แทนที่จะถอดรหัสแล้วเข้ารหัสใหม่อีกครั้ง ไฟล์ที่ได้จึงเล็กลงราวหนึ่งในห้า
+— จาก 12.2 MB เหลือ 9.8 MB สำหรับรูปถ่ายขนาดเต็ม — และยังสร้าง JPEG ต้นฉบับกลับคืนจากไฟล์นี้ได้ตรงกันทุกไบต์
+
+ในเส้นทางนี้ **คุณภาพ** ไม่มีอะไรให้เลือก จึงไม่ถูกนำมาใช้ ส่วน JPEG ที่ถูกหมุน ปรับขนาด หรือครอบตัดระหว่างทาง
+จะถูกเข้ารหัสใหม่ตาม **คุณภาพ** ที่คุณเลือกไว้แทน]]></description>
+            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### JPEG XL, girişte ve çıkışta
+
+Bir `.jxl` dosyasını bırakın, diğerleri gibi küçültülür. JPEG XL aynı zamanda
+dönüştürülebilecek yeni bir hedef formattır: **Dönüştürme** sekmesindeki her
+kuralda, oturum çubuğundaki **Tümünü dönüştür** menüsünde ve `shrinker`
+komutunda `--to jxl` olarak sunulur.
+
+### JPEG XL’e dönüştürülen bir JPEG hiçbir şey kaybetmez
+
+JPEG’in kendi sıkıştırılmış verisi çözülüp yeniden kodlanmak yerine olduğu gibi
+aktarılır; böylece dosya yaklaşık beşte bir oranında küçülür — tam boyutlu bir
+fotoğrafta 12,2 MB’tan 9,8 MB’a — ve özgün JPEG bu dosyadan bayt bayt yeniden
+oluşturulabilir.
+
+Bu yolda **Kalite** ile seçilecek bir şey yoktur, bu yüzden uygulanmaz. Yol
+üzerinde döndürülen, yeniden boyutlandırılan ya da kırpılan bir JPEG ise bunun
+yerine seçtiğiniz **Kalite** ile yeniden kodlanır.]]></description>
+            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### JPEG XL на вході й на виході
+
+Перетягніть файл `.jxl`, і його буде зменшено, як і будь-який інший. JPEG XL
+також став новим форматом, *у* який можна конвертувати: його пропонує кожне
+правило на вкладці **Конвертування**, меню **Конвертувати все у** на панелі сеансу
+та команда `shrinker` як `--to jxl`.
+
+### JPEG, конвертований у JPEG XL, нічого не втрачає
+
+Власні стиснені дані JPEG переносяться як є, а не декодуються й кодуються
+наново, тож файл виходить приблизно на пʼяту частину меншим (з 12,2 МБ до
+9,8 МБ на повнорозмірному фото), і з нього можна байт у байт відновити
+оригінальний JPEG.
+
+На цьому шляху в параметрі **Якість** нема чого вибирати, тож він не
+застосовується.
+JPEG, який дорогою повертають, змінюють у розмірі чи обтинають, натомість
+кодується наново з тим значенням, що ви вибрали в параметрі **Якість**.]]></description>
+            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### JPEG XL, cả đầu vào lẫn đầu ra
+
+Thả một tệp `.jxl` vào và tệp sẽ được nén như mọi tệp khác. JPEG XL cũng là
+một định dạng mới để chuyển *sang*: định dạng này có trong mọi quy tắc ở thẻ
+**Chuyển đổi**, trong mục **Chuyển đổi tất cả sang** của thanh phiên, và trong
+lệnh `shrinker` dưới dạng `--to jxl`.
+
+### JPEG chuyển sang JPEG XL không mất gì cả
+
+Dữ liệu đã nén sẵn của chính tệp JPEG được chuyển nguyên sang thay vì giải mã
+rồi mã hóa lại, nên tệp ra nhỏ hơn khoảng một phần năm — từ 12,2 MB xuống
+9,8 MB với một bức ảnh kích cỡ đầy đủ — và có thể dựng lại tệp JPEG gốc từ đó
+đúng đến từng byte.
+
+Trên con đường này, **Chất lượng** không có gì để chọn, nên không được áp dụng.
+Một tệp JPEG bị xoay, đổi kích cỡ hoặc cắt xén trên đường đi thì sẽ được mã hóa
+lại theo mức **Chất lượng** bạn đã chọn.]]></description>
+            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### JPEG XL，可入可出
+
+拖放一個`.jxl`檔案，它就會像其他檔案一樣被壓縮。JPEG XL亦是一種可以*轉換成*的新格式：**轉換**標籤頁裡的每條規則、今次設定列的**全部轉換為**，以及`shrinker`指令的`--to jxl`，都提供這個選項。
+
+### JPEG轉換成JPEG XL，毫無損失
+
+JPEG本身已壓縮的數據會原封不動地搬過去，而不是先解碼再重新編碼，所以檔案會細約五分之一（一張全尺寸相片由12.2 MB減至9.8 MB），而且可以從中逐個位元組還原出原本的JPEG。
+
+在這條路徑上，**品質**沒有甚麼可選，所以不會套用。如果JPEG在途中被旋轉、調整大小或裁剪，就會改為按照你所揀的**品質**重新編碼。]]></description>
+            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### JPEG XL，能进能出
+
+拖入一个 `.jxl` 文件，它就会像其他文件一样被压缩。JPEG XL 也是一种可以*转换成*的新格式：**转换**标签页中的每条规则、会话栏的**全部转换为**，以及 `shrinker` 命令的 `--to jxl`，都提供了这一选项。
+
+### JPEG 转换为 JPEG XL，毫无损失
+
+JPEG 自身已压缩的数据会被原样搬过去，而不是先解码再重新编码，因此文件会小约五分之一——一张全尺寸照片从 12.2 MB 变为 9.8 MB——而且可以从中逐字节还原出原始的 JPEG。
+
+在这条路径上，**质量**没有什么可选的，所以不会应用。如果 JPEG 在途中被旋转、调整大小或裁剪，则会改为按照你所选的**质量**重新编码。]]></description>
+            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### JPEG XL，能進能出
+
+拖入一個`.jxl`檔案，它就會像其他檔案一樣被壓縮。JPEG XL也是一種可以*轉換成*的新格式：**轉換**標籤頁中的每條規則、工作階段列的**全部轉換為**，以及`shrinker`指令的`--to jxl`，都提供了這個選項。
+
+### JPEG轉換為JPEG XL，毫無損失
+
+JPEG本身已壓縮的資料會原封不動地搬過去，而不是先解碼再重新編碼，因此檔案會小約五分之一——一張全尺寸照片從12.2 MB變為9.8 MB——而且可以從中逐位元組還原出原始的JPEG。
+
+在這條路徑上，**品質**沒有什麼可選的，所以不會套用。如果JPEG在途中被旋轉、調整大小或裁切，則會改為依照你所選的**品質**重新編碼。]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.6.0/ShrinkerPro-1.6.0.dmg" length="5844848" type="application/octet-stream" sparkle:edSignature="fX2L5pBHS9ho201+6koQmUD9plHmCZA2hofpomzNggHJYFRfFzcyafRg7WiOvoxXvfmDbBJ4ObJVGUy4yGPFBA=="/>
+        </item>
+        <item>
             <title>1.5.0</title>
             <pubDate>Tue, 29 Sep 2026 08:38:43 -0400</pubDate>
             <sparkle:version>10</sparkle:version>
@@ -1460,21 +2036,6 @@ When there is more below, the last row fades out and a small chevron marks
 the edge, because macOS hides scroll bars until you are already scrolling.
 ]]></description>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.4.0/ShrinkerPro-1.4.0.dmg" length="3494606" type="application/octet-stream" sparkle:edSignature="wudbn5xSTvPLvHqmMr1Ky7a9agFDDYyM+2x9ia1/MVGuExHxU2iWr3JH4MnLt7I5icqTjF5wF+kum7Z5GTwVBQ=="/>
-        </item>
-        <item>
-            <title>1.3.1</title>
-            <pubDate>Thu, 17 Sep 2026 05:21:40 -0400</pubDate>
-            <sparkle:version>8</sparkle:version>
-            <sparkle:shortVersionString>1.3.1</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[**Settings says what it actually does.** The choice about `.min` used to read "Keep originals, save a .min copy" or "Replace originals" no matter where your files were going. If you send them to another folder, or to a "minified" subfolder, nothing of yours can be replaced — so it now simply asks whether to add `.min`, and shows you the filename either way. Where your files go, and what they are called, has not changed.
-
-**Shrinker Pro now checks for updates once a day, and the setting for it is gone.** This app is free and open source, and most releases are here because somebody asked for what is in them — so an install that never hears about a new version is the thing worth fixing.
-
-Checking is not installing. You are still told about a new version and still decide whether to take it, and **Check for Updates…** in the menu works as before.
-]]></description>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.3.1/ShrinkerPro-1.3.1.dmg" length="3466312" type="application/octet-stream" sparkle:edSignature="4aKCsT1coXKO4zP3BUUaE00KcLkWmAxYO2TDAGc0+Zw3k84GQH6mVL1w5EhD0PQqoemZSKPtrA6ZlPx4Gx+0AQ=="/>
         </item>
     </channel>
 </rss>

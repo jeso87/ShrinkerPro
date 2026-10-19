@@ -35,7 +35,7 @@ A native Apple Silicon (ARM) macOS app — M1 through M6, no Rosetta.
 
 </div>
 
-Drag PNG, JPEG, GIF, SVG, WebP, AVIF, or HEIC files onto the window and
+Drag PNG, JPEG, GIF, SVG, WebP, AVIF, JPEG XL, or HEIC files onto the window and
 Shrinker Pro writes a smaller copy beside the original — or wherever you tell
 it to. Originals are never replaced unless you ask for that — "Keep original
 files" is on by default, and turning it off is what writes over them.
@@ -124,7 +124,7 @@ shrinker --crop 1200x1200 ./product-shots        # square and exactly 1200px
 | | |
 |---|---|
 | `--quality <level\|0-100>` | `super-low`, `low`, `standard` (default), `high` — or a number |
-| `--to <format>` | `jpeg`, `webp`, `avif`, `png` |
+| `--to <format>` | `jpeg`, `webp`, `avif`, `jxl`, `png` |
 | `--max-size <pixels>` | shrink any image whose longest side is bigger than this |
 | `--crop <WxH\|W:H>` | crop the center to this shape. `1200x1200` also scales to that size; `1:1` only changes the shape |
 | `--metadata <policy>` | `all` (default), `copyright`, `none` |
@@ -182,19 +182,23 @@ Each format is optimised in place by its own encoder:
 | SVG | [svgo](https://github.com/svg/svgo) 4.1.0, run in JavaScriptCore |
 | WebP | [libwebp](https://developers.google.com/speed/webp) 1.6.0 (`cwebp`) |
 | AVIF | ImageIO (macOS system framework) |
+| JPEG XL | [libjxl](https://github.com/libjxl/libjxl) 0.12.0 (`cjxl`) |
 
-cjpeg, pngquant, gifsicle, and cwebp are built from source as static arm64
-binaries and shipped in `Contents/Helpers/`. svgo runs entirely inside a
+cjpeg, pngquant, gifsicle, cwebp, and cjxl are built from source as static
+arm64 binaries and shipped in `Contents/Helpers/`. svgo runs entirely inside a
 `JSContext` — no Node.js, no bundled interpreter binary. AVIF and HEIC are
 handled by ImageIO, which encodes and decodes both natively on macOS; nothing
-is vendored for them.
+is vendored for them. ImageIO also decodes JPEG XL, but cannot write it, which
+is why cjxl is bundled.
 
 HEIC has no in-place optimiser here — it is always converted (see below).
 
 Most of the saving is lossy. A **Quality** setting — Super Low, Low, Standard
 or High — governs the lossy encoders. Standard is the default and produces
 what every previous version of the app did: cjpeg at its own default of 75, and
-80 for WebP and AVIF.
+80 for WebP and AVIF. JPEG XL's levels (cjxl `-q` 40, 57, 75 and 81) were
+measured on camera originals to come out the same size as WebP's, so the two
+save alike — and at that size JPEG XL looks noticeably better.
 
 **Compressing a file never makes it bigger.** Re-encoding an already-compressed
 image at a quality above the one it was stored at inflates it, and the original
@@ -220,16 +224,28 @@ JPEGs stay JPEGs.
 
 | Input | Options | Default |
 |---|---|---|
-| PNG | Keep PNG · JPEG · WebP · AVIF | Keep PNG |
-| JPEG | Keep JPEG · JPEG · WebP · AVIF | Keep JPEG |
-| HEIC / HEIF | JPEG · WebP · AVIF | JPEG |
-| WebP | Keep WebP · JPEG · WebP · AVIF | Keep WebP |
-| AVIF | Keep AVIF · JPEG · WebP · AVIF | Keep AVIF |
+| PNG | Keep PNG · JPEG · WebP · AVIF · JPEG XL | Keep PNG |
+| JPEG | Keep JPEG · JPEG · WebP · AVIF · JPEG XL | Keep JPEG |
+| HEIC / HEIF | JPEG · WebP · AVIF · JPEG XL | JPEG |
+| WebP | Keep WebP · JPEG · WebP · AVIF · JPEG XL | Keep WebP |
+| AVIF | Keep AVIF · JPEG · WebP · AVIF · JPEG XL | Keep AVIF |
+| JPEG XL | Keep JPEG XL · JPEG · WebP · AVIF · JPEG XL | Keep JPEG XL |
 
 HEIC/HEIF has no "keep" option. It is a camera capture format that most tools
 outside Apple's ecosystem still can't open, so leaving it as-is is rarely what
-anyone wants — JPEG is the default, and WebP or AVIF are there if you'd rather
-have a modern format.
+anyone wants — JPEG is the default, and WebP, AVIF or JPEG XL are there if
+you'd rather have a modern format.
+
+**JPEG to JPEG XL is lossless.** cjxl keeps a JPEG's compressed data as it is
+rather than decoding it to pixels and encoding again, so nothing is lost, the
+file typically comes out about a fifth smaller, and the original JPEG can be
+rebuilt from it exactly, byte for byte, with libjxl's `djxl`. There is no
+quality to choose on that path, so the Quality setting does not apply to it.
+The exceptions are a JPEG that is rotated, resized or cropped: its pixels have
+to change, so it is re-encoded at the chosen Quality like any other source.
+"Remove all metadata" also removes the data `djxl` would rebuild the original
+from, since that data includes the metadata — the image is still transcoded
+losslessly.
 
 **SVG and GIF have no rule and never convert.** SVG is vector, and GIF is
 usually animated; converting either would destroy what makes it useful. This
@@ -244,8 +260,9 @@ hop. `ConversionRouter` decides the route for every input × rule combination,
 and is a pure function with no file or process access, so all of it is
 enumerable in tests.
 
-Converting to a format's own type (JPEG→JPEG, WebP→WebP, AVIF→AVIF) takes the
-same fast path as "keep" — it compresses, it does not round-trip.
+Converting to a format's own type (JPEG→JPEG, WebP→WebP, AVIF→AVIF, JPEG
+XL→JPEG XL) takes the same fast path as "keep" — it compresses, it does not
+round-trip.
 
 ### The session settings bar
 
@@ -269,7 +286,7 @@ is always on screen: a setting that changes every file must never be invisible,
 which is the same argument that kept the format override out of Settings in the
 first place.
 
-**Convert all to** — JPEG, WebP, AVIF or PNG — replaces every per-format rule at
+**Convert all to** — JPEG, WebP, AVIF, JPEG XL or PNG — replaces every per-format rule at
 once, without touching what you have stored. "App default" means your stored
 rules apply.
 
@@ -433,7 +450,7 @@ Rosetta 2 is not needed, and there is no Intel build.
 
 ```shell
 ./scripts/bootstrap.sh          # Xcode path, xcodegen, cmake, autoconf/automake, Node, Rust
-./scripts/build-compressors.sh  # static arm64 cjpeg, pngquant, gifsicle, cwebp
+./scripts/build-compressors.sh  # static arm64 cjpeg, pngquant, gifsicle, cwebp, cjxl
 ./scripts/prepare-svgo.sh       # svgo bundle, ESM export stripped for JSContext
 ./scripts/prepare-sparkle.sh    # Sparkle.framework, fetched and thinned to arm64
 ./scripts/make-icon.sh          # app icon
@@ -443,8 +460,11 @@ xcodebuild -scheme ShrinkerPro build
 
 `build-compressors.sh` also builds libpng 1.6.58 and libwebp 1.6.0 from source,
 because cwebp needs PNG and JPEG *input* decoding and Homebrew's libraries are
-dynamic. It reuses mozjpeg's static libjpeg for the JPEG side. Every library is
-linked into the helper binaries; no dylibs are shipped.
+dynamic. It reuses mozjpeg's static libjpeg for the JPEG side. cjxl is built
+from libjxl 0.12.0 against the same libpng and libjpeg, with the three
+libraries libjxl compiles in — brotli, highway and skcms — fetched at the
+commits libjxl pins for that release. Every library is linked into the helper
+binaries; no dylibs are shipped.
 
 `bootstrap.sh` exports `DEVELOPER_DIR` for the invocation rather than running
 `xcode-select -s` — it doesn't require `sudo` and doesn't touch the
@@ -469,4 +489,5 @@ Release a signed, notarized DMG with `./scripts/release.sh`.
   CC0 requires no attribution; it's given anyway.
 - [mozjpeg](https://github.com/mozilla/mozjpeg), [pngquant](https://pngquant.org/),
   [gifsicle](https://github.com/kohler/gifsicle), [libwebp](https://developers.google.com/speed/webp),
-  and [svgo](https://github.com/svg/svgo), which do the actual compression.
+  [libjxl](https://github.com/libjxl/libjxl), and [svgo](https://github.com/svg/svgo),
+  which do the actual compression.

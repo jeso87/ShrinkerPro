@@ -3001,120 +3001,6 @@
         }
       }
     },
-    "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"%@\")." : {
-      "comment" : "Alert body when a dropped file is a format the app cannot read.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : { "state" : "translated", "value" : "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"%@\")." }
-        },
-        "ar" : {
-          "stringUnit" : { "state" : "translated", "value" : "التنسيقات المدعومة هي SVG وPNG وGIF وJPEG وWebP وAVIF وHEIC وHEIF فقط (ورد \"%@\")." }
-        },
-        "ca" : {
-          "stringUnit" : { "state" : "translated", "value" : "Només s’admeten SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC i HEIF (s’ha rebut “%@”)." }
-        },
-        "cs" : {
-          "stringUnit" : { "state" : "translated", "value" : "Podporovány jsou jen SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC a HEIF (přišlo „%@“)." }
-        },
-        "da" : {
-          "stringUnit" : { "state" : "translated", "value" : "Kun SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC og HEIF understøttes (fik “%@”)." }
-        },
-        "de" : {
-          "stringUnit" : { "state" : "translated", "value" : "Nur SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC und HEIF werden unterstützt (erhalten: „%@“)." }
-        },
-        "el" : {
-          "stringUnit" : { "state" : "translated", "value" : "Υποστηρίζονται μόνο SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC και HEIF (ελήφθη «%@»)." }
-        },
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "Solo se admiten SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC y HEIF (se ha recibido “%@”)." }
-        },
-        "fa" : {
-          "stringUnit" : { "state" : "translated", "value" : "فقط SVG، PNG، GIF، JPEG، WebP، AVIF، HEIC و HEIF پشتیبانی می‌شوند (دریافت شد: «%@»)." }
-        },
-        "fi" : {
-          "stringUnit" : { "state" : "translated", "value" : "Vain SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC ja HEIF ovat tuettuja (saatiin ”%@”)." }
-        },
-        "fr" : {
-          "stringUnit" : { "state" : "translated", "value" : "Seuls SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC et HEIF sont pris en charge (reçu : « %@ »)." }
-        },
-        "he" : {
-          "stringUnit" : { "state" : "translated", "value" : "נתמכים רק SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC ו-HEIF (התקבל ״%@״)." }
-        },
-        "hr" : {
-          "stringUnit" : { "state" : "translated", "value" : "Podržani su samo SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC i HEIF (primljeno: “%@”)." }
-        },
-        "hu" : {
-          "stringUnit" : { "state" : "translated", "value" : "Csak az SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC és HEIF támogatott (a kapott formátum: „%@”)." }
-        },
-        "is" : {
-          "stringUnit" : { "state" : "translated", "value" : "Aðeins SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC og HEIF eru studd (fékk „%@“)." }
-        },
-        "it" : {
-          "stringUnit" : { "state" : "translated", "value" : "Sono supportati solo SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC e HEIF (ricevuto: “%@”)." }
-        },
-        "ja" : {
-          "stringUnit" : { "state" : "translated", "value" : "対応しているのはSVG、PNG、GIF、JPEG、WebP、AVIF、HEIC、HEIFのみです(「%@」を受け取りました)。" }
-        },
-        "ko" : {
-          "stringUnit" : { "state" : "translated", "value" : "SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC, HEIF만 지원합니다(받은 형식: ‘%@’)." }
-        },
-        "nb" : {
-          "stringUnit" : { "state" : "translated", "value" : "Bare SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC og HEIF støttes (fikk «%@»)." }
-        },
-        "nl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Alleen SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC en HEIF worden ondersteund (kreeg '%@')." }
-        },
-        "nn" : {
-          "stringUnit" : { "state" : "translated", "value" : "Berre SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC og HEIF er støtta (fekk «%@»)." }
-        },
-        "pl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Obsługiwane są tylko SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC i HEIF (otrzymano „%@”)." }
-        },
-        "pt-BR" : {
-          "stringUnit" : { "state" : "translated", "value" : "Somente SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC e HEIF são compatíveis (recebido: “%@”)." }
-        },
-        "pt-PT" : {
-          "stringUnit" : { "state" : "translated", "value" : "Só são suportados SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC e HEIF (recebido: “%@”)." }
-        },
-        "ro" : {
-          "stringUnit" : { "state" : "translated", "value" : "Sunt acceptate doar SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC și HEIF (s-a primit „%@”)." }
-        },
-        "ru" : {
-          "stringUnit" : { "state" : "translated", "value" : "Поддерживаются только SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC и HEIF (получено «%@»)." }
-        },
-        "sk" : {
-          "stringUnit" : { "state" : "translated", "value" : "Podporované sú len SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC a HEIF (prišlo: „%@“)." }
-        },
-        "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Podprti so samo SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC in HEIF (prejeto: »%@«)." }
-        },
-        "sv" : {
-          "stringUnit" : { "state" : "translated", "value" : "Endast SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC och HEIF stöds (fick ”%@”)." }
-        },
-        "th" : {
-          "stringUnit" : { "state" : "translated", "value" : "รองรับเฉพาะ SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC และ HEIF เท่านั้น (ได้รับ “%@”)" }
-        },
-        "tr" : {
-          "stringUnit" : { "state" : "translated", "value" : "Yalnızca SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC ve HEIF destekleniyor (gelen: “%@”)." }
-        },
-        "uk" : {
-          "stringUnit" : { "state" : "translated", "value" : "Підтримуються лише SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC і HEIF (отримано «%@»)." }
-        },
-        "vi" : {
-          "stringUnit" : { "state" : "translated", "value" : "Chỉ hỗ trợ SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC và HEIF (nhận được “%@”)." }
-        },
-        "zh-HK" : {
-          "stringUnit" : { "state" : "translated", "value" : "僅支援SVG、PNG、GIF、JPEG、WebP、AVIF、HEIC和HEIF（收到「%@」）。" }
-        },
-        "zh-Hans" : {
-          "stringUnit" : { "state" : "translated", "value" : "仅支持 SVG、PNG、GIF、JPEG、WebP、AVIF、HEIC 和 HEIF（收到“%@”）。" }
-        },
-        "zh-Hant" : {
-          "stringUnit" : { "state" : "translated", "value" : "僅支援SVG、PNG、GIF、JPEG、WebP、AVIF、HEIC和HEIF（收到「%@」）。" }
-        }
-      }
-    },
     "PNG is lossless — photos will usually get larger." : {
       "comment" : "Warning when the session's format override is PNG, which usually grows photographs.",
       "extractionState" : "manual",
@@ -6706,232 +6592,6 @@
         }
       }
     },
-    "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose." : {
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose." }
-        },
-        "ar" : {
-          "stringUnit" : { "state" : "translated", "value" : "ينطبق على JPEG وWebP وAVIF وHEIC. أما PNG وGIF فتُحسَّن بأدوات لا تملك إعدادًا مماثلًا، ولذلك تبدو كما هي أيًا كان اختيارك." }
-        },
-        "ca" : {
-          "stringUnit" : { "state" : "translated", "value" : "S’aplica a JPEG, WebP, AVIF i HEIC. El PNG i el GIF els optimitzen eines que no tenen cap opció equivalent, així que es veuen igual triïs el que triïs." }
-        },
-        "cs" : {
-          "stringUnit" : { "state" : "translated", "value" : "Týká se JPEG, WebP, AVIF a HEIC. PNG a GIF optimalizují nástroje, které srovnatelné nastavení nemají, takže vypadají stejně, ať zvolíte cokoli." }
-        },
-        "da" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gælder for JPEG, WebP, AVIF og HEIC. PNG og GIF optimeres af værktøjer uden en tilsvarende indstilling, så de ser ens ud, uanset hvad du vælger." }
-        },
-        "de" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gilt für JPEG, WebP, AVIF und HEIC. PNG und GIF werden von Werkzeugen optimiert, die keine vergleichbare Einstellung haben, und sehen deshalb bei jeder Wahl gleich aus." }
-        },
-        "el" : {
-          "stringUnit" : { "state" : "translated", "value" : "Ισχύει για JPEG, WebP, AVIF και HEIC. Τα PNG και GIF βελτιστοποιούνται από εργαλεία χωρίς αντίστοιχη ρύθμιση, οπότε φαίνονται ίδια όποια επιλογή κι αν κάνετε." }
-        },
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "Se aplica a JPEG, WebP, AVIF y HEIC. PNG y GIF se optimizan con herramientas que no tienen un ajuste equivalente, así que se ven igual elijas lo que elijas." }
-        },
-        "fa" : {
-          "stringUnit" : { "state" : "translated", "value" : "برای JPEG، WebP، AVIF و HEIC اعمال می‌شود. PNG و GIF با ابزارهایی بهینه می‌شوند که تنظیم مشابهی ندارند، بنابراین هر گزینه‌ای را انتخاب کنید یکسان به نظر می‌رسند." }
-        },
-        "fi" : {
-          "stringUnit" : { "state" : "translated", "value" : "Koskee JPEG-, WebP-, AVIF- ja HEIC-tiedostoja. PNG ja GIF optimoidaan työkaluilla, joissa ei ole vastaavaa asetusta, joten ne näyttävät samalta valitsit minkä tahansa." }
-        },
-        "fr" : {
-          "stringUnit" : { "state" : "translated", "value" : "S’applique à JPEG, WebP, AVIF et HEIC. PNG et GIF sont optimisés par des outils qui n’ont pas de réglage comparable : ils ont donc le même aspect quel que soit votre choix." }
-        },
-        "he" : {
-          "stringUnit" : { "state" : "translated", "value" : "חל על JPEG, WebP, AVIF ו-HEIC. קבצי PNG ו-GIF עוברים מיטוב בכלים שאין להם הגדרה מקבילה, ולכן הם ייראו אותו הדבר בכל בחירה." }
-        },
-        "hr" : {
-          "stringUnit" : { "state" : "translated", "value" : "Vrijedi za JPEG, WebP, AVIF i HEIC. PNG i GIF optimiziraju alati koji nemaju usporedivu postavku, pa izgledaju jednako što god odabrali." }
-        },
-        "hu" : {
-          "stringUnit" : { "state" : "translated", "value" : "A JPEG, WebP, AVIF és HEIC formátumra vonatkozik. A PNG-t és a GIF-et olyan eszközök optimalizálják, amelyeknek nincs ehhez hasonló beállításuk, ezért bármit választ, ugyanúgy néznek ki." }
-        },
-        "is" : {
-          "stringUnit" : { "state" : "translated", "value" : "Á við um JPEG, WebP, AVIF og HEIC. PNG og GIF eru bestuð með verkfærum sem hafa enga sambærilega stillingu og líta því eins út hvað sem þú velur." }
-        },
-        "it" : {
-          "stringUnit" : { "state" : "translated", "value" : "Si applica a JPEG, WebP, AVIF e HEIC. PNG e GIF vengono ottimizzati da strumenti privi di un’impostazione equivalente, quindi hanno lo stesso aspetto qualunque sia la tua scelta." }
-        },
-        "ja" : {
-          "stringUnit" : { "state" : "translated", "value" : "JPEG、WebP、AVIF、HEICに適用されます。PNGとGIFは同等の設定を持たないツールで最適化されるため、どれを選んでも仕上がりは変わりません。" }
-        },
-        "ko" : {
-          "stringUnit" : { "state" : "translated", "value" : "JPEG, WebP, AVIF, HEIC에 적용됩니다. PNG와 GIF는 이에 해당하는 설정이 없는 도구로 최적화되므로, 무엇을 선택하든 결과가 같습니다." }
-        },
-        "nb" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gjelder JPEG, WebP, AVIF og HEIC. PNG og GIF optimaliseres av verktøy uten en tilsvarende innstilling, så de ser like ut uansett hva du velger." }
-        },
-        "nl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Geldt voor JPEG, WebP, AVIF en HEIC. PNG en GIF worden geoptimaliseerd door hulpprogramma's zonder vergelijkbare instelling en zien er dus bij elke keuze hetzelfde uit." }
-        },
-        "nn" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gjeld JPEG, WebP, AVIF og HEIC. PNG og GIF blir optimaliserte av verktøy utan ei tilsvarande innstilling, så dei ser like ut uansett kva du vel." }
-        },
-        "pl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Dotyczy JPEG, WebP, AVIF i HEIC. PNG i GIF są optymalizowane przez narzędzia bez porównywalnego ustawienia, więc wyglądają tak samo niezależnie od wyboru." }
-        },
-        "pt-BR" : {
-          "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, AVIF e HEIC. PNG e GIF são otimizados por ferramentas que não têm um ajuste equivalente, então ficam iguais qualquer que seja a sua escolha." }
-        },
-        "pt-PT" : {
-          "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, AVIF e HEIC. Os ficheiros PNG e GIF são otimizados por ferramentas sem uma definição equivalente, pelo que ficam iguais, seja qual for a opção escolhida." }
-        },
-        "ro" : {
-          "stringUnit" : { "state" : "translated", "value" : "Se aplică pentru JPEG, WebP, AVIF și HEIC. PNG și GIF sunt optimizate de instrumente care nu au o configurare echivalentă, așa că arată la fel indiferent ce alegeți." }
-        },
-        "ru" : {
-          "stringUnit" : { "state" : "translated", "value" : "Относится к JPEG, WebP, AVIF и HEIC. PNG и GIF оптимизируются инструментами, у которых нет похожей настройки, поэтому они выглядят одинаково при любом выборе." }
-        },
-        "sk" : {
-          "stringUnit" : { "state" : "translated", "value" : "Platí pre JPEG, WebP, AVIF a HEIC. PNG a GIF optimalizujú nástroje, ktoré porovnateľné nastavenie nemajú, takže vyzerajú rovnako, nech si vyberiete čokoľvek." }
-        },
-        "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Velja za JPEG, WebP, AVIF in HEIC. PNG in GIF optimizirajo orodja brez primerljive nastavitve, zato so videti enako, ne glede na izbiro." }
-        },
-        "sv" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gäller JPEG, WebP, AVIF och HEIC. PNG och GIF optimeras av verktyg som saknar en motsvarande inställning, så de ser likadana ut oavsett vad du väljer." }
-        },
-        "th" : {
-          "stringUnit" : { "state" : "translated", "value" : "มีผลกับ JPEG, WebP, AVIF และ HEIC ส่วน PNG และ GIF ปรับให้เหมาะสมด้วยเครื่องมือที่ไม่มีการตั้งค่าแบบเดียวกัน จึงให้ผลเหมือนกันไม่ว่าคุณจะเลือกแบบใด" }
-        },
-        "tr" : {
-          "stringUnit" : { "state" : "translated", "value" : "JPEG, WebP, AVIF ve HEIC için geçerlidir. PNG ve GIF, benzer bir ayarı olmayan araçlarla optimize edilir; bu yüzden hangisini seçerseniz seçin aynı görünürler." }
-        },
-        "uk" : {
-          "stringUnit" : { "state" : "translated", "value" : "Стосується JPEG, WebP, AVIF і HEIC. PNG і GIF оптимізують інструменти, які не мають подібного параметра, тож вони виглядатимуть однаково за будь-якого вибору." }
-        },
-        "vi" : {
-          "stringUnit" : { "state" : "translated", "value" : "Áp dụng cho JPEG, WebP, AVIF và HEIC. PNG và GIF được tối ưu bằng các công cụ không có cài đặt tương đương, nên chúng trông như nhau dù bạn chọn mức nào." }
-        },
-        "zh-HK" : {
-          "stringUnit" : { "state" : "translated", "value" : "適用於JPEG、WebP、AVIF和HEIC。PNG和GIF由沒有同類設定的工具來最佳化，所以無論你選哪一項，結果看起來都一樣。" }
-        },
-        "zh-Hans" : {
-          "stringUnit" : { "state" : "translated", "value" : "适用于 JPEG、WebP、AVIF 和 HEIC。PNG 和 GIF 由没有同类设置的工具来优化，因此无论你选哪一项，它们看起来都一样。" }
-        },
-        "zh-Hant" : {
-          "stringUnit" : { "state" : "translated", "value" : "適用於JPEG、WebP、AVIF和HEIC。PNG和GIF由沒有同類設定的工具進行最佳化，因此無論你選哪一項，它們看起來都一樣。" }
-        }
-      }
-    },
-    "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this." : {
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this." }
-        },
-        "ar" : {
-          "stringUnit" : { "state" : "translated", "value" : "ينطبق على JPEG وWebP وAVIF وHEIC. أما PNG وGIF فتُحسَّن بأدوات لا تملك إعدادًا مماثلًا، ولذلك تبدو كما هي أيًا كان اختيارك. و\"قياسية\" تطابق ما كانت تنتجه الإصدارات السابقة من Shrinker Pro. تبدأ كل جلسة من هنا؛ ويمكن لشريط الجلسة في النافذة تغيير ذلك لجلسة واحدة دون تغيير هذا الإعداد." }
-        },
-        "ca" : {
-          "stringUnit" : { "state" : "translated", "value" : "S’aplica a JPEG, WebP, AVIF i HEIC. El PNG i el GIF els optimitzen eines que no tenen cap opció equivalent, així que es veuen igual triïs el que triïs. L’opció Estàndard equival al que produïen les versions anteriors de Shrinker Pro. Cada sessió comença aquí; la barra de sessió de la finestra ho pot canviar per a una sessió sense modificar aquesta opció." }
-        },
-        "cs" : {
-          "stringUnit" : { "state" : "translated", "value" : "Týká se JPEG, WebP, AVIF a HEIC. PNG a GIF optimalizují nástroje, které srovnatelné nastavení nemají, takže vypadají stejně, ať zvolíte cokoli. Volba Standardní odpovídá tomu, co vytvářely dřívější verze Shrinker Pro. Každá relace začíná zde; lišta relace v okně to může změnit pro jednu relaci, aniž by se změnilo toto nastavení." }
-        },
-        "da" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gælder for JPEG, WebP, AVIF og HEIC. PNG og GIF optimeres af værktøjer uden en tilsvarende indstilling, så de ser ens ud, uanset hvad du vælger. Standard svarer til det, tidligere versioner af Shrinker Pro lavede. Hver session starter her; vinduets sessionslinje kan ændre det for én session uden at ændre denne indstilling." }
-        },
-        "de" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gilt für JPEG, WebP, AVIF und HEIC. PNG und GIF werden von Werkzeugen optimiert, die keine vergleichbare Einstellung haben, und sehen deshalb bei jeder Wahl gleich aus. Standard entspricht dem, was frühere Versionen von Shrinker Pro erzeugt haben. Jede Sitzung beginnt hier; die Sitzungsleiste im Fenster kann den Wert für eine Sitzung ändern, ohne diese Einstellung zu ändern." }
-        },
-        "el" : {
-          "stringUnit" : { "state" : "translated", "value" : "Ισχύει για JPEG, WebP, AVIF και HEIC. Τα PNG και GIF βελτιστοποιούνται από εργαλεία χωρίς αντίστοιχη ρύθμιση, οπότε φαίνονται ίδια όποια επιλογή κι αν κάνετε. Η «Τυπική» αντιστοιχεί σε αυτό που παρήγαγαν οι προηγούμενες εκδόσεις του Shrinker Pro. Κάθε συνεδρία ξεκινά από εδώ· η γραμμή συνεδρίας του παραθύρου μπορεί να το αλλάξει για μία συνεδρία χωρίς να αλλάξει αυτήν τη ρύθμιση." }
-        },
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "Se aplica a JPEG, WebP, AVIF y HEIC. PNG y GIF se optimizan con herramientas que no tienen un ajuste equivalente, así que se ven igual elijas lo que elijas. Estándar es lo que producían las versiones anteriores de Shrinker Pro. Cada sesión empieza aquí; la barra de sesión de la ventana puede cambiarlo durante una sesión sin modificar este ajuste." }
-        },
-        "fa" : {
-          "stringUnit" : { "state" : "translated", "value" : "برای JPEG، WebP، AVIF و HEIC اعمال می‌شود. PNG و GIF با ابزارهایی بهینه می‌شوند که تنظیم مشابهی ندارند، بنابراین هر گزینه‌ای را انتخاب کنید یکسان به نظر می‌رسند. «استاندارد» همان چیزی است که نسخه‌های پیشین Shrinker Pro تولید می‌کردند. هر جلسه از همین‌جا آغاز می‌شود؛ نوار جلسهٔ پنجره می‌تواند آن را برای یک جلسه تغییر دهد بدون آنکه این تنظیم عوض شود." }
-        },
-        "fi" : {
-          "stringUnit" : { "state" : "translated", "value" : "Koskee JPEG-, WebP-, AVIF- ja HEIC-tiedostoja. PNG ja GIF optimoidaan työkaluilla, joissa ei ole vastaavaa asetusta, joten ne näyttävät samalta valitsit minkä tahansa. Vakio vastaa sitä, mitä Shrinker Pron aiemmat versiot tuottivat. Jokainen istunto alkaa tästä; ikkunan istuntopalkki voi muuttaa asetusta yhden istunnon ajaksi muuttamatta tätä." }
-        },
-        "fr" : {
-          "stringUnit" : { "state" : "translated", "value" : "S’applique à JPEG, WebP, AVIF et HEIC. PNG et GIF sont optimisés par des outils qui n’ont pas de réglage comparable : ils ont donc le même aspect quel que soit votre choix. Standard correspond à ce que produisaient les versions précédentes de Shrinker Pro. Chaque session démarre ici ; la barre de session de la fenêtre peut le changer pour une seule session sans modifier ce réglage." }
-        },
-        "he" : {
-          "stringUnit" : { "state" : "translated", "value" : "חל על JPEG, WebP, AVIF ו-HEIC. קבצי PNG ו-GIF עוברים מיטוב בכלים שאין להם הגדרה מקבילה, ולכן הם ייראו אותו הדבר בכל בחירה. הערך ״רגילה״ תואם את מה שגרסאות קודמות של Shrinker Pro ייצרו. כל הפעלה מתחילה כאן; סרגל ההפעלה בחלון יכול לשנות את הערך להפעלה אחת בלבד, בלי לשנות את ההגדרה הזו." }
-        },
-        "hr" : {
-          "stringUnit" : { "state" : "translated", "value" : "Vrijedi za JPEG, WebP, AVIF i HEIC. PNG i GIF optimiziraju alati koji nemaju usporedivu postavku, pa izgledaju jednako što god odabrali. Standardna kvaliteta odgovara onome što su davale ranije verzije aplikacije Shrinker Pro. Svaka sesija počinje od te vrijednosti; traka sesije u prozoru može je promijeniti za jednu sesiju bez mijenjanja ove postavke." }
-        },
-        "hu" : {
-          "stringUnit" : { "state" : "translated", "value" : "A JPEG, WebP, AVIF és HEIC formátumra vonatkozik. A PNG-t és a GIF-et olyan eszközök optimalizálják, amelyeknek nincs ehhez hasonló beállításuk, ezért bármit választ, ugyanúgy néznek ki. A Normál megfelel annak, amit a Shrinker Pro korábbi verziói készítettek. Minden munkamenet innen indul; az ablak munkamenetsávja egyetlen munkamenetre módosíthatja anélkül, hogy ez az érték megváltozna." }
-        },
-        "is" : {
-          "stringUnit" : { "state" : "translated", "value" : "Á við um JPEG, WebP, AVIF og HEIC. PNG og GIF eru bestuð með verkfærum sem hafa enga sambærilega stillingu og líta því eins út hvað sem þú velur. Staðlað samsvarar því sem eldri útgáfur Shrinker Pro skiluðu. Hver lota byrjar hér; lotustikan í glugganum getur breytt því fyrir eina lotu án þess að breyta þessari stillingu." }
-        },
-        "it" : {
-          "stringUnit" : { "state" : "translated", "value" : "Si applica a JPEG, WebP, AVIF e HEIC. PNG e GIF vengono ottimizzati da strumenti privi di un’impostazione equivalente, quindi hanno lo stesso aspetto qualunque sia la tua scelta. Standard corrisponde a quanto producevano le versioni precedenti di Shrinker Pro. Ogni sessione parte da qui; la barra di sessione della finestra può cambiarlo per una sola sessione senza modificare questa impostazione." }
-        },
-        "ja" : {
-          "stringUnit" : { "state" : "translated", "value" : "JPEG、WebP、AVIF、HEICに適用されます。PNGとGIFは同等の設定を持たないツールで最適化されるため、どれを選んでも仕上がりは変わりません。標準は、以前のバージョンのShrinker Proと同じ仕上がりです。どのセッションもここから始まります。ウインドウのセッションバーを使うと、この設定を変えずに1回のセッションだけ変更できます。" }
-        },
-        "ko" : {
-          "stringUnit" : { "state" : "translated", "value" : "JPEG, WebP, AVIF, HEIC에 적용됩니다. PNG와 GIF는 이에 해당하는 설정이 없는 도구로 최적화되므로, 무엇을 선택하든 결과가 같습니다. 표준은 이전 버전의 Shrinker Pro가 만들던 결과와 같습니다. 모든 세션이 이 설정에서 시작하며, 윈도우의 세션 막대에서 이 설정을 바꾸지 않고 한 세션에만 다르게 적용할 수 있습니다." }
-        },
-        "nb" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gjelder JPEG, WebP, AVIF og HEIC. PNG og GIF optimaliseres av verktøy uten en tilsvarende innstilling, så de ser like ut uansett hva du velger. Standard tilsvarer det tidligere versjoner av Shrinker Pro laget. Hver økt starter her; øktlinjen i vinduet kan endre det for én økt uten at denne innstillingen endres." }
-        },
-        "nl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Geldt voor JPEG, WebP, AVIF en HEIC. PNG en GIF worden geoptimaliseerd door hulpprogramma's zonder vergelijkbare instelling en zien er dus bij elke keuze hetzelfde uit. Standaard komt overeen met wat eerdere versies van Shrinker Pro maakten. Elke sessie begint hier; de sessiebalk in het venster kan dit voor één sessie wijzigen zonder deze instelling te veranderen." }
-        },
-        "nn" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gjeld JPEG, WebP, AVIF og HEIC. PNG og GIF blir optimaliserte av verktøy utan ei tilsvarande innstilling, så dei ser like ut uansett kva du vel. Standard svarar til det tidlegare versjonar av Shrinker Pro gav. Kvar økt startar her; øktlinja i vindauget kan endre det for éi økt utan å endre denne innstillinga." }
-        },
-        "pl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Dotyczy JPEG, WebP, AVIF i HEIC. PNG i GIF są optymalizowane przez narzędzia bez porównywalnego ustawienia, więc wyglądają tak samo niezależnie od wyboru. Jakość standardowa odpowiada temu, co dawały wcześniejsze wersje Shrinker Pro. Każda sesja zaczyna się od tej wartości; pasek sesji w oknie może ją zmienić na jedną sesję, nie zmieniając tego ustawienia." }
-        },
-        "pt-BR" : {
-          "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, AVIF e HEIC. PNG e GIF são otimizados por ferramentas que não têm um ajuste equivalente, então ficam iguais qualquer que seja a sua escolha. Normal corresponde ao que as versões anteriores do Shrinker Pro produziam. Toda sessão começa por aqui; a barra de sessão da janela pode mudar isso por uma sessão, sem alterar este ajuste." }
-        },
-        "pt-PT" : {
-          "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, AVIF e HEIC. Os ficheiros PNG e GIF são otimizados por ferramentas sem uma definição equivalente, pelo que ficam iguais, seja qual for a opção escolhida. Padrão corresponde ao que as versões anteriores do Shrinker Pro produziam. Todas as sessões começam aqui; a barra de sessão da janela pode alterar este valor durante uma sessão, sem alterar esta definição." }
-        },
-        "ro" : {
-          "stringUnit" : { "state" : "translated", "value" : "Se aplică pentru JPEG, WebP, AVIF și HEIC. PNG și GIF sunt optimizate de instrumente care nu au o configurare echivalentă, așa că arată la fel indiferent ce alegeți. Standard corespunde cu ceea ce produceau versiunile anterioare ale Shrinker Pro. Fiecare sesiune pornește de aici; bara de sesiune a ferestrei o poate schimba pentru o singură sesiune, fără a modifica această configurare." }
-        },
-        "ru" : {
-          "stringUnit" : { "state" : "translated", "value" : "Относится к JPEG, WebP, AVIF и HEIC. PNG и GIF оптимизируются инструментами, у которых нет похожей настройки, поэтому они выглядят одинаково при любом выборе. Стандартное качество соответствует тому, что давали прежние версии Shrinker Pro. Каждый сеанс начинается с этого значения; панель сеанса в окне может изменить его на один сеанс, не меняя саму настройку." }
-        },
-        "sk" : {
-          "stringUnit" : { "state" : "translated", "value" : "Platí pre JPEG, WebP, AVIF a HEIC. PNG a GIF optimalizujú nástroje, ktoré porovnateľné nastavenie nemajú, takže vyzerajú rovnako, nech si vyberiete čokoľvek. Štandardná zodpovedá tomu, čo vytvárali staršie verzie aplikácie Shrinker Pro. Každá relácia začína týmto nastavením; lišta relácie v okne ho môže zmeniť pre jednu reláciu bez toho, aby zmenila toto." }
-        },
-        "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "Velja za JPEG, WebP, AVIF in HEIC. PNG in GIF optimizirajo orodja brez primerljive nastavitve, zato so videti enako, ne glede na izbiro. Standardna kakovost ustreza tistemu, kar so izdelale prejšnje različice aplikacije Shrinker Pro. Vsaka seja se začne pri tej vrednosti; vrstica seje v oknu jo lahko spremeni za eno sejo, ne da bi spremenila to nastavitev." }
-        },
-        "sv" : {
-          "stringUnit" : { "state" : "translated", "value" : "Gäller JPEG, WebP, AVIF och HEIC. PNG och GIF optimeras av verktyg som saknar en motsvarande inställning, så de ser likadana ut oavsett vad du väljer. Standard motsvarar det som tidigare versioner av Shrinker Pro gav. Varje session börjar här; fönstrets sessionsrad kan ändra det för en session utan att den här inställningen ändras." }
-        },
-        "th" : {
-          "stringUnit" : { "state" : "translated", "value" : "มีผลกับ JPEG, WebP, AVIF และ HEIC ส่วน PNG และ GIF ปรับให้เหมาะสมด้วยเครื่องมือที่ไม่มีการตั้งค่าแบบเดียวกัน จึงให้ผลเหมือนกันไม่ว่าคุณจะเลือกแบบใด มาตรฐานให้ผลเหมือนกับที่ Shrinker Pro รุ่นก่อนหน้าสร้างไว้ ทุกเซสชั่นเริ่มต้นที่ค่านี้ และแถบเซสชั่นของหน้าต่างเปลี่ยนค่านี้ได้เฉพาะเซสชั่นเดียวโดยไม่กระทบค่านี้" }
-        },
-        "tr" : {
-          "stringUnit" : { "state" : "translated", "value" : "JPEG, WebP, AVIF ve HEIC için geçerlidir. PNG ve GIF, benzer bir ayarı olmayan araçlarla optimize edilir; bu yüzden hangisini seçerseniz seçin aynı görünürler. Standart, Shrinker Pro’nun önceki sürümlerinin ürettiğiyle aynıdır. Her oturum buradan başlar; penceredeki oturum çubuğu, bunu değiştirmeden tek bir oturum için başka bir değer kullanabilir." }
-        },
-        "uk" : {
-          "stringUnit" : { "state" : "translated", "value" : "Стосується JPEG, WebP, AVIF і HEIC. PNG і GIF оптимізують інструменти, які не мають подібного параметра, тож вони виглядатимуть однаково за будь-якого вибору. Стандартна якість відповідає тому, що давали попередні версії Shrinker Pro. Кожен сеанс починається з неї; панель сеансу у вікні може змінити її на один сеанс, не змінюючи цього параметра." }
-        },
-        "vi" : {
-          "stringUnit" : { "state" : "translated", "value" : "Áp dụng cho JPEG, WebP, AVIF và HEIC. PNG và GIF được tối ưu bằng các công cụ không có cài đặt tương đương, nên chúng trông như nhau dù bạn chọn mức nào. Tiêu chuẩn cho kết quả giống với những phiên bản Shrinker Pro trước đây. Mọi phiên đều bắt đầu từ đây; thanh phiên của cửa sổ có thể đổi mức này cho một phiên mà không thay đổi cài đặt này." }
-        },
-        "zh-HK" : {
-          "stringUnit" : { "state" : "translated", "value" : "適用於JPEG、WebP、AVIF和HEIC。PNG和GIF由沒有同類設定的工具來最佳化，所以無論你選哪一項，結果看起來都一樣。「標準」與Shrinker Pro舊版本產生的結果相同。每次開始時都用這一項；視窗上的今次設定列可以只改今次，而不改動這項設定。" }
-        },
-        "zh-Hans" : {
-          "stringUnit" : { "state" : "translated", "value" : "适用于 JPEG、WebP、AVIF 和 HEIC。PNG 和 GIF 由没有同类设置的工具来优化，因此无论你选哪一项，它们看起来都一样。“标准”与 Shrinker Pro 早期版本生成的结果一致。每次会话都从这里开始；窗口中的会话栏可以只为一次会话更改它，而不改动这项设置。" }
-        },
-        "zh-Hant" : {
-          "stringUnit" : { "state" : "translated", "value" : "適用於JPEG、WebP、AVIF和HEIC。PNG和GIF由沒有同類設定的工具進行最佳化，因此無論你選哪一項，它們看起來都一樣。「標準」與Shrinker Pro舊版產生的結果相同。每次工作階段都從這裡開始；視窗中的工作階段列可以只為一次工作階段更改它，而不更動這項設定。" }
-        }
-      }
-    },
     "Applies to this session only. Defaults live in Settings." : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -10206,119 +9866,6 @@
         },
         "zh-Hant" : {
           "stringUnit" : { "state" : "translated", "value" : "輸出" }
-        }
-      }
-    },
-    "PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O" : {
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O" }
-        },
-        "ar" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG وJPG وHEIC وWebP وAVIF وGIF وSVG — أو اضغط ⌘O" }
-        },
-        "ca" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF i SVG — o prem ⌘O" }
-        },
-        "cs" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF a SVG — nebo stiskněte ⌘O" }
-        },
-        "da" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF og SVG — eller tryk på ⌘O" }
-        },
-        "de" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF und SVG — oder ⌘O drücken" }
-        },
-        "el" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF και SVG — ή πατήστε ⌘O" }
-        },
-        "es" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF y SVG — o pulsa ⌘O" }
-        },
-        "fa" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG، JPG، HEIC، WebP، AVIF، GIF و SVG — یا ⌘O را فشار دهید" }
-        },
-        "fi" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF ja SVG — tai paina ⌘O" }
-        },
-        "fr" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF et SVG — ou appuyez sur ⌘O" }
-        },
-        "he" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF ו-SVG — או הקשה על ⌘O" }
-        },
-        "hr" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF i SVG — ili pritisnite ⌘O" }
-        },
-        "hu" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF és SVG — vagy nyomja meg a ⌘O billentyűparancsot" }
-        },
-        "is" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF og SVG — eða ýttu á ⌘O" }
-        },
-        "it" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF e SVG — oppure premi ⌘O" }
-        },
-        "ja" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、AVIF、GIF、SVG — または⌘O" }
-        },
-        "ko" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF, SVG — 또는 ⌘O" }
-        },
-        "nb" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF og SVG — eller trykk ⌘O" }
-        },
-        "nl" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF en SVG — of druk op ⌘O" }
-        },
-        "nn" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF og SVG — eller trykk ⌘O" }
-        },
-        "pl" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF i SVG — albo naciśnij ⌘O" }
-        },
-        "pt-BR" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF e SVG — ou pressione ⌘O" }
-        },
-        "pt-PT" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF e SVG — ou prima ⌘O" }
-        },
-        "ro" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF și SVG — sau apăsați ⌘O" }
-        },
-        "ru" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF и SVG — или нажмите ⌘O" }
-        },
-        "sk" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF a SVG — alebo stlačte ⌘O" }
-        },
-        "sl" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF in SVG — ali pritisnite ⌘O" }
-        },
-        "sv" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF och SVG — eller tryck på ⌘O" }
-        },
-        "th" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF และ SVG — หรือกด ⌘O" }
-        },
-        "tr" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF ve SVG — ya da ⌘O tuşlarına basın" }
-        },
-        "uk" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF і SVG — або натисніть ⌘O" }
-        },
-        "vi" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, AVIF, GIF và SVG — hoặc nhấn ⌘O" }
-        },
-        "zh-HK" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、AVIF、GIF和SVG，或按⌘O" }
-        },
-        "zh-Hans" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、AVIF、GIF 和 SVG，或按 ⌘O" }
-        },
-        "zh-Hant" : {
-          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、AVIF、GIF和SVG，或按⌘O" }
         }
       }
     },
@@ -18209,6 +17756,459 @@
         },
         "zh-Hant" : {
           "stringUnit" : { "state" : "translated", "value" : "節省%@" }
+        }
+      }
+    },
+    "Applies to JPEG, WebP, JPEG XL, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, JPEG XL, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose." }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ينطبق على JPEG وWebP وJPEG XL وAVIF وHEIC. أما PNG وGIF فتُحسَّن بأدوات لا تملك إعدادًا مماثلًا، ولذلك تبدو كما هي أيًا كان اختيارك." }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "S’aplica a JPEG, WebP, JPEG XL, AVIF i HEIC. El PNG i el GIF els optimitzen eines que no tenen cap opció equivalent, així que es veuen igual triïs el que triïs." }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Týká se JPEG, WebP, JPEG XL, AVIF a HEIC. PNG a GIF optimalizují nástroje, které srovnatelné nastavení nemají, takže vypadají stejně, ať zvolíte cokoli." }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gælder for JPEG, WebP, JPEG XL, AVIF og HEIC. PNG og GIF optimeres af værktøjer uden en tilsvarende indstilling, så de ser ens ud, uanset hvad du vælger." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gilt für JPEG, WebP, JPEG XL, AVIF und HEIC. PNG und GIF werden von Werkzeugen optimiert, die keine vergleichbare Einstellung haben, und sehen deshalb bei jeder Wahl gleich aus." }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ισχύει για JPEG, WebP, JPEG XL, AVIF και HEIC. Τα PNG και GIF βελτιστοποιούνται από εργαλεία χωρίς αντίστοιχη ρύθμιση, οπότε φαίνονται ίδια όποια επιλογή κι αν κάνετε." }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Se aplica a JPEG, WebP, JPEG XL, AVIF y HEIC. PNG y GIF se optimizan con herramientas que no tienen un ajuste equivalente, así que se ven igual elijas lo que elijas." }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "برای JPEG، WebP، JPEG XL، AVIF و HEIC اعمال می‌شود. PNG و GIF با ابزارهایی بهینه می‌شوند که تنظیم مشابهی ندارند، بنابراین هر گزینه‌ای را انتخاب کنید یکسان به نظر می‌رسند." }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Koskee JPEG-, WebP-, JPEG XL-, AVIF- ja HEIC-tiedostoja. PNG ja GIF optimoidaan työkaluilla, joissa ei ole vastaavaa asetusta, joten ne näyttävät samalta valitsit minkä tahansa." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "S’applique à JPEG, WebP, JPEG XL, AVIF et HEIC. PNG et GIF sont optimisés par des outils qui n’ont pas de réglage comparable : ils ont donc le même aspect quel que soit votre choix." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חל על JPEG, WebP, JPEG XL, AVIF ו-HEIC. קבצי PNG ו-GIF עוברים מיטוב בכלים שאין להם הגדרה מקבילה, ולכן הם ייראו אותו הדבר בכל בחירה." }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vrijedi za JPEG, WebP, JPEG XL, AVIF i HEIC. PNG i GIF optimiziraju alati koji nemaju usporedivu postavku, pa izgledaju jednako što god odabrali." }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "A JPEG, WebP, JPEG XL, AVIF és HEIC formátumra vonatkozik. A PNG-t és a GIF-et olyan eszközök optimalizálják, amelyeknek nincs ehhez hasonló beállításuk, ezért bármit választ, ugyanúgy néznek ki." }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Á við um JPEG, WebP, JPEG XL, AVIF og HEIC. PNG og GIF eru bestuð með verkfærum sem hafa enga sambærilega stillingu og líta því eins út hvað sem þú velur." }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Si applica a JPEG, WebP, JPEG XL, AVIF e HEIC. PNG e GIF vengono ottimizzati da strumenti privi di un’impostazione equivalente, quindi hanno lo stesso aspetto qualunque sia la tua scelta." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "JPEG、WebP、JPEG XL、AVIF、HEICに適用されます。PNGとGIFは同等の設定を持たないツールで最適化されるため、どれを選んでも仕上がりは変わりません。" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "JPEG, WebP, JPEG XL, AVIF, HEIC에 적용됩니다. PNG와 GIF는 이에 해당하는 설정이 없는 도구로 최적화되므로, 무엇을 선택하든 결과가 같습니다." }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gjelder JPEG, WebP, JPEG XL, AVIF og HEIC. PNG og GIF optimaliseres av verktøy uten en tilsvarende innstilling, så de ser like ut uansett hva du velger." }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Geldt voor JPEG, WebP, JPEG XL, AVIF en HEIC. PNG en GIF worden geoptimaliseerd door hulpprogramma's zonder vergelijkbare instelling en zien er dus bij elke keuze hetzelfde uit." }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gjeld JPEG, WebP, JPEG XL, AVIF og HEIC. PNG og GIF blir optimaliserte av verktøy utan ei tilsvarande innstilling, så dei ser like ut uansett kva du vel." }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dotyczy JPEG, WebP, JPEG XL, AVIF i HEIC. PNG i GIF są optymalizowane przez narzędzia bez porównywalnego ustawienia, więc wyglądają tak samo niezależnie od wyboru." }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, JPEG XL, AVIF e HEIC. PNG e GIF são otimizados por ferramentas que não têm um ajuste equivalente, então ficam iguais qualquer que seja a sua escolha." }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, JPEG XL, AVIF e HEIC. Os ficheiros PNG e GIF são otimizados por ferramentas sem uma definição equivalente, pelo que ficam iguais, seja qual for a opção escolhida." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Se aplică pentru JPEG, WebP, JPEG XL, AVIF și HEIC. PNG și GIF sunt optimizate de instrumente care nu au o configurare echivalentă, așa că arată la fel indiferent ce alegeți." }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Относится к JPEG, WebP, JPEG XL, AVIF и HEIC. PNG и GIF оптимизируются инструментами, у которых нет похожей настройки, поэтому они выглядят одинаково при любом выборе." }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Platí pre JPEG, WebP, JPEG XL, AVIF a HEIC. PNG a GIF optimalizujú nástroje, ktoré porovnateľné nastavenie nemajú, takže vyzerajú rovnako, nech si vyberiete čokoľvek." }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Velja za JPEG, WebP, JPEG XL, AVIF in HEIC. PNG in GIF optimizirajo orodja brez primerljive nastavitve, zato so videti enako, ne glede na izbiro." }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gäller JPEG, WebP, JPEG XL, AVIF och HEIC. PNG och GIF optimeras av verktyg som saknar en motsvarande inställning, så de ser likadana ut oavsett vad du väljer." }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "มีผลกับ JPEG, WebP, JPEG XL, AVIF และ HEIC ส่วน PNG และ GIF ปรับให้เหมาะสมด้วยเครื่องมือที่ไม่มีการตั้งค่าแบบเดียวกัน จึงให้ผลเหมือนกันไม่ว่าคุณจะเลือกแบบใด" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "JPEG, WebP, JPEG XL, AVIF ve HEIC için geçerlidir. PNG ve GIF, benzer bir ayarı olmayan araçlarla optimize edilir; bu yüzden hangisini seçerseniz seçin aynı görünürler." }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Стосується JPEG, WebP, JPEG XL, AVIF і HEIC. PNG і GIF оптимізують інструменти, які не мають подібного параметра, тож вони виглядатимуть однаково за будь-якого вибору." }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Áp dụng cho JPEG, WebP, JPEG XL, AVIF và HEIC. PNG và GIF được tối ưu bằng các công cụ không có cài đặt tương đương, nên chúng trông như nhau dù bạn chọn mức nào." }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "適用於JPEG、WebP、JPEG XL、AVIF和HEIC。PNG和GIF由沒有同類設定的工具來最佳化，所以無論你選哪一項，結果看起來都一樣。" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "适用于 JPEG、WebP、JPEG XL、AVIF 和 HEIC。PNG 和 GIF 由没有同类设置的工具来优化，因此无论你选哪一项，它们看起来都一样。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "適用於JPEG、WebP、JPEG XL、AVIF和HEIC。PNG和GIF由沒有同類設定的工具進行最佳化，因此無論你選哪一項，它們看起來都一樣。" }
+        }
+      }
+    },
+    "Applies to JPEG, WebP, JPEG XL, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Applies to JPEG, WebP, JPEG XL, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this." }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "ينطبق على JPEG وWebP وJPEG XL وAVIF وHEIC. أما PNG وGIF فتُحسَّن بأدوات لا تملك إعدادًا مماثلًا، ولذلك تبدو كما هي أيًا كان اختيارك. و\"قياسية\" تطابق ما كانت تنتجه الإصدارات السابقة من Shrinker Pro. تبدأ كل جلسة من هنا؛ ويمكن لشريط الجلسة في النافذة تغيير ذلك لجلسة واحدة دون تغيير هذا الإعداد." }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "S’aplica a JPEG, WebP, JPEG XL, AVIF i HEIC. El PNG i el GIF els optimitzen eines que no tenen cap opció equivalent, així que es veuen igual triïs el que triïs. L’opció Estàndard equival al que produïen les versions anteriors de Shrinker Pro. Cada sessió comença aquí; la barra de sessió de la finestra ho pot canviar per a una sessió sense modificar aquesta opció." }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Týká se JPEG, WebP, JPEG XL, AVIF a HEIC. PNG a GIF optimalizují nástroje, které srovnatelné nastavení nemají, takže vypadají stejně, ať zvolíte cokoli. Volba Standardní odpovídá tomu, co vytvářely dřívější verze Shrinker Pro. Každá relace začíná zde; lišta relace v okně to může změnit pro jednu relaci, aniž by se změnilo toto nastavení." }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gælder for JPEG, WebP, JPEG XL, AVIF og HEIC. PNG og GIF optimeres af værktøjer uden en tilsvarende indstilling, så de ser ens ud, uanset hvad du vælger. Standard svarer til det, tidligere versioner af Shrinker Pro lavede. Hver session starter her; vinduets sessionslinje kan ændre det for én session uden at ændre denne indstilling." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gilt für JPEG, WebP, JPEG XL, AVIF und HEIC. PNG und GIF werden von Werkzeugen optimiert, die keine vergleichbare Einstellung haben, und sehen deshalb bei jeder Wahl gleich aus. Standard entspricht dem, was frühere Versionen von Shrinker Pro erzeugt haben. Jede Sitzung beginnt hier; die Sitzungsleiste im Fenster kann den Wert für eine Sitzung ändern, ohne diese Einstellung zu ändern." }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ισχύει για JPEG, WebP, JPEG XL, AVIF και HEIC. Τα PNG και GIF βελτιστοποιούνται από εργαλεία χωρίς αντίστοιχη ρύθμιση, οπότε φαίνονται ίδια όποια επιλογή κι αν κάνετε. Η «Τυπική» αντιστοιχεί σε αυτό που παρήγαγαν οι προηγούμενες εκδόσεις του Shrinker Pro. Κάθε συνεδρία ξεκινά από εδώ· η γραμμή συνεδρίας του παραθύρου μπορεί να το αλλάξει για μία συνεδρία χωρίς να αλλάξει αυτήν τη ρύθμιση." }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Se aplica a JPEG, WebP, JPEG XL, AVIF y HEIC. PNG y GIF se optimizan con herramientas que no tienen un ajuste equivalente, así que se ven igual elijas lo que elijas. Estándar es lo que producían las versiones anteriores de Shrinker Pro. Cada sesión empieza aquí; la barra de sesión de la ventana puede cambiarlo durante una sesión sin modificar este ajuste." }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "برای JPEG، WebP، JPEG XL، AVIF و HEIC اعمال می‌شود. PNG و GIF با ابزارهایی بهینه می‌شوند که تنظیم مشابهی ندارند، بنابراین هر گزینه‌ای را انتخاب کنید یکسان به نظر می‌رسند. «استاندارد» همان چیزی است که نسخه‌های پیشین Shrinker Pro تولید می‌کردند. هر جلسه از همین‌جا آغاز می‌شود؛ نوار جلسهٔ پنجره می‌تواند آن را برای یک جلسه تغییر دهد بدون آنکه این تنظیم عوض شود." }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Koskee JPEG-, WebP-, JPEG XL-, AVIF- ja HEIC-tiedostoja. PNG ja GIF optimoidaan työkaluilla, joissa ei ole vastaavaa asetusta, joten ne näyttävät samalta valitsit minkä tahansa. Vakio vastaa sitä, mitä Shrinker Pron aiemmat versiot tuottivat. Jokainen istunto alkaa tästä; ikkunan istuntopalkki voi muuttaa asetusta yhden istunnon ajaksi muuttamatta tätä." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "S’applique à JPEG, WebP, JPEG XL, AVIF et HEIC. PNG et GIF sont optimisés par des outils qui n’ont pas de réglage comparable : ils ont donc le même aspect quel que soit votre choix. Standard correspond à ce que produisaient les versions précédentes de Shrinker Pro. Chaque session démarre ici ; la barre de session de la fenêtre peut le changer pour une seule session sans modifier ce réglage." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "חל על JPEG, WebP, JPEG XL, AVIF ו-HEIC. קבצי PNG ו-GIF עוברים מיטוב בכלים שאין להם הגדרה מקבילה, ולכן הם ייראו אותו הדבר בכל בחירה. הערך ״רגילה״ תואם את מה שגרסאות קודמות של Shrinker Pro ייצרו. כל הפעלה מתחילה כאן; סרגל ההפעלה בחלון יכול לשנות את הערך להפעלה אחת בלבד, בלי לשנות את ההגדרה הזו." }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vrijedi za JPEG, WebP, JPEG XL, AVIF i HEIC. PNG i GIF optimiziraju alati koji nemaju usporedivu postavku, pa izgledaju jednako što god odabrali. Standardna kvaliteta odgovara onome što su davale ranije verzije aplikacije Shrinker Pro. Svaka sesija počinje od te vrijednosti; traka sesije u prozoru može je promijeniti za jednu sesiju bez mijenjanja ove postavke." }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "A JPEG, WebP, JPEG XL, AVIF és HEIC formátumra vonatkozik. A PNG-t és a GIF-et olyan eszközök optimalizálják, amelyeknek nincs ehhez hasonló beállításuk, ezért bármit választ, ugyanúgy néznek ki. A Normál megfelel annak, amit a Shrinker Pro korábbi verziói készítettek. Minden munkamenet innen indul; az ablak munkamenetsávja egyetlen munkamenetre módosíthatja anélkül, hogy ez az érték megváltozna." }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Á við um JPEG, WebP, JPEG XL, AVIF og HEIC. PNG og GIF eru bestuð með verkfærum sem hafa enga sambærilega stillingu og líta því eins út hvað sem þú velur. Staðlað samsvarar því sem eldri útgáfur Shrinker Pro skiluðu. Hver lota byrjar hér; lotustikan í glugganum getur breytt því fyrir eina lotu án þess að breyta þessari stillingu." }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Si applica a JPEG, WebP, JPEG XL, AVIF e HEIC. PNG e GIF vengono ottimizzati da strumenti privi di un’impostazione equivalente, quindi hanno lo stesso aspetto qualunque sia la tua scelta. Standard corrisponde a quanto producevano le versioni precedenti di Shrinker Pro. Ogni sessione parte da qui; la barra di sessione della finestra può cambiarlo per una sola sessione senza modificare questa impostazione." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "JPEG、WebP、JPEG XL、AVIF、HEICに適用されます。PNGとGIFは同等の設定を持たないツールで最適化されるため、どれを選んでも仕上がりは変わりません。標準は、以前のバージョンのShrinker Proと同じ仕上がりです。どのセッションもここから始まります。ウインドウのセッションバーを使うと、この設定を変えずに1回のセッションだけ変更できます。" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "JPEG, WebP, JPEG XL, AVIF, HEIC에 적용됩니다. PNG와 GIF는 이에 해당하는 설정이 없는 도구로 최적화되므로, 무엇을 선택하든 결과가 같습니다. 표준은 이전 버전의 Shrinker Pro가 만들던 결과와 같습니다. 모든 세션이 이 설정에서 시작하며, 윈도우의 세션 막대에서 이 설정을 바꾸지 않고 한 세션에만 다르게 적용할 수 있습니다." }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gjelder JPEG, WebP, JPEG XL, AVIF og HEIC. PNG og GIF optimaliseres av verktøy uten en tilsvarende innstilling, så de ser like ut uansett hva du velger. Standard tilsvarer det tidligere versjoner av Shrinker Pro laget. Hver økt starter her; øktlinjen i vinduet kan endre det for én økt uten at denne innstillingen endres." }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Geldt voor JPEG, WebP, JPEG XL, AVIF en HEIC. PNG en GIF worden geoptimaliseerd door hulpprogramma's zonder vergelijkbare instelling en zien er dus bij elke keuze hetzelfde uit. Standaard komt overeen met wat eerdere versies van Shrinker Pro maakten. Elke sessie begint hier; de sessiebalk in het venster kan dit voor één sessie wijzigen zonder deze instelling te veranderen." }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gjeld JPEG, WebP, JPEG XL, AVIF og HEIC. PNG og GIF blir optimaliserte av verktøy utan ei tilsvarande innstilling, så dei ser like ut uansett kva du vel. Standard svarar til det tidlegare versjonar av Shrinker Pro gav. Kvar økt startar her; øktlinja i vindauget kan endre det for éi økt utan å endre denne innstillinga." }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dotyczy JPEG, WebP, JPEG XL, AVIF i HEIC. PNG i GIF są optymalizowane przez narzędzia bez porównywalnego ustawienia, więc wyglądają tak samo niezależnie od wyboru. Jakość standardowa odpowiada temu, co dawały wcześniejsze wersje Shrinker Pro. Każda sesja zaczyna się od tej wartości; pasek sesji w oknie może ją zmienić na jedną sesję, nie zmieniając tego ustawienia." }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, JPEG XL, AVIF e HEIC. PNG e GIF são otimizados por ferramentas que não têm um ajuste equivalente, então ficam iguais qualquer que seja a sua escolha. Normal corresponde ao que as versões anteriores do Shrinker Pro produziam. Toda sessão começa por aqui; a barra de sessão da janela pode mudar isso por uma sessão, sem alterar este ajuste." }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aplica-se a JPEG, WebP, JPEG XL, AVIF e HEIC. Os ficheiros PNG e GIF são otimizados por ferramentas sem uma definição equivalente, pelo que ficam iguais, seja qual for a opção escolhida. Padrão corresponde ao que as versões anteriores do Shrinker Pro produziam. Todas as sessões começam aqui; a barra de sessão da janela pode alterar este valor durante uma sessão, sem alterar esta definição." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Se aplică pentru JPEG, WebP, JPEG XL, AVIF și HEIC. PNG și GIF sunt optimizate de instrumente care nu au o configurare echivalentă, așa că arată la fel indiferent ce alegeți. Standard corespunde cu ceea ce produceau versiunile anterioare ale Shrinker Pro. Fiecare sesiune pornește de aici; bara de sesiune a ferestrei o poate schimba pentru o singură sesiune, fără a modifica această configurare." }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Относится к JPEG, WebP, JPEG XL, AVIF и HEIC. PNG и GIF оптимизируются инструментами, у которых нет похожей настройки, поэтому они выглядят одинаково при любом выборе. Стандартное качество соответствует тому, что давали прежние версии Shrinker Pro. Каждый сеанс начинается с этого значения; панель сеанса в окне может изменить его на один сеанс, не меняя саму настройку." }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Platí pre JPEG, WebP, JPEG XL, AVIF a HEIC. PNG a GIF optimalizujú nástroje, ktoré porovnateľné nastavenie nemajú, takže vyzerajú rovnako, nech si vyberiete čokoľvek. Štandardná zodpovedá tomu, čo vytvárali staršie verzie aplikácie Shrinker Pro. Každá relácia začína týmto nastavením; lišta relácie v okne ho môže zmeniť pre jednu reláciu bez toho, aby zmenila toto." }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Velja za JPEG, WebP, JPEG XL, AVIF in HEIC. PNG in GIF optimizirajo orodja brez primerljive nastavitve, zato so videti enako, ne glede na izbiro. Standardna kakovost ustreza tistemu, kar so izdelale prejšnje različice aplikacije Shrinker Pro. Vsaka seja se začne pri tej vrednosti; vrstica seje v oknu jo lahko spremeni za eno sejo, ne da bi spremenila to nastavitev." }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gäller JPEG, WebP, JPEG XL, AVIF och HEIC. PNG och GIF optimeras av verktyg som saknar en motsvarande inställning, så de ser likadana ut oavsett vad du väljer. Standard motsvarar det som tidigare versioner av Shrinker Pro gav. Varje session börjar här; fönstrets sessionsrad kan ändra det för en session utan att den här inställningen ändras." }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "มีผลกับ JPEG, WebP, JPEG XL, AVIF และ HEIC ส่วน PNG และ GIF ปรับให้เหมาะสมด้วยเครื่องมือที่ไม่มีการตั้งค่าแบบเดียวกัน จึงให้ผลเหมือนกันไม่ว่าคุณจะเลือกแบบใด มาตรฐานให้ผลเหมือนกับที่ Shrinker Pro รุ่นก่อนหน้าสร้างไว้ ทุกเซสชั่นเริ่มต้นที่ค่านี้ และแถบเซสชั่นของหน้าต่างเปลี่ยนค่านี้ได้เฉพาะเซสชั่นเดียวโดยไม่กระทบค่านี้" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "JPEG, WebP, JPEG XL, AVIF ve HEIC için geçerlidir. PNG ve GIF, benzer bir ayarı olmayan araçlarla optimize edilir; bu yüzden hangisini seçerseniz seçin aynı görünürler. Standart, Shrinker Pro’nun önceki sürümlerinin ürettiğiyle aynıdır. Her oturum buradan başlar; penceredeki oturum çubuğu, bunu değiştirmeden tek bir oturum için başka bir değer kullanabilir." }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Стосується JPEG, WebP, JPEG XL, AVIF і HEIC. PNG і GIF оптимізують інструменти, які не мають подібного параметра, тож вони виглядатимуть однаково за будь-якого вибору. Стандартна якість відповідає тому, що давали попередні версії Shrinker Pro. Кожен сеанс починається з неї; панель сеансу у вікні може змінити її на один сеанс, не змінюючи цього параметра." }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Áp dụng cho JPEG, WebP, JPEG XL, AVIF và HEIC. PNG và GIF được tối ưu bằng các công cụ không có cài đặt tương đương, nên chúng trông như nhau dù bạn chọn mức nào. Tiêu chuẩn cho kết quả giống với những phiên bản Shrinker Pro trước đây. Mọi phiên đều bắt đầu từ đây; thanh phiên của cửa sổ có thể đổi mức này cho một phiên mà không thay đổi cài đặt này." }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "適用於JPEG、WebP、JPEG XL、AVIF和HEIC。PNG和GIF由沒有同類設定的工具來最佳化，所以無論你選哪一項，結果看起來都一樣。「標準」與Shrinker Pro舊版本產生的結果相同。每次開始時都用這一項；視窗上的今次設定列可以只改今次，而不改動這項設定。" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "适用于 JPEG、WebP、JPEG XL、AVIF 和 HEIC。PNG 和 GIF 由没有同类设置的工具来优化，因此无论你选哪一项，它们看起来都一样。“标准”与 Shrinker Pro 早期版本生成的结果一致。每次会话都从这里开始；窗口中的会话栏可以只为一次会话更改它，而不改动这项设置。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "適用於JPEG、WebP、JPEG XL、AVIF和HEIC。PNG和GIF由沒有同類設定的工具進行最佳化，因此無論你選哪一項，它們看起來都一樣。「標準」與Shrinker Pro舊版產生的結果相同。每次工作階段都從這裡開始；視窗中的工作階段列可以只為一次工作階段更改它，而不更動這項設定。" }
+        }
+      }
+    },
+    "Only SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC and HEIF are supported (got \"%@\")." : {
+      "comment" : "Alert body when a dropped file is a format the app cannot read.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Only SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC and HEIF are supported (got \"%@\")." }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "التنسيقات المدعومة هي SVG وPNG وGIF وJPEG وWebP وJPEG XL وAVIF وHEIC وHEIF فقط (ورد \"%@\")." }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Només s’admeten SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC i HEIF (s’ha rebut “%@”)." }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Podporovány jsou jen SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC a HEIF (přišlo „%@“)." }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kun SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC og HEIF understøttes (fik “%@”)." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nur SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC und HEIF werden unterstützt (erhalten: „%@“)." }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Υποστηρίζονται μόνο SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC και HEIF (ελήφθη «%@»)." }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Solo se admiten SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC y HEIF (se ha recibido “%@”)." }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "فقط SVG، PNG، GIF، JPEG، WebP، JPEG XL، AVIF، HEIC و HEIF پشتیبانی می‌شوند (دریافت شد: «%@»)." }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vain SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC ja HEIF ovat tuettuja (saatiin ”%@”)." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Seuls SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC et HEIF sont pris en charge (reçu : « %@ »)." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "נתמכים רק SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC ו-HEIF (התקבל ״%@״)." }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Podržani su samo SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC i HEIF (primljeno: “%@”)." }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Csak az SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC és HEIF támogatott (a kapott formátum: „%@”)." }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aðeins SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC og HEIF eru studd (fékk „%@“)." }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sono supportati solo SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC e HEIF (ricevuto: “%@”)." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "対応しているのはSVG、PNG、GIF、JPEG、WebP、JPEG XL、AVIF、HEIC、HEIFのみです(「%@」を受け取りました)。" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC, HEIF만 지원합니다(받은 형식: ‘%@’)." }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Bare SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC og HEIF støttes (fikk «%@»)." }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Alleen SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC en HEIF worden ondersteund (kreeg '%@')." }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Berre SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC og HEIF er støtta (fekk «%@»)." }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Obsługiwane są tylko SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC i HEIF (otrzymano „%@”)." }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Somente SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC e HEIF são compatíveis (recebido: “%@”)." }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Só são suportados SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC e HEIF (recebido: “%@”)." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sunt acceptate doar SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC și HEIF (s-a primit „%@”)." }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Поддерживаются только SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC и HEIF (получено «%@»)." }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Podporované sú len SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC a HEIF (prišlo: „%@“)." }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Podprti so samo SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC in HEIF (prejeto: »%@«)." }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Endast SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC och HEIF stöds (fick ”%@”)." }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "รองรับเฉพาะ SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC และ HEIF เท่านั้น (ได้รับ “%@”)" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Yalnızca SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC ve HEIF destekleniyor (gelen: “%@”)." }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Підтримуються лише SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC і HEIF (отримано «%@»)." }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Chỉ hỗ trợ SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC và HEIF (nhận được “%@”)." }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "僅支援SVG、PNG、GIF、JPEG、WebP、JPEG XL、AVIF、HEIC和HEIF（收到「%@」）。" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "仅支持 SVG、PNG、GIF、JPEG、WebP、JPEG XL、AVIF、HEIC 和 HEIF（收到“%@”）。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "僅支援SVG、PNG、GIF、JPEG、WebP、JPEG XL、AVIF、HEIC和HEIF（收到「%@」）。" }
+        }
+      }
+    },
+    "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF and SVG — or press ⌘O" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF and SVG — or press ⌘O" }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG وJPG وHEIC وWebP وJXL وAVIF وGIF وSVG — أو اضغط ⌘O" }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF i SVG — o prem ⌘O" }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF a SVG — nebo stiskněte ⌘O" }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF og SVG — eller tryk på ⌘O" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF und SVG — oder ⌘O drücken" }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF και SVG — ή πατήστε ⌘O" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF y SVG — o pulsa ⌘O" }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG، JPG، HEIC، WebP، JXL، AVIF، GIF و SVG — یا ⌘O را فشار دهید" }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF ja SVG — tai paina ⌘O" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF et SVG — ou appuyez sur ⌘O" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF ו-SVG — או הקשה על ⌘O" }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF i SVG — ili pritisnite ⌘O" }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF és SVG — vagy nyomja meg a ⌘O billentyűparancsot" }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF og SVG — eða ýttu á ⌘O" }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF e SVG — oppure premi ⌘O" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF、SVG — または⌘O" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — 또는 ⌘O" }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF og SVG — eller trykk ⌘O" }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF en SVG — of druk op ⌘O" }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF og SVG — eller trykk ⌘O" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF i SVG — albo naciśnij ⌘O" }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF e SVG — ou pressione ⌘O" }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF e SVG — ou prima ⌘O" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF și SVG — sau apăsați ⌘O" }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF и SVG — или нажмите ⌘O" }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF a SVG — alebo stlačte ⌘O" }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF in SVG — ali pritisnite ⌘O" }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF och SVG — eller tryck på ⌘O" }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF และ SVG — หรือกด ⌘O" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF ve SVG — ya da ⌘O tuşlarına basın" }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF і SVG — або натисніть ⌘O" }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG, JPG, HEIC, WebP, JXL, AVIF, GIF và SVG — hoặc nhấn ⌘O" }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF和SVG，或按⌘O" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF 和 SVG，或按 ⌘O" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF和SVG，或按⌘O" }
         }
       }
     }

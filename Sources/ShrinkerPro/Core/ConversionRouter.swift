@@ -6,7 +6,7 @@ import Foundation
 /// `ConversionRules` field. SVG and GIF are not represented here — they
 /// never reach `ConversionRouter` at all (see `ShrinkEngine.shrink`).
 enum NativeFormat: Equatable, Sendable {
-    case png, jpeg, webp, avif, heic
+    case png, jpeg, webp, avif, heic, jxl
 
     init?(extension ext: String) {
         switch ext {
@@ -15,6 +15,7 @@ enum NativeFormat: Equatable, Sendable {
         case "webp": self = .webp
         case "avif": self = .avif
         case "heic", "heif": self = .heic
+        case "jxl": self = .jxl
         default: return nil
         }
     }
@@ -34,7 +35,9 @@ enum IntermediateFormat: Equatable, Sendable {
     /// against the vendored binary.
     case tga
     /// cwebp reads PNG natively; ImageIO writes it losslessly. Used only
-    /// when the source is HEIC or AVIF, which cwebp cannot read at all.
+    /// when the source is HEIC, AVIF or JPEG XL, which cwebp cannot read at
+    /// all — and, for the same reason, when cjxl is handed a WebP, AVIF or
+    /// HEIC source (see `RelayedTarget.jxl`).
     ///
     /// The spec names TIFF for this role ("cwebp accepts PNG, JPEG, TIFF
     /// and WebP input"), but that's libwebp's *general* capability, not
@@ -81,6 +84,7 @@ enum TargetFormat: String, CaseIterable, Equatable, Sendable {
     case jpeg
     case webp
     case avif
+    case jxl
     case png
 }
 
@@ -90,7 +94,8 @@ enum TargetFormat: String, CaseIterable, Equatable, Sendable {
 /// cannot read any of PNG/WebP/AVIF/HEIC directly (see `IntermediateFormat
 /// .tga`'s doc comment), so a JPEG target can never take this path — every
 /// route to JPEG goes through `RelayedFormat` below instead. Only ImageIO
-/// (AVIF) and cwebp (WebP, reading PNG/JPEG/WebP natively) qualify.
+/// (AVIF), cwebp (WebP, reading PNG/JPEG/WebP natively) and cjxl (JPEG XL,
+/// reading PNG/JPEG/JPEG XL natively) qualify.
 ///
 /// Not named `DirectFormat`: that reads as "the format is direct", which
 /// says nothing; this is the *target* of the direct route, hence the
@@ -99,6 +104,7 @@ enum TargetFormat: String, CaseIterable, Equatable, Sendable {
 enum DirectTarget: String, CaseIterable, Equatable, Sendable {
     case webp
     case avif
+    case jxl
 }
 
 /// The destination formats reachable only by `ConversionRoute
@@ -126,6 +132,11 @@ enum RelayedTarget: String, CaseIterable, Equatable, Sendable {
     /// relay rather than adding a fifth encoder. A PNG *source* targeting
     /// PNG short-circuits to `.sameFormat(.png)` long before this.
     case png
+    /// cjxl reads PNG, JPEG and JPEG XL. The vendored build has no WebP,
+    /// AVIF or HEIC decoder — `build-compressors.sh` turns every optional
+    /// input off — so those three sources arrive as a PNG carrier, exactly
+    /// as they do for cwebp.
+    case jxl
 }
 
 /// The compression pipeline `ConversionRouter.route` decided on for one
@@ -160,7 +171,7 @@ enum ConversionRoute: Equatable {
 /// Everything about one file, beyond its own format and the rule that
 /// applies to it, that can change which pipeline it takes.
 ///
-/// Both fields exist because the three vendored CLI encoders are trusted to
+/// Both fields exist because the four vendored CLI encoders are trusted to
 /// read the user's original file directly only when they need no help with
 /// it. When they do, the fix is the same in every case: send the pixels
 /// through ImageIO first, which is the app's only decoder and therefore the
@@ -188,9 +199,9 @@ struct RoutingContext: Equatable, Sendable {
     /// session's max size, cropped to its crop target, or both.
     ///
     /// Routes like `isUpright == false`, and for the same underlying reason:
-    /// none of the three vendored CLI encoders that can be handed the user's
-    /// file directly is able to resize or crop it. pngquant and cjpeg have no
-    /// such flag at all, and cwebp's `-resize` was deliberately not used — see
+    /// none of the four vendored CLI encoders that can be handed the user's
+    /// file directly is able to resize or crop it. pngquant, cjpeg and cjxl
+    /// have no such flag at all, and cwebp's `-resize` was deliberately not used — see
     /// `2026-09-16-max-size-resize-design.md` §4. Two resamplers would mean
     /// a PNG and a WebP capped at the same number not matching each other, and
     /// cwebp cannot crop in any case.
@@ -263,7 +274,7 @@ enum ConversionRouter {
         // format isn't one of `TargetFormat`'s cases — so it always falls
         // through to `convert(native:to:)` below.
         switch (native, target) {
-        case (.jpeg, .jpeg), (.webp, .webp), (.avif, .avif), (.png, .png):
+        case (.jpeg, .jpeg), (.webp, .webp), (.avif, .avif), (.png, .png), (.jxl, .jxl):
             return honouring(.sameFormat(native), context: context)
         default:
             return convert(native: native, to: target, context: context)
@@ -320,9 +331,26 @@ enum ConversionRouter {
                 // is the genuinely correct answer, not an impossible
                 // state: cwebp reads WebP natively the same as PNG/JPEG.
                 route = .direct(target: .webp)
-            case .avif, .heic:
-                // cwebp cannot read either directly.
+            case .avif, .heic, .jxl:
+                // cwebp cannot read any of the three directly.
                 route = .viaIntermediate(target: .webp, intermediate: .png)
+            }
+
+        case .jxl:
+            switch native {
+            case .png, .jpeg, .jxl:
+                // cjxl reads all three directly. A JPEG source is the one
+                // that matters most: cjxl handed a JPEG can transcode it
+                // losslessly, keeping the original's DCT data rather than
+                // decoding it to pixels and encoding again — see
+                // `JXLCompressor`. That only happens if cjxl reads the JPEG
+                // itself, which is why this is not relayed. A JPEG XL source
+                // normally takes the same-format short-circuit above and
+                // never reaches here.
+                route = .direct(target: .jxl)
+            case .webp, .avif, .heic:
+                // The vendored cjxl has no decoder for any of these.
+                route = .viaIntermediate(target: .jxl, intermediate: .png)
             }
         }
         return honouring(route, context: context)
@@ -354,6 +382,9 @@ enum ConversionRouter {
             case .webp:
                 return cwebpNeedsNoHelp(context)
                     ? route : .viaIntermediate(target: .webp, intermediate: .png)
+            case .jxl:
+                return cjxlNeedsNoHelp(context)
+                    ? route : .viaIntermediate(target: .jxl, intermediate: .png)
             case .avif, .heic:
                 // Already ImageIO end to end, which is where the rotation
                 // and the metadata are applied. Nothing to reroute.
@@ -367,6 +398,9 @@ enum ConversionRouter {
             case .webp:
                 return cwebpNeedsNoHelp(context)
                     ? route : .viaIntermediate(target: .webp, intermediate: .png)
+            case .jxl:
+                return cjxlNeedsNoHelp(context)
+                    ? route : .viaIntermediate(target: .jxl, intermediate: .png)
             }
 
         case .viaIntermediate:
@@ -379,10 +413,10 @@ enum ConversionRouter {
     /// encoder sees them — which only ImageIO, the app's one decoder, can
     /// do. Rotation was the first reason; a resize is the second, and both
     /// disqualify every vendored CLI encoder equally: none of cjpeg,
-    /// pngquant or cwebp can turn or scale an image.
+    /// pngquant, cwebp or cjxl can turn or scale an image.
     ///
-    /// Shared by all three so that a third reason added later is written
-    /// once rather than three times, each of which could be forgotten
+    /// Shared by all four so that a third reason added later is written
+    /// once rather than four times, each of which could be forgotten
     /// independently.
     private static func pixelsNeedRework(_ context: RoutingContext) -> Bool {
         !context.isUpright || context.needsPixelRework
@@ -401,6 +435,30 @@ enum ConversionRouter {
     /// any of this afterwards: ImageIO cannot write WebP at all, so whatever
     /// cwebp emits is final.
     private static func cwebpNeedsNoHelp(_ context: RoutingContext) -> Bool {
+        !pixelsNeedRework(context) && context.policy != .copyright
+    }
+
+    /// Whether cjxl can be pointed at the user's original file. The same
+    /// answer as cwebp's, for the same two reasons, and kept as its own
+    /// function so the two encoders can diverge without one silently
+    /// dragging the other along.
+    ///
+    /// Rotation is worth spelling out, because cjxl *could* cope with it:
+    /// handed a JPEG whose EXIF says "rotate 90°", it writes that orientation
+    /// into the JPEG XL codestream, and ImageIO reads it back (verified
+    /// against the vendored binary). Relaying anyway is deliberate. Every
+    /// other output this app writes has its rotation baked into the pixels
+    /// and no orientation left behind — `Settings.metadataPolicy` says so in
+    /// as many words — and one format quietly keeping the tag instead would
+    /// be the exception nobody could see. The cost is that a rotated JPEG
+    /// takes the lossy path rather than the lossless transcode.
+    ///
+    /// The policy is the same story as `-metadata`: cjxl's `-x strip=exif`
+    /// removes a whole box, with nothing between keeping every tag and
+    /// keeping none, so `.copyright` is applied by authoring the carrier.
+    /// ImageIO cannot write JPEG XL either, so there is no post-pass to
+    /// correct anything afterwards.
+    private static func cjxlNeedsNoHelp(_ context: RoutingContext) -> Bool {
         !pixelsNeedRework(context) && context.policy != .copyright
     }
 }
@@ -427,12 +485,14 @@ extension ConversionRoute {
             switch target {
             case .webp: return .webp
             case .avif: return .avif
+            case .jxl: return .jxl
             }
         case .viaIntermediate(let target, _):
             switch target {
             case .jpeg: return .jpeg
             case .webp: return .webp
             case .png: return .png
+            case .jxl: return .jxl
             }
         }
     }
@@ -454,8 +514,9 @@ extension ConversionRoute {
     /// afterwards instead, by `ImageMetadata.rewriteMetadata`.
     ///
     /// False for ImageIO's own outputs (already written correctly at encode
-    /// time) and for cwebp, whose output ImageIO cannot open for writing at
-    /// all — WebP is handled by the `-metadata` flag and the intermediate.
+    /// time) and for cwebp and cjxl, whose outputs ImageIO cannot open for
+    /// writing at all — WebP and JPEG XL are handled by each encoder's own
+    /// metadata flag and the intermediate.
     var needsMetadataPostPass: Bool {
         switch self {
         case .sameFormat(let native):

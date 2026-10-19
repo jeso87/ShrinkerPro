@@ -16,10 +16,11 @@ import Foundation
 // `.standard` preserves that exactly — see `QualitySettings.cjpegQuality`,
 // where the distinction between "75" and "unspecified" turns out to matter.
 
-/// The three encoder-specific numbers one `QualityLevel` resolves to. They
+/// The four encoder-specific numbers one `QualityLevel` resolves to. They
 /// are separate fields rather than one shared 0...100 because the encoders do
 /// not agree on a scale — ImageIO wants a unit double, cwebp an integer
-/// percentage, cjpeg an integer percentage it interprets differently again.
+/// percentage, cjpeg an integer percentage it interprets differently again,
+/// and cjxl a percentage it maps onto a perceptual distance of its own.
 struct QualitySettings: Equatable, Sendable {
     /// 0...1, as ImageIO's `kCGImageDestinationLossyCompressionQuality` expects.
     var unitScale: Double
@@ -34,6 +35,13 @@ struct QualitySettings: Equatable, Sendable {
     /// (vendor/src/mozjpeg/cjpeg.c:673), so an explicit `-quality 75`
     /// produces different bytes than no flag at all.
     var cjpegQuality: Int?
+    /// 0...100, as cjxl's `-q` flag expects. cjxl turns it into a target
+    /// "distance" (roughly `0.1 + (100 - q) × 0.09` above 30), so 100 is
+    /// mathematically lossless rather than merely very good.
+    ///
+    /// Not consulted when cjxl is handed a JPEG: that path transcodes the
+    /// JPEG losslessly and has no quality to set — see `JXLCompressor`.
+    var cjxlQuality: Int
 }
 
 /// The user-facing quality choice, in the app and as the CLI's `--quality`.
@@ -64,6 +72,23 @@ enum QualityLevel: String, CaseIterable, Sendable {
     /// 45KB test fixture, which turned out to be actively misleading: it is
     /// already compressed to the point of having no headroom, so *any*
     /// re-encode inflates it and every value looks bad.
+    ///
+    /// `cjxlQuality` was calibrated later, against six camera originals
+    /// (3–14MB: Canon, iPhone JPEG and HEIC, a 2012 iPhone) rather than that
+    /// one file, and is set to match WebP's *file size* at each level, not
+    /// its number. At cwebp's own numbers cjxl came out about 15% larger
+    /// (and much better), so a JPEG XL conversion read as a weaker saving
+    /// than a WebP one. Matched on size, it saves the same and still looks
+    /// better. Medians across the six, as a share of the original file,
+    /// scored with ssimulacra2 (higher is better):
+    ///
+    ///   Super Low  cwebp 40  4.3% (49.4)   cjxl at equal size: q40, +7.7
+    ///   Low        cwebp 60  6.3% (56.4)                       q57, +4.6
+    ///   Standard   cwebp 80 14.7% (69.4)                       q75, +6.6
+    ///   High       cwebp 85 25.3% (74.1)                       q81, +7.0
+    ///
+    /// The 45KB HEIC fixture misleads here exactly as it did for cjpeg: it
+    /// grows 32% at Standard, while the real 3.4MB iPhone HEIC shrinks 48%.
     var settings: QualitySettings {
         switch self {
         case .superLow:
@@ -71,16 +96,16 @@ enum QualityLevel: String, CaseIterable, Sendable {
             // flattens below about 40 — past there you pay visible quality
             // for very little further saving — so this is the floor by
             // measurement, not merely the lowest number that still decodes.
-            QualitySettings(unitScale: 0.40, cwebpScale: 40, cjpegQuality: 40)
+            QualitySettings(unitScale: 0.40, cwebpScale: 40, cjpegQuality: 40, cjxlQuality: 40)
         case .low:
             // Visibly softer on close inspection, materially smaller. 60 is
             // low enough to be worth choosing over `.standard` and high
             // enough to stay clear of the blocking that sets in below ~50.
-            QualitySettings(unitScale: 0.60, cwebpScale: 60, cjpegQuality: 60)
+            QualitySettings(unitScale: 0.60, cwebpScale: 60, cjpegQuality: 60, cjxlQuality: 57)
         case .standard:
             // Exactly what this app shipped before quality was selectable.
             // `cjpegQuality` is nil, not 75 — see `QualitySettings`.
-            QualitySettings(unitScale: 0.80, cwebpScale: 80, cjpegQuality: nil)
+            QualitySettings(unitScale: 0.80, cwebpScale: 80, cjpegQuality: nil, cjxlQuality: 75)
         case .high:
             // 85, not 90, and the two points matter enormously. mozjpeg's
             // `set_quality_ratings` switches chroma subsampling from 4:2:0 to
@@ -97,7 +122,7 @@ enum QualityLevel: String, CaseIterable, Sendable {
             // High earns its place despite that scare: on genuine camera
             // originals it still saves 75%. It was the tiny fixture, not the
             // setting, that made it look broken.
-            QualitySettings(unitScale: 0.85, cwebpScale: 85, cjpegQuality: 85)
+            QualitySettings(unitScale: 0.85, cwebpScale: 85, cjpegQuality: 85, cjxlQuality: 81)
         }
     }
 

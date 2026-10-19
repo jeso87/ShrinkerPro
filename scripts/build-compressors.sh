@@ -35,6 +35,15 @@ PNGQUANT_LOCKFILE="$ROOT/vendor/pngquant-$PNGQUANT_VERSION-Cargo.lock"
 LIBPNG_VERSION=1.6.58
 LIBWEBP_VERSION=1.6.0
 
+# cjxl reads PNG and JPEG input the same way cwebp does, so it reuses the
+# same static libpng and mozjpeg libjpeg rather than a second copy of each.
+# The three libraries it compiles in are pinned to the exact commits libjxl's
+# own deps.sh names for this tag — see build_libjxl.
+LIBJXL_VERSION=0.12.0
+LIBJXL_BROTLI_SHA=028fb5a23661f123017c060daa546b55cf4bde29   # brotli v1.2.0
+LIBJXL_HIGHWAY_SHA=457c891775a7397bdb0376bb1031e6e027af1c48  # highway 1.2.0
+LIBJXL_SKCMS_SHA=96d9171c94b937a1b5f0293de7309ac16311b722    # skcms 2025-09-16
+
 # This script is normally invoked as its own process after a separate
 # `./scripts/bootstrap.sh` run, so bootstrap.sh's own `export DEVELOPER_DIR`
 # does not carry over (exports don't cross process boundaries). cmake, cc,
@@ -360,16 +369,121 @@ build_libwebp() {
   cp "$SRC/libwebp/build/cwebp" "$OUT/cwebp"
 }
 
+# ---------- libjxl 0.12.0 -> cjxl ----------
+build_libjxl() {
+  echo "==> building libjxl (cjxl)"
+  fetch "https://github.com/libjxl/libjxl/archive/refs/tags/v$LIBJXL_VERSION.tar.gz" libjxl
+
+  # Same problem as pngquant's lib/: libjxl's third_party/ libraries are git
+  # submodules, so the tag tarball carries each one as an empty directory.
+  # libjxl's own deps.sh would fill them, but it decides how by asking git
+  # whether its directory is a repository's top level — and vendor/src sits
+  # inside this one, so the answer depends on where the checkout lives. It
+  # also pulls googletest and the test corpus, which nothing here builds.
+  # Only the three libraries compiled into cjxl are fetched, at the commits
+  # deps.sh pins for this tag.
+  #
+  # All three end up inside the shipped binary, so each archive is kept at
+  # the top of vendor/src beside the others: release.sh collects corresponding
+  # source by that pattern.
+  local dep project sha archive
+  for dep in brotli highway skcms; do
+    case "$dep" in
+      brotli)  project=google/brotli;  sha=$LIBJXL_BROTLI_SHA ;;
+      highway) project=google/highway; sha=$LIBJXL_HIGHWAY_SHA ;;
+      skcms)   project=google/skcms;   sha=$LIBJXL_SKCMS_SHA ;;
+    esac
+    archive="$SRC/libjxl-$dep.tar.gz"
+    if [ ! -f "$archive" ]; then
+      echo "==> fetching $dep $sha for libjxl"
+      curl -fsSL "https://github.com/$project/archive/$sha.tar.gz" -o "$archive.tmp.$$"
+      mv "$archive.tmp.$$" "$archive"
+    fi
+    # Empty is the tarball's own state for a submodule, so empty is the test.
+    if [ -z "$(ls -A "$SRC/libjxl/third_party/$dep" 2>/dev/null)" ]; then
+      local deptmp="$SRC/libjxl/third_party/$dep.tmp.$$"
+      rm -rf "$deptmp" && mkdir -p "$deptmp"
+      tar xzf "$archive" -C "$deptmp" --strip-components=1
+      rm -rf "$SRC/libjxl/third_party/$dep"
+      mv "$deptmp" "$SRC/libjxl/third_party/$dep"
+    fi
+  done
+
+  local mozjpeg_include="$SRC/mozjpeg/build/jpeg-include"
+  local mozjpeg_lib="$SRC/mozjpeg/build/libjpeg.a"
+  local png_include="$SRC/libpng-install/include"
+  local png_lib="$SRC/libpng-install/lib/libpng16.a"
+  for f in "$mozjpeg_lib" "$mozjpeg_include/jpeglib.h" "$png_lib" "$png_include/png.h"; do
+    [ -e "$f" ] || {
+      echo "FATAL: $f missing -- build_mozjpeg and build_libpng must run before build_libjxl" >&2
+      exit 1
+    }
+  done
+
+  # A fresh build directory every time, for one reason beyond hygiene:
+  # JPEGXL_VERSION is only honoured at first configure. Left unset, libjxl
+  # stamps cjxl's --version with `git rev-parse` run from its source dir —
+  # which here is *this* repository, so a binary built from 0.12.0 reported
+  # Shrinker Pro's own commit hash as its version.
+  rm -rf "$SRC/libjxl/build" && mkdir -p "$SRC/libjxl/build"
+
+  local sdk
+  sdk="$(xcrun --sdk macosx --show-sdk-path)"
+  # Only cjxl is wanted. Everything optional is off: no GIF, EXR or sjpeg
+  # input (cjxl is only ever handed PNG, JPEG or JXL — see JXLCompressor), no
+  # benchmark, viewer, JNI or doc targets. skcms rather than lcms2 keeps the
+  # colour management inside the tree instead of resolving a system or
+  # Homebrew lcms2. The library paths are pinned for the same reason they are
+  # in build_libwebp: Homebrew's cmake searches /opt/homebrew by default, and
+  # pre-setting these skips that search outright.
+  #
+  # CMAKE_DISABLE_FIND_PACKAGE_PkgConfig matters as much as the pinned paths.
+  # libjxl looks up several optional dependencies through pkg-config, and this
+  # machine's Homebrew has jpeg-xl's own dependencies installed — exactly the
+  # dylibs verify-arch.sh exists to keep out of a shipped binary.
+  cmake -S "$SRC/libjxl" -B "$SRC/libjxl/build" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_OSX_ARCHITECTURES=arm64 \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET="$MIN_MACOS" \
+    -DJPEGXL_VERSION="$LIBJXL_VERSION" \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DBUILD_TESTING=OFF \
+    -DJPEGXL_ENABLE_TOOLS=ON \
+    -DJPEGXL_ENABLE_DEVTOOLS=OFF \
+    -DJPEGXL_ENABLE_BENCHMARK=OFF \
+    -DJPEGXL_ENABLE_EXAMPLES=OFF \
+    -DJPEGXL_ENABLE_JNI=OFF \
+    -DJPEGXL_ENABLE_SJPEG=OFF \
+    -DJPEGXL_ENABLE_OPENEXR=OFF \
+    -DJPEGXL_ENABLE_DOXYGEN=OFF \
+    -DJPEGXL_ENABLE_MANPAGES=OFF \
+    -DJPEGXL_ENABLE_FUZZERS=OFF \
+    -DJPEGXL_ENABLE_PLUGINS=OFF \
+    -DJPEGXL_ENABLE_SKCMS=ON \
+    -DJPEGXL_BUNDLE_LIBPNG=OFF \
+    -DCMAKE_DISABLE_FIND_PACKAGE_GIF=ON \
+    -DCMAKE_DISABLE_FIND_PACKAGE_PkgConfig=ON \
+    -DZLIB_INCLUDE_DIR="$sdk/usr/include" \
+    -DZLIB_LIBRARY="$sdk/usr/lib/libz.tbd" \
+    -DPNG_PNG_INCLUDE_DIR="$png_include" \
+    -DPNG_LIBRARY="$png_lib" \
+    -DJPEG_INCLUDE_DIR="$mozjpeg_include" \
+    -DJPEG_LIBRARY="$mozjpeg_lib"
+  cmake --build "$SRC/libjxl/build" --target cjxl -j"$(sysctl -n hw.ncpu)"
+  cp "$SRC/libjxl/build/tools/cjxl" "$OUT/cjxl"
+}
+
 build_mozjpeg
 build_gifsicle
 build_pngquant
 build_libpng
 build_libwebp
+build_libjxl
 
 echo
 echo "==> verifying architecture"
 "$ROOT/scripts/verify-arch.sh" "$OUT"
 echo
-for b in cjpeg gifsicle pngquant cwebp; do
+for b in cjpeg gifsicle pngquant cwebp cjxl; do
   printf '%-10s %s\n' "$b" "$(lipo -archs "$OUT/$b")"
 done

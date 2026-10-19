@@ -147,7 +147,7 @@ final class LocalizationGuardTests: XCTestCase {
 
         XCTAssertEqual(
             error.errorDescription,
-            "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"tiff\").",
+            "Only SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC and HEIF are supported (got \"tiff\").",
             "errorDescription is the CLI's contract — see the localization spec's 'The Core seam'"
         )
     }

@@ -42,7 +42,7 @@ final class ShrinkerCLITests: XCTestCase {
                 .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
     }
 
-    /// The four compressors and svgo in one directory, which is the layout
+    /// The five compressors and svgo in one directory, which is the layout
     /// the tool expects and the one the release zip ships.
     private func stagedHelpers() throws -> URL {
         let root = repoRoot()
@@ -50,7 +50,7 @@ final class ShrinkerCLITests: XCTestCase {
             .appendingPathComponent("cli-helpers-\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
 
-        for helper in ["cjpeg", "pngquant", "gifsicle", "cwebp"] {
+        for helper in ["cjpeg", "pngquant", "gifsicle", "cwebp", "cjxl"] {
             let source = root.appendingPathComponent("vendor/compressors/\(helper)")
             guard FileManager.default.isExecutableFile(atPath: source.path) else {
                 XCTFail("\(helper) not built — run scripts/build-compressors.sh")

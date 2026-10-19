@@ -31,7 +31,7 @@ xcodebuild archive \
   | tail -5
 
 HELPERS_DIR="$ARCHIVE/Products/Applications/Shrinker Pro.app/Contents/Helpers"
-REQUIRED_HELPERS=(cjpeg pngquant gifsicle cwebp)
+REQUIRED_HELPERS=(cjpeg pngquant gifsicle cwebp cjxl)
 
 echo "==> verifying required helpers are present"
 # verify-arch.sh deliberately only checks "at least one Mach-O was

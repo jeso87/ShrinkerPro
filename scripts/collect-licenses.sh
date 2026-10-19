@@ -35,6 +35,18 @@ COMPONENTS=(
   "gifsicle|1.96|GPL-2.0|gifsicle/COPYING|https://github.com/kohler/gifsicle/archive/refs/tags/v1.96.tar.gz"
   "libwebp (cwebp)|1.6.0|BSD-3-Clause|libwebp/COPYING|https://github.com/webmproject/libwebp/archive/refs/tags/v1.6.0.tar.gz"
   "libpng|1.6.58|libpng-2.0|libpng/LICENSE|https://github.com/pnggroup/libpng/archive/refs/tags/v1.6.58.tar.gz"
+  "libjxl (cjxl)|0.12.0|BSD-3-Clause|libjxl/LICENSE|https://github.com/libjxl/libjxl/archive/refs/tags/v0.12.0.tar.gz"
+  # Not a licence condition — BSD-3-Clause asks for nothing of the sort — but
+  # libjxl ships a royalty-free patent grant beside its licence, and the grant
+  # is what a reader of a JPEG XL encoder's notice is most likely to look for.
+  "libjxl patent grant|0.12.0|Royalty-free patent licence|libjxl/PATENTS|https://github.com/libjxl/libjxl/blob/v0.12.0/PATENTS"
+  # The three libraries compiled into cjxl. libjxl's tag tarball carries each
+  # as an empty submodule directory, so build-compressors.sh fetches them at
+  # the commits libjxl pins — see the comment there. Highway is dual-licensed
+  # Apache-2.0 or BSD-3-Clause; the BSD text is the one reproduced here.
+  "brotli|1.2.0|MIT|libjxl/third_party/brotli/LICENSE|https://github.com/google/brotli/archive/028fb5a23661f123017c060daa546b55cf4bde29.tar.gz"
+  "highway|1.2.0|Apache-2.0 or BSD-3-Clause|libjxl/third_party/highway/LICENSE-BSD3|https://github.com/google/highway/archive/457c891775a7397bdb0376bb1031e6e027af1c48.tar.gz"
+  "skcms|96d9171 (2025-09-16)|BSD-3-Clause|libjxl/third_party/skcms/LICENSE|https://github.com/google/skcms/archive/96d9171c94b937a1b5f0293de7309ac16311b722.tar.gz"
   "svgo|4.1.0|MIT|svgo/package/LICENSE|https://registry.npmjs.org/svgo/-/svgo-4.1.0.tgz"
 )
 

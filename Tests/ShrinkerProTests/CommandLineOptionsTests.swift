@@ -154,6 +154,7 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertEqual(try CommandLineOptions.parse(["--to", "webp", "a.png"]).convertTo, .webp)
         XCTAssertEqual(try CommandLineOptions.parse(["--to", "avif", "a.png"]).convertTo, .avif)
         XCTAssertEqual(try CommandLineOptions.parse(["--to", "png", "a.png"]).convertTo, .png)
+        XCTAssertEqual(try CommandLineOptions.parse(["--to", "jxl", "a.png"]).convertTo, .jxl)
         XCTAssertEqual(try CommandLineOptions.parse(["--to", "JPEG", "a.png"]).convertTo, .jpeg)
     }
 

@@ -701,7 +701,7 @@ struct SessionBarView: View {
                 }
                 .labelsHidden()
                 .pickerStyle(.menu)
-                .help("Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose.")
+                .help("Applies to JPEG, WebP, JPEG XL, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose.")
             }
 
             row(String(localized: "Max size",

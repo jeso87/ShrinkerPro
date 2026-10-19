@@ -3,9 +3,9 @@ import XCTest
 
 /// Exercises `ConversionRouter.route` — the pure, IO-free decision that
 /// determines which pipeline compresses a file. This is deliberately
-/// exhaustive: all 4 native formats with a `ConversionTarget` rule (PNG,
-/// JPEG, WebP, AVIF) × all 4 rule values, plus HEIC separately against its
-/// own `ConversionFormat` rule (3 values, no `.keep`) — since the whole
+/// exhaustive: all 5 native formats with a `ConversionTarget` rule (PNG,
+/// JPEG, WebP, AVIF, JPEG XL) × all 5 rule values, plus HEIC separately
+/// against its own `ConversionFormat` rule (4 values, no `.keep`) — since the whole
 /// point of `ConversionRouter` is that this matrix is cheap to check
 /// completely without touching a binary, a temp file, or ImageIO.
 final class ConversionRouterTests: XCTestCase {
@@ -20,7 +20,7 @@ final class ConversionRouterTests: XCTestCase {
     /// below documents that this path, while callable, is not one
     /// production code exercises.
     func testKeepAlwaysSameFormat() {
-        for native: NativeFormat in [.png, .jpeg, .webp, .avif] {
+        for native: NativeFormat in [.png, .jpeg, .webp, .avif, .jxl] {
             XCTAssertEqual(
                 ConversionRouter.route(native: native, rule: ConversionTarget.keep), .sameFormat(native),
                 "\(native) with rule .keep should never convert"
@@ -34,6 +34,7 @@ final class ConversionRouterTests: XCTestCase {
         XCTAssertEqual(ConversionRouter.route(native: .jpeg, rule: ConversionTarget.jpeg), .sameFormat(.jpeg))
         XCTAssertEqual(ConversionRouter.route(native: .webp, rule: ConversionTarget.webp), .sameFormat(.webp))
         XCTAssertEqual(ConversionRouter.route(native: .avif, rule: ConversionTarget.avif), .sameFormat(.avif))
+        XCTAssertEqual(ConversionRouter.route(native: .jxl, rule: ConversionTarget.jxl), .sameFormat(.jxl))
     }
 
     // MARK: - PNG source (no ConversionTarget case of its own — always a real conversion when rule != .keep)
@@ -43,6 +44,7 @@ final class ConversionRouterTests: XCTestCase {
                         .viaIntermediate(target: .jpeg, intermediate: .tga))
         XCTAssertEqual(ConversionRouter.route(native: .png, rule: ConversionTarget.webp), .direct(target: .webp))
         XCTAssertEqual(ConversionRouter.route(native: .png, rule: ConversionTarget.avif), .direct(target: .avif))
+        XCTAssertEqual(ConversionRouter.route(native: .png, rule: ConversionTarget.jxl), .direct(target: .jxl))
     }
 
     // MARK: - JPEG source
@@ -50,6 +52,8 @@ final class ConversionRouterTests: XCTestCase {
     func testJPEGSource() {
         XCTAssertEqual(ConversionRouter.route(native: .jpeg, rule: ConversionTarget.webp), .direct(target: .webp))
         XCTAssertEqual(ConversionRouter.route(native: .jpeg, rule: ConversionTarget.avif), .direct(target: .avif))
+        XCTAssertEqual(ConversionRouter.route(native: .jpeg, rule: ConversionTarget.jxl), .direct(target: .jxl),
+                       "cjxl must read the JPEG itself, or there is no lossless transcode")
     }
 
     // MARK: - WebP source
@@ -58,6 +62,9 @@ final class ConversionRouterTests: XCTestCase {
         XCTAssertEqual(ConversionRouter.route(native: .webp, rule: ConversionTarget.jpeg),
                         .viaIntermediate(target: .jpeg, intermediate: .tga))
         XCTAssertEqual(ConversionRouter.route(native: .webp, rule: ConversionTarget.avif), .direct(target: .avif))
+        XCTAssertEqual(ConversionRouter.route(native: .webp, rule: ConversionTarget.jxl),
+                        .viaIntermediate(target: .jxl, intermediate: .png),
+                        "the vendored cjxl has no WebP decoder")
     }
 
     /// The case that used to `preconditionFailure("webp-to-webp did not
@@ -81,6 +88,26 @@ final class ConversionRouterTests: XCTestCase {
                         .viaIntermediate(target: .jpeg, intermediate: .tga))
         XCTAssertEqual(ConversionRouter.route(native: .avif, rule: ConversionTarget.webp),
                         .viaIntermediate(target: .webp, intermediate: .png))
+        XCTAssertEqual(ConversionRouter.route(native: .avif, rule: ConversionTarget.jxl),
+                        .viaIntermediate(target: .jxl, intermediate: .png))
+    }
+
+    // MARK: - JPEG XL source — ImageIO decodes it, cjxl re-reads it, nothing else can
+
+    func testJXLSource() {
+        XCTAssertEqual(ConversionRouter.route(native: .jxl, rule: ConversionTarget.jpeg),
+                        .viaIntermediate(target: .jpeg, intermediate: .tga))
+        XCTAssertEqual(ConversionRouter.route(native: .jxl, rule: ConversionTarget.webp),
+                        .viaIntermediate(target: .webp, intermediate: .png),
+                        "cwebp cannot read JPEG XL")
+        XCTAssertEqual(ConversionRouter.route(native: .jxl, rule: ConversionTarget.avif),
+                        .direct(target: .avif))
+    }
+
+    /// The JPEG XL counterpart of the WebP case above: `route` short-circuits
+    /// JXL→JXL to `.sameFormat(.jxl)` first, so the branch is checked here.
+    func testJXLSourceWithJXLTargetRoutesDirectly() {
+        XCTAssertEqual(ConversionRouter.convert(native: .jxl, to: .jxl), .direct(target: .jxl))
     }
 
     // MARK: - HEIC/HEIF source — routed via `ConversionFormat`, same shape as AVIF: cwebp can't read it either
@@ -96,6 +123,8 @@ final class ConversionRouterTests: XCTestCase {
                         .viaIntermediate(target: .webp, intermediate: .png))
         XCTAssertEqual(ConversionRouter.route(native: .heic, rule: ConversionFormat.avif),
                         .direct(target: .avif))
+        XCTAssertEqual(ConversionRouter.route(native: .heic, rule: ConversionFormat.jxl),
+                        .viaIntermediate(target: .jxl, intermediate: .png))
     }
 
     /// Documents a deliberate asymmetry: `route(native:rule:ConversionTarget)`
@@ -114,7 +143,7 @@ final class ConversionRouterTests: XCTestCase {
     /// The individual tests above double as documentation of *why* each
     /// route is what it is; this one just makes sure nothing in the full
     /// matrix was missed or drifted from that documented shape. PNG/JPEG/
-    /// WebP/AVIF are checked against every `ConversionTarget` case; HEIC
+    /// WebP/AVIF/JPEG XL are checked against every `ConversionTarget` case; HEIC
     /// is checked separately against every `ConversionFormat` case, since
     /// it has no `.keep` to include.
     func testFullMatrixMatchesExpectedTable() {
@@ -124,24 +153,35 @@ final class ConversionRouterTests: XCTestCase {
                 .jpeg: .viaIntermediate(target: .jpeg, intermediate: .tga),
                 .webp: .direct(target: .webp),
                 .avif: .direct(target: .avif),
+                .jxl: .direct(target: .jxl),
             ],
             .jpeg: [
                 .keep: .sameFormat(.jpeg),
                 .jpeg: .sameFormat(.jpeg),
                 .webp: .direct(target: .webp),
                 .avif: .direct(target: .avif),
+                .jxl: .direct(target: .jxl),
             ],
             .webp: [
                 .keep: .sameFormat(.webp),
                 .jpeg: .viaIntermediate(target: .jpeg, intermediate: .tga),
                 .webp: .sameFormat(.webp),
                 .avif: .direct(target: .avif),
+                .jxl: .viaIntermediate(target: .jxl, intermediate: .png),
             ],
             .avif: [
                 .keep: .sameFormat(.avif),
                 .jpeg: .viaIntermediate(target: .jpeg, intermediate: .tga),
                 .webp: .viaIntermediate(target: .webp, intermediate: .png),
                 .avif: .sameFormat(.avif),
+                .jxl: .viaIntermediate(target: .jxl, intermediate: .png),
+            ],
+            .jxl: [
+                .keep: .sameFormat(.jxl),
+                .jpeg: .viaIntermediate(target: .jpeg, intermediate: .tga),
+                .webp: .viaIntermediate(target: .webp, intermediate: .png),
+                .avif: .direct(target: .avif),
+                .jxl: .sameFormat(.jxl),
             ],
         ]
 
@@ -158,6 +198,7 @@ final class ConversionRouterTests: XCTestCase {
             .jpeg: .viaIntermediate(target: .jpeg, intermediate: .tga),
             .webp: .viaIntermediate(target: .webp, intermediate: .png),
             .avif: .direct(target: .avif),
+            .jxl: .viaIntermediate(target: .jxl, intermediate: .png),
         ]
         for (rule, route) in expectedHEIC {
             XCTAssertEqual(
@@ -177,6 +218,7 @@ final class ConversionRouterTests: XCTestCase {
         XCTAssertEqual(NativeFormat(extension: "avif"), .avif)
         XCTAssertEqual(NativeFormat(extension: "heic"), .heic)
         XCTAssertEqual(NativeFormat(extension: "heif"), .heic)
+        XCTAssertEqual(NativeFormat(extension: "jxl"), .jxl)
         XCTAssertNil(NativeFormat(extension: "svg"))
         XCTAssertNil(NativeFormat(extension: "gif"))
         XCTAssertNil(NativeFormat(extension: "txt"))
@@ -185,18 +227,18 @@ final class ConversionRouterTests: XCTestCase {
     // MARK: - ConversionFormat has no .keep case (Change 1)
 
     /// The load-bearing guarantee behind "the HEIC picker offers exactly
-    /// three options": `ConversionFormat` simply has no `.keep` case to
+    /// four options": `ConversionFormat` simply has no `.keep` case to
     /// offer, store, or route — not merely "the UI doesn't show one today".
     func testConversionFormatHasNoKeepCase() {
-        XCTAssertEqual(ConversionFormat.allCases, [.jpeg, .webp, .avif])
+        XCTAssertEqual(ConversionFormat.allCases, [.jpeg, .webp, .avif, .jxl])
         XCTAssertNil(ConversionFormat(rawValue: "keep"),
                       "a stored \"keep\" must not resolve to any ConversionFormat case")
     }
 
     /// Contrast case: every other format's type is untouched by Change 1 —
-    /// still four cases, `.keep` included.
-    func testConversionTargetStillHasFourCasesIncludingKeep() {
-        XCTAssertEqual(ConversionTarget.allCases, [.keep, .jpeg, .webp, .avif])
+    /// still five cases, `.keep` included.
+    func testConversionTargetStillHasFiveCasesIncludingKeep() {
+        XCTAssertEqual(ConversionTarget.allCases, [.keep, .jpeg, .webp, .avif, .jxl])
     }
 
     // MARK: - DirectTarget/RelayedTarget have no case for the impossible combination (Change 2)
@@ -207,7 +249,7 @@ final class ConversionRouterTests: XCTestCase {
     /// never have decoded the source in the first place — not merely
     /// "the router happens to never produce it today".
     func testDirectTargetHasNoJPEGCase() {
-        XCTAssertEqual(DirectTarget.allCases, [.webp, .avif])
+        XCTAssertEqual(DirectTarget.allCases, [.webp, .avif, .jxl])
         XCTAssertNil(DirectTarget(rawValue: "jpeg"),
                       "a JPEG target must never be representable as a DirectTarget")
     }
@@ -218,9 +260,10 @@ final class ConversionRouterTests: XCTestCase {
     func testRelayedTargetHasNoAVIFCase() {
         // `.png` joined this list with the session override's PNG target:
         // pngquant reads only PNG, so every other source reaches it through
-        // a carrier, exactly as cjpeg and cwebp do. The guarantee this test
-        // exists for is the assertion below, not the length of the list.
-        XCTAssertEqual(RelayedTarget.allCases, [.jpeg, .webp, .png])
+        // a carrier, exactly as cjpeg and cwebp do — and `.jxl` for the
+        // three sources cjxl cannot decode. The guarantee this test exists
+        // for is the assertion below, not the length of the list.
+        XCTAssertEqual(RelayedTarget.allCases, [.jpeg, .webp, .png, .jxl])
         XCTAssertNil(RelayedTarget(rawValue: "avif"),
                       "an AVIF target must never be representable as a RelayedTarget")
     }
@@ -237,14 +280,14 @@ final class ConversionRouterTests: XCTestCase {
                      "PNG must not be storable as a per-format rule")
         XCTAssertNil(ConversionFormat(rawValue: "png"),
                      "PNG must not be storable as the HEIC rule")
-        XCTAssertEqual(ConversionFormat.allCases, [.jpeg, .webp, .avif],
-                       "the HEIC/HEIF row offers exactly three options; PNG is session-only")
+        XCTAssertEqual(ConversionFormat.allCases, [.jpeg, .webp, .avif, .jxl],
+                       "the HEIC/HEIF row offers exactly four options; PNG is session-only")
     }
 
     /// ...and the session-only type is the one place it does exist.
-    func testTheSessionTypeOffersAllFourTargets() {
-        XCTAssertEqual(SessionFormat.allCases, [.jpeg, .webp, .avif, .png])
-        XCTAssertEqual(SessionFormat.allCases.map(\.targetFormat), [.jpeg, .webp, .avif, .png])
+    func testTheSessionTypeOffersAllFiveTargets() {
+        XCTAssertEqual(SessionFormat.allCases, [.jpeg, .webp, .avif, .jxl, .png])
+        XCTAssertEqual(SessionFormat.allCases.map(\.targetFormat), [.jpeg, .webp, .avif, .jxl, .png])
     }
 }
 
@@ -316,7 +359,7 @@ final class RoutingContextTests: XCTestCase {
     /// silently coming out as a different format would be a far worse bug
     /// than the one being fixed.
     func testReroutingNeverChangesTheDestinationFormat() {
-        for native in [NativeFormat.png, .jpeg, .webp, .avif, .heic] {
+        for native in [NativeFormat.png, .jpeg, .webp, .avif, .heic, .jxl] {
             for target in TargetFormat.allCases {
                 let up = ConversionRouter.route(native: native, target: target, context: upright)
                 let turned = ConversionRouter.route(native: native, target: target, context: rotated)
@@ -366,6 +409,56 @@ final class RoutingContextTests: XCTestCase {
             XCTAssertEqual(ConversionRouter.route(native: .heic, rule: ConversionFormat.jpeg, context: context),
                            .viaIntermediate(target: .jpeg, intermediate: .tga))
             XCTAssertEqual(ConversionRouter.route(native: .png, rule: ConversionTarget.avif, context: context), .direct(target: .avif))
+        }
+    }
+
+    // MARK: JPEG XL
+
+    /// cjxl would carry a rotated JPEG's orientation into the codestream on
+    /// its own, but every other output has its rotation baked in and none
+    /// left behind, so JPEG XL must not be the one exception — see
+    /// `ConversionRouter.cjxlNeedsNoHelp`.
+    func testRotatedSourcesBoundForJXLAreRelayed() {
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, rule: ConversionTarget.jxl, context: rotated),
+            .viaIntermediate(target: .jxl, intermediate: .png)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .png, rule: ConversionTarget.jxl, context: rotated),
+            .viaIntermediate(target: .jxl, intermediate: .png)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jxl, rule: .keep, context: rotated),
+            .viaIntermediate(target: .jxl, intermediate: .png)
+        )
+    }
+
+    /// `-x strip=` removes whole boxes, so "copyright only" is relayed for
+    /// cjxl exactly as it is for cwebp.
+    func testCopyrightPolicyForcesJXLThroughAnIntermediate() {
+        let copyright = RoutingContext(isUpright: true, policy: .copyright)
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, rule: ConversionTarget.jxl, context: copyright),
+            .viaIntermediate(target: .jxl, intermediate: .png)
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jxl, rule: .keep, context: copyright),
+            .viaIntermediate(target: .jxl, intermediate: .png)
+        )
+    }
+
+    func testAllAndStrippedPoliciesLeaveTheDirectJXLRoutesAlone() {
+        for policy in [MetadataPolicy.all, .stripped] {
+            let context = RoutingContext(isUpright: true, policy: policy)
+            XCTAssertEqual(
+                ConversionRouter.route(native: .jpeg, rule: ConversionTarget.jxl, context: context),
+                .direct(target: .jxl),
+                "cjxl can state \(policy.rawValue) with its own flags; no relay needed"
+            )
+            XCTAssertEqual(
+                ConversionRouter.route(native: .jxl, rule: .keep, context: context),
+                .sameFormat(.jxl)
+            )
         }
     }
 
@@ -425,8 +518,12 @@ final class MetadataPostPassRoutingTests: XCTestCase {
 
     /// ImageIO writes its own metadata at encode time, and cwebp's output
     /// ImageIO cannot open for writing at all — attempting a post-pass on a
-    /// WebP would fail, so it must never be asked for.
+    /// WebP would fail, so it must never be asked for. JPEG XL is the same:
+    /// ImageIO reads it but cannot write it.
     func testImageIOAndWebPOutputsAreNotOwedAPostPass() {
+        XCTAssertFalse(ConversionRoute.sameFormat(.jxl).needsMetadataPostPass)
+        XCTAssertFalse(ConversionRoute.direct(target: .jxl).needsMetadataPostPass)
+        XCTAssertFalse(ConversionRoute.viaIntermediate(target: .jxl, intermediate: .png).needsMetadataPostPass)
         XCTAssertFalse(ConversionRoute.sameFormat(.avif).needsMetadataPostPass)
         XCTAssertFalse(ConversionRoute.sameFormat(.heic).needsMetadataPostPass)
         XCTAssertFalse(ConversionRoute.sameFormat(.webp).needsMetadataPostPass)
@@ -439,7 +536,7 @@ final class MetadataPostPassRoutingTests: XCTestCase {
 // MARK: - Resizing, which routes like rotation
 
 /// A max size does not change what format a file comes out in — it changes
-/// *who decodes it*. None of the three vendored CLI encoders can scale an
+/// *who decodes it*. None of the four vendored CLI encoders can scale an
 /// image, so every route that would hand one the user's own file is
 /// rewritten onto the relay that puts ImageIO in front of it, exactly as a
 /// rotated file already is. See `2026-09-16-max-size-resize-design.md` §4.
@@ -467,6 +564,15 @@ final class ResizeRoutingTests: XCTestCase {
             ConversionRouter.route(native: .png, target: .webp, context: reworking),
             .viaIntermediate(target: .webp, intermediate: .png),
             "the direct PNG->WebP route hands cwebp the original, so it is relayed too"
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jpeg, target: .jxl, context: reworking),
+            .viaIntermediate(target: .jxl, intermediate: .png),
+            "cjxl cannot resize either, so a resized JPEG gives up the lossless transcode"
+        )
+        XCTAssertEqual(
+            ConversionRouter.route(native: .jxl, target: .jxl, context: reworking),
+            .viaIntermediate(target: .jxl, intermediate: .png)
         )
         XCTAssertEqual(
             ConversionRouter.route(native: .jpeg, target: .webp, context: reworking),
@@ -497,8 +603,8 @@ final class ResizeRoutingTests: XCTestCase {
     /// `.sameFormat(.jpeg)` becoming `.viaIntermediate(target: .jpeg, ...)`
     /// is the shape that already fooled the never-grow guard once.
     func testResizingNeverChangesTheOutputFormat() {
-        for native: NativeFormat in [.png, .jpeg, .webp, .avif, .heic] {
-            for target: TargetFormat in [.png, .jpeg, .webp, .avif] {
+        for native: NativeFormat in [.png, .jpeg, .webp, .avif, .heic, .jxl] {
+            for target: TargetFormat in [.png, .jpeg, .webp, .avif, .jxl] {
                 XCTAssertEqual(
                     ConversionRouter.route(native: native, target: target, context: reworking)
                         .destinationFormat,
@@ -513,8 +619,8 @@ final class ResizeRoutingTests: XCTestCase {
     /// resize in force, the whole table is the one this project had before
     /// `needsPixelRework` existed.
     func testNotResizingReproducesEveryExistingRoute() {
-        for native: NativeFormat in [.png, .jpeg, .webp, .avif, .heic] {
-            for target: TargetFormat in [.png, .jpeg, .webp, .avif] {
+        for native: NativeFormat in [.png, .jpeg, .webp, .avif, .heic, .jxl] {
+            for target: TargetFormat in [.png, .jpeg, .webp, .avif, .jxl] {
                 for policy: MetadataPolicy in [.all, .copyright, .stripped] {
                     for isUpright in [true, false] {
                         let unresized = RoutingContext(
@@ -543,6 +649,8 @@ final class ResizeRoutingTests: XCTestCase {
             (.jpeg, .jpeg),
             (.webp, .webp),
             (.png, .webp),
+            (.jpeg, .jxl),
+            (.jxl, .jxl),
         ] {
             XCTAssertEqual(
                 ConversionRouter.route(

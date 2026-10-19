@@ -1,8 +1,8 @@
 import Foundation
 
 /// What a given input format should become, for every input format that is
-/// allowed to stay exactly as it is. Same four choices for PNG, JPEG, WebP
-/// and AVIF, per the spec: "Keep original" plus the three targets
+/// allowed to stay exactly as it is. Same five choices for PNG, JPEG, WebP,
+/// AVIF and JPEG XL, per the spec: "Keep original" plus the four targets
 /// macOS/the vendored tools can actually produce.
 ///
 /// HEIC/HEIF is deliberately not one of those inputs — see `ConversionFormat`.
@@ -14,6 +14,7 @@ enum ConversionTarget: String, CaseIterable, Equatable, Sendable {
     case jpeg
     case webp
     case avif
+    case jxl
 }
 
 /// A real destination format — deliberately narrower than `ConversionTarget`
@@ -39,6 +40,7 @@ enum ConversionFormat: String, CaseIterable, Equatable, Sendable {
     case jpeg
     case webp
     case avif
+    case jxl
 }
 
 extension ConversionTarget {
@@ -53,6 +55,7 @@ extension ConversionTarget {
         case .jpeg: return .jpeg
         case .webp: return .webp
         case .avif: return .avif
+        case .jxl: return .jxl
         }
     }
 
@@ -61,13 +64,14 @@ extension ConversionTarget {
     /// instead — see `SettingsView.ConversionRuleRow`.
     var displayName: String {
         switch self {
-        // Only `.keep` is prose. The three format names stay English — see
+        // Only `.keep` is prose. The format names stay English — see
         // the localization spec's "What stays English".
         case .keep: return String(localized: "Keep",
                                   comment: "Conversion rule option meaning 'leave this format alone'.")
         case .jpeg: return "JPEG"
         case .webp: return "WebP"
         case .avif: return "AVIF"
+        case .jxl: return "JPEG XL"
         }
     }
 }
@@ -78,6 +82,7 @@ extension ConversionFormat {
         case .jpeg: return "JPEG"
         case .webp: return "WebP"
         case .avif: return "AVIF"
+        case .jxl: return "JPEG XL"
         }
     }
 }
@@ -90,7 +95,7 @@ extension ConversionFormat {
 /// HEIC and HEIF share a single rule (`heic`): the spec's table lists them
 /// as one row, and both decode identically through ImageIO.
 ///
-/// `png`/`jpeg`/`webp`/`avif` default to `.keep`, so a bare
+/// `png`/`jpeg`/`webp`/`avif`/`jxl` default to `.keep`, so a bare
 /// `ConversionRules()` reproduces pre-conversion-feature behavior exactly
 /// for them — nothing changes container. `heic` has no `.keep` to default
 /// to (see `ConversionFormat`) and defaults directly to `.jpeg`, the spec's
@@ -103,6 +108,7 @@ struct ConversionRules: Equatable, Sendable {
     var heic: ConversionFormat = .jpeg
     var webp: ConversionTarget = .keep
     var avif: ConversionTarget = .keep
+    var jxl: ConversionTarget = .keep
 }
 
 extension ConversionFormat {
@@ -114,6 +120,7 @@ extension ConversionFormat {
         case .jpeg: return .jpeg
         case .webp: return .webp
         case .avif: return .avif
+        case .jxl: return .jxl
         }
     }
 }

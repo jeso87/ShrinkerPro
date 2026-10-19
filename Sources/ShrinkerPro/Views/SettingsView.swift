@@ -339,7 +339,7 @@ private struct SettingsConversionPane: View {
     var body: some View {
         Form {
             // A separate Section (not folded into either toggle group above)
-            // so the five rules read as one group of related controls, per
+            // so the six rules read as one group of related controls, per
             // the spec, rather than being mixed in with unrelated toggles.
             Section {
                 ConversionRuleRow(rowLabel: "PNG", ownFormatName: "PNG", selection: $settings.pngConversion)
@@ -347,6 +347,7 @@ private struct SettingsConversionPane: View {
                 HEICConversionRuleRow(rowLabel: "HEIC / HEIF", selection: $settings.heicConversion)
                 ConversionRuleRow(rowLabel: "WebP", ownFormatName: "WebP", selection: $settings.webpConversion)
                 ConversionRuleRow(rowLabel: "AVIF", ownFormatName: "AVIF", selection: $settings.avifConversion)
+                ConversionRuleRow(rowLabel: "JPEG XL", ownFormatName: "JPEG XL", selection: $settings.jxlConversion)
             } footer: {
                 // Required copy (spec): SVG and GIF have no row above, and
                 // their absence needs explaining, not leaving the user to
@@ -379,7 +380,7 @@ private struct SettingsConversionPane: View {
                 // top of this without writing back to it — a user who
                 // changes quality there and then finds this row unmoved
                 // needs the two to explain each other.
-                Text("Applies to JPEG, WebP, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this.")
+                Text("Applies to JPEG, WebP, JPEG XL, AVIF and HEIC. PNG and GIF are optimised by tools with no comparable setting, so they look the same whichever you choose. Standard matches what earlier versions of Shrinker Pro produced. Every session starts here; the window's session bar can change it for one session without changing this.")
             }
         }
         .formStyle(.grouped)
@@ -434,8 +435,8 @@ private struct ConversionRuleRow: View {
 
 /// HEIC/HEIF's conversion rule row: the same idea as `ConversionRuleRow`,
 /// but over `ConversionFormat.allCases` — which has no `.keep` case at all
-/// (see that type's doc comment) — so this row offers exactly three
-/// options, JPEG/WebP/AVIF, and there is no "Keep HEIC / HEIF" wording to
+/// (see that type's doc comment) — so this row offers exactly four
+/// options, JPEG/WebP/AVIF/JPEG XL, and there is no "Keep HEIC / HEIF" wording to
 /// even consider.
 private struct HEICConversionRuleRow: View {
     let rowLabel: String

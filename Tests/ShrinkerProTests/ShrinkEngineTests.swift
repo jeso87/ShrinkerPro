@@ -147,6 +147,152 @@ final class ShrinkEngineTests: XCTestCase {
         XCTAssertEqual(String(decoding: bytes[8..<12], as: UTF8.self), "avif")
     }
 
+    // MARK: - JPEG XL
+
+    /// A JPEG XL file starts either with the bare codestream signature
+    /// (`FF 0A`) or with the ISO-BMFF container's `JXL ` box. cjxl picks the
+    /// container whenever there is metadata to carry, so both are valid
+    /// output here.
+    private func assertIsJXL(_ url: URL, file: StaticString = #filePath, line: UInt = #line) throws {
+        let bytes = try Data(contentsOf: url)
+        let codestream = Array(bytes.prefix(2)) == [0xFF, 0x0A]
+        let container = Array(bytes.prefix(12))
+            == [0x00, 0x00, 0x00, 0x0C, 0x4A, 0x58, 0x4C, 0x20, 0x0D, 0x0A, 0x87, 0x0A]
+        XCTAssertTrue(codestream || container, "\(url.lastPathComponent) is not JPEG XL", file: file, line: line)
+    }
+
+    /// Whether cjxl kept the data that rebuilds the original JPEG — the
+    /// `jbrd` box, which only a lossless transcode writes.
+    private func hasJPEGReconstruction(_ url: URL) throws -> Bool {
+        try Data(contentsOf: url).range(of: Data("jbrd".utf8)) != nil
+    }
+
+    /// PNG → JPEG XL: cjxl reads PNG directly — `ConversionRoute.direct`.
+    func testPNGConvertsToJXL() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "png")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        let result = try engine.shrink(input, settings: settings(rules: ConversionRules(png: .jxl)))
+
+        XCTAssertEqual(result.output.lastPathComponent, "sample.min.jxl")
+        XCTAssertLessThan(result.shrunkBytes, result.originalBytes)
+        try assertIsJXL(result.output)
+        XCTAssertFalse(try hasJPEGReconstruction(result.output), "a PNG has no JPEG to reconstruct")
+    }
+
+    /// JPEG → JPEG XL is the lossless transcode: smaller, with the data to
+    /// rebuild the original kept inside, and the pixels the same size.
+    func testJPEGConvertsToJXLLosslessly() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "jpg")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        let result = try engine.shrink(input, settings: settings(rules: ConversionRules(jpeg: .jxl)))
+
+        XCTAssertEqual(result.output.lastPathComponent, "sample.min.jxl")
+        XCTAssertLessThan(result.shrunkBytes, result.originalBytes)
+        try assertIsJXL(result.output)
+        XCTAssertTrue(try hasJPEGReconstruction(result.output),
+                      "a JPEG handed straight to cjxl must be transcoded losslessly")
+        let source = try XCTUnwrap(CGImageSourceCreateWithURL(result.output as CFURL, nil))
+        let properties = try XCTUnwrap(CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any])
+        XCTAssertEqual(properties[kCGImagePropertyPixelWidth] as? Int, 548)
+        XCTAssertEqual(properties[kCGImagePropertyPixelHeight] as? Int, 547)
+    }
+
+    /// The lossless transcode has no quality to set, so every level must
+    /// produce the same bytes — proof that `-q` never reaches it.
+    func testLosslessJXLTranscodeIgnoresQuality() throws {
+        let engine = try makeEngine()
+        var sizes: Set<Int> = []
+        for level in QualityLevel.allCases {
+            let input = try stagedFixture("sample", "jpg")
+            defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+            let result = try engine.shrink(input, settings: OutputSettings(
+                saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true,
+                conversionRules: ConversionRules(jpeg: .jxl), quality: level.settings
+            ))
+            sizes.insert(result.shrunkBytes)
+        }
+        XCTAssertEqual(sizes.count, 1, "lossless transcode varied with quality: \(sizes.sorted())")
+    }
+
+    /// Stripping on the lossless path has to give up the reconstruction data
+    /// too — cjxl refuses to strip metadata it would need to rebuild the
+    /// original — but must still strip rather than fail.
+    func testStrippedJPEGToJXLDropsTheReconstructionData() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "jpg")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        let result = try engine.shrink(input, settings: OutputSettings(
+            saveInSameFolder: true, savePath: nil, useSubfolder: false, keepOriginal: true,
+            conversionRules: ConversionRules(jpeg: .jxl), metadataPolicy: .stripped
+        ))
+
+        try assertIsJXL(result.output)
+        XCTAssertFalse(try hasJPEGReconstruction(result.output))
+        let source = try XCTUnwrap(CGImageSourceCreateWithURL(result.output as CFURL, nil))
+        let properties = try XCTUnwrap(CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any])
+        XCTAssertNil(properties[kCGImagePropertyExifDictionary], "EXIF survived .stripped")
+    }
+
+    /// HEIC → JPEG XL: the vendored cjxl has no HEIC decoder, so this is the
+    /// PNG relay — and the carrier must not be left behind.
+    func testHEICConvertsToJXLViaIntermediate() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "heic")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        let result = try engine.shrink(input, settings: settings(rules: ConversionRules(heic: .jxl)))
+
+        XCTAssertEqual(result.output.lastPathComponent, "sample.min.jxl")
+        try assertIsJXL(result.output)
+        let leftovers = try FileManager.default.contentsOfDirectory(
+            atPath: input.deletingLastPathComponent().path
+        )
+        XCTAssertEqual(Set(leftovers), ["sample.heic", "sample.min.jxl"])
+    }
+
+    /// JPEG XL as an *input*. `sample.jxl` is `sample.png` encoded by the
+    /// vendored cjxl at `-q 95`, so a Standard re-encode has room to shrink.
+    func testJXLKeepRecompressesAsJXL() throws {
+        let engine = try makeEngine()
+        let input = try stagedFixture("sample", "jxl")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        let result = try engine.shrink(input, settings: defaults)
+
+        XCTAssertEqual(result.output.lastPathComponent, "sample.min.jxl")
+        XCTAssertLessThan(result.shrunkBytes, result.originalBytes)
+        try assertIsJXL(result.output)
+    }
+
+    /// ImageIO decodes JPEG XL, so every other target is reachable from it:
+    /// JPEG through the TGA carrier, WebP through PNG, AVIF directly.
+    func testJXLConvertsToEveryOtherFormat() throws {
+        let engine = try makeEngine()
+        for (target, ext) in [(ConversionTarget.jpeg, "jpg"), (.webp, "webp"), (.avif, "avif")] {
+            let input = try stagedFixture("sample", "jxl")
+            defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+            let result = try engine.shrink(input, settings: settings(rules: ConversionRules(jxl: target)))
+
+            XCTAssertEqual(result.output.lastPathComponent, "sample.min.\(ext)")
+            XCTAssertGreaterThan(result.shrunkBytes, 0)
+            let source = try XCTUnwrap(CGImageSourceCreateWithURL(result.output as CFURL, nil))
+            XCTAssertNotNil(CGImageSourceCreateImageAtIndex(source, 0, nil), "\(ext) output does not decode")
+        }
+    }
+
+    /// The open panel greys out anything missing here, which is exactly how
+    /// HEIC/WebP/AVIF once became droppable but not openable.
+    func testJXLIsOpenableAsWellAsDroppable() {
+        XCTAssertTrue(ShrinkEngine.supportedExtensions.contains("jxl"))
+        XCTAssertTrue(ShrinkEngine.supportedContentTypes.map(\.identifier).contains("public.jpeg-xl"))
+    }
+
     /// HEIC → WebP: cwebp cannot read HEIC at all, so this must go
     /// through the PNG intermediate — `ConversionRoute.viaIntermediate`.
     /// The most indirect path in the whole router; if the intermediate

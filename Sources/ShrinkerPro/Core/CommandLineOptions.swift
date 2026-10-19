@@ -234,6 +234,7 @@ extension SessionFormat {
         case .jpeg: return "jpg"
         case .webp: return "webp"
         case .avif: return "avif"
+        case .jxl: return "jxl"
         case .png: return "png"
         }
     }
@@ -368,12 +369,13 @@ enum QualityChoice: Equatable {
                 // --help advertises as valid. Measured: 0.99 and 0.999 both
                 // encode fine, 1.0 produces 0 bytes. HEIC is unaffected.
                 //
-                // The cap is on this axis only. cjpeg and cwebp both accept
-                // their full 0...100 range, and silently lowering what a
+                // The cap is on this axis only. cjpeg, cwebp and cjxl all
+                // accept their full 0...100 range, and silently lowering what a
                 // caller asked those encoders for would be its own bug.
                 unitScale: min(Double(value) / 100, 0.99),
                 cwebpScale: value,
-                cjpegQuality: value
+                cjpegQuality: value,
+                cjxlQuality: value
             )
         }
     }
@@ -425,7 +427,7 @@ extension CommandLineOptions {
     OPTIONS
       --quality <level|0-100>  super-low, low, standard (default), high — or a
                                number, for a value no level names
-      --to <format>            convert every image: jpeg, webp, avif, png
+      --to <format>            convert every image: jpeg, webp, avif, jxl, png
       --max-size <pixels>      shrink any image whose longest side is bigger
                                than this, keeping its aspect ratio
       --crop <WxH|W:H>         crop the center of each image to this shape.
@@ -442,13 +444,17 @@ extension CommandLineOptions {
       --version                version number only
 
     FORMATS
-      Reads PNG, JPEG, GIF, SVG, WebP, AVIF and HEIC.
+      Reads PNG, JPEG, GIF, SVG, WebP, AVIF, JPEG XL and HEIC.
       SVG and GIF are always kept in their own format and never converted.
       HEIC is always converted, to JPEG unless --to says otherwise. There is
       no HEIC-to-HEIC path: most tools outside Apple's ecosystem still
       cannot open one, so keeping it is rarely what anyone wants.
       PNG and GIF ignore --quality — the tools that optimise them have no
       comparable setting, so those files are identical at every level.
+      A JPEG converted to JPEG XL is transcoded losslessly, so --quality
+      does not apply to it: the result is typically about a fifth smaller
+      and the original JPEG can be rebuilt from it exactly. A rotated,
+      resized or cropped JPEG is re-encoded at --quality instead.
       SVG ignores --max-size and --crop: it is vector, so it has no pixels.
       An image already within --max-size is left at the size it arrived.
       --crop is applied exactly as given, so a portrait photo cropped to

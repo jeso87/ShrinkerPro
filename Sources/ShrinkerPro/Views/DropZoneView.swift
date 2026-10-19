@@ -24,7 +24,7 @@ struct DropZoneView: View {
                     // joining that the two cursive ones depend on.
                     .tracking(Self.needsRelaxedTracking ? 0 : -0.16)
                     .foregroundStyle(.primary)
-                Text("PNG, JPG, HEIC, WebP, AVIF, GIF and SVG — or press ⌘O")
+                Text("PNG, JPG, HEIC, WebP, JXL, AVIF, GIF and SVG — or press ⌘O")
                     .font(.system(size: 12.5))
                     .foregroundStyle(.secondary)
             }

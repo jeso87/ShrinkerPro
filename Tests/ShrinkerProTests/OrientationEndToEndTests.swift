@@ -192,6 +192,40 @@ final class OrientationEndToEndTests: XCTestCase {
         XCTAssertNil(latitude(in: properties))
     }
 
+    /// JPEG XL is WebP's twin here: ImageIO cannot write it, so cjxl's own
+    /// `-x strip=` flags and the authored carrier are the only levers.
+    func testJXLHonoursTheMetadataPolicy() throws {
+        let engine = try makeEngine()
+
+        let kept = try engine.shrink(
+            try staged("rotated", "jpg"), settings: settings(sessionFormat: .jxl, policy: .all)
+        )
+        XCTAssertEqual(copyright(in: try propertiesOf(kept.output)), "© 2026 Shrinker Pro Test")
+
+        let stripped = try engine.shrink(
+            try staged("rotated", "jpg"), settings: settings(sessionFormat: .jxl, policy: .stripped)
+        )
+        XCTAssertNil(copyright(in: try propertiesOf(stripped.output)))
+
+        let rights = try engine.shrink(
+            try staged("rotated", "jpg"), settings: settings(sessionFormat: .jxl, policy: .copyright)
+        )
+        let properties = try propertiesOf(rights.output)
+        XCTAssertEqual(copyright(in: properties), "© 2026 Shrinker Pro Test")
+        XCTAssertNil(latitude(in: properties))
+    }
+
+    /// cjxl would happily carry the JPEG's "rotate 90°" into the JPEG XL
+    /// codestream instead, and the file would still display correctly. This
+    /// pins the choice not to let it: the rotation is in the pixels and the
+    /// tag is gone, as it is for every other output.
+    func testRotatedJPEGToJXLComesOutUpright() throws {
+        let input = try staged("rotated", "jpg")
+        let result = try makeEngine().shrink(input, settings: settings(sessionFormat: .jxl))
+        XCTAssertEqual(result.output.pathExtension, "jxl")
+        try assertUpright(result.output)
+    }
+
     // MARK: - The session override
 
     func testTheSessionOverrideConvertsEveryRasterFormat() throws {

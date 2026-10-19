@@ -73,6 +73,12 @@ targets:
           copyFiles:
             destination: wrapper
             subpath: Contents/Helpers
+      - path: vendor/compressors/cjxl
+        type: file
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Helpers
     # Sparkle.framework, thinned to arm64 by scripts/prepare-sparkle.sh (run
     # before `xcodegen generate` — see that script and .gitignore). Unlike
     # the compressors above, this is a real link dependency (Swift code

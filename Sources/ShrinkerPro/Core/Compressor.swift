@@ -56,7 +56,7 @@ enum ShrinkError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .unsupportedFormat(let ext):
-            return "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"\(ext)\")."
+            return "Only SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC and HEIF are supported (got \"\(ext)\")."
         case .helperMissing(let name):
             return "The bundled \(name) tool is missing. The app may be damaged — try reinstalling."
         case .compressorFailed(let tool, let code, let message):
@@ -76,7 +76,7 @@ extension ShrinkError: AppDisplayableError {
     var localizedMessage: String {
         switch self {
         case .unsupportedFormat(let ext):
-            return String(localized: "Only SVG, PNG, GIF, JPEG, WebP, AVIF, HEIC and HEIF are supported (got \"\(ext)\").",
+            return String(localized: "Only SVG, PNG, GIF, JPEG, WebP, JPEG XL, AVIF, HEIC and HEIF are supported (got \"\(ext)\").",
                           comment: "Alert body when a dropped file is a format the app cannot read.")
         case .helperMissing(let name):
             return String(localized: "The bundled \(name) tool is missing. The app may be damaged — try reinstalling.",

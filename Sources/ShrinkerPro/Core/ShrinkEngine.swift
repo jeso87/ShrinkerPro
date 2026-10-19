@@ -90,7 +90,7 @@ struct ShrinkPlan: Sendable {
 final class ShrinkEngine {
 
     static let supportedExtensions: Set<String> = [
-        "svg", "png", "gif", "jpg", "jpeg", "webp", "avif", "heic", "heif",
+        "svg", "png", "gif", "jpg", "jpeg", "webp", "avif", "heic", "heif", "jxl",
     ]
 
     /// The same set as `supportedExtensions`, expressed as UTTypes for
@@ -98,12 +98,12 @@ final class ShrinkEngine {
     /// agree: a type missing here is greyed out in the file picker even though
     /// the engine would happily compress it — which is exactly what happened
     /// when HEIC/WebP/AVIF were added as inputs and only the extension list
-    /// was updated. `.avif` has no UTType constant, so it is built from its
-    /// identifier; `UTType(filenameExtension:)` would depend on whatever the
-    /// running system happens to have registered.
+    /// was updated. `.avif` and JPEG XL have no UTType constant, so they are
+    /// built from their identifiers; `UTType(filenameExtension:)` would depend
+    /// on whatever the running system happens to have registered.
     static let supportedContentTypes: [UTType] = [
         .svg, .png, .gif, .jpeg, .webP, .heic, .heif,
-        UTType("public.avif"),
+        UTType("public.avif"), UTType("public.jpeg-xl"),
     ].compactMap { $0 }
 
     private let helperProvider: @Sendable (String) throws -> URL
@@ -512,6 +512,7 @@ final class ShrinkEngine {
             case .webp: route = ConversionRouter.route(native: native, rule: rules.webp, context: context)
             case .avif: route = ConversionRouter.route(native: native, rule: rules.avif, context: context)
             case .heic: route = ConversionRouter.route(native: native, rule: rules.heic, context: context)
+            case .jxl: route = ConversionRouter.route(native: native, rule: rules.jxl, context: context)
             }
         }
 
@@ -663,7 +664,7 @@ final class ShrinkEngine {
     /// before the max size existed. Where it is non-nil it reaches ImageIO —
     /// directly, or through the relay's carrier — because ImageIO is the only
     /// component here that can resize or crop at all. pngquant, cjpeg and
-    /// cwebp never see it.
+    /// cwebp and cjxl never see it.
     private func compressor(
         for route: ConversionRoute, policy: MetadataPolicy, quality: QualitySettings,
         resize: ResizePlan?
@@ -691,6 +692,8 @@ final class ShrinkEngine {
                     utType: RasterUTType.heic, quality: quality.unitScale, policy: policy,
                     resize: resize
                 )
+            case .jxl:
+                return try jxlCompressor(policy: policy, quality: quality)
             }
 
         case .direct(let target):
@@ -704,6 +707,8 @@ final class ShrinkEngine {
                 return WebPCompressor(
                     executable: try helperProvider("cwebp"), policy: policy, quality: quality.cwebpScale
                 )
+            case .jxl:
+                return try jxlCompressor(policy: policy, quality: quality)
             }
 
         case .viaIntermediate(let target, let intermediate):
@@ -736,8 +741,22 @@ final class ShrinkEngine {
                     policy: policy,
                     resize: resize
                 )
+            case .jxl:
+                return IntermediateConversionCompressor(
+                    intermediate: intermediate,
+                    downstream: try jxlCompressor(policy: policy, quality: quality),
+                    policy: policy,
+                    resize: resize
+                )
             }
         }
+    }
+
+    /// The one cjxl construction, for all three routes that end in it.
+    private func jxlCompressor(policy: MetadataPolicy, quality: QualitySettings) throws -> Compressor {
+        JXLCompressor(
+            executable: try helperProvider("cjxl"), policy: policy, quality: quality.cjxlQuality
+        )
     }
 
     /// `nil` means "keep the input's own extension" (same-format
@@ -757,12 +776,14 @@ final class ShrinkEngine {
             switch target {
             case .webp: return "webp"
             case .avif: return "avif"
+            case .jxl: return "jxl"
             }
         case .viaIntermediate(let target, _):
             switch target {
             case .jpeg: return "jpg"
             case .webp: return "webp"
             case .png: return "png"
+            case .jxl: return "jxl"
             }
         }
     }

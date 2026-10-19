@@ -44,7 +44,7 @@ if options.showsHelp {
 
 // MARK: - Locating the compressors
 
-/// Where cjpeg, pngquant, gifsicle, cwebp and svgo.jsc.js live.
+/// Where cjpeg, pngquant, gifsicle, cwebp, cjxl and svgo.jsc.js live.
 ///
 /// The app finds these inside its own bundle; a standalone binary has no
 /// bundle, so the layout has to be discovered instead:

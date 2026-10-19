@@ -4,6 +4,26 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## Unreleased
+
+### Added
+
+**JPEG XL, in and out.** Drop a `.jxl` file and it is compressed like any
+other, or converted by its own rule in Settings. JPEG XL is also a new target
+for every format's rule, for the HEIC/HEIF row, for the session bar's
+**Convert all to**, and for the command line's `--to jxl`.
+
+**A JPEG converted to JPEG XL loses nothing.** The JPEG's own compressed data
+is carried across rather than decoded and re-encoded, so the file is typically
+about a fifth smaller — 12.2 MB to 9.8 MB on a full-size photo — and the
+original JPEG can be rebuilt from it byte for byte. Quality does not apply to
+that path, since there is nothing to choose; a JPEG that is rotated, resized
+or cropped is re-encoded at the chosen Quality instead.
+
+The encoder is libjxl's `cjxl` 0.12.0, built from source like the others and
+listed with its licence in `THIRD-PARTY-LICENSES.md`. Decoding JPEG XL is
+macOS's own.
+
 ## 1.5.0 — 2026-09-29
 
 ### Added

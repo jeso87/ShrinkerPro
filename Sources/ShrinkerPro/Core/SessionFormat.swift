@@ -25,6 +25,7 @@ enum SessionFormat: String, CaseIterable, Equatable, Sendable {
     case jpeg
     case webp
     case avif
+    case jxl
     /// Reachable only here — PNG is not one of the persisted per-format
     /// rules. See `ConversionRouter.convert(native:to:)`.
     case png
@@ -34,6 +35,7 @@ enum SessionFormat: String, CaseIterable, Equatable, Sendable {
         case .jpeg: return "JPEG"
         case .webp: return "WebP"
         case .avif: return "AVIF"
+        case .jxl: return "JPEG XL"
         case .png: return "PNG"
         }
     }
@@ -44,6 +46,7 @@ enum SessionFormat: String, CaseIterable, Equatable, Sendable {
         case .jpeg: return .jpeg
         case .webp: return .webp
         case .avif: return .avif
+        case .jxl: return .jxl
         case .png: return .png
         }
     }

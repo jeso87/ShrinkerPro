@@ -2,7 +2,7 @@ import XCTest
 @testable import ShrinkerPro
 
 /// The quality model, at the level where it is pure: a `QualityLevel` maps to
-/// the three encoder-specific numbers the compressors actually take. Nothing
+/// the four encoder-specific numbers the compressors actually take. Nothing
 /// here touches disk or a helper binary — the end-to-end proof that these
 /// numbers reach the encoders lives in `ShrinkEngineTests`.
 final class ConversionQualityTests: XCTestCase {
@@ -22,6 +22,7 @@ final class ConversionQualityTests: XCTestCase {
 
         XCTAssertEqual(resolved.unitScale, 0.80, accuracy: 0.0001)
         XCTAssertEqual(resolved.cwebpScale, 80)
+        XCTAssertEqual(resolved.cjxlQuality, 75)
         XCTAssertNil(
             resolved.cjpegQuality,
             "Standard must omit cjpeg's -quality flag entirely, not pass 75 — "
@@ -49,6 +50,9 @@ final class ConversionQualityTests: XCTestCase {
 
         XCTAssertLessThan(low.cwebpScale, standard.cwebpScale)
         XCTAssertLessThan(standard.cwebpScale, high.cwebpScale)
+
+        XCTAssertLessThan(low.cjxlQuality, standard.cjxlQuality)
+        XCTAssertLessThan(standard.cjxlQuality, high.cjxlQuality)
 
         XCTAssertLessThan(
             try XCTUnwrap(low.cjpegQuality), 75,
@@ -84,6 +88,7 @@ final class ConversionQualityTests: XCTestCase {
 
         XCTAssertLessThan(superLow.unitScale, low.unitScale)
         XCTAssertLessThan(superLow.cwebpScale, low.cwebpScale)
+        XCTAssertLessThan(superLow.cjxlQuality, low.cjxlQuality)
         XCTAssertLessThan(try XCTUnwrap(superLow.cjpegQuality), try XCTUnwrap(low.cjpegQuality))
     }
 
@@ -123,6 +128,7 @@ final class ConversionQualityTests: XCTestCase {
         )
         XCTAssertEqual(resolved.cwebpScale, 100, "cwebp's own range must not be clamped")
         XCTAssertEqual(resolved.cjpegQuality, 100, "cjpeg's own range must not be clamped")
+        XCTAssertEqual(resolved.cjxlQuality, 100, "cjxl's own range must not be clamped")
     }
 
     /// mozjpeg's `set_quality_ratings` also picks chroma subsampling, and it

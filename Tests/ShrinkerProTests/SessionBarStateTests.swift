@@ -16,7 +16,7 @@ final class SessionBarStateTests: XCTestCase {
     func testGrowthWarningShowsOnlyForPNG() {
         XCTAssertTrue(SessionBarState.showsGrowthWarning(for: .png))
 
-        for format in [SessionFormat.jpeg, .webp, .avif] {
+        for format in [SessionFormat.jpeg, .webp, .avif, .jxl] {
             XCTAssertFalse(
                 SessionBarState.showsGrowthWarning(for: format),
                 "\(format.displayName) is lossy — it has no growth to warn about"

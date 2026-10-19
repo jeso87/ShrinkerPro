@@ -43,6 +43,7 @@ final class SettingsTests: XCTestCase {
         XCTAssertEqual(settings.jpegConversion, .keep)
         XCTAssertEqual(settings.webpConversion, .keep)
         XCTAssertEqual(settings.avifConversion, .keep)
+        XCTAssertEqual(settings.jxlConversion, .keep)
         XCTAssertEqual(settings.heicConversion, .jpeg, "HEIC/HEIF is the one format that defaults to converting")
     }
 
@@ -74,6 +75,7 @@ final class SettingsTests: XCTestCase {
         first.heicConversion = .webp
         first.webpConversion = .jpeg
         first.avifConversion = .webp
+        first.jxlConversion = .avif
 
         let second = Settings(defaults: defaults)
         XCTAssertEqual(second.pngConversion, .webp)
@@ -81,6 +83,7 @@ final class SettingsTests: XCTestCase {
         XCTAssertEqual(second.heicConversion, .webp)
         XCTAssertEqual(second.webpConversion, .jpeg)
         XCTAssertEqual(second.avifConversion, .webp)
+        XCTAssertEqual(second.jxlConversion, .avif)
     }
 
     /// Same guard as `testExplicitValueMatchingDefaultStillPersists`
@@ -106,6 +109,7 @@ final class SettingsTests: XCTestCase {
         settings.heicConversion = .webp
         settings.webpConversion = .jpeg
         settings.avifConversion = .webp
+        settings.jxlConversion = .jpeg
 
         let rules = settings.outputSettings.conversionRules
         XCTAssertEqual(rules.png, .webp)
@@ -113,6 +117,7 @@ final class SettingsTests: XCTestCase {
         XCTAssertEqual(rules.heic, .webp)
         XCTAssertEqual(rules.webp, .jpeg)
         XCTAssertEqual(rules.avif, .webp)
+        XCTAssertEqual(rules.jxl, .jpeg)
     }
 
     /// A `ConversionRules()` built without naming any field — the default
@@ -130,6 +135,23 @@ final class SettingsTests: XCTestCase {
         XCTAssertEqual(rules.heic, .jpeg)
         XCTAssertEqual(rules.webp, .keep)
         XCTAssertEqual(rules.avif, .keep)
+        XCTAssertEqual(rules.jxl, .keep)
+    }
+
+    /// The new rule's own storage, and the value a newer build writes being
+    /// readable by `ConversionTarget` at all — an older build reading "jxl"
+    /// for, say, `conversionPNG` falls back to its default rather than
+    /// crashing, by the same `readTarget` path every other rule uses.
+    func testJXLRuleRoundTripsAndOtherRulesAcceptJXL() {
+        let defaults = makeDefaults()
+        let first = Settings(defaults: defaults)
+        first.pngConversion = .jxl
+        first.heicConversion = .jxl
+
+        let second = Settings(defaults: defaults)
+        XCTAssertEqual(second.pngConversion, .jxl)
+        XCTAssertEqual(second.heicConversion, .jxl)
+        XCTAssertEqual(defaults.string(forKey: "conversionPNG"), "jxl")
     }
 
     func testOutputSettingsProjection() {

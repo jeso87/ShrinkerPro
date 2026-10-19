@@ -8,7 +8,7 @@
 # To publish, copy dist/shrinker.rb into the tap repository as
 # Formula/shrinker.rb and commit it.
 class Shrinker < Formula
-  desc "Minify images and graphics from the command line"
+  desc "Command-line image and graphics minifier"
   homepage "https://shrinkerpro.app"
   url "https://github.com/@@REPO@@/releases/download/v@@VERSION@@/shrinker-@@VERSION@@-arm64.zip"
   version "@@VERSION@@"

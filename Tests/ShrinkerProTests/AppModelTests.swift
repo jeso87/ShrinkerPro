@@ -162,6 +162,34 @@ final class AppModelTests: XCTestCase {
         )
     }
 
+    #if STUDIO
+    /// Studio's exports go into the same history as drops: a row at the top
+    /// and one more file in the session total.
+    func testStudioExportAppearsInHistory() throws {
+        let (model, _) = try makeModel()
+        let input = URL(fileURLWithPath: "/tmp/studio-in.jpg")
+        let output = URL(fileURLWithPath: "/tmp/studio-in.min.jpg")
+        let earlier = ShrinkResult(input: URL(fileURLWithPath: "/tmp/earlier.jpg"),
+                                   output: URL(fileURLWithPath: "/tmp/earlier.min.jpg"),
+                                   originalBytes: 500, shrunkBytes: 400)
+        model.recordStudioExport(earlier)
+        let before = model.session.fileCount
+
+        model.recordStudioExport(ShrinkResult(input: input, output: output,
+                                              originalBytes: 2_000_000, shrunkBytes: 600_000))
+
+        guard let row = model.rows.first else { return XCTFail("expected a row") }
+        XCTAssertEqual(row.input, input)
+        XCTAssertEqual(row.output, output)
+        XCTAssertEqual(row.originalBytes, 2_000_000)
+        XCTAssertEqual(row.shrunkBytes, 600_000)
+        XCTAssertEqual(row.savedPercent, 70)
+        XCTAssertEqual(model.rows.count, 2)
+        XCTAssertEqual(model.session.fileCount, before + 1)
+        XCTAssertEqual(model.session.bytesSaved, 100 + 1_400_000)
+    }
+    #endif
+
     func testSessionAggregateResetsWhenClearListWipesRows() async throws {
         let (model, settings) = try makeModel()
         settings.clearList = true

@@ -20,7 +20,7 @@ final class ResultRowTests: XCTestCase {
     // MARK: - ResultRow.sizeSummary
 
     func testSizeSummaryJoinsBothSidesWithArrow() {
-        let row = ResultRow(output: URL(fileURLWithPath: "/tmp/x.png"), originalBytes: 3_100_000, shrunkBytes: 1_200_000, savedPercent: 61)
+        let row = ResultRow(input: URL(fileURLWithPath: "/tmp/x-in.png"), output: URL(fileURLWithPath: "/tmp/x.png"), originalBytes: 3_100_000, shrunkBytes: 1_200_000, savedPercent: 61)
 
         let expected = "\(expectedFileCountString(3_100_000)) → \(expectedFileCountString(1_200_000))"
         XCTAssertEqual(row.sizeSummary, expected)
@@ -30,7 +30,7 @@ final class ResultRowTests: XCTestCase {
         // Not a realistic ShrinkEngine output (it guards against writing an
         // empty file), but sizeSummary itself must not crash or misformat
         // on the boundary value.
-        let row = ResultRow(output: URL(fileURLWithPath: "/tmp/x.png"), originalBytes: 1_000, shrunkBytes: 0, savedPercent: 100)
+        let row = ResultRow(input: URL(fileURLWithPath: "/tmp/x-in.png"), output: URL(fileURLWithPath: "/tmp/x.png"), originalBytes: 1_000, shrunkBytes: 0, savedPercent: 100)
 
         let expected = "\(expectedFileCountString(1_000)) → \(expectedFileCountString(0))"
         XCTAssertEqual(row.sizeSummary, expected)
@@ -74,7 +74,8 @@ final class ResultRowTests: XCTestCase {
     /// around the interpolation — a right-to-left language needs it the
     /// other way. English is unchanged.
     func testSizeSummaryKeepsItsEnglishForm() {
-        let row = ResultRow(output: URL(fileURLWithPath: "/tmp/a.png"),
+        let row = ResultRow(input: URL(fileURLWithPath: "/tmp/a-in.png"),
+                            output: URL(fileURLWithPath: "/tmp/a.png"),
                             originalBytes: 3_100_000,
                             shrunkBytes: 1_200_000,
                             savedPercent: 61)

@@ -78,6 +78,10 @@ private struct ResultRowView: View {
                 .monospacedDigit()
                 .foregroundStyle(percentColor)
 
+            #if STUDIO
+            StudioModule.resultRowAction(input: row.input, output: row.output)
+            #endif
+
             PillButtonView(title: String(localized: "Reveal",
                                          comment: "Result row button that reveals the shrunk file in Finder."),
                            action: reveal)

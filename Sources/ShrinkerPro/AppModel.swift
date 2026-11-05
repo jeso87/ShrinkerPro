@@ -5,6 +5,8 @@ import SwiftUI
 
 struct ResultRow: Identifiable, Equatable {
     let id = UUID()
+    /// The file that was dropped, kept beside the output it became.
+    let input: URL
     let output: URL
     let originalBytes: Int
     let shrunkBytes: Int
@@ -306,6 +308,24 @@ final class AppModel: ObservableObject {
         session = SessionSummary()
     }
 
+    #if STUDIO
+    /// Lists a file Studio exported in the history, the same way `process`
+    /// lists a drop. No notification: the person is looking at Studio.
+    func recordStudioExport(_ result: ShrinkResult) {
+        rows.insert(
+            ResultRow(
+                input: result.input,
+                output: result.output,
+                originalBytes: result.originalBytes,
+                shrunkBytes: result.shrunkBytes,
+                savedPercent: result.savedPercent
+            ),
+            at: 0
+        )
+        session.record(originalBytes: result.originalBytes, shrunkBytes: result.shrunkBytes)
+    }
+    #endif
+
     /// Called by the sheet's buttons. Dismissing counts as `.skip`.
     ///
     /// Safe to call with nothing pending — it clears a nil and resumes
@@ -580,6 +600,7 @@ final class AppModel: ObservableObject {
 
                 rows.insert(
                     ResultRow(
+                        input: result.input,
                         output: result.output,
                         originalBytes: result.originalBytes,
                         shrunkBytes: result.shrunkBytes,

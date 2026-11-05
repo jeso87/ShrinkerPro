@@ -143,6 +143,7 @@ struct ContentView: View {
         .onDisappear { model.windowDisappeared() }
         #if STUDIO
         .modifier(StudioWindowOpener())
+        .modifier(StudioHistoryBridge(model: model))
         #endif
     }
 

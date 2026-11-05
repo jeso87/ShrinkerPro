@@ -161,14 +161,23 @@ targets:
     # gates that pass without checking anything.
     postBuildScripts:
       # The private Studio folder declares the licence file type. Skipped
-      # when Studio/ is absent, leaving Info.plist exactly as the free app
+      # (silently) when Studio/ is absent, leaving Info.plist exactly as the free app
       # ships it. Appends to the built plist, which Xcode signs afterwards
       # (this phase is before CodeSign in both build and archive).
       - name: Declare the Studio licence file type
         basedOnDependencyAnalysis: false
+        # Declared so Xcode orders this phase after the plist is processed.
+        # Without it the phase can run first on an incremental build, and the
+        # later plist processing then overwrites the merge.
+        inputFiles:
+          - "$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)"
         script: |
-          if [ -x "${SRCROOT}/Studio/Tools/merge-info-plist.sh" ]; then
-            "${SRCROOT}/Studio/Tools/merge-info-plist.sh" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+          if [ -f "${SRCROOT}/Studio/Config/Studio.xcconfig" ]; then
+            if [ ! -f "${SRCROOT}/Studio/Tools/merge-info-plist.sh" ]; then
+              echo "error: Studio/ is present but Studio/Tools/merge-info-plist.sh is missing" >&2
+              exit 1
+            fi
+            bash "${SRCROOT}/Studio/Tools/merge-info-plist.sh" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
           fi
       - name: Verify arm64-only architecture gate
         basedOnDependencyAnalysis: false

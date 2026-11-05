@@ -11,6 +11,20 @@ export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
+# Studio/ is a private folder that gets compiled into the app when present.
+# A release built without it would silently ship the free app, so refuse
+# unless that was asked for. The flag also refuses when Studio/ is present,
+# so it can't be used to ship Studio by accident.
+if [[ ! -f Studio/Config/Studio.xcconfig ]]; then
+  if [[ "${SHRINKER_FREE_RELEASE:-}" != "1" ]]; then
+    echo "error: Studio/ is missing — this would build a release without Shrinker Studio. Clone it into Studio/, or set SHRINKER_FREE_RELEASE=1 to build the free app on purpose." >&2
+    exit 1
+  fi
+elif [[ "${SHRINKER_FREE_RELEASE:-}" == "1" ]]; then
+  echo "error: SHRINKER_FREE_RELEASE=1 but Studio/ is present — move it aside first." >&2
+  exit 1
+fi
+
 IDENTITY="Developer ID Application: Eight-Seven Inc. (LY424U3HLD)"
 KEYCHAIN_PROFILE="${NOTARY_PROFILE:-shrinkerpro-notary}"
 ARCHIVE="build/ShrinkerPro.xcarchive"

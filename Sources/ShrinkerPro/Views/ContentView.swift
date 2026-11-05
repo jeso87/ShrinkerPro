@@ -80,8 +80,20 @@ struct ContentView: View {
         // help text is preserved verbatim on the new button.
         .toolbar {
             #if STUDIO
-            ToolbarItem(placement: .primaryAction) {
-                StudioModule.toolbarButton()
+            // Studio stands on its own: on macOS 26 adjacent items would
+            // share one glass capsule with the gear, so hide the shared
+            // background and leave a fixed gap. Earlier systems already
+            // draw separate items separately.
+            if #available(macOS 26, *) {
+                ToolbarItem(placement: .primaryAction) {
+                    StudioModule.toolbarButton()
+                }
+                .sharedBackgroundVisibility(.hidden)
+                ToolbarSpacer(.fixed, placement: .primaryAction)
+            } else {
+                ToolbarItem(placement: .primaryAction) {
+                    StudioModule.toolbarButton()
+                }
             }
             #endif
             ToolbarItem(placement: .primaryAction) {
@@ -102,7 +114,13 @@ struct ContentView: View {
         .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
             Task {
                 let urls = await DropZoneView.resolveURLs(from: providers)
+                #if STUDIO
+                let (licences, others) = LicenceFileRouting.split(urls)
+                if !licences.isEmpty { StudioModule.installLicences(licences) }
+                model.handle(urls: others)
+                #else
                 model.handle(urls: urls)
+                #endif
             }
             return true
         }

@@ -54,7 +54,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     /// `ShrinkerProApp`'s "Open Recent" submenu (see there) so a click on a
     /// recent-document entry goes through the exact same
     /// launch-failure-aware path as a real Finder open.
-    func application(_ application: NSApplication, open urls: [URL]) {
+    func application(_ application: NSApplication, open allURLs: [URL]) {
+        #if STUDIO
+        let (licences, urls) = LicenceFileRouting.split(allURLs)
+        if !licences.isEmpty { StudioModule.installLicences(licences) }
+        guard !urls.isEmpty else { return }
+        #else
+        let urls = allURLs
+        #endif
         if let model {
             model.handle(urls: urls)
         } else if isConfigured {

@@ -160,6 +160,11 @@ struct ShrinkerProApp: App {
             // pattern Apple's own FocusedValue sample code uses, tracks
             // it correctly.
             ClearHistoryCommands(clearHistory: { model?.clearHistory() })
+
+            #if STUDIO
+            // The Studio canvas's zoom items; disabled unless its window is focused.
+            StudioModule.commands()
+            #endif
         }
 
         #if STUDIO

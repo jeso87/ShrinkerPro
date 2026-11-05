@@ -117,7 +117,7 @@ struct ContentView: View {
                 #if STUDIO
                 let (licences, others) = LicenceFileRouting.split(urls)
                 if !licences.isEmpty { StudioModule.installLicences(licences) }
-                model.handle(urls: others)
+                if !others.isEmpty { model.handle(urls: others) }
                 #else
                 model.handle(urls: urls)
                 #endif
@@ -138,6 +138,9 @@ struct ContentView: View {
         // are answered immediately in `ask`.
         .onAppear { model.windowAppeared() }
         .onDisappear { model.windowDisappeared() }
+        #if STUDIO
+        .modifier(StudioWindowOpener())
+        #endif
     }
 
     private func collapseSessionPanel() {

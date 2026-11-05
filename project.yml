@@ -160,6 +160,16 @@ targets:
     # never gated at build time, and this project has already been burned by
     # gates that pass without checking anything.
     postBuildScripts:
+      # The private Studio folder declares the licence file type. Skipped
+      # when Studio/ is absent, leaving Info.plist exactly as the free app
+      # ships it. Appends to the built plist, which Xcode signs afterwards
+      # (this phase is before CodeSign in both build and archive).
+      - name: Declare the Studio licence file type
+        basedOnDependencyAnalysis: false
+        script: |
+          if [ -x "${SRCROOT}/Studio/Tools/merge-info-plist.sh" ]; then
+            "${SRCROOT}/Studio/Tools/merge-info-plist.sh" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+          fi
       - name: Verify arm64-only architecture gate
         basedOnDependencyAnalysis: false
         script: |

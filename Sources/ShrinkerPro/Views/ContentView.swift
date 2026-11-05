@@ -100,7 +100,10 @@ struct ContentView: View {
                 Button {
                     openSettings()
                 } label: {
-                    Image(systemName: "gearshape")
+                    // A Label, not a bare Image: the toolbar still shows only
+                    // the icon, but VoiceOver and the overflow menu a narrow
+                    // window folds it into get a name ("Settings").
+                    Label("Settings", systemImage: "gearshape")
                 }
                 .help("Settings")
             }

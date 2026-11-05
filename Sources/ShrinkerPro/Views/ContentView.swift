@@ -79,6 +79,11 @@ struct ContentView: View {
         // affordance, reachable without going to the menu bar. The "Settings"
         // help text is preserved verbatim on the new button.
         .toolbar {
+            #if STUDIO
+            ToolbarItem(placement: .primaryAction) {
+                StudioModule.toolbarButton()
+            }
+            #endif
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     openSettings()

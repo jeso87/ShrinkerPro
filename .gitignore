@@ -40,6 +40,12 @@ build/shrinker-stage/
 # `git add appcast.xml`.
 build/appcast-stage/
 
+# Shrinker Pro Studio: the paid upgrade's sources live in a separate PRIVATE
+# repository, checked out here by hand. project.yml lists it as an optional
+# source path, so a public checkout builds the free app without it. Never let
+# it into this public repo.
+/Studio/
+
 # Signing / notarization secrets
 .env
 *.p12

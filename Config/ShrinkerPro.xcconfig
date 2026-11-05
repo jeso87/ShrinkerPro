@@ -1,0 +1,4 @@
+// The private Studio folder adds the STUDIO compilation condition. The
+// include is optional (#include?) so a clone of the public repo, which has
+// no Studio/ folder, builds the free app without error.
+#include? "../Studio/Config/Studio.xcconfig"

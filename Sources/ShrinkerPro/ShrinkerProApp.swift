@@ -162,6 +162,17 @@ struct ShrinkerProApp: App {
             ClearHistoryCommands(clearHistory: { model?.clearHistory() })
         }
 
+        #if STUDIO
+        // Declared after the main window: SwiftUI opens the first declared
+        // scene at launch. SwiftUI lists `Window` scenes in the Window menu.
+        // The Text initialiser keeps the title out of the public catalog.
+        Window(Text(StudioModule.windowTitle), id: StudioModule.windowID) {
+            StudioModule.windowContent()
+        }
+        .defaultSize(width: 1200, height: 800)
+        .keyboardShortcut("2", modifiers: .command)
+        #endif
+
         // Kept available even when the engine failed to initialize
         // (`model == nil`, LaunchFailureView showing): these preferences
         // (notifications, save location, suffix, subfolder, update

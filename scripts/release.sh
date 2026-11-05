@@ -46,6 +46,7 @@ xcodebuild archive \
 
 HELPERS_DIR="$ARCHIVE/Products/Applications/Shrinker Pro.app/Contents/Helpers"
 REQUIRED_HELPERS=(cjpeg pngquant gifsicle cwebp cjxl)
+if [[ -f Studio/Config/Studio.xcconfig ]]; then REQUIRED_HELPERS+=(ssimulacra2); fi
 
 echo "==> verifying required helpers are present"
 # verify-arch.sh deliberately only checks "at least one Mach-O was

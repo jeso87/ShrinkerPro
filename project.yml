@@ -86,6 +86,14 @@ targets:
           copyFiles:
             destination: wrapper
             subpath: Contents/Helpers
+      # Studio's quality scorer, present only when Studio is (built by
+      # Studio's own tools). Absent, the entry is skipped.
+      - path: Studio/Helpers
+        optional: true
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Helpers
       # The private Studio folder, compiled in when it is present. Absent
       # (a plain clone of the public repo), these entries are skipped and
       # the build is exactly the free app.

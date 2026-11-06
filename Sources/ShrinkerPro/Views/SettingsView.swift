@@ -135,6 +135,9 @@ struct SettingsView: View {
                 .tabItem { Label("Output", systemImage: "folder") }
             SettingsConversionPane()
                 .tabItem { Label("Conversion", systemImage: "arrow.triangle.2.circlepath") }
+            #if STUDIO
+            StudioModule.settingsTab()
+            #endif
         }
         // Width only. The height is the content's own: two tabs put every
         // section inside about 470 points, which fits any display macOS runs

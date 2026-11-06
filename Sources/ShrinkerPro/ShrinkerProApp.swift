@@ -176,6 +176,7 @@ struct ShrinkerProApp: App {
         }
         .defaultSize(width: 1200, height: 800)
         .keyboardShortcut("2", modifiers: .command)
+        StudioModule.menuBarScene()
         #endif
 
         // Kept available even when the engine failed to initialize

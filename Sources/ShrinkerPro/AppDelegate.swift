@@ -157,7 +157,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     /// synchronously here finds nothing.
     func applicationDidFinishLaunching(_ notification: Notification) {
         DispatchQueue.main.async {
-            guard let window = NSApp.windows.first(where: { $0.isVisible && $0.canBecomeMain })
+            // The main scene's window by its id ("main"), so another window restored at
+            // launch isn't resized to the main window's size.
+            guard let window = NSApp.windows.first(where: { $0.isVisible && $0.identifier?.rawValue == "main" })
             else { return }
             window.setContentSize(Self.defaultWindowSize)
             window.center()

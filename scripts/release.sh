@@ -263,7 +263,11 @@ CLI_STAGE="build/shrinker-stage"
 rm -rf "$CLI_STAGE"
 mkdir -p "$CLI_STAGE/bin" "$CLI_STAGE/libexec/shrinker"
 cp "$CLI_BIN" "$CLI_STAGE/bin/shrinker"
-for helper in "${REQUIRED_HELPERS[@]}"; do
+# The CLI is the free tool: the five compressors only. REQUIRED_HELPERS also
+# lists Studio's ssimulacra2 when Studio is present, which the CLI never uses
+# and which isn't in vendor/compressors.
+CLI_HELPERS=(cjpeg pngquant gifsicle cwebp cjxl)
+for helper in "${CLI_HELPERS[@]}"; do
   cp "vendor/compressors/$helper" "$CLI_STAGE/libexec/shrinker/$helper"
 done
 # svgo is not optional: ShrinkEngine.init loads and evaluates it eagerly, so

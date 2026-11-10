@@ -46,7 +46,8 @@ struct WebPCompressor: Compressor {
     func compress(input: URL, output: URL) throws {
         let result = try ProcessRunner.run(
             executable,
-            ["-q", "\(quality)",
+            // -mt: the same bytes, encoded on more than one thread.
+            ["-q", "\(quality)", "-mt",
              "-metadata", metadataArgument,
              "-o", output.path, input.path]
         )

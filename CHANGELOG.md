@@ -4,6 +4,40 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.7.0 — 2026-11-09
+
+### Added
+
+**Shrinker Studio, an optional upgrade inside the app.** Shrinker Pro stays
+free, unlimited and open source. Studio adds a second window for the photos
+that need more than a quick squeeze: compare before and after at full size,
+or side by side, or as a Difference view that shows every pixel compression
+changed. Build a recipe once (resize and crop, adjust, a look, a watermark, a
+border, redaction, renaming, metadata) and save it for any batch. Point a
+watch folder at a recipe and new photos come out finished, even with no
+window open. Every Studio tool works for your first 10 exports, then a
+one-time licence unlocks it: buy at
+[shrinkerstudio.app](https://shrinkerstudio.app/buy/).
+
+The **Studio** button in the toolbar shows a tour of what it does. The
+**Shrinker Pro** menu now opens Studio, takes a licence file, and links to
+the Buy and Find My Licence pages. A licence arrives by email as a small file;
+open it, or drop it on the window.
+
+**Network use.** The free app is unchanged: its only request is the daily
+update check. With a Studio licence installed, Studio also downloads a short
+signed list of refunded licences once a day. It sends nothing about you, and
+the licence is checked on your Mac. Without a licence, Studio makes no request
+at all.
+
+### Fixed
+
+**The main window opens at its own size** at launch, even when another window
+is restored first.
+
+**The settings button has a name**, so the toolbar's overflow menu and
+VoiceOver can read it.
+
 ## 1.6.1 — 2026-10-19
 
 ### Fixed

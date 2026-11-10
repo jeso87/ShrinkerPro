@@ -48,6 +48,33 @@ Everything happens on your Mac. The compressors are bundled inside the app,
 and the only network request it makes is the daily update check — which is
 deliberately not optional, and is described in full further down.
 
+## Shrinker Studio
+
+Shrinker Pro is free, unlimited and open source, and it stays that way.
+[**Shrinker Studio**](https://shrinkerstudio.app) is an optional paid upgrade
+that lives inside the same app, for the photos that need more than a quick
+squeeze. It opens a second window where you can:
+
+- **compare before you save** — split, side by side, or a Difference view
+  that shows every pixel compression changed, with the file size live;
+- **build recipes** — resize and crop, adjust, add a look, a watermark, a
+  border, redaction or new names — and save them for any batch;
+- **set up watch folders**, so new photos come out finished with no window
+  open.
+
+Press **Studio** in the toolbar for a tour. Every Studio tool works for your
+first 10 exports; a one-time licence, bought at
+[shrinkerstudio.app](https://shrinkerstudio.app/buy/), unlocks the rest and
+includes every future update. The licence is a small signed file, checked on
+your Mac with no activation server.
+
+Studio's code is not part of this repository and not under the MIT License.
+Building this repository gives you the free app, exactly as described here.
+With a Studio licence installed, Studio also downloads a short signed list of
+refunded licences once a day; it sends nothing about you, and without a
+licence Studio makes no request at all. The free app's own behaviour, including
+its single update check, is unchanged.
+
 ## Languages
 
 Shrinker Pro is translated into 36 languages: Arabic, Catalan, Chinese
@@ -490,6 +517,11 @@ must be arm64-only, target macOS 14.0 or lower, and link nothing outside
 files examined is an error, not a pass.
 
 Release a signed, notarized DMG with `./scripts/release.sh`.
+
+The official releases also include Shrinker Studio, compiled in from a private
+`Studio/` folder that this repository doesn't contain. Without it the build is
+the free app, and `release.sh` refuses to cut a release unless
+`SHRINKER_FREE_RELEASE=1` says that's what you meant.
 
 ## Credits
 

@@ -590,9 +590,10 @@ ditto -c -k --sequesterRsrc "${TARBALLS[@]}" "$PNGQUANT_LOCK" "$ROOT/THIRD-PARTY
   || zip -j -q "$SOURCES_ZIP" "${TARBALLS[@]}" "$PNGQUANT_LOCK" "$ROOT/THIRD-PARTY-LICENSES.md"
 echo "    wrote $SOURCES_ZIP ($(du -h "$SOURCES_ZIP" | cut -f1 | tr -d ' '), ${#TARBALLS[@]} archives)"
 
-# No `gh` on this machine, and this project doesn't push or open releases on
-# its own initiative — print exactly what a human needs to do instead of
-# guessing at automating it.
+# This project doesn't push or open releases on its own initiative, even though
+# `gh` is installed — print exactly what a human needs to do instead. With gh:
+#   gh release create v<version> -R jeso87/ShrinkerPro --target main \
+#     --title "Shrinker Pro <version>" --notes-file docs/release-notes/<version>.md <the four assets>
 echo
 echo "=================================================================="
 echo "Update feed regenerated locally. Nothing has been published yet."

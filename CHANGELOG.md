@@ -4,6 +4,33 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.8.0 — Unreleased
+
+### Changed
+
+**A conversion never makes a file bigger.** When a conversion to WebP, AVIF
+or JPEG XL would come out larger than the original, the original is kept
+instead and reported as 0% saved, as a plain compression already was. Those
+are formats people pick to make files smaller. Conversions to JPEG or PNG,
+and anything from HEIC, are exempt: they are about what opens the file, so
+growth there is what was asked for.
+
+### Fixed
+
+**AVIF at quality 100 works on macOS 27.** macOS 27.2's AVIF encoder refuses
+a quality of exactly 1.0, so every AVIF conversion at 100 failed with
+"ImageIO failed to encode". AVIF is now asked for 0.999 at the top of the
+scale, which encodes; HEIC was never affected.
+
+### Shrinker Studio
+
+Studio, the optional upgrade, gets 17 new looks (35 in all) including Brand
+duotone in your own two colours, favourite looks at the top, a zoom control,
+full screen, a photo list you can resize or fold away (⌃⌘S), optional glass
+sidebars, resizing by the shortest side, a choice of which window opens at
+launch, and a way for owners to write a review. Its previews no longer stick
+on "updating" when photos are switched mid-refresh.
+
 ## 1.7.0 — 2026-11-09
 
 ### Added

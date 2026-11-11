@@ -18211,6 +18211,119 @@
           "stringUnit" : { "state" : "translated", "value" : "PNG、JPG、HEIC、WebP、JXL、AVIF、GIF、SVG，或按⁠⌘O" }
         }
       }
+    },
+    "What's New" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "What's New" }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "الجديد" }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Novetats" }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Co je nového" }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nyheder" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Neuerungen" }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Τι νέο υπάρχει" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Novedades" }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "موارد جدید" }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Uutta" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nouveautés" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "מה חדש" }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Što je novo" }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Újdonságok" }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nýjungar" }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Novità" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "新機能" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "새로운 기능" }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nyheter" }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nieuw" }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nyheiter" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Co nowego" }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Novidades" }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Novidades" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Noutăți" }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Что нового" }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Čo je nové" }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kaj je novega" }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nyheter" }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "มีอะไรใหม่" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Yenilikler" }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Що нового" }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Có gì mới" }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "新功能" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "新功能" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "新功能" }
+        }
+      }
     }
   },
   "version" : "1.0"

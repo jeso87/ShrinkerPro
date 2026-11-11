@@ -176,6 +176,7 @@
   "This session: %@": "Этот сеанс: %@",
   "W": "Ш",
   "Warn before replacing a file": "Предупреждать перед заменой файла",
+  "What's New": "Что нового",
   "When shrinking, keep": "При уменьшении сохранять",
   "Where": "Куда",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Ваши оригиналы будут перезаписаны, и восстановить их не удастся. У конвертированных файлов другое расширение, поэтому их оригиналы остаются нетронутыми.",

@@ -6,6 +6,13 @@ installs are offered updates automatically by Sparkle.
 
 ## 1.8.0 — Unreleased
 
+### Added
+
+**What's New.** Shrinker Pro ▸ What's New shows the update notes of the last
+five versions, newest first, in the app's language (English for a version
+that wasn't translated). They are the same files Sparkle shows before an
+update, bundled into the app, so the two always match.
+
 ### Changed
 
 **A conversion never makes a file bigger.** When a conversion to WebP, AVIF

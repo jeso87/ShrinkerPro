@@ -163,6 +163,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             else { return }
             window.setContentSize(Self.defaultWindowSize)
             window.center()
+            #if STUDIO
+            // Studio's "Open at launch" setting may swap this window for its own. A launch
+            // to open files isn't a default launch, and keeps the main window.
+            let isDefault = notification.userInfo?[NSApplication.launchIsDefaultUserInfoKey] as? Bool ?? true
+            StudioModule.applyLaunchWindow(isDefaultLaunch: isDefault)
+            #endif
         }
     }
 
@@ -184,7 +190,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
     /// re-renders whichever branch `ShrinkerProApp`'s `body` currently
     /// resolves to, i.e. `LaunchFailureView` — which explains the problem
     /// and offers Quit, strictly better than no window at all.
+    ///
+    /// With Studio, its "Open at launch" setting can answer the Dock click
+    /// with the Studio window instead; then AppKit is told not to reopen
+    /// the main window as well.
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows: Bool) -> Bool {
-        true
+        #if STUDIO
+        if !hasVisibleWindows, StudioModule.reopenLaunchWindow() { return false }
+        #endif
+        return true
     }
 }

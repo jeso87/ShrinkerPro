@@ -3,6 +3,845 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.8.0</title>
+            <pubDate>Wed, 11 Nov 2026 17:44:33 -0500</pubDate>
+            <sparkle:version>14</sparkle:version>
+            <sparkle:shortVersionString>1.8.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Converting to WebP, AVIF or JPEG XL never makes a file bigger.** If the
+  result would be larger than the original, the original is kept instead.
+- **AVIF at quality 100 works again** on macOS 27.
+- **What's New** in the Shrinker Pro menu shows these notes for the last few
+  versions.
+
+### Shrinker Studio
+
+- **35 looks**, including a new Brand duotone in your own two colours. The
+  looks you star sit at the top.
+- **A zoom control** in the corner of the photo, and the Studio window can go
+  full screen.
+- **More room for the photo:** drag the photo list's edge to resize it, or
+  fold it away with ⌃⌘S. The handle on the Split divider shows only when
+  your pointer is near it.
+- **Glass sidebars**, if you like: turn them on in Settings ▸ Studio.
+- **Resize by the shortest side**, and choose whether the app opens in
+  Shrinker Pro or straight into Studio.
+- **Previews no longer get stuck** when you switch photos while they update,
+  and a photo whose preview will refresh when you switch to it is marked in
+  the list.
+- **Write a review** from the Shrinker Pro menu, if you'd like to tell other
+  people what Studio does for you.
+]]></description>
+            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **التحويل إلى WebP أو AVIF أو JPEG XL لا يكبّر الملف أبدًا.** إذا كان الناتج
+  أكبر من الأصل، يُحتفظ بالأصل بدلًا منه.
+- **عاد AVIF بجودة 100 إلى العمل** على macOS 27.
+- **الجديد** في قائمة Shrinker Pro يعرض هذه الملاحظات لآخر عدة إصدارات.
+
+### Shrinker Studio
+
+- **35 مظهرًا**، منها «ثنائي ألوان العلامة» الجديد بلونيك أنت. تظهر المظاهر التي
+  تضع عليها نجمة في الأعلى.
+- **أداة تكبير** في زاوية الصورة، ويمكن لنافذة Studio أن تعمل بملء الشاشة.
+- **مساحة أكبر للصورة:** اسحب حافة قائمة الصور لتغيير حجمها، أو اطوِها بالاختصار
+  ⌃⌘S. ولا يظهر مقبض الفاصل في «عرض منقسم» إلا عندما يقترب المؤشر منه.
+- **أشرطة جانبية زجاجية** إن أحببت: فعّلها من الإعدادات ▸ Studio.
+- **غيّر الحجم حسب أقصر ضلع**، واختر هل يُفتح التطبيق على Shrinker Pro أم مباشرة
+  على Studio.
+- **لم تعد المعاينات تتعلق** عند التنقل بين الصور أثناء تحديثها، وتُعلَّم في
+  القائمة الصورة التي ستُحدَّث معاينتها عند الانتقال إليها.
+- **اكتب مراجعة** من قائمة Shrinker Pro إن أردت أن تخبر الآخرين بما يفعله Studio
+  لك.]]></description>
+            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Convertir a WebP, AVIF o JPEG XL mai fa un fitxer més gran.** Si el resultat
+  fos més gran que l’original, es conserva l’original.
+- **L’AVIF amb qualitat 100 torna a funcionar** a macOS 27.
+- **Novetats** al menú de Shrinker Pro mostra aquestes notes de les últimes
+  versions.
+
+### Shrinker Studio
+
+- **35 estils**, entre els quals un nou Duotó de marca amb els teus dos colors.
+  Els estils que marques amb una estrella queden a dalt de tot.
+- **Un control de zoom** a la cantonada de la foto, i la finestra de Studio pot
+  passar a pantalla completa.
+- **Més espai per a la foto:** arrossega la vora de la llista de fotos per
+  canviar-ne la mida, o plega-la amb ⌃⌘S. El control del Divisor només es mostra
+  quan el punter hi és a prop.
+- **Barres laterals de vidre**, si t’agraden: activa-les a Configuració ▸
+  Studio.
+- **Canvia la mida pel costat més curt**, i tria si l’app s’obre a Shrinker Pro
+  o directament a Studio.
+- **Les previsualitzacions ja no es queden encallades** quan canvies de foto
+  mentre s’actualitzen, i la foto la previsualització de la qual s’actualitzarà
+  quan hi canviïs queda marcada a la llista.
+- **Escriu una ressenya** des del menú de Shrinker Pro, si vols explicar a
+  altres persones què fa Studio per tu.]]></description>
+            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Převod do WebP, AVIF nebo JPEG XL nikdy nezvětší soubor.** Pokud by výsledek
+  byl větší než originál, ponechá se originál.
+- **AVIF s kvalitou 100 zase funguje** v macOS 27.
+- **Co je nového** v nabídce Shrinker Pro zobrazí tyto poznámky k několika
+  posledním verzím.
+
+### Shrinker Studio
+
+- **35 vzhledů**, včetně nového Duplexu značky ve vašich dvou barvách. Vzhledy
+  označené hvězdičkou jsou nahoře.
+- **Ovládání zvětšení** v rohu fotky a okno Studia může přejít na celou
+  obrazovku.
+- **Víc místa pro fotku:** přetažením okraje seznamu fotek změňte jeho šířku,
+  nebo ho složte pomocí ⌃⌘S. Úchyt na dělicí čáře rozděleného zobrazení se
+  ukáže, jen když je ukazatel blízko.
+- **Skleněné postranní panely**, pokud chcete: zapněte je v Nastavení ▸ Studio.
+- **Změna velikosti podle nejkratší strany** a volba, zda se aplikace otevře v
+  Shrinker Pro, nebo rovnou ve Studiu.
+- **Náhledy se už nezasekávají**, když během aktualizace přepnete na jinou
+  fotku, a fotka, jejíž náhled se po přepnutí obnoví, je v seznamu označená.
+- **Napište recenzi** z nabídky Shrinker Pro, pokud chcete ostatním říct, co pro
+  vás Studio dělá.]]></description>
+            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Konvertering til WebP, AVIF eller JPEG XL gør aldrig en fil større.** Hvis
+  resultatet ville blive større end originalen, beholdes originalen.
+- **AVIF i kvalitet 100 virker igen** på macOS 27.
+- **Nyheder** i Shrinker Pro-menuen viser disse noter for de seneste versioner.
+
+### Shrinker Studio
+
+- **35 stilarter**, bl.a. en ny Brand-duotone i dine egne to farver. De
+  stilarter, du sætter stjerne ved, ligger øverst.
+- **En zoomkontrol** i hjørnet af fotoet, og Studio-vinduet kan gå i fuld skærm.
+- **Mere plads til fotoet:** træk i kanten af fotolisten for at ændre dens
+  bredde, eller fold den væk med ⌃⌘S. Håndtaget på skillelinjen vises kun, når
+  markøren er tæt på.
+- **Sidepaneler af glas**, hvis du vil: slå dem til i Indstillinger ▸ Studio.
+- **Skalér efter korteste side**, og vælg, om appen åbner i Shrinker Pro eller
+  direkte i Studio.
+- **Forhåndsvisninger hænger ikke længere**, når du skifter foto, mens de
+  opdateres, og et foto, hvis forhåndsvisning opdateres, når du skifter til det,
+  er markeret på listen.
+- **Skriv en anmeldelse** i Shrinker Pro-menuen, hvis du vil fortælle andre,
+  hvad Studio gør for dig.]]></description>
+            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Das Konvertieren in WebP, AVIF oder JPEG XL macht eine Datei nie größer.**
+  Fiele das Ergebnis größer aus als das Original, bleibt das Original erhalten.
+- **AVIF mit Qualität 100 funktioniert wieder** unter macOS 27.
+- **Neuerungen** im Menü „Shrinker Pro“ zeigt diese Hinweise für die letzten
+  Versionen.
+
+### Shrinker Studio
+
+- **35 Looks**, darunter ein neuer Marken-Duplex in deinen eigenen zwei Farben.
+  Looks, die du mit einem Stern markierst, stehen oben.
+- **Ein Zoomregler** in der Ecke des Fotos, und das Studio-Fenster kann in den
+  Vollbildmodus wechseln.
+- **Mehr Platz für das Foto:** Ziehe am Rand der Fotoliste, um sie in der Breite
+  zu ändern, oder klappe sie mit ⌃⌘S ein. Der Griff an der Trennlinie der
+  Trennansicht erscheint nur, wenn der Zeiger in der Nähe ist.
+- **Seitenleisten aus Glas**, wenn du magst: Schalte sie in Einstellungen ▸
+  Studio ein.
+- **Größe nach der kürzesten Seite ändern**, und wähle, ob die App in Shrinker
+  Pro oder direkt in Studio startet.
+- **Vorschauen bleiben nicht mehr hängen**, wenn du das Foto wechselst, während
+  sie sich aktualisieren, und ein Foto, dessen Vorschau beim Wechseln
+  aufgefrischt wird, ist in der Liste markiert.
+- **Schreibe eine Rezension** im Menü „Shrinker Pro“, wenn du anderen erzählen
+  möchtest, was Studio für dich tut.]]></description>
+            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Η μετατροπή σε WebP, AVIF ή JPEG XL δεν μεγαλώνει ποτέ ένα αρχείο.** Αν το
+  αποτέλεσμα θα ήταν μεγαλύτερο από το πρωτότυπο, κρατιέται το πρωτότυπο.
+- **Το AVIF με ποιότητα 100 λειτουργεί ξανά** σε macOS 27.
+- **Τι νέο υπάρχει** στο μενού του Shrinker Pro εμφανίζει αυτές τις σημειώσεις
+  για τις τελευταίες εκδόσεις.
+
+### Shrinker Studio
+
+- **35 στυλ**, μεταξύ των οποίων ένα νέο Δίτονο μάρκας στα δύο δικά σας χρώματα.
+  Τα στυλ που σημειώνετε με αστέρι μένουν στην κορυφή.
+- **Ένα χειριστήριο ζουμ** στη γωνία της φωτογραφίας, και το παράθυρο του Studio
+  μπορεί να μπει σε πλήρη οθόνη.
+- **Περισσότερος χώρος για τη φωτογραφία:** σύρετε το άκρο της λίστας
+  φωτογραφιών για να αλλάξετε το πλάτος της ή κρύψτε την με ⌃⌘S. Η λαβή στον
+  διαχωριστή της Διαχωρισμένης προβολής εμφανίζεται μόνο όταν ο δείκτης
+  βρίσκεται κοντά της.
+- **Γυάλινες πλαϊνές στήλες**, αν θέλετε: ενεργοποιήστε τις από τις Ρυθμίσεις ▸
+  Studio.
+- **Αλλαγή μεγέθους με βάση τη μικρότερη πλευρά**, και επιλογή αν η εφαρμογή
+  ανοίγει στο Shrinker Pro ή κατευθείαν στο Studio.
+- **Οι προεπισκοπήσεις δεν κολλούν πια** όταν αλλάζετε φωτογραφία ενώ
+  ενημερώνονται, και μια φωτογραφία της οποίας η προεπισκόπηση θα ανανεωθεί όταν
+  μεταβείτε σε αυτήν σημειώνεται στη λίστα.
+- **Γράψτε μια κριτική** από το μενού του Shrinker Pro, αν θέλετε να πείτε σε
+  άλλους τι κάνει το Studio για εσάς.]]></description>
+            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Convertir a WebP, AVIF o JPEG XL nunca hace más grande un archivo.** Si el
+  resultado fuera mayor que el original, se conserva el original.
+- **AVIF con calidad 100 vuelve a funcionar** en macOS 27.
+- **Novedades** en el menú de Shrinker Pro muestra estas notas de las últimas
+  versiones.
+
+### Shrinker Studio
+
+- **35 estilos**, incluido un nuevo Duotono de marca con tus dos colores. Los
+  estilos que marcas con una estrella quedan arriba.
+- **Un control de zoom** en la esquina de la foto, y la ventana de Studio puede
+  pasar a pantalla completa.
+- **Más espacio para la foto:** arrastra el borde de la lista de fotos para
+  cambiar su ancho, o pliégala con ⌃⌘S. El tirador del divisor de la vista
+  dividida solo aparece cuando el puntero está cerca.
+- **Barras laterales de cristal**, si quieres: actívalas en Ajustes ▸ Studio.
+- **Cambia el tamaño por el lado más corto**, y elige si la app se abre en
+  Shrinker Pro o directamente en Studio.
+- **Las previsualizaciones ya no se quedan atascadas** al cambiar de foto
+  mientras se actualizan, y una foto cuya previsualización se renovará al
+  cambiar a ella aparece marcada en la lista.
+- **Escribe una reseña** desde el menú de Shrinker Pro, si quieres contar a
+  otras personas qué hace Studio por ti.]]></description>
+            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **تبدیل به WebP، AVIF یا JPEG XL هرگز حجم پرونده را بیشتر نمی‌کند.** اگر نتیجه
+  از اصل بزرگ‌تر شود، اصل نگه داشته می‌شود.
+- **AVIF با کیفیت 100 دوباره کار می‌کند** در macOS 27.
+- **موارد جدید** در منوی Shrinker Pro این یادداشت‌ها را برای چند نسخهٔ آخر نشان
+  می‌دهد.
+
+### Shrinker Studio
+
+- **35 فیلتر**، از جمله «دوتون برند» تازه با دو رنگ دلخواه شما. فیلترهایی که
+  ستاره‌دار می‌کنید بالای فهرست می‌مانند.
+- **کنترل بزرگ‌نمایی** در گوشهٔ عکس، و پنجرهٔ Studio می‌تواند تمام‌صفحه شود.
+- **جای بیشتر برای عکس:** لبهٔ فهرست عکس‌ها را بکشید تا اندازه‌اش تغییر کند، یا
+  با ⌃⌘S آن را جمع کنید. دستگیرهٔ جداکنندهٔ «نمای تقسیم» فقط وقتی دیده می‌شود که
+  اشاره‌گر نزدیک آن باشد.
+- **نوارهای کناری شیشه‌ای**، اگر دوست دارید: از تنظیمات ▸ Studio روشنشان کنید.
+- **تغییر اندازه بر اساس کوتاه‌ترین ضلع**، و انتخاب اینکه برنامه در Shrinker Pro
+  باز شود یا مستقیم در Studio.
+- **پیش‌نمایش‌ها دیگر گیر نمی‌کنند** وقتی هنگام به‌روزرسانی عکس را عوض می‌کنید،
+  و عکسی که پیش‌نمایشش با رفتن به آن تازه می‌شود در فهرست علامت می‌خورد.
+- **نقد و بررسی بنویسید** از منوی Shrinker Pro، اگر می‌خواهید به دیگران بگویید
+  Studio برایتان چه می‌کند.]]></description>
+            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Muunnos WebP-, AVIF- tai JPEG XL -muotoon ei koskaan kasvata tiedostoa.**
+  Jos tulos olisi alkuperäistä suurempi, alkuperäinen säilytetään.
+- **AVIF laadulla 100 toimii taas** macOS 27:ssä.
+- **Uutta** Shrinker Pro -valikossa näyttää nämä muistiinpanot viimeisistä
+  versioista.
+
+### Shrinker Studio
+
+- **35 ilmettä**, mukaan lukien uusi Brändin kaksisävy omilla kahdella
+  värilläsi. Tähdellä merkitsemäsi ilmeet ovat ylhäällä.
+- **Zoomaussäädin** kuvan kulmassa, ja Studio-ikkuna voi siirtyä koko näytölle.
+- **Enemmän tilaa kuvalle:** vedä kuvaluettelon reunaa muuttaaksesi sen kokoa
+  tai piilota se näppäinyhdistelmällä ⌃⌘S. Jakoviivan kahva näkyy vain, kun
+  osoitin on sen lähellä.
+- **Lasiset sivupalkit**, jos haluat: ota ne käyttöön kohdassa Asetukset ▸
+  Studio.
+- **Koon muutos lyhimmän sivun mukaan**, ja valitse, avautuuko appi Shrinker
+  Prossa vai suoraan Studiossa.
+- **Esikatselut eivät enää jumiudu**, kun vaihdat kuvaa niiden päivittyessä, ja
+  kuva, jonka esikatselu päivittyy siirtyessäsi siihen, on merkitty luettelossa.
+- **Kirjoita arvostelu** Shrinker Pro -valikosta, jos haluat kertoa muille, mitä
+  Studio tekee puolestasi.]]></description>
+            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **La conversion vers WebP, AVIF ou JPEG XL n’alourdit jamais un fichier.** Si
+  le résultat était plus volumineux que l’original, l’original est conservé.
+- **L’AVIF en qualité 100 fonctionne de nouveau** sous macOS 27.
+- **Nouveautés** dans le menu Shrinker Pro affiche ces notes pour les dernières
+  versions.
+
+### Shrinker Studio
+
+- **35 looks**, dont une nouvelle Bichromie de marque dans vos deux couleurs.
+  Les looks que vous marquez d’une étoile se placent en haut.
+- **Une commande de zoom** dans le coin de la photo, et la fenêtre de Studio
+  peut passer en plein écran.
+- **Plus de place pour la photo :** faites glisser le bord de la liste des
+  photos pour la redimensionner, ou repliez-la avec ⌃⌘S. La poignée du
+  séparateur de la vue Curseur ne s’affiche que lorsque le pointeur est tout
+  près.
+- **Barres latérales en verre**, si vous le souhaitez : activez-les dans
+  Réglages ▸ Studio.
+- **Redimensionnez selon le côté le plus court**, et choisissez si l’app s’ouvre
+  dans Shrinker Pro ou directement dans Studio.
+- **Les aperçus ne restent plus bloqués** quand vous changez de photo pendant
+  leur mise à jour, et une photo dont l’aperçu sera actualisé à son affichage
+  est signalée dans la liste.
+- **Écrivez un avis** depuis le menu Shrinker Pro, si vous voulez dire aux
+  autres ce que Studio fait pour vous.]]></description>
+            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **המרה ל-WebP, ל-AVIF או ל-JPEG XL אף פעם לא מגדילה קובץ.** אם התוצאה הייתה
+  גדולה מהמקור, המקור נשמר במקומה.
+- **AVIF באיכות 100 פועל שוב** ב-macOS 27.
+- **מה חדש** בתפריט Shrinker Pro מציג את ההערות האלה עבור הגרסאות האחרונות.
+
+### Shrinker Studio
+
+- **35 מראות**, כולל דואוטון מותג חדש בשני הצבעים שלכם. המראות שמסמנים בכוכבית
+  מופיעים בראש הרשימה.
+- **פקד זום** בפינת התצלום, וחלון Studio יכול לעבור למסך מלא.
+- **יותר מקום לתצלום:** אפשר לגרור את קצה רשימת התצלומים כדי לשנות את רוחבה, או
+  לקפל אותה עם ⌃⌘S. הידית בקו המפריד של התצוגה המפוצלת מופיעה רק כשהמצביע קרוב
+  אליה.
+- **סרגלי צד מזכוכית**, אם בא לכם: אפשר להפעיל אותם בהגדרות ▸ Studio.
+- **שינוי גודל לפי הצלע הקצרה ביותר**, ובחירה אם האפליקציה נפתחת ב-Shrinker Pro
+  או ישר ב-Studio.
+- **התצוגות המקדימות כבר לא נתקעות** כשעוברים בין תצלומים בזמן שהן מתעדכנות,
+  ותצלום שהתצוגה המקדימה שלו תתרענן במעבר אליו מסומן ברשימה.
+- **כתיבת ביקורת** מתפריט Shrinker Pro, אם רוצים לספר לאחרים מה Studio עושה
+  בשבילכם.]]></description>
+            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Pretvaranje u WebP, AVIF ili JPEG XL nikad ne povećava datoteku.** Ako bi
+  rezultat bio veći od izvornika, zadržava se izvornik.
+- **AVIF s kvalitetom 100 opet radi** u sustavu macOS 27.
+- **Što je novo** u izborniku Shrinker Pro prikazuje ove bilješke za posljednjih
+  nekoliko inačica.
+
+### Shrinker Studio
+
+- **35 stilova**, uključujući novi Duoton brenda u vaše dvije boje. Stilovi koje
+  označite zvjezdicom nalaze se na vrhu.
+- **Kontrola zumiranja** u kutu fotografije, a prozor Studija može prijeći na
+  cijeli zaslon.
+- **Više prostora za fotografiju:** povucite rub popisa fotografija za promjenu
+  širine ili ga sklopite s ⌃⌘S. Ručka na razdjelniku Split Viewa prikazuje se
+  samo kad je pokazivač blizu.
+- **Stakleni bočni stupci**, ako želite: uključite ih u Postavke ▸ Studio.
+- **Promjena veličine prema najkraćoj stranici** i izbor hoće li se aplikacija
+  otvoriti u Shrinker Pro ili izravno u Studiju.
+- **Pregledi se više ne zaglavljuju** kad mijenjate fotografije dok se
+  ažuriraju, a fotografija čiji će se pregled osvježiti pri prelasku na nju
+  označena je na popisu.
+- **Napišite recenziju** iz izbornika Shrinker Pro ako želite drugima reći što
+  Studio radi za vas.]]></description>
+            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **A WebP, AVIF vagy JPEG XL formátumba konvertálás sosem növeli meg a fájlt.**
+  Ha az eredmény nagyobb lenne az eredetinél, az eredeti marad meg.
+- **Az AVIF 100-as minőségben újra működik** macOS 27 alatt.
+- **Újdonságok** a Shrinker Pro menüben megmutatja ezeket a megjegyzéseket az
+  utolsó néhány verzióhoz.
+
+### Shrinker Studio
+
+- **35 stílus**, köztük egy új Márka-duotónus a saját két színével. A csillaggal
+  megjelölt stílusok felül állnak.
+- **Nagyítás-vezérlő** a fotó sarkában, a Studio ablak pedig teljes képernyőre
+  válthat.
+- **Több hely a fotónak:** húzza a fotólista szélét az átméretezéshez, vagy
+  csukja össze a ⌃⌘S billentyűvel. Az osztott nézet elválasztójának fogantyúja
+  csak akkor jelenik meg, ha a mutató a közelében van.
+- **Üveg oldalsávok**, ha szeretné: kapcsolja be a Beállítások ▸ Studio alatt.
+- **Átméretezés a legrövidebb oldal szerint**, és az is megadható, hogy az app a
+  Shrinker Pro vagy rögtön a Studio felületén nyíljon meg.
+- **Az előnézetek többé nem akadnak el**, ha frissítés közben másik fotóra vált,
+  és az a fotó, amelynek előnézete a váltáskor frissül, jelölést kap a listában.
+- **Írjon véleményt** a Shrinker Pro menüből, ha el szeretné mondani másoknak,
+  mit tesz Önért a Studio.]]></description>
+            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Umbreyting í WebP, AVIF eða JPEG XL stækkar aldrei skrá.** Ef niðurstaðan
+  yrði stærri en frumritið er frumritið varðveitt.
+- **AVIF í gæðum 100 virkar aftur** á macOS 27.
+- **Nýjungar** í Shrinker Pro valmyndinni sýnir þessar athugasemdir fyrir
+  síðustu útgáfur.
+
+### Shrinker Studio
+
+- **35 útlit**, þar á meðal nýtt Tvítóna vörumerki í þínum tveimur litum. Útlit
+  sem þú merkir með stjörnu eru efst.
+- **Aðdráttarstýring** í horni ljósmyndarinnar, og Studio-glugginn getur farið á
+  allan skjáinn.
+- **Meira pláss fyrir ljósmyndina:** dragðu brún ljósmyndalistans til að breyta
+  stærð hans, eða felldu hann saman með ⌃⌘S. Gripið á skilrúminu birtist aðeins
+  þegar bendillinn er nálægt.
+- **Hliðarstikur úr gleri**, ef þú vilt: kveiktu á þeim í Stillingar ▸ Studio.
+- **Breyttu stærð eftir stystu hlið**, og veldu hvort appið opnast í Shrinker
+  Pro eða beint í Studio.
+- **Forskoðanir festast ekki lengur** þegar þú skiptir um ljósmynd á meðan þær
+  uppfærast, og ljósmynd þar sem forskoðun endurnýjast þegar skipt er yfir í
+  hana er merkt á listanum.
+- **Skrifaðu umsögn** í Shrinker Pro valmyndinni, ef þú vilt segja öðrum hvað
+  Studio gerir fyrir þig.]]></description>
+            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Convertire in WebP, AVIF o JPEG XL non ingrandisce mai un file.** Se il
+  risultato fosse più grande dell’originale, viene mantenuto l’originale.
+- **AVIF con qualità 100 funziona di nuovo** su macOS 27.
+- **Novità** nel menu Shrinker Pro mostra queste note per le ultime versioni.
+
+### Shrinker Studio
+
+- **35 look**, tra cui una nuova Bicromia del marchio nei tuoi due colori. I
+  look che contrassegni con una stella stanno in cima.
+- **Un controllo dello zoom** nell’angolo della foto, e la finestra di Studio
+  può andare a schermo intero.
+- **Più spazio per la foto:** trascina il bordo dell’elenco delle foto per
+  ridimensionarlo, oppure chiudilo con ⌃⌘S. La maniglia sul divisore della vista
+  divisa compare solo quando il puntatore è vicino.
+- **Barre laterali in vetro**, se ti piacciono: attivale in Impostazioni ▸
+  Studio.
+- **Ridimensiona in base al lato più corto**, e scegli se l’app si apre in
+  Shrinker Pro o direttamente in Studio.
+- **Le anteprime non si bloccano più** quando cambi foto mentre si aggiornano, e
+  una foto la cui anteprima si aggiornerà quando ci passi è contrassegnata
+  nell’elenco.
+- **Scrivi una recensione** dal menu Shrinker Pro, se vuoi raccontare agli altri
+  cosa fa Studio per te.]]></description>
+            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **WebP、AVIF、JPEG XLへの変換でファイルが大きくなることはありません。**結果が元より大きくなる場合は、元のファイルをそのまま残します。
+- **品質100のAVIF**が、macOS 27で再び使えるようになりました。
+- **新機能**はShrinker Proメニューにあり、直近のいくつかのバージョンのこのノートを表示します。
+
+### Shrinker Studio
+
+- **35種類のルック**があり、自分の2色で作れる新しいブランドダブルトーンも加わりました。星を付けたルックは一覧の先頭に並びます。
+- **ズームコントロール**を写真の隅に追加しました。Studioのウインドウはフルスクリーンにもできます。
+- **写真をより広く**：写真リストの端をドラッグして幅を変えたり、⌃⌘Sで折りたたんだりできます。分割表示の境界線のハンドルは、ポインタを近づけたときだけ表示されます。
+- **ガラスのサイドバー**がお好みなら、設定 ▸ Studioでオンにできます。
+- **短辺を基準にサイズ変更**できます。また、アプリをShrinker Proで開くか、そのままStudioで開くかを選べます。
+- **プレビューが止まらなくなりました。**更新中に写真を切り替えても大丈夫です。切り替えたときにプレビューが更新される写真は、リストに印が付きます。
+- **レビューを書く**は、Shrinker Proメニューから。Studioが役立っていたら、ほかの人にも教えてください。]]></description>
+            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **WebP, AVIF, JPEG XL로 변환해도 파일이 커지지 않습니다.** 결과가 원본보다 크면 원본을 그대로 둡니다.
+- **품질 100의 AVIF가 다시 작동합니다.** macOS 27에서 쓸 수 있습니다.
+- **새로운 기능**는 Shrinker Pro 메뉴에서 최근 몇 개 버전의 이 노트를 보여 줍니다.
+
+### Shrinker Studio
+
+- **룩 35개**, 나만의 두 가지 색으로 만드는 새로운 브랜드 이중톤도 포함됩니다. 별표를 붙인 룩은 맨 위에 놓입니다.
+- **확대/축소 컨트롤**이 사진 모서리에 생겼고, Studio 윈도우를 전체 화면으로 쓸 수 있습니다.
+- **사진을 위한 더 넓은 공간:** 사진 목록의 가장자리를 드래그해 너비를 바꾸거나 ⌃⌘S로 접을 수 있습니다. 분할 보기 구분선의 핸들은 포인터를 가까이 댈 때만 나타납니다.
+- **유리 사이드바**가 마음에 든다면 설정 ▸ Studio에서 켜세요.
+- **짧은 변 기준으로 크기 조절**할 수 있고, 앱을 Shrinker Pro로 열지 바로 Studio로 열지 고를 수 있습니다.
+- **미리보기가 더 이상 멈추지 않습니다.** 업데이트 중에 사진을 바꿔도 괜찮으며, 전환할 때 미리보기가 새로 고쳐지는 사진은 목록에 표시됩니다.
+- **리뷰 작성**은 Shrinker Pro 메뉴에서 할 수 있습니다. Studio가 어떤 도움이 되는지 다른 사람에게 알려 주세요.]]></description>
+            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Konvertering til WebP, AVIF eller JPEG XL gjør aldri en fil større.** Hvis
+  resultatet ville blitt større enn originalen, beholdes originalen.
+- **AVIF i kvalitet 100 fungerer igjen** på macOS 27.
+- **Nyheter** i Shrinker Pro-menyen viser disse notatene for de siste
+  versjonene.
+
+### Shrinker Studio
+
+- **35 stiler**, blant dem en ny Merkeduotone i dine egne to farger. Stilene du
+  setter stjerne på, ligger øverst.
+- **En zoomkontroll** i hjørnet av fotoet, og Studio-vinduet kan gå i full
+  skjerm.
+- **Mer plass til fotoet:** dra i kanten av fotolisten for å endre størrelsen,
+  eller fold den bort med ⌃⌘S. Håndtaket på skillelinjen vises bare når pekeren
+  er i nærheten.
+- **Sidefelt av glass**, hvis du vil: slå dem på i Innstillinger ▸ Studio.
+- **Endre størrelse etter korteste side**, og velg om appen åpner i Shrinker Pro
+  eller rett i Studio.
+- **Forhåndsvisninger henger seg ikke lenger fast** når du bytter foto mens de
+  oppdateres, og et foto som får oppdatert forhåndsvisning når du bytter til
+  det, er merket i listen.
+- **Skriv en anmeldelse** fra Shrinker Pro-menyen, hvis du vil fortelle andre
+  hva Studio gjør for deg.]]></description>
+            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Converteren naar WebP, AVIF of JPEG XL maakt een bestand nooit groter.** Als
+  het resultaat groter zou zijn dan het origineel, blijft het origineel
+  behouden.
+- **AVIF met kwaliteit 100 werkt weer** op macOS 27.
+- **Nieuw** in het Shrinker Pro-menu toont deze notities voor de laatste
+  versies.
+
+### Shrinker Studio
+
+- **35 looks**, waaronder een nieuwe Merkduotoon in je eigen twee kleuren. Looks
+  waar je een ster bij zet, staan bovenaan.
+- **Een zoomregelaar** in de hoek van de foto, en het Studio-venster kan naar
+  volledig scherm.
+- **Meer ruimte voor de foto:** sleep de rand van de fotolijst om hem breder of
+  smaller te maken, of klap hem weg met ⌃⌘S. De greep op de scheidingslijn van
+  de gesplitste weergave verschijnt alleen als je aanwijzer in de buurt is.
+- **Glazen navigatiekolommen**, als je wilt: zet ze aan in Instellingen ▸
+  Studio.
+- **Formaat wijzigen op de kortste zijde**, en kies of de app opent in Shrinker
+  Pro of meteen in Studio.
+- **Voorvertoningen lopen niet meer vast** als je van foto wisselt terwijl ze
+  worden bijgewerkt, en een foto waarvan de voorvertoning wordt vernieuwd zodra
+  je ernaartoe gaat, is in de lijst gemarkeerd.
+- **Schrijf een recensie** via het Shrinker Pro-menu, als je anderen wilt
+  vertellen wat Studio voor jou doet.]]></description>
+            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Konvertering til WebP, AVIF eller JPEG XL gjer aldri ei fil større.** Viss
+  resultatet ville blitt større enn originalen, blir originalen behalden.
+- **AVIF i kvalitet 100 fungerer att** på macOS 27.
+- **Nyheiter** i Shrinker Pro-menyen viser desse notata for dei siste
+  versjonane.
+
+### Shrinker Studio
+
+- **35 stilar**, mellom dei ein ny Merkeduotone i dine eigne to fargar. Stilane
+  du set stjerne på, ligg øvst.
+- **Ein zoomkontroll** i hjørnet av fotoet, og Studio-vindauget kan gå i full
+  skjerm.
+- **Meir plass til fotoet:** dra i kanten av fotolista for å endre storleiken,
+  eller fold henne vekk med ⌃⌘S. Handtaket på glidaren visest berre når pekaren
+  er i nærleiken.
+- **Sidefelt av glas**, viss du vil: slå dei på i Innstillingar ▸ Studio.
+- **Endre storleik etter kortaste sida**, og vel om appen opnar i Shrinker Pro
+  eller rett i Studio.
+- **Førehandsvisingar heng seg ikkje lenger** når du byter foto medan dei blir
+  oppdaterte, og eit foto som får oppdatert førehandsvising når du byter til
+  det, er merkt i lista.
+- **Skriv ein omtale** frå Shrinker Pro-menyen, viss du vil fortelje andre kva
+  Studio gjer for deg.]]></description>
+            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Konwersja do WebP, AVIF lub JPEG XL nigdy nie powiększa pliku.** Jeśli wynik
+  byłby większy od oryginału, zachowywany jest oryginał.
+- **AVIF w jakości 100 znów działa** w systemie macOS 27.
+- **Co nowego** w menu Shrinker Pro pokazuje te informacje dla kilku ostatnich
+  wersji.
+
+### Shrinker Studio
+
+- **35 stylów**, w tym nowy Duoton marki w dwóch własnych kolorach. Style
+  oznaczone gwiazdką trafiają na górę.
+- **Kontrolka zoomu** w rogu zdjęcia, a okno Studio może przejść na pełny ekran.
+- **Więcej miejsca na zdjęcie:** przeciągnij krawędź listy zdjęć, aby zmienić
+  jej szerokość, albo zwiń ją skrótem ⌃⌘S. Uchwyt na dzielniku widoku Split View
+  pojawia się tylko wtedy, gdy wskaźnik jest blisko.
+- **Szklane paski boczne**, jeśli chcesz: włącz je w Ustawienia ▸ Studio.
+- **Zmiana rozmiaru według najkrótszego boku** oraz wybór, czy aplikacja otwiera
+  się w Shrinker Pro, czy od razu w Studio.
+- **Podglądy już się nie zacinają**, gdy zmieniasz zdjęcie w trakcie ich
+  aktualizacji, a zdjęcie, którego podgląd odświeży się po przełączeniu na nie,
+  jest oznaczone na liście.
+- **Napisz recenzję** z menu Shrinker Pro, jeśli chcesz powiedzieć innym, co
+  daje ci Studio.]]></description>
+            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Converter para WebP, AVIF ou JPEG XL nunca deixa um arquivo maior.** Se o
+  resultado ficasse maior que o original, o original é mantido.
+- **AVIF com qualidade 100 volta a funcionar** no macOS 27.
+- **Novidades** no menu do Shrinker Pro mostra estas notas das últimas versões.
+
+### Shrinker Studio
+
+- **35 visuais**, incluindo um novo Duotone da marca nas suas duas cores. Os
+  visuais que você marca com estrela ficam no topo.
+- **Um controle de zoom** no canto da foto, e a janela do Studio pode ficar em
+  tela inteira.
+- **Mais espaço para a foto:** arraste a borda da lista de fotos para
+  redimensioná-la ou recolha-a com ⌃⌘S. A alça do Divisor só aparece quando o
+  ponteiro está perto.
+- **Barras Laterais de Vidro**, se você gostar: ative em Ajustes ▸ Studio.
+- **Redimensione pelo lado mais curto** e escolha se o app abre no Shrinker Pro
+  ou direto no Studio.
+- **As pré-visualizações não travam mais** quando você troca de foto durante a
+  atualização, e a foto cuja pré-visualização será atualizada ao trocar para ela
+  fica marcada na lista.
+- **Escreva uma Resenha** pelo menu do Shrinker Pro, se quiser contar a outras
+  pessoas o que o Studio faz por você.]]></description>
+            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Converter para WebP, AVIF ou JPEG XL nunca torna um ficheiro maior.** Se o
+  resultado fosse maior do que o original, o original é mantido.
+- **AVIF com qualidade 100 volta a funcionar** no macOS 27.
+- **Novidades** no menu do Shrinker Pro mostra estas notas das últimas versões.
+
+### Shrinker Studio
+
+- **35 aspetos**, incluindo um novo Duotom da marca nas suas duas cores. Os
+  aspetos que marcar com estrela ficam no topo.
+- **Um controlo de zoom** no canto da fotografia, e a janela do Studio pode
+  passar a ecrã inteiro.
+- **Mais espaço para a fotografia:** arraste a margem da lista de fotografias
+  para a redimensionar ou recolha-a com ⌃⌘S. A pega do divisor só aparece quando
+  o ponteiro está perto.
+- **Barras laterais de vidro**, se gostar: ative-as em Definições ▸ Studio.
+- **Redimensione pelo lado mais curto** e escolha se a app abre no Shrinker Pro
+  ou diretamente no Studio.
+- **As pré-visualizações já não ficam bloqueadas** quando muda de fotografia
+  durante a atualização, e a fotografia cuja pré-visualização será atualizada ao
+  mudar para ela fica assinalada na lista.
+- **Escreva uma crítica** no menu do Shrinker Pro, se quiser contar a outras
+  pessoas o que o Studio faz por si.]]></description>
+            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Conversia în WebP, AVIF sau JPEG XL nu mărește niciodată un fișier.** Dacă
+  rezultatul ar fi mai mare decât originalul, se păstrează originalul.
+- **AVIF la calitatea 100 funcționează din nou** pe macOS 27.
+- **Noutăți** din meniul Shrinker Pro afișează aceste note pentru ultimele
+  versiuni.
+
+### Shrinker Studio
+
+- **35 de aspecte**, inclusiv un nou Duoton de brand în cele două culori alese
+  de dumneavoastră. Aspectele marcate cu stea apar în partea de sus.
+- **Un control de zoom** în colțul fotografiei, iar fereastra Studio poate trece
+  pe tot ecranul.
+- **Mai mult loc pentru fotografie:** trageți marginea listei de fotografii
+  pentru a o redimensiona sau restrângeți-o cu ⌃⌘S. Mânerul separatorului din
+  vizualizarea divizată apare doar când cursorul este aproape.
+- **Bare laterale din sticlă**, dacă doriți: activați-le în Configurări ▸
+  Studio.
+- **Redimensionare după latura cea mai scurtă** și alegerea dacă aplicația se
+  deschide în Shrinker Pro sau direct în Studio.
+- **Previzualizările nu se mai blochează** când schimbați fotografia în timp ce
+  se actualizează, iar o fotografie a cărei previzualizare se va reîmprospăta la
+  trecerea la ea este marcată în listă.
+- **Scrieți o recenzie** din meniul Shrinker Pro, dacă doriți să le spuneți
+  altora ce face Studio pentru dumneavoastră.]]></description>
+            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Конвертация в WebP, AVIF или JPEG XL никогда не увеличивает файл.** Если
+  результат получился бы больше оригинала, сохраняется оригинал.
+- **AVIF с качеством 100 снова работает** в macOS 27.
+- **Что нового** в меню Shrinker Pro показывает эти заметки для последних
+  версий.
+
+### Shrinker Studio
+
+- **35 стилей**, включая новый Дуотон бренда в двух ваших цветах. Стили,
+  отмеченные звёздочкой, лежат вверху.
+- **Элемент управления масштабом** в углу фотографии, а окно Studio можно
+  развернуть на весь экран.
+- **Больше места для фотографии:** потяните за край списка фотографий, чтобы
+  изменить его ширину, или сверните его сочетанием ⌃⌘S. Ручка на разделителе
+  Split View появляется, только когда указатель рядом.
+- **Стеклянные боковые панели**, если хотите: включите их в разделе Настройки ▸
+  Studio.
+- **Изменение размера по короткой стороне** и выбор, где открывать приложение: в
+  Shrinker Pro или сразу в Studio.
+- **Предпросмотр больше не зависает**, когда вы переключаете фотографии во время
+  обновления, а фотография, предпросмотр которой обновится при переключении на
+  неё, отмечена в списке.
+- **Напишите отзыв** в меню Shrinker Pro, если хотите рассказать другим, что
+  Studio делает для вас.]]></description>
+            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Prevod do WebP, AVIF alebo JPEG XL nikdy nezväčší súbor.** Ak by bol
+  výsledok väčší ako originál, ponechá sa originál.
+- **AVIF s kvalitou 100 znova funguje** v macOS 27.
+- **Čo je nové** v ponuke Shrinker Pro zobrazí tieto poznámky k posledným
+  verziám.
+
+### Shrinker Studio
+
+- **35 štýlov**, vrátane nového Duotónu značky vo vašich dvoch farbách. Štýly
+  označené hviezdičkou sú hore.
+- **Ovládanie priblíženia** v rohu fotky a okno Studia môže prejsť na celú
+  obrazovku.
+- **Viac miesta pre fotku:** potiahnutím okraja zoznamu fotiek zmeňte jeho šírku
+  alebo ho zložte pomocou ⌃⌘S. Úchyt na deliacej čiare rozdeleného zobrazenia sa
+  ukáže, len keď je ukazovateľ blízko.
+- **Sklenené bočné panely**, ak chcete: zapnite ich v Nastavenia ▸ Studio.
+- **Zmena veľkosti podľa najkratšej strany** a voľba, či sa aplikácia otvorí v
+  Shrinker Pro, alebo rovno v Studiu.
+- **Náhľady sa už nezasekávajú**, keď počas aktualizácie prepnete fotku, a
+  fotka, ktorej náhľad sa po prepnutí obnoví, je v zozname označená.
+- **Napíšte recenziu** z ponuky Shrinker Pro, ak chcete ostatným povedať, čo pre
+  vás Studio robí.]]></description>
+            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Pretvorba v WebP, AVIF ali JPEG XL nikoli ne poveča datoteke.** Če bi bil
+  rezultat večji od izvirnika, se ohrani izvirnik.
+- **AVIF s kakovostjo 100 spet deluje** v macOS 27.
+- **Kaj je novega** v meniju Shrinker Pro prikaže te opombe za zadnjih nekaj
+  različic.
+
+### Shrinker Studio
+
+- **35 videzov**, med njimi nov Duoton znamke v vaših dveh barvah. Videzi, ki
+  jih označite z zvezdico, so na vrhu.
+- **Kontrolnik povečave** v kotu fotografije, okno Studio pa lahko preide v
+  celozaslonski način.
+- **Več prostora za fotografijo:** povlecite rob seznama fotografij, da mu
+  spremenite širino, ali ga skrijte z ⌃⌘S. Ročaj na razdelilniku razdeljenega
+  pogleda se pokaže samo, ko je kazalec blizu.
+- **Stekleni stranski stolpci**, če želite: vklopite jih v Nastavitve ▸ Studio.
+- **Spreminjanje velikosti po najkrajši stranici** in izbira, ali se aplikacija
+  odpre v Shrinker Pro ali neposredno v Studiu.
+- **Predogledi se ne zatikajo več**, ko med posodabljanjem zamenjate
+  fotografijo, fotografija, katere predogled se bo osvežil ob preklopu nanjo, pa
+  je na seznamu označena.
+- **Napišite recenzijo** v meniju Shrinker Pro, če želite drugim povedati, kaj
+  Studio počne za vas.]]></description>
+            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Konvertering till WebP, AVIF eller JPEG XL gör aldrig en fil större.** Om
+  resultatet skulle bli större än originalet behålls originalet.
+- **AVIF i kvalitet 100 fungerar igen** på macOS 27.
+- **Nyheter** i Shrinker Pro-menyn visar de här anteckningarna för de senaste
+  versionerna.
+
+### Shrinker Studio
+
+- **35 stilar**, bland dem en ny Varumärkesduoton i dina egna två färger. Stilar
+  du sätter stjärna på ligger överst.
+- **En zoomkontroll** i hörnet av fotot, och Studio-fönstret kan gå i helskärm.
+- **Mer plats för fotot:** dra i kanten på fotolistan för att ändra storlek,
+  eller fäll in den med ⌃⌘S. Handtaget på skjutvyns avdelare visas bara när
+  pekaren är nära.
+- **Sidofält av glas**, om du vill: slå på dem i Inställningar ▸ Studio.
+- **Ändra storlek efter kortaste sidan**, och välj om appen öppnas i Shrinker
+  Pro eller direkt i Studio.
+- **Förhandsvisningar fastnar inte längre** när du byter foto medan de
+  uppdateras, och ett foto vars förhandsvisning uppdateras när du byter till det
+  är markerat i listan.
+- **Skriv en recension** från Shrinker Pro-menyn, om du vill berätta för andra
+  vad Studio gör för dig.]]></description>
+            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **การแปลงเป็น WebP, AVIF หรือ JPEG XL จะไม่ทำให้ไฟล์ใหญ่ขึ้นเลย** หากผลลัพธ์ใหญ่กว่าต้นฉบับ จะเก็บต้นฉบับไว้แทน
+- **AVIF คุณภาพ 100 ใช้งานได้อีกครั้ง** บน macOS 27
+- **มีอะไรใหม่** ในเมนู Shrinker Pro จะแสดงบันทึกเหล่านี้ของเวอร์ชันล่าสุดหลายเวอร์ชัน
+
+### Shrinker Studio
+
+- **ลุค 35 แบบ** รวมถึงดูโอโทนแบรนด์ใหม่ในสองสีที่คุณเลือกเอง ลุคที่คุณติดดาวไว้จะอยู่ด้านบนสุด
+- **ตัวควบคุมการซูม** ที่มุมของรูป และหน้าต่าง Studio เปิดแบบเต็มหน้าจอได้
+- **พื้นที่ให้รูปมากขึ้น:** ลากขอบของรายการรูปเพื่อปรับขนาด หรือพับเก็บด้วย ⌃⌘S แฮนเดิลบนตัวแบ่งของ Split View จะแสดงเมื่อเมาส์อยู่ใกล้ๆ เท่านั้น
+- **แถบด้านข้างแบบกระจก** ถ้าชอบ: เปิดได้ในการตั้งค่า ▸ Studio
+- **ปรับขนาดตามด้านที่สั้นที่สุด** และเลือกได้ว่าจะให้แอปเปิดใน Shrinker Pro หรือเข้า Studio ทันที
+- **ตัวอย่างไม่ค้างอีกต่อไป** เมื่อสลับรูปขณะที่กำลังอัปเดต และรูปที่ตัวอย่างจะรีเฟรชเมื่อสลับไปหาจะมีเครื่องหมายในรายการ
+- **เขียนรีวิว** ได้จากเมนู Shrinker Pro ถ้าอยากบอกคนอื่นว่า Studio ช่วยคุณได้อย่างไร]]></description>
+            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **WebP, AVIF veya JPEG XL’ye dönüştürmek dosyayı asla büyütmez.** Sonuç
+  orijinalden büyük olacaksa orijinal korunur.
+- **100 kalitesinde AVIF yeniden çalışıyor** (macOS 27).
+- **Yenilikler** Shrinker Pro menüsünde bu notları son birkaç sürüm için
+  gösterir.
+
+### Shrinker Studio
+
+- **35 stil**, kendi iki renginizle oluşturduğunuz yeni Marka duotonu dahil.
+  Yıldızladığınız stiller en üstte durur.
+- **Yakınlaştırma kontrolü** fotoğrafın köşesinde, Studio penceresi de tam
+  ekrana geçebilir.
+- **Fotoğrafa daha fazla yer:** fotoğraf listesinin kenarını sürükleyerek
+  genişliğini değiştirin ya da ⌃⌘S ile katlayın. Bölünmüş görünüm ayırıcısındaki
+  tutamaç yalnızca işaretçi yakınındayken görünür.
+- **Cam Kenar Çubukları**, isterseniz: Ayarlar ▸ Studio bölümünden açın.
+- **En kısa kenara göre yeniden boyutlandırma**; ayrıca uygulamanın Shrinker
+  Pro’da mı yoksa doğrudan Studio’da mı açılacağını seçebilirsiniz.
+- **Önizlemeler artık takılmıyor**: güncellenirken fotoğraf değiştirdiğinizde
+  sorun olmaz ve geçince önizlemesi yenilenecek fotoğraf listede işaretlenir.
+- **Yorum yazın** Shrinker Pro menüsünden, Studio’nun sizin için ne yaptığını
+  başkalarına anlatmak isterseniz.]]></description>
+            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Конвертація у WebP, AVIF або JPEG XL ніколи не збільшує файл.** Якщо
+  результат виявився б більшим за оригінал, зберігається оригінал.
+- **AVIF з якістю 100 знову працює** в macOS 27.
+- **Що нового** у меню Shrinker Pro показує ці нотатки для останніх версій.
+
+### Shrinker Studio
+
+- **35 стилів**, зокрема новий Дуотон бренду у ваших двох кольорах. Стилі,
+  позначені зірочкою, стоять угорі.
+- **Елемент керування масштабом** у куті фото, а вікно Studio можна розгорнути
+  на весь екран.
+- **Більше місця для фото:** потягніть за край списку фото, щоб змінити його
+  ширину, або згорніть його за допомогою ⌃⌘S. Ручка на роздільнику розділеного
+  вигляду зʼявляється, лише коли вказівник поруч.
+- **Скляні бічні панелі**, якщо хочете: увімкніть їх у Параметри ▸ Studio.
+- **Зміна розміру за коротшою стороною** і вибір, де відкривати застосунок: у
+  Shrinker Pro чи одразу в Studio.
+- **Попередній перегляд більше не зависає**, коли ви перемикаєте фото під час
+  оновлення, а фото, попередній перегляд якого оновиться після перемикання на
+  нього, позначене в списку.
+- **Напишіть відгук** у меню Shrinker Pro, якщо хочете розповісти іншим, що
+  Studio робить для вас.]]></description>
+            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Chuyển đổi sang WebP, AVIF hoặc JPEG XL không bao giờ làm tệp lớn hơn.** Nếu
+  kết quả lớn hơn bản gốc, bản gốc sẽ được giữ lại.
+- **AVIF ở chất lượng 100 hoạt động trở lại** trên macOS 27.
+- **Có gì mới** trong menu Shrinker Pro hiển thị các ghi chú này cho vài phiên
+  bản gần nhất.
+
+### Shrinker Studio
+
+- **35 phong cách**, trong đó có Hai tông thương hiệu mới với hai màu do chính
+  bạn chọn. Các phong cách bạn gắn sao nằm ở đầu danh sách.
+- **Nút điều khiển thu phóng** ở góc ảnh, và cửa sổ Studio có thể chuyển sang
+  toàn màn hình.
+- **Thêm chỗ cho ảnh:** kéo cạnh danh sách ảnh để đổi kích thước, hoặc thu gọn
+  bằng ⌃⌘S. Tay nắm trên thanh chia của chế độ xem chia đôi chỉ hiện khi con trỏ
+  ở gần.
+- **Thanh bên dạng kính**, nếu bạn thích: bật trong Cài đặt ▸ Studio.
+- **Đổi kích thước theo cạnh ngắn nhất**, và chọn mở ứng dụng ở Shrinker Pro hay
+  vào thẳng Studio.
+- **Bản xem trước không còn bị kẹt** khi bạn chuyển ảnh trong lúc chúng cập
+  nhật, và ảnh có bản xem trước sẽ làm mới khi bạn chuyển tới được đánh dấu
+  trong danh sách.
+- **Viết bài đánh giá** từ menu Shrinker Pro, nếu bạn muốn cho người khác biết
+  Studio giúp gì cho bạn.]]></description>
+            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **轉換為WebP、AVIF或JPEG XL絕不會令檔案變大。**如果結果比原檔大，就保留原檔。
+- **品質為100的AVIF恢復正常**，適用於macOS 27。
+- **新功能**位於Shrinker Pro選單中，顯示最近幾個版本的這些說明。
+
+### Shrinker Studio
+
+- **35種風格**，包括可用你自己兩種顏色的全新品牌雙色調。加了星號的風格會排在最上面。
+- **縮放控制**位於相片角落，Studio視窗亦可進入全螢幕。
+- **給相片更多空間**：拖移相片列表的邊緣調整闊度，或按⌃⌘S將它收起。分割顯示分隔線上的把手只在指標靠近時才顯示。
+- **玻璃側邊欄**，如果你喜歡：在設定 ▸ Studio 中開啟。
+- **按最短邊調整大小**，亦可選擇App啟動時進入Shrinker Pro還是直接進入Studio。
+- **預覽不再卡住**：更新期間切換相片也沒問題，切換後預覽會重新整理的相片會在列表中標示。
+- **撰寫評論**可從Shrinker Pro選單進入，想告訴其他人Studio幫了你什麼，就來寫一寫。]]></description>
+            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **转换为 WebP、AVIF 或 JPEG XL 绝不会让文件变大。**如果结果比原文件大，就保留原文件。
+- **品质为 100 的 AVIF 恢复正常**，适用于 macOS 27。
+- **新功能**位于 Shrinker Pro 菜单中，显示最近几个版本的这些说明。
+
+### Shrinker Studio
+
+- **35 种风格**，包括可用你自己的两种颜色的全新品牌双色调。加星标的风格会排在最上面。
+- **缩放控件**位于照片角落，Studio 窗口也可以进入全屏。
+- **给照片更多空间**：拖移照片列表的边缘调整宽度，或按 ⌃⌘S 将它收起。分屏分隔条上的手柄只在指针靠近时才显示。
+- **玻璃边栏**，如果你喜欢：在设置 ▸ Studio 中开启。
+- **按最短边调整大小**，还可以选择 App 启动时进入 Shrinker Pro 还是直接进入 Studio。
+- **预览不再卡住**：更新期间切换照片也没问题，切换后预览会刷新的照片会在列表中标出。
+- **撰写评论**可从 Shrinker Pro 菜单进入，想告诉其他人 Studio 帮到了你什么，就来写一写。]]></description>
+            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **轉換為WebP、AVIF或JPEG XL絕不會讓檔案變大。**如果結果比原檔大，就保留原檔。
+- **品質為100的AVIF恢復正常**，適用於macOS 27。
+- **新功能**位於Shrinker Pro選單中，顯示最近幾個版本的這些說明。
+
+### Shrinker Studio
+
+- **35種風格**，包括可用你自己兩種顏色的全新品牌雙色調。加星號的風格會排在最上面。
+- **縮放控制項**位於照片角落，Studio視窗也可以進入全螢幕。
+- **給照片更多空間**：拖移照片列表的邊緣調整寬度，或按⌃⌘S將它收起。分割顯示分隔線上的把手只在指標靠近時才顯示。
+- **玻璃側邊欄**，如果你喜歡：在設定 ▸ Studio 中開啟。
+- **依最短邊調整大小**，還可以選擇App啟動時進入Shrinker Pro還是直接進入Studio。
+- **預覽不再卡住**：更新期間切換照片也沒問題，切換後預覽會重新整理的照片會在列表中標示。
+- **撰寫評論**可從Shrinker Pro選單進入，想告訴其他人Studio幫了你什麼，就來寫一寫。]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.8.0/ShrinkerPro-1.8.0.dmg" length="11334624" type="application/octet-stream" sparkle:edSignature="w2+p7is9iSNr92WKwA9OQduq3gkH3OLv2CIiBcg3FofubRh6hpGmA7xBvbtSI8BFPvtbymGMZtUPZIqoWC/GAg=="/>
+        </item>
+        <item>
             <title>1.7.0</title>
             <pubDate>Mon, 09 Nov 2026 20:57:34 -0500</pubDate>
             <sparkle:version>13</sparkle:version>
@@ -947,582 +1786,6 @@ dòng cùng nhau thay vì để “⌘O” lẻ loi một mình.]]></description
 
 在**將檔案拖移到這裡**下方的格式列表中加入JPEG XL後，這一行對新視窗來說太長，「⌘O」被單獨折到下一行。現在列表變短了；在仍需換行的地方，「或按⌘O」會整體換到下一行，不會再把「⌘O」單獨留下。]]></description>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.6.1/ShrinkerPro-1.6.1.dmg" length="5844809" type="application/octet-stream" sparkle:edSignature="9jO9SX9JowPyn7Gc+XeIyxPlZ03RtME9Rszwd9YPQOscx3OBXqmOgAiI10aq4LINS3YCJ98hGMM29hXfFykKBw=="/>
-        </item>
-        <item>
-            <title>1.6.0</title>
-            <pubDate>Mon, 19 Oct 2026 00:38:06 -0400</pubDate>
-            <sparkle:version>11</sparkle:version>
-            <sparkle:shortVersionString>1.6.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[### JPEG XL, in and out
-
-Drop a `.jxl` file and it is shrunk like any other. JPEG XL is also a new
-format to convert *to*: it is offered in every rule on the **Conversion** tab,
-in the session bar's **Convert all to**, and for the `shrinker` command as
-`--to jxl`.
-
-### A JPEG converted to JPEG XL loses nothing
-
-The JPEG's own compressed data is carried across rather than decoded and
-encoded again, so the file comes out about a fifth smaller — 12.2 MB to 9.8 MB
-on a full-size photo — and the original JPEG can be rebuilt from it byte for
-byte.
-
-**Quality** has nothing to choose on that path, so it is not applied. A JPEG
-that is rotated, resized or cropped on the way is encoded again at the
-**Quality** you picked instead.
-]]></description>
-            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### JPEG XL، قراءةً وكتابةً
-
-أفلِت ملف `.jxl` وسيُصغَّر كأي ملف آخر. وصار JPEG XL أيضًا تنسيقًا جديدًا يمكن
-التحويل *إليه*: فهو متاح في كل قاعدة ضمن تبويب **التحويل**، وفي خيار
-**تحويل الكل إلى** في شريط الجلسة، ولأمر `shrinker` بالصيغة `--to jxl`.
-
-### صورة JPEG المحوَّلة إلى JPEG XL لا تخسر شيئًا
-
-تُنقل البيانات المضغوطة الخاصة بصورة JPEG كما هي بدلًا من فك ترميزها ثم
-ترميزها من جديد، فيخرج الملف أصغر بنحو الخُمس — من 12.2 MB إلى 9.8 MB في صورة
-بحجمها الكامل — ويمكن إعادة بناء صورة JPEG الأصلية منه بايتًا ببايت.
-
-أما خيار **الجودة** فليس فيه ما تختاره في هذا المسار، لذا لا يُطبَّق. وصورة JPEG
-التي تُدوَّر أو يُغيَّر حجمها أو تُقتصّ في الطريق يُعاد ترميزها بدلًا من ذلك
-بمستوى **الجودة** الذي اخترته.]]></description>
-            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### JPEG XL, d’entrada i de sortida
-
-Deixa anar un fitxer `.jxl` i es reduirà com qualsevol altre. El JPEG XL també
-és un format nou *al* qual convertir: s’ofereix a totes les regles de la pestanya
-**Conversió**, a l’opció **Converteix-ho tot a** de la barra de sessió i, per a
-l’ordre `shrinker`, com a `--to jxl`.
-
-### Un JPEG convertit a JPEG XL no perd res
-
-Les dades comprimides del mateix JPEG es traslladen tal qual en comptes de
-descodificar-se i tornar-se a codificar, així que el fitxer surt prop d’una
-cinquena part més petit (de 12,2 MB a 9,8 MB en una foto de mida completa) i el
-JPEG original se’n pot reconstruir byte a byte.
-
-A **Qualitat** no hi ha res a triar per aquest camí, així que no s’aplica. Un
-JPEG que es gira, es redimensiona o s’escapça pel camí es torna a codificar, en
-canvi, amb la **Qualitat** que hagis triat.]]></description>
-            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### JPEG XL dovnitř i ven
-
-Přetáhněte soubor `.jxl` a zmenší se jako kterýkoli jiný. JPEG XL je také nový
-formát, *do* kterého lze převádět: nabízí se v každém pravidle v panelu
-**Převod**, v panelu relace pod volbou **Převést vše na** a u příkazu
-`shrinker` jako `--to jxl`.
-
-### JPEG převedený na JPEG XL nic neztratí
-
-Vlastní komprimovaná data JPEGu se přenesou beze změny, místo aby se dekódovala
-a znovu kódovala, takže soubor vyjde zhruba o pětinu menší — u fotky v plné
-velikosti z 12,2 MB na 9,8 MB — a původní JPEG se z něj dá obnovit bajt po
-bajtu.
-
-U volby **Kvalita** není na této cestě co vybírat, a proto se nepoužije. JPEG,
-který se cestou otáčí, mění velikost nebo ořezává, se místo toho znovu zakóduje
-v nastavení **Kvalita**, které jste zvolili.]]></description>
-            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### JPEG XL, ind og ud
-
-Slip en `.jxl`-fil, og den bliver krympet som alle andre. JPEG XL er også et
-nyt format at konvertere *til*: Det kan vælges i hver regel på fanen
-**Konvertering**, i sessionslinjens **Konverter alt til** og for kommandoen
-`shrinker` som `--to jxl`.
-
-### En JPEG konverteret til JPEG XL mister intet
-
-JPEG-filens egne komprimerede data bliver ført direkte over i stedet for at
-blive afkodet og kodet igen, så filen bliver omkring en femtedel mindre — fra
-12,2 MB til 9,8 MB på et foto i fuld størrelse — og den oprindelige JPEG kan
-genskabes ud fra den byte for byte.
-
-Ved **Kvalitet** er der intet at vælge på den vej, så den bliver ikke anvendt.
-En JPEG, der bliver roteret, skaleret eller beskåret undervejs, bliver i stedet
-kodet igen med den **Kvalitet**, du har valgt.]]></description>
-            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### JPEG XL, rein und raus
-
-Zieh eine `.jxl`-Datei hinein, und sie wird verkleinert wie jede andere. JPEG XL
-ist außerdem ein neues Format, *in* das konvertiert werden kann: Es steht in
-jeder Regel im Tab **Konvertierung** zur Wahl, in der Sitzungsleiste unter
-**Konvertieren in** und beim Befehl `shrinker` als `--to jxl`.
-
-### Ein in JPEG XL konvertiertes JPEG verliert nichts
-
-Die komprimierten Daten des JPEG werden direkt übernommen, statt decodiert und
-neu codiert zu werden. Die Datei wird dadurch etwa ein Fünftel kleiner — bei
-einem Foto in voller Größe von 12,2 MB auf 9,8 MB —, und das ursprüngliche JPEG
-lässt sich daraus Byte für Byte wiederherstellen.
-
-Bei **Qualität** gibt es auf diesem Weg nichts auszuwählen, deshalb wird sie
-nicht angewendet. Ein JPEG, das unterwegs gedreht, skaliert oder zugeschnitten
-wird, wird stattdessen mit der gewählten **Qualität** neu codiert.]]></description>
-            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### JPEG XL, για είσοδο και έξοδο
-
-Αφήστε ένα αρχείο `.jxl` και θα σμικρυνθεί όπως κάθε άλλο. Το JPEG XL είναι
-επίσης μια νέα μορφή *προς* την οποία μπορείτε να κάνετε μετατροπή: προσφέρεται
-σε κάθε κανόνα της καρτέλας **Μετατροπή**, στην επιλογή **Μετατροπή όλων σε**
-της γραμμής συνεδρίας και, για την εντολή `shrinker`, ως `--to jxl`.
-
-### Ένα JPEG που μετατρέπεται σε JPEG XL δεν χάνει τίποτα
-
-Τα ίδια τα συμπιεσμένα δεδομένα του JPEG μεταφέρονται αυτούσια, αντί να
-αποκωδικοποιηθούν και να κωδικοποιηθούν ξανά, οπότε το αρχείο βγαίνει περίπου
-κατά ένα πέμπτο μικρότερο — από 12,2 MB σε 9,8 MB σε μια φωτογραφία πλήρους
-μεγέθους — και το αρχικό JPEG μπορεί να ανασυντεθεί από αυτό byte προς byte.
-
-Στην **Ποιότητα** δεν υπάρχει τίποτα να επιλέξετε σε αυτή τη διαδρομή, γι’ αυτό
-δεν εφαρμόζεται. Ένα JPEG που περιστρέφεται, αλλάζει μέγεθος ή περικόπτεται στην
-πορεία κωδικοποιείται αντίθετα ξανά με την **Ποιότητα** που επιλέξατε.]]></description>
-            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### JPEG XL, de entrada y de salida
-
-Suelta un archivo `.jxl` y se reducirá como cualquier otro. JPEG XL es además un
-nuevo formato *al* que convertir: se ofrece en todas las reglas de la pestaña
-**Conversión**, en la opción **Convertir todo a** de la barra de sesión y, para
-el comando `shrinker`, como `--to jxl`.
-
-### Un JPEG convertido a JPEG XL no pierde nada
-
-Los propios datos comprimidos del JPEG se trasladan tal cual, en lugar de
-descodificarse y volver a codificarse, así que el archivo sale alrededor de una
-quinta parte más pequeño (de 12,2 MB a 9,8 MB en una foto a tamaño completo) y
-el JPEG original puede reconstruirse a partir de él byte a byte.
-
-En **Calidad** no hay nada que elegir por esa vía, así que no se aplica. Un JPEG
-que se gira, se redimensiona o se recorta por el camino se vuelve a codificar,
-en cambio, con la **Calidad** que hayas elegido.]]></description>
-            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### JPEG XL، هم در ورودی و هم در خروجی
-
-یک فایل `.jxl` را رها کنید تا مانند هر فایل دیگری کوچک شود. JPEG XL همچنین
-قالب تازه‌ای است که می‌توان *به* آن تبدیل کرد: در هر قاعده در زبانهٔ
-**تبدیل**، در **تبدیل همه به** در نوار جلسه، و برای فرمان `shrinker` به صورت
-`--to jxl` در دسترس است.
-
-### فایل JPEG‌ای که به JPEG XL تبدیل شود چیزی از دست نمی‌دهد
-
-دادهٔ فشرده‌شدهٔ خودِ JPEG به جای آنکه کدگشایی و دوباره کدگذاری شود، بی‌تغییر
-منتقل می‌شود؛ بنابراین فایل حدود یک‌پنجم کوچک‌تر بیرون می‌آید — در یک عکس با
-اندازهٔ کامل از 12.2 MB به 9.8 MB — و JPEG اصلی را می‌توان بایت به بایت از روی
-آن بازسازی کرد.
-
-تنظیم **کیفیت** در این مسیر چیزی برای انتخاب ندارد، پس اعمال نمی‌شود. اما
-JPEG‌ای که در این میان چرخانده شود، اندازه‌اش تغییر کند یا برش بخورد، با همان
-**کیفیت** انتخابی شما دوباره کدگذاری می‌شود.]]></description>
-            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### JPEG XL sisään ja ulos
-
-Pudota `.jxl`-tiedosto, niin se pienennetään kuten mikä tahansa muu. JPEG XL
-on myös uusi muoto, *johon* muuntaa: se on tarjolla jokaisessa
-**Muunnos**-välilehden säännössä, istuntopalkin valinnassa **Muunna kaikki muotoon**
-sekä `shrinker`-komennolle muodossa `--to jxl`.
-
-### JPEG XL:ksi muunnettu JPEG ei menetä mitään
-
-JPEG:n oma pakattu data siirretään sellaisenaan sen sijaan, että se
-purettaisiin ja koodattaisiin uudelleen, joten tiedostosta tulee noin
-viidenneksen pienempi — täysikokoisessa valokuvassa 12,2 Mt:n sijaan 9,8 Mt —
-ja alkuperäinen JPEG voidaan palauttaa siitä tavu tavulta.
-
-**Laatu**-asetuksella ei ole tällä reitillä mitään valittavaa, joten sitä ei
-käytetä. Jos JPEG matkalla käännetään, sen kokoa muutetaan tai se rajataan, se
-koodataan sen sijaan uudelleen valitsemallasi **Laatu**-asetuksella.]]></description>
-            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### JPEG XL, en entrée comme en sortie
-
-Déposez un fichier `.jxl` et il est réduit comme n’importe quel autre. JPEG XL
-est aussi un nouveau format *vers* lequel convertir : il est proposé dans
-chaque règle de l’onglet **Conversion**, dans **Tout convertir en** de la barre
-de session, et pour la commande `shrinker` sous la forme `--to jxl`.
-
-### Un JPEG converti en JPEG XL ne perd rien
-
-Les données compressées du JPEG lui-même sont reprises telles quelles au lieu
-d’être décodées puis encodées à nouveau : le fichier en sort plus léger
-d’environ un cinquième — de 12,2 Mo à 9,8 Mo sur une photo en pleine
-taille — et le JPEG original peut en être reconstruit octet pour octet.
-
-Le réglage **Qualité** n’a rien à décider sur ce chemin, il n’est donc pas
-appliqué. Un JPEG pivoté, redimensionné ou recadré en cours de route est en
-revanche encodé à nouveau avec le réglage **Qualité** que vous avez choisi.]]></description>
-            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### JPEG XL כקלט וכפלט
-
-גוררים קובץ `.jxl` והוא מכווץ כמו כל קובץ אחר. JPEG XL הוא גם פורמט חדש
-להמרה *אליו*: הוא מוצע בכל כלל בלשונית **המרה**, בתפריט **המרת הכול ל-**
-שבסרגל ההפעלה, ובפקודה `shrinker` בתור `--to jxl`.
-
-### JPEG שהומר ל-JPEG XL לא מאבד דבר
-
-הנתונים הדחוסים של ה-JPEG עצמו מועברים כמות שהם במקום להיות מפוענחים
-ומקודדים מחדש, כך שהקובץ יוצא קטן בערך בחמישית — מ-12.2 MB ל-9.8 MB בתמונה
-בגודל מלא — ואפשר לשחזר ממנו את ה-JPEG המקורי בית אחר בית.
-
-להגדרה **איכות** אין מה לבחור במסלול הזה, ולכן היא לא מוחלת. JPEG שעובר
-בדרך סיבוב, שינוי גודל או חיתוך מקודד במקום זאת מחדש לפי ההגדרה **איכות**
-שנבחרה.]]></description>
-            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### JPEG XL, na ulazu i na izlazu
-
-Ispustite datoteku `.jxl` i smanjit će se kao i svaka druga. JPEG XL ujedno je
-i novi format *u* koji se može konvertirati: nudi se u svakom pravilu na
-kartici **Konverzija**, u izborniku **Konvertiraj sve u** na traci sesije te
-za naredbu `shrinker` kao `--to jxl`.
-
-### JPEG konvertiran u JPEG XL ne gubi ništa
-
-Vlastiti komprimirani podaci JPEG-a prenose se izravno umjesto da se
-dekodiraju i ponovno kodiraju, pa je datoteka otprilike za petinu manja — s
-12,2 MB na 9,8 MB kod fotografije pune veličine — a izvorni JPEG može se iz
-nje rekonstruirati bajt po bajt.
-
-Postavka **Kvaliteta** na tom putu nema što birati, pa se ne primjenjuje.
-JPEG koji se usput zakrene, kojemu se promijeni veličina ili koji se izreže
-umjesto toga ponovno se kodira s postavkom **Kvaliteta** koju ste odabrali.]]></description>
-            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### JPEG XL bemenetként és kimenetként
-
-Húzzon be egy `.jxl` fájlt, és az app ugyanúgy tömöríti, mint bármely
-másikat. A JPEG XL emellett új formátum, *amelyre* át is lehet alakítani: ott
-van az **Átalakítás** lap minden szabályában, a munkamenetsáv **Összes átalakítása erre**
-menüjében, a `shrinker` parancsnál pedig `--to jxl`
-formában.
-
-### A JPEG XL-re átalakított JPEG semmit sem veszít
-
-A JPEG saját tömörített adatai változatlanul átkerülnek ahelyett, hogy
-dekódolás után újra kódolódnának, így a fájl nagyjából egyötödével kisebb
-lesz — egy teljes méretű fotónál 12,2 MB helyett 9,8 MB —, és az eredeti JPEG
-bájtról bájtra visszaállítható belőle.
-
-Ezen az úton a **Minőség** beállításnak nincs mit eldöntenie, ezért nem
-érvényesül. Az útközben elforgatott, átméretezett vagy körbevágott JPEG-et
-viszont az app a választott **Minőség** értékkel kódolja újra.]]></description>
-            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### JPEG XL, inn og út
-
-Slepptu `.jxl`-skrá og hún er minnkuð eins og hver önnur. JPEG XL er líka nýtt
-snið til að umbreyta *í*: það er í boði í hverri reglu á flipanum
-**Umbreyting**, í **Umbreyta öllu í** á lotustikunni og fyrir skipunina
-`shrinker` sem `--to jxl`.
-
-### JPEG sem er umbreytt í JPEG XL tapar engu
-
-Þjöppuðu gögnin úr JPEG-myndinni sjálfri eru flutt yfir í stað þess að vera
-afkóðuð og kóðuð aftur, svo skráin verður um fimmtungi minni — úr 12,2 MB í
-9,8 MB á mynd í fullri stærð — og hægt er að endurgera upprunalegu JPEG-myndina
-úr henni bæti fyrir bæti.
-
-Stillingin **Gæði** hefur ekkert að velja á þeirri leið og er því ekki notuð.
-Ef JPEG-mynd er snúið, stærð hennar breytt eða hún skorin til á leiðinni er hún
-hins vegar kóðuð aftur samkvæmt stillingunni **Gæði** sem þú valdir.]]></description>
-            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### JPEG XL, in entrata e in uscita
-
-Trascina un file `.jxl` e viene ridotto come qualsiasi altro. JPEG XL è anche
-un nuovo formato *in* cui convertire: è disponibile in ogni regola della scheda
-**Conversione**, in **Converti tutto in** nella barra della sessione e, per il
-comando `shrinker`, come `--to jxl`.
-
-### Un JPEG convertito in JPEG XL non perde nulla
-
-I dati compressi del JPEG vengono trasferiti così come sono, invece di essere
-decodificati e codificati di nuovo, quindi il file risulta più piccolo di circa
-un quinto — da 12,2 MB a 9,8 MB su una foto a piena risoluzione — e il JPEG
-originale può esserne ricostruito byte per byte.
-
-Su questo percorso **Qualità** non ha nulla da scegliere, quindi non viene
-applicata. Un JPEG che lungo la strada viene ruotato, ridimensionato o
-ritagliato viene invece codificato di nuovo con il valore che hai scelto in
-**Qualità**.]]></description>
-            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### JPEG XL、読み込みも書き出しも
-
-`.jxl`ファイルをドロップすれば、ほかのファイルと同じように圧縮されます。JPEG XLは新しい変換先のフォーマットでもあります。**変換**タブのすべてのルールで選べるほか、セッションバーの**すべてを変換**でも選べ、`shrinker`コマンドでは`--to jxl`として指定できます。
-
-### JPEGからJPEG XLへの変換では何も失われません
-
-JPEG自体の圧縮データを、デコードしてエンコードし直すのではなく、そのまま引き継ぐので、ファイルはおよそ5分の1小さくなります(フルサイズの写真で12.2 MBから9.8 MBへ)。しかも、元のJPEGをそこから1バイトも違わずに復元できます。
-
-**品質**はこの経路では選ぶものがないため、適用されません。途中で回転、サイズ変更、切り取りが行われるJPEGは、代わりに指定した**品質**でエンコードし直されます。]]></description>
-            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### JPEG XL, 읽기와 쓰기 모두
-
-`.jxl` 파일을 놓으면 다른 파일과 똑같이 압축됩니다. JPEG XL은 새로 추가된 변환 대상 포맷이기도 합니다. **변환** 탭의 모든 규칙에서 고를 수 있고, 세션 막대의 **모두 변환**에서도 고를 수 있으며, `shrinker` 명령에서는 `--to jxl`로 지정할 수 있습니다.
-
-### JPEG를 JPEG XL로 변환하면 잃는 것이 없습니다
-
-JPEG 자체의 압축 데이터를 디코딩했다가 다시 인코딩하지 않고 그대로 옮겨 오기 때문에, 파일이 약 5분의 1만큼 작아지고(전체 크기 사진에서 12.2MB가 9.8MB로), 원래의 JPEG를 거기서 바이트 하나까지 그대로 복원할 수 있습니다.
-
-**품질**은 이 경로에서는 고를 것이 없으므로 적용되지 않습니다. 도중에 회전, 크기 조절, 자르기를 거치는 JPEG는 대신 선택한 **품질**로 다시 인코딩됩니다.]]></description>
-            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### JPEG XL, inn og ut
-
-Slipp en `.jxl`-fil, så krympes den som alle andre. JPEG XL er også et nytt
-format å konvertere *til*: det tilbys i hver regel på fanen **Konvertering**, i
-**Konverter alt til** på øktlinjen og for kommandoen `shrinker` som `--to jxl`.
-
-### En JPEG konvertert til JPEG XL mister ingenting
-
-JPEG-ens egne komprimerte data blir ført over i stedet for å bli dekodet og
-kodet på nytt, så filen blir omtrent en femtedel mindre — fra 12,2 MB til
-9,8 MB på et bilde i full størrelse — og den opprinnelige JPEG-en kan
-gjenskapes fra den byte for byte.
-
-Under **Kvalitet** er det ingenting å velge på den veien, så innstillingen blir
-ikke brukt. En JPEG som roteres, skaleres eller beskjæres underveis, blir i
-stedet kodet på nytt med verdien du har valgt under **Kvalitet**.]]></description>
-            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### JPEG XL, in en uit
-
-Sleep een `.jxl`-bestand erin en het wordt verkleind zoals elk ander. JPEG XL
-is ook een nieuw formaat om *naar* te converteren: het wordt aangeboden in elke
-regel op het tabblad **Conversie**, in **Converteer alles naar** in de
-sessiebalk en voor de opdracht `shrinker` als `--to jxl`.
-
-### Een JPEG die naar JPEG XL wordt geconverteerd, verliest niets
-
-De eigen gecomprimeerde gegevens van de JPEG worden overgenomen in plaats van
-gedecodeerd en opnieuw gecodeerd, dus het bestand wordt ongeveer een vijfde
-kleiner — van 12,2 MB naar 9,8 MB bij een foto op volle grootte — en de
-oorspronkelijke JPEG kan er byte voor byte uit worden gereconstrueerd.
-
-Bij **Kwaliteit** valt er op die route niets te kiezen, dus die wordt niet
-toegepast. Een JPEG die onderweg wordt gedraaid, geschaald of bijgesneden,
-wordt in plaats daarvan opnieuw gecodeerd met de waarde die je bij
-**Kwaliteit** hebt gekozen.]]></description>
-            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### JPEG XL, inn og ut
-
-Slepp ei `.jxl`-fil, så blir ho krympa som alle andre. JPEG XL er òg eit nytt
-format å konvertere *til*: det blir tilbode i kvar regel på fana
-**Konvertering**, i **Konverter alt til** på øktlinja og for kommandoen
-`shrinker` som `--to jxl`.
-
-### Ein JPEG konvertert til JPEG XL mistar ingenting
-
-Dei eigne komprimerte dataa til JPEG-en blir førte over i staden for å bli
-dekoda og koda på nytt, så fila blir om lag ein femdel mindre — frå 12,2 MB til
-9,8 MB på eit bilete i full storleik — og den opphavlege JPEG-en kan byggjast
-opp att byte for byte frå fila.
-
-Under **Kvalitet** er det ingenting å velje på den vegen, så innstillinga blir
-ikkje brukt. Ein JPEG som blir rotert, skalert eller beskoren undervegs, blir i
-staden koda på nytt med verdien du har valt under **Kvalitet**.]]></description>
-            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### JPEG XL na wejściu i na wyjściu
-
-Upuść plik `.jxl`, a zostanie zmniejszony jak każdy inny. JPEG XL to także nowy
-format, *na* który można konwertować: jest dostępny w każdej regule na karcie
-**Konwersja**, w opcji **Konwertuj wszystko na** na pasku sesji oraz
-w poleceniu `shrinker` jako `--to jxl`.
-
-### JPEG przekonwertowany na JPEG XL nic nie traci
-
-Skompresowane dane samego JPEG-a są przenoszone bez zmian, zamiast być
-dekodowane i kodowane od nowa, więc plik wychodzi mniej więcej o jedną piątą
-mniejszy — z 12,2 MB do 9,8 MB w przypadku zdjęcia w pełnym rozmiarze —
-a oryginalny JPEG można z niego odtworzyć bajt po bajcie.
-
-Opcja **Jakość** nie ma na tej ścieżce nic do wyboru, więc nie jest stosowana.
-JPEG, który po drodze jest obracany, skalowany lub kadrowany, zostaje natomiast
-zakodowany od nowa z wartością wybraną w opcji **Jakość**.]]></description>
-            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### JPEG XL, na entrada e na saída
-
-Solte um arquivo `.jxl` e ele é reduzido como qualquer outro. O JPEG XL também
-é um novo formato *para* o qual converter: ele aparece em todas as regras da
-aba **Conversão**, em **Converter tudo em** na barra da sessão e, no comando
-`shrinker`, como `--to jxl`.
-
-### Um JPEG convertido para JPEG XL não perde nada
-
-Os dados comprimidos do próprio JPEG são levados adiante em vez de serem
-decodificados e codificados de novo, então o arquivo sai cerca de um quinto
-menor — de 12,2 MB para 9,8 MB em uma foto em tamanho real — e o JPEG original
-pode ser reconstruído a partir dele byte por byte.
-
-A **Qualidade** não tem nada a escolher nesse caminho, então não é aplicada. Um
-JPEG que é girado, redimensionado ou recortado no meio do caminho é codificado
-de novo na **Qualidade** que você escolheu.]]></description>
-            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### JPEG XL, à entrada e à saída
-
-Largue um ficheiro `.jxl` e é reduzido como qualquer outro. O JPEG XL é também
-um novo formato *para* o qual converter: está disponível em todas as regras do
-separador **Conversão**, em **Converter tudo para** na barra da sessão e, no
-comando `shrinker`, como `--to jxl`.
-
-### Um JPEG convertido em JPEG XL não perde nada
-
-Os dados comprimidos do próprio JPEG são transportados tal como estão, em vez de
-serem descodificados e codificados de novo, pelo que o ficheiro fica cerca de um
-quinto mais pequeno — de 12,2 MB para 9,8 MB numa fotografia em tamanho real — e
-o JPEG original pode ser reconstruído a partir dele byte a byte.
-
-A **Qualidade** não tem nada a escolher nesse percurso, pelo que não é aplicada.
-Um JPEG que seja rodado, redimensionado ou recortado pelo caminho é codificado
-de novo com a **Qualidade** que escolheu.]]></description>
-            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### JPEG XL, la intrare și la ieșire
-
-Plasați un fișier `.jxl` și este micșorat ca oricare altul. JPEG XL este și un
-format nou *în* care puteți converti: este oferit în fiecare regulă din fila
-**Conversie**, în **Convertiți toate în** din bara sesiunii și, pentru comanda
-`shrinker`, ca `--to jxl`.
-
-### Un JPEG convertit în JPEG XL nu pierde nimic
-
-Datele comprimate proprii ale JPEG-ului sunt preluate ca atare, în loc să fie
-decodate și codate din nou, așa că fișierul iese cu aproximativ o cincime mai
-mic — de la 12,2 MB la 9,8 MB pentru o fotografie la dimensiune completă — iar
-JPEG-ul original poate fi refăcut din el octet cu octet.
-
-Opțiunea **Calitate** nu are nimic de ales pe această cale, așa că nu se aplică.
-Un JPEG care este rotit, redimensionat sau decupat pe parcurs este codat din nou
-cu valoarea **Calitate** pe care ați ales-o.]]></description>
-            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### JPEG XL на входе и на выходе
-
-Перетащите файл `.jxl` — и он уменьшится, как любой другой. JPEG XL — это ещё
-и новый формат, *в* который можно конвертировать: он есть в каждом правиле
-на вкладке **Конвертация**, в пункте **Конвертировать всё в** на панели сеанса
-и для команды `shrinker` как `--to jxl`.
-
-### JPEG, конвертированный в JPEG XL, ничего не теряет
-
-Собственные сжатые данные JPEG переносятся как есть, а не декодируются
-и кодируются заново, поэтому файл получается примерно на пятую часть меньше —
-с 12,2 МБ до 9,8 МБ на полноразмерной фотографии, — а исходный JPEG можно
-восстановить из него байт в байт.
-
-Параметру **Качество** на этом пути выбирать нечего, поэтому он
-не применяется. JPEG, который по дороге поворачивается, масштабируется или
-обрезается, кодируется заново с выбранным вами значением параметра **Качество**.]]></description>
-            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### JPEG XL na vstupe aj na výstupe
-
-Pustite súbor `.jxl` do okna a zmenší sa ako ktorýkoľvek iný. JPEG XL je
-zároveň nový formát, *na* ktorý sa dá konvertovať: ponúka sa v každom pravidle
-na tabe **Konverzia**, v ponuke **Konvertovať všetko na** na lište relácie
-a pre príkaz `shrinker` ako `--to jxl`.
-
-### JPEG skonvertovaný na JPEG XL nič nestratí
-
-Vlastné komprimované dáta JPEG sa prenesú tak, ako sú, namiesto toho, aby sa
-dekódovali a znova kódovali, takže súbor vyjde asi o pätinu menší — z 12,2 MB
-na 9,8 MB pri fotke v plnej veľkosti — a pôvodný JPEG sa z neho dá
-zrekonštruovať bajt po bajte.
-
-Voľba **Kvalita** nemá na tejto ceste čo vyberať, preto sa nepoužije. JPEG,
-ktorý sa cestou otočí, oreže alebo ktorému sa zmení veľkosť, sa namiesto toho
-znova zakóduje s nastavením **Kvalita**, ktoré ste vybrali.]]></description>
-            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### JPEG XL na vhodu in na izhodu
-
-Spustite datoteko `.jxl` v okno in zmanjša se kot vsaka druga. JPEG XL je tudi
-nova oblika zapisa, *v* katero lahko pretvarjate: na voljo je v vsakem pravilu
-na zavihku **Pretvorba**, v možnosti **Pretvori vse v** v vrstici seje in za
-ukaz `shrinker` kot `--to jxl`.
-
-### JPEG, pretvorjen v JPEG XL, ne izgubi ničesar
-
-Lastni stisnjeni podatki JPEG-a se prenesejo takšni, kot so, namesto da bi se
-dekodirali in znova kodirali, zato je datoteka na koncu približno petino manjša
-— z 12,2 MB na 9,8 MB pri fotografiji v polni velikosti — in izvirni JPEG je iz
-nje mogoče obnoviti bajt za bajtom.
-
-Nastavitev **Kakovost** na tej poti nima česa izbirati, zato se ne uporabi.
-JPEG, ki je med potjo zasukan, obrezan ali mu je spremenjena velikost, se
-namesto tega znova kodira z nastavitvijo **Kakovost**, ki ste jo izbrali.]]></description>
-            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### JPEG XL, in och ut
-
-Släpp en `.jxl`-fil så krymps den som vilken annan som helst. JPEG XL är också
-ett nytt format att konvertera *till*: det finns i varje regel på fliken
-**Konvertering**, i sessionsfältets **Konvertera allt till** och för kommandot
-`shrinker` som `--to jxl`.
-
-### En JPEG som konverteras till JPEG XL förlorar ingenting
-
-JPEG-filens egna komprimerade data förs över i stället för att avkodas och kodas
-om, så filen blir ungefär en femtedel mindre — från 12,2 MB till 9,8 MB för ett
-foto i full storlek — och den ursprungliga JPEG-filen kan återskapas ur den byte
-för byte.
-
-**Kvalitet** har inget att välja på den vägen, så den tillämpas inte. En JPEG
-som roteras, storleksändras eller beskärs på vägen kodas i stället om med den
-**Kvalitet** du valde.]]></description>
-            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### JPEG XL ทั้งขาเข้าและขาออก
-
-ลากไฟล์ `.jxl` มาวาง แล้วไฟล์จะถูกบีบอัดเหมือนไฟล์อื่น ๆ นอกจากนี้ JPEG XL ยังเป็นรูปแบบใหม่ที่แปลง*ไปเป็น*ได้ด้วย
-โดยมีให้เลือกในทุกกฎของแท็บ **การแปลง**, ในเมนู **แปลงทั้งหมดเป็น** ของแถบเซสชั่น และในคำสั่ง `shrinker` ในรูปแบบ `--to jxl`
-
-### JPEG ที่แปลงเป็น JPEG XL ไม่สูญเสียอะไรเลย
-
-ข้อมูลที่บีบอัดไว้แล้วของ JPEG จะถูกยกข้ามไปทั้งชุด แทนที่จะถอดรหัสแล้วเข้ารหัสใหม่อีกครั้ง ไฟล์ที่ได้จึงเล็กลงราวหนึ่งในห้า
-— จาก 12.2 MB เหลือ 9.8 MB สำหรับรูปถ่ายขนาดเต็ม — และยังสร้าง JPEG ต้นฉบับกลับคืนจากไฟล์นี้ได้ตรงกันทุกไบต์
-
-ในเส้นทางนี้ **คุณภาพ** ไม่มีอะไรให้เลือก จึงไม่ถูกนำมาใช้ ส่วน JPEG ที่ถูกหมุน ปรับขนาด หรือครอบตัดระหว่างทาง
-จะถูกเข้ารหัสใหม่ตาม **คุณภาพ** ที่คุณเลือกไว้แทน]]></description>
-            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### JPEG XL, girişte ve çıkışta
-
-Bir `.jxl` dosyasını bırakın, diğerleri gibi küçültülür. JPEG XL aynı zamanda
-dönüştürülebilecek yeni bir hedef formattır: **Dönüştürme** sekmesindeki her
-kuralda, oturum çubuğundaki **Tümünü dönüştür** menüsünde ve `shrinker`
-komutunda `--to jxl` olarak sunulur.
-
-### JPEG XL’e dönüştürülen bir JPEG hiçbir şey kaybetmez
-
-JPEG’in kendi sıkıştırılmış verisi çözülüp yeniden kodlanmak yerine olduğu gibi
-aktarılır; böylece dosya yaklaşık beşte bir oranında küçülür — tam boyutlu bir
-fotoğrafta 12,2 MB’tan 9,8 MB’a — ve özgün JPEG bu dosyadan bayt bayt yeniden
-oluşturulabilir.
-
-Bu yolda **Kalite** ile seçilecek bir şey yoktur, bu yüzden uygulanmaz. Yol
-üzerinde döndürülen, yeniden boyutlandırılan ya da kırpılan bir JPEG ise bunun
-yerine seçtiğiniz **Kalite** ile yeniden kodlanır.]]></description>
-            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### JPEG XL на вході й на виході
-
-Перетягніть файл `.jxl`, і його буде зменшено, як і будь-який інший. JPEG XL
-також став новим форматом, *у* який можна конвертувати: його пропонує кожне
-правило на вкладці **Конвертування**, меню **Конвертувати все у** на панелі сеансу
-та команда `shrinker` як `--to jxl`.
-
-### JPEG, конвертований у JPEG XL, нічого не втрачає
-
-Власні стиснені дані JPEG переносяться як є, а не декодуються й кодуються
-наново, тож файл виходить приблизно на пʼяту частину меншим (з 12,2 МБ до
-9,8 МБ на повнорозмірному фото), і з нього можна байт у байт відновити
-оригінальний JPEG.
-
-На цьому шляху в параметрі **Якість** нема чого вибирати, тож він не
-застосовується.
-JPEG, який дорогою повертають, змінюють у розмірі чи обтинають, натомість
-кодується наново з тим значенням, що ви вибрали в параметрі **Якість**.]]></description>
-            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### JPEG XL, cả đầu vào lẫn đầu ra
-
-Thả một tệp `.jxl` vào và tệp sẽ được nén như mọi tệp khác. JPEG XL cũng là
-một định dạng mới để chuyển *sang*: định dạng này có trong mọi quy tắc ở thẻ
-**Chuyển đổi**, trong mục **Chuyển đổi tất cả sang** của thanh phiên, và trong
-lệnh `shrinker` dưới dạng `--to jxl`.
-
-### JPEG chuyển sang JPEG XL không mất gì cả
-
-Dữ liệu đã nén sẵn của chính tệp JPEG được chuyển nguyên sang thay vì giải mã
-rồi mã hóa lại, nên tệp ra nhỏ hơn khoảng một phần năm — từ 12,2 MB xuống
-9,8 MB với một bức ảnh kích cỡ đầy đủ — và có thể dựng lại tệp JPEG gốc từ đó
-đúng đến từng byte.
-
-Trên con đường này, **Chất lượng** không có gì để chọn, nên không được áp dụng.
-Một tệp JPEG bị xoay, đổi kích cỡ hoặc cắt xén trên đường đi thì sẽ được mã hóa
-lại theo mức **Chất lượng** bạn đã chọn.]]></description>
-            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### JPEG XL，可入可出
-
-拖放一個`.jxl`檔案，它就會像其他檔案一樣被壓縮。JPEG XL亦是一種可以*轉換成*的新格式：**轉換**標籤頁裡的每條規則、今次設定列的**全部轉換為**，以及`shrinker`指令的`--to jxl`，都提供這個選項。
-
-### JPEG轉換成JPEG XL，毫無損失
-
-JPEG本身已壓縮的數據會原封不動地搬過去，而不是先解碼再重新編碼，所以檔案會細約五分之一（一張全尺寸相片由12.2 MB減至9.8 MB），而且可以從中逐個位元組還原出原本的JPEG。
-
-在這條路徑上，**品質**沒有甚麼可選，所以不會套用。如果JPEG在途中被旋轉、調整大小或裁剪，就會改為按照你所揀的**品質**重新編碼。]]></description>
-            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### JPEG XL，能进能出
-
-拖入一个 `.jxl` 文件，它就会像其他文件一样被压缩。JPEG XL 也是一种可以*转换成*的新格式：**转换**标签页中的每条规则、会话栏的**全部转换为**，以及 `shrinker` 命令的 `--to jxl`，都提供了这一选项。
-
-### JPEG 转换为 JPEG XL，毫无损失
-
-JPEG 自身已压缩的数据会被原样搬过去，而不是先解码再重新编码，因此文件会小约五分之一——一张全尺寸照片从 12.2 MB 变为 9.8 MB——而且可以从中逐字节还原出原始的 JPEG。
-
-在这条路径上，**质量**没有什么可选的，所以不会应用。如果 JPEG 在途中被旋转、调整大小或裁剪，则会改为按照你所选的**质量**重新编码。]]></description>
-            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### JPEG XL，能進能出
-
-拖入一個`.jxl`檔案，它就會像其他檔案一樣被壓縮。JPEG XL也是一種可以*轉換成*的新格式：**轉換**標籤頁中的每條規則、工作階段列的**全部轉換為**，以及`shrinker`指令的`--to jxl`，都提供了這個選項。
-
-### JPEG轉換為JPEG XL，毫無損失
-
-JPEG本身已壓縮的資料會原封不動地搬過去，而不是先解碼再重新編碼，因此檔案會小約五分之一——一張全尺寸照片從12.2 MB變為9.8 MB——而且可以從中逐位元組還原出原始的JPEG。
-
-在這條路徑上，**品質**沒有什麼可選的，所以不會套用。如果JPEG在途中被旋轉、調整大小或裁切，則會改為依照你所選的**品質**重新編碼。]]></description>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.6.0/ShrinkerPro-1.6.0.dmg" length="5844848" type="application/octet-stream" sparkle:edSignature="fX2L5pBHS9ho201+6koQmUD9plHmCZA2hofpomzNggHJYFRfFzcyafRg7WiOvoxXvfmDbBJ4ObJVGUy4yGPFBA=="/>
         </item>
     </channel>
 </rss>

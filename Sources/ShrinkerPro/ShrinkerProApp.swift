@@ -106,6 +106,7 @@ struct ShrinkerProApp: App {
             // Sparkle's conventional placement: directly below About, above
             // Settings/Preferences.
             CommandGroup(after: .appInfo) {
+                WhatsNewMenuItem()
                 Button("Check for Updates…") { appUpdater.checkForUpdates() }
             }
 
@@ -178,6 +179,13 @@ struct ShrinkerProApp: App {
         .keyboardShortcut("2", modifiers: .command)
         StudioModule.menuBarScene()
         #endif
+
+        // Shrinker Pro ▸ What's New: the update notes of the last few versions.
+        Window("What's New", id: WhatsNewView.windowID) {
+            WhatsNewView()
+        }
+        .defaultSize(width: 540, height: 620)
+        .windowResizability(.contentMinSize)
 
         // Kept available even when the engine failed to initialize
         // (`model == nil`, LaunchFailureView showing): these preferences

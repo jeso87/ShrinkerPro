@@ -42,6 +42,11 @@ targets:
       - path: Sources/ShrinkerPro/Resources/svgo.jsc.js
         type: file
         buildPhase: resources
+      # The update notes, every version and language, for Shrinker Pro ▸ What's New. The
+      # same files Sparkle shows before an update (scripts/release.sh), so the two match.
+      - path: docs/release-notes
+        type: folder
+        buildPhase: resources
       # The brief's `dependencies: - bundle: ...` form is for a *build
       # product* of another target in the same project (it emits a
       # fileRef with sourceTree = BUILT_PRODUCTS_DIR, which "couldn't be

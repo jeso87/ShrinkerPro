@@ -140,6 +140,7 @@
   "This session: %@": "今次：%@",
   "W": "闊",
   "Warn before replacing a file": "取代檔案前發出警告",
+  "What's New": "新功能",
   "When shrinking, keep": "壓縮時保留",
   "Where": "位置",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "你的原始檔將會被覆寫，而且無法復原。轉換後的檔案會使用不同的副檔名，所以那些原始檔不受影響。",

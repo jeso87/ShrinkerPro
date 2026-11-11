@@ -200,6 +200,7 @@
   "This session: %@": "هذه الجلسة: %@",
   "W": "ع",
   "Warn before replacing a file": "التنبيه قبل استبدال ملف",
+  "What's New": "الجديد",
   "When shrinking, keep": "عند التصغير، احتفظ بـ",
   "Where": "الوجهة",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "ستتم الكتابة فوق ملفاتك الأصلية ولن يمكن استرجاعها. أما الملفات المحوَّلة فتحتفظ بامتداد مختلف، ولذلك تبقى ملفاتها الأصلية كما هي.",

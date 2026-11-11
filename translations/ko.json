@@ -140,6 +140,7 @@
   "This session: %@": "이번 세션: %@",
   "W": "너비",
   "Warn before replacing a file": "파일을 대치하기 전에 경고",
+  "What's New": "새로운 기능",
   "When shrinking, keep": "압축할 때 유지",
   "Where": "저장 위치",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "원본이 덮어쓰기되어 복구할 수 없습니다. 변환된 파일은 확장자가 달라지므로, 해당 원본은 그대로 유지됩니다.",

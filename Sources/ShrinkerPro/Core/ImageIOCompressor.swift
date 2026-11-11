@@ -76,7 +76,7 @@ struct ImageIOCompressor: Compressor {
 
         var options: [CFString: Any] = [:]
         if let quality {
-            options[kCGImageDestinationLossyCompressionQuality] = quality
+            options[kCGImageDestinationLossyCompressionQuality] = Self.encoderQuality(quality, utType: utType)
         }
         // Never optional — see the size measurements on
         // `ImageMetadata.rewriteMetadata`. ImageIO's padded XMP packet would
@@ -97,6 +97,13 @@ struct ImageIOCompressor: Compressor {
         guard CGImageDestinationFinalize(destination) else {
             throw ShrinkError.conversionFailed("ImageIO failed to encode \(output.lastPathComponent) as \(utType)")
         }
+    }
+
+    /// The quality handed to ImageIO. macOS 27's AVIF encoder fails outright at exactly 1.0,
+    /// the top of every quality scale and the first probe of a "looks the same" search, while
+    /// 0.999 encodes; so AVIF is held just below the top. Every other type gets `quality` as is.
+    static func encoderQuality(_ quality: Double, utType: String) -> Double {
+        utType == RasterUTType.avif ? min(quality, 0.999) : quality
     }
 
     /// The stored pixel buffer, at full size or scaled down to `maxDimension`.

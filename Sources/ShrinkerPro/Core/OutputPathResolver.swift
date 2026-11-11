@@ -84,6 +84,12 @@ struct OutputSettings: Equatable {
     /// SVG ignores it (a vector has no pixels to cut); GIF honours it, via
     /// gifsicle rather than ImageIO, for the reason it honours the cap there.
     var cropTarget: CropTarget? = nil
+    /// Whether a conversion to a lossy format that comes out bigger than its
+    /// source is discarded, keeping the original (see
+    /// `ShrinkPlan.guardsGrowingConversion`). On everywhere except Studio's
+    /// rendered-pixel route, where the engine's input is a PNG of the edited
+    /// photo: handing that back would export a PNG nobody asked for.
+    var keepsOriginalWhenConversionGrows: Bool = true
 }
 
 /// Port of upstream `generateNewPath` in image-shrinker's main.js.

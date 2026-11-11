@@ -909,6 +909,54 @@ final class ShrinkEngineTests: XCTestCase {
         )
     }
 
+    /// Converting to a lossy format is a request for a smaller file, so a
+    /// result bigger than the source is discarded like a same-format one.
+    /// Found in Studio: "Looks the same" turned a grainy 2.7 MB JPEG into a
+    /// 5.0 MB WebP. Proven against the same conversion with the guard off,
+    /// so the test can't pass just because this fixture happened to shrink.
+    func testALossyConversionThatGrowsKeepsTheOriginal() throws {
+        let input = try stagedFixture("sample", "jpg")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+
+        var toWebP = settings(rules: ConversionRules(), quality: .standard)
+        toWebP.sessionFormat = .webp
+        toWebP.quality = QualityChoice.numeric(100).settings
+
+        var unguarded = toWebP
+        unguarded.keepsOriginalWhenConversionGrows = false
+        let grown = try makeEngine().shrink(input, settings: unguarded)
+        XCTAssertEqual(grown.output.pathExtension, "webp", "with the guard off, the WebP is written")
+        XCTAssertGreaterThan(grown.shrunkBytes, grown.originalBytes, "precondition: WebP at 100 grows this JPEG")
+        try? FileManager.default.removeItem(at: grown.output)
+
+        let before = try Data(contentsOf: input)
+        let result = try makeEngine().shrink(input, settings: toWebP)
+        XCTAssertEqual(result.output, input, "a lossy conversion that grew must report the original kept")
+        XCTAssertEqual(result.shrunkBytes, result.originalBytes)
+        XCTAssertEqual(try Data(contentsOf: input), before, "the original is untouched")
+        XCTAssertFalse(
+            FileManager.default.fileExists(atPath: grown.output.path),
+            "no bigger WebP is left beside the original"
+        )
+    }
+
+    /// Which conversions the guard covers. To JPEG is for compatibility:
+    /// HEIC, AVIF and JPEG XL are all more efficient than JPEG, so a JPEG made
+    /// from one usually weighs more, and is still what was asked for.
+    func testOnlyConversionsToSmallerFormatsAreGuarded() {
+        XCTAssertTrue(ShrinkEngine.guardsGrowth(ofConversionFrom: "jpg", to: "webp", isSameFormat: false))
+        XCTAssertTrue(ShrinkEngine.guardsGrowth(ofConversionFrom: "png", to: "avif", isSameFormat: false))
+        XCTAssertFalse(ShrinkEngine.guardsGrowth(ofConversionFrom: "heic", to: "jxl", isSameFormat: false), "HEIC has no keep option")
+        XCTAssertFalse(ShrinkEngine.guardsGrowth(ofConversionFrom: "HEIF", to: "webp", isSameFormat: false), "HEIC has no keep option")
+        XCTAssertTrue(ShrinkEngine.guardsGrowth(ofConversionFrom: "avif", to: "jxl", isSameFormat: false))
+        XCTAssertFalse(ShrinkEngine.guardsGrowth(ofConversionFrom: "heic", to: "jpg", isSameFormat: false), "HEIC to JPEG is for compatibility")
+        XCTAssertFalse(ShrinkEngine.guardsGrowth(ofConversionFrom: "avif", to: "jpg", isSameFormat: false), "AVIF to JPEG is for compatibility")
+        XCTAssertFalse(ShrinkEngine.guardsGrowth(ofConversionFrom: "jxl", to: "jpeg", isSameFormat: false), "JPEG XL to JPEG is for compatibility")
+        XCTAssertFalse(ShrinkEngine.guardsGrowth(ofConversionFrom: "jpg", to: "png", isSameFormat: false), "PNG targets may grow")
+        XCTAssertFalse(ShrinkEngine.guardsGrowth(ofConversionFrom: "jpg", to: "jpg", isSameFormat: true), "same-format has its own guard")
+        XCTAssertFalse(ShrinkEngine.guardsGrowth(ofConversionFrom: "jpg", to: nil, isSameFormat: false))
+    }
+
     /// The end-to-end proof that the chosen level actually reaches the
     /// encoder, rather than being carried as far as `OutputSettings` and
     /// then dropped — which is exactly what a half-finished threading job

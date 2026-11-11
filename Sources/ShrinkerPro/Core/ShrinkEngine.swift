@@ -71,6 +71,20 @@ struct ShrinkPlan: Sendable {
     /// one property of a route from another is exactly what produced the bug
     /// they document.
     let dimensionsChanged: Bool
+    /// Whether the never-grow guard also covers this conversion: one to
+    /// WebP, AVIF or JPEG XL. Those are chosen to make files smaller, so a
+    /// result bigger than the source is no use to anyone.
+    ///
+    /// False for conversions to JPEG or PNG, which are chosen for what opens
+    /// the file, not its size: AVIF and JPEG XL are more efficient than JPEG,
+    /// so a JPEG made from one nearly always weighs more, and guarding it
+    /// would quietly turn "make these JPEGs" into "keep these AVIFs".
+    /// Flattening to lossless PNG is expected to grow. False for HEIC/HEIF
+    /// sources whatever the target: HEIC has no "keep" option, so handing
+    /// one back would leave the HEIC the rule exists to replace. Also false
+    /// for same-format routes (covered by `isSameFormat`) and when the
+    /// settings opt out. Worked out once in `plan(_:settings:)`.
+    var guardsGrowingConversion: Bool = false
 
     /// The same plan, writing somewhere else. This is how Keep Both is
     /// applied: only the destination moves, so the route, the conversion and
@@ -80,7 +94,7 @@ struct ShrinkPlan: Sendable {
             input: input, destination: newDestination, compressor: compressor,
             targetExtension: targetExtension, needsMetadataPostPass: needsMetadataPostPass,
             wasRotated: wasRotated, isSameFormat: isSameFormat, metadataPolicy: metadataPolicy,
-            dimensionsChanged: dimensionsChanged
+            dimensionsChanged: dimensionsChanged, guardsGrowingConversion: guardsGrowingConversion
         )
     }
 }
@@ -166,8 +180,23 @@ final class ShrinkEngine {
             wasRotated: routing.wasRotated,
             isSameFormat: routing.isSameFormat,
             metadataPolicy: settings.metadataPolicy,
-            dimensionsChanged: routing.dimensionsChanged
+            dimensionsChanged: routing.dimensionsChanged,
+            guardsGrowingConversion: settings.keepsOriginalWhenConversionGrows
+                && Self.guardsGrowth(ofConversionFrom: ext, to: routing.targetExtension, isSameFormat: routing.isSameFormat)
         )
+    }
+
+    /// Targets chosen to make files smaller, whose growth the never-grow guard
+    /// refuses (see `ShrinkPlan.guardsGrowingConversion`).
+    static let growthGuardedTargets: Set<String> = ["webp", "avif", "jxl"]
+
+    /// Whether a conversion from `source` to `target` is one the never-grow
+    /// guard covers: to WebP, AVIF or JPEG XL, not from HEIC/HEIF, and not
+    /// same-format.
+    static func guardsGrowth(ofConversionFrom source: String, to target: String?, isSameFormat: Bool) -> Bool {
+        guard !isSameFormat, let target = target?.lowercased() else { return false }
+        let source = source.lowercased()
+        return growthGuardedTargets.contains(target) && target != source && !["heic", "heif"].contains(source)
     }
 
     /// Plan and execute in one call. The shape the CLI and most existing
@@ -354,7 +383,14 @@ final class ShrinkEngine {
         // The scratch file is simply not promoted, and `defer` above removes
         // it with the rest of the replacement directory. The result points at
         // `input`, because that is the file the user still has.
-        if plan.isSameFormat, !plan.dimensionsChanged, shrunkBytes >= originalBytes {
+        //
+        // Since 2026-11-10 the guard also covers conversions to a lossy format
+        // (`plan.guardsGrowingConversion`) to WebP, AVIF and JPEG XL. "Looks
+        // the same" in Studio once turned a grainy 2.7 MB JPEG into a 5.0 MB
+        // WebP: no use to anyone who asked for a smaller file. Conversions to
+        // JPEG and PNG, and from HEIC, stay exempt, for the reasons above and
+        // on that property.
+        if plan.isSameFormat || plan.guardsGrowingConversion, !plan.dimensionsChanged, shrunkBytes >= originalBytes {
             return ShrinkResult(
                 input: input,
                 output: input,

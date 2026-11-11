@@ -467,10 +467,11 @@ extension CommandLineOptions {
       --crop 16:9 --max-size 1200 crops the shape and then caps it. It is
       refused alongside a pixel crop, which has already set the size.
 
-    Compressing never makes a file bigger. If a same-format result comes out
-    larger than its source it is discarded, your original is kept, and the
-    saving is reported as 0%. Converting, resizing and cropping are exempt:
-    growth there is the thing you asked for.
+    Compressing never makes a file bigger. If a same-format result, or a
+    conversion to WebP, AVIF or JPEG XL, comes out larger than its source it
+    is discarded, your original is kept, and the saving is reported as 0%.
+    Converting to JPEG or PNG, converting from HEIC, resizing and cropping are
+    exempt: growth there is the thing you asked for.
 
     EXAMPLES
       shrinker photo.jpg

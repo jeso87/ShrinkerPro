@@ -240,8 +240,11 @@ save alike — and at that size JPEG XL looks noticeably better.
 image at a quality above the one it was stored at inflates it, and the original
 quality of a file cannot be read back out of it — so rather than guess, the app
 checks afterwards: if a same-format result comes out larger than the source, it
-is discarded and your file is left alone, reported as 0% saved. Conversions are
-exempt, because growth there is what you asked for — see PNG below.
+is discarded and your file is left alone, reported as 0% saved. The same goes
+for a conversion to WebP, AVIF or JPEG XL, formats you pick to make files
+smaller. Conversions to JPEG and PNG are exempt, and so is anything from HEIC:
+those are about what opens the file, so growth there is what you asked for —
+see PNG below.
 
 **PNG and GIF sit outside the Quality setting**, deliberately. pngquant reduces
 a PNG to an optimised palette of at most 256 colours, and gifsicle's `-O2`
@@ -369,8 +372,8 @@ encoder finishes the file, so a PNG and a WebP given the same numbers match. GIF
 is the exception: gifsicle handles it, because an ImageIO round trip would
 flatten an animation to one frame. SVG is unaffected — it is vector, so it has
 no pixels to cap or to cut. And a resized or cropped file is written even if it
-comes out larger, the same exemption converting has: you asked for those
-dimensions.
+comes out larger, the same exemption converting to JPEG or PNG has: you asked
+for those dimensions.
 
 SVG and GIF ignore the format override, exactly as they ignore the stored rules.
 

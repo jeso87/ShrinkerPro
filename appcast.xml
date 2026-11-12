@@ -3,6 +3,350 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.8.2</title>
+            <pubDate>Thu, 12 Nov 2026 13:50:52 -0500</pubDate>
+            <sparkle:version>16</sparkle:version>
+            <sparkle:shortVersionString>1.8.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Open Recent is gone from the File menu.** Shrinker Pro makes new files
+  rather than editing documents, so there was nothing to reopen.
+
+### Shrinker Studio
+
+- **File ▸ Open Files… adds photos to Studio** when its window is in front,
+  just like dropping them there. Before, they went to Shrinker Pro.
+]]></description>
+            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **أُزيل «فتح العناصر الأخيرة» من القائمة «ملف».** ينشئ Shrinker Pro ملفات
+  جديدة ولا يحرّر المستندات، لذلك لم يكن هناك ما يُعاد فتحه.
+
+### Shrinker Studio
+
+- **«فتح الملفات…» يضيف الصور إلى Studio** عندما تكون نافذته في المقدمة،
+  تمامًا كما لو أفلتّها فيها. في السابق كانت تذهب إلى Shrinker Pro.]]></description>
+            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **«Obre els recents» ja no és al menú Arxiu.** El Shrinker Pro crea fitxers
+  nous en lloc d'editar documents, així que no hi havia res a tornar a obrir.
+
+### Shrinker Studio
+
+- **«Obre arxius…» afegeix les fotos a Studio** quan la seva finestra és al
+  davant, igual que si les hi deixeu anar. Abans anaven al Shrinker Pro.]]></description>
+            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Položka „Poslední položky“ zmizela z nabídky Soubor.** Shrinker Pro
+  vytváří nové soubory, neupravuje dokumenty, takže nebylo co znovu otevírat.
+
+### Shrinker Studio
+
+- **„Otevřít soubory…“ přidá fotky do Studia**, když je jeho okno vpředu,
+  stejně jako když je do něj přetáhnete. Dříve šly do Shrinker Pro.]]></description>
+            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **“Åbn seneste” er fjernet fra menuen Arkiv.** Shrinker Pro laver nye filer
+  i stedet for at redigere dokumenter, så der var intet at åbne igen.
+
+### Shrinker Studio
+
+- **“Åbn arkiver…” føjer fotos til Studio**, når dets vindue er forrest,
+  ligesom når du trækker dem derhen. Før gik de til Shrinker Pro.]]></description>
+            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **„Benutzte Dokumente“ ist aus dem Menü „Ablage“ entfernt.** Shrinker Pro
+  erstellt neue Dateien, statt Dokumente zu bearbeiten, also gab es nichts
+  erneut zu öffnen.
+
+### Shrinker Studio
+
+- **„Dateien öffnen …“ fügt Fotos zu Studio hinzu**, wenn sein Fenster vorne
+  ist, genau wie beim Hineinziehen. Bisher landeten sie in Shrinker Pro.]]></description>
+            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Το «Άνοιγμα πρόσφατου» αφαιρέθηκε από το μενού «Αρχείο».** Το Shrinker Pro
+  δημιουργεί νέα αρχεία αντί να επεξεργάζεται έγγραφα, οπότε δεν υπήρχε τίποτα
+  για να ξανανοίξει.
+
+### Shrinker Studio
+
+- **Το «Άνοιγμα αρχείων…» προσθέτει φωτογραφίες στο Studio** όταν το παράθυρό
+  του είναι μπροστά, όπως όταν τις αφήνετε εκεί. Πριν πήγαιναν στο Shrinker
+  Pro.]]></description>
+            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **«Abrir recientes» ya no está en el menú Archivo.** Shrinker Pro crea
+  archivos nuevos en lugar de editar documentos, así que no había nada que
+  volver a abrir.
+
+### Shrinker Studio
+
+- **«Abrir archivos…» añade las fotos a Studio** cuando su ventana está
+  delante, igual que al soltarlas en ella. Antes iban a Shrinker Pro.]]></description>
+            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **«باز کردن موارد اخیر» از منوی «فایل» حذف شد.** Shrinker Pro فایل‌های تازه
+  می‌سازد و سند ویرایش نمی‌کند، پس چیزی برای باز کردن دوباره وجود نداشت.
+
+### Shrinker Studio
+
+- **«باز کردن فایل‌ها…» عکس‌ها را به Studio اضافه می‌کند** وقتی پنجرهٔ آن جلو
+  است، درست مثل رها کردن آن‌ها در آن. پیش‌تر به Shrinker Pro می‌رفتند.]]></description>
+            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **”Avaa äskeinen” on poistettu Arkisto-valikosta.** Shrinker Pro tekee uusia
+  tiedostoja eikä muokkaa dokumentteja, joten avattavaa uudelleen ei ollut.
+
+### Shrinker Studio
+
+- **”Avaa tiedostoja…” lisää kuvat Studioon**, kun sen ikkuna on edessä, aivan
+  kuin pudottaisit ne siihen. Aiemmin ne menivät Shrinker Prohon.]]></description>
+            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **« Ouvrir un document récent » disparaît du menu Fichier.** Shrinker Pro
+  crée de nouveaux fichiers au lieu de modifier des documents : il n’y avait
+  donc rien à rouvrir.
+
+### Shrinker Studio
+
+- **« Ouvrir des fichiers… » ajoute les photos à Studio** lorsque sa fenêtre
+  est au premier plan, comme si vous les y déposiez. Auparavant, elles
+  allaient dans Shrinker Pro.]]></description>
+            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **„פתיחת האחרונים” הוסר מהתפריט „קובץ”.** Shrinker Pro יוצר קבצים חדשים
+  ואינו עורך מסמכים, כך שלא היה מה לפתוח מחדש.
+
+### Shrinker Studio
+
+- **„פתיחת קבצים…” מוסיף תמונות ל‑Studio** כשהחלון שלו בחזית, בדיוק כמו גרירתן
+  אליו. קודם הן הגיעו ל‑Shrinker Pro.]]></description>
+            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **„Otvori nedavne stavke” uklonjeno je iz izbornika Datoteka.** Shrinker Pro
+  izrađuje nove datoteke umjesto da uređuje dokumente, pa nije bilo što
+  ponovno otvoriti.
+
+### Shrinker Studio
+
+- **„Otvori datoteke…” dodaje fotografije u Studio** kad je njegov prozor
+  ispred, baš kao kad ih ispustite u njega. Prije su išle u Shrinker Pro.]]></description>
+            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **A „Legutóbbi megnyitása” kikerült a Fájl menüből.** A Shrinker Pro új
+  fájlokat készít, nem dokumentumokat szerkeszt, így nem volt mit újra
+  megnyitni.
+
+### Shrinker Studio
+
+- **A „Fájlok megnyitása…” a Studióba teszi a fotókat**, ha annak ablaka van
+  elöl, akárcsak a ráhúzás. Korábban a Shrinker Próba kerültek.]]></description>
+            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **„Opna nýlegt“ er horfið úr Skrá-valmyndinni.** Shrinker Pro býr til nýjar
+  skrár í stað þess að breyta skjölum, svo það var ekkert að opna aftur.
+
+### Shrinker Studio
+
+- **„Opna skrár…“ bætir myndum í Studio** þegar gluggi þess er fremstur, alveg
+  eins og að sleppa þeim þar. Áður fóru þær í Shrinker Pro.]]></description>
+            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **«Apri recenti» non è più nel menu File.** Shrinker Pro crea nuovi file
+  invece di modificare documenti, quindi non c’era nulla da riaprire.
+
+### Shrinker Studio
+
+- **«Apri file…» aggiunge le foto a Studio** quando la sua finestra è in primo
+  piano, come trascinandole lì. Prima finivano in Shrinker Pro.]]></description>
+            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **「ファイル」メニューから「最近使った項目を開く」を削除しました。**Shrinker Proは書類を編集するのではなく新しいファイルを作るため、開き直すものがありませんでした。
+
+### Shrinker Studio
+
+- **「ファイルを開く…」で、写真がStudioに追加されるようになりました。**Studioのウインドウが手前にあるときは、ドロップしたときと同じ動作になります。以前はShrinker Proに送られていました。]]></description>
+            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **파일 메뉴에서 ‘최근 사용 열기’를 제거했습니다.** Shrinker Pro는 문서를 편집하지 않고 새 파일을 만들기 때문에 다시 열 대상이 없었습니다.
+
+### Shrinker Studio
+
+- **‘파일 열기…’로 사진이 Studio에 추가됩니다.** Studio 윈도우가 앞에 있을 때는 그곳에 드롭한 것과 똑같이 동작합니다. 이전에는 Shrinker Pro로 갔습니다.]]></description>
+            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **«Åpne sist brukte» er fjernet fra Arkiv-menyen.** Shrinker Pro lager nye
+  filer i stedet for å redigere dokumenter, så det var ingenting å åpne igjen.
+
+### Shrinker Studio
+
+- **«Åpne filer…» legger bildene til i Studio** når vinduet er fremst, akkurat
+  som når du slipper dem der. Før gikk de til Shrinker Pro.]]></description>
+            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **‘Open recente bestanden’ is uit het Archief-menu verdwenen.** Shrinker Pro
+  maakt nieuwe bestanden in plaats van documenten te bewerken, dus er viel
+  niets opnieuw te openen.
+
+### Shrinker Studio
+
+- **‘Open bestanden…’ voegt foto’s toe aan Studio** als het venster vooraan
+  staat, net als wanneer je ze erop sleept. Eerder gingen ze naar Shrinker
+  Pro.]]></description>
+            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **«Opne nylege» er fjerna frå Arkiv-menyen.** Shrinker Pro lagar nye filer i
+  staden for å redigere dokument, så det var ingenting å opne att.
+
+### Shrinker Studio
+
+- **«Opne filer…» legg bileta til i Studio** når vindauget er framst, akkurat
+  som når du slepper dei der. Før gjekk dei til Shrinker Pro.]]></description>
+            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Polecenie „Otwórz ostatnie” zniknęło z menu Plik.** Shrinker Pro tworzy
+  nowe pliki zamiast edytować dokumenty, więc nie było czego ponownie
+  otwierać.
+
+### Shrinker Studio
+
+- **„Otwórz pliki…” dodaje zdjęcia do Studio**, gdy jego okno jest na
+  wierzchu, tak samo jak po upuszczeniu ich w nim. Wcześniej trafiały do
+  Shrinker Pro.]]></description>
+            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **“Abrir Recente” saiu do menu Arquivo.** O Shrinker Pro cria arquivos novos
+  em vez de editar documentos, então não havia nada para reabrir.
+
+### Shrinker Studio
+
+- **“Abrir Arquivos…” adiciona as fotos ao Studio** quando a janela dele está
+  na frente, como ao soltá-las nela. Antes elas iam para o Shrinker Pro.]]></description>
+            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **“Abrir documento recente” saiu do menu Ficheiro.** O Shrinker Pro cria
+  ficheiros novos em vez de editar documentos, por isso não havia nada para
+  reabrir.
+
+### Shrinker Studio
+
+- **“Abrir ficheiros…” adiciona as fotografias ao Studio** quando a janela
+  dele está à frente, tal como ao largá-las nela. Antes iam para o Shrinker
+  Pro.]]></description>
+            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **„Deschideți recente” a dispărut din meniul Fișier.** Shrinker Pro creează
+  fișiere noi în loc să editeze documente, așa că nu era nimic de redeschis.
+
+### Shrinker Studio
+
+- **„Deschideți fișiere…” adaugă pozele în Studio** când fereastra acestuia
+  este în față, la fel ca atunci când le trageți în ea. Înainte ajungeau în
+  Shrinker Pro.]]></description>
+            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Пункт «Открытие недавних» убран из меню «Файл».** Shrinker Pro создаёт
+  новые файлы, а не редактирует документы, так что открывать заново было
+  нечего.
+
+### Shrinker Studio
+
+- **«Открыть файлы…» добавляет фото в Studio**, когда его окно на переднем
+  плане, — так же, как при перетаскивании в него. Раньше они уходили в
+  Shrinker Pro.]]></description>
+            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Položka „Otvoriť posledné“ zmizla z ponuky Súbor.** Shrinker Pro vytvára
+  nové súbory, neupravuje dokumenty, takže nebolo čo znova otvárať.
+
+### Shrinker Studio
+
+- **„Otvoriť súbory…“ pridá fotky do Studia**, keď je jeho okno vpredu,
+  rovnako ako keď ich doň pretiahnete. Predtým išli do Shrinker Pro.]]></description>
+            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **»Odpri nedavno« je odstranjeno iz menija Datoteka.** Shrinker Pro ustvarja
+  nove datoteke, namesto da bi urejal dokumente, zato ni bilo česa znova
+  odpreti.
+
+### Shrinker Studio
+
+- **»Odpri datoteke …« doda fotografije v Studio**, ko je njegovo okno
+  spredaj, enako kot če jih spustite vanj. Prej so šle v Shrinker Pro.]]></description>
+            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **”Öppna senaste” är borttaget från Arkiv-menyn.** Shrinker Pro skapar nya
+  filer i stället för att redigera dokument, så det fanns inget att öppna
+  igen.
+
+### Shrinker Studio
+
+- **”Öppna filer…” lägger till bilderna i Studio** när dess fönster är längst
+  fram, precis som när du släpper dem där. Tidigare gick de till Shrinker Pro.]]></description>
+            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **นำ “เปิดล่าสุด” ออกจากเมนูไฟล์แล้ว** Shrinker Pro สร้างไฟล์ใหม่แทนการแก้ไขเอกสาร จึงไม่มีอะไรให้เปิดซ้ำ
+
+### Shrinker Studio
+
+- **“เปิดไฟล์…” จะเพิ่มรูปลงใน Studio** เมื่อหน้าต่างของ Studio อยู่ด้านหน้า เหมือนกับการลากไปวาง ก่อนหน้านี้รูปจะไปที่ Shrinker Pro]]></description>
+            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **“Son Kullanılanı Aç” Dosya menüsünden kaldırıldı.** Shrinker Pro belge
+  düzenlemek yerine yeni dosyalar oluşturduğu için yeniden açılacak bir şey
+  yoktu.
+
+### Shrinker Studio
+
+- **“Dosyaları Aç…” fotoğrafları Studio'ya ekler**; Studio penceresi öndeyken
+  tıpkı oraya sürükleyip bırakmak gibi çalışır. Önceden Shrinker Pro'ya
+  gidiyorlardı.]]></description>
+            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Пункт «Відкрити недавні» прибрано з меню «Файл».** Shrinker Pro створює
+  нові файли, а не редагує документи, тож відкривати знову було нічого.
+
+### Shrinker Studio
+
+- **«Відкрити файли…» додає фото до Studio**, коли його вікно на передньому
+  плані, — так само, як перетягування в нього. Раніше вони потрапляли до
+  Shrinker Pro.]]></description>
+            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **“Mở mục gần đây” đã được bỏ khỏi menu Tệp.** Shrinker Pro tạo tệp mới thay
+  vì sửa tài liệu, nên không có gì để mở lại.
+
+### Shrinker Studio
+
+- **“Mở tệp…” thêm ảnh vào Studio** khi cửa sổ của nó ở phía trước, giống hệt
+  như thả ảnh vào đó. Trước đây ảnh được gửi tới Shrinker Pro.]]></description>
+            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **「檔案」選單中移除了「開啟最近項目」。**Shrinker Pro 會產生新檔案而非編輯文件，因此沒有可重新開啟的內容。
+
+### Shrinker Studio
+
+- **Studio 視窗在最前方時，「開啟檔案⋯」會將相片加入 Studio，**與拖放到其中完全相同。之前它們會進入 Shrinker Pro。]]></description>
+            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **“文件”菜单中移除了“打开最近使用的”。**Shrinker Pro 生成新文件而非编辑文稿，因此没有可重新打开的内容。
+
+### Shrinker Studio
+
+- **Studio 窗口在最前面时，“打开文件…”会将照片添加到 Studio，**与拖放到其中完全相同。之前它们会进入 Shrinker Pro。]]></description>
+            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **「檔案」選單中移除了「打開最近使用過的檔案」。**Shrinker Pro 會產生新檔案而非編輯文件，因此沒有可重新打開的內容。
+
+### Shrinker Studio
+
+- **Studio 視窗在最前方時，「打開檔案⋯」會將照片加入 Studio，**與拖放到其中完全相同。之前它們會進入 Shrinker Pro。]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.8.2/ShrinkerPro-1.8.2.dmg" length="11424803" type="application/octet-stream" sparkle:edSignature="G55QI/tpcG+SLvWEc9iSnzS9RGgDdKXujaMbr3CRYNZ0G/h08KQGq5J21HzXcHxKiYA0B4kDzlqIYpm7zabDAQ=="/>
+        </item>
+        <item>
             <title>1.8.1</title>
             <pubDate>Thu, 12 Nov 2026 12:51:37 -0500</pubDate>
             <sparkle:version>15</sparkle:version>
@@ -1233,735 +1577,6 @@
 - **預覽不再卡住**：更新期間切換照片也沒問題，切換後預覽會重新整理的照片會在列表中標示。
 - **撰寫評論**可從Shrinker Pro選單進入，想告訴其他人Studio幫了你什麼，就來寫一寫。]]></description>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.8.0/ShrinkerPro-1.8.0.dmg" length="11334624" type="application/octet-stream" sparkle:edSignature="w2+p7is9iSNr92WKwA9OQduq3gkH3OLv2CIiBcg3FofubRh6hpGmA7xBvbtSI8BFPvtbymGMZtUPZIqoWC/GAg=="/>
-        </item>
-        <item>
-            <title>1.7.0</title>
-            <pubDate>Mon, 09 Nov 2026 20:57:34 -0500</pubDate>
-            <sparkle:version>13</sparkle:version>
-            <sparkle:shortVersionString>1.7.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[### Meet Shrinker Studio
-
-Shrinker Pro stays free and unlimited. Studio is an optional upgrade inside
-it, for the photos that need more than a quick squeeze:
-
-- **Compare before you save:** split, side by side, or a Difference view that
-  shows every pixel compression changed.
-- **Recipes:** resize and crop, adjust, add a look, a watermark, a border or
-  new names, then save it for any batch.
-- **Watch folders:** new photos in a folder come out finished, even with no
-  window open.
-
-Press **Studio** in the toolbar for a tour. Every Studio tool works for your
-first 10 exports; a one-time licence unlocks the rest.
-
-### Also fixed
-
-- The main window opens at its own size at launch.
-- The settings button can be read by VoiceOver and the overflow menu.
-]]></description>
-            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### تعرّف على Shrinker Studio
-
-يبقى Shrinker Pro مجانيًا وبلا حدود. أما Studio فترقية اختيارية داخله، للصور
-التي تحتاج إلى أكثر من تصغير سريع:
-
-- **قارن قبل الحفظ:** عرض منقسم، أو جنبًا إلى جنب، أو عرض الفرق الذي يُظهر كل
-  بكسل غيّره الضغط.
-- **الوصفات:** غيّر الحجم واقتصّ، واضبط، وأضف مظهرًا أو علامة مائية أو إطارًا أو
-  أسماء جديدة، ثم احفظ ذلك لأي دفعة.
-- **مجلدات المراقبة:** تخرج الصور الجديدة في المجلد جاهزة، حتى من دون أي نافذة
-  مفتوحة.
-
-اضغط **Studio** في شريط الأدوات لجولة تعريفية. تعمل كل أدوات Studio في أول 10
-عمليات تصدير لك، ويفتح ترخيص لمرة واحدة الباقي.
-
-### إصلاحات أخرى
-
-- تُفتح النافذة الرئيسية بحجمها الصحيح عند التشغيل.
-- صار لزر الإعدادات اسم يقرؤه VoiceOver وتعرضه قائمة الفائض في شريط الأدوات.]]></description>
-            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Et presentem Shrinker Studio
-
-Shrinker Pro continua sent gratuït i sense límits. Studio és una millora
-opcional dins de l’app, per a les fotos que necessiten més que una reducció
-ràpida:
-
-- **Compara abans de desar:** vista dividida, costat a costat o la vista
-  Diferència, que mostra cada píxel que ha canviat la compressió.
-- **Receptes:** canvia la mida i escapça, ajusta, afegeix un estil, una marca
-  d’aigua, una vora o noms nous, i desa-ho per a qualsevol lot.
-- **Carpetes vigilades:** les fotos noves d’una carpeta en surten acabades, fins
-  i tot sense cap finestra oberta.
-
-Prem **Studio** a la barra d’eines per fer-ne un recorregut. Totes les eines de
-Studio funcionen en les teves 10 primeres exportacions; una llicència de
-pagament únic desbloqueja la resta.
-
-### També s’ha corregit
-
-- La finestra principal s’obre amb la mida que li correspon en iniciar l’app.
-- El botó de configuració ara té un nom que VoiceOver llegeix i que el menú de
-  desbordament mostra.]]></description>
-            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Představujeme Shrinker Studio
-
-Shrinker Pro zůstává zdarma a bez omezení. Studio je v něm volitelné rozšíření
-pro fotky, kterým nestačí rychlé zmenšení:
-
-- **Porovnejte před uložením:** rozdělené zobrazení, vedle sebe, nebo zobrazení
-  Rozdíl, které ukáže každý pixel změněný kompresí.
-- **Recepty:** změňte velikost a ořízněte, upravte, přidejte vzhled, vodoznak,
-  rámeček nebo nové názvy a uložte to pro libovolnou dávku.
-- **Sledované složky:** nové fotky ve složce vyjdou hotové, i když není otevřené
-  žádné okno.
-
-Klikněte na **Studio** v nástrojovém panelu a projděte si prohlídku. Prvních 10
-exportů funguje s každým nástrojem Studia; jednorázová licence odemkne zbytek.
-
-### Další opravy
-
-- Hlavní okno se při spuštění otevře ve své správné velikosti.
-- Tlačítko nastavení má nyní název, který přečte VoiceOver a zobrazí nabídka
-  přetečení.]]></description>
-            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Mød Shrinker Studio
-
-Shrinker Pro forbliver gratis og ubegrænset. Studio er en valgfri opgradering
-inde i appen til de fotos, der har brug for mere end en hurtig krympning:
-
-- **Sammenlign, før du gemmer:** skillelinje, side om side eller visningen
-  Forskel, der viser hver pixel, komprimeringen har ændret.
-- **Opskrifter:** skalér og beskær, justér, tilføj en stil, et vandmærke, en
-  ramme eller nye navne, og gem det til enhver serie.
-- **Overvågede mapper:** nye fotos i en mappe kommer færdige ud, også når intet
-  vindue er åbent.
-
-Tryk på **Studio** på værktøjslinjen for en rundvisning. Alle værktøjer i Studio
-virker til dine første 10 eksporter; en licens med engangsbetaling låser op for
-resten.
-
-### Også rettet
-
-- Hovedvinduet åbner i sin rette størrelse ved start.
-- Knappen til indstillinger har nu et navn, som VoiceOver læser op, og som
-  overløbsmenuen viser.]]></description>
-            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Das ist Shrinker Studio
-
-Shrinker Pro bleibt kostenlos und unbegrenzt. Studio ist ein optionales Upgrade
-darin, für Fotos, die mehr brauchen als schnelles Verkleinern:
-
-- **Vergleichen vor dem Sichern:** Trennansicht, nebeneinander oder eine
-  Differenz-Ansicht, die jedes Pixel zeigt, das die Komprimierung verändert hat.
-- **Rezepte:** Größe ändern und zuschneiden, anpassen, einen Look, ein
-  Wasserzeichen, einen Rahmen oder neue Namen hinzufügen – und das Ganze für
-  jeden Stapel sichern.
-- **Überwachungsordner:** Neue Fotos in einem Ordner kommen fertig heraus, auch
-  wenn kein Fenster geöffnet ist.
-
-Klicke in der Symbolleiste auf **Studio**, um eine Tour zu starten. Für deine
-ersten 10 Exporte funktioniert jedes Studio-Werkzeug; eine einmalige Lizenz
-schaltet den Rest frei.
-
-### Außerdem behoben
-
-- Das Hauptfenster öffnet sich beim Start in seiner richtigen Größe.
-- Die Schaltfläche für die Einstellungen hat jetzt einen Namen, den VoiceOver
-  vorliest und das Überlaufmenü anzeigt.]]></description>
-            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Γνωρίστε το Shrinker Studio
-
-Το Shrinker Pro παραμένει δωρεάν και χωρίς όρια. Το Studio είναι μια προαιρετική
-αναβάθμιση μέσα σε αυτό, για τις φωτογραφίες που χρειάζονται κάτι παραπάνω από
-μια γρήγορη σμίκρυνση:
-
-- **Συγκρίνετε πριν αποθηκεύσετε:** διαχωρισμένη προβολή, δίπλα-δίπλα ή η
-  προβολή Διαφορά, που δείχνει κάθε εικονοστοιχείο που άλλαξε η συμπίεση.
-- **Συνταγές:** αλλάξτε μέγεθος και περικόψτε, κάντε προσαρμογές, προσθέστε
-  στυλ, υδατογράφημα, περίγραμμα ή νέα ονόματα και αποθηκεύστε τα για
-  οποιαδήποτε παρτίδα.
-- **Φάκελοι παρακολούθησης:** οι νέες φωτογραφίες σε έναν φάκελο βγαίνουν
-  έτοιμες, ακόμη και χωρίς ανοιχτό παράθυρο.
-
-Πατήστε **Studio** στη γραμμή εργαλείων για μια ξενάγηση. Κάθε εργαλείο του
-Studio λειτουργεί για τις πρώτες σας 10 εξαγωγές· μια εφάπαξ άδεια χρήσης
-ξεκλειδώνει τις υπόλοιπες.
-
-### Επίσης διορθώθηκαν
-
-- Το κύριο παράθυρο ανοίγει στο σωστό του μέγεθος κατά την εκκίνηση.
-- Το κουμπί ρυθμίσεων έχει πλέον όνομα, το οποίο διαβάζει το VoiceOver και
-  εμφανίζει το μενού υπερχείλισης.]]></description>
-            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Te presentamos Shrinker Studio
-
-Shrinker Pro sigue siendo gratis e ilimitado. Studio es una mejora opcional
-dentro de la app, para las fotos que necesitan algo más que una reducción
-rápida:
-
-- **Compara antes de guardar:** vista dividida, lado a lado o la vista
-  Diferencia, que muestra cada píxel que ha cambiado la compresión.
-- **Recetas:** cambia el tamaño y recorta, ajusta, añade un estilo, una marca de
-  agua, un borde o nombres nuevos, y guárdalo para cualquier lote.
-- **Carpetas vigiladas:** las fotos nuevas de una carpeta salen terminadas,
-  incluso sin ninguna ventana abierta.
-
-Pulsa **Studio** en la barra de herramientas para hacer un recorrido. Todas las
-herramientas de Studio funcionan en tus 10 primeras exportaciones; una licencia
-de pago único desbloquea el resto.
-
-### También corregido
-
-- La ventana principal se abre con su propio tamaño al iniciar la app.
-- El botón de ajustes ahora tiene un nombre que VoiceOver lee y que muestra el
-  menú de desbordamiento.]]></description>
-            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### با Shrinker Studio آشنا شوید
-
-Shrinker Pro همچنان رایگان و نامحدود می‌ماند. Studio ارتقایی اختیاری درون آن
-است، برای عکس‌هایی که به چیزی بیش از یک کوچک‌سازی سریع نیاز دارند:
-
-- **پیش از ذخیره مقایسه کنید:** نمای تقسیم، کنار هم، یا نمای تفاوت که هر پیکسلی
-  را که فشرده‌سازی تغییر داده نشان می‌دهد.
-- **دستورها:** اندازه را تغییر دهید و برش بزنید، تنظیم کنید، فیلتر، واترمارک،
-  حاشیه یا نام‌های تازه بیفزایید، سپس آن را برای هر دسته‌ای ذخیره کنید.
-- **پوشه‌های پایش:** عکس‌های تازه در یک پوشه آماده بیرون می‌آیند، حتی وقتی هیچ
-  پنجره‌ای باز نیست.
-
-برای یک گشت معرفی، **Studio** را در نوار ابزار فشار دهید. همهٔ ابزارهای Studio
-برای 10 برون‌بری نخست شما کار می‌کنند؛ یک مجوز با پرداخت یک‌باره بقیه را باز
-می‌کند.
-
-### اصلاحات دیگر
-
-- پنجرهٔ اصلی هنگام اجرا با اندازهٔ درست خودش باز می‌شود.
-- دکمهٔ تنظیمات اکنون نامی دارد که VoiceOver آن را می‌خواند و منوی سرریز نوار
-  ابزار نشانش می‌دهد.]]></description>
-            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Tässä Shrinker Studio
-
-Shrinker Pro pysyy maksuttomana ja rajoittamattomana. Studio on sen sisällä
-oleva valinnainen päivitys valokuville, jotka tarvitsevat enemmän kuin nopean
-pienennyksen:
-
-- **Vertaa ennen tallentamista:** jakoviiva, vierekkäin tai Ero-näkymä, joka
-  näyttää jokaisen pikselin, jota pakkaus muutti.
-- **Reseptit:** muuta kokoa ja rajaa, säädä, lisää ilme, vesileima, reunus tai
-  uudet nimet ja tallenna kaikki mille tahansa erälle.
-- **Valvotut kansiot:** kansioon tulevat uudet valokuvat tulevat ulos valmiina,
-  vaikka yhtään ikkunaa ei olisi auki.
-
-Paina työkalupalkin **Studio**-painiketta, niin pääset esittelykierrokselle.
-Kaikki Studion työkalut toimivat ensimmäisissä 10 viennissäsi; kertamaksullinen
-lisenssi avaa loput.
-
-### Myös korjattu
-
-- Pääikkuna avautuu käynnistyksessä oikeaan kokoonsa.
-- Asetukset-painikkeella on nyt nimi, jonka VoiceOver lukee ja ylivuotovalikko
-  näyttää.]]></description>
-            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Voici Shrinker Studio
-
-Shrinker Pro reste gratuit et illimité. Studio est une mise à niveau facultative
-intégrée, pour les photos qui demandent plus qu’une réduction rapide :
-
-- **Comparez avant d’enregistrer :** vue Curseur, côte à côte, ou vue
-  Différence, qui montre chaque pixel modifié par la compression.
-- **Recettes :** redimensionnez et recadrez, ajustez, ajoutez un look, un
-  filigrane, une bordure ou de nouveaux noms, puis enregistrez le tout pour
-  n’importe quel lot.
-- **Dossiers surveillés :** les nouvelles photos d’un dossier en ressortent
-  finies, même sans fenêtre ouverte.
-
-Cliquez sur **Studio** dans la barre d’outils pour une visite guidée. Chaque
-outil de Studio fonctionne pour vos 10 premiers exports ; une licence à paiement
-unique débloque la suite.
-
-### Également corrigé
-
-- La fenêtre principale s’ouvre à sa propre taille au lancement.
-- Le bouton des réglages porte désormais un nom que VoiceOver lit et que le menu
-  de débordement affiche.]]></description>
-            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### הכירו את Shrinker Studio
-
-Shrinker Pro נשאר חינמי וללא הגבלה. Studio הוא שדרוג אופציונלי בתוכו, לתצלומים
-שצריכים יותר מכיווץ מהיר:
-
-- **השוואה לפני שמירה:** תצוגה מפוצלת, זה לצד זה, או תצוגת ההבדל, שמראה כל פיקסל
-  שהדחיסה שינתה.
-- **מתכונים:** שינוי גודל וחיתוך, כוונון, הוספת מראה, סימן מים, מסגרת או שמות
-  חדשים, ואז שמירה לכל אצווה.
-- **תיקיות מעקב:** תצלומים חדשים בתיקייה יוצאים מוכנים, גם כשאף חלון לא פתוח.
-
-לסיור היכרות יש ללחוץ על **Studio** בסרגל הכלים. כל הכלים של Studio פועלים ב-10
-הייצואים הראשונים; רישיון בתשלום חד-פעמי פותח את השאר.
-
-### תיקונים נוספים
-
-- החלון הראשי נפתח בגודל הנכון שלו בעת ההפעלה.
-- לכפתור ההגדרות יש עכשיו שם ש-VoiceOver מקריא ושתפריט הגלישה של סרגל הכלים
-  מציג.]]></description>
-            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Upoznajte Shrinker Studio
-
-Shrinker Pro ostaje besplatan i neograničen. Studio je neobavezna nadogradnja
-unutar njega, za fotografije kojima treba više od brzog smanjivanja:
-
-- **Usporedite prije spremanja:** Split View, usporedno ili prikaz Razlika, koji
-  pokazuje svaki piksel koji je kompresija promijenila.
-- **Recepti:** promijenite veličinu i izrežite, prilagodite, dodajte stil,
-  vodeni žig, okvir ili nove nazive pa sve spremite za bilo koju seriju.
-- **Nadzirane mape:** nove fotografije u mapi izlaze gotove, čak i kad nijedan
-  prozor nije otvoren.
-
-Pritisnite **Studio** u alatnoj traci za kratki obilazak. Svi alati za Studio
-rade za vaših prvih 10 izvoza; jednokratna licencija otključava ostatak.
-
-### Također ispravljeno
-
-- Glavni prozor pri pokretanju otvara se u svojoj pravoj veličini.
-- Gumb za postavke sada ima naziv koji VoiceOver čita i koji prikazuje izbornik
-  preljeva.]]></description>
-            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Bemutatkozik a Shrinker Studio
-
-A Shrinker Pro továbbra is ingyenes és korlátlan. A Studio egy benne elérhető,
-választható bővítés azokhoz a fotókhoz, amelyeknek egy gyors tömörítésnél többre
-van szükségük:
-
-- **Összehasonlítás mentés előtt:** osztott nézet, egymás mellett, vagy a
-  Különbség nézet, amely megmutat minden képpontot, amelyet a tömörítés
-  megváltoztatott.
-- **Receptek:** átméretezés és vágás, korrekció, stílus, vízjel, keret vagy új
-  nevek hozzáadása, majd mentés bármelyik kötegre.
-- **Figyelt mappák:** a mappába érkező új fotók készen jönnek ki, akkor is, ha
-  nincs nyitva ablak.
-
-Egy bemutatóért nyomja meg az eszközsoron a **Studio** gombot. A Studio minden
-eszköze működik az első 10 exportálásnál; egy egyszeri díjas licenc feloldja a
-többit.
-
-### További javítások
-
-- A főablak indításkor a saját méretében nyílik meg.
-- A beállítások gombnak már van neve, amelyet a VoiceOver felolvas, és a
-  túlcsordulási menü megjelenít.]]></description>
-            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Kynntu þér Shrinker Studio
-
-Shrinker Pro er áfram ókeypis og ótakmarkað. Studio er valfrjáls uppfærsla inni
-í forritinu, fyrir ljósmyndir sem þurfa meira en snögga minnkun:
-
-- **Berðu saman áður en þú vistar:** með skilrúmi, hlið við hlið eða í
-  mismunarsýn sem sýnir hvern díl sem þjöppunin breytti.
-- **Uppskriftir:** breyttu stærð og skerðu til, stilltu, bættu við útliti,
-  vatnsmerki, ramma eða nýjum nöfnum og vistaðu svo fyrir hvaða bunka sem er.
-- **Vaktaðar möppur:** nýjar ljósmyndir í möppu koma fullunnar út, jafnvel þótt
-  enginn gluggi sé opinn.
-
-Ýttu á **Studio** í verkfærastikunni til að fá kynningu. Öll verkfæri Studio
-virka fyrir fyrstu 10 útflutningana þína; leyfi með einskiptisgreiðslu opnar
-fyrir afganginn.
-
-### Einnig lagað
-
-- Aðalglugginn opnast í réttri stærð við ræsingu.
-- Stillingahnappurinn hefur nú heiti sem VoiceOver les upp og
-  yfirflæðisvalmyndin sýnir.]]></description>
-            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Ecco Shrinker Studio
-
-Shrinker Pro resta gratuito e senza limiti. Studio è un upgrade facoltativo al
-suo interno, per le foto che hanno bisogno di più di una rapida riduzione:
-
-- **Confronta prima di salvare:** vista divisa, affiancate o la vista
-  Differenza, che mostra ogni pixel cambiato dalla compressione.
-- **Ricette:** ridimensiona e ritaglia, regola, aggiungi un look, una filigrana,
-  un bordo o nuovi nomi, poi salva tutto per qualsiasi lotto.
-- **Cartelle monitorate:** le nuove foto in una cartella escono già finite,
-  anche senza finestre aperte.
-
-Premi **Studio** nella barra degli strumenti per una visita guidata. Ogni
-strumento di Studio funziona per le tue prime 10 esportazioni; una licenza con
-pagamento unico sblocca il resto.
-
-### Corretti anche
-
-- All’avvio la finestra principale si apre con le sue dimensioni.
-- Il pulsante delle impostazioni ora ha un nome che VoiceOver legge e che il
-  menu di overflow mostra.]]></description>
-            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Studioのご紹介
-
-Shrinker Proはこれからも無料で、制限なく使えます。Studioはその中に加わるオプションのアップグレードで、手早い圧縮だけでは足りない写真のためのものです。
-
-- **保存する前に比較**：分割表示、並べて表示、そして圧縮で変化したピクセルをすべて見せる差分表示。
-- **レシピ**：サイズ変更と切り取り、補正、ルック、透かし、枠線、新しい名前を組み合わせ、どのバッチにも使えるように保存できます。
-- **監視フォルダ**：フォルダに入った新しい写真が、ウインドウを開いていなくても仕上がった状態で出てきます。
-
-ツールバーの**Studio**を押すと、ツアーが始まります。最初の10回の書き出しではStudioのすべてのツールを使えます。それ以降は買い切りのライセンスで使えるようになります。
-
-### そのほかの修正
-
-- 起動時にメインウインドウが本来のサイズで開くようになりました。
-- 設定ボタンに名前が付き、VoiceOverで読み上げられ、オーバーフローメニューにも表示されるようになりました。]]></description>
-            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Studio를 소개합니다
-
-Shrinker Pro는 앞으로도 무료이며 제한이 없습니다. Studio는 그 안에 있는 선택형 업그레이드로, 빠른 압축만으로는 부족한 사진을 위한 것입니다.
-
-- **저장하기 전에 비교:** 분할 보기, 나란히 보기, 또는 압축으로 바뀐 모든 픽셀을 보여 주는 차이 보기.
-- **레시피:** 크기 조절과 자르기, 보정, 룩, 워터마크, 테두리, 새 이름을 더한 뒤 어떤 일괄 작업에도 쓸 수 있도록 저장합니다.
-- **감시 폴더:** 폴더에 들어온 새 사진이 윈도우를 열어 두지 않아도 완성된 상태로 나옵니다.
-
-도구 막대에서 **Studio**를 누르면 둘러보기가 시작됩니다. 처음 10회 내보내기까지는 Studio의 모든 도구를 사용할 수 있으며, 1회 결제 라이선스로 나머지가 잠금 해제됩니다.
-
-### 그 밖의 수정 사항
-
-- 실행 시 메인 윈도우가 원래 크기로 열립니다.
-- 설정 버튼에 이름이 생겨 VoiceOver가 읽어 주고 오버플로 메뉴에도 표시됩니다.]]></description>
-            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Møt Shrinker Studio
-
-Shrinker Pro forblir gratis og ubegrenset. Studio er en valgfri oppgradering
-inni appen, for fotoene som trenger mer enn en rask krymping:
-
-- **Sammenlign før du lagrer:** skillelinje, side ved side eller visningen
-  Forskjell, som viser hver piksel komprimeringen endret.
-- **Oppskrifter:** endre størrelse og beskjær, juster, legg til en stil, et
-  vannmerke, en ramme eller nye navn, og lagre det for hvilken som helst bunke.
-- **Overvåkingsmapper:** nye foto i en mappe kommer ut ferdige, selv uten åpne
-  vinduer.
-
-Trykk på **Studio** i verktøylinjen for en omvisning. Alle verktøyene i Studio
-fungerer for de første 10 eksportene dine; en lisens med engangsbetaling låser
-opp resten.
-
-### Også rettet
-
-- Hovedvinduet åpnes i riktig størrelse ved oppstart.
-- Innstillinger-knappen har nå et navn som VoiceOver leser opp og
-  overflytsmenyen viser.]]></description>
-            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Maak kennis met Shrinker Studio
-
-Shrinker Pro blijft gratis en onbeperkt. Studio is een optionele upgrade erin,
-voor de foto’s die meer nodig hebben dan even snel verkleinen:
-
-- **Vergelijk voordat je bewaart:** gesplitst, naast elkaar of de weergave
-  Verschil, die elke pixel toont die de compressie heeft veranderd.
-- **Recepten:** wijzig het formaat en snij bij, pas aan, voeg een look, een
-  watermerk, een rand of nieuwe namen toe, en bewaar het voor elke reeks.
-- **Bewaakte mappen:** nieuwe foto’s in een map komen er kant-en-klaar uit, ook
-  als er geen venster open is.
-
-Druk op **Studio** in de knoppenbalk voor een rondleiding. Elk Studio-hulpmiddel
-werkt voor je eerste 10 exports; een eenmalige licentie ontgrendelt de rest.
-
-### Ook opgelost
-
-- Het hoofdvenster opent bij het starten op zijn eigen formaat.
-- De instellingenknop heeft nu een naam die VoiceOver voorleest en die het
-  overloopmenu toont.]]></description>
-            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Møt Shrinker Studio
-
-Shrinker Pro held fram med å vere gratis og utan grenser. Studio er ei valfri
-oppgradering inni appen, for dei fotoa som treng meir enn ei rask krymping:
-
-- **Samanlikn før du lagrar:** glidar, side ved side eller visinga Skilnad, som
-  viser kvar piksel komprimeringa endra.
-- **Oppskrifter:** endre storleik og beskjer, juster, legg til ein stil, eit
-  vassmerke, ei ramme eller nye namn, og lagra det for kva bunke som helst.
-- **Overvaka mapper:** nye foto i ei mappe kjem ut ferdige, sjølv utan opne
-  vindauge.
-
-Trykk på **Studio** i verktøylinja for ei omvising. Alle verktøya i Studio
-fungerer for dei første 10 eksportane dine; ein lisens med eingongsbetaling
-låser opp resten.
-
-### Også retta
-
-- Hovudvindauget opnar seg i rett storleik ved oppstart.
-- Innstillingar-knappen har no eit namn som VoiceOver les opp og overflytsmenyen
-  viser.]]></description>
-            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Poznaj Shrinker Studio
-
-Shrinker Pro pozostaje bezpłatny i bez limitów. Studio to opcjonalne
-rozszerzenie w jego wnętrzu, dla zdjęć, którym nie wystarczy szybkie
-zmniejszenie:
-
-- **Porównaj przed zapisaniem:** Split View, obok siebie albo widok Różnice,
-  który pokazuje każdy piksel zmieniony przez kompresję.
-- **Przepisy:** zmień rozmiar i wykadruj, dostosuj, dodaj styl, znak wodny,
-  ramkę lub nowe nazwy, a potem zapisz to dla dowolnej partii.
-- **Foldery obserwowane:** nowe zdjęcia w folderze wychodzą gotowe, nawet gdy
-  żadne okno nie jest otwarte.
-
-Naciśnij **Studio** na pasku narzędzi, aby zobaczyć prezentację. Każde narzędzie
-Studio działa przy pierwszych 10 eksportach; jednorazowa licencja odblokowuje
-resztę.
-
-### Poprawiono też
-
-- Główne okno otwiera się przy uruchomieniu we właściwym rozmiarze.
-- Przycisk ustawień ma teraz nazwę, którą odczytuje VoiceOver i pokazuje menu
-  przepełnienia.]]></description>
-            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Conheça o Shrinker Studio
-
-O Shrinker Pro continua gratuito e ilimitado. O Studio é um upgrade opcional
-dentro dele, para as fotos que precisam de mais do que uma redução rápida:
-
-- **Compare antes de salvar:** divisor, lado a lado ou a visualização Diferença,
-  que mostra cada pixel que a compressão alterou.
-- **Receitas:** redimensione e recorte, ajuste, adicione um visual, uma
-  marca-d’água, uma borda ou novos nomes e salve tudo para qualquer lote.
-- **Pastas Monitoradas:** novas fotos em uma pasta saem prontas, mesmo sem
-  nenhuma janela aberta.
-
-Clique em **Studio** na barra de ferramentas para fazer um tour. Todas as
-ferramentas do Studio funcionam nas suas 10 primeiras exportações; uma licença
-de pagamento único desbloqueia o restante.
-
-### Também corrigido
-
-- A janela principal abre no tamanho certo ao iniciar.
-- O botão de ajustes agora tem um nome que o VoiceOver lê e que o menu de
-  transbordamento mostra.]]></description>
-            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Conheça o Shrinker Studio
-
-O Shrinker Pro continua gratuito e ilimitado. O Studio é uma atualização
-opcional dentro dele, para as fotografias que precisam de mais do que uma
-redução rápida:
-
-- **Compare antes de guardar:** divisor, lado a lado ou a vista Diferença, que
-  mostra cada píxel alterado pela compressão.
-- **Receitas:** redimensione e recorte, ajuste, adicione um aspeto, uma marca de
-  água, uma moldura ou novos nomes e guarde tudo para qualquer lote.
-- **Pastas vigiadas:** as fotografias novas numa pasta saem prontas, mesmo sem
-  nenhuma janela aberta.
-
-Clique em **Studio** na barra de ferramentas para uma visita guiada. Todas as
-ferramentas do Studio funcionam nas suas primeiras 10 exportações; uma licença
-de pagamento único desbloqueia o resto.
-
-### Também corrigido
-
-- A janela principal abre com o tamanho certo ao iniciar.
-- O botão das definições tem agora um nome que o VoiceOver lê e que o menu de
-  excedentes mostra.]]></description>
-            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Faceți cunoștință cu Shrinker Studio
-
-Shrinker Pro rămâne gratuit și nelimitat. Studio este un upgrade opțional în
-interiorul lui, pentru fotografiile care au nevoie de mai mult decât o micșorare
-rapidă:
-
-- **Comparați înainte de a salva:** vizualizare divizată, una lângă alta sau
-  vizualizarea Diferență, care arată fiecare pixel schimbat de compresie.
-- **Rețete:** redimensionați și decupați, ajustați, adăugați un aspect, un
-  filigran, un chenar sau nume noi, apoi salvați totul pentru orice lot.
-- **Dosare supravegheate:** fotografiile noi dintr-un dosar ies gata finisate,
-  chiar și fără nicio fereastră deschisă.
-
-Apăsați **Studio** în bara de instrumente pentru un tur. Fiecare instrument
-Studio funcționează pentru primele dumneavoastră 10 exporturi; o licență cu
-plată unică deblochează restul.
-
-### Remediate de asemenea
-
-- La lansare, fereastra principală se deschide la dimensiunea ei corectă.
-- Butonul de configurări are acum un nume pe care VoiceOver îl citește și pe
-  care meniul de debordare îl afișează.]]></description>
-            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Встречайте Shrinker Studio
-
-Shrinker Pro остаётся бесплатным и без ограничений. Studio — это необязательное
-расширение внутри него для фотографий, которым нужно больше, чем быстрое
-уменьшение:
-
-- **Сравнивайте перед сохранением:** Split View, рядом или вид «Разница»,
-  который показывает каждый пиксель, изменённый сжатием.
-- **Рецепты:** измените размер и обрежьте, скорректируйте, добавьте стиль,
-  водяной знак, рамку или новые имена, а затем сохраните всё это для любой
-  пачки.
-- **Отслеживаемые папки:** новые фотографии в папке выходят готовыми, даже когда
-  ни одно окно не открыто.
-
-Нажмите **Studio** в панели инструментов, чтобы пройти обзор. Все инструменты
-Studio работают для ваших первых 10 экспортов; разовая лицензия снимает это
-ограничение.
-
-### Также исправлено
-
-- Главное окно при запуске открывается в своём размере.
-- У кнопки настроек теперь есть название, которое читает VoiceOver и показывает
-  меню переполнения.]]></description>
-            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Predstavujeme Shrinker Studio
-
-Shrinker Pro zostáva zadarmo a bez obmedzení. Studio je v ňom voliteľné
-rozšírenie pre fotky, ktorým nestačí rýchle zmenšenie:
-
-- **Porovnajte pred uložením:** rozdelené zobrazenie, vedľa seba alebo
-  zobrazenie Rozdiel, ktoré ukáže každý pixel zmenený kompresiou.
-- **Recepty:** zmeňte veľkosť a orežte, upravte, pridajte štýl, vodoznak, rám
-  alebo nové názvy a uložte to pre akúkoľvek dávku.
-- **Sledované priečinky:** nové fotky v priečinku vyjdú hotové, aj keď nie je
-  otvorené žiadne okno.
-
-Kliknite na **Studio** v paneli s nástrojmi a pozrite si prehliadku. Pri prvých
-10 exportoch funguje každý nástroj Studia; jednorazová licencia odomkne zvyšok.
-
-### Ďalšie opravy
-
-- Hlavné okno sa pri spustení otvorí vo svojej správnej veľkosti.
-- Tlačidlo nastavení má teraz názov, ktorý prečíta VoiceOver a zobrazí ponuka
-  pretečenia.]]></description>
-            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Spoznajte Shrinker Studio
-
-Shrinker Pro ostaja brezplačen in neomejen. Studio je izbirna nadgradnja v njem,
-za fotografije, ki potrebujejo več kot hitro zmanjšanje:
-
-- **Primerjajte pred shranjevanjem:** razdeljen pogled, drug ob drugem ali
-  pogled Razlika, ki pokaže vsako slikovno piko, ki jo je spremenilo stiskanje.
-- **Recepti:** spremenite velikost in obrežite, prilagodite, dodajte videz,
-  vodni žig, obrobo ali nova imena ter vse shranite za katero koli serijo.
-- **Nadzorovane mape:** nove fotografije v mapi pridejo ven dokončane, tudi ko
-  ni odprto nobeno okno.
-
-Za predstavitev pritisnite **Studio** v orodni vrstici. Vsa orodja za Studio
-delujejo pri vaših prvih 10 izvozih; licenca z enkratnim plačilom odklene
-preostanek.
-
-### Odpravljeno tudi
-
-- Glavno okno se ob zagonu odpre v pravi velikosti.
-- Gumb za nastavitve ima zdaj ime, ki ga VoiceOver prebere in ga prikaže meni s
-  presežnimi elementi.]]></description>
-            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Möt Shrinker Studio
-
-Shrinker Pro förblir gratis och obegränsat. Studio är en valfri uppgradering
-inuti appen, för foton som behöver mer än en snabb krympning:
-
-- **Jämför innan du sparar:** skjutvy, sida vid sida eller vyn Skillnad, som
-  visar varje pixel som komprimeringen ändrade.
-- **Recept:** ändra storlek och beskär, justera, lägg till en stil, en
-  vattenstämpel, en ram eller nya namn, och spara det för vilken bunt som helst.
-- **Bevakade mappar:** nya foton i en mapp kommer ut färdiga, även utan något
-  öppet fönster.
-
-Tryck på **Studio** i verktygsfältet för en rundtur. Alla verktyg i Studio
-fungerar för dina första 10 exporter; en licens med engångsbetalning låser upp
-resten.
-
-### Även åtgärdat
-
-- Huvudfönstret öppnas i rätt storlek vid start.
-- Inställningsknappen har nu ett namn som VoiceOver läser upp och som
-  överflödesmenyn visar.]]></description>
-            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### พบกับ Shrinker Studio
-
-Shrinker Pro ยังคงใช้ได้ฟรีและไม่จำกัด Studio คือการอัปเกรดเสริมที่อยู่ในแอป สำหรับรูปถ่ายที่ต้องการมากกว่าการบีบอัดแบบรวดเร็ว:
-
-- **เปรียบเทียบก่อนบันทึก:** Split View เทียบข้างกัน หรือมุมมองส่วนต่างที่แสดงทุกพิกเซลที่การบีบอัดเปลี่ยนไป
-- **สูตร:** ปรับขนาดและครอบตัด ปรับแต่ง ใส่ลุค ลายน้ำ ขอบ หรือชื่อใหม่ แล้วบันทึกไว้ใช้กับชุดภาพใดก็ได้
-- **โฟลเดอร์เฝ้าดู:** รูปถ่ายใหม่ในโฟลเดอร์จะออกมาเสร็จเรียบร้อย แม้ไม่มีหน้าต่างใดเปิดอยู่
-
-กด **Studio** ในแถบเครื่องมือเพื่อชมทัวร์แนะนำ เครื่องมือทุกอย่างของ Studio ใช้ได้กับการส่งออก 10 ครั้งแรกของคุณ และใบอนุญาตแบบจ่ายครั้งเดียวจะปลดล็อกส่วนที่เหลือ
-
-### การแก้ไขอื่นๆ
-
-- หน้าต่างหลักจะเปิดในขนาดที่ถูกต้องเมื่อเปิดแอป
-- ปุ่มการตั้งค่ามีชื่อแล้ว VoiceOver จึงอ่านได้ และแสดงในเมนูรายการเพิ่มเติมของแถบเครื่องมือ]]></description>
-            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Studio ile tanışın
-
-Shrinker Pro ücretsiz ve sınırsız kalmaya devam ediyor. Studio, onun içinde
-isteğe bağlı bir yükseltme; hızlı bir küçültmeden fazlasına ihtiyaç duyan
-fotoğraflar için:
-
-- **Kaydetmeden önce karşılaştırın:** bölünmüş görünüm, yan yana ya da
-  sıkıştırmanın değiştirdiği her pikseli gösteren Fark görünümü.
-- **Tarifler:** yeniden boyutlandırın ve kırpın, düzenleyin, stil, filigran,
-  kenarlık ya da yeni adlar ekleyin, ardından bunu herhangi bir grup için
-  kaydedin.
-- **İzlenen Klasörler:** bir klasöre gelen yeni fotoğraflar, hiç pencere açık
-  olmasa bile bitmiş olarak çıkar.
-
-Tanıtım turu için araç çubuğundaki **Studio** düğmesine basın. Studio’nun tüm
-araçları ilk 10 dışa aktarımınızda çalışır; tek seferlik bir lisans gerisinin
-kilidini açar.
-
-### Ayrıca düzeltildi
-
-- Ana pencere açılışta doğru boyutunda açılıyor.
-- Ayarlar düğmesinin artık VoiceOver’ın okuduğu ve taşma menüsünün gösterdiği
-  bir adı var.]]></description>
-            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Знайомтеся: Shrinker Studio
-
-Shrinker Pro залишається безкоштовним і без обмежень. Studio — необовʼязкове
-розширення всередині нього для фото, яким потрібно більше, ніж швидке зменшення:
-
-- **Порівнюйте перед збереженням:** розділений вигляд, поруч або вигляд
-  «Різниця», що показує кожен піксель, змінений стисненням.
-- **Рецепти:** змініть розмір і обріжте, налаштуйте, додайте стиль, водяний
-  знак, рамку чи нові назви, а потім збережіть усе це для будь-якої партії.
-- **Відстежувані папки:** нові фото в папці виходять готовими, навіть коли не
-  відкрито жодного вікна.
-
-Натисніть **Studio** на панелі інструментів, щоб переглянути ознайомчий тур. Усі
-інструменти Studio працюють для ваших перших 10 експортів; одноразова ліцензія
-знімає це обмеження.
-
-### Також виправлено
-
-- Головне вікно під час запуску відкривається у власному розмірі.
-- Кнопка параметрів тепер має назву, яку читає VoiceOver і показує меню
-  переповнення.]]></description>
-            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Giới thiệu Shrinker Studio
-
-Shrinker Pro vẫn miễn phí và không giới hạn. Studio là bản nâng cấp tùy chọn
-ngay bên trong, dành cho những bức ảnh cần nhiều hơn một lần nén nhanh:
-
-- **So sánh trước khi lưu:** xem chia đôi, cạnh nhau, hoặc chế độ Chênh lệch cho
-  thấy mọi điểm ảnh mà quá trình nén đã thay đổi.
-- **Công thức:** đổi kích thước và cắt xén, điều chỉnh, thêm phong cách, hình
-  mờ, viền hoặc tên mới, rồi lưu lại để dùng cho bất kỳ lô ảnh nào.
-- **Thư mục theo dõi:** ảnh mới trong một thư mục sẽ ra thành phẩm hoàn chỉnh,
-  ngay cả khi không có cửa sổ nào mở.
-
-Nhấn **Studio** trên thanh công cụ để xem phần giới thiệu. Mọi công cụ của
-Studio đều dùng được cho 10 lượt xuất đầu tiên của bạn; giấy phép trả một lần sẽ
-mở khóa phần còn lại.
-
-### Các sửa lỗi khác
-
-- Cửa sổ chính mở đúng kích thước của nó khi khởi động.
-- Nút cài đặt giờ đã có tên để VoiceOver đọc và menu tràn hiển thị.]]></description>
-            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### 認識Shrinker Studio
-
-Shrinker Pro繼續免費、不限次數。Studio是其中一個可選的升級，為那些不只需要快速壓縮一下的相片而設：
-
-- **儲存前先比較**：分割顯示、並排，或用差異顯示看清壓縮改動過的每一個像素。
-- **配方**：調整大小與裁剪、調整畫面，加上風格、水印、邊框或新名稱，然後儲存起來，套用於任何一批相片。
-- **監察資料夾**：放進資料夾的新相片會自動處理妥當，即使沒有開啟任何視窗。
-
-按一下工具列中的**Studio**即可開始導覽。首10次輸出可以使用Studio的全部工具；購買一次性授權即可解鎖之後的所有輸出。
-
-### 其他修正
-
-- 啟動時主視窗會以正確的尺寸開啟。
-- 設定按鈕現在有名稱，VoiceOver可以讀出，溢位選單中亦會顯示。]]></description>
-            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### 认识 Shrinker Studio
-
-Shrinker Pro 依然免费、不限次数。Studio 是其中的一个可选升级，为那些不止需要快速压缩一下的照片而准备：
-
-- **保存前先比较**：分屏、并排，或用差异视图看清压缩改动过的每一个像素。
-- **配方**：调整大小与裁剪、调整画面，加上风格、水印、边框或新名称，然后保存下来，用于任何一批照片。
-- **监视文件夹**：放进文件夹的新照片会自动处理完成，即使没有打开任何窗口。
-
-点按工具栏中的 **Studio** 即可开始导览。前 10 次导出可以使用 Studio 的全部工具；购买一次性许可证即可解锁之后的所有导出。
-
-### 其他修复
-
-- 启动时主窗口会以正确的尺寸打开。
-- 设置按钮现在有了名称，VoiceOver 可以朗读，溢出菜单中也会显示。]]></description>
-            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### 認識Shrinker Studio
-
-Shrinker Pro依然免費、不限次數。Studio是其中的一個選用升級，為那些不只需要快速壓縮一下的照片而準備：
-
-- **儲存前先比較**：分割顯示、並排，或用差異顯示看清壓縮改動過的每一個像素。
-- **配方**：調整大小並裁切、調整畫面，加上風格、浮水印、邊框或新名稱，然後儲存起來，套用於任何一批照片。
-- **監看檔案夾**：放進檔案夾的新照片會自動處理完成，即使沒有開啟任何視窗。
-
-按一下工具列中的**Studio**即可開始導覽。前10次匯出可以使用Studio的全部工具；購買一次性授權即可解鎖之後的所有匯出。
-
-### 其他修正
-
-- 啟動時主視窗會以正確的尺寸開啟。
-- 設定按鈕現在有了名稱，VoiceOver可以朗讀，溢位選單中也會顯示。]]></description>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.7.0/ShrinkerPro-1.7.0.dmg" length="10991310" type="application/octet-stream" sparkle:edSignature="k0Rt1hvnGBmXMUiuT7RFdMPrKVVx6K+jpC9Lmhl8u2awZQpeUY7dG0wZxFrnsnQNNDvX63FmKSbyl8ySkhexAA=="/>
         </item>
     </channel>
 </rss>

@@ -4,7 +4,27 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
-## 1.8.0 — Unreleased
+## 1.8.1 — 2026-11-12
+
+### Fixed
+
+**Studio exports AVIF and JPEG XL on macOS 14, 15 and 26.** Studio reads every
+file back before keeping it and refuses any property it doesn't recognise, so
+that metadata the recipe removes can't slip through. ImageIO on those systems
+reports a `Headroom` value (the image's HDR headroom, a number) for AVIF and
+JPEG XL, which the check didn't know, so every such export with Copyright
+only or None failed with "This file would have kept metadata the recipe
+removes". macOS 27 doesn't report it, which is why it went unseen. It is now
+allowed, and a refusal is logged with the property that caused it.
+
+**AVIF on macOS 14 and 15.** Those systems read AVIF but have no encoder for
+it, so every conversion to AVIF, and every AVIF kept as AVIF, failed with an
+ImageIO error. AVIF is now greyed out in the format menus there, labelled
+with the macOS version that writes it, and a file that would be written as
+AVIF is refused before anything is written, with a message that says why
+(exit code 8 from `shrinker`). Studio's Formats view leaves the AVIF tile out.
+
+## 1.8.0 — 2026-11-11
 
 ### Added
 

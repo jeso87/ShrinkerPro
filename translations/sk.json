@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (vyžaduje macOS %2$@)",
   "%@ failed with exit code %d": "Nástroj %@ zlyhal s kódom ukončenia %d",
   "%@ failed with exit code %d: %@": "Nástroj %@ zlyhal s kódom ukončenia %d: %@",
   "%@ saved": "Ušetrených %@",
@@ -160,6 +161,7 @@
     "few": "Zvyšné %lld súbory to neovplyvní.",
     "other": "Zvyšných %lld súborov to neovplyvní."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Tento Mac dokáže AVIF čítať, ale nie zapisovať: na to je potrebný macOS %@ alebo novší.",
   "This session": "Táto relácia",
   "This session: %@": "Táto relácia: %@",
   "W": "Š",
@@ -167,6 +169,7 @@
   "What's New": "Čo je nové",
   "When shrinking, keep": "Pri zmenšovaní ponechať",
   "Where": "Kam",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Zápis AVIF vyžaduje macOS %@ alebo novší, preto tento súbor nebol vytvorený. Vyberte preň iný formát.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Vaše originály budú prepísané a nedajú sa obnoviť. Konvertované súbory majú vlastnú koncovku, takže tie originály zostanú nedotknuté.",
   "filename list separator": ", ",
   "px": "px",

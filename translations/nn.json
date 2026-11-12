@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (krev macOS %2$@)",
   "%@ failed with exit code %d": "%@ feila med avslutningskode %d",
   "%@ failed with exit code %d: %@": "%@ feila med avslutningskode %d: %@",
   "%@ saved": "%@ spart",
@@ -148,6 +149,7 @@
     "one": "Den andre fila blir ikkje påverka.",
     "other": "Dei andre %lld filene blir ikkje påverka."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Denne Macen kan lese AVIF, men ikkje skrive det: det krev macOS %@ eller nyare.",
   "This session": "Denne økta",
   "This session: %@": "Denne økta: %@",
   "W": "B",
@@ -155,6 +157,7 @@
   "What's New": "Nyheiter",
   "When shrinking, keep": "Behald ved krymping",
   "Where": "Kvar",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Skriving av AVIF krev macOS %@ eller nyare, så denne fila vart ikkje laga. Vel eit anna format for henne.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Originalane dine blir overskrivne og kan ikkje hentast attende. Konverterte filer får eit eige filetternamn, så dei originalane blir ikkje rørte.",
   "filename list separator": ", ",
   "px": "px",

@@ -357,7 +357,10 @@ private struct SettingsConversionPane: View {
                 // wonder whether it's an oversight. Must name both formats
                 // and give the reason for each — "some formats are
                 // excluded" is not actionable.
-                Text("SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.")
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.")
+                    if let note = AVIFAvailability.note { Text(note) }
+                }
             }
             // Its own Section, placed directly after the conversion rules:
             // quality governs the encoders those rules select, but it also
@@ -430,7 +433,9 @@ private struct ConversionRuleRow: View {
                 Text(target == .keep
                      ? String(localized: "Keep \(ownFormatName)",
                               comment: "Conversion rule option meaning 'do not convert'. The placeholder is a format name such as PNG, which stays English.")
-                     : target.displayName).tag(target)
+                     : AVIFAvailability.menuLabel(target.displayName, isAVIF: target == .avif))
+                .tag(target)
+                .avifItemDisabled(target == .avif)
             }
         }
     }
@@ -448,7 +453,9 @@ private struct HEICConversionRuleRow: View {
     var body: some View {
         Picker(rowLabel, selection: $selection) {
             ForEach(ConversionFormat.allCases, id: \.self) { format in
-                Text(format.displayName).tag(format)
+                Text(AVIFAvailability.menuLabel(format.displayName, isAVIF: format == .avif))
+                    .tag(format)
+                    .avifItemDisabled(format == .avif)
             }
         }
     }

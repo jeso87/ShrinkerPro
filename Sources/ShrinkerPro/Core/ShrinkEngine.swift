@@ -122,6 +122,10 @@ final class ShrinkEngine {
 
     private let helperProvider: @Sendable (String) throws -> URL
     private let svgCompressor: SVGCompressor
+    /// False on macOS 14 and 15, which can read AVIF but have no encoder for it.
+    /// An AVIF output is then refused at plan time, before anything is written,
+    /// with a message that says why (`ShrinkError.avifUnavailable`).
+    let canWriteAVIF: Bool
 
     /// - Parameters:
     ///   - helperProvider: maps a helper binary name ("cjpeg", "pngquant",
@@ -141,11 +145,16 @@ final class ShrinkEngine {
     ///     defaulted) surfaces as `.helperMissing("svgo.jsc.js")`, never a
     ///     raw Foundation file-not-found error escaping from
     ///     `SVGCompressor`'s `String(contentsOf:)`.
+    ///   - canWriteAVIF: whether this system has an AVIF encoder. Defaults to
+    ///     asking ImageIO (`RasterUTType.canWriteAVIF`); tests pass `false` to
+    ///     stand in for macOS 14 and 15, which have none.
     init(
         helperProvider: (@Sendable (String) throws -> URL)? = nil,
-        svgoScriptURL: URL? = nil
+        svgoScriptURL: URL? = nil,
+        canWriteAVIF: Bool = RasterUTType.canWriteAVIF
     ) throws {
         self.helperProvider = helperProvider ?? { name in try HelperLocator.url(named: name) }
+        self.canWriteAVIF = canWriteAVIF
 
         let resolvedScript = svgoScriptURL
             ?? Bundle.main.url(forResource: "svgo.jsc", withExtension: "js")
@@ -719,6 +728,7 @@ final class ShrinkEngine {
                     executable: try helperProvider("cwebp"), policy: policy, quality: quality.cwebpScale
                 )
             case .avif:
+                guard canWriteAVIF else { throw ShrinkError.avifUnavailable }
                 return ImageIOCompressor(
                     utType: RasterUTType.avif, quality: quality.unitScale, policy: policy,
                     resize: resize
@@ -735,6 +745,7 @@ final class ShrinkEngine {
         case .direct(let target):
             switch target {
             case .avif:
+                guard canWriteAVIF else { throw ShrinkError.avifUnavailable }
                 return ImageIOCompressor(
                     utType: RasterUTType.avif, quality: quality.unitScale, policy: policy,
                     resize: resize

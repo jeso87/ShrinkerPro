@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (macOS %2$@ szükséges)",
   "%@ failed with exit code %d": "%@ — a futtatás sikertelen, kilépési kód: %d",
   "%@ failed with exit code %d: %@": "%@ — a futtatás sikertelen, kilépési kód: %d. Üzenet: %@",
   "%@ saved": "Megtakarítva: %@",
@@ -148,6 +149,7 @@
     "one": "A másik fájlt ez nem érinti.",
     "other": "A többi %lld fájlt ez nem érinti."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Ez a Mac olvassa az AVIF-et, de írni nem tudja: ehhez macOS %@ vagy újabb szükséges.",
   "This session": "Ez a munkamenet",
   "This session: %@": "Ez a munkamenet: %@",
   "W": "Sz",
@@ -155,6 +157,7 @@
   "What's New": "Újdonságok",
   "When shrinking, keep": "Tömörítéskor megtartandó",
   "Where": "Hová",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Az AVIF írásához macOS %@ vagy újabb szükséges, ezért ez a fájl nem készült el. Válasszon hozzá másik formátumot.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Az eredeti fájljai felülíródnak, és nem állíthatók vissza. Az átalakított fájlok külön kiterjesztést kapnak, így azok eredetijét nem érinti a művelet.",
   "filename list separator": ", ",
   "px": "px",

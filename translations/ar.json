@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (يتطلب macOS %2$@)",
   "%@ failed with exit code %d": "فشل %@ برمز الخروج %d",
   "%@ failed with exit code %d: %@": "فشل %@ برمز الخروج %d: %@",
   "%@ saved": "تم توفير %@",
@@ -196,6 +197,7 @@
     "two": "لن يتأثر الملفان الآخران.",
     "zero": "لن يتأثر %lld ملف آخر."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "يقرأ هذا الـ Mac ملفات AVIF لكنه لا يستطيع كتابتها: يتطلب ذلك macOS %@ أو أحدث.",
   "This session": "هذه الجلسة",
   "This session: %@": "هذه الجلسة: %@",
   "W": "ع",
@@ -203,6 +205,7 @@
   "What's New": "الجديد",
   "When shrinking, keep": "عند التصغير، احتفظ بـ",
   "Where": "الوجهة",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "تتطلب كتابة AVIF نظام macOS %@ أو أحدث، لذلك لم يُنشأ هذا الملف. اختر تنسيقًا آخر له.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "ستتم الكتابة فوق ملفاتك الأصلية ولن يمكن استرجاعها. أما الملفات المحوَّلة فتحتفظ بامتداد مختلف، ولذلك تبقى ملفاتها الأصلية كما هي.",
   "filename list separator": "، ",
   "px": "px",

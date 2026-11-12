@@ -527,6 +527,7 @@ final class CommandLineOptionsTests: XCTestCase {
         XCTAssertEqual(ShrinkError.javascriptFailed("").exitCode, 5)
         XCTAssertEqual(ShrinkError.outputNotWritten(URL(fileURLWithPath: "/a")).exitCode, 6)
         XCTAssertEqual(ShrinkError.conversionFailed("").exitCode, 7)
+        XCTAssertEqual(ShrinkError.avifUnavailable.exitCode, 8)
     }
 
     /// Nothing may collide with 0, and nothing may collide with anything
@@ -540,6 +541,7 @@ final class CommandLineOptionsTests: XCTestCase {
             ShrinkError.javascriptFailed("").exitCode,
             ShrinkError.outputNotWritten(URL(fileURLWithPath: "/a")).exitCode,
             ShrinkError.conversionFailed("").exitCode,
+            ShrinkError.avifUnavailable.exitCode,
         ]
 
         XCTAssertEqual(Set(codes).count, codes.count, "two failures share an exit code")

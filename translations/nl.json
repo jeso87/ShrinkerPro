@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (vereist macOS %2$@)",
   "%@ failed with exit code %d": "%@ is mislukt met exitcode %d",
   "%@ failed with exit code %d: %@": "%@ is mislukt met exitcode %d: %@",
   "%@ saved": "%@ bespaard",
@@ -148,6 +149,7 @@
     "one": "Het andere bestand blijft ongemoeid.",
     "other": "De andere %lld bestanden blijven ongemoeid."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Deze Mac leest AVIF maar kan het niet schrijven: daarvoor is macOS %@ of nieuwer vereist.",
   "This session": "Deze sessie",
   "This session: %@": "Deze sessie: %@",
   "W": "B",
@@ -155,6 +157,7 @@
   "What's New": "Nieuw",
   "When shrinking, keep": "Behoud bij het verkleinen",
   "Where": "Waarheen",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Voor het schrijven van AVIF is macOS %@ of nieuwer vereist, dus dit bestand is niet gemaakt. Kies er een ander formaat voor.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Je originelen worden overschreven en kunnen niet worden teruggehaald. Geconverteerde bestanden houden een eigen extensie, dus die originelen blijven ongemoeid.",
   "filename list separator": ", ",
   "px": "px",

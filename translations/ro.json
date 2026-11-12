@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (necesită macOS %2$@)",
   "%@ failed with exit code %d": "%@ a eșuat cu codul de ieșire %d",
   "%@ failed with exit code %d: %@": "%@ a eșuat cu codul de ieșire %d: %@",
   "%@ saved": "%@ economisiți",
@@ -160,6 +161,7 @@
     "few": "Celelalte %lld fișiere nu sunt afectate.",
     "other": "Celelalte %lld de fișiere nu sunt afectate."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Acest Mac citește AVIF, dar nu îl poate scrie: pentru asta este nevoie de macOS %@ sau mai nou.",
   "This session": "Această sesiune",
   "This session: %@": "Această sesiune: %@",
   "W": "L",
@@ -167,6 +169,7 @@
   "What's New": "Noutăți",
   "When shrinking, keep": "La micșorare, păstrați",
   "Where": "Unde",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Scrierea în AVIF necesită macOS %@ sau mai nou, așa că acest fișier nu a fost creat. Alegeți alt format pentru el.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Originalele dvs. vor fi suprascrise și nu vor putea fi recuperate. Fișierele convertite păstrează o extensie separată, așa că acele originale rămân neatinse.",
   "filename list separator": ", ",
   "px": "px",

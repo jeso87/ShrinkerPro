@@ -248,4 +248,19 @@ struct ImageIOCompressor: Compressor {
 enum RasterUTType {
     static let avif = "public.avif"
     static let heic = "public.heic"
+
+    /// Whether this system can write AVIF. macOS reads AVIF from 14 on but only
+    /// writes it from 26: on 14 and 15 `CGImageDestinationCreateWithURL` returns
+    /// nil for `public.avif` (verified on 14.6.1 and 15.7.4). Asked once, by
+    /// creating an in-memory destination, which is the step that fails.
+    static let canWriteAVIF: Bool = {
+        #if DEBUG
+        // Shows macOS 14 and 15's behaviour on a newer Mac: greyed-out menus and refusals.
+        if ProcessInfo.processInfo.environment["SHRINKER_NO_AVIF_ENCODER"] == "1" { return false }
+        #endif
+        return CGImageDestinationCreateWithData(NSMutableData() as CFMutableData, avif as CFString, 1, nil) != nil
+    }()
+
+    /// The macOS version that first writes AVIF, for messages.
+    static let avifWritingMacOS = "26"
 }

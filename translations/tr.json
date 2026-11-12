@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (macOS %2$@ gerekir)",
   "%@ failed with exit code %d": "%@ aracı, %d çıkış koduyla başarısız oldu",
   "%@ failed with exit code %d: %@": "%@ aracı, %d çıkış koduyla başarısız oldu: %@",
   "%@ saved": "%@ tasarruf edildi",
@@ -148,6 +149,7 @@
     "one": "Diğer dosya etkilenmez.",
     "other": "Diğer %lld dosya etkilenmez."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Bu Mac AVIF okuyabilir ancak yazamaz: bunun için macOS %@ veya üstü gerekir.",
   "This session": "Bu oturum",
   "This session: %@": "Bu oturum: %@",
   "W": "G",
@@ -155,6 +157,7 @@
   "What's New": "Yenilikler",
   "When shrinking, keep": "Küçültürken korunacaklar",
   "Where": "Nereye",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "AVIF yazmak için macOS %@ veya üstü gerekir, bu yüzden bu dosya oluşturulmadı. Bunun için başka bir biçim seçin.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Orijinallerinizin üzerine yazılacak ve geri alınamayacaklar. Dönüştürülen dosyalar ayrı bir uzantı taşır, bu yüzden o orijinallere dokunulmaz.",
   "filename list separator": ", ",
   "px": "px",

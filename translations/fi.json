@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (vaatii macOS %2$@)",
   "%@ failed with exit code %d": "%@ epäonnistui, lopetuskoodi %d",
   "%@ failed with exit code %d: %@": "%@ epäonnistui, lopetuskoodi %d: %@",
   "%@ saved": "%@ säästetty",
@@ -148,6 +149,7 @@
     "one": "Tämä ei vaikuta toiseen tiedostoon.",
     "other": "Tämä ei vaikuta muihin %lld tiedostoon."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Tämä Mac lukee AVIF-tiedostoja mutta ei voi kirjoittaa niitä: siihen tarvitaan macOS %@ tai uudempi.",
   "This session": "Tämä istunto",
   "This session: %@": "Tämä istunto: %@",
   "W": "L",
@@ -155,6 +157,7 @@
   "What's New": "Uutta",
   "When shrinking, keep": "Pienennettäessä säilytä",
   "Where": "Minne",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "AVIF-tiedostojen kirjoittaminen vaatii macOS %@:n tai uudemman, joten tätä tiedostoa ei tehty. Valitse sille toinen muoto.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Alkuperäistiedostosi ylikirjoitetaan, eikä niitä voi palauttaa. Muunnetut tiedostot saavat oman tiedostopäätteensä, joten niiden alkuperäistiedostot jäävät koskematta.",
   "filename list separator": ", ",
   "px": "px",

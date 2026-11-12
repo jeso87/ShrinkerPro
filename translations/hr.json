@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (potreban je macOS %2$@)",
   "%@ failed with exit code %d": "Alat %@ završio je s izlaznim kodom %d",
   "%@ failed with exit code %d: %@": "Alat %@ završio je s izlaznim kodom %d: %@",
   "%@ saved": "Ušteđeno %@",
@@ -160,6 +161,7 @@
     "few": "Preostale %lld datoteke ostaju nedirnute.",
     "other": "Preostalih %lld datoteka ostaje nedirnuto."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Ovaj Mac čita AVIF, ali ga ne može zapisati: za to je potreban macOS %@ ili noviji.",
   "This session": "Ova sesija",
   "This session: %@": "Ova sesija: %@",
   "W": "Š",
@@ -167,6 +169,7 @@
   "What's New": "Što je novo",
   "When shrinking, keep": "Pri smanjivanju zadrži",
   "Where": "Gdje",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Za zapisivanje AVIF-a potreban je macOS %@ ili noviji, pa ova datoteka nije izrađena. Odaberite drugi format za nju.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Vaši originali bit će presnimljeni i neće se moći vratiti. Konvertirane datoteke imaju drugu ekstenziju, pa ti originali ostaju nedirnuti.",
   "filename list separator": ", ",
   "px": "px",

@@ -128,6 +128,60 @@ final class ShrinkEngineTests: XCTestCase {
         XCTAssertEqual(Array(bytes.prefix(4)), Array("RIFF".utf8), "output is not RIFF/WebP")
     }
 
+    // MARK: - No AVIF encoder (macOS 14 and 15)
+
+    /// An engine as macOS 14 and 15 have it: AVIF reads, but there is no encoder.
+    private func engineWithoutAVIFEncoder() throws -> ShrinkEngine {
+        let vendor = try vendorCompressorsRoot()
+        return try ShrinkEngine(
+            helperProvider: { vendor.appendingPathComponent($0) },
+            svgoScriptURL: try svgoScriptURL(),
+            canWriteAVIF: false
+        )
+    }
+
+    /// Every way a file can end up written as AVIF is refused at plan time, before anything is
+    /// written, with the error that says why: a rule, the HEIC rule, the session override, and
+    /// an AVIF kept as AVIF.
+    func testAVIFOutputIsRefusedWithoutAnEncoder() throws {
+        let engine = try engineWithoutAVIFEncoder()
+        var session = defaults
+        session.sessionFormat = .avif
+        let cases: [(String, String, OutputSettings)] = [
+            ("png", "PNG rule", settings(rules: ConversionRules(png: .avif))),
+            ("heic", "HEIC rule", settings(rules: ConversionRules(heic: .avif))),
+            ("jpg", "session override", session),
+            ("avif", "AVIF kept", defaults),
+        ]
+        for (ext, label, settings) in cases {
+            let input = try stagedFixture("sample", ext)
+            defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+            XCTAssertThrowsError(try engine.plan(input, settings: settings), label) { error in
+                guard case ShrinkError.avifUnavailable = error else { return XCTFail("\(label): \(error)") }
+            }
+            let left = try FileManager.default.contentsOfDirectory(atPath: input.deletingLastPathComponent().path)
+            XCTAssertEqual(left, [input.lastPathComponent], "\(label): wrote something")
+        }
+    }
+
+    /// Without an encoder, everything that doesn't write AVIF still works: AVIF is still read,
+    /// and converts to the other formats.
+    func testAVIFStillReadsWithoutAnEncoder() throws {
+        let engine = try engineWithoutAVIFEncoder()
+        let input = try stagedFixture("sample", "avif")
+        defer { try? FileManager.default.removeItem(at: input.deletingLastPathComponent()) }
+        let result = try engine.shrink(input, settings: settings(rules: ConversionRules(avif: .jpeg)))
+        XCTAssertEqual(result.output.pathExtension, "jpg")
+    }
+
+    /// The message names the version that writes AVIF, and says what to do.
+    func testAVIFUnavailableMessage() {
+        XCTAssertEqual(
+            ShrinkError.avifUnavailable.errorDescription,
+            "Writing AVIF needs macOS 26 or later, so this file wasn't made. Choose another format for it."
+        )
+    }
+
     /// PNG → AVIF: ImageIO decodes PNG and encodes AVIF directly, no
     /// vendored binary at all — `ConversionRoute.direct`.
     func testPNGConvertsToAVIF() throws {

@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@（需要 macOS %2$@）",
   "%@ failed with exit code %d": "%@ 失败，退出代码为 %d",
   "%@ failed with exit code %d: %@": "%@ 失败，退出代码为 %d：%@",
   "%@ saved": "节省 %@",
@@ -136,6 +137,7 @@
   "The other %lld files are unaffected.": {
     "other": "其余 %lld 个文件不受影响。"
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "这台 Mac 可以读取 AVIF，但无法写入：写入需要 macOS %@ 或更高版本。",
   "This session": "本次会话",
   "This session: %@": "本次会话：%@",
   "W": "宽",
@@ -143,6 +145,7 @@
   "What's New": "新功能",
   "When shrinking, keep": "压缩时保留",
   "Where": "位置",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "写入 AVIF 需要 macOS %@ 或更高版本，因此未生成此文件。请为它选择其他格式。",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "你的原始文件将被覆盖，且无法恢复。转换后的文件会使用不同的扩展名，因此那些原始文件不受影响。",
   "filename list separator": "、",
   "px": "px",

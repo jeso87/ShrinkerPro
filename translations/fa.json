@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (نیازمند macOS %2$@)",
   "%@ failed with exit code %d": "%@ با کد خروج %d شکست خورد",
   "%@ failed with exit code %d: %@": "%@ با کد خروج %d شکست خورد: %@",
   "%@ saved": "%@ صرفه‌جویی شد",
@@ -148,6 +149,7 @@
     "one": "%lld فایل دیگر تحت تأثیر قرار نمی‌گیرد.",
     "other": "%lld فایل دیگر تحت تأثیر قرار نمی‌گیرد."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "این Mac می‌تواند AVIF را بخواند اما نمی‌تواند آن را بنویسد: این کار به macOS %@ یا جدیدتر نیاز دارد.",
   "This session": "این جلسه",
   "This session: %@": "این جلسه: %@",
   "W": "پ",
@@ -155,6 +157,7 @@
   "What's New": "موارد جدید",
   "When shrinking, keep": "هنگام کوچک کردن، نگه‌داشتن",
   "Where": "مقصد",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "نوشتن AVIF به macOS %@ یا جدیدتر نیاز دارد، بنابراین این فایل ساخته نشد. قالب دیگری برای آن انتخاب کنید.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "فایل‌های اصلی شما بازنویسی می‌شوند و دیگر قابل بازیابی نخواهند بود. فایل‌های تبدیل‌شده پسوند جداگانه‌ای دارند، بنابراین فایل‌های اصلی آن‌ها دست‌نخورده می‌مانند.",
   "filename list separator": "، ",
   "px": "px",

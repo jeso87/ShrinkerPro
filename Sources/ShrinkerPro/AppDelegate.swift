@@ -50,10 +50,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
         alert.runModal()
     }
 
-    /// Upstream's `open-file` handler. Also reused directly by
-    /// `ShrinkerProApp`'s "Open Recent" submenu (see there) so a click on a
-    /// recent-document entry goes through the exact same
-    /// launch-failure-aware path as a real Finder open.
+    /// Upstream's `open-file` handler: Finder's Open With, and a drop on the
+    /// Dock icon.
     func application(_ application: NSApplication, open allURLs: [URL]) {
         #if STUDIO
         let (licences, urls) = LicenceFileRouting.split(allURLs)

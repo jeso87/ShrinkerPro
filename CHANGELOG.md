@@ -4,6 +4,21 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.8.2 — 2026-11-12
+
+### Fixed
+
+**File ▸ Open Files… opens into Studio when its window is in front.** It
+always fed the main window, so photos opened from the menu with Studio in
+front were shrunk by Shrinker Pro instead of joining the Studio batch. The
+menu now does what a drop on the window in front does.
+
+### Removed
+
+**Open Recent.** Shrinker Pro makes new files rather than editing documents,
+so reopening one had nothing to come back to. A shrink no longer adds its
+file to the recent list.
+
 ## 1.8.1 — 2026-11-12
 
 ### Fixed

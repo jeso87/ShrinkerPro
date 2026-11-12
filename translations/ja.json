@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@（macOS %2$@ 以降が必要）",
   "%@ failed with exit code %d": "%@が終了コード%dで失敗しました",
   "%@ failed with exit code %d: %@": "%@が終了コード%dで失敗しました:%@",
   "%@ saved": "%@削減しました",
@@ -136,6 +137,7 @@
   "The other %lld files are unaffected.": {
     "other": "ほかの%lld個のファイルには影響ありません。"
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "このMacはAVIFを読み込めますが、書き出せません。書き出すにはmacOS %@以降が必要です。",
   "This session": "このセッション",
   "This session: %@": "このセッション:%@",
   "W": "幅",
@@ -143,6 +145,7 @@
   "What's New": "新機能",
   "When shrinking, keep": "圧縮時に保持",
   "Where": "保存先",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "AVIFの書き出しにはmacOS %@以降が必要なため、このファイルは作成されませんでした。別のフォーマットを選択してください。",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "オリジナルは上書きされ、復元できなくなります。変換したファイルは拡張子が別になるため、そのオリジナルはそのまま残ります。",
   "filename list separator": "、",
   "px": "px",

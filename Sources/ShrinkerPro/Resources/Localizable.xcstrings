@@ -18324,6 +18324,348 @@
           "stringUnit" : { "state" : "translated", "value" : "新功能" }
         }
       }
+    },
+    "%@ (needs macOS %@)" : {
+      "comment" : "A greyed-out format menu item on macOS 14 or 15, which can't write AVIF. Placeholders: the format name (AVIF, stays English) and a macOS version number such as 26.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "%@ (needs macOS %@)" }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (يتطلب macOS %2$@)" }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (cal macOS %2$@)" }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (vyžaduje macOS %2$@)" }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (kræver macOS %2$@)" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (erfordert macOS %2$@)" }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (απαιτεί macOS %2$@)" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (requiere macOS %2$@)" }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (نیازمند macOS %2$@)" }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (vaatii macOS %2$@)" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (nécessite macOS %2$@)" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (דורש macOS %2$@)" }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (potreban je macOS %2$@)" }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (macOS %2$@ szükséges)" }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (krefst macOS %2$@)" }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (richiede macOS %2$@)" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@（macOS %2$@ 以降が必要）" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@(macOS %2$@ 이상 필요)" }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (krever macOS %2$@)" }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (vereist macOS %2$@)" }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (krev macOS %2$@)" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (wymaga macOS %2$@)" }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (requer macOS %2$@)" }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (requer macOS %2$@)" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (necesită macOS %2$@)" }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (нужна macOS %2$@)" }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (vyžaduje macOS %2$@)" }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (zahteva macOS %2$@)" }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (kräver macOS %2$@)" }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (ต้องใช้ macOS %2$@)" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (macOS %2$@ gerekir)" }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (потрібна macOS %2$@)" }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@ (cần macOS %2$@)" }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@（需要 macOS %2$@）" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@（需要 macOS %2$@）" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "%1$@（需要 macOS %2$@）" }
+        }
+      }
+    },
+    "This Mac reads AVIF but can't write it: that needs macOS %@ or later." : {
+      "comment" : "Note under the conversion rules on macOS 14 or 15. The placeholder is a macOS version number such as 26.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "This Mac reads AVIF but can't write it: that needs macOS %@ or later." }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يقرأ هذا الـ Mac ملفات AVIF لكنه لا يستطيع كتابتها: يتطلب ذلك macOS %@ أو أحدث." }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Aquest Mac llegeix AVIF però no el pot escriure: cal macOS %@ o posterior." }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tento Mac umí AVIF číst, ale ne zapisovat: to vyžaduje macOS %@ nebo novější." }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Denne Mac kan læse AVIF, men ikke skrive det: det kræver macOS %@ eller nyere." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Dieser Mac kann AVIF lesen, aber nicht schreiben: Dafür ist macOS %@ oder neuer erforderlich." }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Αυτό το Mac διαβάζει AVIF αλλά δεν μπορεί να το γράψει: απαιτείται macOS %@ ή νεότερο." }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Este Mac lee AVIF pero no puede escribirlo: para ello se requiere macOS %@ o posterior." }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "این Mac می‌تواند AVIF را بخواند اما نمی‌تواند آن را بنویسد: این کار به macOS %@ یا جدیدتر نیاز دارد." }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tämä Mac lukee AVIF-tiedostoja mutta ei voi kirjoittaa niitä: siihen tarvitaan macOS %@ tai uudempi." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ce Mac lit l’AVIF mais ne peut pas en écrire : il faut pour cela macOS %@ ou ultérieur." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mac זה קורא AVIF אך אינו יכול לכתוב אותו: לשם כך נדרש macOS %@ ואילך." }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ovaj Mac čita AVIF, ali ga ne može zapisati: za to je potreban macOS %@ ili noviji." }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ez a Mac olvassa az AVIF-et, de írni nem tudja: ehhez macOS %@ vagy újabb szükséges." }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Þessi Mac les AVIF en getur ekki skrifað það: til þess þarf macOS %@ eða nýrra." }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Questo Mac legge AVIF ma non può scriverlo: serve macOS %@ o versioni successive." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "このMacはAVIFを読み込めますが、書き出せません。書き出すにはmacOS %@以降が必要です。" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "이 Mac은 AVIF를 읽을 수 있지만 쓸 수는 없습니다. 쓰려면 macOS %@ 이상이 필요합니다." }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Denne Macen kan lese AVIF, men ikke skrive det: det krever macOS %@ eller nyere." }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Deze Mac leest AVIF maar kan het niet schrijven: daarvoor is macOS %@ of nieuwer vereist." }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Denne Macen kan lese AVIF, men ikkje skrive det: det krev macOS %@ eller nyare." }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ten Mac odczytuje AVIF, ale nie może go zapisywać: wymaga to systemu macOS %@ lub nowszego." }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Este Mac lê AVIF, mas não consegue gravá-lo: isso requer o macOS %@ ou posterior." }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Este Mac lê AVIF, mas não consegue gravá-lo: isso requer o macOS %@ ou posterior." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Acest Mac citește AVIF, dar nu îl poate scrie: pentru asta este nevoie de macOS %@ sau mai nou." }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Этот Mac читает AVIF, но не может его записывать: для этого нужна macOS %@ или новее." }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tento Mac dokáže AVIF čítať, ale nie zapisovať: na to je potrebný macOS %@ alebo novší." }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ta Mac bere AVIF, ne more pa ga zapisovati: za to je potreben macOS %@ ali novejši." }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Den här Macen kan läsa AVIF men inte skriva det: det kräver macOS %@ eller senare." }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mac เครื่องนี้อ่าน AVIF ได้แต่เขียนไม่ได้ ต้องใช้ macOS %@ ขึ้นไป" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Bu Mac AVIF okuyabilir ancak yazamaz: bunun için macOS %@ veya üstü gerekir." }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Цей Mac читає AVIF, але не може його записувати: для цього потрібна macOS %@ або новіша." }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Máy Mac này đọc được AVIF nhưng không ghi được: việc đó cần macOS %@ trở lên." }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "這部 Mac 可以讀取 AVIF，但無法寫入：寫入需要 macOS %@ 或以上版本。" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "这台 Mac 可以读取 AVIF，但无法写入：写入需要 macOS %@ 或更高版本。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "這台 Mac 可以讀取 AVIF，但無法寫入：寫入需要 macOS %@ 或以上版本。" }
+        }
+      }
+    },
+    "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it." : {
+      "comment" : "Error when a file would be saved as AVIF on macOS 14 or 15, which can read AVIF but not write it. The placeholder is a macOS version number such as 26.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it." }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تتطلب كتابة AVIF نظام macOS %@ أو أحدث، لذلك لم يُنشأ هذا الملف. اختر تنسيقًا آخر له." }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Per escriure AVIF cal macOS %@ o posterior, així que aquest fitxer no s'ha creat. Tria un altre format per a aquest fitxer." }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zápis AVIF vyžaduje macOS %@ nebo novější, proto tento soubor nebyl vytvořen. Zvolte pro něj jiný formát." }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Skrivning af AVIF kræver macOS %@ eller nyere, så denne fil blev ikke lavet. Vælg et andet format til den." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zum Schreiben von AVIF ist macOS %@ oder neuer erforderlich, daher wurde diese Datei nicht erstellt. Wähle ein anderes Format dafür." }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Η εγγραφή AVIF απαιτεί macOS %@ ή νεότερο, οπότε αυτό το αρχείο δεν δημιουργήθηκε. Επιλέξτε άλλη μορφή για αυτό." }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Escribir AVIF requiere macOS %@ o posterior, así que este archivo no se ha creado. Elige otro formato para él." }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "نوشتن AVIF به macOS %@ یا جدیدتر نیاز دارد، بنابراین این فایل ساخته نشد. قالب دیگری برای آن انتخاب کنید." }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "AVIF-tiedostojen kirjoittaminen vaatii macOS %@:n tai uudemman, joten tätä tiedostoa ei tehty. Valitse sille toinen muoto." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "L’écriture en AVIF nécessite macOS %@ ou ultérieur : ce fichier n’a donc pas été créé. Choisissez un autre format pour lui." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "כתיבת AVIF דורשת macOS %@ ואילך, ולכן הקובץ הזה לא נוצר. בחרו פורמט אחר עבורו." }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Za zapisivanje AVIF-a potreban je macOS %@ ili noviji, pa ova datoteka nije izrađena. Odaberite drugi format za nju." }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Az AVIF írásához macOS %@ vagy újabb szükséges, ezért ez a fájl nem készült el. Válasszon hozzá másik formátumot." }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Til að skrifa AVIF þarf macOS %@ eða nýrra, svo þessi skrá var ekki búin til. Veldu annað snið fyrir hana." }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "La scrittura in AVIF richiede macOS %@ o versioni successive, quindi questo file non è stato creato. Scegli un altro formato." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "AVIFの書き出しにはmacOS %@以降が必要なため、このファイルは作成されませんでした。別のフォーマットを選択してください。" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "AVIF로 쓰려면 macOS %@ 이상이 필요하므로 이 파일은 만들어지지 않았습니다. 다른 포맷을 선택하십시오." }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Skriving av AVIF krever macOS %@ eller nyere, så denne filen ble ikke laget. Velg et annet format for den." }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Voor het schrijven van AVIF is macOS %@ of nieuwer vereist, dus dit bestand is niet gemaakt. Kies er een ander formaat voor." }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Skriving av AVIF krev macOS %@ eller nyare, så denne fila vart ikkje laga. Vel eit anna format for henne." }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zapis w formacie AVIF wymaga systemu macOS %@ lub nowszego, więc ten plik nie został utworzony. Wybierz dla niego inny format." }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gravar AVIF requer o macOS %@ ou posterior, então este arquivo não foi criado. Escolha outro formato para ele." }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gravar AVIF requer o macOS %@ ou posterior, por isso este ficheiro não foi criado. Escolha outro formato para ele." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Scrierea în AVIF necesită macOS %@ sau mai nou, așa că acest fișier nu a fost creat. Alegeți alt format pentru el." }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Для записи AVIF нужна macOS %@ или новее, поэтому этот файл не создан. Выберите для него другой формат." }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zápis AVIF vyžaduje macOS %@ alebo novší, preto tento súbor nebol vytvorený. Vyberte preň iný formát." }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zapisovanje AVIF zahteva macOS %@ ali novejši, zato ta datoteka ni bila ustvarjena. Zanjo izberite drugo obliko." }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Att skriva AVIF kräver macOS %@ eller senare, så den här filen skapades inte. Välj ett annat format för den." }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "การเขียน AVIF ต้องใช้ macOS %@ ขึ้นไป จึงไม่ได้สร้างไฟล์นี้ โปรดเลือกรูปแบบอื่นสำหรับไฟล์นี้" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "AVIF yazmak için macOS %@ veya üstü gerekir, bu yüzden bu dosya oluşturulmadı. Bunun için başka bir biçim seçin." }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Для запису AVIF потрібна macOS %@ або новіша, тому цей файл не створено. Виберіть для нього інший формат." }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ghi AVIF cần macOS %@ trở lên, nên tệp này chưa được tạo. Hãy chọn định dạng khác cho tệp." }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "寫入 AVIF 需要 macOS %@ 或以上版本，因此未有產生此檔案。請為它選擇其他格式。" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "写入 AVIF 需要 macOS %@ 或更高版本，因此未生成此文件。请为它选择其他格式。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "寫入 AVIF 需要 macOS %@ 或以上版本，因此未產生此檔案。請為它選擇其他格式。" }
+        }
+      }
     }
   },
   "version" : "1.0"

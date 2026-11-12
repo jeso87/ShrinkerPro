@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (דורש macOS %2$@)",
   "%@ failed with exit code %d": "%@ נכשל עם קוד יציאה %d",
   "%@ failed with exit code %d: %@": "%@ נכשל עם קוד יציאה %d: %@",
   "%@ saved": "%@ נחסכו",
@@ -160,6 +161,7 @@
     "other": "%lld הקבצים האחרים אינם מושפעים.",
     "two": "שני הקבצים האחרים אינם מושפעים."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Mac זה קורא AVIF אך אינו יכול לכתוב אותו: לשם כך נדרש macOS %@ ואילך.",
   "This session": "הפעלה זו",
   "This session: %@": "הפעלה זו: %@",
   "W": "ר",
@@ -167,6 +169,7 @@
   "What's New": "מה חדש",
   "When shrinking, keep": "בעת הכיווץ יש לשמור",
   "Where": "לאן",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "כתיבת AVIF דורשת macOS %@ ואילך, ולכן הקובץ הזה לא נוצר. בחרו פורמט אחר עבורו.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "קבצי המקור שלך ישוכתבו ולא ניתן יהיה לשחזר אותם. קבצים שהומרו מקבלים סיומת נפרדת, ולכן קבצי המקור שלהם נשארים כמו שהם.",
   "filename list separator": ", ",
   "px": "px",

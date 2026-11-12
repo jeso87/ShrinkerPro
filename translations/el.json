@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (απαιτεί macOS %2$@)",
   "%@ failed with exit code %d": "Το %@ απέτυχε με κωδικό εξόδου %d",
   "%@ failed with exit code %d: %@": "Το %@ απέτυχε με κωδικό εξόδου %d: %@",
   "%@ saved": "Εξοικονομήθηκαν %@",
@@ -148,6 +149,7 @@
     "one": "Το άλλο αρχείο δεν επηρεάζεται.",
     "other": "Τα άλλα %lld αρχεία δεν επηρεάζονται."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Αυτό το Mac διαβάζει AVIF αλλά δεν μπορεί να το γράψει: απαιτείται macOS %@ ή νεότερο.",
   "This session": "Αυτή η συνεδρία",
   "This session: %@": "Αυτή η συνεδρία: %@",
   "W": "Π",
@@ -155,6 +157,7 @@
   "What's New": "Τι νέο υπάρχει",
   "When shrinking, keep": "Κατά τη σμίκρυνση, διατήρηση",
   "Where": "Πού",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Η εγγραφή AVIF απαιτεί macOS %@ ή νεότερο, οπότε αυτό το αρχείο δεν δημιουργήθηκε. Επιλέξτε άλλη μορφή για αυτό.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Τα πρωτότυπά σας θα αντικατασταθούν και δεν θα είναι δυνατή η ανάκτησή τους. Τα αρχεία που μετατρέπονται διατηρούν διαφορετική επέκταση, οπότε εκείνα τα πρωτότυπα δεν θίγονται.",
   "filename list separator": ", ",
   "px": "px",

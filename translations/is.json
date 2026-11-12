@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (krefst macOS %2$@)",
   "%@ failed with exit code %d": "%@ mistókst með útgöngukóða %d",
   "%@ failed with exit code %d: %@": "%@ mistókst með útgöngukóða %d: %@",
   "%@ saved": "%@ sparað",
@@ -148,6 +149,7 @@
     "one": "Hin skráin verður ekki fyrir áhrifum.",
     "other": "Hinar %lld skrárnar verða ekki fyrir áhrifum."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Þessi Mac les AVIF en getur ekki skrifað það: til þess þarf macOS %@ eða nýrra.",
   "This session": "Þessi lota",
   "This session: %@": "Þessi lota: %@",
   "W": "B",
@@ -155,6 +157,7 @@
   "What's New": "Nýjungar",
   "When shrinking, keep": "Halda við minnkun",
   "Where": "Hvar",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Til að skrifa AVIF þarf macOS %@ eða nýrra, svo þessi skrá var ekki búin til. Veldu annað snið fyrir hana.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Frumritin þín verða yfirskrifuð og ekki er hægt að endurheimta þau. Umbreyttar skrár halda sérstakri skráarendingu, svo að þau frumrit eru látin í friði.",
   "filename list separator": ", ",
   "px": "px",

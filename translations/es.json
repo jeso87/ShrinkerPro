@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (requiere macOS %2$@)",
   "%@ failed with exit code %d": "%@ ha fallado con el código de salida %d",
   "%@ failed with exit code %d: %@": "%@ ha fallado con el código de salida %d: %@",
   "%@ saved": "%@ ahorrados",
@@ -148,6 +149,7 @@
     "one": "El otro archivo no se ve afectado.",
     "other": "Los otros %lld archivos no se ven afectados."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Este Mac lee AVIF pero no puede escribirlo: para ello se requiere macOS %@ o posterior.",
   "This session": "Esta sesión",
   "This session: %@": "Esta sesión: %@",
   "W": "An",
@@ -155,6 +157,7 @@
   "What's New": "Novedades",
   "When shrinking, keep": "Al reducir, conservar",
   "Where": "Ubicación",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Escribir AVIF requiere macOS %@ o posterior, así que este archivo no se ha creado. Elige otro formato para él.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Tus originales se sobrescribirán y no se podrán recuperar. Los archivos convertidos conservan una extensión distinta, así que esos originales no se tocan.",
   "filename list separator": ", ",
   "px": "px",

@@ -52,6 +52,9 @@ enum ShrinkError: Error, LocalizedError {
     /// target (AVIF, or HEIC's same-format re-encode) or a lossless
     /// intermediate on the way to cjpeg/cwebp. See `ImageIOCompressor`.
     case conversionFailed(String)
+    /// The file would be written as AVIF, and this system has no AVIF encoder
+    /// (macOS 14 and 15). Refused at plan time: see `ShrinkEngine.canWriteAVIF`.
+    case avifUnavailable
 
     var errorDescription: String? {
         switch self {
@@ -68,6 +71,8 @@ enum ShrinkError: Error, LocalizedError {
             return "No output was written to \(url.lastPathComponent)."
         case .conversionFailed(let message):
             return "Image conversion failed: \(message)"
+        case .avifUnavailable:
+            return "Writing AVIF needs macOS \(RasterUTType.avifWritingMacOS) or later, so this file wasn't made. Choose another format for it."
         }
     }
 }
@@ -100,6 +105,9 @@ extension ShrinkError: AppDisplayableError {
         case .conversionFailed(let message):
             return String(localized: "Image conversion failed: \(message)",
                           comment: "Alert body when an ImageIO decode or encode step fails.")
+        case .avifUnavailable:
+            return String(localized: "Writing AVIF needs macOS \(RasterUTType.avifWritingMacOS) or later, so this file wasn't made. Choose another format for it.",
+                          comment: "Error when a file would be saved as AVIF on macOS 14 or 15, which can read AVIF but not write it. The placeholder is a macOS version number such as 26.")
         }
     }
 }

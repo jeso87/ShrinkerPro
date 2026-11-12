@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (cần macOS %2$@)",
   "%@ failed with exit code %d": "%@ đã thất bại với mã thoát %d",
   "%@ failed with exit code %d: %@": "%@ đã thất bại với mã thoát %d: %@",
   "%@ saved": "Đã tiết kiệm %@",
@@ -136,6 +137,7 @@
   "The other %lld files are unaffected.": {
     "other": "%lld tệp còn lại không bị ảnh hưởng."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Máy Mac này đọc được AVIF nhưng không ghi được: việc đó cần macOS %@ trở lên.",
   "This session": "Phiên này",
   "This session: %@": "Phiên này: %@",
   "W": "R",
@@ -143,6 +145,7 @@
   "What's New": "Có gì mới",
   "When shrinking, keep": "Khi nén, giữ lại",
   "Where": "Nơi lưu",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Ghi AVIF cần macOS %@ trở lên, nên tệp này chưa được tạo. Hãy chọn định dạng khác cho tệp.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Bản gốc của bạn sẽ bị ghi đè và không thể khôi phục. Tệp đã chuyển đổi giữ phần mở rộng riêng, nên những bản gốc đó được giữ nguyên.",
   "filename list separator": ", ",
   "px": "px",

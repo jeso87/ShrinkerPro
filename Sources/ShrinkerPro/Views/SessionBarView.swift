@@ -660,7 +660,9 @@ struct SessionBarView: View {
                         // is no such thing as converting a file "to off".
                         Text("App default").tag(SessionFormat?.none)
                         ForEach(SessionFormat.allCases, id: \.self) { format in
-                            Text(format.displayName).tag(SessionFormat?.some(format))
+                            Text(AVIFAvailability.menuLabel(format.displayName, isAVIF: format == .avif))
+                                .tag(SessionFormat?.some(format))
+                                .avifItemDisabled(format == .avif)
                         }
                     }
                     .labelsHidden()

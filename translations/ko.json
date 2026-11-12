@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@(macOS %2$@ 이상 필요)",
   "%@ failed with exit code %d": "%@ 도구가 실패했습니다. 종료 코드: %d",
   "%@ failed with exit code %d: %@": "%@ 도구가 실패했습니다. 종료 코드 %d: %@",
   "%@ saved": "%@ 절약했습니다",
@@ -136,6 +137,7 @@
   "The other %lld files are unaffected.": {
     "other": "나머지 파일 %lld개는 영향을 받지 않습니다."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "이 Mac은 AVIF를 읽을 수 있지만 쓸 수는 없습니다. 쓰려면 macOS %@ 이상이 필요합니다.",
   "This session": "이번 세션",
   "This session: %@": "이번 세션: %@",
   "W": "너비",
@@ -143,6 +145,7 @@
   "What's New": "새로운 기능",
   "When shrinking, keep": "압축할 때 유지",
   "Where": "저장 위치",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "AVIF로 쓰려면 macOS %@ 이상이 필요하므로 이 파일은 만들어지지 않았습니다. 다른 포맷을 선택하십시오.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "원본이 덮어쓰기되어 복구할 수 없습니다. 변환된 파일은 확장자가 달라지므로, 해당 원본은 그대로 유지됩니다.",
   "filename list separator": ", ",
   "px": "px",

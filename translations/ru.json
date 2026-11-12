@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (нужна macOS %2$@)",
   "%@ failed with exit code %d": "Инструмент %@ завершился с кодом %d",
   "%@ failed with exit code %d: %@": "Инструмент %@ завершился с кодом %d: %@",
   "%@ saved": "Сэкономлено %@",
@@ -172,6 +173,7 @@
     "one": "Оставшийся файл не будет затронут.",
     "other": "Остальные %lld файлов не будут затронуты."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Этот Mac читает AVIF, но не может его записывать: для этого нужна macOS %@ или новее.",
   "This session": "Этот сеанс",
   "This session: %@": "Этот сеанс: %@",
   "W": "Ш",
@@ -179,6 +181,7 @@
   "What's New": "Что нового",
   "When shrinking, keep": "При уменьшении сохранять",
   "Where": "Куда",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Для записи AVIF нужна macOS %@ или новее, поэтому этот файл не создан. Выберите для него другой формат.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Ваши оригиналы будут перезаписаны, и восстановить их не удастся. У конвертированных файлов другое расширение, поэтому их оригиналы остаются нетронутыми.",
   "filename list separator": ", ",
   "px": "px",

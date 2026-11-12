@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (cal macOS %2$@)",
   "%@ failed with exit code %d": "%@ ha fallat amb el codi de sortida %d",
   "%@ failed with exit code %d: %@": "%@ ha fallat amb el codi de sortida %d: %@",
   "%@ saved": "S’han estalviat %@",
@@ -148,6 +149,7 @@
     "one": "L’altre arxiu no es veu afectat.",
     "other": "Els altres %lld arxius no es veuen afectats."
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Aquest Mac llegeix AVIF però no el pot escriure: cal macOS %@ o posterior.",
   "This session": "Aquesta sessió",
   "This session: %@": "Aquesta sessió: %@",
   "W": "Ampl",
@@ -155,6 +157,7 @@
   "What's New": "Novetats",
   "When shrinking, keep": "En reduir, conserva",
   "Where": "On",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "Per escriure AVIF cal macOS %@ o posterior, així que aquest fitxer no s'ha creat. Tria un altre format per a aquest fitxer.",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "Els teus originals es sobreescriuran i no es podran recuperar. Els arxius convertits mantenen una extensió diferent, així que aquells originals no es toquen.",
   "filename list separator": ", ",
   "px": "px",

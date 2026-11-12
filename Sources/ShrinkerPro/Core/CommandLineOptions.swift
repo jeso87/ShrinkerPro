@@ -160,6 +160,7 @@ extension ShrinkError {
         case .javascriptFailed: return 5
         case .outputNotWritten: return 6
         case .conversionFailed: return 7
+        case .avifUnavailable: return 8
         }
     }
 }

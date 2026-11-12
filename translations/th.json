@@ -1,5 +1,6 @@
 {
   "%@  —  %@": "%1$@  —  %2$@",
+  "%@ (needs macOS %@)": "%1$@ (ต้องใช้ macOS %2$@)",
   "%@ failed with exit code %d": "%@ ทำงานล้มเหลว รหัสออก %d",
   "%@ failed with exit code %d: %@": "%@ ทำงานล้มเหลว รหัสออก %d: %@",
   "%@ saved": "ประหยัดได้ %@",
@@ -136,6 +137,7 @@
   "The other %lld files are unaffected.": {
     "other": "อีก %lld ไฟล์ที่เหลือไม่ได้รับผลกระทบ"
   },
+  "This Mac reads AVIF but can't write it: that needs macOS %@ or later.": "Mac เครื่องนี้อ่าน AVIF ได้แต่เขียนไม่ได้ ต้องใช้ macOS %@ ขึ้นไป",
   "This session": "เซสชั่นนี้",
   "This session: %@": "เซสชั่นนี้: %@",
   "W": "กว้าง",
@@ -143,6 +145,7 @@
   "What's New": "มีอะไรใหม่",
   "When shrinking, keep": "เมื่อบีบอัด ให้เก็บ",
   "Where": "ตำแหน่งที่บันทึก",
+  "Writing AVIF needs macOS %@ or later, so this file wasn't made. Choose another format for it.": "การเขียน AVIF ต้องใช้ macOS %@ ขึ้นไป จึงไม่ได้สร้างไฟล์นี้ โปรดเลือกรูปแบบอื่นสำหรับไฟล์นี้",
   "Your originals will be overwritten and cannot be recovered. Converted files keep a separate extension, so those originals are left alone.": "ต้นฉบับของคุณจะถูกเขียนทับและกู้คืนไม่ได้ ไฟล์ที่แปลงแล้วจะใช้นามสกุลต่างออกไป ต้นฉบับเหล่านั้นจึงไม่ถูกแตะต้อง",
   "filename list separator": ", ",
   "px": "px",

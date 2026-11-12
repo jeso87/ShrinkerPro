@@ -372,7 +372,7 @@ final class AppModel: ObservableObject {
 
         // Only one continuation can be stored, and two batches genuinely can
         // overlap: `handle(urls:)` starts a task per drop, and a Finder "Open
-        // With", a Dock drop or an Open Recent click all reach it while a
+        // With", or a Dock drop both reach it while a
         // sheet is up. Simply overwriting the stored continuation would
         // strand the earlier batch's — nobody could ever resume it, and it
         // would hang its task for the life of the process. So the displaced
@@ -609,7 +609,6 @@ final class AppModel: ObservableObject {
                     at: 0
                 )
                 session.record(originalBytes: result.originalBytes, shrunkBytes: result.shrunkBytes)
-                NSDocumentController.shared.noteNewRecentDocumentURL(plan.input)
                 // Deliberately NOT notified here. See the summary after the
                 // loop: one notification per batch, not one per file.
                 succeeded.append(result)

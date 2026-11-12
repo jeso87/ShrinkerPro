@@ -110,43 +110,10 @@ struct ShrinkerProApp: App {
                 Button("Check for Updates…") { appUpdater.checkForUpdates() }
             }
 
-            CommandGroup(replacing: .newItem) {
-                Button("Open Files…") { openPanel() }
-                    .keyboardShortcut("o", modifiers: .command)
-                    .disabled(model == nil)
-
-                // A manually-built AppKit "Open Recent" NSMenuItem, inserted
-                // straight into NSApp.mainMenu (e.g. from AppDelegate), does
-                // not survive here: verified empirically that SwiftUI
-                // resyncs this File NSMenu against its own Commands-derived
-                // structure a couple of seconds after launch and strips
-                // anything it didn't itself put there. Declaring the menu
-                // through Commands' own `Menu` support instead means SwiftUI
-                // owns it and won't fight itself. `Menu`'s content closure
-                // is re-evaluated by AppKit each time the submenu is about
-                // to open, so this reads NSDocumentController's recent list
-                // fresh on every click — no manual refresh plumbing needed.
-                // Clicks route through `appDelegate.application(_:open:)`,
-                // the same entry point Finder uses, so a recent-document
-                // click during the launch-failure state surfaces the same
-                // "can't open" alert rather than silently doing nothing.
-                Menu("Open Recent") {
-                    let recents = NSDocumentController.shared.recentDocumentURLs
-                    if recents.isEmpty {
-                        Text("No Recent Files")
-                    } else {
-                        ForEach(recents, id: \.self) { url in
-                            Button(url.lastPathComponent) {
-                                appDelegate.application(NSApp, open: [url])
-                            }
-                        }
-                        Divider()
-                        Button("Clear Menu") {
-                            NSDocumentController.shared.clearRecentDocuments(nil)
-                        }
-                    }
-                }
-            }
+            OpenFilesCommands(
+                canOpenInMain: model != nil,
+                openInMain: { urls in model?.handle(urls: urls) }
+            )
 
             // Explicit user action to empty the results history — distinct
             // from the `clearList` *setting*, which is an automatic policy
@@ -249,15 +216,6 @@ struct ShrinkerProApp: App {
             attributes: base
         ))
         return credits
-    }
-
-    private func openPanel() {
-        guard let model else { return }
-        let panel = NSOpenPanel()
-        panel.allowsMultipleSelection = true
-        panel.canChooseDirectories = true
-        panel.allowedContentTypes = ShrinkEngine.supportedContentTypes
-        if panel.runModal() == .OK { model.handle(urls: panel.urls) }
     }
 }
 

@@ -4,6 +4,19 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.8.3 — 2026-11-13
+
+### Added
+
+**Settings ▸ Studio ▸ Starting recipe.** The Studio window can start each
+launch with one of your saved recipes instead of an untitled one. Deleting
+that recipe puts the setting back to untitled, and a window that already
+has a recipe keeps it.
+
+**Brand duotone remembers your colours.** A new Brand duotone starts with
+the pair you picked last instead of indigo and peach. Use standard colours,
+in the look popover, puts one duotone back on the built-in pair.
+
 ## 1.8.2 — 2026-11-12
 
 ### Fixed

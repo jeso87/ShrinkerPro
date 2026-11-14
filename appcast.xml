@@ -3,6 +3,268 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.9.0</title>
+            <pubDate>Sat, 14 Nov 2026 11:02:22 -0500</pubDate>
+            <sparkle:version>18</sparkle:version>
+            <sparkle:shortVersionString>1.9.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Straighten.** A new recipe step levels a tilted horizon automatically. On any photo, Straighten by hand… sets the angle yourself against a grid.
+- **Keep the whole photo.** For stamps, prints and anything whose edges matter: nothing is cut off, and the corners are filled with the background or a colour you pick.
+- **Crop to the item.** Studio levels a scan and crops it to the stamp, print or card on the scanner glass, with a margin from none to 10%. Dust and hairs on the glass are left out.
+- **Side by side fits beside the sidebars,** and you can zoom out until even a very large scan fits.
+- **Fixed:** with All photos chosen, dragging the quality slider in Looks the same changed only the photo in front. It now sets the recipe to Manual at that quality, so it saves with the recipe.
+]]></description>
+            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **تقويم.** خطوة وصفة جديدة تسوّي الأفق المائل تلقائيًا. وفي أي صورة، يتيح لك «التقويم يدويًا…» ضبط الزاوية بنفسك مقابل شبكة.
+- **الاحتفاظ بالصورة كاملة.** للطوابع والصور المطبوعة وكل ما تهم حوافه: لا يُقتطع شيء، وتُملأ الزوايا بالخلفية أو بلون تختاره.
+- **اقتصاص إلى العنصر.** يسوّي Studio الصورة الممسوحة ضوئيًا ويقتصها إلى الطابع أو الصورة المطبوعة أو البطاقة الموضوعة على زجاج الماسح، بهامش يتراوح بين 0 و10%. ويُستبعد الغبار والشعر العالق على الزجاج.
+- **يتسع عرض «جنبًا إلى جنب» بجوار الأشرطة الجانبية،** ويمكنك التصغير إلى أن تتسع حتى الصورة الممسوحة الكبيرة جدًا.
+- **تم الإصلاح:** عند اختيار «كل الصور»، كان سحب شريط تمرير الجودة في «يبدو متطابقًا» يغيّر الصورة الأمامية فقط. أما الآن فيضبط الوصفة على «يدوي» بتلك الجودة، فتُحفظ مع الوصفة.]]></description>
+            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Redreça.** Un pas de recepta nou anivella automàticament un horitzó inclinat. En qualsevol foto, «Redreça a mà…» et permet ajustar tu mateix l’angle amb una quadrícula.
+- **Conserva tota la foto.** Per a segells, còpies impreses i tot allò en què les vores importen: no es retalla res, i les cantonades s’omplen amb el fons o amb un color que triïs.
+- **Escapça a l’objecte.** Studio redreça un escaneig i l’escapça al segell, la còpia o la targeta que hi ha sobre el vidre de l’escàner, amb un marge de 0 a 10 %. La pols i els pèls del vidre no es tenen en compte.
+- **«Costat a costat» cap al costat de les barres laterals,** i pots allunyar fins que hi càpiga fins i tot un escaneig molt gran.
+- **Corregit:** amb «Totes les fotos» triat, arrossegar el control de qualitat a «Es veu igual» només canviava la foto de davant. Ara posa la recepta a «Manual» amb aquesta qualitat, de manera que es desa amb la recepta.]]></description>
+            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Narovnat.** Nový krok receptu automaticky vyrovná nakloněný horizont. U libovolné fotky můžete pomocí „Narovnat ručně…“ nastavit úhel sami podle mřížky.
+- **Zachovat celou fotku.** Pro známky, fotografie na papíře a vše, u čeho záleží na okrajích: nic se neořízne a rohy se vyplní pozadím nebo barvou, kterou si vyberete.
+- **Oříznout na předmět.** Studio vyrovná sken a ořízne ho na známku, fotografii nebo kartu na skle skeneru, s okrajem od 0 do 10 %. Prach a vlasy na skle se ignorují.
+- **„Vedle sebe“ se vejde vedle postranních panelů,** a můžete oddalovat, dokud se nevejde i velmi velký sken.
+- **Opraveno:** když byly vybrány „Všechny fotky“, tažení posuvníku kvality v režimu „Vypadá stejně“ změnilo jen fotku vpředu. Nyní nastaví recept na „Ručně“ s touto kvalitou, takže se uloží spolu s receptem.]]></description>
+            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Ret op.** Et nyt opskriftstrin retter en skæv horisont op automatisk. På ethvert foto kan du med “Ret op manuelt…” selv indstille vinklen efter et gitter.
+- **Behold hele fotoet.** Til frimærker, aftryk og alt, hvor kanterne betyder noget: Intet beskæres, og hjørnerne udfyldes med baggrunden eller en farve, du vælger.
+- **Beskær til emnet.** Studio retter en scanning op og beskærer den til frimærket, aftrykket eller kortet på scannerens glasplade med en margen fra 0 til 10 %. Støv og hår på glasset ignoreres.
+- **“Side om side” passer ved siden af sidepanelerne,** og du kan zoome ud, indtil selv en meget stor scanning kan være der.
+- **Rettet:** Når “Alle fotos” var valgt, ændrede træk i kvalitetsskyderen i “Ser ens ud” kun det forreste foto. Nu sætter den opskriften til “Manuel” med den kvalitet, så den gemmes med opskriften.]]></description>
+            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Begradigen.** Ein neuer Rezeptschritt richtet einen schiefen Horizont automatisch aus. Bei jedem Foto stellst du mit „Von Hand begradigen …“ den Winkel selbst an einem Raster ein.
+- **Ganzes Foto behalten.** Für Briefmarken, Abzüge und alles, bei dem die Ränder zählen: Nichts wird abgeschnitten, und die Ecken werden mit dem Hintergrund oder einer Farbe deiner Wahl gefüllt.
+- **Auf das Objekt zuschneiden.** Studio richtet einen Scan gerade aus und schneidet ihn auf die Briefmarke, den Abzug oder die Karte auf dem Scannerglas zu, mit einem Rand zwischen 0 und 10 %. Staub und Haare auf dem Glas werden dabei ignoriert.
+- **„Nebeneinander“ passt neben die Seitenleisten,** und du kannst herauszoomen, bis selbst ein sehr großer Scan ganz zu sehen ist.
+- **Behoben:** Wenn „Alle Fotos“ ausgewählt war, änderte das Ziehen des Qualitätsreglers bei „Sieht gleich aus“ nur das vordere Foto. Jetzt stellt es das Rezept auf „Manuell“ mit dieser Qualität, sodass sie mit dem Rezept gesichert wird.]]></description>
+            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Ίσιωμα.** Ένα νέο βήμα συνταγής ισιώνει αυτόματα έναν γερμένο ορίζοντα. Σε οποιαδήποτε φωτογραφία, το «Ίσιωμα με το χέρι…» σάς επιτρέπει να ορίσετε μόνοι σας τη γωνία πάνω σε ένα πλέγμα.
+- **Διατήρηση ολόκληρης φωτογραφίας.** Για γραμματόσημα, εκτυπώσεις και ό,τι έχει σημαντικές άκρες: τίποτα δεν περικόπτεται και οι γωνίες γεμίζουν με το φόντο ή με ένα χρώμα της επιλογής σας.
+- **Περικοπή στο αντικείμενο.** Το Studio ισιώνει μια σάρωση και την περικόπτει στο γραμματόσημο, την εκτύπωση ή την κάρτα πάνω στο τζάμι του σαρωτή, με περιθώριο από 0 έως 10%. Η σκόνη και οι τρίχες στο τζάμι αγνοούνται.
+- **Η προβολή «Δίπλα-δίπλα» χωρά δίπλα στις πλαϊνές στήλες,** και μπορείτε να κάνετε σμίκρυνση μέχρι να χωρέσει ακόμη και μια πολύ μεγάλη σάρωση.
+- **Διορθώθηκε:** με επιλεγμένο το «Όλες οι φωτογραφίες», η μεταφορά του ρυθμιστικού ποιότητας στο «Φαίνεται ίδια» άλλαζε μόνο τη φωτογραφία μπροστά. Τώρα ορίζει τη συνταγή σε «Χειροκίνητη» με αυτή την ποιότητα, ώστε να αποθηκεύεται μαζί με τη συνταγή.]]></description>
+            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Enderezar.** Un nuevo paso de receta nivela automáticamente un horizonte inclinado. En cualquier foto, «Enderezar a mano…» te permite ajustar tú mismo el ángulo con una cuadrícula.
+- **Conservar toda la foto.** Para sellos, copias impresas y todo aquello cuyos bordes importan: no se recorta nada, y las esquinas se rellenan con el fondo o con un color que elijas.
+- **Recortar al objeto.** Studio endereza un escaneo y lo recorta al sello, la copia o la tarjeta que hay sobre el cristal del escáner, con un margen de 0 a 10 %. El polvo y los pelos del cristal se ignoran.
+- **«Lado a lado» cabe junto a las barras laterales,** y puedes alejar hasta que quepa incluso un escaneo muy grande.
+- **Corregido:** con «Todas las fotos» elegido, arrastrar el regulador de calidad en «Se ve igual» solo cambiaba la foto que estaba delante. Ahora ajusta la receta a «Manual» con esa calidad, de modo que se guarda con la receta.]]></description>
+            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **صاف کردن.** یک مرحلهٔ تازهٔ دستور پخت، افق کج را خودکار تراز می‌کند. در هر عکسی، با «صاف کردن دستی…» می‌توانید زاویه را خودتان روی یک شبکه تنظیم کنید.
+- **حفظ کل عکس.** برای تمبرها، چاپ‌ها و هر چیزی که لبه‌هایش مهم است: چیزی بریده نمی‌شود و گوشه‌ها با پس‌زمینه یا رنگی که انتخاب می‌کنید پر می‌شوند.
+- **برش دادن به اندازهٔ شیء.** Studio تصویر اسکن‌شده را صاف می‌کند و آن را به اندازهٔ تمبر، چاپ یا کارت روی شیشهٔ اسکنر برش می‌دهد، با حاشیه‌ای از 0 تا 10٪. گرد و غبار و موهای روی شیشه نادیده گرفته می‌شوند.
+- **«کنار هم» کنار نوارهای کناری جا می‌شود،** و می‌توانید آن‌قدر کوچک‌نمایی کنید تا حتی یک تصویر اسکن‌شدهٔ بسیار بزرگ هم جا شود.
+- **رفع شد:** وقتی «همهٔ عکس‌ها» انتخاب شده بود، کشیدن لغزندهٔ کیفیت در «ظاهر یکسان» فقط عکس جلویی را تغییر می‌داد. اکنون دستور پخت را روی «دستی» با همان کیفیت تنظیم می‌کند تا همراه دستور پخت ذخیره شود.]]></description>
+            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Suorista.** Uusi reseptin vaihe suoristaa vinon horisontin automaattisesti. Millä tahansa valokuvalla voit asettaa kulman itse ruudukkoa vasten toiminnolla ”Suorista käsin…”.
+- **Säilytä koko valokuva.** Postimerkeille, vedoksille ja kaikelle, jonka reunoilla on merkitystä: mitään ei rajata pois, ja kulmat täytetään taustalla tai valitsemallasi värillä.
+- **Rajaa kohteeseen.** Studio suoristaa skannauksen ja rajaa sen skannerin lasilla olevaan postimerkkiin, vedokseen tai korttiin, ja marginaalin koko on 0–10 %. Lasilla olevaa pölyä ja hiuksia ei huomioida.
+- **”Vierekkäin” mahtuu sivupalkkien viereen,** ja voit loitontaa, kunnes hyvin suurikin skannaus mahtuu näkyviin.
+- **Korjattu:** kun ”Kaikki valokuvat” oli valittuna, laatuliukusäätimen vetäminen tilassa ”Näyttää samalta” muutti vain edessä olevaa valokuvaa. Nyt se vaihtaa reseptin tilaan ”Manuaalinen” tällä laadulla, joten laatu tallentuu reseptin mukana.]]></description>
+            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Redresser.** Une nouvelle étape de recette redresse automatiquement un horizon penché. Sur n’importe quelle photo, « Redresser à la main… » vous permet de régler vous-même l’angle à l’aide d’une grille.
+- **Garder toute la photo.** Pour les timbres, les tirages et tout ce dont les bords comptent : rien n’est coupé, et les coins sont remplis avec le fond ou une couleur de votre choix.
+- **Recadrer sur l’objet.** Studio redresse un scan et le recadre sur le timbre, le tirage ou la carte posé sur la vitre du scanner, avec une marge de 0 à 10 %. La poussière et les cheveux sur la vitre sont ignorés.
+- **« Côte à côte » tient à côté des barres latérales,** et vous pouvez faire un zoom arrière jusqu’à ce que même un très grand scan tienne à l’écran.
+- **Corrigé :** lorsque « Toutes les photos » était choisi, faire glisser le curseur de qualité dans « Rendu identique » ne modifiait que la photo au premier plan. Il règle désormais la recette sur « Manuel » à cette qualité, qui est donc enregistrée avec la recette.]]></description>
+            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **יישור.** שלב מתכון חדש מיישר אוטומטית אופק נטוי. בכל תצלום, ״יישור ידני…״ מאפשר לקבוע את הזווית ביד מול רשת.
+- **שמירת התצלום כולו.** לבולים, להדפסות ולכל דבר שהשוליים שלו חשובים: שום דבר לא נחתך, והפינות ממולאות ברקע או בצבע לבחירה.
+- **חיתוך לפי הפריט.** Studio מיישר סריקה וחותך אותה לפי הבול, ההדפסה או הכרטיס שעל זכוכית הסורק, עם שוליים מ־0 ועד 10%. אבק ושערות על הזכוכית אינם נלקחים בחשבון.
+- **״זה לצד זה״ נכנס לצד סרגלי הצד,** ואפשר להקטין את התצוגה עד שאפילו סריקה גדולה מאוד נכנסת במלואה.
+- **תוקן:** כשנבחרה האפשרות ״כל התצלומים״, גרירת מחוון האיכות ב״נראה זהה״ שינתה רק את התצלום שבחזית. כעת היא מגדירה את המתכון ל״ידני״ באיכות הזו, כך שהאיכות נשמרת עם המתכון.]]></description>
+            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Izravnavanje.** Novi korak recepta automatski izravnava nakrivljeni horizont. Na bilo kojoj fotografiji pomoću „Ručno izravnavanje…” sami postavljate kut prema mreži.
+- **Zadrži cijelu fotografiju.** Za marke, otiske i sve kod čega su rubovi važni: ništa se ne odrezuje, a kutovi se ispune pozadinom ili bojom koju odaberete.
+- **Izreži na predmet.** Studio izravnava sken i reže ga na marku, otisak ili karticu na staklu skenera, s marginom od 0 do 10 %. Prašina i dlačice na staklu se zanemaruju.
+- **Prikaz „Usporedno” stane uz bočne stupce,** a možete umanjivati dok ne stane čak i vrlo velik sken.
+- **Ispravljeno:** kad su bile odabrane „Sve fotografije”, povlačenje klizača kvalitete u načinu „Izgleda isto” mijenjalo je samo fotografiju sprijeda. Sada postavlja recept na „Ručno” s tom kvalitetom, pa se ona sprema s receptom.]]></description>
+            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Kiegyenesítés.** Egy új receptlépés automatikusan kiegyenesíti a ferde horizontot. Bármelyik fotón a „Kiegyenesítés kézzel…” segítségével saját maga állíthatja be a szöget egy rácshoz igazítva.
+- **Teljes fotó megtartása.** Bélyegekhez, nyomatokhoz és mindenhez, aminél számítanak a szélek: semmi sem vágódik le, a sarkok pedig a háttérrel vagy egy választott színnel töltődnek ki.
+- **Kivágás a tárgyra.** A Studio kiegyenesíti a szkennelt képet, és a szkenner üveglapján lévő bélyegre, nyomatra vagy kártyára vágja, 0 és 10% közötti margóval. Az üvegen lévő port és hajszálakat figyelmen kívül hagyja.
+- **Az „Egymás mellett” nézet elfér az oldalsávok mellett,** és addig kicsinyíthet, amíg még egy nagyon nagy szkennelt kép is elfér.
+- **Javítva:** ha az „Összes fotó” volt kiválasztva, a minőségcsúszka húzása a „Szemre azonos” módban csak az elöl lévő fotót változtatta meg. Most a receptet „Kézi” módra állítja ezzel a minőséggel, így az a recepttel együtt mentődik.]]></description>
+            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Rétta af.** Nýtt uppskriftarskref réttir af skakkan sjóndeildarhring sjálfvirkt. Á hvaða ljósmynd sem er getur þú stillt hornið eftir hnitaneti með „Rétta af handvirkt…“.
+- **Halda allri ljósmyndinni.** Fyrir frímerki, útprentanir og allt þar sem brúnirnar skipta máli: ekkert er skorið af, og hornin eru fyllt með bakgrunninum eða lit sem þú velur.
+- **Skera að hlutnum.** Studio réttir af skannaða mynd og sker hana að frímerkinu, útprentuninni eða kortinu á gleri skannans, með spássíu frá 0 upp í 10%. Ryk og hár á glerinu er hunsað.
+- **„Hlið við hlið“ kemst fyrir við hliðarstikurnar,** og þú getur minnkað aðdrátt þar til jafnvel mjög stór skönnuð mynd kemst fyrir.
+- **Lagað:** þegar „Allar ljósmyndir“ var valið breytti það aðeins fremstu ljósmyndinni að draga gæðasleðann í „Lítur eins út“. Nú stillir sleðinn uppskriftina á „Handvirkt“ með þeim gæðum, svo að þau vistast með uppskriftinni.]]></description>
+            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Raddrizza.** Un nuovo passaggio della ricetta raddrizza automaticamente un orizzonte storto. Su qualsiasi foto, «Raddrizza a mano…» ti permette di impostare tu stesso l’angolo su una griglia.
+- **Mantieni tutta la foto.** Per francobolli, stampe e tutto ciò in cui i bordi contano: non si taglia nulla, e gli angoli vengono riempiti con lo sfondo o con un colore a tua scelta.
+- **Ritaglia all’oggetto.** Studio raddrizza una scansione e la ritaglia attorno al francobollo, alla stampa o alla cartolina sul vetro dello scanner, con un margine da 0 al 10%. Polvere e peli sul vetro vengono ignorati.
+- **La vista «Affiancate» sta accanto alle barre laterali,** e puoi ridurre lo zoom finché anche una scansione molto grande ci sta per intero.
+- **Corretto:** con «Tutte le foto» scelto, trascinare il cursore della qualità in «Sembra identico» cambiava solo la foto in primo piano. Ora imposta la ricetta su «Manuale» a quella qualità, così viene salvata con la ricetta.]]></description>
+            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **傾き補正。** 新しいレシピのステップで、傾いた水平線を自動で補正します。どの写真でも、「手動で傾き補正…」を使えばグリッドに合わせて自分で角度を設定できます。
+- **写真全体を残す。** 切手、プリントなど、端が重要なものに。何も切り取られず、角は背景または選んだ色で塗りつぶされます。
+- **対象物に合わせて切り取る。** Studioはスキャン画像の傾きを補正し、スキャナのガラス面に置いた切手、プリント、カードに合わせて切り取ります。余白は0〜10%の範囲で設定できます。ガラス面のほこりや髪の毛は無視されます。
+- **「並べて表示」がサイドバーの横に収まるようになりました。** また、非常に大きなスキャン画像でも全体が収まるまで縮小できます。
+- **修正：** 「すべての写真」を選択しているとき、「見た目が同じ」で品質スライダをドラッグすると手前の写真しか変わりませんでした。現在は、レシピがその品質の「手動」に設定され、レシピと一緒に保存されます。]]></description>
+            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **기울기 보정.** 새 레시피 단계가 기울어진 수평선을 자동으로 맞춥니다. 어떤 사진에서든 ‘수동으로 기울기 보정…’을 사용하면 격자에 맞춰 각도를 직접 설정할 수 있습니다.
+- **사진 전체 유지.** 우표, 인화 사진 등 가장자리가 중요한 모든 것에 적합합니다. 잘리는 부분이 없으며 모서리는 배경 또는 선택한 색상으로 채워집니다.
+- **대상에 맞춰 자르기.** Studio가 스캔 이미지를 바로잡고 스캐너 유리 위의 우표, 인화 사진 또는 카드에 맞춰 자릅니다. 여백은 0부터 10%까지 지정할 수 있습니다. 유리 위의 먼지와 머리카락은 무시됩니다.
+- **‘나란히 보기’가 사이드바 옆에 맞게 표시되며,** 아주 큰 스캔 이미지도 다 보일 때까지 축소할 수 있습니다.
+- **수정됨:** ‘모든 사진’을 선택한 상태에서 ‘똑같아 보임’의 품질 슬라이더를 드래그하면 앞에 있는 사진만 변경되었습니다. 이제 레시피가 해당 품질의 ‘수동’으로 설정되므로 레시피와 함께 저장됩니다.]]></description>
+            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Rett opp.** Et nytt oppskriftstrinn retter opp en skjev horisont automatisk. På alle foto kan du med «Rett opp for hånd…» stille inn vinkelen selv etter et rutenett.
+- **Behold hele fotoet.** For frimerker, papirbilder og alt der kantene betyr noe: Ingenting blir beskåret, og hjørnene fylles med bakgrunnen eller en farge du velger.
+- **Beskjær til objektet.** Studio retter opp en skanning og beskjærer den til frimerket, papirbildet eller kortet på skannerglasset, med en marg fra 0 til 10 %. Støv og hår på glasset blir ignorert.
+- **«Side ved side» får plass ved siden av sidefeltene,** og du kan zoome ut til selv en svært stor skanning får plass.
+- **Rettet:** Når «Alle foto» var valgt, endret dra i kvalitetsglidebryteren i «Ser lik ut» bare fotoet foran. Nå setter den oppskriften til «Manuell» med den kvaliteten, slik at kvaliteten arkiveres med oppskriften.]]></description>
+            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Rechtzetten.** Een nieuwe receptstap zet een scheve horizon automatisch recht. Bij elke foto stel je met ‘Met de hand rechtzetten…’ zelf de hoek in aan de hand van een raster.
+- **Hele foto behouden.** Voor postzegels, afdrukken en alles waarbij de randen ertoe doen: er wordt niets afgesneden, en de hoeken worden opgevuld met de achtergrond of een kleur die je kiest.
+- **Op het object bijsnijden.** Studio zet een scan recht en snijdt hem bij op de postzegel, afdruk of kaart op de glasplaat van de scanner, met een marge van 0 tot 10%. Stof en haren op het glas worden genegeerd.
+- **‘Naast elkaar’ past naast de navigatiekolommen,** en je kunt uitzoomen tot zelfs een heel grote scan in beeld past.
+- **Opgelost:** als ‘Alle foto's’ was gekozen, veranderde het slepen met de kwaliteitsregelaar bij ‘Ziet er hetzelfde uit’ alleen de voorste foto. Nu wordt het recept ingesteld op ‘Handmatig’ met die kwaliteit, zodat die met het recept wordt bewaard.]]></description>
+            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Rett opp.** Eit nytt oppskriftssteg rettar opp ein skeiv horisont automatisk. På alle foto kan du med «Rett opp for hand…» stille inn vinkelen sjølv etter eit rutenett.
+- **Behald heile fotoet.** For frimerke, papirbilete og alt der kantane betyr noko: Ingenting blir beskore, og hjørna blir fylte med bakgrunnen eller ein farge du vel.
+- **Beskjer til objektet.** Studio rettar opp ei skanning og beskjer ho til frimerket, papirbiletet eller kortet på skannarglaset, med ein marg frå 0 til 10 %. Støv og hår på glaset blir ignorerte.
+- **«Side ved side» får plass ved sida av sidefelta,** og du kan zoome ut til sjølv ei svært stor skanning får plass.
+- **Retta:** Når «Alle foto» var valt, endra draging i kvalitetsglidebrytaren i «Ser lik ut» berre fotoet framme. No set han oppskrifta til «Manuell» med den kvaliteten, slik at kvaliteten blir lagra med oppskrifta.]]></description>
+            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Prostowanie.** Nowy krok przepisu automatycznie prostuje przechylony horyzont. Na dowolnym zdjęciu „Prostuj ręcznie…” pozwala samodzielnie ustawić kąt według siatki.
+- **Zachowaj całe zdjęcie.** Do znaczków, odbitek i wszystkiego, w czym liczą się krawędzie: nic nie zostaje przycięte, a narożniki są wypełniane tłem lub wybranym przez Ciebie kolorem.
+- **Kadruj do obiektu.** Studio prostuje skan i kadruje go do znaczka, odbitki lub kartki na szybie skanera, z marginesem od 0 do 10%. Kurz i włosy na szybie są pomijane.
+- **Widok „Obok siebie” mieści się obok pasków bocznych,** a pomniejszać możesz tak długo, aż zmieści się nawet bardzo duży skan.
+- **Naprawiono:** gdy wybrane były „Wszystkie zdjęcia”, przeciąganie suwaka jakości w trybie „Wygląda tak samo” zmieniało tylko zdjęcie na wierzchu. Teraz ustawia przepis na „Ręcznie” z tą jakością, więc zostaje ona zachowana razem z przepisem.]]></description>
+            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Endireitar.** Uma nova etapa de receita nivela automaticamente um horizonte torto. Em qualquer foto, “Endireitar à mão…” permite que você mesmo ajuste o ângulo com uma grade.
+- **Manter a foto inteira.** Para selos, impressões e tudo cujas bordas importam: nada é cortado, e os cantos são preenchidos com o fundo ou com uma cor que você escolher.
+- **Recortar no objeto.** O Studio nivela uma digitalização e a recorta no selo, na impressão ou no cartão sobre o vidro do scanner, com uma margem de 0 a 10%. Poeira e fios de cabelo no vidro são ignorados.
+- **“Lado a lado” cabe ao lado das barras laterais,** e você pode afastar até que mesmo uma digitalização muito grande caiba.
+- **Corrigido:** com “Todas as fotos” escolhido, arrastar o controle de qualidade em “Aparência idêntica” alterava só a foto da frente. Agora ele define a receita como “Manual” com essa qualidade, então ela é salva com a receita.]]></description>
+            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Endireitar.** Um novo passo de receita nivela automaticamente um horizonte inclinado. Em qualquer fotografia, “Endireitar à mão…” permite definir o ângulo por si mesmo com uma grelha.
+- **Manter a fotografia inteira.** Para selos, provas impressas e tudo aquilo em que as margens contam: nada é cortado, e os cantos são preenchidos com o fundo ou com uma cor à sua escolha.
+- **Recortar ao objeto.** O Studio nivela uma digitalização e recorta-a ao selo, à prova impressa ou ao cartão sobre o vidro do digitalizador, com uma margem de 0 a 10%. O pó e os cabelos no vidro são ignorados.
+- **“Lado a lado” cabe ao lado das barras laterais,** e pode diminuir o zoom até que mesmo uma digitalização muito grande caiba.
+- **Corrigido:** com “Todas as fotografias” escolhido, arrastar o nivelador de qualidade em “Visualmente igual” alterava apenas a fotografia da frente. Agora define a receita como “Manual” com essa qualidade, pelo que é guardada com a receita.]]></description>
+            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Îndreptare.** Un nou pas de rețetă îndreaptă automat un orizont înclinat. Pe orice fotografie, „Îndreptare manuală…” vă permite să setați singur unghiul după o grilă.
+- **Păstrează toată fotografia.** Pentru timbre, fotografii tipărite și orice la care contează marginile: nu se taie nimic, iar colțurile sunt umplute cu fundalul sau cu o culoare la alegere.
+- **Decupează la obiect.** Studio îndreaptă o scanare și o decupează la timbrul, fotografia tipărită sau cartea de pe geamul scanerului, cu o margine de la 0 la 10 %. Praful și firele de păr de pe geam sunt ignorate.
+- **„Una lângă alta” încape lângă barele laterale,** și puteți micșora până când încape chiar și o scanare foarte mare.
+- **Remediat:** cu „Toate fotografiile” selectat, tragerea glisorului de calitate în „Arată la fel” modifica doar fotografia din față. Acum setează rețeta pe „Manual” la acea calitate, astfel încât aceasta se salvează odată cu rețeta.]]></description>
+            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Выпрямление.** Новый шаг рецепта автоматически выравнивает заваленный горизонт. На любом фото «Выпрямить вручную…» позволяет самостоятельно задать угол по сетке.
+- **Сохранить всё фото.** Для марок, отпечатков и всего, где важны края: ничего не обрезается, а углы заполняются фоном или выбранным вами цветом.
+- **Обрезать по предмету.** Studio выравнивает скан и обрезает его по марке, отпечатку или карточке на стекле сканера с полем от 0 до 10 %. Пыль и волоски на стекле не учитываются.
+- **Вид «Рядом» умещается возле боковых панелей,** а уменьшать масштаб можно, пока не поместится даже очень большой скан.
+- **Исправлено:** когда были выбраны «Все фото», перетаскивание ползунка качества в режиме «Выглядит так же» меняло только фото на переднем плане. Теперь оно переводит рецепт в режим «Вручную» с этим качеством, так что оно сохраняется вместе с рецептом.]]></description>
+            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Narovnať.** Nový krok receptu automaticky vyrovná naklonený horizont. Pri ľubovoľnej fotke môžete pomocou „Narovnať ručne…“ nastaviť uhol sami podľa mriežky.
+- **Zachovať celú fotku.** Pre známky, fotografie na papieri a všetko, pri čom záleží na okrajoch: nič sa neoreže a rohy sa vyplnia pozadím alebo farbou, ktorú si vyberiete.
+- **Orezať na predmet.** Studio vyrovná sken a oreže ho na známku, fotografiu alebo kartu na skle skenera, s okrajom od 0 do 10 %. Prach a vlasy na skle sa ignorujú.
+- **„Vedľa seba“ sa zmestí vedľa bočných panelov,** a môžete oddiaľovať, kým sa nezmestí aj veľmi veľký sken.
+- **Opravené:** keď boli vybraté „Všetky fotky“, ťahanie posúvača kvality v režime „Vyzerá rovnako“ zmenilo len fotku vpredu. Teraz nastaví recept na „Manuálne“ s touto kvalitou, takže sa uloží spolu s receptom.]]></description>
+            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Izravnaj.** Nov korak recepta samodejno poravna nagnjeno obzorje. Na kateri koli fotografiji z »Ročno izravnaj …« sami nastavite kot ob mreži.
+- **Ohrani celo fotografijo.** Za znamke, natisnjene fotografije in vse, pri čemer so robovi pomembni: nič se ne odreže, vogali pa se zapolnijo z ozadjem ali barvo po vaši izbiri.
+- **Obreži na predmet.** Studio poravna optično prebrano sliko in jo obreže na znamko, natisnjeno fotografijo ali kartico na steklu optičnega bralnika, z robom od 0 do 10 %. Prah in dlake na steklu so prezrti.
+- **Pogled »Drug ob drugem« se umesti ob stranske stolpce,** pomanjšate pa lahko, dokler ne gre na zaslon tudi zelo velika optično prebrana slika.
+- **Odpravljeno:** ko je bila izbrana možnost »Vse fotografije«, je vlečenje drsnika kakovosti v načinu »Videti enako« spremenilo le sprednjo fotografijo. Zdaj nastavi recept na »Ročno« s to kakovostjo, zato se ta shrani skupaj z receptom.]]></description>
+            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Räta upp.** Ett nytt receptsteg rätar upp en sned horisont automatiskt. På alla foton kan du med ”Räta upp för hand…” själv ställa in vinkeln mot ett rutnät.
+- **Behåll hela fotot.** För frimärken, kopior och allt där kanterna spelar roll: inget beskärs, och hörnen fylls med bakgrunden eller en färg du väljer.
+- **Beskär till objektet.** Studio rätar upp en skanning och beskär den till frimärket, kopian eller kortet på skannerglaset, med en marginal från 0 till 10 %. Damm och hårstrån på glaset ignoreras.
+- **”Sida vid sida” får plats bredvid sidofälten,** och du kan zooma ut tills även en mycket stor skanning får plats.
+- **Åtgärdat:** När ”Alla foton” var valt ändrade dragning av kvalitetsreglaget i ”Ser likadan ut” bara fotot längst fram. Nu ställs receptet in på ”Manuell” med den kvaliteten, så att den sparas med receptet.]]></description>
+            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **ปรับให้ตรง** ขั้นตอนสูตรใหม่จะปรับเส้นขอบฟ้าที่เอียงให้ตรงโดยอัตโนมัติ และในรูปถ่ายใดก็ได้ “ปรับให้ตรงด้วยมือ…” ให้คุณตั้งมุมเองโดยเทียบกับเส้นตาราง
+- **เก็บรูปถ่ายทั้งรูป** สำหรับแสตมป์ ภาพพิมพ์ และทุกอย่างที่ขอบมีความสำคัญ: ไม่มีส่วนใดถูกตัดออก และมุมจะถูกเติมด้วยพื้นหลังหรือสีที่คุณเลือก
+- **ครอบตัดตามวัตถุ** Studio จะปรับภาพสแกนให้ตรงแล้วครอบตัดตามแสตมป์ ภาพพิมพ์ หรือการ์ดบนกระจกสแกนเนอร์ โดยมีระยะขอบตั้งแต่ 0 ถึง 10% ฝุ่นและเส้นผมบนกระจกจะไม่ถูกนับรวม
+- **“เทียบข้างกัน” วางพอดีข้างแถบด้านข้าง** และคุณซูมออกได้จนแม้แต่ภาพสแกนที่ใหญ่มากก็แสดงได้พอดี
+- **แก้ไขแล้ว:** เมื่อเลือก “ทุกรูปถ่าย” ไว้ การลากแถบเลื่อนคุณภาพใน “ดูเหมือนเดิม” จะเปลี่ยนเฉพาะรูปถ่ายที่อยู่ด้านหน้า ตอนนี้จะตั้งสูตรเป็น “กำหนดเอง” ที่คุณภาพนั้น จึงบันทึกไปพร้อมกับสูตร]]></description>
+            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Düzelt.** Yeni bir tarif adımı eğik bir ufku otomatik olarak düzeltir. Herhangi bir fotoğrafta “Elle düzelt…” ile açıyı bir ızgaraya göre kendiniz ayarlayabilirsiniz.
+- **Fotoğrafın tamamını koru.** Pullar, baskılar ve kenarları önemli olan her şey için: hiçbir şey kırpılmaz ve köşeler arka planla ya da seçtiğiniz bir renkle doldurulur.
+- **Nesneye kırp.** Studio bir taramayı düzeltir ve tarayıcı camındaki pula, baskıya veya karta göre kırpar; kenar boşluğu %0 ile %10 arasında olabilir. Camdaki toz ve saç telleri hesaba katılmaz.
+- **“Yan yana” kenar çubuklarının yanına sığar,** ve çok büyük bir tarama bile sığana kadar uzaklaştırabilirsiniz.
+- **Düzeltildi:** “Tüm fotoğraflar” seçiliyken “Aynı görünür” modunda kalite sürgüsünü sürüklemek yalnızca öndeki fotoğrafı değiştiriyordu. Artık tarifi o kalitede “Elle” olarak ayarlar, böylece kalite tarifle birlikte kaydedilir.]]></description>
+            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Випрямлення.** Новий крок рецепта автоматично вирівнює завалений горизонт. На будь-якому фото «Випрямлення вручну…» дає змогу самостійно встановити кут за сіткою.
+- **Зберегти все фото.** Для марок, відбитків і всього, де важливі краї: нічого не обтинається, а кути заповнюються тлом або вибраним вами кольором.
+- **Обтяти за предметом.** Studio вирівнює скан і обтинає його за маркою, відбитком або карткою на склі сканера з полем від 0 до 10 %. Пил і волосинки на склі не враховуються.
+- **Вигляд «Поруч» уміщується біля бічних панелей,** а зменшувати масштаб можна, доки не вміститься навіть дуже великий скан.
+- **Виправлено:** коли було вибрано «Усі фото», перетягування повзунка якості в режимі «Виглядає так само» змінювало лише фото на передньому плані. Тепер воно перемикає рецепт у режим «Вручну» з цією якістю, тож вона зберігається разом із рецептом.]]></description>
+            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Làm thẳng.** Một bước công thức mới tự động cân bằng đường chân trời bị nghiêng. Trên bất kỳ ảnh nào, “Làm thẳng thủ công…” cho phép bạn tự đặt góc theo lưới.
+- **Giữ nguyên cả ảnh.** Dành cho tem, ảnh in và mọi thứ có cạnh quan trọng: không có gì bị cắt, và các góc được lấp đầy bằng nền hoặc màu do bạn chọn.
+- **Cắt xén theo vật thể.** Studio làm thẳng ảnh quét và cắt xén theo con tem, ảnh in hoặc thẻ trên mặt kính máy quét, với lề từ 0 đến 10%. Bụi và sợi tóc trên kính được bỏ qua.
+- **“Cạnh nhau” vừa khít bên cạnh các thanh bên,** và bạn có thể thu nhỏ cho đến khi ngay cả ảnh quét rất lớn cũng vừa.
+- **Đã sửa:** khi chọn “Tất cả ảnh”, kéo thanh trượt chất lượng trong “Trông như nhau” chỉ thay đổi ảnh ở phía trước. Giờ đây thao tác này đặt công thức thành “Thủ công” ở mức chất lượng đó, nên chất lượng được lưu cùng công thức.]]></description>
+            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **拉直。** 新的配方步驟會自動拉直傾斜的地平線。在任何相片上，「手動拉直⋯」可讓你對照格線自行設定角度。
+- **保留整張相片。** 適用於郵票、沖印相片及邊緣重要的內容：不會裁掉任何部分，四角會以背景或你選擇的色彩填滿。
+- **裁剪至物件。** Studio會拉直掃描影像，並將其裁剪至掃描器玻璃面上的郵票、沖印相片或卡片，邊距可設為0至10%。玻璃上的塵埃和毛髮會被略過。
+- **「並排」可在側邊欄旁完整顯示，** 你亦可以縮小至連非常大的掃描影像也能完整顯示。
+- **已修正：** 選取「所有相片」時，在「看起來一樣」中拖移品質滑桿只會更改最前面的相片。現在會將配方設為該品質的「手動」，因此會隨配方一併儲存。]]></description>
+            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **拉直。** 新的配方步骤会自动拉直倾斜的地平线。在任意照片上，“手动拉直…”可让你对照网格自行设定角度。
+- **保留整张照片。** 适用于邮票、冲印照片以及边缘重要的内容：不会裁掉任何部分，四角会以背景或你选取的颜色填充。
+- **裁剪到物件。** Studio 会拉直扫描件，并将其裁剪到扫描仪玻璃板上的邮票、冲印照片或卡片，边距可设为 0 到 10%。玻璃上的灰尘和毛发会被忽略。
+- **“并排”可在边栏旁完整显示，** 你还可以缩小到连非常大的扫描件也能完整显示。
+- **修复：** 选中“所有照片”时，在“看起来一样”中拖移质量滑块只会更改最前面的照片。现在它会将配方设为该质量下的“手动”，因此会随配方一起存储。]]></description>
+            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **拉直。** 新的配方步驟會自動拉直傾斜的地平線。在任何照片上，「手動拉直⋯」可讓你對照格線自行設定角度。
+- **保留整張照片。** 適用於郵票、沖印照片及邊緣重要的內容：不會裁掉任何部分，四角會以背景或你選擇的顏色填滿。
+- **裁切至物件。** Studio會拉直掃描影像，並將其裁切至掃描器玻璃面上的郵票、沖印照片或卡片，邊距可設為0到10%。玻璃上的灰塵和毛髮會被忽略。
+- **「並排」可在側邊欄旁完整顯示，** 你也可以縮小到連非常大的掃描影像也能完整顯示。
+- **修正：** 選取「所有照片」時，在「看起來相同」中拖移品質滑桿只會更改最前面的照片。現在它會將配方設為該品質的「手動」，因此會隨配方一併儲存。]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.9.0/ShrinkerPro-1.9.0.dmg" length="11523535" type="application/octet-stream" sparkle:edSignature="Lnadp1nAVjyTZk+K7YovhFYIyR21zxbuWT7MXvx3EWmvG0A8BArg/RiVNqhmeWA5CA7AkDm09clNlIUyCAD0AA=="/>
+        </item>
+        <item>
             <title>1.8.3</title>
             <pubDate>Fri, 13 Nov 2026 03:37:46 -0500</pubDate>
             <sparkle:version>17</sparkle:version>
@@ -499,399 +761,6 @@
 
 - **Studio 視窗在最前方時，「打開檔案⋯」會將照片加入 Studio，**與拖放到其中完全相同。之前它們會進入 Shrinker Pro。]]></description>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.8.2/ShrinkerPro-1.8.2.dmg" length="11424803" type="application/octet-stream" sparkle:edSignature="G55QI/tpcG+SLvWEc9iSnzS9RGgDdKXujaMbr3CRYNZ0G/h08KQGq5J21HzXcHxKiYA0B4kDzlqIYpm7zabDAQ=="/>
-        </item>
-        <item>
-            <title>1.8.1</title>
-            <pubDate>Thu, 12 Nov 2026 12:51:37 -0500</pubDate>
-            <sparkle:version>15</sparkle:version>
-            <sparkle:shortVersionString>1.8.1</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF on macOS 14 and 15.** These systems can open AVIF files but can't
-  save them; that needs macOS 26. AVIF is now greyed out in the format menus
-  there, with the reason, instead of failing on every file.
-
-### Shrinker Studio
-
-- **AVIF and JPEG XL export again on macOS 14, 15 and 26.** Studio's
-  metadata check mistook a brightness value those systems report for
-  leftover metadata, and refused the file.
-]]></description>
-            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF على macOS 14 و15.** يمكن لهذين النظامين فتح ملفات AVIF لكن لا يمكنهما
-  حفظها، فذلك يتطلب macOS 26. أصبح AVIF الآن رماديًا في قوائم التنسيق على هذين
-  النظامين مع ذكر السبب، بدلًا من فشله مع كل ملف.
-
-### Shrinker Studio
-
-- **عاد تصدير AVIF وJPEG XL للعمل على macOS 14 و15 و26.** كان فحص البيانات
-  الوصفية في Studio يظن خطأً أن قيمة سطوع تُبلغ عنها هذه الأنظمة بيانات وصفية
-  متبقية، فيرفض الملف.]]></description>
-            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF a macOS 14 i 15.** Aquests sistemes poden obrir fitxers AVIF però no
-  desar-los; per a això cal macOS 26. Ara l'AVIF hi apareix en gris als menús
-  de format, amb el motiu, en lloc de fallar amb cada fitxer.
-
-### Shrinker Studio
-
-- **L'exportació a AVIF i JPEG XL torna a funcionar a macOS 14, 15 i 26.** La
-  comprovació de metadades de Studio confonia un valor de brillantor que
-  informen aquests sistemes amb metadades sobrants, i rebutjava el fitxer.]]></description>
-            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF v macOS 14 a 15.** Tyto systémy umí soubory AVIF otevřít, ale ne
-  uložit; to vyžaduje macOS 26. AVIF je teď v nabídkách formátů zašedlý i s
-  důvodem, místo aby selhal u každého souboru.
-
-### Shrinker Studio
-
-- **Export do AVIF a JPEG XL opět funguje v macOS 14, 15 a 26.** Kontrola
-  metadat ve Studiu považovala hodnotu jasu, kterou tyto systémy hlásí, za
-  zbylá metadata a soubor odmítla.]]></description>
-            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF på macOS 14 og 15.** Disse systemer kan åbne AVIF-filer, men ikke
-  gemme dem; det kræver macOS 26. AVIF er nu nedtonet i formatmenuerne der,
-  med årsagen, i stedet for at fejle for hver fil.
-
-### Shrinker Studio
-
-- **Eksport til AVIF og JPEG XL virker igen på macOS 14, 15 og 26.** Studios
-  metadatakontrol forvekslede en lysstyrkeværdi, som disse systemer
-  rapporterer, med efterladte metadata og afviste filen.]]></description>
-            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF unter macOS 14 und 15.** Diese Systeme können AVIF-Dateien öffnen,
-  aber nicht sichern; dafür ist macOS 26 nötig. AVIF ist in den Formatmenüs
-  dort jetzt ausgegraut, mit dem Grund, statt bei jeder Datei zu scheitern.
-
-### Shrinker Studio
-
-- **Export als AVIF und JPEG XL klappt wieder unter macOS 14, 15 und 26.** Die
-  Metadatenprüfung von Studio hielt einen Helligkeitswert, den diese Systeme
-  melden, für übrig gebliebene Metadaten und lehnte die Datei ab.]]></description>
-            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF στο macOS 14 και 15.** Αυτά τα συστήματα ανοίγουν αρχεία AVIF αλλά
-  δεν μπορούν να τα αποθηκεύσουν· αυτό απαιτεί macOS 26. Το AVIF εμφανίζεται
-  πλέον αχνό στα μενού μορφής εκεί, μαζί με τον λόγο, αντί να αποτυγχάνει σε
-  κάθε αρχείο.
-
-### Shrinker Studio
-
-- **Η εξαγωγή σε AVIF και JPEG XL λειτουργεί ξανά στο macOS 14, 15 και 26.** Ο
-  έλεγχος μεταδεδομένων του Studio εξέλαβε μια τιμή φωτεινότητας που αναφέρουν
-  αυτά τα συστήματα ως υπολειπόμενα μεταδεδομένα και απέρριπτε το αρχείο.]]></description>
-            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF en macOS 14 y 15.** Estos sistemas pueden abrir archivos AVIF, pero
-  no guardarlos; para eso hace falta macOS 26. Ahora AVIF aparece atenuado en
-  los menús de formato, con el motivo, en lugar de fallar con cada archivo.
-
-### Shrinker Studio
-
-- **La exportación a AVIF y JPEG XL vuelve a funcionar en macOS 14, 15 y 26.**
-  La comprobación de metadatos de Studio confundía un valor de brillo que
-  indican estos sistemas con metadatos sobrantes y rechazaba el archivo.]]></description>
-            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF در macOS 14 و 15.** این سیستم‌ها می‌توانند فایل‌های AVIF را باز کنند
-  اما نمی‌توانند آن‌ها را ذخیره کنند؛ این کار به macOS 26 نیاز دارد. اکنون
-  AVIF در منوهای قالب این سیستم‌ها خاکستری و همراه با دلیل نمایش داده می‌شود،
-  به‌جای اینکه برای هر فایل خطا بدهد.
-
-### Shrinker Studio
-
-- **خروجی AVIF و JPEG XL دوباره در macOS 14، 15 و 26 کار می‌کند.** بررسی
-  فراداده در Studio یک مقدار روشنایی را که این سیستم‌ها گزارش می‌کنند، به
-  اشتباه فرادادهٔ باقی‌مانده تشخیص می‌داد و فایل را رد می‌کرد.]]></description>
-            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF macOS 14:ssä ja 15:ssä.** Nämä järjestelmät avaavat AVIF-tiedostoja
-  mutta eivät voi tallentaa niitä; siihen tarvitaan macOS 26. AVIF näkyy nyt
-  niissä muotovalikoissa himmennettynä syyn kera sen sijaan, että jokainen
-  tiedosto epäonnistuisi.
-
-### Shrinker Studio
-
-- **AVIF- ja JPEG XL -vienti toimii taas macOS 14:ssä, 15:ssä ja 26:ssa.**
-  Studion metatietotarkistus luuli näiden järjestelmien ilmoittamaa
-  kirkkausarvoa jäljelle jääneeksi metatiedoksi ja hylkäsi tiedoston.]]></description>
-            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **L’AVIF sous macOS 14 et 15.** Ces systèmes savent ouvrir les fichiers AVIF
-  mais pas les enregistrer : il faut pour cela macOS 26. L’AVIF y apparaît
-  désormais en grisé dans les menus de format, avec la raison, au lieu
-  d’échouer pour chaque fichier.
-
-### Shrinker Studio
-
-- **L’exportation en AVIF et JPEG XL fonctionne de nouveau sous macOS 14, 15
-  et 26.** Le contrôle des métadonnées de Studio prenait une valeur de
-  luminosité signalée par ces systèmes pour des métadonnées restantes, et
-  refusait le fichier.]]></description>
-            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF ב‑macOS 14 ו‑15.** מערכות אלה יכולות לפתוח קובצי AVIF אך לא לשמור
-  אותם; לשם כך נדרש macOS 26. כעת AVIF מוצג באפור בתפריטי הפורמט במערכות אלה,
-  יחד עם הסיבה, במקום להיכשל בכל קובץ.
-
-### Shrinker Studio
-
-- **הייצוא ל‑AVIF ול‑JPEG XL עובד שוב ב‑macOS 14, 15 ו‑26.** בדיקת המטא־נתונים
-  של Studio טעתה לחשוב שערך בהירות שמערכות אלה מדווחות הוא מטא־נתונים שנותרו,
-  ודחתה את הקובץ.]]></description>
-            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF na macOS-u 14 i 15.** Ti sustavi mogu otvoriti AVIF datoteke, ali ih
-  ne mogu spremiti; za to je potreban macOS 26. AVIF je sada ondje zasivljen u
-  izbornicima formata, uz razlog, umjesto da ne uspije za svaku datoteku.
-
-### Shrinker Studio
-
-- **Izvoz u AVIF i JPEG XL ponovno radi na macOS-u 14, 15 i 26.** Studijeva
-  provjera metapodataka zamijenila je vrijednost svjetline koju ti sustavi
-  javljaju za zaostale metapodatke i odbijala datoteku.]]></description>
-            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF macOS 14 és 15 alatt.** Ezek a rendszerek meg tudják nyitni az
-  AVIF-fájlokat, de menteni nem tudják őket; ehhez macOS 26 szükséges. Az AVIF
-  ott most szürkén jelenik meg a formátummenükben, az okkal együtt, ahelyett
-  hogy minden fájlnál hibát adna.
-
-### Shrinker Studio
-
-- **Az AVIF- és JPEG XL-exportálás újra működik macOS 14, 15 és 26 alatt.** A
-  Studio metaadat-ellenőrzése az e rendszerek által jelentett fényerőértéket
-  megmaradt metaadatnak vélte, és elutasította a fájlt.]]></description>
-            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF í macOS 14 og 15.** Þessi kerfi geta opnað AVIF-skrár en ekki vistað
-  þær; til þess þarf macOS 26. AVIF er nú grátt í sniðvalmyndunum þar, með
-  ástæðunni, í stað þess að mistakast fyrir hverja skrá.
-
-### Shrinker Studio
-
-- **Útflutningur í AVIF og JPEG XL virkar aftur í macOS 14, 15 og 26.**
-  Lýsigagnaathugun Studio misskildi birtugildi sem þessi kerfi gefa upp sem
-  afgangs lýsigögn og hafnaði skránni.]]></description>
-            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF su macOS 14 e 15.** Questi sistemi aprono i file AVIF ma non possono
-  salvarli: serve macOS 26. Ora AVIF compare in grigio nei menu dei formati,
-  con il motivo, invece di non riuscire con ogni file.
-
-### Shrinker Studio
-
-- **L’esportazione in AVIF e JPEG XL funziona di nuovo su macOS 14, 15 e 26.**
-  Il controllo dei metadati di Studio scambiava un valore di luminosità
-  segnalato da questi sistemi per metadati rimasti, e rifiutava il file.]]></description>
-            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **macOS 14と15でのAVIF。**これらのシステムはAVIFファイルを開けますが、保存はできません（macOS 26が必要です）。これらのシステムでは、ファイルごとに失敗する代わりに、フォーマットメニューのAVIFが理由付きでグレイ表示になりました。
-
-### Shrinker Studio
-
-- **macOS 14、15、26でAVIFとJPEG XLの書き出しが再び使えるようになりました。**Studioのメタデータチェックが、これらのシステムが報告する明るさの値を残ったメタデータと誤認し、ファイルを拒否していました。]]></description>
-            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **macOS 14 및 15에서의 AVIF.** 이 시스템들은 AVIF 파일을 열 수는 있지만 저장할 수는 없습니다. 저장하려면 macOS 26이 필요합니다. 이제 이 시스템들의 포맷 메뉴에서 AVIF가 이유와 함께 흐리게 표시되며, 파일마다 실패하지 않습니다.
-
-### Shrinker Studio
-
-- **macOS 14, 15, 26에서 AVIF 및 JPEG XL 내보내기가 다시 작동합니다.** Studio의 메타데이터 검사가 이 시스템들이 보고하는 밝기 값을 남은 메타데이터로 오인하여 파일을 거부했습니다.]]></description>
-            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF på macOS 14 og 15.** Disse systemene kan åpne AVIF-filer, men ikke
-  lagre dem; det krever macOS 26. AVIF er nå nedtonet i formatmenyene der, med
-  årsaken, i stedet for å mislykkes for hver fil.
-
-### Shrinker Studio
-
-- **Eksport til AVIF og JPEG XL virker igjen på macOS 14, 15 og 26.** Studios
-  metadatakontroll forvekslet en lysstyrkeverdi som disse systemene
-  rapporterer, med gjenværende metadata, og avviste filen.]]></description>
-            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF op macOS 14 en 15.** Deze systemen kunnen AVIF-bestanden openen, maar
-  niet bewaren; daarvoor is macOS 26 nodig. AVIF is daar nu gedimd in de
-  formaatmenu's, met de reden erbij, in plaats van bij elk bestand te
-  mislukken.
-
-### Shrinker Studio
-
-- **Exporteren naar AVIF en JPEG XL werkt weer op macOS 14, 15 en 26.** De
-  metagegevenscontrole van Studio zag een helderheidswaarde die deze systemen
-  melden aan voor achtergebleven metagegevens en weigerde het bestand.]]></description>
-            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF på macOS 14 og 15.** Desse systema kan opne AVIF-filer, men ikkje
-  lagre dei; det krev macOS 26. AVIF er no nedtona i formatmenyane der, med
-  årsaka, i staden for å mislukkast for kvar fil.
-
-### Shrinker Studio
-
-- **Eksport til AVIF og JPEG XL verkar igjen på macOS 14, 15 og 26.**
-  Metadatakontrollen i Studio forveksla ein lysstyrkeverdi som desse systema
-  rapporterer, med attverande metadata, og avviste fila.]]></description>
-            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF w macOS 14 i 15.** Te systemy potrafią otwierać pliki AVIF, ale nie
-  mogą ich zapisywać; to wymaga macOS 26. AVIF jest teraz w menu formatów
-  wyszarzony, razem z powodem, zamiast zawodzić przy każdym pliku.
-
-### Shrinker Studio
-
-- **Eksport do AVIF i JPEG XL znów działa w macOS 14, 15 i 26.** Kontrola
-  metadanych w Studio brała wartość jasności zgłaszaną przez te systemy za
-  pozostałe metadane i odrzucała plik.]]></description>
-            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF no macOS 14 e 15.** Esses sistemas abrem arquivos AVIF, mas não
-  conseguem salvá-los; isso requer o macOS 26. Agora o AVIF aparece esmaecido
-  nos menus de formato, com o motivo, em vez de falhar em cada arquivo.
-
-### Shrinker Studio
-
-- **A exportação para AVIF e JPEG XL volta a funcionar no macOS 14, 15 e 26.**
-  A verificação de metadados do Studio confundia um valor de brilho informado
-  por esses sistemas com metadados restantes e recusava o arquivo.]]></description>
-            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF no macOS 14 e 15.** Estes sistemas abrem ficheiros AVIF, mas não os
-  conseguem guardar; isso requer o macOS 26. O AVIF aparece agora esbatido nos
-  menus de formato, com o motivo, em vez de falhar em cada ficheiro.
-
-### Shrinker Studio
-
-- **A exportação para AVIF e JPEG XL volta a funcionar no macOS 14, 15 e 26.**
-  A verificação de metadados do Studio confundia um valor de brilho comunicado
-  por estes sistemas com metadados restantes e recusava o ficheiro.]]></description>
-            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF pe macOS 14 și 15.** Aceste sisteme pot deschide fișiere AVIF, dar nu
-  le pot salva; pentru asta este nevoie de macOS 26. AVIF apare acum estompat
-  în meniurile de format, împreună cu motivul, în loc să eșueze la fiecare
-  fișier.
-
-### Shrinker Studio
-
-- **Exportul în AVIF și JPEG XL funcționează din nou pe macOS 14, 15 și 26.**
-  Verificarea metadatelor din Studio confunda o valoare de luminozitate
-  raportată de aceste sisteme cu metadate rămase și respingea fișierul.]]></description>
-            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF в macOS 14 и 15.** Эти системы умеют открывать файлы AVIF, но не
-  сохранять их — для этого нужна macOS 26. Теперь AVIF в меню форматов там
-  недоступен и показывает причину, вместо того чтобы давать сбой на каждом
-  файле.
-
-### Shrinker Studio
-
-- **Экспорт в AVIF и JPEG XL снова работает в macOS 14, 15 и 26.** Проверка
-  метаданных в Studio принимала значение яркости, которое сообщают эти
-  системы, за оставшиеся метаданные и отклоняла файл.]]></description>
-            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF v macOS 14 a 15.** Tieto systémy dokážu súbory AVIF otvoriť, ale nie
-  uložiť; na to je potrebný macOS 26. AVIF je teraz v ponukách formátov sivý
-  aj s dôvodom, namiesto toho, aby zlyhal pri každom súbore.
-
-### Shrinker Studio
-
-- **Export do AVIF a JPEG XL opäť funguje v macOS 14, 15 a 26.** Kontrola
-  metadát v Studiu považovala hodnotu jasu, ktorú tieto systémy hlásia, za
-  zvyšné metadáta a súbor odmietla.]]></description>
-            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF v macOS 14 in 15.** Ta sistema lahko odpreta datoteke AVIF, ne moreta
-  pa jih shraniti; za to je potreben macOS 26. AVIF je zdaj v menijih oblik
-  tam zatemnjen, skupaj z razlogom, namesto da bi spodletel pri vsaki
-  datoteki.
-
-### Shrinker Studio
-
-- **Izvoz v AVIF in JPEG XL znova deluje v macOS 14, 15 in 26.** Preverjanje
-  metapodatkov v Studiu je vrednost svetlosti, ki jo sporočajo ti sistemi,
-  zamenjalo za preostale metapodatke in datoteko zavrnilo.]]></description>
-            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF på macOS 14 och 15.** De här systemen kan öppna AVIF-filer men inte
-  spara dem; det kräver macOS 26. AVIF är nu nedtonat i formatmenyerna där,
-  med orsaken, i stället för att misslyckas för varje fil.
-
-### Shrinker Studio
-
-- **Export till AVIF och JPEG XL fungerar igen på macOS 14, 15 och 26.**
-  Studios metadatakontroll trodde att ett ljusstyrkevärde som de här systemen
-  rapporterar var kvarlämnade metadata och avvisade filen.]]></description>
-            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF บน macOS 14 และ 15** ระบบเหล่านี้เปิดไฟล์ AVIF ได้แต่บันทึกไม่ได้ ซึ่งต้องใช้ macOS 26 ตอนนี้ AVIF จะแสดงเป็นสีจางในเมนูรูปแบบบนระบบเหล่านี้พร้อมเหตุผล แทนที่จะล้มเหลวกับทุกไฟล์
-
-### Shrinker Studio
-
-- **การส่งออกเป็น AVIF และ JPEG XL กลับมาใช้ได้บน macOS 14, 15 และ 26** การตรวจสอบเมทาดาทาของ Studio เข้าใจผิดว่าค่าความสว่างที่ระบบเหล่านี้รายงานเป็นเมทาดาทาที่หลงเหลือ และปฏิเสธไฟล์]]></description>
-            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **macOS 14 ve 15'te AVIF.** Bu sistemler AVIF dosyalarını açabilir ancak
-  kaydedemez; bunun için macOS 26 gerekir. AVIF artık bu sistemlerde biçim
-  menülerinde nedeniyle birlikte soluk görünüyor; her dosyada hata vermiyor.
-
-### Shrinker Studio
-
-- **AVIF ve JPEG XL olarak dışa aktarma macOS 14, 15 ve 26'da yeniden
-  çalışıyor.** Studio'nun meta veri denetimi, bu sistemlerin bildirdiği bir
-  parlaklık değerini kalan meta veri sanıp dosyayı reddediyordu.]]></description>
-            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF у macOS 14 і 15.** Ці системи вміють відкривати файли AVIF, але не
-  зберігати їх — для цього потрібна macOS 26. Тепер AVIF у меню форматів там
-  недоступний і показує причину, замість того щоб давати збій на кожному
-  файлі.
-
-### Shrinker Studio
-
-- **Експорт в AVIF і JPEG XL знову працює в macOS 14, 15 і 26.** Перевірка
-  метаданих у Studio приймала значення яскравості, яке повідомляють ці
-  системи, за залишкові метадані й відхиляла файл.]]></description>
-            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **AVIF trên macOS 14 và 15.** Các hệ thống này mở được tệp AVIF nhưng không
-  lưu được; việc đó cần macOS 26. Giờ đây AVIF hiển thị mờ trong các menu định
-  dạng trên những hệ thống này, kèm lý do, thay vì lỗi với mọi tệp.
-
-### Shrinker Studio
-
-- **Xuất sang AVIF và JPEG XL hoạt động trở lại trên macOS 14, 15 và 26.**
-  Bước kiểm tra siêu dữ liệu của Studio nhầm một giá trị độ sáng mà các hệ
-  thống này báo cáo là siêu dữ liệu còn sót lại, và từ chối tệp.]]></description>
-            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **macOS 14 和 15 上的 AVIF。**這些系統可以打開 AVIF 檔案，但無法儲存；儲存需要 macOS 26。現在，這些系統的格式選單中 AVIF 會顯示為灰色並註明原因，而不是每個檔案都失敗。
-
-### Shrinker Studio
-
-- **在 macOS 14、15 和 26 上可以再次輸出 AVIF 和 JPEG XL。**Studio 的元數據檢查把這些系統報告的一個亮度值誤當作殘留的元數據，因而拒絕了檔案。]]></description>
-            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **macOS 14 和 15 上的 AVIF。**这些系统可以打开 AVIF 文件，但无法存储；存储需要 macOS 26。现在，这些系统的格式菜单中 AVIF 会显示为灰色并注明原因，而不是每个文件都失败。
-
-### Shrinker Studio
-
-- **在 macOS 14、15 和 26 上可以再次导出 AVIF 和 JPEG XL。**Studio 的元数据检查把这些系统报告的一个亮度值误认为残留的元数据，因而拒绝了文件。]]></description>
-            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **macOS 14 和 15 上的 AVIF。**這些系統可以打開 AVIF 檔案，但無法儲存；儲存需要 macOS 26。現在，這些系統的格式選單中 AVIF 會顯示為灰色並註明原因，而不是每個檔案都失敗。
-
-### Shrinker Studio
-
-- **在 macOS 14、15 和 26 上可以再次輸出 AVIF 和 JPEG XL。**Studio 的後設資料檢查把這些系統回報的一個亮度值誤認為殘留的後設資料，因而拒絕了檔案。]]></description>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.8.1/ShrinkerPro-1.8.1.dmg" length="11422318" type="application/octet-stream" sparkle:edSignature="iJ42cgxl57r3KKQxkHCgP0BRyOChZUPCxn7R4Cf6rK0sTZwdRxp1eTIkVSqoU7LcgMI9cyt1W/m2rz4qbTbTCA=="/>
         </item>
     </channel>
 </rss>

@@ -4,6 +4,36 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.9.0 — 2026-11-14
+
+### Added
+
+**Straighten, a new Studio recipe step.** It finds the horizon and levels it,
+on every photo in the batch. Any photo can have its own angle instead:
+Straighten by hand… turns it live against a grid, from −15° to 15°. Found
+angles under 0.1° or over 10° are left alone.
+
+**Keep the whole photo.** Levelling normally zooms in slightly, so a sliver of
+each edge is cut off. For stamps, prints and anything whose edges matter, the
+photo can shrink instead, with the uncovered corners filled with its own
+background or a colour you choose.
+
+**Crop to the item.** For scans: Studio levels the scan, then crops it to the
+stamp, print or card on the scanner glass, with a margin of none, 1%, 2.5%,
+5% or anything up to 10%. Dust, hairs and scratches on the glass that stand
+apart from the item are left out.
+
+### Fixed
+
+**Side by side fits beside the sidebars.** With the glass sidebars on, the two
+panes no longer slide under them, and you can zoom out until even a 15,000
+pixel scan fits.
+
+**A quality drag on All photos saves with the recipe.** In Looks the same or
+Fit under, dragging the quality slider changed only the photo in front, even
+with All photos chosen, so a saved recipe never kept it. It now sets the
+recipe to Manual at that quality.
+
 ## 1.8.3 — 2026-11-13
 
 ### Added

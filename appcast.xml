@@ -3,6 +3,232 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.9.1</title>
+            <pubDate>Tue, 17 Nov 2026 16:03:00 -0500</pubDate>
+            <sparkle:version>19</sparkle:version>
+            <sparkle:shortVersionString>1.9.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Sharpen is a full unsharp mask.** Amount up to 400%, plus Radius and Threshold. Radius matches Affinity's Unsharp Mask, so your Affinity settings carry over. The Shortcuts action has them too.
+- **Rounded corners without a frame.** Set a Rounded border's width to 0% to round just the photo's corners.
+- **Save to ▸ Ask when exporting.** Pick the folder each time you export.
+- **Type any slider's value** in a step's popover.
+]]></description>
+            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **أصبحت «الحدّة» قناع توضيح كاملًا.** مقدار حتى 400%، مع «نصف القطر» و«العتبة». نصف القطر يطابق قناع التوضيح في Affinity، فتنتقل إعداداتك منه كما هي. وهي متاحة أيضًا في إجراء الاختصارات.
+- **زوايا مستديرة بلا إطار.** اضبط عرض الإطار «مستدير» على 0% لتدوير زوايا الصورة فقط.
+- **الحفظ في ▸ السؤال عند التصدير.** اختر المجلد في كل مرة تصدّر فيها.
+- **اكتب قيمة أي شريط تمرير** في النافذة المنبثقة للخطوة.]]></description>
+            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Enfocament és una màscara d’enfocament completa.** Quantitat fins al 400%, més Radi i Llindar. El radi coincideix amb la màscara d’enfocament d’Affinity, així que la teva configuració d’Affinity serveix tal qual. L’acció de Dreceres també els té.
+- **Cantonades arrodonides sense marc.** Posa l’amplada d’una vora Arrodonit a 0% per arrodonir només les cantonades de la foto.
+- **Desa a ▸ Pregunta en exportar.** Tria la carpeta cada vegada que exportis.
+- **Escriu el valor de qualsevol control lliscant** a la finestra emergent d’un pas.]]></description>
+            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Doostření je plnohodnotná neostrá maska.** Síla až 400 % a k tomu Poloměr a Práh. Poloměr odpovídá neostré masce v Affinity, takže vaše nastavení z Affinity platí beze změny. Má je i akce Zkratek.
+- **Zaoblené rohy bez rámečku.** Nastavte šířku zaobleného rámečku na 0 % a zaoblí se jen rohy fotky.
+- **Uložit do ▸ Zeptat se při exportu.** Složku vyberete při každém exportu.
+- **Hodnotu kteréhokoli posuvníku můžete napsat** v okně kroku.]]></description>
+            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Skærp er en fuld uskarp maske.** Styrke op til 400 % plus Radius og Tærskel. Radius svarer til Affinitys uskarpe maske, så dine Affinity-indstillinger kan bruges direkte. Genveje-handlingen har dem også.
+- **Afrundede hjørner uden ramme.** Sæt bredden på en afrundet ramme til 0 % for kun at runde fotoets hjørner.
+- **Gem i ▸ Spørg ved eksport.** Vælg mappen hver gang du eksporterer.
+- **Skriv værdien for enhver skyder** i et trins popover.]]></description>
+            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Schärfen ist eine vollwertige Unscharf-Maskierung.** Stärke bis 400 %, dazu Radius und Schwelle. Der Radius entspricht der Unscharf-Maskierung von Affinity, sodass du deine Affinity-Einstellungen direkt übernehmen kannst. Auch die Kurzbefehle-Aktion hat sie.
+- **Abgerundete Ecken ohne Rahmen.** Stelle die Breite eines abgerundeten Rahmens auf 0 %, um nur die Ecken des Fotos abzurunden.
+- **Sichern in ▸ Beim Exportieren fragen.** Wähle den Ordner bei jedem Export.
+- **Gib den Wert jedes Schiebereglers direkt ein,** im Popover eines Schritts.]]></description>
+            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Η Όξυνση είναι πλήρης μάσκα όξυνσης.** Ένταση έως 400%, συν Ακτίνα και Κατώφλι. Η ακτίνα αντιστοιχεί στη μάσκα όξυνσης του Affinity, οπότε οι ρυθμίσεις σας από το Affinity μεταφέρονται αυτούσιες. Τις έχει και η ενέργεια των Συντομεύσεων.
+- **Στρογγυλεμένες γωνίες χωρίς πλαίσιο.** Ορίστε το πλάτος ενός στρογγυλεμένου περιγράμματος στο 0% για να στρογγυλέψουν μόνο οι γωνίες της φωτογραφίας.
+- **Αποθήκευση σε ▸ Ερώτηση κατά την εξαγωγή.** Επιλέξτε φάκελο σε κάθε εξαγωγή.
+- **Πληκτρολογήστε την τιμή οποιουδήποτε ρυθμιστικού** στο αναδυόμενο παράθυρο ενός βήματος.]]></description>
+            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Nitidez es una máscara de enfoque completa.** Cantidad hasta el 400%, más Radio y Umbral. El radio coincide con la máscara de enfoque de Affinity, así que tus ajustes de Affinity sirven tal cual. La acción de Atajos también los tiene.
+- **Esquinas redondeadas sin marco.** Pon la anchura de un borde Redondeado al 0% para redondear solo las esquinas de la foto.
+- **Guardar en ▸ Preguntar al exportar.** Elige la carpeta cada vez que exportes.
+- **Escribe el valor de cualquier regulador** en la ventana emergente de un paso.]]></description>
+            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **«وضوح» اکنون یک ماسک وضوح کامل است.** مقدار تا ۴۰۰٪، به‌همراه «شعاع» و «آستانه». شعاع با ماسک وضوح Affinity یکی است، پس تنظیمات Affinity شما همان‌طور کار می‌کند. کنش میان‌برها هم آن‌ها را دارد.
+- **گوشه‌های گرد بدون قاب.** عرض حاشیهٔ «گرد» را روی ۰٪ بگذارید تا فقط گوشه‌های عکس گرد شوند.
+- **ذخیره در ▸ پرسیدن هنگام برون‌بری.** هر بار که برون‌بری می‌کنید پوشه را انتخاب کنید.
+- **مقدار هر لغزنده را تایپ کنید** در پنجرهٔ بازشوی هر مرحله.]]></description>
+            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Terävöitys on täysi epäterävä maski.** Voimakkuus jopa 400 %, lisäksi Säde ja Kynnys. Säde vastaa Affinityn epäterävää maskia, joten Affinity-asetuksesi toimivat sellaisinaan. Ne ovat myös Pikakomennot-toiminnossa.
+- **Pyöristetyt kulmat ilman kehystä.** Aseta pyöristetyn reunuksen leveydeksi 0 %, niin vain kuvan kulmat pyöristetään.
+- **Tallennuskohde ▸ Kysy vietäessä.** Valitse kansio aina, kun viet.
+- **Kirjoita minkä tahansa liukusäätimen arvo** vaiheen ponnahdusikkunassa.]]></description>
+            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Netteté devient un masque flou complet.** Intensité jusqu’à 400 %, avec Rayon et Seuil. Le rayon correspond au masque flou d’Affinity : vos réglages Affinity s’appliquent tels quels. L’action Raccourcis les propose aussi.
+- **Coins arrondis sans cadre.** Réglez la largeur d’une bordure Arrondi sur 0 % pour arrondir uniquement les coins de la photo.
+- **Enregistrer dans ▸ Demander lors de l’exportation.** Choisissez le dossier à chaque exportation.
+- **Saisissez la valeur de n’importe quel curseur** dans la fenêtre d’une étape.]]></description>
+            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **חידוד הוא עכשיו מסכת חידוד מלאה.** עוצמה עד 400%, ועוד רדיוס וסף. הרדיוס תואם את מסכת החידוד של Affinity, כך שההגדרות שלך מ‑Affinity עוברות כמו שהן. גם הפעולה בקיצורים כוללת אותם.
+- **פינות מעוגלות בלי מסגרת.** יש להגדיר את רוחב המסגרת המעוגלת ל‑0% כדי לעגל רק את פינות התצלום.
+- **שמירה אל ▸ לשאול בעת ייצוא.** בחירת התיקיה בכל ייצוא.
+- **אפשר להקליד את הערך של כל מחוון** בחלון הקופץ של שלב.]]></description>
+            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Izoštri je potpuna maska neoštrine.** Jačina do 400 %, uz Radijus i Prag. Radijus odgovara Affinityjevoj maski neoštrine, pa vaše postavke iz Affinityja vrijede bez promjena. Ima ih i radnja u Prečacima.
+- **Zaobljeni kutovi bez okvira.** Postavite širinu zaobljenog okvira na 0 % da biste zaoblili samo kutove fotografije.
+- **Spremi u ▸ Pitaj pri izvozu.** Odaberite mapu pri svakom izvozu.
+- **Upišite vrijednost bilo kojeg klizača** u skočnom prozoru koraka.]]></description>
+            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Az Élesítés teljes életlen maszk lett.** Erősség 400%-ig, valamint Sugár és Küszöb. A sugár megegyezik az Affinity életlen maszkjával, így az Affinity-beállításai változatlanul használhatók. A Parancsok művelet is tartalmazza őket.
+- **Lekerekített sarkok keret nélkül.** Állítsa a lekerekített keret szélességét 0%-ra, és csak a fotó sarkai lesznek kerekek.
+- **Mentés ide ▸ Rákérdezés exportáláskor.** Minden exportáláskor kiválaszthatja a mappát.
+- **Bármely csúszka értékét beírhatja** a lépés felugró ablakában.]]></description>
+            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Skerpa er nú fullur óskerpumaski.** Styrkur allt að 400%, auk Radíus og Þröskulds. Radíusinn samsvarar óskerpumaska Affinity, svo stillingarnar þínar úr Affinity virka óbreyttar. Flýtileiðaaðgerðin hefur þær líka.
+- **Ávöl horn án ramma.** Stilltu breidd ávals ramma á 0% til að námunda aðeins horn myndarinnar.
+- **Vista í ▸ Spyrja við útflutning.** Veldu möppuna í hvert sinn sem þú flytur út.
+- **Sláðu inn gildi hvaða sleða sem er** í sprettglugga skrefs.]]></description>
+            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Nitidezza è una maschera di contrasto completa.** Intensità fino al 400%, più Raggio e Soglia. Il raggio corrisponde alla maschera di contrasto di Affinity, quindi le tue impostazioni di Affinity valgono così come sono. Le ha anche l’azione di Comandi Rapidi.
+- **Angoli arrotondati senza cornice.** Imposta la larghezza di un bordo Arrotondato su 0% per arrotondare solo gli angoli della foto.
+- **Salva in ▸ Chiedi all’esportazione.** Scegli la cartella a ogni esportazione.
+- **Digita il valore di qualsiasi cursore** nel popover di un passaggio.]]></description>
+            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **シャープが本格的なアンシャープマスクに。** 量は最大400%、さらに半径としきい値を追加。半径はAffinityのアンシャープマスクと同じ意味なので、Affinityの設定をそのまま使えます。ショートカットのアクションでも使えます。
+- **枠線なしの角丸。** 角丸の枠線の幅を0%にすると、写真の角だけが丸くなります。
+- **保存先 ▸ 書き出し時に確認。** 書き出すたびにフォルダを選べます。
+- **どのスライダーも値を入力可能に。** ステップのポップオーバーで直接入力できます。]]></description>
+            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **선명도가 완전한 언샵 마스크가 되었습니다.** 양은 최대 400%이며 반경과 임계값이 추가되었습니다. 반경은 Affinity의 언샵 마스크와 같으므로 Affinity 설정을 그대로 쓸 수 있습니다. 단축어 동작에도 있습니다.
+- **테두리 없는 둥근 모서리.** 둥글게 테두리의 두께를 0%로 설정하면 사진의 모서리만 둥글게 됩니다.
+- **저장 위치 ▸ 내보낼 때 묻기.** 내보낼 때마다 폴더를 선택합니다.
+- **모든 슬라이더의 값을 입력할 수 있습니다.** 단계의 팝오버에서 바로 입력하십시오.]]></description>
+            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Skarphet er en fullverdig uskarp maske.** Styrke opptil 400 %, pluss Radius og Terskel. Radius tilsvarer Affinitys uskarpe maske, så Affinity-innstillingene dine kan brukes som de er. Snarveier-handlingen har dem også.
+- **Avrundede hjørner uten ramme.** Sett bredden på en avrundet ramme til 0 % for å avrunde bare bildets hjørner.
+- **Lagre i ▸ Spør ved eksport.** Velg mappen hver gang du eksporterer.
+- **Skriv inn verdien for hvilken som helst glidebryter** i et trinns popover.]]></description>
+            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Verscherp is een volledig onscherpmasker.** Sterkte tot 400%, plus Straal en Drempel. De straal komt overeen met het onscherpmasker van Affinity, dus je Affinity-instellingen werken direct. De Opdrachten-actie heeft ze ook.
+- **Afgeronde hoeken zonder kader.** Zet de breedte van een afgeronde rand op 0% om alleen de hoeken van de foto af te ronden.
+- **Bewaar in ▸ Vraag bij exporteren.** Kies de map bij elke export.
+- **Typ de waarde van elke schuifknop** in de popover van een stap.]]></description>
+            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Skjerp er ei fullverdig uskarp maske.** Styrke opp til 400 %, i tillegg til Radius og Terskel. Radius svarar til den uskarpe maska i Affinity, så Affinity-innstillingane dine kan brukast som dei er. Snarvegar-handlinga har dei òg.
+- **Avrunda hjørne utan ramme.** Set breidda på ei avrunda ramme til 0 % for å avrunde berre hjørna på biletet.
+- **Lagre til ▸ Spør ved eksport.** Vel mappa kvar gong du eksporterer.
+- **Skriv inn verdien for kva glidebrytar som helst** i sprettvindauget til eit steg.]]></description>
+            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Wyostrzanie to pełna maska wyostrzająca.** Siła do 400% oraz Promień i Próg. Promień odpowiada masce wyostrzającej w Affinity, więc ustawienia z Affinity działają bez zmian. Ma je także czynność Skrótów.
+- **Zaokrąglone narożniki bez ramki.** Ustaw szerokość zaokrąglonej ramki na 0%, aby zaokrąglić tylko narożniki zdjęcia.
+- **Zachowaj w ▸ Pytaj przy eksporcie.** Wybierz folder przy każdym eksporcie.
+- **Wpisz wartość dowolnego suwaka** w okienku kroku.]]></description>
+            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Nitidez agora é uma máscara de nitidez completa.** Intensidade de até 400%, além de Raio e Limiar. O raio corresponde à máscara de nitidez do Affinity, então seus ajustes do Affinity funcionam do mesmo jeito. A ação do Atalhos também os tem.
+- **Cantos arredondados sem moldura.** Defina a largura de uma borda Arredondada como 0% para arredondar só os cantos da foto.
+- **Salvar em ▸ Perguntar ao exportar.** Escolha a pasta a cada exportação.
+- **Digite o valor de qualquer controle deslizante** no popover de uma etapa.]]></description>
+            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Nitidez passa a ser uma máscara de nitidez completa.** Intensidade até 400%, mais Raio e Limiar. O raio corresponde à máscara de nitidez do Affinity, por isso as suas definições do Affinity funcionam tal como estão. A ação de Atalhos também os tem.
+- **Cantos arredondados sem moldura.** Defina a largura de uma moldura Arredondada para 0% para arredondar apenas os cantos da fotografia.
+- **Guardar em ▸ Perguntar ao exportar.** Escolha a pasta em cada exportação.
+- **Escreva o valor de qualquer cursor** no popover de um passo.]]></description>
+            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Accentuare este acum o mască de claritate completă.** Intensitate de până la 400%, plus Rază și Prag. Raza corespunde măștii de claritate din Affinity, așa că setările din Affinity funcționează la fel. Le are și acțiunea din Scurtături.
+- **Colțuri rotunjite fără ramă.** Setați lățimea unui chenar Rotunjit la 0% pentru a rotunji doar colțurile fotografiei.
+- **Salvare în ▸ Întreabă la export.** Alegeți dosarul la fiecare export.
+- **Tastați valoarea oricărui glisor** în fereastra unui pas.]]></description>
+            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Резкость стала полноценной нерезкой маской.** Сила до 400%, а также Радиус и Порог. Радиус соответствует нерезкой маске в Affinity, так что ваши настройки из Affinity работают без изменений. Они есть и в действии Быстрых команд.
+- **Скруглённые углы без рамки.** Задайте ширину скруглённой рамки 0%, чтобы скруглить только углы фото.
+- **Сохранить в ▸ Спрашивать при экспорте.** Выбирайте папку при каждом экспорте.
+- **Значение любого ползунка можно ввести** во всплывающем окне шага.]]></description>
+            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Zaostrenie je plnohodnotná neostrá maska.** Sila až 400 % a k tomu Polomer a Prah. Polomer zodpovedá neostrej maske v Affinity, takže vaše nastavenia z Affinity platia bez zmeny. Má ich aj akcia Skratiek.
+- **Zaoblené rohy bez rámu.** Nastavte šírku zaobleného rámu na 0 % a zaoblia sa iba rohy fotky.
+- **Uložiť do ▸ Spýtať sa pri exporte.** Priečinok vyberiete pri každom exporte.
+- **Hodnotu ľubovoľného posúvača môžete napísať** v okne kroku.]]></description>
+            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Ostrenje je polna maska neostrine.** Moč do 400 %, poleg tega Polmer in Prag. Polmer ustreza maski neostrine v Affinityju, zato vaše nastavitve iz Affinityja delujejo brez sprememb. Ima jih tudi dejanje Bližnjic.
+- **Zaobljeni vogali brez okvirja.** Nastavite širino zaobljene obrobe na 0 %, da zaoblite samo vogale fotografije.
+- **Shrani v ▸ Vprašaj ob izvozu.** Mapo izberite ob vsakem izvozu.
+- **Vpišite vrednost katerega koli drsnika** v pojavnem oknu koraka.]]></description>
+            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Skärpa är en fullständig oskarp mask.** Styrka upp till 400 %, plus Radie och Tröskel. Radien motsvarar Affinitys oskarpa mask, så dina Affinity-inställningar fungerar som de är. Genvägar-åtgärden har dem också.
+- **Rundade hörn utan ram.** Ställ in bredden på en rundad ram till 0 % för att bara runda bildens hörn.
+- **Spara i ▸ Fråga vid export.** Välj mappen varje gång du exporterar.
+- **Skriv in värdet för valfritt reglage** i ett stegs popover.]]></description>
+            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **ความคมกลายเป็นอันชาร์ปมาสก์เต็มรูปแบบ** ความแรงสูงสุด 400% พร้อมรัศมีและเกณฑ์ รัศมีมีความหมายเดียวกับอันชาร์ปมาสก์ของ Affinity จึงใช้ค่าจาก Affinity ได้ทันที และมีในการทำงานของคำสั่งลัดด้วย
+- **มุมมนโดยไม่มีกรอบ** ตั้งความกว้างของขอบแบบมุมมนเป็น 0% เพื่อทำให้เฉพาะมุมของรูปถ่ายมน
+- **บันทึกไปที่ ▸ ถามเมื่อส่งออก** เลือกโฟลเดอร์ทุกครั้งที่ส่งออก
+- **พิมพ์ค่าของแถบเลื่อนใดก็ได้** ในป๊อปโอเวอร์ของขั้นตอน]]></description>
+            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Keskinleştirme artık tam bir keskinsizlik maskesi.** 400%’e kadar miktar, ayrıca Yarıçap ve Eşik. Yarıçap, Affinity’nin keskinsizlik maskesiyle aynıdır; Affinity ayarlarınız olduğu gibi çalışır. Kestirmeler eylemi de bunlara sahip.
+- **Çerçevesiz yuvarlak köşeler.** Yalnızca fotoğrafın köşelerini yuvarlamak için Yuvarlak kenarlığın genişliğini %0 yapın.
+- **Kaydedilecek yer ▸ Dışa aktarırken sor.** Her dışa aktarmada klasörü seçin.
+- **Herhangi bir sürgünün değerini yazabilirsiniz,** bir adımın açılır penceresinde.]]></description>
+            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Різкість стала повноцінною нерізкою маскою.** Сила до 400%, а також Радіус і Поріг. Радіус відповідає нерізкій масці в Affinity, тож ваші налаштування з Affinity працюють без змін. Вони є і в дії Швидких команд.
+- **Закруглені кути без рамки.** Установіть ширину закругленої рамки 0%, щоб закруглити лише кути фото.
+- **Зберегти в ▸ Питати під час експорту.** Вибирайте папку під час кожного експорту.
+- **Значення будь-якого повзунка можна ввести** у спливному вікні кроку.]]></description>
+            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **Làm nét giờ là mặt nạ làm nét đầy đủ.** Mức tối đa 400%, thêm Bán kính và Ngưỡng. Bán kính khớp với mặt nạ làm nét của Affinity, nên cài đặt từ Affinity dùng được ngay. Tác vụ Phím tắt cũng có các cài đặt này.
+- **Bo tròn góc không có khung.** Đặt chiều rộng viền Bo tròn thành 0% để chỉ bo tròn các góc của ảnh.
+- **Lưu vào ▸ Hỏi khi xuất.** Chọn thư mục mỗi lần xuất.
+- **Nhập giá trị của bất kỳ thanh trượt nào** trong cửa sổ bật lên của một bước.]]></description>
+            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **銳化成為完整的遮罩銳利化。** 強度最高 400%，另加半徑和臨界值。半徑與 Affinity 的遮罩銳利化相同，Affinity 的設定可直接沿用。「捷徑」動作亦有這些設定。
+- **沒有邊框的圓角。** 將圓角邊框的闊度設為 0%，就只會將相片的角變圓。
+- **儲存至 ▸ 輸出時詢問。** 每次輸出時選擇資料夾。
+- **可直接輸入任何滑桿的數值**，就在步驟的彈出式視窗中。]]></description>
+            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **锐化现在是完整的 USM 锐化。** 强度最高 400%，另有半径和阈值。半径与 Affinity 的 USM 锐化含义相同，Affinity 中的设置可直接沿用。“快捷指令”操作也有这些设置。
+- **无边框圆角。** 将圆角边框的宽度设为 0%，即可只让照片的角变圆。
+- **存储位置 ▸ 导出时询问。** 每次导出时选取文件夹。
+- **可直接输入任一滑块的数值**，在步骤的弹出窗口中即可。]]></description>
+            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Studio
+
+- **銳利化成為完整的遮色片銳利化。** 強度最高 400%，另有半徑和臨界值。半徑與 Affinity 的遮色片銳利化相同，Affinity 的設定可直接沿用。「捷徑」動作也有這些設定。
+- **沒有邊框的圓角。** 將圓角邊框的寬度設為 0%，就只會讓照片的角變圓。
+- **儲存至 ▸ 匯出時詢問。** 每次匯出時選擇檔案夾。
+- **可直接輸入任何滑桿的數值**，就在步驟的彈出式視窗中。]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.9.1/ShrinkerPro-1.9.1.dmg" length="11624967" type="application/octet-stream" sparkle:edSignature="Ielji1bvpvpowzwJUOMsu4Iped/ycDDsVWUVNChy7tLpmqjufriGu22JjdfavMkZRMs7CJtUj+VFLtQst0kuAg=="/>
+        </item>
+        <item>
             <title>1.9.0</title>
             <pubDate>Sat, 14 Nov 2026 11:02:22 -0500</pubDate>
             <sparkle:version>18</sparkle:version>
@@ -417,350 +643,6 @@
 - **選擇Studio開始時使用的配方。** 「設定」▸「Studio」▸「起始配方」會以你儲存的配方打開Studio視窗，而不是空白配方。
 - **品牌雙色調會記住你的顏色。** 新的品牌雙色調會以你上次選擇的兩個顏色開始。「使用標準顏色」可還原靛藍和桃色。]]></description>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.8.3/ShrinkerPro-1.8.3.dmg" length="11432958" type="application/octet-stream" sparkle:edSignature="3aCezy5fpHUoIrEBFK+z8qfH6TviFnzVAaGe9MVFkscfNOJtr79MNRUJN6wMdR94+O9aWryvWPD9fFf+RjEOAQ=="/>
-        </item>
-        <item>
-            <title>1.8.2</title>
-            <pubDate>Thu, 12 Nov 2026 13:50:52 -0500</pubDate>
-            <sparkle:version>16</sparkle:version>
-            <sparkle:shortVersionString>1.8.2</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **Open Recent is gone from the File menu.** Shrinker Pro makes new files
-  rather than editing documents, so there was nothing to reopen.
-
-### Shrinker Studio
-
-- **File ▸ Open Files… adds photos to Studio** when its window is in front,
-  just like dropping them there. Before, they went to Shrinker Pro.
-]]></description>
-            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **أُزيل «فتح العناصر الأخيرة» من القائمة «ملف».** ينشئ Shrinker Pro ملفات
-  جديدة ولا يحرّر المستندات، لذلك لم يكن هناك ما يُعاد فتحه.
-
-### Shrinker Studio
-
-- **«فتح الملفات…» يضيف الصور إلى Studio** عندما تكون نافذته في المقدمة،
-  تمامًا كما لو أفلتّها فيها. في السابق كانت تذهب إلى Shrinker Pro.]]></description>
-            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **«Obre els recents» ja no és al menú Arxiu.** El Shrinker Pro crea fitxers
-  nous en lloc d'editar documents, així que no hi havia res a tornar a obrir.
-
-### Shrinker Studio
-
-- **«Obre arxius…» afegeix les fotos a Studio** quan la seva finestra és al
-  davant, igual que si les hi deixeu anar. Abans anaven al Shrinker Pro.]]></description>
-            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **Položka „Poslední položky“ zmizela z nabídky Soubor.** Shrinker Pro
-  vytváří nové soubory, neupravuje dokumenty, takže nebylo co znovu otevírat.
-
-### Shrinker Studio
-
-- **„Otevřít soubory…“ přidá fotky do Studia**, když je jeho okno vpředu,
-  stejně jako když je do něj přetáhnete. Dříve šly do Shrinker Pro.]]></description>
-            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **“Åbn seneste” er fjernet fra menuen Arkiv.** Shrinker Pro laver nye filer
-  i stedet for at redigere dokumenter, så der var intet at åbne igen.
-
-### Shrinker Studio
-
-- **“Åbn arkiver…” føjer fotos til Studio**, når dets vindue er forrest,
-  ligesom når du trækker dem derhen. Før gik de til Shrinker Pro.]]></description>
-            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **„Benutzte Dokumente“ ist aus dem Menü „Ablage“ entfernt.** Shrinker Pro
-  erstellt neue Dateien, statt Dokumente zu bearbeiten, also gab es nichts
-  erneut zu öffnen.
-
-### Shrinker Studio
-
-- **„Dateien öffnen …“ fügt Fotos zu Studio hinzu**, wenn sein Fenster vorne
-  ist, genau wie beim Hineinziehen. Bisher landeten sie in Shrinker Pro.]]></description>
-            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **Το «Άνοιγμα πρόσφατου» αφαιρέθηκε από το μενού «Αρχείο».** Το Shrinker Pro
-  δημιουργεί νέα αρχεία αντί να επεξεργάζεται έγγραφα, οπότε δεν υπήρχε τίποτα
-  για να ξανανοίξει.
-
-### Shrinker Studio
-
-- **Το «Άνοιγμα αρχείων…» προσθέτει φωτογραφίες στο Studio** όταν το παράθυρό
-  του είναι μπροστά, όπως όταν τις αφήνετε εκεί. Πριν πήγαιναν στο Shrinker
-  Pro.]]></description>
-            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **«Abrir recientes» ya no está en el menú Archivo.** Shrinker Pro crea
-  archivos nuevos en lugar de editar documentos, así que no había nada que
-  volver a abrir.
-
-### Shrinker Studio
-
-- **«Abrir archivos…» añade las fotos a Studio** cuando su ventana está
-  delante, igual que al soltarlas en ella. Antes iban a Shrinker Pro.]]></description>
-            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **«باز کردن موارد اخیر» از منوی «فایل» حذف شد.** Shrinker Pro فایل‌های تازه
-  می‌سازد و سند ویرایش نمی‌کند، پس چیزی برای باز کردن دوباره وجود نداشت.
-
-### Shrinker Studio
-
-- **«باز کردن فایل‌ها…» عکس‌ها را به Studio اضافه می‌کند** وقتی پنجرهٔ آن جلو
-  است، درست مثل رها کردن آن‌ها در آن. پیش‌تر به Shrinker Pro می‌رفتند.]]></description>
-            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **”Avaa äskeinen” on poistettu Arkisto-valikosta.** Shrinker Pro tekee uusia
-  tiedostoja eikä muokkaa dokumentteja, joten avattavaa uudelleen ei ollut.
-
-### Shrinker Studio
-
-- **”Avaa tiedostoja…” lisää kuvat Studioon**, kun sen ikkuna on edessä, aivan
-  kuin pudottaisit ne siihen. Aiemmin ne menivät Shrinker Prohon.]]></description>
-            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **« Ouvrir un document récent » disparaît du menu Fichier.** Shrinker Pro
-  crée de nouveaux fichiers au lieu de modifier des documents : il n’y avait
-  donc rien à rouvrir.
-
-### Shrinker Studio
-
-- **« Ouvrir des fichiers… » ajoute les photos à Studio** lorsque sa fenêtre
-  est au premier plan, comme si vous les y déposiez. Auparavant, elles
-  allaient dans Shrinker Pro.]]></description>
-            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **„פתיחת האחרונים” הוסר מהתפריט „קובץ”.** Shrinker Pro יוצר קבצים חדשים
-  ואינו עורך מסמכים, כך שלא היה מה לפתוח מחדש.
-
-### Shrinker Studio
-
-- **„פתיחת קבצים…” מוסיף תמונות ל‑Studio** כשהחלון שלו בחזית, בדיוק כמו גרירתן
-  אליו. קודם הן הגיעו ל‑Shrinker Pro.]]></description>
-            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **„Otvori nedavne stavke” uklonjeno je iz izbornika Datoteka.** Shrinker Pro
-  izrađuje nove datoteke umjesto da uređuje dokumente, pa nije bilo što
-  ponovno otvoriti.
-
-### Shrinker Studio
-
-- **„Otvori datoteke…” dodaje fotografije u Studio** kad je njegov prozor
-  ispred, baš kao kad ih ispustite u njega. Prije su išle u Shrinker Pro.]]></description>
-            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **A „Legutóbbi megnyitása” kikerült a Fájl menüből.** A Shrinker Pro új
-  fájlokat készít, nem dokumentumokat szerkeszt, így nem volt mit újra
-  megnyitni.
-
-### Shrinker Studio
-
-- **A „Fájlok megnyitása…” a Studióba teszi a fotókat**, ha annak ablaka van
-  elöl, akárcsak a ráhúzás. Korábban a Shrinker Próba kerültek.]]></description>
-            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **„Opna nýlegt“ er horfið úr Skrá-valmyndinni.** Shrinker Pro býr til nýjar
-  skrár í stað þess að breyta skjölum, svo það var ekkert að opna aftur.
-
-### Shrinker Studio
-
-- **„Opna skrár…“ bætir myndum í Studio** þegar gluggi þess er fremstur, alveg
-  eins og að sleppa þeim þar. Áður fóru þær í Shrinker Pro.]]></description>
-            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **«Apri recenti» non è più nel menu File.** Shrinker Pro crea nuovi file
-  invece di modificare documenti, quindi non c’era nulla da riaprire.
-
-### Shrinker Studio
-
-- **«Apri file…» aggiunge le foto a Studio** quando la sua finestra è in primo
-  piano, come trascinandole lì. Prima finivano in Shrinker Pro.]]></description>
-            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **「ファイル」メニューから「最近使った項目を開く」を削除しました。**Shrinker Proは書類を編集するのではなく新しいファイルを作るため、開き直すものがありませんでした。
-
-### Shrinker Studio
-
-- **「ファイルを開く…」で、写真がStudioに追加されるようになりました。**Studioのウインドウが手前にあるときは、ドロップしたときと同じ動作になります。以前はShrinker Proに送られていました。]]></description>
-            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **파일 메뉴에서 ‘최근 사용 열기’를 제거했습니다.** Shrinker Pro는 문서를 편집하지 않고 새 파일을 만들기 때문에 다시 열 대상이 없었습니다.
-
-### Shrinker Studio
-
-- **‘파일 열기…’로 사진이 Studio에 추가됩니다.** Studio 윈도우가 앞에 있을 때는 그곳에 드롭한 것과 똑같이 동작합니다. 이전에는 Shrinker Pro로 갔습니다.]]></description>
-            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **«Åpne sist brukte» er fjernet fra Arkiv-menyen.** Shrinker Pro lager nye
-  filer i stedet for å redigere dokumenter, så det var ingenting å åpne igjen.
-
-### Shrinker Studio
-
-- **«Åpne filer…» legger bildene til i Studio** når vinduet er fremst, akkurat
-  som når du slipper dem der. Før gikk de til Shrinker Pro.]]></description>
-            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **‘Open recente bestanden’ is uit het Archief-menu verdwenen.** Shrinker Pro
-  maakt nieuwe bestanden in plaats van documenten te bewerken, dus er viel
-  niets opnieuw te openen.
-
-### Shrinker Studio
-
-- **‘Open bestanden…’ voegt foto’s toe aan Studio** als het venster vooraan
-  staat, net als wanneer je ze erop sleept. Eerder gingen ze naar Shrinker
-  Pro.]]></description>
-            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **«Opne nylege» er fjerna frå Arkiv-menyen.** Shrinker Pro lagar nye filer i
-  staden for å redigere dokument, så det var ingenting å opne att.
-
-### Shrinker Studio
-
-- **«Opne filer…» legg bileta til i Studio** når vindauget er framst, akkurat
-  som når du slepper dei der. Før gjekk dei til Shrinker Pro.]]></description>
-            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **Polecenie „Otwórz ostatnie” zniknęło z menu Plik.** Shrinker Pro tworzy
-  nowe pliki zamiast edytować dokumenty, więc nie było czego ponownie
-  otwierać.
-
-### Shrinker Studio
-
-- **„Otwórz pliki…” dodaje zdjęcia do Studio**, gdy jego okno jest na
-  wierzchu, tak samo jak po upuszczeniu ich w nim. Wcześniej trafiały do
-  Shrinker Pro.]]></description>
-            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **“Abrir Recente” saiu do menu Arquivo.** O Shrinker Pro cria arquivos novos
-  em vez de editar documentos, então não havia nada para reabrir.
-
-### Shrinker Studio
-
-- **“Abrir Arquivos…” adiciona as fotos ao Studio** quando a janela dele está
-  na frente, como ao soltá-las nela. Antes elas iam para o Shrinker Pro.]]></description>
-            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **“Abrir documento recente” saiu do menu Ficheiro.** O Shrinker Pro cria
-  ficheiros novos em vez de editar documentos, por isso não havia nada para
-  reabrir.
-
-### Shrinker Studio
-
-- **“Abrir ficheiros…” adiciona as fotografias ao Studio** quando a janela
-  dele está à frente, tal como ao largá-las nela. Antes iam para o Shrinker
-  Pro.]]></description>
-            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **„Deschideți recente” a dispărut din meniul Fișier.** Shrinker Pro creează
-  fișiere noi în loc să editeze documente, așa că nu era nimic de redeschis.
-
-### Shrinker Studio
-
-- **„Deschideți fișiere…” adaugă pozele în Studio** când fereastra acestuia
-  este în față, la fel ca atunci când le trageți în ea. Înainte ajungeau în
-  Shrinker Pro.]]></description>
-            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **Пункт «Открытие недавних» убран из меню «Файл».** Shrinker Pro создаёт
-  новые файлы, а не редактирует документы, так что открывать заново было
-  нечего.
-
-### Shrinker Studio
-
-- **«Открыть файлы…» добавляет фото в Studio**, когда его окно на переднем
-  плане, — так же, как при перетаскивании в него. Раньше они уходили в
-  Shrinker Pro.]]></description>
-            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **Položka „Otvoriť posledné“ zmizla z ponuky Súbor.** Shrinker Pro vytvára
-  nové súbory, neupravuje dokumenty, takže nebolo čo znova otvárať.
-
-### Shrinker Studio
-
-- **„Otvoriť súbory…“ pridá fotky do Studia**, keď je jeho okno vpredu,
-  rovnako ako keď ich doň pretiahnete. Predtým išli do Shrinker Pro.]]></description>
-            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **»Odpri nedavno« je odstranjeno iz menija Datoteka.** Shrinker Pro ustvarja
-  nove datoteke, namesto da bi urejal dokumente, zato ni bilo česa znova
-  odpreti.
-
-### Shrinker Studio
-
-- **»Odpri datoteke …« doda fotografije v Studio**, ko je njegovo okno
-  spredaj, enako kot če jih spustite vanj. Prej so šle v Shrinker Pro.]]></description>
-            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **”Öppna senaste” är borttaget från Arkiv-menyn.** Shrinker Pro skapar nya
-  filer i stället för att redigera dokument, så det fanns inget att öppna
-  igen.
-
-### Shrinker Studio
-
-- **”Öppna filer…” lägger till bilderna i Studio** när dess fönster är längst
-  fram, precis som när du släpper dem där. Tidigare gick de till Shrinker Pro.]]></description>
-            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **นำ “เปิดล่าสุด” ออกจากเมนูไฟล์แล้ว** Shrinker Pro สร้างไฟล์ใหม่แทนการแก้ไขเอกสาร จึงไม่มีอะไรให้เปิดซ้ำ
-
-### Shrinker Studio
-
-- **“เปิดไฟล์…” จะเพิ่มรูปลงใน Studio** เมื่อหน้าต่างของ Studio อยู่ด้านหน้า เหมือนกับการลากไปวาง ก่อนหน้านี้รูปจะไปที่ Shrinker Pro]]></description>
-            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **“Son Kullanılanı Aç” Dosya menüsünden kaldırıldı.** Shrinker Pro belge
-  düzenlemek yerine yeni dosyalar oluşturduğu için yeniden açılacak bir şey
-  yoktu.
-
-### Shrinker Studio
-
-- **“Dosyaları Aç…” fotoğrafları Studio'ya ekler**; Studio penceresi öndeyken
-  tıpkı oraya sürükleyip bırakmak gibi çalışır. Önceden Shrinker Pro'ya
-  gidiyorlardı.]]></description>
-            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **Пункт «Відкрити недавні» прибрано з меню «Файл».** Shrinker Pro створює
-  нові файли, а не редагує документи, тож відкривати знову було нічого.
-
-### Shrinker Studio
-
-- **«Відкрити файли…» додає фото до Studio**, коли його вікно на передньому
-  плані, — так само, як перетягування в нього. Раніше вони потрапляли до
-  Shrinker Pro.]]></description>
-            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **“Mở mục gần đây” đã được bỏ khỏi menu Tệp.** Shrinker Pro tạo tệp mới thay
-  vì sửa tài liệu, nên không có gì để mở lại.
-
-### Shrinker Studio
-
-- **“Mở tệp…” thêm ảnh vào Studio** khi cửa sổ của nó ở phía trước, giống hệt
-  như thả ảnh vào đó. Trước đây ảnh được gửi tới Shrinker Pro.]]></description>
-            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **「檔案」選單中移除了「開啟最近項目」。**Shrinker Pro 會產生新檔案而非編輯文件，因此沒有可重新開啟的內容。
-
-### Shrinker Studio
-
-- **Studio 視窗在最前方時，「開啟檔案⋯」會將相片加入 Studio，**與拖放到其中完全相同。之前它們會進入 Shrinker Pro。]]></description>
-            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **“文件”菜单中移除了“打开最近使用的”。**Shrinker Pro 生成新文件而非编辑文稿，因此没有可重新打开的内容。
-
-### Shrinker Studio
-
-- **Studio 窗口在最前面时，“打开文件…”会将照片添加到 Studio，**与拖放到其中完全相同。之前它们会进入 Shrinker Pro。]]></description>
-            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Pro
-
-- **「檔案」選單中移除了「打開最近使用過的檔案」。**Shrinker Pro 會產生新檔案而非編輯文件，因此沒有可重新打開的內容。
-
-### Shrinker Studio
-
-- **Studio 視窗在最前方時，「打開檔案⋯」會將照片加入 Studio，**與拖放到其中完全相同。之前它們會進入 Shrinker Pro。]]></description>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.8.2/ShrinkerPro-1.8.2.dmg" length="11424803" type="application/octet-stream" sparkle:edSignature="G55QI/tpcG+SLvWEc9iSnzS9RGgDdKXujaMbr3CRYNZ0G/h08KQGq5J21HzXcHxKiYA0B4kDzlqIYpm7zabDAQ=="/>
         </item>
     </channel>
 </rss>

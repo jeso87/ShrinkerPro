@@ -4,6 +4,28 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.9.1 — 2026-11-17
+
+### Added
+
+**Sharpen is now a full unsharp mask.** In Studio's Adjust step, Sharpen
+goes up to 400% and gains Radius (0.2 to 100 px) and Threshold (0 to 50).
+Radius means the same as in Affinity's Unsharp Mask, so settings carried over
+from Affinity give the same result. It sharpens brightness only, so edges get
+no colour fringes. The Adjust Images shortcut has the same three settings, and
+recipes saved with the old Sharpen convert to a matching amount.
+
+**Rounded corners without a frame.** The Border step's Rounded style can now
+have a width of 0%, which rounds the photo's own corners with no band around
+it. With a clear colour the corners are transparent in PNG and WebP.
+
+**Save to ▸ Ask when exporting.** Export asks for a folder each time, starting
+where you exported last. Watch folders, the clipboard and Shortcuts, which have
+nobody to ask, save beside the originals.
+
+**Type any slider's number.** Every slider in a step's popover shows its value
+in a field you can type into.
+
 ## 1.9.0 — 2026-11-14
 
 ### Added

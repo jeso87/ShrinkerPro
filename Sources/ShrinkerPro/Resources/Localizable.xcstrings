@@ -18327,6 +18327,573 @@
           "stringUnit" : { "state" : "translated", "value" : "寫入 AVIF 需要 macOS %@ 或以上版本，因此未產生此檔案。請為它選擇其他格式。" }
         }
       }
+    },
+    "Ask each time" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ask each time" }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "السؤال في كل مرة" }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pregunta cada vegada" }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pokaždé se zeptat" }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Spørg hver gang" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Jedes Mal fragen" }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ερώτηση κάθε φορά" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Preguntar cada vez" }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "هر بار بپرس" }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kysy joka kerta" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Demander à chaque fois" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "לשאול בכל פעם" }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pitaj svaki put" }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rákérdezés minden alkalommal" }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Spyrja í hvert sinn" }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Chiedi ogni volta" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "毎回確認" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "매번 묻기" }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Spør hver gang" }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vraag elke keer" }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Spør kvar gong" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pytaj za każdym razem" }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Perguntar sempre" }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Perguntar sempre" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Întreabă de fiecare dată" }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Спрашивать каждый раз" }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zakaždým sa spýtať" }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vprašaj vsakič" }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fråga varje gång" }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "ถามทุกครั้ง" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Her seferinde sor" }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Питати щоразу" }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Hỏi mỗi lần" }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "每次詢問" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "每次询问" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "每次詢問" }
+        }
+      }
+    },
+    "Choose where to save the shrunk images." : {
+      "comment" : "Message in the folder panel shown on each drop when Settings ▸ Where is Ask each time.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Choose where to save the shrunk images." }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "اختر مكان حفظ الصور المصغّرة." }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Selecciona on vols desar les imatges reduïdes." }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vyberte, kam uložit zmenšené obrázky." }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vælg, hvor de formindskede billeder skal gemmes." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wähle, wo die verkleinerten Bilder gesichert werden sollen." }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Επιλέξτε πού θα αποθηκευτούν οι σμικρυμένες εικόνες." }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Elige dónde guardar las imágenes reducidas." }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "انتخاب کنید تصاویر کوچک‌شده کجا ذخیره شوند." }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Valitse, minne pienennetyt kuvat tallennetaan." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Choisissez où enregistrer les images réduites." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "יש לבחור היכן לשמור את התמונות המוקטנות." }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Odaberite gdje spremiti smanjene slike." }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Válassza ki, hová mentse a kicsinyített képeket." }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Veldu hvar á að vista minnkuðu myndirnar." }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Scegli dove salvare le immagini ridotte." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "縮小した画像の保存先を選択してください。" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "축소된 이미지를 저장할 위치를 선택하십시오." }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Velg hvor de forminskede bildene skal lagres." }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kies waar de verkleinde afbeeldingen worden bewaard." }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vel kvar dei forminska bileta skal lagrast." }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Wybierz, gdzie zachować zmniejszone obrazy." }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Escolha onde salvar as imagens reduzidas." }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Escolha onde guardar as imagens reduzidas." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Selectați unde se salvează imaginile micșorate." }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Выберите, куда сохранить уменьшенные изображения." }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vyberte, kam uložiť zmenšené obrázky." }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Izberite, kam shraniti pomanjšane slike." }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Välj var de förminskade bilderna ska sparas." }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "เลือกตำแหน่งที่จะบันทึกภาพที่ย่อแล้ว" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Küçültülen görüntülerin nereye kaydedileceğini seçin." }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Виберіть, куди зберегти зменшені зображення." }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Chọn nơi lưu các ảnh đã thu nhỏ." }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "選擇要將縮小的影像儲存在哪裡。" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "选择缩小后图片的存储位置。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "選擇要將縮小的影像儲存在哪裡。" }
+        }
+      }
+    },
+    "Each drop asks for a folder first. Cancel, and nothing is shrunk." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Each drop asks for a folder first. Cancel, and nothing is shrunk." }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "يسأل كل إفلات عن مجلد أولًا. إن ألغيت، فلن يُصغَّر شيء." }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cada vegada que deixis anar imatges es demanarà una carpeta. Si cancel·les, no es redueix res." }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Při každém přetažení se nejdřív zobrazí dotaz na složku. Když ho zrušíte, nic se nezmenší." }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Hver gang du slipper billeder, spørges der først efter en mappe. Annullerer du, formindskes intet." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Bei jedem Ablegen wird zuerst nach einem Ordner gefragt. Brichst du ab, wird nichts verkleinert." }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Σε κάθε απόθεση ζητείται πρώτα φάκελος. Αν ακυρώσετε, δεν σμικρύνεται τίποτα." }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cada vez que sueltes imágenes se pedirá primero una carpeta. Si cancelas, no se reduce nada." }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "هر بار که تصویری رها می‌کنید، اول یک پوشه پرسیده می‌شود. اگر لغو کنید، چیزی کوچک نمی‌شود." }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Joka pudotuksella kysytään ensin kansiota. Jos peruutat, mitään ei pienennetä." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Chaque dépôt demande d’abord un dossier. Si vous annulez, rien n’est réduit." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "בכל שחרור של קבצים תוצג קודם בקשה לבחור תיקיה. ביטול לא מקטין דבר." }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Svako ispuštanje najprije traži mapu. Ako odustanete, ništa se ne smanjuje." }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Minden behúzáskor előbb mappát kér. Ha megszakítja, semmi sem lesz kicsinyítve." }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Í hvert sinn sem þú sleppir myndum er fyrst beðið um möppu. Ef þú hættir við er ekkert minnkað." }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "A ogni trascinamento viene chiesta prima una cartella. Se annulli, non viene ridotto nulla." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "ドロップするたびに、まず保存先フォルダを尋ねます。キャンセルすると何も縮小されません。" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "드롭할 때마다 먼저 폴더를 묻습니다. 취소하면 아무것도 축소되지 않습니다." }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Hver gang du slipper bilder, blir du først spurt om en mappe. Avbryter du, blir ingenting forminsket." }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Bij elke sleepactie wordt eerst om een map gevraagd. Annuleer je, dan wordt er niets verkleind." }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Kvar gong du slepper bilete, vert du først spurd om ei mappe. Avbryt du, vert ingenting forminska." }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Każde upuszczenie najpierw pyta o folder. Jeśli anulujesz, nic nie zostanie zmniejszone." }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cada vez que você soltar imagens, uma pasta será pedida primeiro. Se cancelar, nada é reduzido." }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sempre que largar imagens, é pedida primeiro uma pasta. Se cancelar, nada é reduzido." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "La fiecare plasare se cere mai întâi un dosar. Dacă anulați, nu se micșorează nimic." }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "При каждом перетаскивании сначала запрашивается папка. Если отменить, ничего не уменьшается." }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pri každom pretiahnutí sa najprv zobrazí otázka na priečinok. Keď ju zrušíte, nič sa nezmenší." }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ob vsakem spuščanju se najprej zahteva mapa. Če prekličete, se nič ne pomanjša." }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Varje gång du släpper bilder frågar appen först efter en mapp. Avbryter du förminskas ingenting." }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "ทุกครั้งที่ลากวาง จะถามหาโฟลเดอร์ก่อน หากยกเลิก จะไม่มีการย่อใดๆ" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Her bırakmada önce bir klasör sorulur. Vazgeçerseniz hiçbir şey küçültülmez." }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Під час кожного перетягування спершу запитується папка. Якщо скасувати, нічого не зменшується." }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mỗi lần thả ảnh sẽ hỏi chọn thư mục trước. Nếu hủy, không ảnh nào được thu nhỏ." }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "每次拖放時都會先詢問資料夾。如果取消，就不會縮小任何影像。" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "每次拖放时都会先询问文件夹。如果取消，就不会缩小任何图片。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "每次拖放時都會先詢問檔案夾。如果取消，就不會縮小任何影像。" }
+        }
+      }
+    },
+    "Save Here" : {
+      "comment" : "Button of the folder panel shown on each drop when Settings ▸ Where is Ask each time.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Save Here" }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "حفظ هنا" }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Desa aquí" }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Uložit sem" }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gem her" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Hier sichern" }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Αποθήκευση εδώ" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Guardar aquí" }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "ذخیره در اینجا" }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Tallenna tähän" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Enregistrer ici" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "שמירה כאן" }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Spremi ovdje" }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Mentés ide" }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Vista hér" }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Salva qui" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "ここに保存" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "여기에 저장" }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Lagre her" }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Bewaar hier" }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Lagre her" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zachowaj tutaj" }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Salvar Aqui" }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Guardar aqui" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Salvați aici" }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Сохранить сюда" }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Uložiť sem" }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrani sem" }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Spara här" }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "บันทึกที่นี่" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Buraya Kaydet" }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Зберегти сюди" }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Lưu ở đây" }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "儲存在這裡" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "存储在这里" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "儲存在這裡" }
+        }
+      }
+    },
+    "The Shrinker Studio window has its own Save to step in its recipe." : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "The Shrinker Studio window has its own Save to step in its recipe." }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "لنافذة Shrinker Studio خطوة «الحفظ في» خاصة بها ضمن وصفتها." }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "La finestra de Shrinker Studio té el seu propi pas Desa a a la recepta." }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Okno Shrinker Studio má ve svém receptu vlastní krok Uložit do." }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio-vinduet har sit eget Gem i-trin i sin opskrift." }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Das Fenster von Shrinker Studio hat in seinem Rezept einen eigenen Schritt „Sichern in“." }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Το παράθυρο του Shrinker Studio έχει δικό του βήμα «Αποθήκευση σε» στη συνταγή του." }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "La ventana de Shrinker Studio tiene su propio paso Guardar en dentro de su receta." }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "پنجرهٔ Shrinker Studio در دستور پخت خود مرحلهٔ «ذخیره در» جداگانه‌ای دارد." }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio -ikkunan reseptissä on oma Tallennuskohde-vaiheensa." }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "La fenêtre Shrinker Studio a sa propre étape Enregistrer dans, dans sa recette." }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "לחלון של Shrinker Studio יש שלב ״שמירה אל״ משלו במתכון." }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Prozor Shrinker Studija ima u svojem receptu vlastiti korak Spremi u." }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "A Shrinker Studio ablakának receptjében saját Mentés ide lépés van." }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio-glugginn hefur sitt eigið Vista í-skref í uppskriftinni." }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "La finestra di Shrinker Studio ha un proprio passaggio Salva in nella sua ricetta." }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studioのウインドウには、レシピに独自の「保存先」ステップがあります。" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio 윈도우의 레시피에는 별도의 저장 위치 단계가 있습니다." }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio-vinduet har sitt eget Lagre i-trinn i oppskriften." }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Het Shrinker Studio-venster heeft in zijn recept een eigen stap Bewaar in." }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio-vindauget har sitt eige Lagre til-steg i oppskrifta." }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Okno Shrinker Studio ma w swoim przepisie własny krok Zachowaj w." }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "A janela do Shrinker Studio tem a própria etapa Salvar em na sua receita." }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "A janela do Shrinker Studio tem o seu próprio passo Guardar em na receita." }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Fereastra Shrinker Studio are propriul pas Salvare în din rețeta sa." }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "У окна Shrinker Studio в рецепте есть собственный шаг «Сохранить в»." }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Okno Shrinker Studio má vo svojom recepte vlastný krok Uložiť do." }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Okno Shrinker Studia ima v svojem receptu lasten korak Shrani v." }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio-fönstret har ett eget Spara i-steg i sitt recept." }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "หน้าต่าง Shrinker Studio มีขั้นตอน บันทึกไปที่ ของตัวเองในสูตร" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio penceresinin tarifinde kendi Kaydedilecek yer adımı vardır." }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Вікно Shrinker Studio має у своєму рецепті власний крок «Зберегти в»." }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Cửa sổ Shrinker Studio có bước Lưu vào riêng trong công thức của nó." }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio 視窗的配方中有自己的「儲存至」步驟。" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio 窗口的配方中有自己的“存储位置”步骤。" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio 視窗的配方中有自己的「儲存至」步驟。" }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -82,6 +82,74 @@ final class AppModelTests: XCTestCase {
         )
     }
 
+    /// Settings ▸ Where ▸ Ask each time: the drop lands in the folder picked for it.
+    func testAskEachTimeSavesIntoTheFolderPickedForTheDrop() async throws {
+        let (model, settings) = try makeModel()
+        settings.saveLocation = .askEachTime
+        let file = try stagedPNG()
+        let picked = file.deletingLastPathComponent().appendingPathComponent("picked", isDirectory: true)
+        try FileManager.default.createDirectory(at: picked, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: file.deletingLastPathComponent()) }
+        var asks = 0
+        model.chooseOutputFolder = { asks += 1; return picked }
+
+        await model.process(urls: [file])
+
+        XCTAssertEqual(asks, 1, "asked once per drop")
+        XCTAssertEqual(model.rows.count, 1)
+        XCTAssertEqual(model.rows[0].output.deletingLastPathComponent().standardizedFileURL.path,
+                       picked.standardizedFileURL.path)
+        XCTAssertNil(settings.savePath, "the picked folder isn't stored as the chosen folder")
+    }
+
+    /// Cancelling the panel shrinks nothing and leaves the list as it was.
+    func testAskEachTimeCancelledShrinksNothing() async throws {
+        let (model, settings) = try makeModel()
+        settings.saveLocation = .askEachTime
+        settings.clearList = true
+        let first = try stagedPNG()
+        defer { try? FileManager.default.removeItem(at: first.deletingLastPathComponent()) }
+        model.chooseOutputFolder = { first.deletingLastPathComponent() }
+        await model.process(urls: [first])
+        XCTAssertEqual(model.rows.count, 1)
+
+        let second = try stagedPNG()
+        defer { try? FileManager.default.removeItem(at: second.deletingLastPathComponent()) }
+        model.chooseOutputFolder = { nil }
+        await model.process(urls: [second])
+
+        XCTAssertEqual(model.rows.count, 1, "the list isn't cleared and nothing is added")
+        let written = try FileManager.default.contentsOfDirectory(atPath: second.deletingLastPathComponent().path)
+        XCTAssertEqual(written, ["sample.png"], "nothing written")
+        XCTAssertFalse(model.isProcessing)
+    }
+
+    /// The other two choices never ask.
+    func testOnlyAskEachTimeAsks() async throws {
+        let (model, settings) = try makeModel()
+        var asks = 0
+        model.chooseOutputFolder = { asks += 1; return nil }
+        for location in [SaveLocation.sameFolder, .chosenFolder] {
+            settings.saveLocation = location
+            let file = try stagedPNG()
+            defer { try? FileManager.default.removeItem(at: file.deletingLastPathComponent()) }
+            await model.process(urls: [file])
+        }
+        XCTAssertEqual(asks, 0)
+        XCTAssertEqual(model.rows.count, 2)
+    }
+
+    func testSaveLocationRoundTripsThroughTheStoredSwitches() throws {
+        let defaults = makeTestDefaults("savelocation")
+        let settings = Settings(defaults: defaults)
+        for location in SaveLocation.allCases {
+            settings.saveLocation = location
+            XCTAssertEqual(Settings(defaults: defaults).saveLocation, location, "\(location) persists")
+        }
+        settings.saveLocation = .askEachTime
+        XCTAssertFalse(settings.saveInSameFolder, "an older version reads Ask each time as a folder choice")
+    }
+
     func testSuccessfulDropAddsRow() async throws {
         let (model, _) = try makeModel()
         let file = try stagedPNG()

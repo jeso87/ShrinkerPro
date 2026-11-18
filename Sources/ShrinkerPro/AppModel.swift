@@ -434,8 +434,39 @@ final class AppModel: ObservableObject {
         }
     }
 
+    /// Settings ▸ Where ▸ Ask each time: the folder for this drop, or nil when the person
+    /// cancels. A test replaces it; the app shows an open panel.
+    var chooseOutputFolder: @MainActor () async -> URL? = { AppModel.runOutputFolderPanel() }
+
+    /// The folder this session last saved to through Ask each time, where the panel opens.
+    private static var lastAskedFolder: URL?
+
+    private static func runOutputFolderPanel() -> URL? {
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.canCreateDirectories = true
+        panel.allowsMultipleSelection = false
+        panel.message = String(localized: "Choose where to save the shrunk images.",
+                               comment: "Message in the folder panel shown on each drop when Settings ▸ Where is Ask each time.")
+        panel.prompt = String(localized: "Save Here",
+                              comment: "Button of the folder panel shown on each drop when Settings ▸ Where is Ask each time.")
+        if let lastAskedFolder { panel.directoryURL = lastAskedFolder }
+        guard panel.runModal() == .OK, let url = panel.url else { return nil }
+        lastAskedFolder = url
+        return url
+    }
+
     func process(urls: [URL]) async {
         guard !urls.isEmpty else { return }
+
+        // Asked before anything else, the list included: cancelling leaves everything as it
+        // was, as if nothing had been dropped.
+        var askedFolder: URL?
+        if settings.askForFolder, !settings.saveInSameFolder {
+            guard let folder = await chooseOutputFolder() else { return }
+            askedFolder = folder
+        }
 
         if settings.clearList {
             clearHistory()
@@ -453,6 +484,10 @@ final class AppModel: ObservableObject {
         // concurrency rejects as a potential race.
         let outputSettings: OutputSettings = {
             var snapshot = settings.outputSettings
+            if let askedFolder {
+                snapshot.saveInSameFolder = false
+                snapshot.savePath = askedFolder
+            }
             snapshot.sessionFormat = sessionFormat
             snapshot.maxDimension = sessionMaxDimension
             snapshot.cropTarget = sessionCropTarget

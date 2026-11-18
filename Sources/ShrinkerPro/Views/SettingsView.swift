@@ -123,7 +123,8 @@ struct SettingsView: View {
         OutputNaming.style(
             saveInSameFolder: settings.saveInSameFolder,
             savePath: settings.savePath,
-            useSubfolder: settings.useSubfolder
+            useSubfolder: settings.useSubfolder,
+            askForFolder: settings.askForFolder
         )
     }
 
@@ -199,13 +200,21 @@ private struct SettingsOutputPane: View {
     var body: some View {
         Form {
             Section {
-                Picker("Where", selection: $settings.saveInSameFolder) {
-                    Text("Same folder as original").tag(true)
-                    Text("Choose folder…").tag(false)
+                Picker("Where", selection: $settings.saveLocation) {
+                    Text("Same folder as original").tag(SaveLocation.sameFolder)
+                    Text("Ask each time").tag(SaveLocation.askEachTime)
+                    Text("Choose folder…").tag(SaveLocation.chosenFolder)
                 }
                 .pickerStyle(.radioGroup)
 
-                if !settings.saveInSameFolder {
+                if settings.saveLocation == .askEachTime {
+                    Text("Each drop asks for a folder first. Cancel, and nothing is shrunk.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                if settings.saveLocation == .chosenFolder {
                     HStack {
                         Text(settings.savePath?.path
                             ?? String(localized: "No folder chosen",
@@ -220,6 +229,15 @@ private struct SettingsOutputPane: View {
                 }
 
                 Toggle("Put them in a \"minified\" subfolder", isOn: $settings.useSubfolder)
+
+                #if STUDIO
+                // Studio saves where its recipe's Save to step says, and people looked here
+                // for it (Nov 2026 feedback).
+                Text("The Shrinker Studio window has its own Save to step in its recipe.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                #endif
 
                 // A radio pair, not a checkbox: the defect being fixed is a
                 // switch whose off-state you had to infer. Both branches now
@@ -248,7 +266,8 @@ private struct SettingsOutputPane: View {
                     keepOriginal: settings.keepOriginal,
                     saveInSameFolder: settings.saveInSameFolder,
                     savePath: settings.savePath,
-                    useSubfolder: settings.useSubfolder
+                    useSubfolder: settings.useSubfolder,
+                    askForFolder: settings.askForFolder
                 ) {
                     HStack(alignment: .top, spacing: 8) {
                         Image(systemName: "exclamationmark.triangle.fill")

@@ -21,7 +21,8 @@ enum OutputWarning {
         keepOriginal: Bool,
         saveInSameFolder: Bool,
         savePath: URL?,
-        useSubfolder: Bool
+        useSubfolder: Bool,
+        askForFolder: Bool = false
     ) -> Bool {
         // `.min` alone guarantees a different name.
         guard !keepOriginal else { return false }
@@ -32,7 +33,8 @@ enum OutputWarning {
         return OutputNaming.style(
             saveInSameFolder: saveInSameFolder,
             savePath: savePath,
-            useSubfolder: useSubfolder
+            useSubfolder: useSubfolder,
+            askForFolder: askForFolder
         ) == .besideOriginals
     }
 }

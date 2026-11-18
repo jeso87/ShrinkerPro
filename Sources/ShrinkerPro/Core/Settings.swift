@@ -9,6 +9,9 @@ final class Settings: ObservableObject {
     private enum Key {
         static let notification = "notification"
         static let folderswitch = "folderswitch"
+        /// Ours, added in 1.9.2: ask for the folder on every drop. Only meaningful with
+        /// `folderswitch` false, which is what "Ask each time" stores alongside it.
+        static let askForFolder = "askForFolder"
         static let savepath = "savepath"
         static let clearlist = "clearlist"
         /// Backs `keepOriginal`. The key keeps its original name — and its
@@ -36,6 +39,7 @@ final class Settings: ObservableObject {
 
     @Published var notification: Bool { didSet { defaults.set(notification, forKey: Key.notification) } }
     @Published var saveInSameFolder: Bool { didSet { defaults.set(saveInSameFolder, forKey: Key.folderswitch) } }
+    @Published var askForFolder: Bool { didSet { defaults.set(askForFolder, forKey: Key.askForFolder) } }
     @Published var clearList: Bool { didSet { defaults.set(clearList, forKey: Key.clearlist) } }
     @Published var keepOriginal: Bool { didSet { defaults.set(keepOriginal, forKey: Key.suffix) } }
     @Published var useSubfolder: Bool { didSet { defaults.set(useSubfolder, forKey: Key.subfolder) } }
@@ -127,6 +131,7 @@ final class Settings: ObservableObject {
         ])
         notification = defaults.bool(forKey: Key.notification)
         saveInSameFolder = defaults.bool(forKey: Key.folderswitch)
+        askForFolder = defaults.bool(forKey: Key.askForFolder)
         clearList = defaults.bool(forKey: Key.clearlist)
         keepOriginal = defaults.bool(forKey: Key.suffix)
         useSubfolder = defaults.bool(forKey: Key.subfolder)
@@ -186,6 +191,20 @@ final class Settings: ObservableObject {
         defaults.string(forKey: key).flatMap(QualityLevel.init(rawValue:)) ?? def
     }
 
+    /// Settings ▸ Where, as one choice: the two stored switches it is made of are kept as
+    /// they were, so an older version reading them still saves somewhere sensible
+    /// (Ask each time reads there as a chosen folder, or beside the originals with none).
+    var saveLocation: SaveLocation {
+        get {
+            if saveInSameFolder { return .sameFolder }
+            return askForFolder ? .askEachTime : .chosenFolder
+        }
+        set {
+            saveInSameFolder = newValue == .sameFolder
+            askForFolder = newValue == .askEachTime
+        }
+    }
+
     /// The persisted half of what the engine needs. The session override is
     /// deliberately absent: it lives on `AppModel`, is never written here,
     /// and is layered onto this snapshot per batch.
@@ -209,4 +228,12 @@ final class Settings: ObservableObject {
             quality: quality.settings
         )
     }
+}
+
+/// Where the main window saves what it shrinks.
+enum SaveLocation: Hashable, CaseIterable {
+    case sameFolder
+    /// A folder picked on every drop. Cancelling the panel shrinks nothing.
+    case askEachTime
+    case chosenFolder
 }

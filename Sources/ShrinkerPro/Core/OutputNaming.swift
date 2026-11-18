@@ -45,13 +45,17 @@ enum OutputNaming: Equatable {
     /// Deliberately does not take `keepOriginal`. These labels describe what
     /// each choice would do, so deriving them from the choice already made
     /// would let a radio rewrite its own label the moment it was clicked.
+    ///
+    /// `askForFolder` (Ask each time) counts as a separate destination: the folder is only
+    /// known at drop time, and it is picked for the purpose.
     static func style(
         saveInSameFolder: Bool,
         savePath: URL?,
-        useSubfolder: Bool
+        useSubfolder: Bool,
+        askForFolder: Bool = false
     ) -> OutputNaming {
         if useSubfolder { return .separateDestination }
-        if !saveInSameFolder, savePath != nil { return .separateDestination }
+        if !saveInSameFolder, askForFolder || savePath != nil { return .separateDestination }
         return .besideOriginals
     }
 

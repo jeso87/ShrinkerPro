@@ -58,6 +58,23 @@ final class OutputNamingTests: XCTestCase {
         )
     }
 
+    /// Ask each time: the folder is picked on every drop for the purpose, so the labels speak
+    /// of a separate destination even though no folder is stored.
+    func testAskEachTimeIsASeparateDestination() {
+        XCTAssertEqual(
+            OutputNaming.style(saveInSameFolder: false, savePath: nil, useSubfolder: false, askForFolder: true),
+            .separateDestination
+        )
+        XCTAssertFalse(OutputWarning.replacesOriginals(
+            keepOriginal: false, saveInSameFolder: false, savePath: nil, useSubfolder: false, askForFolder: true
+        ))
+        // Same folder wins: the switch only counts with a folder choice.
+        XCTAssertEqual(
+            OutputNaming.style(saveInSameFolder: true, savePath: nil, useSubfolder: false, askForFolder: true),
+            .besideOriginals
+        )
+    }
+
     /// …unless the subfolder rescues it, which it does on its own.
     func testSubfolderRescuesAChosenFolderWithNoFolderPickedYet() {
         XCTAssertEqual(

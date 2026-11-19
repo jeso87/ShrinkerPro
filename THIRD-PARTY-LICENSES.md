@@ -28,6 +28,7 @@ to each GitHub release, alongside both the DMG and the CLI archive.
 | libwebp (cwebp) | 1.6.0 | BSD-3-Clause |
 | libpng | 1.6.58 | libpng-2.0 |
 | libjxl (cjxl) | 0.12.0 | BSD-3-Clause |
+| ssimulacra2 (from libjxl), Shrinker Studio only | 0.12.0 | BSD-3-Clause |
 | libjxl patent grant | 0.12.0 | Royalty-free patent licence |
 | brotli | 1.2.0 | MIT |
 | highway | 1.2.0 | Apache-2.0 or BSD-3-Clause |
@@ -2067,6 +2068,11 @@ be appreciated.
 
 License: BSD-3-Clause
 Source: https://github.com/libjxl/libjxl/archive/refs/tags/v0.12.0.tar.gz
+
+This notice also covers `ssimulacra2`, the image-quality scorer Shrinker Studio
+runs for "Looks the same". It is built from libjxl's `tools/` at the same
+version, with the libpng and mozjpeg listed above linked in statically, and is
+shipped in `Contents/Helpers/` beside cjxl.
 
 ```
 Copyright (c) the JPEG XL Project Authors.

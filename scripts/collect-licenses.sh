@@ -83,7 +83,18 @@ HEADER
   done
 
   cat <<'MIDDLE'
+| ssimulacra2 (from libjxl), Shrinker Studio only | 0.12.0 | BSD-3-Clause |
+| Rust crates compiled into pngquant, Little CMS among them | see below | MIT, Apache-2.0 and others |
 | Sparkle | 2.9.6 | MIT |
+
+`ssimulacra2`, the image-quality scorer Shrinker Studio runs for "Looks the
+same", is built from libjxl's `tools/` at the version above, with the libpng
+and mozjpeg listed here linked in statically, and ships in
+`Contents/Helpers/` beside cjxl. libjxl's notice below covers it.
+
+pngquant is written in Rust, and the crates it is built from are compiled
+into its executable. Each one's license is reproduced after the components
+below, every distinct text once with the crates it covers.
 
 Sparkle is embedded as a framework and its license is reproduced at the end
 of this file.
@@ -97,6 +108,53 @@ MIDDLE
     cat "$SRC/$file"
     printf '```\n\n'
   done
+
+  # The crates pngquant was built from: every registry package in its pinned
+  # Cargo.lock that cargo actually downloaded (the lock also lists packages
+  # for other platforms and switched-off features, which are never fetched
+  # and so never built). Read from cargo's local registry, which
+  # build-compressors.sh populated, so this needs no network.
+  python3 - "$ROOT/vendor/pngquant-3.0.3-Cargo.lock" "${CARGO_HOME:-$HOME/.cargo}/registry/src" <<'CRATES' || exit 1
+import glob, os, re, sys
+lock, registry = sys.argv[1], sys.argv[2]
+roots = sorted(glob.glob(os.path.join(registry, "*")))
+if not roots:
+    sys.exit(f"FAIL  no cargo registry at {registry} -- run ./scripts/build-compressors.sh first")
+packages = re.findall(r'\[\[package\]\]\nname = "([^"]+)"\nversion = "([^"]+)"\nsource = "registry', open(lock).read())
+# A crate whose license is a component's already reproduced above, carried in
+# its vendored sources' headers rather than a file of its own.
+covered = {"libpng-sys": "libpng's vendored copy: the libpng License, reproduced above under libpng"}
+texts, referenced = {}, []
+for name, version in packages:
+    folder = next((os.path.join(r, f"{name}-{version}") for r in roots if os.path.isdir(os.path.join(r, f"{name}-{version}"))), None)
+    if folder is None:
+        continue
+    toml = open(os.path.join(folder, "Cargo.toml"), encoding="utf-8", errors="replace").read()
+    declared = (re.search(r'^license\s*=\s*"([^"]+)"', toml, re.M) or [None, "see text"])[1]
+    files = sorted(glob.glob(os.path.join(folder, "LICEN[CS]E*")) + glob.glob(os.path.join(folder, "COPYING*"))
+                   + glob.glob(os.path.join(folder, "COPYRIGHT*")))
+    # lcms2-sys keeps Little CMS's own license with the sources it vendors.
+    files += sorted(glob.glob(os.path.join(folder, "vendor", "LICENSE*")) + glob.glob(os.path.join(folder, "vendor", "COPYING*")))
+    if not files and name in covered:
+        referenced.append(f"{name} {version} ({declared}): {covered[name]}.")
+        continue
+    if not files:
+        sys.exit(f"FAIL  {name} {version} ({declared}) has no license file in {folder}")
+    for path in files:
+        text = open(path, encoding="utf-8", errors="replace").read().strip()
+        label = f"{name} {version}" + (" (Little CMS)" if "vendor" in os.path.relpath(path, folder) else "")
+        texts.setdefault(text, []).append((label, declared, os.path.basename(path)))
+print("---\n\n## Rust crates compiled into pngquant\n")
+print("Each distinct license text once, after the crates it covers.\n")
+for line in referenced:
+    print("- " + line)
+if referenced:
+    print()
+for text, users in texts.items():
+    print("### " + ", ".join(sorted({u[0] for u in users})) + "\n")
+    print("License: " + ", ".join(sorted({u[1] for u in users})) + "\n")
+    print("```\n" + text + "\n```\n")
+CRATES
 
   printf -- '---\n\n## Sparkle 2.9.6\n\nLicense: MIT\nSource: https://github.com/sparkle-project/Sparkle/releases/tag/2.9.6\n\n```\n'
   cat <<'SPARKLE'

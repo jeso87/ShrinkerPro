@@ -3,6 +3,700 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.10.0</title>
+            <pubDate>Thu, 19 Nov 2026 16:28:42 -0500</pubDate>
+            <sparkle:version>20</sparkle:version>
+            <sparkle:shortVersionString>1.10.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Camera RAW, TIFF, PSD and BMP.** Drop them in like any photo. They're converted to JPEG, or to the format you pick in Settings ▸ Conversion.
+- **HEIC and TIFF output**, in the format menu and on the command line.
+- **Smaller PNGs.** A lossless pass after the usual compression makes most PNGs a few percent smaller, with every pixel unchanged.
+- **Drag a result out** of the list into Finder, Mail or an upload form.
+- **Settings ▸ Where ▸ Ask each time** asks for a folder with every drop.
+
+### Shrinker Studio
+
+- **Fit inside.** Resize & crop can keep the whole photo inside its shape, with a white, black, transparent, coloured or blurred background. Print sizes at 300 ppi are in the crop menu.
+- **One `<picture>`, several formats.** The Responsive set can also write every size as AVIF, JPEG XL or WebP, and Copy HTML gives a `<source>` for each.
+- **Alt text and file names from Apple Intelligence** (macOS 27): Copy HTML can include a description of each photo, and Rename's Description token names files from what they show.
+- **Redact finds faces, phone numbers and street addresses.**
+- **Change the capture date and place.** Metadata can shift every date (for a camera clock set wrong) or set one, and round the location to about 1 km or set a new one.
+- **HEIC and TIFF output.**
+- **Watch folders** can notify you when photos are done, and Shrinker Pro can open at login so they keep working.
+- **The batch list** has Clear Batch, ⌘A to select every photo and Remove from Studio, and Settings ▸ Studio chooses when the rest of the batch previews.
+- **Drag the export summary** into Finder, Mail or an upload form to take every file just written.
+]]></description>
+            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **صور RAW من الكاميرا وTIFF وPSD وBMP.** أفلتها كأي صورة أخرى. تُحوَّل إلى JPEG، أو إلى التنسيق الذي تختاره من الإعدادات ▸ التحويل.
+- **الإخراج بتنسيقي HEIC وTIFF**، في قائمة التنسيق وفي سطر الأوامر.
+- **ملفات PNG أصغر.** تمريرة بلا فقدان بعد الضغط المعتاد تجعل معظم ملفات PNG أصغر ببضعة في المئة، دون أن يتغيّر أي بكسل.
+- **اسحب نتيجة** من القائمة إلى Finder أو Mail أو نموذج رفع.
+- **الإعدادات ▸ الوجهة ▸ السؤال في كل مرة** يطلب منك مجلدًا مع كل إفلات.
+
+### Shrinker Studio
+
+- **احتواء داخل الشكل.** يمكن لـ«تغيير الحجم والاقتصاص» إبقاء الصورة كاملة داخل شكلها، بخلفية بيضاء أو سوداء أو شفافة أو ملوّنة أو مموّهة. وتجد مقاسات الطباعة بدقة 300 ppi في قائمة الاقتصاص.
+- **عنصر `<picture>` واحد بعدة تنسيقات.** يمكن لـ«مجموعة متجاوبة» أيضًا كتابة كل مقاس بتنسيق AVIF أو JPEG XL أو WebP، ويعطي «نسخ HTML» عنصر `<source>` لكل منها.
+- **نص بديل وأسماء ملفات من Apple Intelligence** (macOS 27): يمكن أن يتضمن «نسخ HTML» وصفًا لكل صورة، ويسمّي حقل «الوصف» في «إعادة التسمية» الملفات بحسب ما تُظهره.
+- **صار «حجب» يعثر على الوجوه وأرقام الهواتف وعناوين الشوارع.**
+- **غيّر تاريخ الالتقاط ومكانه.** يمكن لـ«البيانات الوصفية» إزاحة كل التواريخ (إذا كانت ساعة الكاميرا مضبوطة خطأً) أو تعيين تاريخ واحد، وتقريب الموقع إلى نحو 1 كم أو تعيين موقع جديد.
+- **الإخراج بتنسيقي HEIC وTIFF.**
+- **مجلدات المراقبة** يمكنها أن تُشعرك عند اكتمال الصور، ويمكن أن يُفتح Shrinker Pro عند تسجيل الدخول لتواصل عملها.
+- **قائمة الدفعة** فيها «مسح الدفعة» و⌘A لتحديد كل الصور و«إزالة من Studio»، ومن الإعدادات ▸ Studio تختار متى تُنشأ معاينات بقية الدفعة.
+- **اسحب ملخص التصدير** إلى Finder أو Mail أو نموذج رفع لتأخذ كل الملفات التي كُتبت للتو.]]></description>
+            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW de càmera, TIFF, PSD i BMP.** Deixa’ls anar com qualsevol altra foto. Es converteixen a JPEG, o al format que triïs a Configuració ▸ Conversió.
+- **Sortida en HEIC i TIFF**, al menú de format i a la línia d’ordres.
+- **PNG més petits.** Una passada sense pèrdua després de la compressió habitual redueix la majoria de PNG un petit percentatge, sense canviar ni un píxel.
+- **Arrossega un resultat** de la llista al Finder, a Mail o a un formulari de pujada.
+- **Configuració ▸ On ▸ Pregunta cada vegada** et demana una carpeta cada cop que deixes anar fitxers.
+
+### Shrinker Studio
+
+- **Encaixa a dins.** Mida i escapçament pot mantenir la foto sencera dins la seva forma, amb un fons blanc, negre, transparent, de color o difuminat. Al menú d’escapçament hi ha mides d’impressió a 300 ppp.
+- **Un `<picture>`, diversos formats.** El Conjunt adaptable també pot escriure cada mida en AVIF, JPEG XL o WebP, i Copia l’HTML dona un `<source>` per a cadascun.
+- **Text alternatiu i noms de fitxer amb Apple Intelligence** (macOS 27): Copia l’HTML pot incloure una descripció de cada foto, i el camp Descripció de Canvia el nom posa nom als fitxers segons el que mostren.
+- **Tapa troba cares, números de telèfon i adreces postals.**
+- **Canvia la data i el lloc de captura.** Metadades pot desplaçar totes les dates (si el rellotge de la càmera anava malament) o fixar-ne una, i arrodonir la ubicació a uns 1 km o posar-ne una de nova.
+- **Sortida en HEIC i TIFF.**
+- **Les carpetes vigilades** et poden avisar quan les fotos estiguin fetes, i Shrinker Pro es pot obrir en iniciar la sessió perquè continuïn funcionant.
+- **La llista del lot** té Buida el lot, ⌘A per seleccionar totes les fotos i Elimina de Studio, i a Configuració ▸ Studio tries quan es previsualitza la resta del lot.
+- **Arrossega el resum de l’exportació** al Finder, a Mail o a un formulari de pujada per endur-te tots els fitxers que s’acaben d’escriure.]]></description>
+            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW z fotoaparátu, TIFF, PSD a BMP.** Přetáhněte je sem jako jakoukoli fotku. Převedou se do JPEG nebo do formátu, který zvolíte v Nastavení ▸ Převod.
+- **Výstup do HEIC a TIFF**, v nabídce formátu i v příkazovém řádku.
+- **Menší PNG.** Bezeztrátový průchod po běžné kompresi zmenší většinu PNG o několik procent, aniž by se změnil jediný pixel.
+- **Přetáhněte výsledek** ze seznamu do Finderu, do aplikace Mail nebo do formuláře pro nahrávání.
+- **Nastavení ▸ Kam ▸ Pokaždé se zeptat** se při každém přetažení zeptá na složku.
+
+### Shrinker Studio
+
+- **Vejít dovnitř.** Velikost a ořez umí zachovat celou fotku uvnitř jejího tvaru, s bílým, černým, průhledným, barevným nebo rozmazaným pozadím. V nabídce ořezu najdete tiskové velikosti pro 300 ppi.
+- **Jeden `<picture>`, více formátů.** Responzivní sada umí zapsat každou velikost také jako AVIF, JPEG XL nebo WebP a Kopírovat HTML pro každý z nich přidá `<source>`.
+- **Alternativní text a názvy souborů od Apple Intelligence** (macOS 27): Kopírovat HTML může obsahovat popis každé fotky a prvek Popis v Přejmenovat pojmenuje soubory podle toho, co zobrazují.
+- **Zakrýt najde obličeje, telefonní čísla a poštovní adresy.**
+- **Změňte datum a místo pořízení.** Metadata umí posunout všechna data (když měl fotoaparát špatně nastavené hodiny) nebo nastavit jedno a zaokrouhlit polohu asi na 1 km nebo nastavit novou.
+- **Výstup do HEIC a TIFF.**
+- **Sledované složky** vám mohou oznámit dokončení fotek a Shrinker Pro se může otevírat při přihlášení, aby dál fungovaly.
+- **Seznam dávky** má Vyprázdnit dávku, ⌘A pro výběr všech fotek a Odebrat ze Studia a v Nastavení ▸ Studio zvolíte, kdy se vytvoří náhledy zbytku dávky.
+- **Přetáhněte souhrn exportu** do Finderu, do aplikace Mail nebo do formuláře pro nahrávání a přenesete tak všechny právě zapsané soubory.]]></description>
+            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Kamera-RAW, TIFF, PSD og BMP.** Slip dem ligesom ethvert andet foto. De konverteres til JPEG eller til det format, du vælger i Indstillinger ▸ Konvertering.
+- **HEIC- og TIFF-output**, i formatmenuen og på kommandolinjen.
+- **Mindre PNG-filer.** Et tabsfrit gennemløb efter den sædvanlige komprimering gør de fleste PNG-filer et par procent mindre, uden at en eneste pixel ændres.
+- **Træk et resultat** fra listen over i Finder, Mail eller en uploadformular.
+- **Indstillinger ▸ Hvor ▸ Spørg hver gang** beder om en mappe, hver gang du slipper filer.
+
+### Shrinker Studio
+
+- **Tilpas indeni.** Størrelse og beskæring kan holde hele fotoet inden for formen, med hvid, sort, gennemsigtig, farvet eller sløret baggrund. Printstørrelser ved 300 ppi findes i beskæringsmenuen.
+- **Ét `<picture>`, flere formater.** Responsivt sæt kan også skrive hver størrelse som AVIF, JPEG XL eller WebP, og Kopier HTML giver et `<source>` for hvert format.
+- **Alt-tekst og filnavne fra Apple Intelligence** (macOS 27): Kopier HTML kan medtage en beskrivelse af hvert foto, og feltet Beskrivelse i Omdøb navngiver filer efter det, de viser.
+- **Skjul finder ansigter, telefonnumre og adresser.**
+- **Skift optagelsesdato og -sted.** Metadata kan forskyde alle datoer (hvis kameraets ur var stillet forkert) eller sætte én, og runde placeringen af til ca. 1 km eller sætte en ny.
+- **HEIC- og TIFF-output.**
+- **Overvågede mapper** kan give dig besked, når fotos er færdige, og Shrinker Pro kan åbne ved login, så de bliver ved med at virke.
+- **Batchlisten** har Ryd batch, ⌘A til at vælge alle fotos og Fjern fra Studio, og i Indstillinger ▸ Studio vælger du, hvornår resten af batchen forhåndsvises.
+- **Træk eksportoversigten** over i Finder, Mail eller en uploadformular for at tage alle de netop skrevne filer med.]]></description>
+            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Kamera-RAW, TIFF, PSD und BMP.** Zieh sie hinein wie jedes andere Foto. Sie werden in JPEG konvertiert oder in das Format, das du unter Einstellungen ▸ Konvertierung wählst.
+- **Ausgabe als HEIC und TIFF**, im Formatmenü und in der Befehlszeile.
+- **Kleinere PNGs.** Ein verlustfreier Durchgang nach der üblichen Komprimierung macht die meisten PNGs ein paar Prozent kleiner, ohne dass sich auch nur ein Pixel ändert.
+- **Zieh ein Ergebnis** aus der Liste in den Finder, in Mail oder in ein Upload-Formular.
+- **Einstellungen ▸ Wohin ▸ Jedes Mal fragen** fragt bei jedem Ablegen nach einem Ordner.
+
+### Shrinker Studio
+
+- **Einpassen.** Größe & Zuschnitt kann das ganze Foto in seine Form einpassen, mit weißem, schwarzem, transparentem, farbigem oder weichgezeichnetem Hintergrund. Druckgrößen mit 300 ppi findest du im Zuschnittmenü.
+- **Ein `<picture>`, mehrere Formate.** Das Responsive Set kann jede Größe zusätzlich als AVIF, JPEG XL oder WebP sichern, und HTML kopieren liefert für jedes ein `<source>`.
+- **Alt-Text und Dateinamen von Apple Intelligence** (macOS 27): HTML kopieren kann eine Beschreibung jedes Fotos enthalten, und der Baustein „Beschreibung“ in Umbenennen benennt Dateien nach dem, was sie zeigen.
+- **Schwärzen findet Gesichter, Telefonnummern und Postanschriften.**
+- **Aufnahmedatum und -ort ändern.** Metadaten kann jedes Datum verschieben (bei falsch gestellter Kamerauhr) oder ein Datum festlegen und den Ort auf etwa 1 km runden oder einen neuen festlegen.
+- **Ausgabe als HEIC und TIFF.**
+- **Überwachungsordner** können dich benachrichtigen, wenn Fotos fertig sind, und Shrinker Pro kann sich bei der Anmeldung öffnen, damit sie weiterarbeiten.
+- **Die Stapelliste** hat Stapel leeren, ⌘A zum Auswählen aller Fotos und Aus Studio entfernen, und unter Einstellungen ▸ Studio legst du fest, wann der restliche Stapel seine Vorschau bekommt.
+- **Zieh die Exportübersicht** in den Finder, in Mail oder in ein Upload-Formular, um alle gerade geschriebenen Dateien mitzunehmen.]]></description>
+            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW κάμερας, TIFF, PSD και BMP.** Αφήστε τα όπως κάθε άλλη φωτογραφία. Μετατρέπονται σε JPEG ή στη μορφή που επιλέγετε στις Ρυθμίσεις ▸ Μετατροπή.
+- **Έξοδος σε HEIC και TIFF**, στο μενού μορφής και στη γραμμή εντολών.
+- **Μικρότερα PNG.** Ένα πέρασμα χωρίς απώλειες μετά τη συνηθισμένη συμπίεση μικραίνει τα περισσότερα PNG κατά λίγες μονάδες τοις εκατό, χωρίς να αλλάξει ούτε ένα pixel.
+- **Σύρετε ένα αποτέλεσμα** από τη λίστα στο Finder, στο Mail ή σε μια φόρμα μεταφόρτωσης.
+- **Ρυθμίσεις ▸ Πού ▸ Ερώτηση κάθε φορά** ζητά φάκελο σε κάθε απόθεση.
+
+### Shrinker Studio
+
+- **Προσαρμογή εντός.** Η Αλλαγή μεγέθους και περικοπή μπορεί να κρατά ολόκληρη τη φωτογραφία μέσα στο σχήμα της, με λευκό, μαύρο, διαφανές, χρωματιστό ή θολό φόντο. Στο μενού περικοπής θα βρείτε μεγέθη εκτύπωσης στα 300 ppi.
+- **Ένα `<picture>`, πολλές μορφές.** Το Προσαρμοστικό σύνολο μπορεί να γράφει κάθε μέγεθος και ως AVIF, JPEG XL ή WebP, και η Αντιγραφή HTML δίνει ένα `<source>` για καθεμία.
+- **Εναλλακτικό κείμενο και ονόματα αρχείων από το Apple Intelligence** (macOS 27): η Αντιγραφή HTML μπορεί να περιλαμβάνει μια περιγραφή κάθε φωτογραφίας, και το πεδίο Περιγραφή της Μετονομασίας δίνει στα αρχεία ονόματα με βάση αυτό που δείχνουν.
+- **Η Απόκρυψη εντοπίζει πρόσωπα, αριθμούς τηλεφώνου και διευθύνσεις.**
+- **Αλλάξτε την ημερομηνία και τον τόπο λήψης.** Τα Μεταδεδομένα μπορούν να μετατοπίσουν κάθε ημερομηνία (αν το ρολόι της κάμερας ήταν λάθος ρυθμισμένο) ή να ορίσουν μία, και να στρογγυλέψουν την τοποθεσία σε περίπου 1 χλμ. ή να ορίσουν νέα.
+- **Έξοδος σε HEIC και TIFF.**
+- **Οι φάκελοι παρακολούθησης** μπορούν να σας ειδοποιούν όταν ολοκληρώνονται οι φωτογραφίες, και το Shrinker Pro μπορεί να ανοίγει κατά τη σύνδεση ώστε να συνεχίζουν να λειτουργούν.
+- **Η λίστα της παρτίδας** έχει Εκκαθάριση παρτίδας, ⌘A για επιλογή όλων των φωτογραφιών και Αφαίρεση από το Studio, και στις Ρυθμίσεις ▸ Studio επιλέγετε πότε γίνεται η προεπισκόπηση της υπόλοιπης παρτίδας.
+- **Σύρετε τη σύνοψη εξαγωγής** στο Finder, στο Mail ή σε μια φόρμα μεταφόρτωσης για να πάρετε όλα τα αρχεία που μόλις γράφτηκαν.]]></description>
+            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW de cámara, TIFF, PSD y BMP.** Suéltalos como cualquier otra foto. Se convierten a JPEG, o al formato que elijas en Ajustes ▸ Conversión.
+- **Salida en HEIC y TIFF**, en el menú de formato y en la línea de comandos.
+- **PNG más pequeños.** Una pasada sin pérdida tras la compresión habitual reduce la mayoría de los PNG en un pequeño porcentaje, sin cambiar ni un píxel.
+- **Arrastra un resultado** de la lista al Finder, a Mail o a un formulario de subida.
+- **Ajustes ▸ Ubicación ▸ Preguntar cada vez** te pide una carpeta cada vez que sueltas archivos.
+
+### Shrinker Studio
+
+- **Encajar dentro.** Cambiar tamaño y recortar puede mantener la foto entera dentro de su forma, con un fondo blanco, negro, transparente, de color o desenfocado. En el menú de recorte tienes tamaños de impresión a 300 ppp.
+- **Un `<picture>`, varios formatos.** El Conjunto adaptable también puede escribir cada tamaño en AVIF, JPEG XL o WebP, y Copiar HTML da un `<source>` para cada uno.
+- **Texto alternativo y nombres de archivo con Apple Intelligence** (macOS 27): Copiar HTML puede incluir una descripción de cada foto, y el campo Descripción de Renombrar pone nombre a los archivos según lo que muestran.
+- **Tapar encuentra caras, números de teléfono y direcciones postales.**
+- **Cambia la fecha y el lugar de captura.** Metadatos puede desplazar todas las fechas (si el reloj de la cámara estaba mal puesto) o fijar una, y redondear la ubicación a 1 km aproximadamente o fijar una nueva.
+- **Salida en HEIC y TIFF.**
+- **Las carpetas vigiladas** pueden avisarte cuando las fotos estén listas, y Shrinker Pro puede abrirse al iniciar sesión para que sigan funcionando.
+- **La lista del lote** tiene Vaciar lote, ⌘A para seleccionar todas las fotos y Quitar de Studio, y en Ajustes ▸ Studio eliges cuándo se previsualiza el resto del lote.
+- **Arrastra el resumen de exportación** al Finder, a Mail o a un formulario de subida para llevarte todos los archivos recién escritos.]]></description>
+            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW دوربین، TIFF، PSD و BMP.** آن‌ها را مثل هر عکس دیگری رها کنید. به JPEG تبدیل می‌شوند، یا به قالبی که در «تنظیمات ▸ تبدیل» انتخاب می‌کنید.
+- **خروجی HEIC و TIFF**، در منوی قالب و در خط فرمان.
+- **PNGهای کوچک‌تر.** یک مرحلهٔ بی‌اتلاف پس از فشرده‌سازی معمول، بیشتر PNGها را چند درصد کوچک‌تر می‌کند، بی‌آنکه حتی یک پیکسل تغییر کند.
+- **نتیجه را از فهرست بکشید** و در Finder، Mail یا یک فرم بارگذاری رها کنید.
+- **«تنظیمات ▸ مقصد ▸ هر بار بپرس»** با هر بار رها کردن، پوشه را از شما می‌پرسد.
+
+### Shrinker Studio
+
+- **«جاگیری درون شکل».** «تغییر اندازه و برش» می‌تواند کل عکس را درون شکلش نگه دارد، با پس‌زمینهٔ سفید، سیاه، شفاف، رنگی یا محو. اندازه‌های چاپ با 300 ppi در منوی برش هستند.
+- **یک `<picture>`، چند قالب.** «مجموعهٔ واکنش‌گرا» می‌تواند هر اندازه را به AVIF، JPEG XL یا WebP هم بنویسد، و «کپی HTML» برای هر کدام یک `<source>` می‌دهد.
+- **متن جایگزین و نام پرونده‌ها با Apple Intelligence** (macOS 27): «کپی HTML» می‌تواند توضیحی از هر عکس را در خود داشته باشد، و نشانهٔ «توضیح» در «تغییر نام» پرونده‌ها را بر اساس آنچه نشان می‌دهند نام‌گذاری می‌کند.
+- **«پنهان‌سازی» چهره‌ها، شماره‌های تلفن و نشانی‌های پستی را پیدا می‌کند.**
+- **تغییر تاریخ و مکان ثبت.** «فراداده» می‌تواند همهٔ تاریخ‌ها را جابه‌جا کند (وقتی ساعت دوربین اشتباه تنظیم شده) یا یک تاریخ تعیین کند، و مکان را تا حدود 1 km گرد کند یا مکان تازه‌ای بگذارد.
+- **خروجی HEIC و TIFF.**
+- **«پوشه‌های پایش»** می‌توانند وقتی عکس‌ها آماده شدند به شما اعلان بدهند، و Shrinker Pro می‌تواند هنگام ورود باز شود تا آن‌ها به کارشان ادامه دهند.
+- **فهرست دسته** «پاک کردن دسته»، ⌘A برای انتخاب همهٔ عکس‌ها و «حذف از Studio» را دارد، و در «تنظیمات ▸ Studio» انتخاب می‌کنید پیش‌نمایش بقیهٔ دسته کی ساخته شود.
+- **خلاصهٔ برون‌بری را بکشید** و در Finder، Mail یا یک فرم بارگذاری رها کنید تا همهٔ پرونده‌هایی که همین حالا نوشته شدند همراهش بروند.]]></description>
+            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Kameran RAW-, TIFF-, PSD- ja BMP-tiedostot.** Pudota ne sisään kuten minkä tahansa kuvan. Ne muunnetaan JPEG-muotoon tai muotoon, jonka valitset kohdassa Asetukset ▸ Muunnos.
+- **HEIC- ja TIFF-tuloste** muotovalikossa ja komentorivillä.
+- **Pienempiä PNG-kuvia.** Häviötön lisäkierros tavallisen pakkauksen jälkeen pienentää useimpia PNG-kuvia muutamalla prosentilla, eikä yksikään pikseli muutu.
+- **Vedä tulos** luettelosta Finderiin, Mailiin tai latauslomakkeeseen.
+- **Asetukset ▸ Minne ▸ Kysy joka kerta** kysyy kansiota jokaisella pudotuksella.
+
+### Shrinker Studio
+
+- **Sovita sisään.** Koko ja rajaus voi pitää koko kuvan muotonsa sisällä valkoisella, mustalla, läpinäkyvällä, värillisellä tai sumennetulla taustalla. Tulostuskoot (300 ppi) löytyvät rajausvalikosta.
+- **Yksi `<picture>`, useita muotoja.** Responsiivinen sarja voi kirjoittaa jokaisen koon myös AVIF-, JPEG XL- tai WebP-muodossa, ja Kopioi HTML antaa kullekin oman `<source>`-elementin.
+- **Vaihtoehtoiset tekstit ja tiedostonimet Apple Intelligencella** (macOS 27): Kopioi HTML voi sisältää kuvauksen jokaisesta kuvasta, ja Nimeä uudelleen -toiminnon Kuvaus-tunniste nimeää tiedostot sen mukaan, mitä niissä näkyy.
+- **Sensuroi löytää kasvot, puhelinnumerot ja katuosoitteet.**
+- **Muuta kuvauspäivää ja -paikkaa.** Metatiedot voi siirtää kaikkia päiväyksiä (jos kameran kello on väärässä) tai asettaa yhden, ja pyöristää sijainnin noin 1 km:n tarkkuuteen tai asettaa uuden.
+- **HEIC- ja TIFF-tuloste.**
+- **Valvotut kansiot** voivat ilmoittaa, kun valokuvat ovat valmiita, ja Shrinker Pro voi avautua kirjauduttaessa, jotta ne pysyvät toiminnassa.
+- **Eräluettelossa** on Tyhjennä erä, ⌘A kaikkien kuvien valitsemiseen ja Poista Studiosta, ja kohdassa Asetukset ▸ Studio valitset, milloin muun erän esikatselut tehdään.
+- **Vedä vientiyhteenveto** Finderiin, Mailiin tai latauslomakkeeseen, niin kaikki juuri kirjoitetut tiedostot tulevat mukaan.]]></description>
+            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW d’appareil photo, TIFF, PSD et BMP.** Déposez-les comme n’importe quelle photo. Ils sont convertis en JPEG, ou dans le format choisi dans Réglages ▸ Conversion.
+- **Sortie HEIC et TIFF**, dans le menu des formats et en ligne de commande.
+- **Des PNG plus légers.** Une passe sans perte après la compression habituelle allège la plupart des PNG de quelques pour cent, sans changer un seul pixel.
+- **Faites glisser un résultat** hors de la liste vers le Finder, Mail ou un formulaire d’envoi.
+- **Réglages ▸ Où ▸ Demander à chaque fois** demande un dossier à chaque dépôt.
+
+### Shrinker Studio
+
+- **Ajuster à l’intérieur.** Redimensionner et recadrer peut garder toute la photo à l’intérieur de sa forme, sur un arrière-plan blanc, noir, transparent, de couleur ou flou. Les tailles d’impression à 300 ppp se trouvent dans le menu de recadrage.
+- **Un seul `<picture>`, plusieurs formats.** Tailles adaptatives peut aussi écrire chaque taille en AVIF, JPEG XL ou WebP, et Copier le HTML fournit un `<source>` pour chacun.
+- **Texte alternatif et noms de fichiers grâce à Apple Intelligence** (macOS 27) : Copier le HTML peut inclure une description de chaque photo, et le jeton Description de Renommer nomme les fichiers d’après ce qu’ils montrent.
+- **Occulter repère les visages, les numéros de téléphone et les adresses postales.**
+- **Modifiez la date et le lieu de prise de vue.** Métadonnées peut décaler toutes les dates (si l’horloge de l’appareil était mal réglée) ou en définir une, et arrondir le lieu à environ 1 km ou en définir un nouveau.
+- **Sortie HEIC et TIFF.**
+- **Les dossiers surveillés** peuvent vous avertir quand les photos sont prêtes, et Shrinker Pro peut s’ouvrir à l’ouverture de session pour qu’ils continuent de fonctionner.
+- **La liste du lot** propose Vider le lot, ⌘A pour sélectionner toutes les photos et Retirer de Studio, et Réglages ▸ Studio détermine quand le reste du lot est prévisualisé.
+- **Faites glisser le récapitulatif d’exportation** vers le Finder, Mail ou un formulaire d’envoi pour emporter tous les fichiers qui viennent d’être écrits.]]></description>
+            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW ממצלמה, TIFF,‏ PSD ו‑BMP.** אפשר לגרור אותם פנימה כמו כל תצלום. הם מומרים ל‑JPEG, או לפורמט שבוחרים בהגדרות ▸ המרה.
+- **פלט HEIC ו‑TIFF**, בתפריט הפורמטים ובשורת הפקודה.
+- **קובצי PNG קטנים יותר.** מעבר נוסף ללא אובדן אחרי הדחיסה הרגילה מקטין את רוב קובצי ה‑PNG בכמה אחוזים, בלי לשנות אף פיקסל.
+- **אפשר לגרור תוצאה** מהרשימה אל Finder, אל Mail או אל טופס העלאה.
+- **הגדרות ▸ לאן ▸ לשאול בכל פעם** מבקש לבחור תיקיה בכל גרירה.
+
+### Shrinker Studio
+
+- **התאמה פנימה.** שינוי גודל וחיתוך יכול לשמור את התצלום כולו בתוך הצורה, עם רקע לבן, שחור, שקוף, צבעוני או מטושטש. גדלי הדפסה ב‑300 ppi נמצאים בתפריט החיתוך.
+- **`<picture>` אחד, כמה פורמטים.** הסט הרספונסיבי יכול גם לכתוב כל גודל כ‑AVIF, כ‑JPEG XL או כ‑WebP, והעתקת HTML נותנת `<source>` לכל אחד מהם.
+- **טקסט חלופי ושמות קבצים מ‑Apple Intelligence** (macOS 27): העתקת HTML יכולה לכלול תיאור של כל תצלום, והתג ״תיאור״ בשינוי שם נותן לקבצים שמות לפי מה שרואים בהם.
+- **הסתרה מוצאת פנים, מספרי טלפון וכתובות רחוב.**
+- **שינוי התאריך והמקום של הצילום.** מטא-נתונים יכול להזיז את כל התאריכים (כששעון המצלמה כוון לא נכון) או לקבוע תאריך אחד, ולעגל את המיקום הגיאוגרפי לכ‑1 km או לקבוע מיקום חדש.
+- **פלט HEIC ו‑TIFF.**
+- **תיקיות מעקב** יכולות לשלוח הודעה כשהתצלומים מוכנים, ו‑Shrinker Pro יכול להיפתח בהתחברות כדי שהן ימשיכו לעבוד.
+- **ברשימת האצווה** יש ניקוי האצווה, ⌘A לבחירת כל התצלומים והסרה מ‑Studio, ובהגדרות ▸ Studio בוחרים מתי תיווצר תצוגה מקדימה לשאר האצווה.
+- **אפשר לגרור את סיכום הייצוא** אל Finder, אל Mail או אל טופס העלאה כדי לקחת את כל הקבצים שנכתבו זה עתה.]]></description>
+            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW s fotoaparata, TIFF, PSD i BMP.** Ispustite ih kao bilo koju fotografiju. Pretvaraju se u JPEG ili u format koji odaberete u Postavke ▸ Konverzija.
+- **Izlaz u HEIC i TIFF**, u izborniku formata i u naredbenom retku.
+- **Manji PNG-ovi.** Prolaz bez gubitaka nakon uobičajene kompresije smanjuje većinu PNG-ova za nekoliko posto, a nijedan se piksel ne mijenja.
+- **Povucite rezultat** s popisa u Finder, Mail ili obrazac za prijenos.
+- **Postavke ▸ Gdje ▸ Pitaj svaki put** traži mapu pri svakom ispuštanju.
+
+### Shrinker Studio
+
+- **Smjesti unutra.** Veličina i rezanje može zadržati cijelu fotografiju unutar njezina oblika, uz bijelu, crnu, prozirnu, obojenu ili zamućenu pozadinu. Veličine za ispis od 300 ppi nalaze se u izborniku rezanja.
+- **Jedan `<picture>`, više formata.** Responzivni skup može svaku veličinu zapisati i kao AVIF, JPEG XL ili WebP, a Kopiraj HTML daje `<source>` za svaki.
+- **Alternativni tekst i nazivi datoteka iz Apple Intelligence** (macOS 27): Kopiraj HTML može uključiti opis svake fotografije, a oznaka Opis u Preimenuj imenuje datoteke prema onome što prikazuju.
+- **Zakrivanje pronalazi lica, telefonske brojeve i poštanske adrese.**
+- **Promijenite datum i mjesto snimanja.** Metapodaci mogu pomaknuti sve datume (ako je sat fotoaparata krivo postavljen) ili postaviti jedan te zaokružiti lokaciju na oko 1 km ili postaviti novu.
+- **Izlaz u HEIC i TIFF.**
+- **Nadzirane mape** mogu vas obavijestiti kad su fotografije gotove, a Shrinker Pro može se otvoriti pri prijavi kako bi one nastavile raditi.
+- **Popis skupa** ima Isprazni skup, ⌘A za odabir svih fotografija i Ukloni iz Studija, a u Postavke ▸ Studio birate kada se izrađuju pregledi ostatka skupa.
+- **Povucite sažetak izvoza** u Finder, Mail ili obrazac za prijenos kako biste uzeli sve upravo zapisane datoteke.]]></description>
+            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Fényképezőgépes RAW, TIFF, PSD és BMP.** Húzza be őket ugyanúgy, mint bármely fotót. JPEG formátumba konvertálódnak, vagy abba a formátumba, amelyet a Beállítások ▸ Átalakítás alatt választ.
+- **HEIC és TIFF kimenet** a formátum menüben és a parancssorban.
+- **Kisebb PNG-k.** A szokásos tömörítés utáni veszteségmentes menet a legtöbb PNG-t néhány százalékkal kisebbre veszi, és egyetlen képpont sem változik.
+- **Húzzon ki egy eredményt** a listából a Finderbe, a Mailbe vagy egy feltöltési űrlapba.
+- **Beállítások ▸ Hová ▸ Rákérdezés minden alkalommal** esetén minden behúzáskor rákérdez a mappára.
+
+### Shrinker Studio
+
+- **Beillesztés.** Az Átméretezés és vágás a teljes fotót a formán belül tarthatja, fehér, fekete, átlátszó, színes vagy elmosott háttérrel. A 300 ppi-s nyomtatási méretek a vágás menüben találhatók.
+- **Egy `<picture>`, több formátum.** A Reszponzív készlet minden méretet AVIF, JPEG XL vagy WebP formátumban is kiírhat, a HTML másolása pedig mindegyikhez ad egy `<source>` elemet.
+- **Alternatív szöveg és fájlnevek az Apple Intelligence-től** (macOS 27): a HTML másolása minden fotóhoz leírást is adhat, az Átnevezés Leírás tokenje pedig aszerint nevezi el a fájlokat, ami rajtuk látható.
+- **A Kitakarás megtalálja az arcokat, a telefonszámokat és a postai címeket.**
+- **A készítés dátumának és helyének módosítása.** A Metaadatok minden dátumot eltolhat (ha a fényképezőgép órája rosszul volt beállítva) vagy beállíthat egyet, a helyet pedig nagyjából 1 km-re kerekítheti, vagy újat adhat meg.
+- **HEIC és TIFF kimenet.**
+- **A figyelt mappák** értesíthetik, ha a fotók elkészültek, a Shrinker Pro pedig megnyílhat bejelentkezéskor, hogy a mappák tovább működjenek.
+- **A köteglistában** ott a Köteg ürítése, a minden fotót kijelölő ⌘A és az Eltávolítás a Studióból, a Beállítások ▸ Studio alatt pedig megadhatja, mikor készüljön előnézet a köteg többi részéről.
+- **Húzza az exportálási összesítőt** a Finderbe, a Mailbe vagy egy feltöltési űrlapba, és vele megy az összes épp kiírt fájl.]]></description>
+            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW úr myndavélum, TIFF, PSD og BMP.** Slepptu þeim inn eins og hverri annarri ljósmynd. Þeim er umbreytt í JPEG, eða í sniðið sem þú velur í Stillingar ▸ Umbreyting.
+- **HEIC- og TIFF-úttak**, í sniðvalmyndinni og á skipanalínunni.
+- **Minni PNG-skrár.** Taplaus umferð eftir hefðbundna þjöppun gerir flestar PNG-skrár nokkrum prósentum minni, án þess að nokkur díll breytist.
+- **Dragðu niðurstöðu** af listanum í Finder, Mail eða upphleðslueyðublað.
+- **Stillingar ▸ Hvar ▸ Spyrja í hvert sinn** biður um möppu í hvert sinn sem þú sleppir skrám.
+
+### Shrinker Studio
+
+- **Fella inn í.** Stærð og tilskurður getur haldið allri ljósmyndinni innan lögunarinnar, með hvítum, svörtum, gegnsæjum, lituðum eða móðuðum bakgrunni. Prentstærðir í 300 ppi eru í tilskurðarvalmyndinni.
+- **Eitt `<picture>`, mörg snið.** Aðlögunarhæft sett getur líka skrifað hverja stærð sem AVIF, JPEG XL eða WebP, og Afrita HTML gefur `<source>` fyrir hvert þeirra.
+- **Alt-texti og skráarheiti frá Apple Intelligence** (macOS 27): Afrita HTML getur látið lýsingu á hverri ljósmynd fylgja, og Lýsing-táknið í Endurnefna nefnir skrár eftir því sem þær sýna.
+- **Hylja finnur andlit, símanúmer og heimilisföng.**
+- **Breyttu tökudegi og -stað.** Lýsigögn geta hliðrað öllum dagsetningum (ef klukka myndavélarinnar var rangt stillt) eða stillt eina, og námundað staðsetninguna að um 1 km eða stillt nýja.
+- **HEIC- og TIFF-úttak.**
+- **Vaktaðar möppur** geta látið þig vita þegar ljósmyndir eru tilbúnar, og Shrinker Pro getur opnast við innskráningu svo þær haldi áfram að virka.
+- **Runulistinn** hefur Hreinsa runu, ⌘A til að velja allar ljósmyndir og Fjarlægja úr Studio, og í Stillingar ▸ Studio velurðu hvenær restin af rununni er forskoðuð.
+- **Dragðu útflutningsyfirlitið** í Finder, Mail eða upphleðslueyðublað til að taka allar skrárnar sem voru rétt í þessu skrifaðar.]]></description>
+            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW della fotocamera, TIFF, PSD e BMP.** Trascinali come qualsiasi foto. Vengono convertiti in JPEG, o nel formato che scegli in Impostazioni ▸ Conversione.
+- **Output HEIC e TIFF**, nel menu dei formati e dalla riga di comando.
+- **PNG più piccoli.** Un passaggio senza perdita dopo la consueta compressione riduce la maggior parte dei PNG di qualche punto percentuale, senza cambiare un solo pixel.
+- **Trascina un risultato** fuori dall’elenco nel Finder, in Mail o in un modulo di caricamento.
+- **Impostazioni ▸ Dove ▸ Chiedi ogni volta** chiede una cartella a ogni trascinamento.
+
+### Shrinker Studio
+
+- **Adatta all’interno.** Ridimensiona e ritaglia può tenere tutta la foto dentro la sua forma, con uno sfondo bianco, nero, trasparente, colorato o sfocato. Le dimensioni di stampa a 300 ppi sono nel menu del ritaglio.
+- **Un solo `<picture>`, più formati.** Il Set responsive può scrivere ogni dimensione anche in AVIF, JPEG XL o WebP, e Copia HTML fornisce un `<source>` per ciascuno.
+- **Testo alternativo e nomi dei file da Apple Intelligence** (macOS 27): Copia HTML può includere una descrizione di ogni foto, e il segnaposto Descrizione di Rinomina dà ai file un nome in base a ciò che mostrano.
+- **Oscura trova volti, numeri di telefono e indirizzi postali.**
+- **Cambia data e luogo di scatto.** Metadati può spostare tutte le date (se l’orologio della fotocamera era impostato male) o impostarne una, e arrotondare la posizione a circa 1 km o impostarne una nuova.
+- **Output HEIC e TIFF.**
+- **Le cartelle monitorate** possono avvisarti quando le foto sono pronte, e Shrinker Pro può aprirsi al login perché continuino a funzionare.
+- **L’elenco del gruppo** ha Svuota gruppo, ⌘A per selezionare tutte le foto e Rimuovi da Studio, e in Impostazioni ▸ Studio scegli quando creare le anteprime del resto del gruppo.
+- **Trascina il riepilogo dell’esportazione** nel Finder, in Mail o in un modulo di caricamento per portare con te tutti i file appena scritti.]]></description>
+            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **カメラのRAW、TIFF、PSD、BMPに対応。** ほかの写真と同じようにドロップできます。JPEG、または設定 ▸ 変換で選んだ形式に変換されます。
+- **HEICとTIFFで出力**できます。形式メニューからも、コマンドラインからも使えます。
+- **PNGがさらに小さく。** 通常の圧縮のあとに可逆の処理を加え、ほとんどのPNGが数パーセント小さくなります。ピクセルは1つも変わりません。
+- **結果をドラッグして**リストからFinder、Mail、アップロードフォームに直接渡せます。
+- **設定 ▸ 保存先 ▸ 毎回確認**を選ぶと、ドロップするたびに保存先のフォルダを尋ねます。
+
+### Shrinker Studio
+
+- **内側に収める。** リサイズと切り取りで、写真全体を形の内側に収められます。背景は白、黒、透明、カラー、ぼかしから選べます。切り取りメニューには300 ppiの印刷サイズもあります。
+- **1つの`<picture>`で複数の形式。** レスポンシブセットで、各サイズをAVIF、JPEG XL、WebPでも書き出せます。HTMLをコピーには、それぞれの`<source>`が含まれます。
+- **Apple Intelligenceで代替テキストとファイル名を作成**（macOS 27）：HTMLをコピーに各写真の説明を含められます。名前の変更の「説明」トークンは、写っている内容からファイル名を付けます。
+- **墨消しで顔、電話番号、住所を検出できるようになりました。**
+- **撮影日時と場所を変更。** メタデータで、すべての日付をずらしたり（カメラの時計がずれていた場合）、1つの日付を設定したりできます。位置情報は約1 kmに丸めることも、新しい場所を設定することもできます。
+- **HEICとTIFFで出力。**
+- **監視フォルダ**は、写真の処理が完了したら通知できます。Shrinker Proをログイン時に開くようにすれば、監視を続けられます。
+- **バッチリスト**に、バッチをクリア、すべての写真を選択する⌘A、Studioから削除が加わりました。バッチの残りをいつプレビューするかは、設定 ▸ Studioで選べます。
+- **書き出しの概要をドラッグ**してFinder、Mail、アップロードフォームに渡すと、書き出したばかりのファイルをすべてまとめて渡せます。]]></description>
+            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **카메라 RAW, TIFF, PSD, BMP.** 다른 사진처럼 놓기만 하면 됩니다. JPEG로, 또는 설정 ▸ 변환에서 고른 형식으로 변환됩니다.
+- **HEIC 및 TIFF 출력**을 형식 메뉴와 명령줄에서 쓸 수 있습니다.
+- **더 작은 PNG.** 평소의 압축 뒤에 무손실 처리를 한 번 더 거쳐 대부분의 PNG가 몇 퍼센트 더 작아지며, 픽셀은 하나도 바뀌지 않습니다.
+- **결과를 드래그해** 목록에서 Finder, Mail 또는 업로드 양식으로 옮길 수 있습니다.
+- **설정 ▸ 저장 위치 ▸ 매번 묻기**를 선택하면 놓을 때마다 폴더를 묻습니다.
+
+### Shrinker Studio
+
+- **안에 맞추기.** 크기 변경 및 자르기에서 사진 전체를 모양 안에 담을 수 있으며, 배경은 흰색, 검정, 투명, 색상 또는 흐림 중에서 고를 수 있습니다. 자르기 메뉴에 300ppi 인쇄 크기가 있습니다.
+- **`<picture>` 하나에 여러 형식.** 반응형 세트가 모든 크기를 AVIF, JPEG XL 또는 WebP로도 저장할 수 있으며, HTML 복사가 형식마다 `<source>`를 넣어 줍니다.
+- **Apple Intelligence로 만드는 대체 텍스트와 파일 이름** (macOS 27): HTML 복사에 각 사진의 설명을 넣을 수 있고, 이름 변경의 설명 토큰은 사진에 담긴 내용으로 파일 이름을 짓습니다.
+- **가리기가 얼굴, 전화번호, 주소를 찾습니다.**
+- **촬영 날짜와 장소 변경.** 메타데이터에서 모든 날짜를 옮기거나(카메라 시계가 잘못 설정된 경우) 하나의 날짜로 지정할 수 있고, 위치를 약 1 km 단위로 어림하거나 새 위치를 지정할 수 있습니다.
+- **HEIC 및 TIFF 출력.**
+- **감시 폴더**가 사진이 완료되면 알려 줄 수 있으며, Shrinker Pro를 로그인 시 열어 감시 폴더가 계속 작동하게 할 수 있습니다.
+- **배치 목록**에 배치 지우기, 모든 사진을 선택하는 ⌘A, Studio에서 제거가 생겼고, 설정 ▸ Studio에서 배치의 나머지를 언제 미리 볼지 고를 수 있습니다.
+- **내보내기 요약을 드래그**해 Finder, Mail 또는 업로드 양식에 놓으면 방금 저장한 모든 파일을 한 번에 넘길 수 있습니다.]]></description>
+            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Kamera-RAW, TIFF, PSD og BMP.** Slipp dem inn som et hvilket som helst foto. De konverteres til JPEG, eller til formatet du velger i Innstillinger ▸ Konvertering.
+- **HEIC- og TIFF-utdata**, i formatmenyen og på kommandolinjen.
+- **Mindre PNG-filer.** En tapsfri runde etter den vanlige komprimeringen gjør de fleste PNG-filer noen prosent mindre, uten at en eneste piksel endres.
+- **Dra et resultat ut** av listen til Finder, Mail eller et opplastingsskjema.
+- **Innstillinger ▸ Hvor ▸ Spør hver gang** spør etter en mappe hver gang du slipper filer.
+
+### Shrinker Studio
+
+- **Tilpass innenfor.** Størrelse og beskjæring kan holde hele fotoet innenfor formen, med hvit, svart, gjennomsiktig, farget eller uskarp bakgrunn. Utskriftsstørrelser i 300 ppi finnes i beskjæringsmenyen.
+- **Én `<picture>`, flere formater.** Responsivt sett kan også skrive hver størrelse som AVIF, JPEG XL eller WebP, og Kopier HTML gir en `<source>` for hvert format.
+- **Alternativ tekst og filnavn fra Apple Intelligence** (macOS 27): Kopier HTML kan ta med en beskrivelse av hvert foto, og Beskrivelse-feltet i Endre navn gir filene navn etter det de viser.
+- **Sladd finner ansikter, telefonnumre og gateadresser.**
+- **Endre opptaksdato og sted.** Metadata kan forskyve alle datoer (når kameraklokken var feil stilt) eller sette én dato, og runde av stedet til omtrent 1 km eller sette et nytt.
+- **HEIC- og TIFF-utdata.**
+- **Overvåkingsmapper** kan varsle deg når fotoene er ferdige, og Shrinker Pro kan åpne ved pålogging slik at de fortsetter å virke.
+- **Bunkelisten** har Tøm bunken, ⌘A for å velge alle fotoene og Fjern fra Studio, og i Innstillinger ▸ Studio velger du når resten av bunken forhåndsvises.
+- **Dra eksportsammendraget** til Finder, Mail eller et opplastingsskjema for å ta med alle filene som nettopp ble skrevet.]]></description>
+            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Camera-RAW, TIFF, PSD en BMP.** Zet ze neer zoals elke andere foto. Ze worden omgezet naar JPEG, of naar het formaat dat je kiest in Instellingen ▸ Conversie.
+- **HEIC- en TIFF-uitvoer**, in het formaatmenu en op de opdrachtregel.
+- **Kleinere PNG's.** Een verliesloze ronde na de gewone compressie maakt de meeste PNG's een paar procent kleiner, zonder dat er ook maar één pixel verandert.
+- **Sleep een resultaat** uit de lijst naar de Finder, Mail of een uploadformulier.
+- **Instellingen ▸ Waarheen ▸ Vraag elke keer** vraagt om een map telkens als je bestanden neerzet.
+
+### Shrinker Studio
+
+- **Volledig inpassen.** Schalen & bijsnijden kan de hele foto binnen de vorm houden, met een witte, zwarte, transparante, gekleurde of vervaagde achtergrond. Afdrukformaten op 300 ppi staan in het uitsnedemenu.
+- **Eén `<picture>`, meerdere formaten.** De responsieve set kan elke maat ook als AVIF, JPEG XL of WebP schrijven, en Kopieer HTML geeft voor elk een `<source>`.
+- **Alt-tekst en bestandsnamen via Apple Intelligence** (macOS 27): Kopieer HTML kan een beschrijving van elke foto toevoegen, en het onderdeel Beschrijving in Hernoem geeft bestanden een naam naar wat erop staat.
+- **Afdekken vindt gezichten, telefoonnummers en adressen.**
+- **Wijzig opnamedatum en -plaats.** Metadata kan elke datum verschuiven (als de klok van de camera verkeerd stond) of één datum instellen, en de locatie afronden op ongeveer 1 km of een nieuwe instellen.
+- **HEIC- en TIFF-uitvoer.**
+- **Bewaakte mappen** kunnen een melding geven als foto's klaar zijn, en Shrinker Pro kan openen bij inloggen zodat ze blijven werken.
+- **De reekslijst** heeft Wis reeks, ⌘A om alle foto's te selecteren en Verwijder uit Studio, en in Instellingen ▸ Studio kies je wanneer de rest van de reeks een voorvertoning krijgt.
+- **Sleep het exportoverzicht** naar de Finder, Mail of een uploadformulier om alle zojuist geschreven bestanden in één keer mee te nemen.]]></description>
+            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Kamera-RAW, TIFF, PSD og BMP.** Slepp dei inn som kva foto som helst. Dei blir konverterte til JPEG, eller til formatet du vel i Innstillingar ▸ Konvertering.
+- **HEIC- og TIFF-utdata**, i formatmenyen og på kommandolinja.
+- **Mindre PNG-filer.** Ein tapsfri runde etter den vanlege komprimeringa gjer dei fleste PNG-filer nokre prosent mindre, utan at ein einaste piksel blir endra.
+- **Dra eit resultat ut** av lista til Finder, Mail eller eit opplastingsskjema.
+- **Innstillingar ▸ Kvar ▸ Spør kvar gong** spør etter ei mappe kvar gong du slepper filer.
+
+### Shrinker Studio
+
+- **Tilpass innanfor.** Storleik og beskjering kan halde heile fotoet innanfor forma, med kvit, svart, gjennomsiktig, farga eller uskarp bakgrunn. Utskriftsstorleikar i 300 ppi finst i beskjeringsmenyen.
+- **Éin `<picture>`, fleire format.** Responsivt sett kan òg skrive kvar storleik som AVIF, JPEG XL eller WebP, og Kopier HTML gir ein `<source>` for kvart format.
+- **Alternativ tekst og filnamn frå Apple Intelligence** (macOS 27): Kopier HTML kan ta med ei skildring av kvart foto, og Skildring-feltet i Endre namn gir filene namn etter det dei viser.
+- **Sladding finn andlet, telefonnummer og gateadresser.**
+- **Endre opptaksdato og stad.** Metadata kan forskyve alle datoar (når kameraklokka var feil stilt) eller setje éin dato, og runde av staden til om lag 1 km eller setje ein ny.
+- **HEIC- og TIFF-utdata.**
+- **Overvaka mapper** kan varsle deg når fotoa er ferdige, og Shrinker Pro kan opne ved pålogging slik at dei held fram med å verke.
+- **Bunkelista** har Tøm bunken, ⌘A for å velje alle fotoa og Fjern frå Studio, og i Innstillingar ▸ Studio vel du når resten av bunken blir førehandsvist.
+- **Dra eksportsamandraget** til Finder, Mail eller eit opplastingsskjema for å ta med alle filene som nettopp vart skrivne.]]></description>
+            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW z aparatu, TIFF, PSD i BMP.** Upuszczaj je jak każde zdjęcie. Są konwertowane do JPEG lub do formatu wybranego w Ustawienia ▸ Konwersja.
+- **Zapis do HEIC i TIFF** w menu formatu i w wierszu poleceń.
+- **Mniejsze pliki PNG.** Bezstratny przebieg po zwykłej kompresji zmniejsza większość plików PNG o kilka procent, bez zmiany choćby jednego piksela.
+- **Przeciągnij wynik** z listy do aplikacji Finder, Mail lub do formularza przesyłania.
+- **Ustawienia ▸ Gdzie ▸ Pytaj za każdym razem** pyta o folder przy każdym upuszczeniu.
+
+### Shrinker Studio
+
+- **Zmieść w środku.** Rozmiar i kadr może zmieścić całe zdjęcie w kształcie, na białym, czarnym, przezroczystym, kolorowym lub rozmytym tle. Rozmiary do druku w 300 ppi są w menu kadru.
+- **Jeden `<picture>`, kilka formatów.** Zestaw responsywny może też zapisać każdy rozmiar jako AVIF, JPEG XL lub WebP, a Kopiuj HTML daje `<source>` dla każdego z nich.
+- **Tekst alternatywny i nazwy plików od Apple Intelligence** (macOS 27): Kopiuj HTML może dołączyć opis każdego zdjęcia, a element Opis w kroku Zmiana nazwy nadaje plikom nazwy według tego, co przedstawiają.
+- **Zakrywanie znajduje twarze, numery telefonów i adresy pocztowe.**
+- **Zmiana daty i miejsca wykonania.** Metadane mogą przesunąć wszystkie daty (gdy zegar aparatu był źle ustawiony) lub ustawić jedną, a także zaokrąglić lokalizację do ok. 1 km albo ustawić nową.
+- **Zapis do HEIC i TIFF.**
+- **Foldery obserwowane** mogą powiadamiać, gdy zdjęcia są gotowe, a Shrinker Pro może otwierać się po zalogowaniu, żeby działały dalej.
+- **Lista partii** ma Wyczyść partię, ⌘A do zaznaczenia wszystkich zdjęć i Usuń ze Studio, a w Ustawienia ▸ Studio wybierasz, kiedy tworzyć podglądy reszty partii.
+- **Przeciągnij podsumowanie eksportu** do aplikacji Finder, Mail lub do formularza przesyłania, aby przekazać wszystkie właśnie zapisane pliki.]]></description>
+            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW de câmera, TIFF, PSD e BMP.** Solte-os como qualquer foto. Eles são convertidos para JPEG ou para o formato que você escolher em Ajustes ▸ Conversão.
+- **Saída em HEIC e TIFF**, no menu de formato e na linha de comando.
+- **PNGs menores.** Uma passagem sem perdas depois da compressão habitual deixa a maioria dos PNGs alguns por cento menor, sem alterar nenhum pixel.
+- **Arraste um resultado** da lista para o Finder, o Mail ou um formulário de envio.
+- **Ajustes ▸ Onde ▸ Perguntar sempre** pede uma pasta toda vez que você solta arquivos.
+
+### Shrinker Studio
+
+- **Encaixar dentro.** A etapa Redimensionar e recortar pode manter a foto inteira dentro da forma, com fundo branco, preto, transparente, colorido ou desfocado. Os tamanhos de impressão a 300 ppp ficam no menu de recorte.
+- **Um `<picture>`, vários formatos.** O Conjunto responsivo também pode gravar cada tamanho em AVIF, JPEG XL ou WebP, e Copiar HTML gera um `<source>` para cada um.
+- **Texto alternativo e nomes de arquivo com o Apple Intelligence** (macOS 27): Copiar HTML pode incluir uma descrição de cada foto, e o token Descrição da etapa Renomear dá nome aos arquivos a partir do que eles mostram.
+- **Ocultar encontra rostos, números de telefone e endereços.**
+- **Altere a data e o local de captura.** A etapa Metadados pode deslocar todas as datas (se o relógio da câmera estiver errado) ou definir uma, e arredondar a localização para cerca de 1 km ou definir uma nova.
+- **Saída em HEIC e TIFF.**
+- **As Pastas Monitoradas** podem notificar você quando as fotos estiverem prontas, e o Shrinker Pro pode abrir ao iniciar sessão para que elas continuem funcionando.
+- **A lista do lote** tem Limpar Lote, ⌘A para selecionar todas as fotos e Remover do Studio, e em Ajustes ▸ Studio você escolhe quando o resto do lote ganha prévias.
+- **Arraste o resumo da exportação** para o Finder, o Mail ou um formulário de envio para levar todos os arquivos que acabaram de ser gravados.]]></description>
+            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW de câmara, TIFF, PSD e BMP.** Largue-os como qualquer fotografia. São convertidos para JPEG ou para o formato que escolher em Definições ▸ Conversão.
+- **Saída em HEIC e TIFF**, no menu de formato e na linha de comandos.
+- **PNG mais pequenos.** Uma passagem sem perdas depois da compressão habitual torna a maioria dos PNG alguns por cento mais pequenos, sem alterar nenhum píxel.
+- **Arraste um resultado** da lista para o Finder, o Mail ou um formulário de carregamento.
+- **Definições ▸ Onde ▸ Perguntar sempre** pede uma pasta sempre que largar ficheiros.
+
+### Shrinker Studio
+
+- **Encaixar dentro.** O passo Redimensionar e recortar pode manter a fotografia inteira dentro da forma, com fundo branco, preto, transparente, de cor ou desfocado. Os tamanhos de impressão a 300 ppp estão no menu de recorte.
+- **Um `<picture>`, vários formatos.** O Conjunto responsivo também pode escrever cada tamanho em AVIF, JPEG XL ou WebP, e Copiar HTML dá um `<source>` para cada um.
+- **Texto alternativo e nomes de ficheiro do Apple Intelligence** (macOS 27): Copiar HTML pode incluir uma descrição de cada fotografia, e o marcador Descrição de Mudar o nome dá nome aos ficheiros a partir do que mostram.
+- **Censurar encontra rostos, números de telefone e moradas.**
+- **Altere a data e o local de captura.** O passo Metadados pode deslocar todas as datas (se o relógio da câmara estiver mal acertado) ou definir uma, e arredondar a localização para cerca de 1 km ou definir uma nova.
+- **Saída em HEIC e TIFF.**
+- **As pastas vigiadas** podem notificá-lo quando as fotografias estiverem prontas, e o Shrinker Pro pode abrir ao iniciar sessão para que continuem a funcionar.
+- **A lista do lote** tem Limpar lote, ⌘A para selecionar todas as fotografias e Remover do Studio, e em Definições ▸ Studio escolhe quando o resto do lote é pré-visualizado.
+- **Arraste o resumo da exportação** para o Finder, o Mail ou um formulário de carregamento para levar todos os ficheiros acabados de escrever.]]></description>
+            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW de cameră, TIFF, PSD și BMP.** Trageți-le în aplicație ca pe orice fotografie. Sunt convertite în JPEG sau în formatul ales în Configurări ▸ Conversie.
+- **Ieșire HEIC și TIFF**, în meniul de format și în linia de comandă.
+- **PNG-uri mai mici.** O trecere fără pierderi după compresia obișnuită micșorează majoritatea PNG-urilor cu câteva procente, fără să schimbe niciun pixel.
+- **Trageți un rezultat** din listă în Finder, Mail sau un formular de încărcare.
+- **Configurări ▸ Unde ▸ Întreabă de fiecare dată** cere un dosar de fiecare dată când trageți fișiere în aplicație.
+
+### Shrinker Studio
+
+- **Încadrare în interior.** Pasul Redimensionare și decupare poate păstra întreaga fotografie în interiorul formei, pe fundal alb, negru, transparent, colorat sau estompat. Dimensiunile de imprimare la 300 ppi se află în meniul de decupare.
+- **Un singur `<picture>`, mai multe formate.** Setul adaptiv poate scrie fiecare dimensiune și ca AVIF, JPEG XL sau WebP, iar Copiați HTML oferă câte un `<source>` pentru fiecare.
+- **Text alternativ și nume de fișiere de la Apple Intelligence** (macOS 27): Copiați HTML poate include o descriere a fiecărei fotografii, iar eticheta Descriere din Redenumire denumește fișierele după ce arată acestea.
+- **Cenzurare găsește fețe, numere de telefon și adrese poștale.**
+- **Schimbați data și locul capturii.** Pasul Metadate poate decala toate datele (dacă ceasul camerei a fost setat greșit) sau poate seta o dată, iar locația o poate rotunji la circa 1 km sau o poate înlocui cu una nouă.
+- **Ieșire HEIC și TIFF.**
+- **Dosarele supravegheate** vă pot notifica atunci când fotografiile sunt gata, iar Shrinker Pro se poate deschide la autentificare, ca acestea să funcționeze în continuare.
+- **Lista lotului** are Goliți lotul, ⌘A pentru a selecta toate fotografiile și Eliminați din Studio, iar în Configurări ▸ Studio alegeți când se previzualizează restul lotului.
+- **Trageți rezumatul exportului** în Finder, Mail sau un formular de încărcare pentru a lua toate fișierele tocmai scrise.]]></description>
+            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW с камер, TIFF, PSD и BMP.** Перетаскивайте их, как любые фото. Они конвертируются в JPEG или в формат, выбранный в разделе Настройки ▸ Конвертация.
+- **Вывод в HEIC и TIFF** — в меню формата и в командной строке.
+- **PNG стали меньше.** Проход без потерь после обычного сжатия уменьшает большинство PNG на несколько процентов, не меняя ни одного пикселя.
+- **Перетащите результат** из списка в Finder, Mail или форму загрузки.
+- **Настройки ▸ Куда ▸ Спрашивать каждый раз** — папка запрашивается при каждом перетаскивании файлов.
+
+### Shrinker Studio
+
+- **Вписать целиком.** Шаг «Размер и обрезка» может вписать всё фото в форму, на белом, чёрном, прозрачном, цветном или размытом фоне. Размеры для печати с 300 ppi есть в меню обрезки.
+- **Один `<picture>`, несколько форматов.** Адаптивный набор может также записывать каждый размер в AVIF, JPEG XL или WebP, а «Копировать HTML» даёт `<source>` для каждого.
+- **Альтернативный текст и имена файлов от Apple Intelligence** (macOS 27): «Копировать HTML» может добавлять описание каждого фото, а метка «Описание» в шаге «Переименование» называет файлы по тому, что на них изображено.
+- **Скрытие находит лица, номера телефонов и почтовые адреса.**
+- **Меняйте дату и место съёмки.** Шаг «Метаданные» может сдвинуть все даты (если часы камеры были выставлены неверно) или задать одну, а также округлить местоположение примерно до 1 км или задать новое.
+- **Вывод в HEIC и TIFF.**
+- **Отслеживаемые папки** могут уведомлять о готовности фото, а Shrinker Pro может открываться при входе в систему, чтобы они продолжали работать.
+- **В списке пакета** есть «Очистить пакет», ⌘A для выбора всех фото и «Убрать из Studio», а в разделе Настройки ▸ Studio можно выбрать, когда создаются превью остальных фото пакета.
+- **Перетащите сводку экспорта** в Finder, Mail или форму загрузки, чтобы забрать все только что записанные файлы.]]></description>
+            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW z fotoaparátov, TIFF, PSD a BMP.** Pretiahnite ich ako hocijakú fotku. Prevedú sa do JPEG alebo do formátu, ktorý vyberiete v Nastavenia ▸ Konverzia.
+- **Výstup do HEIC a TIFF** v ponuke formátu aj v príkazovom riadku.
+- **Menšie PNG.** Bezstratový prechod po bežnej kompresii zmenší väčšinu PNG o niekoľko percent a žiadny pixel sa pritom nezmení.
+- **Pretiahnite výsledok** zo zoznamu do Findera, Mailu alebo formulára na nahrávanie.
+- **Nastavenia ▸ Kam ▸ Zakaždým sa spýtať** si pri každom pretiahnutí súborov vypýta priečinok.
+
+### Shrinker Studio
+
+- **Zmestiť dovnútra.** Krok Zmena veľkosti a orez dokáže ponechať celú fotku vo vnútri tvaru, s bielym, čiernym, priehľadným, farebným alebo rozmazaným pozadím. Veľkosti na tlač pri 300 ppi nájdete v ponuke orezu.
+- **Jeden `<picture>`, viac formátov.** Responzívna sada dokáže každú veľkosť zapísať aj ako AVIF, JPEG XL alebo WebP a Kopírovať HTML pridá pre každý formát `<source>`.
+- **Alternatívny text a názvy súborov z Apple Intelligence** (macOS 27): Kopírovať HTML môže pridať popis každej fotky a značka Popis v Premenovaní pomenuje súbory podľa toho, čo zobrazujú.
+- **Zakrytie nájde tváre, telefónne čísla a poštové adresy.**
+- **Zmeňte dátum a miesto nasnímania.** Krok Metadáta dokáže posunúť všetky dátumy (ak mal fotoaparát zle nastavené hodiny) alebo nastaviť jeden a polohu zaokrúhliť asi na 1 km alebo nastaviť novú.
+- **Výstup do HEIC a TIFF.**
+- **Sledované priečinky** vám môžu oznámiť, keď sú fotky hotové, a Shrinker Pro sa môže otvárať pri prihlásení, aby fungovali ďalej.
+- **Zoznam dávky** má Vyprázdniť dávku, ⌘A na výber všetkých fotiek a Odstrániť zo Studia a v Nastavenia ▸ Studio vyberiete, kedy sa vytvárajú náhľady zvyšku dávky.
+- **Pretiahnite súhrn exportu** do Findera, Mailu alebo formulára na nahrávanie a vezmete tak všetky práve zapísané súbory.]]></description>
+            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW iz fotoaparatov, TIFF, PSD in BMP.** Spustite jih kot katero koli fotografijo. Pretvorijo se v JPEG ali v obliko zapisa, ki jo izberete v Nastavitve ▸ Pretvorba.
+- **Izhod v HEIC in TIFF** v meniju oblike zapisa in v ukazni vrstici.
+- **Manjše datoteke PNG.** Brezizgubni prehod po običajnem stiskanju večino datotek PNG zmanjša za nekaj odstotkov, vsaka slikovna pika pa ostane nespremenjena.
+- **Povlecite rezultat** s seznama v Finder, Mail ali obrazec za nalaganje.
+- **Nastavitve ▸ Kam ▸ Vprašaj vsakič** ob vsakem spuščanju datotek vpraša za mapo.
+
+### Shrinker Studio
+
+- **Umesti znotraj.** Korak Velikost in obrezek lahko ohrani celotno fotografijo znotraj oblike, z belim, črnim, prosojnim, barvnim ali zamegljenim ozadjem. Velikosti za tisk pri 300 ppi so v meniju obrezka.
+- **En `<picture>`, več oblik zapisa.** Odzivni nabor lahko vsako velikost zapiše tudi kot AVIF, JPEG XL ali WebP, Kopiraj HTML pa za vsako da `<source>`.
+- **Nadomestno besedilo in imena datotek z Apple Intelligence** (macOS 27): Kopiraj HTML lahko vključi opis vsake fotografije, žeton Opis v koraku Preimenuj pa datoteke poimenuje po tem, kar prikazujejo.
+- **Zakrij najde obraze, telefonske številke in naslove.**
+- **Spremenite datum in kraj zajema.** Korak Metapodatki lahko zamakne vse datume (če je bila ura fotoaparata napačno nastavljena) ali nastavi enega ter lokacijo zaokroži na približno 1 km ali nastavi novo.
+- **Izhod v HEIC in TIFF.**
+- **Nadzorovane mape** vas lahko obvestijo, ko so fotografije končane, Shrinker Pro pa se lahko odpre ob prijavi, da delujejo naprej.
+- **Seznam paketa** ima Počisti paket, ⌘A za izbiro vseh fotografij in Odstrani iz Studia, v Nastavitve ▸ Studio pa izberete, kdaj se ustvarijo predogledi preostanka paketa.
+- **Povlecite povzetek izvoza** v Finder, Mail ali obrazec za nalaganje, da vzamete vse pravkar zapisane datoteke.]]></description>
+            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Kamera-RAW, TIFF, PSD och BMP.** Släpp dem som vilket foto som helst. De konverteras till JPEG, eller till formatet du väljer i Inställningar ▸ Konvertering.
+- **Utdata i HEIC och TIFF**, i formatmenyn och på kommandoraden.
+- **Mindre PNG-filer.** Ett förlustfritt pass efter den vanliga komprimeringen gör de flesta PNG-filer några procent mindre, med varje pixel oförändrad.
+- **Dra ut ett resultat** ur listan till Finder, Mail eller ett uppladdningsformulär.
+- **Inställningar ▸ Plats ▸ Fråga varje gång** frågar efter en mapp varje gång du släpper filer.
+
+### Shrinker Studio
+
+- **Anpassa inuti.** Storlek och beskärning kan behålla hela fotot inuti formen, med vit, svart, genomskinlig, färgad eller suddig bakgrund. Utskriftsstorlekar i 300 ppi finns i beskärningsmenyn.
+- **En `<picture>`, flera format.** Responsiva storlekar kan också skriva varje storlek som AVIF, JPEG XL eller WebP, och Kopiera HTML ger en `<source>` för vart och ett.
+- **Alternativtext och filnamn från Apple Intelligence** (macOS 27): Kopiera HTML kan ta med en beskrivning av varje foto, och taggen Beskrivning i Byt namn namnger filer efter vad de visar.
+- **Maskera hittar ansikten, telefonnummer och gatuadresser.**
+- **Ändra tagningsdatum och plats.** Metadata kan förskjuta alla datum (om kamerans klocka var fel inställd) eller ange ett, och avrunda platsen till cirka 1 km eller ange en ny.
+- **Utdata i HEIC och TIFF.**
+- **Bevakade mappar** kan meddela dig när foton är klara, och Shrinker Pro kan öppnas vid inloggning så att de fortsätter arbeta.
+- **Omgångslistan** har Rensa omgången, ⌘A för att markera alla foton och Ta bort från Studio, och i Inställningar ▸ Studio väljer du när resten av omgången förhandsvisas.
+- **Dra exportsammanfattningen** till Finder, Mail eller ett uppladdningsformulär för att ta med alla filer som just skrevs.]]></description>
+            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW จากกล้อง, TIFF, PSD และ BMP** ลากมาวางได้เหมือนรูปถ่ายทั่วไป ไฟล์จะถูกแปลงเป็น JPEG หรือเป็นรูปแบบที่คุณเลือกในการตั้งค่า ▸ การแปลง
+- **ส่งออกเป็น HEIC และ TIFF** ได้ทั้งในเมนูรูปแบบและในบรรทัดคำสั่ง
+- **PNG เล็กลง** การบีบอัดแบบไม่สูญเสียข้อมูลอีกรอบหลังการบีบอัดตามปกติทำให้ PNG ส่วนใหญ่เล็กลงอีกไม่กี่เปอร์เซ็นต์ โดยทุกพิกเซลยังเหมือนเดิม
+- **ลากผลลัพธ์ออก** จากรายการไปยัง Finder, Mail หรือแบบฟอร์มอัปโหลด
+- **การตั้งค่า ▸ ตำแหน่งที่บันทึก ▸ ถามทุกครั้ง** จะถามหาโฟลเดอร์ทุกครั้งที่ลากไฟล์มาวาง
+
+### Shrinker Studio
+
+- **ใส่พอดีข้างใน** ปรับขนาดและครอบตัดเก็บรูปทั้งรูปไว้ภายในรูปทรงได้ โดยใช้พื้นหลังสีขาว ดำ โปร่งใส สีที่เลือก หรือแบบเบลอ ขนาดสำหรับพิมพ์ที่ 300 ppi อยู่ในเมนูครอบตัด
+- **`<picture>` เดียว หลายรูปแบบ** ชุดขนาดตามหน้าจอเขียนทุกขนาดเป็น AVIF, JPEG XL หรือ WebP ได้ด้วย และคัดลอก HTML จะให้ `<source>` สำหรับแต่ละรูปแบบ
+- **ข้อความแทนรูปและชื่อไฟล์จาก Apple Intelligence** (macOS 27): คัดลอก HTML ใส่คำอธิบายของรูปแต่ละรูปได้ และโทเคนคำอธิบายของเปลี่ยนชื่อจะตั้งชื่อไฟล์ตามสิ่งที่อยู่ในรูป
+- **ปิดบังค้นหาใบหน้า หมายเลขโทรศัพท์ และที่อยู่ได้**
+- **เปลี่ยนวันที่และสถานที่ถ่าย** เมตาดาต้าเลื่อนวันที่ทั้งหมดได้ (สำหรับกล้องที่ตั้งนาฬิกาผิด) หรือตั้งวันที่ใหม่ และปัดตำแหน่งให้คร่าวๆ เหลือราว 1 กม. หรือตั้งตำแหน่งใหม่ได้
+- **ส่งออกเป็น HEIC และ TIFF**
+- **โฟลเดอร์เฝ้าดู** แจ้งเตือนคุณได้เมื่อรูปถ่ายเสร็จ และ Shrinker Pro เปิดเองได้เมื่อเข้าสู่ระบบเพื่อให้โฟลเดอร์ทำงานต่อไป
+- **รายการชุด** มีล้างชุด ⌘A เพื่อเลือกรูปทั้งหมด และนำออกจาก Studio ส่วนการตั้งค่า ▸ Studio ใช้เลือกว่าจะดูตัวอย่างส่วนที่เหลือของชุดเมื่อใด
+- **ลากสรุปการส่งออก** ไปยัง Finder, Mail หรือแบบฟอร์มอัปโหลด เพื่อส่งไฟล์ทั้งหมดที่เพิ่งเขียนไปพร้อมกัน]]></description>
+            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Kamera RAW, TIFF, PSD ve BMP.** Bunları herhangi bir fotoğraf gibi bırakın. JPEG’e ya da Ayarlar ▸ Dönüştürme’de seçtiğiniz formata dönüştürülürler.
+- **HEIC ve TIFF çıktısı**, format menüsünde ve komut satırında.
+- **Daha küçük PNG’ler.** Normal sıkıştırmanın ardından yapılan kayıpsız bir geçiş, çoğu PNG’yi yüzde birkaç küçültür; hiçbir piksel değişmez.
+- **Bir sonucu listeden sürükleyip** Finder’a, Mail’e veya bir yükleme formuna bırakın.
+- **Ayarlar ▸ Nereye ▸ Her seferinde sor** her bırakmada bir klasör sorar.
+
+### Shrinker Studio
+
+- **İçine sığdır.** Yeniden boyutlandır ve kırp, fotoğrafın tamamını şeklin içinde tutabilir; arka plan beyaz, siyah, saydam, renkli ya da bulanık olabilir. 300 ppi baskı boyutları kırpma menüsünde.
+- **Tek `<picture>`, birden çok format.** Duyarlı set her boyutu ayrıca AVIF, JPEG XL veya WebP olarak yazabilir; HTML kopyala da her biri için bir `<source>` verir.
+- **Apple Intelligence’tan alternatif metin ve dosya adları** (macOS 27): HTML kopyala her fotoğrafın açıklamasını ekleyebilir, Yeniden adlandır’ın Açıklama öğesi de dosyaları içlerinde ne olduğuna göre adlandırır.
+- **Gizle yüzleri, telefon numaralarını ve adresleri bulur.**
+- **Çekim tarihini ve yerini değiştirin.** Üst veri tüm tarihleri kaydırabilir (saati yanlış ayarlanmış bir fotoğraf makinesi için) ya da tek bir tarih ayarlayabilir; konumu yaklaşık 1 km’ye yuvarlayabilir ya da yeni bir konum ayarlayabilir.
+- **HEIC ve TIFF çıktısı.**
+- **İzlenen klasörler** fotoğraflar bitince size bildirim gönderebilir; Shrinker Pro da girişte açılarak klasörlerin çalışmaya devam etmesini sağlayabilir.
+- **Grup listesinde** Grubu Temizle, tüm fotoğrafları seçmek için ⌘A ve Studio’dan kaldır var; Ayarlar ▸ Studio’da grubun kalanının ne zaman önizleneceğini seçebilirsiniz.
+- **Dışa aktarma özetini** Finder’a, Mail’e veya bir yükleme formuna sürükleyerek az önce yazılan tüm dosyaları birlikte taşıyın.]]></description>
+            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW-файли з камер, TIFF, PSD і BMP.** Перетягуйте їх, як будь-яке фото. Їх буде конвертовано в JPEG або у формат, вибраний у Параметри ▸ Конвертування.
+- **Вивід у HEIC і TIFF** — у меню формату та в командному рядку.
+- **Менші PNG.** Додатковий прохід без втрат після звичайного стиснення зменшує більшість PNG на кілька відсотків, і жоден піксель не змінюється.
+- **Перетягніть результат** зі списку у Finder, Mail або форму завантаження.
+- **Параметри ▸ Місце зберігання ▸ Питати щоразу** запитує папку під час кожного перетягування.
+
+### Shrinker Studio
+
+- **Вписати повністю.** «Розмір і обтинання» може вміщувати все фото у форму з білим, чорним, прозорим, кольоровим або розмитим тлом. Розміри для друку з 300 ppi є в меню обтинання.
+- **Один `<picture>`, кілька форматів.** Адаптивний набір може також записувати кожен розмір у AVIF, JPEG XL або WebP, а «Копіювати HTML» дає `<source>` для кожного з них.
+- **Альтернативний текст і назви файлів від Apple Intelligence** (macOS 27): «Копіювати HTML» може додавати опис кожного фото, а маркер «Опис» у «Перейменуванні» називає файли за тим, що на них зображено.
+- **Замазування знаходить обличчя, номери телефонів і поштові адреси.**
+- **Змінюйте дату й місце зйомки.** Метадані можуть зсунути всі дати (якщо годинник камери налаштовано неправильно) або встановити одну, а також округлити місцезнаходження приблизно до 1 км чи задати нове.
+- **Вивід у HEIC і TIFF.**
+- **Відстежувані папки** можуть сповіщати вас, коли фото готові, а Shrinker Pro може відкриватися під час входу, щоб вони працювали й далі.
+- **Список пакета** має «Очистити пакет», ⌘A для вибору всіх фото та «Вилучити зі Studio», а в Параметри ▸ Studio можна вибрати, коли показувати попередній перегляд решти пакета.
+- **Перетягніть підсумок експорту** у Finder, Mail або форму завантаження, щоб передати всі щойно записані файли.]]></description>
+            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **RAW từ máy ảnh, TIFF, PSD và BMP.** Thả chúng vào như mọi ảnh khác. Chúng được chuyển đổi sang JPEG, hoặc sang định dạng bạn chọn trong Cài đặt ▸ Chuyển đổi.
+- **Xuất HEIC và TIFF**, trong menu định dạng và trên dòng lệnh.
+- **PNG nhỏ hơn.** Một lượt nén không mất dữ liệu sau bước nén thông thường giúp hầu hết PNG nhỏ đi vài phần trăm, mọi điểm ảnh vẫn giữ nguyên.
+- **Kéo một kết quả ra** khỏi danh sách vào Finder, Mail hoặc một biểu mẫu tải lên.
+- **Cài đặt ▸ Nơi lưu ▸ Hỏi mỗi lần** hỏi thư mục mỗi lần bạn thả tệp.
+
+### Shrinker Studio
+
+- **Đặt vừa bên trong.** Đổi kích cỡ & cắt xén có thể giữ toàn bộ ảnh bên trong hình dạng, với nền trắng, đen, trong suốt, có màu hoặc làm mờ. Kích cỡ in ở 300 ppi có trong menu cắt xén.
+- **Một `<picture>`, nhiều định dạng.** Bộ kích cỡ đáp ứng có thể ghi thêm mọi kích cỡ dưới dạng AVIF, JPEG XL hoặc WebP, và Sao chép HTML tạo một `<source>` cho từng định dạng.
+- **Văn bản thay thế và tên tệp từ Apple Intelligence** (macOS 27): Sao chép HTML có thể kèm mô tả của từng ảnh, và mã Mô tả của Đổi tên đặt tên tệp theo nội dung trong ảnh.
+- **Che giấu tìm được khuôn mặt, số điện thoại và địa chỉ.**
+- **Thay đổi ngày và nơi chụp.** Siêu dữ liệu có thể dịch mọi ngày (khi đồng hồ máy ảnh bị đặt sai) hoặc đặt một ngày, và làm tròn vị trí đến khoảng 1 km hoặc đặt vị trí mới.
+- **Xuất HEIC và TIFF.**
+- **Thư mục theo dõi** có thể thông báo cho bạn khi ảnh xong, và Shrinker Pro có thể mở khi đăng nhập để chúng tiếp tục hoạt động.
+- **Danh sách lô** có Xóa lô, ⌘A để chọn mọi ảnh và Bỏ khỏi Studio, còn Cài đặt ▸ Studio cho bạn chọn khi nào xem trước phần còn lại của lô.
+- **Kéo bản tóm tắt xuất** vào Finder, Mail hoặc một biểu mẫu tải lên để mang theo mọi tệp vừa ghi.]]></description>
+            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **相機 RAW、TIFF、PSD 和 BMP。** 像一般相片一樣拖進來便可。它們會轉換為 JPEG，或轉換為你在設定 ▸ 轉換中選擇的格式。
+- **HEIC 和 TIFF 輸出**，在格式選單和指令行中都可使用。
+- **更小的 PNG。** 在一般壓縮之後再做一次無損處理，大部分 PNG 可以再小幾個百分點，每個像素都保持不變。
+- **將結果拖出**列表，拖到 Finder、Mail 或上載表格。
+- **設定 ▸ 位置 ▸ 每次詢問**會在每次拖放時詢問資料夾。
+
+### Shrinker Studio
+
+- **完整放入。** 「調整大小與裁剪」可將整張相片保留在形狀內，背景可選白色、黑色、透明、彩色或模糊。裁剪選單中提供 300 ppi 的列印尺寸。
+- **一個 `<picture>`，多種格式。** 「響應式尺寸」亦可將每個尺寸寫成 AVIF、JPEG XL 或 WebP，「複製 HTML」會為每種格式提供一個 `<source>`。
+- **由 Apple Intelligence 產生替代文字和檔案名稱**（macOS 27）：「複製 HTML」可附上每張相片的描述，「重新命名」的「描述」標記會按相片內容為檔案命名。
+- **「遮蓋」能找出人臉、電話號碼和地址。**
+- **更改拍攝日期和地點。** 「元數據」可偏移所有日期（適用於相機時鐘設錯的情況）或設定單一日期，亦可將位置模糊至約 1 公里，或設定新的位置。
+- **HEIC 和 TIFF 輸出。**
+- **監察資料夾**可在相片完成時通知你，Shrinker Pro 亦可在登入時開啟，讓它們持續運作。
+- **批次列表**提供「清除批次」、用 ⌘A 選擇所有相片，以及「從 Studio 移除」；在設定 ▸ Studio 中可選擇何時預覽批次中其餘相片。
+- **拖移輸出摘要**到 Finder、Mail 或上載表格，即可帶走剛寫入的所有檔案。]]></description>
+            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **相机 RAW、TIFF、PSD 和 BMP。** 像普通照片一样拖进来即可。它们会转换为 JPEG，或转换为你在设置 ▸ 转换中选取的格式。
+- **HEIC 和 TIFF 输出**，在格式菜单和命令行中均可使用。
+- **更小的 PNG。** 在常规压缩之后再做一次无损处理，大多数 PNG 能再小几个百分点，每个像素都保持不变。
+- **将结果拖出**列表，拖到 Finder、Mail 或上传表单中。
+- **设置 ▸ 位置 ▸ 每次询问**会在每次拖放时询问文件夹。
+
+### Shrinker Studio
+
+- **完整放入。** “调整大小与裁剪”可将整张照片保留在形状内，背景可选白色、黑色、透明、彩色或模糊。裁剪菜单中提供 300 ppi 的打印尺寸。
+- **一个 `<picture>`，多种格式。** “响应式尺寸组”还能将每个尺寸写为 AVIF、JPEG XL 或 WebP，“复制 HTML”会为每种格式给出一个 `<source>`。
+- **由 Apple Intelligence 生成替代文本和文件名**（macOS 27）：“复制 HTML”可附上每张照片的描述，“重命名”的“描述”标记会按照片内容为文件命名。
+- **“遮盖”能找出人脸、电话号码和街道地址。**
+- **更改拍摄日期和地点。** “元数据”可偏移所有日期（适用于相机时钟设错的情况）或设定一个日期，还可将位置模糊到约 1 公里，或设定新位置。
+- **HEIC 和 TIFF 输出。**
+- **监视文件夹**可在照片完成时通知你，Shrinker Pro 也可在登录时打开，让它们持续工作。
+- **批次列表**提供“清除批次”、用 ⌘A 选择所有照片，以及“从 Studio 中移除”；在设置 ▸ Studio 中可选择何时预览批次中的其余照片。
+- **拖移导出摘要**到 Finder、Mail 或上传表单，即可带上刚写入的所有文件。]]></description>
+            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **相機 RAW、TIFF、PSD 和 BMP。** 像一般照片一樣拖進來即可。它們會轉換為 JPEG，或轉換為你在設定 ▸ 轉換中選擇的格式。
+- **HEIC 和 TIFF 輸出**，在格式選單和命令列中都能使用。
+- **更小的 PNG。** 在一般壓縮之後再做一次無損處理，大多數 PNG 可以再小幾個百分點，每個像素都維持不變。
+- **將結果拖出**列表，拖到 Finder、Mail 或上傳表單中。
+- **設定 ▸ 位置 ▸ 每次詢問**會在每次拖放時詢問檔案夾。
+
+### Shrinker Studio
+
+- **完整放入。** 「調整大小並裁切」可將整張照片保留在形狀內，背景可選白色、黑色、透明、彩色或模糊。裁切選單中提供 300 ppi 的列印尺寸。
+- **一個 `<picture>`，多種格式。** 「響應式尺寸組」也能將每個尺寸寫成 AVIF、JPEG XL 或 WebP，「拷貝 HTML」會為每種格式提供一個 `<source>`。
+- **由 Apple Intelligence 產生替代文字和檔名**（macOS 27）：「拷貝 HTML」可附上每張照片的描述，「重新命名」的「描述」標記會依照片內容為檔案命名。
+- **「遮蓋」能找出人臉、電話號碼和街道地址。**
+- **更改拍攝日期和地點。** 「後設資料」可偏移所有日期（適用於相機時鐘設錯的情況）或設定單一日期，還可將位置模糊到約 1 公里，或設定新的位置。
+- **HEIC 和 TIFF 輸出。**
+- **監看檔案夾**可在照片完成時通知你，Shrinker Pro 也可在登入時打開，讓它們持續運作。
+- **批次列表**提供「清除批次」、用 ⌘A 選擇所有照片，以及「從 Studio 中移除」；在設定 ▸ Studio 中可選擇何時預覽批次中其餘照片。
+- **拖移匯出摘要**到 Finder、Mail 或上傳表單，即可帶上剛寫入的所有檔案。]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.10.0/ShrinkerPro-1.10.0.dmg" length="12378204" type="application/octet-stream" sparkle:edSignature="LjRTqlRW3AK/e33hCaTfLs4MEpcvgkRBw3FGRCV+mGkPDbf9jlUbKn1ENSikaZ5NNxmOvUvycia9wD1gJxcQDw=="/>
+        </item>
+        <item>
             <title>1.9.1</title>
             <pubDate>Tue, 17 Nov 2026 16:03:00 -0500</pubDate>
             <sparkle:version>19</sparkle:version>
@@ -489,160 +1183,6 @@
 - **「並排」可在側邊欄旁完整顯示，** 你也可以縮小到連非常大的掃描影像也能完整顯示。
 - **修正：** 選取「所有照片」時，在「看起來相同」中拖移品質滑桿只會更改最前面的照片。現在它會將配方設為該品質的「手動」，因此會隨配方一併儲存。]]></description>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.9.0/ShrinkerPro-1.9.0.dmg" length="11523535" type="application/octet-stream" sparkle:edSignature="Lnadp1nAVjyTZk+K7YovhFYIyR21zxbuWT7MXvx3EWmvG0A8BArg/RiVNqhmeWA5CA7AkDm09clNlIUyCAD0AA=="/>
-        </item>
-        <item>
-            <title>1.8.3</title>
-            <pubDate>Fri, 13 Nov 2026 03:37:46 -0500</pubDate>
-            <sparkle:version>17</sparkle:version>
-            <sparkle:shortVersionString>1.8.3</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Choose the recipe Studio starts with.** Settings ▸ Studio ▸ Starting recipe opens the Studio window with one of your saved recipes instead of an empty one.
-- **Brand duotone remembers your colours.** A new Brand duotone starts with the two colours you picked last. Use standard colours puts indigo and peach back.
-]]></description>
-            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **اختر الوصفة التي يبدأ بها Studio.** يفتح الإعدادات ▸ Studio ▸ الوصفة الافتتاحية نافذة Studio بإحدى وصفاتك المحفوظة بدلًا من وصفة فارغة.
-- **ثنائي ألوان العلامة يتذكّر ألوانك.** يبدأ ثنائي ألوان العلامة الجديد بآخر لونين اخترتهما. ويعيد «استخدام الألوان القياسية» النيلي والخوخي.]]></description>
-            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Tria la recepta amb què comença Studio.** Configuració ▸ Studio ▸ Recepta inicial obre la finestra de Studio amb una de les teves receptes desades en lloc d’una de buida.
-- **El duotó de marca recorda els teus colors.** Un duotó de marca nou comença amb els dos últims colors que has triat. «Utilitza els colors estàndard» torna a l’indi i el préssec.]]></description>
-            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Vyberte recept, se kterým Studio začíná.** Nastavení ▸ Studio ▸ Výchozí recept otevře okno Studio s jedním z vašich uložených receptů místo prázdného.
-- **Duplex značky si pamatuje vaše barvy.** Nový duplex značky začíná dvěma barvami, které jste vybrali naposledy. „Použít standardní barvy“ vrátí indigovou a broskvovou.]]></description>
-            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Vælg den opskrift, Studio starter med.** Indstillinger ▸ Studio ▸ Startopskrift åbner Studio-vinduet med en af dine gemte opskrifter i stedet for en tom.
-- **Brand-duotone husker dine farver.** En ny brand-duotone starter med de to farver, du valgte sidst. “Brug standardfarver” sætter indigo og fersken tilbage.]]></description>
-            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Wähle das Rezept, mit dem Studio beginnt.** Einstellungen ▸ Studio ▸ Startrezept öffnet das Studio-Fenster mit einem deiner gesicherten Rezepte statt mit einem leeren.
-- **Marken-Duplex merkt sich deine Farben.** Ein neues Marken-Duplex beginnt mit den beiden zuletzt gewählten Farben. „Standardfarben verwenden“ stellt Indigo und Pfirsich wieder her.]]></description>
-            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Επιλέξτε τη συνταγή με την οποία ξεκινά το Studio.** Οι Ρυθμίσεις ▸ Studio ▸ Αρχική συνταγή ανοίγουν το παράθυρο Studio με μία από τις αποθηκευμένες συνταγές σας αντί για μια κενή.
-- **Το δίτονο μάρκας θυμάται τα χρώματά σας.** Ένα νέο δίτονο μάρκας ξεκινά με τα δύο χρώματα που επιλέξατε τελευταία. Η «Χρήση τυπικών χρωμάτων» επαναφέρει το λουλακί και το ροδακινί.]]></description>
-            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Elige la receta con la que empieza Studio.** Ajustes ▸ Studio ▸ Receta inicial abre la ventana de Studio con una de tus recetas guardadas en lugar de una vacía.
-- **El duotono de marca recuerda tus colores.** Un duotono de marca nuevo empieza con los dos últimos colores que elegiste. «Usar colores estándar» vuelve al índigo y el melocotón.]]></description>
-            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **دستور پختی را که Studio با آن شروع می‌شود انتخاب کنید.** تنظیمات ▸ Studio ▸ دستور پخت آغازین پنجرهٔ Studio را به‌جای دستور پختی خالی با یکی از دستورهای ذخیره‌شدهٔ شما باز می‌کند.
-- **دوتون برند رنگ‌های شما را به خاطر می‌سپارد.** دوتون برند تازه با آخرین دو رنگی که انتخاب کرده‌اید شروع می‌شود. «استفاده از رنگ‌های استاندارد» نیلی و هلویی را برمی‌گرداند.]]></description>
-            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Valitse resepti, jolla Studio alkaa.** Asetukset ▸ Studio ▸ Aloitusresepti avaa Studio-ikkunan jollakin tallentamistasi resepteistä tyhjän sijaan.
-- **Brändin kaksisävy muistaa värisi.** Uusi brändin kaksisävy alkaa kahdella viimeksi valitsemallasi värillä. ”Käytä vakiovärejä” palauttaa indigon ja persikan.]]></description>
-            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Choisissez la recette de départ de Studio.** Réglages ▸ Studio ▸ Recette de départ ouvre la fenêtre Studio avec l’une de vos recettes enregistrées au lieu d’une recette vide.
-- **La bichromie de marque retient vos couleurs.** Une nouvelle bichromie de marque démarre avec les deux dernières couleurs choisies. « Utiliser les couleurs standard » rétablit l’indigo et la pêche.]]></description>
-            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **בחירת המתכון שבו Studio מתחיל.** הגדרות ▸ Studio ▸ מתכון פתיחה פותח את חלון Studio עם אחד מהמתכונים השמורים במקום מתכון ריק.
-- **דואוטון מותג זוכר את הצבעים.** דואוטון מותג חדש מתחיל בשני הצבעים שנבחרו לאחרונה. ״שימוש בצבעים הרגילים״ מחזיר את האינדיגו והאפרסק.]]></description>
-            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Odaberite recept s kojim Studio počinje.** Postavke ▸ Studio ▸ Početni recept otvara prozor Studija s jednim od vaših spremljenih recepata umjesto praznog.
-- **Duoton brenda pamti vaše boje.** Novi duoton brenda počinje s dvjema bojama koje ste zadnje odabrali. „Koristi standardne boje” vraća indigo i boju breskve.]]></description>
-            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Válassza ki, melyik recepttel induljon a Studio.** A Beállítások ▸ Studio ▸ Kezdő recept az egyik mentett receptjével nyitja meg a Studio ablakot üres helyett.
-- **A márka-duotónus megjegyzi a színeit.** Egy új márka-duotónus a legutóbb választott két színnel indul. A „Szokásos színek használata” visszaállítja az indigót és a barackot.]]></description>
-            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Veldu uppskriftina sem Studio byrjar með.** Stillingar ▸ Studio ▸ Upphafsuppskrift opnar Studio gluggann með einni af vistuðu uppskriftunum þínum í stað tómrar.
-- **Tvítóna vörumerkis man litina þína.** Ný tvítóna vörumerkis byrjar með litunum tveimur sem þú valdir síðast. „Nota staðlaða liti“ setur indigó og ferskjulit aftur.]]></description>
-            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Scegli la ricetta con cui parte Studio.** Impostazioni ▸ Studio ▸ Ricetta iniziale apre la finestra di Studio con una delle tue ricette salvate invece che con una vuota.
-- **La bicromia del marchio ricorda i tuoi colori.** Una nuova bicromia del marchio parte dagli ultimi due colori scelti. «Usa i colori standard» ripristina indaco e pesca.]]></description>
-            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Studioで最初に使うレシピを選べるようになりました。** 「設定」▸「Studio」▸「開始時のレシピ」で、Studioウインドウが空のレシピではなく保存したレシピで開きます。
-- **ブランドダブルトーンが色を記憶します。** 新しいブランドダブルトーンは、最後に選んだ2色で始まります。「標準の色を使用」でインディゴとピーチに戻せます。]]></description>
-            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Studio가 시작할 레시피를 선택하십시오.** 설정 ▸ Studio ▸ 시작 레시피를 사용하면 Studio 윈도우가 빈 레시피 대신 저장된 레시피로 열립니다.
-- **브랜드 이중톤이 색상을 기억합니다.** 새 브랜드 이중톤은 마지막으로 선택한 두 색상으로 시작합니다. ‘표준 색상 사용’을 선택하면 인디고와 피치로 돌아갑니다.]]></description>
-            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Velg oppskriften Studio starter med.** Innstillinger ▸ Studio ▸ Startoppskrift åpner Studio-vinduet med en av de arkiverte oppskriftene dine i stedet for en tom.
-- **Merkeduotone husker fargene dine.** En ny merkeduotone starter med de to fargene du valgte sist. «Bruk standardfarger» setter indigo og fersken tilbake.]]></description>
-            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Kies het recept waarmee Studio begint.** Instellingen ▸ Studio ▸ Beginrecept opent het Studio-venster met een van je bewaarde recepten in plaats van een leeg recept.
-- **Merkduotoon onthoudt je kleuren.** Een nieuwe merkduotoon begint met de twee kleuren die je het laatst hebt gekozen. ‘Gebruik standaardkleuren’ zet indigo en perzik terug.]]></description>
-            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Vel oppskrifta Studio startar med.** Innstillingar ▸ Studio ▸ Startoppskrift opnar Studio-vindauget med ei av dei lagra oppskriftene dine i staden for ei tom.
-- **Merkeduotone hugsar fargane dine.** Ein ny merkeduotone startar med dei to fargane du valde sist. «Bruk standardfargar» set indigo og fersken tilbake.]]></description>
-            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Wybierz przepis, od którego zaczyna Studio.** Ustawienia ▸ Studio ▸ Przepis startowy otwiera okno Studio z jednym z zachowanych przepisów zamiast pustego.
-- **Duoton marki pamięta Twoje kolory.** Nowy duoton marki zaczyna się od dwóch ostatnio wybranych kolorów. „Użyj standardowych kolorów” przywraca indygo i brzoskwinię.]]></description>
-            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Escolha a receita com que o Studio começa.** Ajustes ▸ Studio ▸ Receita inicial abre a janela do Studio com uma das suas receitas salvas em vez de uma vazia.
-- **O duotone da marca lembra suas cores.** Um novo duotone da marca começa com as duas últimas cores que você escolheu. “Usar cores padrão” volta para índigo e pêssego.]]></description>
-            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Escolha a receita com que o Studio começa.** Definições ▸ Studio ▸ Receita inicial abre a janela do Studio com uma das suas receitas guardadas em vez de uma vazia.
-- **O duotom da marca lembra-se das suas cores.** Um novo duotom da marca começa com as duas últimas cores que escolheu. “Usar cores padrão” repõe o índigo e o pêssego.]]></description>
-            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Alegeți rețeta cu care pornește Studio.** Configurări ▸ Studio ▸ Rețeta de început deschide fereastra Studio cu una dintre rețetele salvate în loc de una goală.
-- **Duotonul de brand își amintește culorile.** Un duoton de brand nou pornește cu ultimele două culori alese. „Folosește culorile standard” readuce indigo și piersica.]]></description>
-            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Выберите рецепт, с которого начинается Studio.** «Настройки» ▸ Studio ▸ «Начальный рецепт» открывает окно Studio с одним из сохранённых рецептов вместо пустого.
-- **Дуотон бренда запоминает ваши цвета.** Новый дуотон бренда начинается с двух последних выбранных цветов. «Стандартные цвета» возвращают индиго и персиковый.]]></description>
-            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Vyberte recept, s ktorým Studio začína.** Nastavenia ▸ Studio ▸ Počiatočný recept otvorí okno aplikácie Studio s jedným z vašich uložených receptov namiesto prázdneho.
-- **Duotón značky si pamätá vaše farby.** Nový duotón značky začína dvoma farbami, ktoré ste vybrali naposledy. „Použiť štandardné farby“ vráti indigovú a broskyňovú.]]></description>
-            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Izberite recept, s katerim se začne Studio.** Nastavitve ▸ Studio ▸ Začetni recept odpre okno Studio z enim od vaših shranjenih receptov namesto s praznim.
-- **Duoton znamke si zapomni vaši barvi.** Nov duoton znamke se začne z barvama, ki ste ju izbrali nazadnje. »Uporabi standardni barvi« vrne indigo in breskev.]]></description>
-            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Välj receptet Studio börjar med.** Inställningar ▸ Studio ▸ Startrecept öppnar Studio-fönstret med ett av dina sparade recept i stället för ett tomt.
-- **Varumärkesduoton minns dina färger.** En ny varumärkesduoton börjar med de två färger du valde senast. ”Använd standardfärger” återställer indigo och persika.]]></description>
-            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **เลือกสูตรที่ Studio ใช้เริ่มต้น** การตั้งค่า ▸ Studio ▸ สูตรเริ่มต้น จะเปิดหน้าต่าง Studio ด้วยสูตรที่คุณบันทึกไว้แทนสูตรเปล่า
-- **ดูโอโทนแบรนด์จำสีของคุณ** ดูโอโทนแบรนด์ใหม่จะเริ่มด้วยสองสีที่คุณเลือกล่าสุด “ใช้สีมาตรฐาน” จะเปลี่ยนกลับเป็นสีครามและสีพีช]]></description>
-            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Studio’nun başlayacağı tarifi seçin.** Ayarlar ▸ Studio ▸ Başlangıç tarifi, Studio penceresini boş bir tarif yerine kaydettiğiniz tariflerden biriyle açar.
-- **Marka duotonu renklerinizi hatırlar.** Yeni bir marka duotonu en son seçtiğiniz iki renkle başlar. “Standart renkleri kullan” çivit mavisi ve şeftaliyi geri getirir.]]></description>
-            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Виберіть рецепт, з якого починається Studio.** «Параметри» ▸ Studio ▸ «Початковий рецепт» відкриває вікно Studio з одним зі збережених рецептів замість порожнього.
-- **Дуотон бренду запам’ятовує ваші кольори.** Новий дуотон бренду починається з двох останніх вибраних кольорів. «Стандартні кольори» повертають індиго та персиковий.]]></description>
-            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Chọn công thức mà Studio bắt đầu.** Cài đặt ▸ Studio ▸ Công thức khởi đầu mở cửa sổ Studio với một công thức bạn đã lưu thay vì công thức trống.
-- **Hai tông thương hiệu ghi nhớ màu của bạn.** Hai tông thương hiệu mới bắt đầu với hai màu bạn chọn gần nhất. “Dùng màu chuẩn” đưa về chàm và màu đào.]]></description>
-            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **選擇Studio開始時使用的配方。** 「設定」▸「Studio」▸「起始配方」會以你儲存的配方開啟Studio視窗，而不是空白配方。
-- **品牌雙色調會記住你的色彩。** 新的品牌雙色調會以你上次選擇的兩種色彩開始。「使用標準色彩」可還原靛藍和桃色。]]></description>
-            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **选择 Studio 开始时使用的配方。** “设置”▸“Studio”▸“起始配方”会用你存储的配方打开 Studio 窗口，而不是空白配方。
-- **品牌双色调会记住你的颜色。** 新的品牌双色调会以你上次选取的两种颜色开始。“使用标准颜色”可恢复靛蓝和桃色。]]></description>
-            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **選擇Studio開始時使用的配方。** 「設定」▸「Studio」▸「起始配方」會以你儲存的配方打開Studio視窗，而不是空白配方。
-- **品牌雙色調會記住你的顏色。** 新的品牌雙色調會以你上次選擇的兩個顏色開始。「使用標準顏色」可還原靛藍和桃色。]]></description>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.8.3/ShrinkerPro-1.8.3.dmg" length="11432958" type="application/octet-stream" sparkle:edSignature="3aCezy5fpHUoIrEBFK+z8qfH6TviFnzVAaGe9MVFkscfNOJtr79MNRUJN6wMdR94+O9aWryvWPD9fFf+RjEOAQ=="/>
         </item>
     </channel>
 </rss>

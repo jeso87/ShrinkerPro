@@ -91,6 +91,8 @@ private struct ResultRowView: View {
         .background(isHovering ? Color.primary.opacity(0.045) : Color.clear)
         .contentShape(Rectangle())
         .onTapGesture(perform: reveal)
+        // Drag the shrunk file straight into Finder, Mail or an upload field.
+        .onDrag { FileDragOut.provider(for: row.output) }
         .onHover { isHovering = $0 }
         // The full path is no longer displayed in the row itself — carried
         // here instead, since a user comparing two same-named files written

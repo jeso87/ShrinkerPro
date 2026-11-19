@@ -115,6 +115,8 @@ struct ContentView: View {
         // zone remains the visual affordance and the click-to-pick target.
         .contentShape(Rectangle())
         .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
+            // A result row dragged out and let go over this same window: not a new drop.
+            guard !FileDragOut.isOwnResults(providers) else { return false }
             Task {
                 let urls = await DropZoneView.resolveURLs(from: providers)
                 #if STUDIO

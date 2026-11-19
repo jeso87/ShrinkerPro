@@ -196,4 +196,13 @@ final class ReadOnlyFormatsTests: XCTestCase {
         let clash = OutputCollision.groups(in: [URL(fileURLWithPath: "/a/shot.dng"), URL(fileURLWithPath: "/a/shot.jpg")], convertingTo: nil)
         XCTAssertEqual(clash.map(\.name), ["shot.min.jpg"])
     }
+
+    /// Finder's Open With and a drop on the Dock icon offer only the types Info.plist declares.
+    func testTheAppDeclaresTheReadOnlyFormatsAsDocuments() throws {
+        let types = (Bundle.main.object(forInfoDictionaryKey: "CFBundleDocumentTypes") as? [[String: Any]] ?? [])
+            .flatMap { $0["LSItemContentTypes"] as? [String] ?? [] }
+        for uti in ["public.tiff", "com.microsoft.bmp", "com.adobe.photoshop-image", "public.camera-raw-image"] {
+            XCTAssertTrue(types.contains(uti), "\(uti) isn't a document type")
+        }
+    }
 }

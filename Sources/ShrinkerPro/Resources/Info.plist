@@ -59,6 +59,10 @@
                 <string>public.jpeg-xl</string>
                 <string>public.heic</string>
                 <string>public.heif</string>
+                <string>public.tiff</string>
+                <string>com.microsoft.bmp</string>
+                <string>com.adobe.photoshop-image</string>
+                <string>public.camera-raw-image</string>
             </array>
         </dict>
     </array>

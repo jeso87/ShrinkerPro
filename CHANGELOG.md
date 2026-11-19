@@ -4,6 +4,58 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.10.0 — 2026-11-19
+
+### Added
+
+**Camera RAW, TIFF, PSD and BMP.** Shrinker Pro and Studio read them. Like
+HEIC they are always converted: to JPEG, or to the format chosen in
+Settings ▸ Conversion ▸ RAW, TIFF, PSD, BMP. Shortcuts actions accept them
+too.
+
+**HEIC and TIFF output.** In the session bar's format menu, `--to heic|tiff`
+on the command line, and Studio's Format & quality step. HEIC follows the
+quality level; TIFF is lossless.
+
+**Smaller PNGs.** After pngquant, a lossless pass (oxipng) reorders filters
+and recompresses each PNG, keeping its result only when it is smaller. The
+pixels are pngquant's, unchanged.
+
+**Drag results out.** Drag a row of Shrinker Pro's results, or Studio's
+export summary, into Finder, Mail or an upload form.
+
+**Settings ▸ Where ▸ Ask each time.** Every drop asks for a folder;
+cancelling shrinks nothing.
+
+**Fit inside.** Studio's Resize & crop can keep the whole photo inside the
+crop's shape instead of cutting it, on a white, black, transparent, coloured
+or blurred background. The crop menu gains print sizes at 300 ppi.
+
+**Several formats in one `<picture>`.** The Responsive set can also write
+every size as AVIF, JPEG XL or WebP; Copy HTML gives a `<source>` for each,
+best first, with the recipe's own format as the fallback.
+
+**Apple Intelligence, on the Mac (macOS 27).** The Responsive set can write
+each photo's alt text into Copy HTML, and Rename's Description token names a
+file from what the photo shows. Where Apple Intelligence isn't available the
+options are hidden.
+
+**Redact finds faces, phone numbers and street addresses.**
+
+**Capture date and place.** Studio's Metadata step can shift every date
+(a camera clock set wrong) or set one, and round the location to about
+1 km or set a new one. Nothing of the original date or place is left in the
+file.
+
+**Watch folders** can notify you when their photos are done, and Shrinker Pro
+can open at login so they keep working.
+
+**Batch list and previews.** Clear Batch, ⌘A to select every photo, Remove
+from Studio on each row, and an Export button that names the format.
+Settings ▸ Studio chooses when the rest of the batch previews (when Studio
+is idle, after 5 s to 1 min; right away; or only the photo in front), with
+Preview All and Stop in the list.
+
 ## 1.9.1 — 2026-11-17
 
 ### Added

@@ -82,6 +82,10 @@ struct ImageIOCompressor: Compressor {
         // `ImageMetadata.rewriteMetadata`. ImageIO's padded XMP packet would
         // otherwise add kilobytes to every file this writes.
         options[kCGImageMetadataShouldExcludeXMP] = true
+        // TIFF is uncompressed unless asked: LZW is lossless and every reader has it.
+        if utType == RasterUTType.tiff {
+            options[kCGImagePropertyTIFFDictionary] = [kCGImagePropertyTIFFCompression: 5]
+        }
 
         // No orientation key is ever written: the pixels above already carry
         // it, and a tag repeating the instruction would turn the image a
@@ -248,6 +252,7 @@ struct ImageIOCompressor: Compressor {
 enum RasterUTType {
     static let avif = "public.avif"
     static let heic = "public.heic"
+    static let tiff = "public.tiff"
 
     /// Whether this system can write AVIF. macOS reads AVIF from 14 on but only
     /// writes it from 26: on 14 and 15 `CGImageDestinationCreateWithURL` returns

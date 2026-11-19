@@ -29,6 +29,10 @@ enum SessionFormat: String, CaseIterable, Equatable, Sendable {
     /// Reachable only here — PNG is not one of the persisted per-format
     /// rules. See `ConversionRouter.convert(native:to:)`.
     case png
+    /// Written by ImageIO. HEIC is quality-scaled like AVIF; TIFF is lossless (LZW), for print
+    /// and archives rather than the web.
+    case heic
+    case tiff
 
     var displayName: String {
         switch self {
@@ -37,6 +41,8 @@ enum SessionFormat: String, CaseIterable, Equatable, Sendable {
         case .avif: return "AVIF"
         case .jxl: return "JPEG XL"
         case .png: return "PNG"
+        case .heic: return "HEIC"
+        case .tiff: return "TIFF"
         }
     }
 
@@ -48,6 +54,8 @@ enum SessionFormat: String, CaseIterable, Equatable, Sendable {
         case .avif: return .avif
         case .jxl: return .jxl
         case .png: return .png
+        case .heic: return .heic
+        case .tiff: return .tiff
         }
     }
 }

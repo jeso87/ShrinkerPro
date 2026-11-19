@@ -95,7 +95,8 @@ final class ReadOnlyFormatsTests: XCTestCase {
         XCTAssertTrue(NativeFormat.other.alwaysConverts)
         XCTAssertTrue(NativeFormat.heic.alwaysConverts)
         XCTAssertFalse(NativeFormat.png.alwaysConverts)
-        for target in TargetFormat.allCases {
+        // Every target but HEIC itself, which HEIC re-encodes as HEIC.
+        for target in TargetFormat.allCases where target != .heic {
             XCTAssertEqual(
                 ConversionRouter.route(native: .other, target: target),
                 ConversionRouter.route(native: .heic, target: target),
@@ -145,6 +146,35 @@ final class ReadOnlyFormatsTests: XCTestCase {
         let png = try engine.shrink(tiff, settings: settings(session: .png))
         XCTAssertEqual(png.output.lastPathComponent, "scan.min.png")
         XCTAssertTrue(decodes(png.output))
+    }
+
+    // MARK: HEIC and TIFF out
+
+    func testHEICAndTIFFAreWrittenByImageIO() {
+        XCTAssertEqual(ConversionRouter.route(native: .jpeg, target: .heic), .direct(target: .heic))
+        XCTAssertEqual(ConversionRouter.route(native: .png, target: .tiff), .direct(target: .tiff))
+        XCTAssertEqual(ConversionRouter.route(native: .other, target: .tiff), .direct(target: .tiff))
+        // Asked for by name, HEIC to HEIC is a re-encode, not a refusal.
+        XCTAssertEqual(ConversionRouter.route(native: .heic, target: .heic), .sameFormat(.heic))
+        XCTAssertEqual(SessionFormat.heic.outputExtension, "heic")
+        XCTAssertEqual(SessionFormat.tiff.outputExtension, "tiff")
+        XCTAssertEqual(OutputCollision.outputName(for: URL(fileURLWithPath: "/a/shot.CR3"), convertingTo: .tiff), "shot.min.tiff")
+    }
+
+    func testAPhotoBecomesAHEICAndALosslessTIFF() throws {
+        let engine = try makeEngine()
+        let jpeg = try makeImage("shot.jpg", type: .jpeg)
+
+        let heic = try engine.shrink(jpeg, settings: settings(session: .heic))
+        XCTAssertEqual(heic.output.lastPathComponent, "shot.min.heic")
+        XCTAssertTrue(decodes(heic.output))
+
+        let tiff = try engine.shrink(jpeg, settings: settings(session: .tiff))
+        XCTAssertEqual(tiff.output.lastPathComponent, "shot.min.tiff")
+        let source = try XCTUnwrap(CGImageSourceCreateWithURL(tiff.output as CFURL, nil))
+        let properties = try XCTUnwrap(CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any])
+        let tiffInfo = try XCTUnwrap(properties[kCGImagePropertyTIFFDictionary] as? [CFString: Any])
+        XCTAssertEqual(tiffInfo[kCGImagePropertyTIFFCompression] as? Int, 5, "LZW, not uncompressed")
     }
 
     // MARK: Settings and the command line

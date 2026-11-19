@@ -239,6 +239,8 @@ extension SessionFormat {
         case .avif: return "avif"
         case .jxl: return "jxl"
         case .png: return "png"
+        case .heic: return "heic"
+        case .tiff: return "tiff"
         }
     }
 }
@@ -430,7 +432,8 @@ extension CommandLineOptions {
     OPTIONS
       --quality <level|0-100>  super-low, low, standard (default), high — or a
                                number, for a value no level names
-      --to <format>            convert every image: jpeg, webp, avif, jxl, png
+      --to <format>            convert every image: jpeg, webp, avif, jxl, png,
+                               heic, tiff
       --max-size <pixels>      shrink any image whose longest side is bigger
                                than this, keeping its aspect ratio
       --crop <WxH|W:H>         crop the center of each image to this shape.

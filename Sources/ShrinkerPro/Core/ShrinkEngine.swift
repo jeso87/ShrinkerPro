@@ -764,6 +764,14 @@ final class ShrinkEngine {
                 )
             case .jxl:
                 return try jxlCompressor(policy: policy, quality: quality)
+            case .heic:
+                return ImageIOCompressor(
+                    utType: RasterUTType.heic, quality: quality.unitScale, policy: policy,
+                    resize: resize
+                )
+            case .tiff:
+                // Lossless: no quality, and LZW (see `ImageIOCompressor`).
+                return ImageIOCompressor(utType: RasterUTType.tiff, quality: nil, policy: policy, resize: resize)
             }
 
         case .viaIntermediate(let target, let intermediate):
@@ -832,6 +840,8 @@ final class ShrinkEngine {
             case .webp: return "webp"
             case .avif: return "avif"
             case .jxl: return "jxl"
+            case .heic: return "heic"
+            case .tiff: return "tiff"
             }
         case .viaIntermediate(let target, _):
             switch target {

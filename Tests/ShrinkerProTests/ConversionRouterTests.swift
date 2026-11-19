@@ -249,7 +249,7 @@ final class ConversionRouterTests: XCTestCase {
     /// never have decoded the source in the first place — not merely
     /// "the router happens to never produce it today".
     func testDirectTargetHasNoJPEGCase() {
-        XCTAssertEqual(DirectTarget.allCases, [.webp, .avif, .jxl])
+        XCTAssertEqual(DirectTarget.allCases, [.webp, .avif, .jxl, .heic, .tiff])
         XCTAssertNil(DirectTarget(rawValue: "jpeg"),
                       "a JPEG target must never be representable as a DirectTarget")
     }
@@ -285,9 +285,9 @@ final class ConversionRouterTests: XCTestCase {
     }
 
     /// ...and the session-only type is the one place it does exist.
-    func testTheSessionTypeOffersAllFiveTargets() {
-        XCTAssertEqual(SessionFormat.allCases, [.jpeg, .webp, .avif, .jxl, .png])
-        XCTAssertEqual(SessionFormat.allCases.map(\.targetFormat), [.jpeg, .webp, .avif, .jxl, .png])
+    func testTheSessionTypeOffersAllSevenTargets() {
+        XCTAssertEqual(SessionFormat.allCases, [.jpeg, .webp, .avif, .jxl, .png, .heic, .tiff])
+        XCTAssertEqual(SessionFormat.allCases.map(\.targetFormat), [.jpeg, .webp, .avif, .jxl, .png, .heic, .tiff])
     }
 }
 

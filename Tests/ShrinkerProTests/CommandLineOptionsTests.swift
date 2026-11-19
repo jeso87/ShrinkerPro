@@ -166,8 +166,8 @@ final class CommandLineOptionsTests: XCTestCase {
     }
 
     func testAnUnknownConversionTargetIsRejected() throws {
-        XCTAssertThrowsError(try CommandLineOptions.parse(["--to", "tiff", "a.png"])) { error in
-            XCTAssertEqual(error as? CommandLineParseError, .invalidValue(flag: "--to", value: "tiff"))
+        XCTAssertThrowsError(try CommandLineOptions.parse(["--to", "bmp", "a.png"])) { error in
+            XCTAssertEqual(error as? CommandLineParseError, .invalidValue(flag: "--to", value: "bmp"))
         }
     }
 

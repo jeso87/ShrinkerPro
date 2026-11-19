@@ -106,6 +106,9 @@ enum TargetFormat: String, CaseIterable, Equatable, Sendable {
     case avif
     case jxl
     case png
+    /// ImageIO encodes both, from any input it decodes, so they are always `.direct`.
+    case heic
+    case tiff
 }
 
 /// The destination formats reachable by `ConversionRoute.direct` — decode
@@ -125,6 +128,8 @@ enum DirectTarget: String, CaseIterable, Equatable, Sendable {
     case webp
     case avif
     case jxl
+    case heic
+    case tiff
 }
 
 /// The destination formats reachable only by `ConversionRoute
@@ -294,7 +299,7 @@ enum ConversionRouter {
         // format isn't one of `TargetFormat`'s cases — so it always falls
         // through to `convert(native:to:)` below.
         switch (native, target) {
-        case (.jpeg, .jpeg), (.webp, .webp), (.avif, .avif), (.png, .png), (.jxl, .jxl):
+        case (.jpeg, .jpeg), (.webp, .webp), (.avif, .avif), (.png, .png), (.jxl, .jxl), (.heic, .heic):
             return honouring(.sameFormat(native), context: context)
         default:
             return convert(native: native, to: target, context: context)
@@ -320,6 +325,12 @@ enum ConversionRouter {
             // ImageIO decodes every supported input format directly, so
             // there is never an intermediate step for an AVIF target.
             route = .direct(target: .avif)
+
+        case .heic:
+            route = .direct(target: .heic)
+
+        case .tiff:
+            route = .direct(target: .tiff)
 
         case .jpeg:
             // cjpeg cannot read PNG, WebP, AVIF, or HEIC (see
@@ -413,7 +424,7 @@ enum ConversionRouter {
 
         case .direct(let target):
             switch target {
-            case .avif:
+            case .avif, .heic, .tiff:
                 return route
             case .webp:
                 return cwebpNeedsNoHelp(context)
@@ -506,6 +517,9 @@ extension ConversionRoute {
             case .webp: return .webp
             case .avif: return .avif
             case .jxl: return .jxl
+            case .heic: return .heic
+            // TIFF is one of the read-only family as an input; written, it is still TIFF.
+            case .tiff: return .other
             }
         case .viaIntermediate(let target, _):
             switch target {

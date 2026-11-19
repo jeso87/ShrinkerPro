@@ -109,6 +109,9 @@ struct ConversionRules: Equatable, Sendable {
     var webp: ConversionTarget = .keep
     var avif: ConversionTarget = .keep
     var jxl: ConversionTarget = .keep
+    /// Camera RAW, TIFF, Photoshop and BMP (`NativeFormat.other`): read-only formats, so
+    /// like HEIC there is no Keep, and JPEG is the default.
+    var other: ConversionFormat = .jpeg
 }
 
 extension ConversionFormat {

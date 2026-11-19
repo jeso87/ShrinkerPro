@@ -28,6 +28,7 @@ final class Settings: ObservableObject {
         static let conversionWebP = "conversionWebP"
         static let conversionAVIF = "conversionAVIF"
         static let conversionJXL = "conversionJXL"
+        static let conversionOther = "conversionOther"
         static let metadata = "metadata"
         static let quality = "quality"
         /// Ours, so camelCase like `conversionPNG` — not the lowercase
@@ -75,6 +76,10 @@ final class Settings: ObservableObject {
     @Published var jxlConversion: ConversionTarget {
         didSet { defaults.set(jxlConversion.rawValue, forKey: Key.conversionJXL) }
     }
+    /// Camera RAW, TIFF, Photoshop and BMP. No Keep, like HEIC: none of them can be written.
+    @Published var otherConversion: ConversionFormat {
+        didSet { defaults.set(otherConversion.rawValue, forKey: Key.conversionOther) }
+    }
 
     /// What metadata survives compression — see `MetadataPolicy`. Note this
     /// never governs orientation, which is always applied to the pixels and
@@ -118,6 +123,7 @@ final class Settings: ObservableObject {
             Key.conversionWebP: ConversionTarget.keep.rawValue,
             Key.conversionAVIF: ConversionTarget.keep.rawValue,
             Key.conversionJXL: ConversionTarget.keep.rawValue,
+            Key.conversionOther: ConversionFormat.jpeg.rawValue,
             // `.all` because it is the only default that doesn't silently
             // regress: JPEG -> JPEG preserves EXIF today (cjpeg copies every
             // APPn marker), so anything else would start deleting capture
@@ -142,6 +148,7 @@ final class Settings: ObservableObject {
         webpConversion = Self.readTarget(defaults, Key.conversionWebP, default: .keep)
         avifConversion = Self.readTarget(defaults, Key.conversionAVIF, default: .keep)
         jxlConversion = Self.readTarget(defaults, Key.conversionJXL, default: .keep)
+        otherConversion = Self.readFormat(defaults, Key.conversionOther, default: .jpeg)
         metadataPolicy = Self.readPolicy(defaults, Key.metadata, default: .all)
         quality = Self.readQuality(defaults, Key.quality, default: .standard)
         warnBeforeOverwrite = (defaults.object(forKey: Key.warnBeforeOverwrite) as? Bool) ?? true
@@ -220,7 +227,8 @@ final class Settings: ObservableObject {
                 heic: heicConversion,
                 webp: webpConversion,
                 avif: avifConversion,
-                jxl: jxlConversion
+                jxl: jxlConversion,
+                other: otherConversion
             ),
             metadataPolicy: metadataPolicy,
             // Resolved here: the level is what this class persists and what

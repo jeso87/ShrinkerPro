@@ -358,6 +358,10 @@ private struct SettingsOutputPane: View {
 private struct SettingsConversionPane: View {
     @EnvironmentObject private var settings: Settings
 
+    /// Camera RAW, TIFF, Photoshop and BMP: read, never written, so always converted. Format
+    /// names only, so verbatim like the other rows' labels.
+    static let otherRowLabel = "RAW, TIFF, PSD, BMP"
+
     var body: some View {
         Form {
             // A separate Section (not folded into either toggle group above)
@@ -370,6 +374,7 @@ private struct SettingsConversionPane: View {
                 ConversionRuleRow(rowLabel: "WebP", ownFormatName: "WebP", selection: $settings.webpConversion)
                 ConversionRuleRow(rowLabel: "AVIF", ownFormatName: "AVIF", selection: $settings.avifConversion)
                 ConversionRuleRow(rowLabel: "JPEG XL", ownFormatName: "JPEG XL", selection: $settings.jxlConversion)
+                HEICConversionRuleRow(rowLabel: Self.otherRowLabel, selection: $settings.otherConversion)
             } footer: {
                 // Required copy (spec): SVG and GIF have no row above, and
                 // their absence needs explaining, not leaving the user to

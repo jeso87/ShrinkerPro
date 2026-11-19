@@ -7,6 +7,11 @@ import Foundation
 /// never reach `ConversionRouter` at all (see `ShrinkEngine.shrink`).
 enum NativeFormat: Equatable, Sendable {
     case png, jpeg, webp, avif, heic, jxl
+    /// Camera RAW, TIFF, Photoshop and BMP: formats ImageIO reads but nothing here writes.
+    /// Like HEIC they always convert (`ConversionRules.other`, JPEG unless changed), and
+    /// every route out of them starts with an ImageIO decode, because none of the vendored
+    /// encoders can read any of them.
+    case other
 
     init?(extension ext: String) {
         switch ext {
@@ -16,9 +21,24 @@ enum NativeFormat: Equatable, Sendable {
         case "avif": self = .avif
         case "heic", "heif": self = .heic
         case "jxl": self = .jxl
-        default: return nil
+        default:
+            guard NativeFormat.otherExtensions.contains(ext) else { return nil }
+            self = .other
         }
     }
+
+    /// The extensions `.other` covers. RAW support itself is macOS's: a camera newer than
+    /// the running system's RAW decoder is refused at decode time with ImageIO's own error.
+    static let otherExtensions: Set<String> = [
+        "tif", "tiff", "psd", "bmp",
+        "dng", "cr2", "cr3", "crw", "nef", "nrw", "arw", "srf", "sr2", "raf", "orf",
+        "rw2", "rwl", "pef", "srw", "3fr", "erf", "iiq", "mrw", "x3f",
+    ]
+
+    /// Formats that can only be read: HEIC (kept out of HEIC on purpose) and `.other`.
+    /// The never-grow guard leaves conversions out of these alone, since the original is
+    /// exactly what the person asked not to keep.
+    var alwaysConverts: Bool { self == .heic || self == .other }
 }
 
 /// A lossless carrier format used only to hand pixels from ImageIO's
@@ -331,8 +351,8 @@ enum ConversionRouter {
                 // is the genuinely correct answer, not an impossible
                 // state: cwebp reads WebP natively the same as PNG/JPEG.
                 route = .direct(target: .webp)
-            case .avif, .heic, .jxl:
-                // cwebp cannot read any of the three directly.
+            case .avif, .heic, .jxl, .other:
+                // cwebp cannot read any of these directly.
                 route = .viaIntermediate(target: .webp, intermediate: .png)
             }
 
@@ -348,7 +368,7 @@ enum ConversionRouter {
                 // normally takes the same-format short-circuit above and
                 // never reaches here.
                 route = .direct(target: .jxl)
-            case .webp, .avif, .heic:
+            case .webp, .avif, .heic, .other:
                 // The vendored cjxl has no decoder for any of these.
                 route = .viaIntermediate(target: .jxl, intermediate: .png)
             }
@@ -385,7 +405,7 @@ enum ConversionRouter {
             case .jxl:
                 return cjxlNeedsNoHelp(context)
                     ? route : .viaIntermediate(target: .jxl, intermediate: .png)
-            case .avif, .heic:
+            case .avif, .heic, .other:
                 // Already ImageIO end to end, which is where the rotation
                 // and the metadata are applied. Nothing to reroute.
                 return route

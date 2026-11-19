@@ -188,7 +188,8 @@ enum OutputCollision {
     ///
     ///   - SVG and GIF never convert, whatever `--to` says.
     ///   - `--to` otherwise decides the extension.
-    ///   - HEIC has no "keep" option anywhere, so it becomes JPEG on its own.
+    ///   - HEIC, camera RAW, TIFF, PSD and BMP have no "keep" option anywhere,
+    ///     so they become JPEG on their own.
     ///
     /// That last one is why a plain basename comparison is wrong: `photo.heic`
     /// and `photo.jpg` have different input extensions and still collide.
@@ -203,7 +204,8 @@ enum OutputCollision {
         default:
             if let target {
                 resolved = target.outputExtension
-            } else if ext == "heic" || ext == "heif" {
+            } else if NativeFormat(extension: ext)?.alwaysConverts == true {
+                // HEIC, camera RAW, TIFF, PSD and BMP have no Keep: JPEG by default.
                 resolved = "jpg"
             } else {
                 resolved = ext
@@ -445,11 +447,16 @@ extension CommandLineOptions {
       --version                version number only
 
     FORMATS
-      Reads PNG, JPEG, GIF, SVG, WebP, AVIF, JPEG XL and HEIC.
+      Reads PNG, JPEG, GIF, SVG, WebP, AVIF, JPEG XL and HEIC, and also
+      camera RAW (DNG, CR3, NEF, ARW and others macOS can open), TIFF, PSD
+      and BMP.
       SVG and GIF are always kept in their own format and never converted.
       HEIC is always converted, to JPEG unless --to says otherwise. There is
       no HEIC-to-HEIC path: most tools outside Apple's ecosystem still
       cannot open one, so keeping it is rarely what anyone wants.
+      RAW, TIFF, PSD and BMP are always converted the same way, to JPEG
+      unless --to says otherwise. A RAW file is developed by macOS with its
+      default settings, and only the flattened image of a PSD is read.
       PNG and GIF ignore --quality — the tools that optimise them have no
       comparable setting, so those files are identical at every level.
       A JPEG converted to JPEG XL is transcoded losslessly, so --quality
@@ -471,8 +478,9 @@ extension CommandLineOptions {
     Compressing never makes a file bigger. If a same-format result, or a
     conversion to WebP, AVIF or JPEG XL, comes out larger than its source it
     is discarded, your original is kept, and the saving is reported as 0%.
-    Converting to JPEG or PNG, converting from HEIC, resizing and cropping are
-    exempt: growth there is the thing you asked for.
+    Converting to JPEG or PNG, converting from HEIC, RAW, TIFF, PSD or BMP,
+    resizing and cropping are exempt: growth there is the thing you asked
+    for.
 
     EXAMPLES
       shrinker photo.jpg

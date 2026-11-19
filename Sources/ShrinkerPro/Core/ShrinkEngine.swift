@@ -103,9 +103,9 @@ struct ShrinkPlan: Sendable {
 /// resulting size delta. This is the entry point the UI calls.
 final class ShrinkEngine {
 
-    static let supportedExtensions: Set<String> = [
+    static let supportedExtensions: Set<String> = Set([
         "svg", "png", "gif", "jpg", "jpeg", "webp", "avif", "heic", "heif", "jxl",
-    ]
+    ]).union(NativeFormat.otherExtensions)
 
     /// The same set as `supportedExtensions`, expressed as UTTypes for
     /// `NSOpenPanel`. Kept adjacent to the extension list because the two must
@@ -118,6 +118,8 @@ final class ShrinkEngine {
     static let supportedContentTypes: [UTType] = [
         .svg, .png, .gif, .jpeg, .webP, .heic, .heif,
         UTType("public.avif"), UTType("public.jpeg-xl"),
+        // `NativeFormat.other`. Camera RAW is one supertype every maker's RAW conforms to.
+        .tiff, .bmp, UTType("com.adobe.photoshop-image"), .rawImage,
     ].compactMap { $0 }
 
     private let helperProvider: @Sendable (String) throws -> URL
@@ -205,7 +207,8 @@ final class ShrinkEngine {
     static func guardsGrowth(ofConversionFrom source: String, to target: String?, isSameFormat: Bool) -> Bool {
         guard !isSameFormat, let target = target?.lowercased() else { return false }
         let source = source.lowercased()
-        return growthGuardedTargets.contains(target) && target != source && !["heic", "heif"].contains(source)
+        return growthGuardedTargets.contains(target) && target != source
+            && NativeFormat(extension: source)?.alwaysConverts != true
     }
 
     /// Plan and execute in one call. The shape the CLI and most existing
@@ -558,6 +561,7 @@ final class ShrinkEngine {
             case .avif: route = ConversionRouter.route(native: native, rule: rules.avif, context: context)
             case .heic: route = ConversionRouter.route(native: native, rule: rules.heic, context: context)
             case .jxl: route = ConversionRouter.route(native: native, rule: rules.jxl, context: context)
+            case .other: route = ConversionRouter.route(native: native, rule: rules.other, context: context)
             }
         }
 
@@ -740,6 +744,10 @@ final class ShrinkEngine {
                 )
             case .jxl:
                 return try jxlCompressor(policy: policy, quality: quality)
+            case .other:
+                // Unreachable: `.other` has no Keep and no `TargetFormat` of its own, so the
+                // router never returns `.sameFormat(.other)`. Refused rather than guessed at.
+                throw ShrinkError.unsupportedFormat("raw")
             }
 
         case .direct(let target):

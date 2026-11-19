@@ -722,7 +722,7 @@ final class ShrinkEngine {
         case .sameFormat(let native):
             switch native {
             case .png:
-                return PNGCompressor(executable: try helperProvider("pngquant"))
+                return PNGCompressor(executable: try helperProvider("pngquant"), losslessPass: try? helperProvider("oxipng"))
             case .jpeg:
                 return JPEGCompressor(
                     executable: try helperProvider("cjpeg"), quality: quality.cjpegQuality
@@ -800,7 +800,7 @@ final class ShrinkEngine {
             case .png:
                 return IntermediateConversionCompressor(
                     intermediate: intermediate,
-                    downstream: PNGCompressor(executable: try helperProvider("pngquant")),
+                    downstream: PNGCompressor(executable: try helperProvider("pngquant"), losslessPass: try? helperProvider("oxipng")),
                     policy: policy,
                     resize: resize
                 )

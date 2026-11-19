@@ -73,6 +73,12 @@ targets:
           copyFiles:
             destination: wrapper
             subpath: Contents/Helpers
+      - path: vendor/compressors/oxipng
+        type: file
+        buildPhase:
+          copyFiles:
+            destination: wrapper
+            subpath: Contents/Helpers
       - path: vendor/compressors/gifsicle
         type: file
         buildPhase:

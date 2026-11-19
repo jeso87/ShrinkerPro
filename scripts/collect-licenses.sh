@@ -17,6 +17,9 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$ROOT/vendor/src"
 OUT="$ROOT/THIRD-PARTY-LICENSES.md"
 
+# shellcheck disable=SC1090
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
 [ -d "$SRC" ] || {
   echo "FAIL  $SRC missing — run ./scripts/build-compressors.sh first" >&2
   exit 1
@@ -47,6 +50,7 @@ COMPONENTS=(
   "brotli|1.2.0|MIT|libjxl/third_party/brotli/LICENSE|https://github.com/google/brotli/archive/028fb5a23661f123017c060daa546b55cf4bde29.tar.gz"
   "highway|1.2.0|Apache-2.0 or BSD-3-Clause|libjxl/third_party/highway/LICENSE-BSD3|https://github.com/google/highway/archive/457c891775a7397bdb0376bb1031e6e027af1c48.tar.gz"
   "skcms|96d9171 (2025-09-16)|BSD-3-Clause|libjxl/third_party/skcms/LICENSE|https://github.com/google/skcms/archive/96d9171c94b937a1b5f0293de7309ac16311b722.tar.gz"
+  "oxipng|10.2.1|MIT|oxipng/LICENSE|https://github.com/shssoichiro/oxipng/archive/refs/tags/v10.2.1.tar.gz"
   "svgo|4.1.0|MIT|svgo/package/LICENSE|https://registry.npmjs.org/svgo/-/svgo-4.1.0.tgz"
 )
 
@@ -85,6 +89,7 @@ HEADER
   cat <<'MIDDLE'
 | ssimulacra2 (from libjxl), Shrinker Studio only | 0.12.0 | BSD-3-Clause |
 | Rust crates compiled into pngquant, Little CMS among them | see below | MIT, Apache-2.0 and others |
+| Rust crates compiled into oxipng, libdeflate among them | see below | MIT, Apache-2.0 and others |
 | Sparkle | 2.9.6 | MIT |
 
 `ssimulacra2`, the image-quality scorer Shrinker Studio runs for "Looks the
@@ -92,9 +97,9 @@ same", is built from libjxl's `tools/` at the version above, with the libpng
 and mozjpeg listed here linked in statically, and ships in
 `Contents/Helpers/` beside cjxl. libjxl's notice below covers it.
 
-pngquant is written in Rust, and the crates it is built from are compiled
-into its executable. Each one's license is reproduced after the components
-below, every distinct text once with the crates it covers.
+pngquant and oxipng are written in Rust, and the crates each is built from
+are compiled into its executable. Each one's license is reproduced after the
+components below, every distinct text once with the crates it covers.
 
 Sparkle is embedded as a framework and its license is reproduced at the end
 of this file.
@@ -109,18 +114,33 @@ MIDDLE
     printf '```\n\n'
   done
 
-  # The crates pngquant was built from: every registry package in its pinned
-  # Cargo.lock that cargo actually downloaded (the lock also lists packages
-  # for other platforms and switched-off features, which are never fetched
-  # and so never built). Read from cargo's local registry, which
-  # build-compressors.sh populated, so this needs no network.
-  python3 - "$ROOT/vendor/pngquant-3.0.3-Cargo.lock" "${CARGO_HOME:-$HOME/.cargo}/registry/src" <<'CRATES' || exit 1
+  # The crates compiled into pngquant and oxipng: each one's normal
+  # (compiled-in) dependency graph as `cargo tree` resolves it, offline and
+  # --locked, for the target and features build-compressors.sh builds with.
+  # Build-only tools (cc, pkg-config and the like) are left out. Licenses are
+  # read from cargo's local registry, which the build populated. Cargo prunes
+  # that registry on its own, so a crate missing there fails this script
+  # rather than dropping out of the notice; `cargo fetch --locked` in
+  # vendor/src/<program> restores it.
+  CRATE_LIST="$(mktemp)"
+  trap 'rm -f "$CRATE_LIST"' EXIT
+  for build in "pngquant|static" "oxipng|binary,parallel"; do
+  program="${build%%|*}"
+  ( cd "$SRC/$program" && cargo tree -e normal --target aarch64-apple-darwin --no-default-features \
+      --features "${build#*|}" --prefix none --locked --offline ) \
+    | grep -v ' (/' | sed -E 's/ \(.*//' | sort -u >"$CRATE_LIST" \
+    || { echo "FAIL  cargo tree for $program — run ./scripts/build-compressors.sh first" >&2; exit 1; }
+  python3 - "$program" "$CRATE_LIST" "${CARGO_HOME:-$HOME/.cargo}/registry/src" <<'CRATES' || exit 1
 import glob, os, re, sys
-lock, registry = sys.argv[1], sys.argv[2]
+program, listing, registry = sys.argv[1], open(sys.argv[2]).read(), sys.argv[3]
 roots = sorted(glob.glob(os.path.join(registry, "*")))
 if not roots:
     sys.exit(f"FAIL  no cargo registry at {registry} -- run ./scripts/build-compressors.sh first")
-packages = re.findall(r'\[\[package\]\]\nname = "([^"]+)"\nversion = "([^"]+)"\nsource = "registry', open(lock).read())
+# `cargo tree` lines of "name vX.Y.Z"; path dependencies (pngquant's own
+# libimagequant, listed above as a component) carry their path and are skipped.
+packages = re.findall(r'^(\S+) v(\S+)$', listing, re.M)
+if not packages:
+    sys.exit(f"FAIL  cargo tree listed no crates for {program}")
 # A crate whose license is a component's already reproduced above, carried in
 # its vendored sources' headers rather than a file of its own.
 covered = {"libpng-sys": "libpng's vendored copy: the libpng License, reproduced above under libpng"}
@@ -128,13 +148,15 @@ texts, referenced = {}, []
 for name, version in packages:
     folder = next((os.path.join(r, f"{name}-{version}") for r in roots if os.path.isdir(os.path.join(r, f"{name}-{version}"))), None)
     if folder is None:
-        continue
+        sys.exit(f"FAIL  {name} {version} is not in {registry} -- run `cargo fetch --locked` in vendor/src/{program}")
     toml = open(os.path.join(folder, "Cargo.toml"), encoding="utf-8", errors="replace").read()
     declared = (re.search(r'^license\s*=\s*"([^"]+)"', toml, re.M) or [None, "see text"])[1]
     files = sorted(glob.glob(os.path.join(folder, "LICEN[CS]E*")) + glob.glob(os.path.join(folder, "COPYING*"))
                    + glob.glob(os.path.join(folder, "COPYRIGHT*")))
     # lcms2-sys keeps Little CMS's own license with the sources it vendors.
     files += sorted(glob.glob(os.path.join(folder, "vendor", "LICENSE*")) + glob.glob(os.path.join(folder, "vendor", "COPYING*")))
+    # libdeflate-sys keeps libdeflate's (MIT) with the C library it compiles in.
+    files += sorted(glob.glob(os.path.join(folder, "libdeflate", "COPYING*")))
     if not files and name in covered:
         referenced.append(f"{name} {version} ({declared}): {covered[name]}.")
         continue
@@ -142,9 +164,10 @@ for name, version in packages:
         sys.exit(f"FAIL  {name} {version} ({declared}) has no license file in {folder}")
     for path in files:
         text = open(path, encoding="utf-8", errors="replace").read().strip()
-        label = f"{name} {version}" + (" (Little CMS)" if "vendor" in os.path.relpath(path, folder) else "")
+        inner = os.path.dirname(os.path.relpath(path, folder))
+        label = f"{name} {version}" + {"vendor": " (Little CMS)", "libdeflate": " (libdeflate)"}.get(inner, "")
         texts.setdefault(text, []).append((label, declared, os.path.basename(path)))
-print("---\n\n## Rust crates compiled into pngquant\n")
+print(f"---\n\n## Rust crates compiled into {program}\n")
 print("Each distinct license text once, after the crates it covers.\n")
 for line in referenced:
     print("- " + line)
@@ -155,6 +178,7 @@ for text, users in texts.items():
     print("License: " + ", ".join(sorted({u[1] for u in users})) + "\n")
     print("```\n" + text + "\n```\n")
 CRATES
+  done
 
   printf -- '---\n\n## Sparkle 2.9.6\n\nLicense: MIT\nSource: https://github.com/sparkle-project/Sparkle/releases/tag/2.9.6\n\n```\n'
   cat <<'SPARKLE'

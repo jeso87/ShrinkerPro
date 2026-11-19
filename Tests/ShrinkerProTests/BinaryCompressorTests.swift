@@ -1,3 +1,4 @@
+import ImageIO
 import XCTest
 @testable import ShrinkerPro
 
@@ -119,6 +120,43 @@ final class BinaryCompressorTests: XCTestCase {
 
         try PNGCompressor(executable: try helper("pngquant")).compress(input: input, output: output)
         try assertShrunk(input, output, magic: [0x89, 0x50, 0x4E, 0x47])
+    }
+
+    /// oxipng after pngquant: smaller, and pixel for pixel pngquant's own result.
+    func testLosslessPassShrinksWithoutChangingAPixel() throws {
+        let input = try fixture("sample", "png")
+        let lossy = tempURL("png"), squeezed = tempURL("png")
+        defer { [lossy, squeezed].forEach { try? FileManager.default.removeItem(at: $0) } }
+
+        try PNGCompressor(executable: try helper("pngquant")).compress(input: input, output: lossy)
+        try PNGCompressor(executable: try helper("pngquant"), losslessPass: try helper("oxipng"))
+            .compress(input: input, output: squeezed)
+        try assertShrunk(lossy, squeezed, magic: [0x89, 0x50, 0x4E, 0x47])
+        XCTAssertEqual(try pixels(lossy), try pixels(squeezed), "the lossless pass changed the image")
+    }
+
+    func testAFailingLosslessPassLeavesPngquantsResult() throws {
+        let input = try fixture("sample", "png")
+        let plain = tempURL("png"), withBroken = tempURL("png")
+        defer { [plain, withBroken].forEach { try? FileManager.default.removeItem(at: $0) } }
+
+        try PNGCompressor(executable: try helper("pngquant")).compress(input: input, output: plain)
+        try PNGCompressor(executable: try helper("pngquant"), losslessPass: URL(fileURLWithPath: "/usr/bin/false"))
+            .compress(input: input, output: withBroken)
+        XCTAssertEqual(try Data(contentsOf: plain), try Data(contentsOf: withBroken))
+    }
+
+    /// Every pixel as 8-bit sRGB RGBA.
+    private func pixels(_ url: URL) throws -> [UInt8] {
+        let source = try XCTUnwrap(CGImageSourceCreateWithURL(url as CFURL, nil))
+        let image = try XCTUnwrap(CGImageSourceCreateImageAtIndex(source, 0, nil))
+        var bytes = [UInt8](repeating: 0, count: image.width * image.height * 4)
+        let context = try XCTUnwrap(CGContext(
+            data: &bytes, width: image.width, height: image.height, bitsPerComponent: 8,
+            bytesPerRow: image.width * 4, space: CGColorSpace(name: CGColorSpace.sRGB)!,
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+        context.draw(image, in: CGRect(x: 0, y: 0, width: image.width, height: image.height))
+        return bytes
     }
 
     func testGIFCompression() throws {

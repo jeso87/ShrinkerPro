@@ -35,6 +35,12 @@ PNGQUANT_LOCKFILE="$ROOT/vendor/pngquant-$PNGQUANT_VERSION-Cargo.lock"
 LIBPNG_VERSION=1.6.58
 LIBWEBP_VERSION=1.6.0
 
+# oxipng (MIT) is Studio's lossless PNG pass. Its release tag ships its own
+# Cargo.lock, so --locked pins the dependency graph without a vendored copy.
+# Default features minus "zopfli" (much slower for about 0.5% smaller), so
+# libdeflate is compiled in and the binary links only system libraries.
+OXIPNG_VERSION=10.2.1
+
 # cjxl reads PNG and JPEG input the same way cwebp does, so it reuses the
 # same static libpng and mozjpeg libjpeg rather than a second copy of each.
 # The three libraries it compiles in are pinned to the exact commits libjxl's
@@ -272,6 +278,20 @@ build_pngquant() {
   cp "$SRC/pngquant/target/aarch64-apple-darwin/release/pngquant" "$OUT/pngquant"
 }
 
+# ---------- oxipng (Rust, lossless PNG) ----------
+build_oxipng() {
+  echo "==> building oxipng"
+  fetch "https://github.com/shssoichiro/oxipng/archive/refs/tags/v$OXIPNG_VERSION.tar.gz" oxipng
+  if [ ! -f "$SRC/oxipng/Cargo.lock" ]; then
+    echo "FATAL: oxipng v$OXIPNG_VERSION's tag carries no Cargo.lock" >&2
+    exit 1
+  fi
+  pushd "$SRC/oxipng" >/dev/null
+  cargo build --release --target aarch64-apple-darwin --no-default-features --features binary,parallel --locked
+  popd >/dev/null
+  cp "$SRC/oxipng/target/aarch64-apple-darwin/release/oxipng" "$OUT/oxipng"
+}
+
 # ---------- libpng 1.6.58 (static, PNG input support for cwebp) ----------
 build_libpng() {
   echo "==> building libpng"
@@ -473,17 +493,24 @@ build_libjxl() {
   cp "$SRC/libjxl/build/tools/cjxl" "$OUT/cjxl"
 }
 
-build_mozjpeg
-build_gifsicle
-build_pngquant
-build_libpng
-build_libwebp
-build_libjxl
+# With arguments, build only those (e.g. `build-compressors.sh oxipng`).
+if [ "$#" -gt 0 ]; then
+  for name in "$@"; do "build_$name"; done
+else
+  build_mozjpeg
+  build_gifsicle
+  build_pngquant
+  build_oxipng
+  build_libpng
+  build_libwebp
+  build_libjxl
+fi
 
 echo
 echo "==> verifying architecture"
 "$ROOT/scripts/verify-arch.sh" "$OUT"
 echo
-for b in cjpeg gifsicle pngquant cwebp cjxl; do
+for b in cjpeg gifsicle pngquant oxipng cwebp cjxl; do
+  [ -f "$OUT/$b" ] || continue
   printf '%-10s %s\n' "$b" "$(lipo -archs "$OUT/$b")"
 done

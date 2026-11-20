@@ -24,13 +24,13 @@ struct DropZoneView: View {
                     // joining that the two cursive ones depend on.
                     .tracking(Self.needsRelaxedTracking ? 0 : -0.16)
                     .foregroundStyle(.primary)
-                // Sized to fit one line at the window's default 500pt
-                // width, which "…GIF and SVG" stopped doing when JXL
-                // joined the list: "⌘O" wrapped onto a line of its own.
-                // The no-break spaces keep "or press ⌘O" together at any
-                // width, and each translation glues its own phrase the
-                // same way, since most are too long for one line anyway.
-                Text("PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG — or\u{00A0}press\u{00A0}⌘O")
+                // Every format the app reads, so two lines at the window's
+                // default 500pt width (one stopped being enough when RAW,
+                // TIFF, PSD and BMP joined in 1.10). The no-break spaces
+                // keep "or press ⌘O" together at any width, so it never
+                // splits across the break, and each translation glues its
+                // own phrase the same way.
+                Text("PNG, JPG, HEIC, WebP, JXL, AVIF, GIF, SVG, RAW, TIFF, PSD, BMP — or\u{00A0}press\u{00A0}⌘O")
                     .font(.system(size: 12.5))
                     .foregroundStyle(.secondary)
             }

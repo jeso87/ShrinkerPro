@@ -11,6 +11,8 @@ struct ResultRow: Identifiable, Equatable {
     let originalBytes: Int
     let shrunkBytes: Int
     let savedPercent: Int
+    /// How the result has been turned by Rotate Left and Rotate Right, from the original.
+    var turn = PhotoTurn.identity
 
     /// `"3.1 MB → 1.2 MB"`, built with `ByteCountFormatter`'s `.file` count
     /// style so the numbers match what Finder would show for the same files.
@@ -669,6 +671,52 @@ final class AppModel: ObservableObject {
                 title: Self.notificationTitle(count: succeeded.count),
                 body: Self.notificationBody(for: succeeded)
             )
+        }
+    }
+
+    // MARK: Rotate
+
+    /// Whether Rotate Left and Rotate Right can rewrite this result: a still image whose
+    /// original is still on disk.
+    func canRotate(_ row: ResultRow) -> Bool {
+        RotatedSource.sessionFormat(forOutputExtension: row.output.pathExtension) != nil
+            && FileManager.default.fileExists(atPath: row.input.path)
+    }
+
+    /// Turns a result from its original: the original is turned and shrunk again, with this
+    /// session's settings, into the same file, in the same format. A failure leaves the file
+    /// as it was and says why.
+    func rotate(_ row: ResultRow, by change: (PhotoTurn) -> PhotoTurn) async {
+        guard let format = RotatedSource.sessionFormat(forOutputExtension: row.output.pathExtension) else { return }
+        let turn = change(row.turn)
+        var snapshot = settings.outputSettings
+        snapshot.sessionFormat = format
+        snapshot.maxDimension = sessionMaxDimension
+        snapshot.cropTarget = sessionCropTarget
+        if let sessionQuality { snapshot.quality = sessionQuality.settings }
+        let settingsSnapshot = snapshot
+        let engine = engine, input = row.input, output = row.output
+        do {
+            let result = try await Task.detached(priority: .userInitiated) {
+                let directory = FileManager.default.temporaryDirectory
+                    .appendingPathComponent("rotate-\(UUID().uuidString)", isDirectory: true)
+                try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+                defer { try? FileManager.default.removeItem(at: directory) }
+                let source = try RotatedSource.write(input, turn: turn, into: directory)
+                return try engine.shrink(try engine.plan(source, settings: settingsSnapshot).writing(to: output))
+            }.value
+            // Measured against the original, not the TIFF it went through.
+            let originalBytes = (try? input.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? row.originalBytes
+            let measured = ShrinkResult(input: input, output: output, originalBytes: originalBytes, shrunkBytes: result.shrunkBytes)
+            guard let index = rows.firstIndex(where: { $0.id == row.id }) else { return }
+            rows[index] = ResultRow(
+                input: input, output: output, originalBytes: originalBytes, shrunkBytes: result.shrunkBytes,
+                savedPercent: measured.savedPercent, turn: turn
+            )
+        } catch {
+            errorMessage = (error as? AppDisplayableError)?.localizedMessage
+                ?? (error as? LocalizedError)?.errorDescription
+                ?? error.localizedDescription
         }
     }
 

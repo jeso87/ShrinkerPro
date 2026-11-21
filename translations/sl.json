@@ -136,6 +136,8 @@
   "Reset": "Ponastavi",
   "Returns format, quality, max size and crop to the app's defaults": "Ponastavi obliko zapisa, kakovost, največjo velikost in obrezek na privzete vrednosti aplikacije",
   "Reveal": "Prikaži v aplikaciji Finder",
+  "Rotate Left": "Zasukaj v levo",
+  "Rotate Right": "Zasukaj v desno",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "Zasuk se vedno zapiše v samo sliko, zato fotografije v vsaki aplikaciji ostanejo pokončne, ne glede na izbrano možnost.",
   "SESSION SETTINGS": "NASTAVITVE SEJE",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "Datoteke SVG in GIF se vedno optimizirajo v svoji obliki zapisa. SVG je vektorski, GIF pa je običajno animiran — pretvorba bi vsakemu odvzela prav tisto, kar ga dela uporabnega.",

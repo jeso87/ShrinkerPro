@@ -127,6 +127,8 @@
   "Reset": "Resetovat",
   "Returns format, quality, max size and crop to the app's defaults": "Vrátí formát, kvalitu, maximální velikost a ořez na výchozí hodnoty aplikace",
   "Reveal": "Zobrazit ve Finderu",
+  "Rotate Left": "Otočit doleva",
+  "Rotate Right": "Otočit doprava",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "Otočení se vždy zapíše přímo do obrázku, takže fotky stojí rovně v každé aplikaci, ať zvolíte kteroukoli možnost.",
   "SESSION SETTINGS": "NASTAVENÍ RELACE",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "Soubory SVG a GIF se vždy optimalizují ve vlastním formátu. SVG je vektorové a GIF bývá animovaný — převodem by obojí přišlo o to, čím je užitečné.",

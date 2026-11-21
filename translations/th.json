@@ -109,6 +109,8 @@
   "Reset": "รีเซ็ต",
   "Returns format, quality, max size and crop to the app's defaults": "คืนค่ารูปแบบ คุณภาพ ขนาดสูงสุด และการครอบตัด กลับเป็นค่าเริ่มต้นของแอป",
   "Reveal": "แสดงใน Finder",
+  "Rotate Left": "หมุนซ้าย",
+  "Rotate Right": "หมุนขวา",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "การหมุนจะถูกนำไปใช้กับตัวรูปภาพเสมอ รูปถ่ายจึงตั้งตรงในทุกแอปไม่ว่าคุณจะเลือกตัวเลือกใด",
   "SESSION SETTINGS": "การตั้งค่าเซสชั่น",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "ไฟล์ SVG และ GIF จะถูกปรับให้เหมาะสมในรูปแบบเดิมเสมอ SVG เป็นเวกเตอร์ ส่วน GIF มักเป็นภาพเคลื่อนไหว การแปลงอย่างใดอย่างหนึ่งจะทำให้สิ่งที่ทำให้ไฟล์นั้นมีประโยชน์หายไป",

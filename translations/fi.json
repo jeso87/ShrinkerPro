@@ -118,6 +118,8 @@
   "Reset": "Palauta",
   "Returns format, quality, max size and crop to the app's defaults": "Palauttaa muodon, laadun, maksimikoon ja rajauksen apin oletusarvoihin",
   "Reveal": "Näytä Finderissa",
+  "Rotate Left": "Käännä vasemmalle",
+  "Rotate Right": "Käännä oikealle",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "Kierto kirjoitetaan aina itse kuvaan, joten valokuvat pysyvät oikein päin missä tahansa apissa, minkä vaihtoehdon valitsetkin.",
   "SESSION SETTINGS": "ISTUNNON ASETUKSET",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "SVG- ja GIF-tiedostot optimoidaan aina omassa muodossaan. SVG on vektorigrafiikkaa ja GIF yleensä animoitu — kumman tahansa muuntaminen hävittäisi juuri sen, mikä tekee siitä hyödyllisen.",

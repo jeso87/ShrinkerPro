@@ -18894,6 +18894,234 @@
           "stringUnit" : { "state" : "translated", "value" : "Shrinker Studio 視窗的配方中有自己的「儲存至」步驟。" }
         }
       }
+    },
+    "Rotate Left" : {
+      "comment" : "Result row menu item that turns the shrunk image a quarter turn counter-clockwise, made again from the original.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotate Left" }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تدوير لليسار" }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gira a l'esquerra" }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Otočit doleva" }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotér til venstre" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nach links drehen" }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Περιστροφή αριστερά" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Girar a la izquierda" }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "چرخش به چپ" }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Käännä vasemmalle" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pivoter à gauche" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "סיבוב שמאלה" }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zakreni ulijevo" }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Forgatás balra" }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Snúa til vinstri" }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ruota a sinistra" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "左に回転" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "왼쪽으로 회전" }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Roter mot venstre" }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Naar links draaien" }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Roter mot venstre" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Obróć w lewo" }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Girar para a Esquerda" }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rodar para a esquerda" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotire la stânga" }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Повернуть влево" }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Otočiť doľava" }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zasukaj v levo" }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotera åt vänster" }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "หมุนซ้าย" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sola Döndür" }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Повернути ліворуч" }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Xoay trái" }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "向左旋轉" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "向左旋转" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "向左旋轉" }
+        }
+      }
+    },
+    "Rotate Right" : {
+      "comment" : "Result row menu item that turns the shrunk image a quarter turn clockwise, made again from the original.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotate Right" }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "تدوير لليمين" }
+        },
+        "ca" : {
+          "stringUnit" : { "state" : "translated", "value" : "Gira a la dreta" }
+        },
+        "cs" : {
+          "stringUnit" : { "state" : "translated", "value" : "Otočit doprava" }
+        },
+        "da" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotér til højre" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nach rechts drehen" }
+        },
+        "el" : {
+          "stringUnit" : { "state" : "translated", "value" : "Περιστροφή δεξιά" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Girar a la derecha" }
+        },
+        "fa" : {
+          "stringUnit" : { "state" : "translated", "value" : "چرخش به راست" }
+        },
+        "fi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Käännä oikealle" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Pivoter à droite" }
+        },
+        "he" : {
+          "stringUnit" : { "state" : "translated", "value" : "סיבוב ימינה" }
+        },
+        "hr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zakreni udesno" }
+        },
+        "hu" : {
+          "stringUnit" : { "state" : "translated", "value" : "Forgatás jobbra" }
+        },
+        "is" : {
+          "stringUnit" : { "state" : "translated", "value" : "Snúa til hægri" }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Ruota a destra" }
+        },
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "右に回転" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "오른쪽으로 회전" }
+        },
+        "nb" : {
+          "stringUnit" : { "state" : "translated", "value" : "Roter mot høyre" }
+        },
+        "nl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Naar rechts draaien" }
+        },
+        "nn" : {
+          "stringUnit" : { "state" : "translated", "value" : "Roter mot høgre" }
+        },
+        "pl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Obróć w prawo" }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Girar para a Direita" }
+        },
+        "pt-PT" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rodar para a direita" }
+        },
+        "ro" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotire la dreapta" }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Повернуть вправо" }
+        },
+        "sk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Otočiť doprava" }
+        },
+        "sl" : {
+          "stringUnit" : { "state" : "translated", "value" : "Zasukaj v desno" }
+        },
+        "sv" : {
+          "stringUnit" : { "state" : "translated", "value" : "Rotera åt höger" }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "หมุนขวา" }
+        },
+        "tr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Sağa Döndür" }
+        },
+        "uk" : {
+          "stringUnit" : { "state" : "translated", "value" : "Повернути праворуч" }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Xoay phải" }
+        },
+        "zh-HK" : {
+          "stringUnit" : { "state" : "translated", "value" : "向右旋轉" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "向右旋转" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "向右旋轉" }
+        }
+      }
     }
   },
   "version" : "1.0"

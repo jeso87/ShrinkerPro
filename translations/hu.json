@@ -118,6 +118,8 @@
   "Reset": "Visszaállítás",
   "Returns format, quality, max size and crop to the app's defaults": "Visszaállítja a formátumot, a minőséget, a max. méretet és a vágást az app alapértékeire",
   "Reveal": "Megjelenítés a Finderben",
+  "Rotate Left": "Forgatás balra",
+  "Rotate Right": "Forgatás jobbra",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "Az elforgatás mindig magára a képre kerül, így a fényképek bármelyik appban állva maradnak, bármelyik lehetőséget választja.",
   "SESSION SETTINGS": "MUNKAMENET BEÁLLÍTÁSAI",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "Az SVG- és GIF-fájlok mindig a saját formátumukban lesznek optimalizálva. Az SVG vektoros, a GIF pedig általában animált — bármelyik átalakítása éppen azt veszítené el, amitől hasznos.",

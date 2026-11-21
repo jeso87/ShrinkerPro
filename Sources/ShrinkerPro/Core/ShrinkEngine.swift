@@ -725,7 +725,8 @@ final class ShrinkEngine {
                 return PNGCompressor(executable: try helperProvider("pngquant"), losslessPass: try? helperProvider("oxipng"))
             case .jpeg:
                 return JPEGCompressor(
-                    executable: try helperProvider("cjpeg"), quality: quality.cjpegQuality
+                    executable: try helperProvider("cjpeg"), quality: quality.cjpegQuality,
+                    fullChroma: quality.cjpegFullChroma
                 )
             case .webp:
                 return WebPCompressor(
@@ -783,7 +784,8 @@ final class ShrinkEngine {
                 return IntermediateConversionCompressor(
                     intermediate: intermediate,
                     downstream: JPEGCompressor(
-                        executable: try helperProvider("cjpeg"), quality: quality.cjpegQuality
+                        executable: try helperProvider("cjpeg"), quality: quality.cjpegQuality,
+                    fullChroma: quality.cjpegFullChroma
                     ),
                     policy: policy,
                     resize: resize

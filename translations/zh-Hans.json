@@ -109,6 +109,8 @@
   "Reset": "还原",
   "Returns format, quality, max size and crop to the app's defaults": "将格式、质量、最大尺寸和裁剪还原为 App 的默认值",
   "Reveal": "在访达中显示",
+  "Rotate Left": "向左旋转",
+  "Rotate Right": "向右旋转",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "旋转始终会应用到图片本身，因此无论你选哪一项，照片在任何 App 中都保持正立。",
   "SESSION SETTINGS": "会话设置",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "SVG 和 GIF 文件始终以各自的格式优化。SVG 是矢量图，GIF 通常是动画，转换任何一种都会失去它们的用处。",

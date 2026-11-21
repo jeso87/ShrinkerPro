@@ -31,12 +31,18 @@ struct JPEGCompressor: Compressor {
     /// JPEG output byte-identical to every build shipped before quality was
     /// selectable.
     var quality: Int? = nil
+    /// Colour at full resolution: `-sample 1x1`, after `-quality`, which sets subsampling as a
+    /// side effect and would otherwise undo it.
+    var fullChroma = false
 
     func compress(input: URL, output: URL) throws {
         // Switches precede the output and input operands, per cjpeg's usage.
         var arguments: [String] = []
         if let quality {
             arguments += ["-quality", "\(quality)"]
+        }
+        if fullChroma {
+            arguments += ["-sample", "1x1"]
         }
         arguments += ["-outfile", output.path, input.path]
 

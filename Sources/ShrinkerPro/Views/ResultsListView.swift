@@ -27,6 +27,7 @@ struct ResultsListView: View {
 
 private struct ResultRowView: View {
     let row: ResultRow
+    @EnvironmentObject private var model: AppModel
     @State private var isHovering = false
 
     /// `−62%` for a saving, `+62%` for a file that grew. `savedPercent` can
@@ -94,6 +95,22 @@ private struct ResultRowView: View {
         // Drag the shrunk file straight into Finder, Mail or an upload field.
         .onDrag { FileDragOut.provider(for: row.output) }
         .onHover { isHovering = $0 }
+        .contextMenu {
+            Button(String(localized: "Reveal",
+                          comment: "Result row button that reveals the shrunk file in Finder."),
+                   action: reveal)
+            if model.canRotate(row) {
+                Divider()
+                Button(String(localized: "Rotate Left", comment: "Result row menu item that turns the shrunk image a quarter turn counter-clockwise, made again from the original."),
+                       systemImage: "rotate.left") {
+                    Task { await model.rotate(row) { $0.rotatedLeft } }
+                }
+                Button(String(localized: "Rotate Right", comment: "Result row menu item that turns the shrunk image a quarter turn clockwise, made again from the original."),
+                       systemImage: "rotate.right") {
+                    Task { await model.rotate(row) { $0.rotatedRight } }
+                }
+            }
+        }
         // The full path is no longer displayed in the row itself — carried
         // here instead, since a user comparing two same-named files written
         // to different folders (or checking where a redirected save landed)

@@ -42,6 +42,10 @@ struct QualitySettings: Equatable, Sendable {
     /// Not consulted when cjxl is handed a JPEG: that path transcodes the
     /// JPEG losslessly and has no quality to set — see `JXLCompressor`.
     var cjxlQuality: Int
+    /// cjpeg writes colour at full resolution (4:4:4, `-sample 1x1`) instead of its default
+    /// 4:2:0. Off everywhere in the app; Studio turns it on when a backdrop must stay exactly
+    /// white, which 4:2:0 can't promise below quality 80.
+    var cjpegFullChroma = false
 }
 
 /// The user-facing quality choice, in the app and as the CLI's `--quality`.

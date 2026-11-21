@@ -109,6 +109,8 @@
   "Reset": "リセット",
   "Returns format, quality, max size and crop to the app's defaults": "形式、品質、最大サイズ、切り取りをAppのデフォルトに戻します",
   "Reveal": "Finderに表示",
+  "Rotate Left": "左に回転",
+  "Rotate Right": "右に回転",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "回転は常に画像そのものに適用されるため、どれを選んでも写真はどのAppでも正しい向きで表示されます。",
   "SESSION SETTINGS": "セッション設定",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "SVGとGIFのファイルは常に元の形式のまま最適化されます。SVGはベクター、GIFはたいていアニメーションで、変換するとその利点が失われます。",

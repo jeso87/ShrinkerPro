@@ -118,6 +118,8 @@
   "Reset": "Sıfırla",
   "Returns format, quality, max size and crop to the app's defaults": "Formatı, kaliteyi, en büyük boyutu ve kırpmayı uygulamanın saptanmış değerlerine döndürür",
   "Reveal": "Finder’da Göster",
+  "Rotate Left": "Sola Döndür",
+  "Rotate Right": "Sağa Döndür",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "Döndürme her zaman görüntünün kendisine uygulanır; bu yüzden hangi seçeneği seçerseniz seçin fotoğraflar her uygulamada dik durur.",
   "SESSION SETTINGS": "OTURUM AYARLARI",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "SVG ve GIF dosyaları her zaman kendi formatlarında optimize edilir. SVG vektöreldir, GIF ise genellikle canlandırmalıdır — ikisini de dönüştürmek onları yararlı kılan şeyi yok eder.",

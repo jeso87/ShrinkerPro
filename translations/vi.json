@@ -109,6 +109,8 @@
   "Reset": "Đặt lại",
   "Returns format, quality, max size and crop to the app's defaults": "Đưa định dạng, chất lượng, kích cỡ tối đa và cắt xén về mặc định của ứng dụng",
   "Reveal": "Hiển thị trong Finder",
+  "Rotate Left": "Xoay trái",
+  "Rotate Right": "Xoay phải",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "Xoay luôn được áp dụng lên chính hình ảnh, nên ảnh vẫn đứng thẳng trong mọi ứng dụng dù bạn chọn tùy chọn nào.",
   "SESSION SETTINGS": "CÀI ĐẶT PHIÊN",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "Tệp SVG và GIF luôn được tối ưu trong chính định dạng của chúng. SVG là vector, còn GIF thường là ảnh động — chuyển đổi một trong hai sẽ làm mất đi thứ khiến chúng hữu ích.",

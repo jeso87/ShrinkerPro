@@ -118,6 +118,8 @@
   "Reset": "بازنشانی",
   "Returns format, quality, max size and crop to the app's defaults": "قالب، کیفیت، حداکثر اندازه و برش را به پیش‌فرض‌های برنامه بازمی‌گرداند",
   "Reveal": "نمایش در Finder",
+  "Rotate Left": "چرخش به چپ",
+  "Rotate Right": "چرخش به راست",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "چرخش همیشه روی خود تصویر اعمال می‌شود، بنابراین هر گزینه‌ای را که انتخاب کنید عکس‌ها در هر برنامه‌ای در جهت درست می‌مانند.",
   "SESSION SETTINGS": "تنظیمات جلسه",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "فایل‌های SVG و GIF همیشه در قالب خودشان بهینه می‌شوند. SVG برداری است و GIF معمولاً متحرک — تبدیل هر کدام همان چیزی را از بین می‌برد که آن را مفید می‌کند.",

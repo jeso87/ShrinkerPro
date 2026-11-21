@@ -127,6 +127,8 @@
   "Reset": "איפוס",
   "Returns format, quality, max size and crop to the app's defaults": "מחזיר את הפורמט, האיכות, הגודל המרבי והחיתוך לברירות המחדל של היישום",
   "Reveal": "הצגה ב-Finder",
+  "Rotate Left": "סיבוב שמאלה",
+  "Rotate Right": "סיבוב ימינה",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "הסיבוב מוחל תמיד על התמונה עצמה, ולכן תצלומים נשארים זקופים בכל יישום, ללא קשר לאפשרות הנבחרת.",
   "SESSION SETTINGS": "הגדרות ההפעלה",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "קבצי SVG ו-GIF תמיד עוברים מיטוב בפורמט שלהם. פורמט SVG הוא וקטורי, ו-GIF הוא בדרך כלל מונפש — המרה של כל אחד מהם תאבד בדיוק את מה שמועיל בו.",

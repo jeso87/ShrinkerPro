@@ -118,6 +118,8 @@
   "Reset": "Endurstilla",
   "Returns format, quality, max size and crop to the app's defaults": "Setur snið, gæði, hámarksstærð og tilskurð aftur á sjálfgefin gildi forritsins",
   "Reveal": "Sýna í Finder",
+  "Rotate Left": "Snúa til vinstri",
+  "Rotate Right": "Snúa til hægri",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "Snúningi er alltaf beitt á myndina sjálfa, svo að ljósmyndir standa uppréttar í hvaða forriti sem er, sama hvaða valkost þú velur.",
   "SESSION SETTINGS": "LOTUSTILLINGAR",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "SVG- og GIF-skrár eru alltaf bestaðar á sínu eigin sniði. SVG er vigursnið og GIF er yfirleitt hreyfimynd — að umbreyta hvoru sem er myndi eyða því sem gerir það gagnlegt.",

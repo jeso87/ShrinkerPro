@@ -154,6 +154,8 @@
   "Reset": "إعادة تعيين",
   "Returns format, quality, max size and crop to the app's defaults": "يعيد التنسيق والجودة والحد الأقصى للحجم والاقتصاص إلى القيم الافتراضية للتطبيق",
   "Reveal": "إظهار في فايندر",
+  "Rotate Left": "تدوير لليسار",
+  "Rotate Right": "تدوير لليمين",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "يُطبَّق الدوران على الصورة نفسها دائمًا، فتبقى الصور معتدلة في أي تطبيق أيًا كان الخيار الذي تختاره.",
   "SESSION SETTINGS": "إعدادات الجلسة",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "تُحسَّن ملفات SVG وGIF دائمًا بتنسيقها الأصلي. فـ SVG متجهي، وGIF متحرك في الغالب — وتحويل أي منهما يُفقده ما يجعله مفيدًا.",

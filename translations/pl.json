@@ -136,6 +136,8 @@
   "Reset": "Wyzeruj",
   "Returns format, quality, max size and crop to the app's defaults": "Przywraca format, jakość, maksymalny rozmiar i kadrowanie do wartości domyślnych aplikacji",
   "Reveal": "Pokaż w Finderze",
+  "Rotate Left": "Obróć w lewo",
+  "Rotate Right": "Obróć w prawo",
   "Rotation is always applied to the image itself, so photos stay upright in any app whichever option you choose.": "Obrót jest zawsze zapisywany w samym obrazie, więc zdjęcia stoją prosto w każdej aplikacji, niezależnie od wybranej opcji.",
   "SESSION SETTINGS": "USTAWIENIA SESJI",
   "SVG and GIF files are always optimised in their own format. SVG is vector, and GIF is usually animated — converting either would lose what makes it useful.": "Pliki SVG i GIF są zawsze optymalizowane we własnym formacie. SVG jest wektorowy, a GIF zwykle animowany — konwersja odebrałaby im to, co czyni je przydatnymi.",

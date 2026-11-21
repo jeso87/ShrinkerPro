@@ -83,6 +83,42 @@ final class AppModelTests: XCTestCase {
     }
 
     /// Settings ▸ Where ▸ Ask each time: the drop lands in the folder picked for it.
+    /// Rotate Right makes the result again from the original, turned, into the same file and
+    /// format; Rotate Left takes it back.
+    func testRotateMakesTheResultAgainTurned() async throws {
+        let (model, _) = try makeModel()
+        let file = try stagedPNG()
+        defer { try? FileManager.default.removeItem(at: file.deletingLastPathComponent()) }
+        await model.process(urls: [file])
+        let row = try XCTUnwrap(model.rows.first)
+        XCTAssertTrue(model.canRotate(row))
+        let before = try XCTUnwrap(ImageMetadata.header(of: row.output).pixelSize)
+
+        await model.rotate(row) { $0.rotatedRight }
+        let turned = try XCTUnwrap(model.rows.first)
+        XCTAssertNil(model.errorMessage)
+        XCTAssertEqual(turned.output, row.output, "the same file")
+        XCTAssertEqual(turned.output.pathExtension, "png", "in the same format")
+        XCTAssertEqual(turned.turn, PhotoTurn(quarters: 1))
+        XCTAssertEqual(turned.originalBytes, row.originalBytes, "measured against the original")
+        let after = try XCTUnwrap(ImageMetadata.header(of: turned.output).pixelSize)
+        XCTAssertEqual(after.width, before.height)
+        XCTAssertEqual(after.height, before.width)
+
+        await model.rotate(turned) { $0.rotatedLeft }
+        XCTAssertEqual(model.rows.first?.turn, .identity)
+        XCTAssertEqual(ImageMetadata.header(of: row.output).pixelSize, before)
+        let leftovers = try FileManager.default.contentsOfDirectory(atPath: file.deletingLastPathComponent().path)
+        XCTAssertFalse(leftovers.contains { $0.hasSuffix(".tiff") }, "the rotated source never lands beside the original")
+    }
+
+    func testRotateLeavesAnimatedAndVectorFormatsAlone() {
+        XCTAssertNil(RotatedSource.sessionFormat(forOutputExtension: "gif"))
+        XCTAssertNil(RotatedSource.sessionFormat(forOutputExtension: "svg"))
+        XCTAssertEqual(RotatedSource.sessionFormat(forOutputExtension: "JPG"), .jpeg)
+        XCTAssertEqual(RotatedSource.sessionFormat(forOutputExtension: "heif"), .heic)
+    }
+
     func testAskEachTimeSavesIntoTheFolderPickedForTheDrop() async throws {
         let (model, settings) = try makeModel()
         settings.saveLocation = .askEachTime

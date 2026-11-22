@@ -4,6 +4,60 @@ Notable changes per release. Downloads and signed artifacts are on the
 [releases page](https://github.com/jeso87/ShrinkerPro/releases); existing
 installs are offered updates automatically by Sparkle.
 
+## 1.11.0 — 2026-11-22
+
+### Added
+
+**Rotate Left and Rotate Right in Shrinker Pro.** Right-click a result to
+turn it a quarter turn. The result is made again from the original, turned,
+into the same file and format, so turning it four times costs nothing.
+
+**Rotate & straighten.** Studio's Straighten step can also turn photos a
+quarter or half turn and flip them, for the whole recipe or one photo.
+Rotate Left (⌘L), Rotate Right (⌘R), Flip Horizontal and Flip Vertical are
+in the Edit menu and on each photo's row. A photo's hand crop and hand
+redactions turn with it.
+
+**Turn each photo upright.** Faces and text decide which way is up; a photo
+where that isn't clear is left alone. Rotate Upright (⇧⌘U) does it for the
+selection. In testing it got 228 of 232 sideways and upside-down photos
+right and none wrong.
+
+**Remove background** (macOS 15 or later). Apple's on-device cutout puts the
+subject on white, black, a colour or transparency, with a Sharp, Soft or
+Softer edge and an optional Soft or Contact shadow. With White, the written
+JPEG or PNG is checked: every backdrop pixel must decode as exactly
+255, 255, 255, and a JPEG that misses goes up a quality step until it holds.
+**Only whiten the backdrop** makes a near-white backdrop exactly white and
+never touches the product. Each photo can keep its own background.
+
+**Destinations.** 21 marketplaces, social networks, camera clubs, stock
+libraries and print sizes, each rule with its published source and the day
+it was checked. Start from a Destination sets up a whole recipe; the Check
+for step marks every written file pass, warn or fail, on its row and in the
+export summary.
+
+**Frame the subject** crops, or pads, so the subject fills a set share of
+the frame. **Fit inside** resizes into a box, such as a projector's
+1920 × 1080, whichever way the photo is turned.
+
+**Round the outside too.** A rounded border can round its outer corners as
+well, with the corners outside it transparent (white for JPEG).
+
+**Social crops** add Instagram grid (1080 × 1440), Threads (1440 × 1920),
+TikTok photo (1080 × 1920) and Facebook square; Facebook post is now
+1080 × 1350.
+
+**Shortcuts:** Rotate Images and Remove Background.
+
+### Fixed
+
+- A rare stall when many files were compressed at once: compressors are now
+  started and waited on directly, so a busy machine can't leave one hanging.
+- The Responsive set leaves out an extra format when it comes out no smaller
+  than the recipe's own.
+- The drop area lists every format Shrinker Pro reads.
+
 ## 1.10.0 — 2026-11-19
 
 ### Added

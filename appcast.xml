@@ -3,6 +3,628 @@
     <channel>
         <title>Shrinker Pro</title>
         <item>
+            <title>1.11.0</title>
+            <pubDate>Sun, 22 Nov 2026 16:29:47 -0500</pubDate>
+            <sparkle:version>21</sparkle:version>
+            <sparkle:shortVersionString>1.11.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Rotate Left and Rotate Right.** Right-click a result to turn it. It's made again from the original, so turning it never costs quality.
+- **Every format it reads** is now listed where you drop files.
+- **Steadier with big batches.** A rare stall while compressing many files at once is fixed.
+
+### Shrinker Studio
+
+- **Rotate & straighten.** Turn photos a quarter or half turn, or flip them, for the whole recipe or just the selected photos (⌘L and ⌘R), as well as levelling the horizon.
+- **Turn each photo upright.** Faces and text decide which way is up. A photo where that isn't clear is left alone. Rotate Upright does it for the selection.
+- **Remove background** (macOS 15 or later). The subject is cut out on your Mac and put on white, black, a colour or transparency, with an optional shadow. A white backdrop stays exactly 255, 255, 255 in JPEG and PNG.
+- **Only whiten the backdrop**, for products already shot on near-white: the product is never touched.
+- **Check for a destination.** 21 marketplaces, social networks, camera clubs, stock libraries and print sizes. Start a recipe from one, and every file is marked pass, warn or fail against its published rules.
+- **Frame the subject** so it fills a set share of the frame, and **Fit inside** a box such as a club projector's 1920 × 1080.
+- **Rounded borders** can round the outside too, with clear corners.
+- **New social crops:** Instagram grid, Threads, TikTok photo and Facebook square. Facebook post is now 1080 × 1350.
+- **Shortcuts:** Rotate Images and Remove Background.
+]]></description>
+            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **التدوير لليسار ولليمين.** انقر بزر الماوس الأيمن على نتيجة لتدويرها. تُصنع من جديد من الأصل، لذا لا يكلّف التدوير أي جودة.
+- **كل التنسيقات التي يقرؤها** تظهر الآن حيث تُفلت الملفات.
+- **أكثر ثباتًا مع الدفعات الكبيرة.** أُصلح توقف نادر عند ضغط ملفات كثيرة معًا.
+
+### Shrinker Studio
+
+- **التدوير والتقويم.** دوّر الصور ربع دورة أو نصف دورة أو اقلبها، للوصفة كلها أو للصور المحددة فقط (⌘L و⌘R)، إلى جانب تقويم الأفق.
+- **تدوير كل صورة إلى وضعها الصحيح.** الوجوه والنصوص تحدد الاتجاه الصحيح. تُترك الصورة كما هي إذا لم يكن ذلك واضحًا. «تدوير إلى الوضع الصحيح» يفعل ذلك للتحديد.
+- **إزالة الخلفية** (macOS 15 أو أحدث). يُقص الموضوع على جهاز Mac ويوضع على الأبيض أو الأسود أو لون أو شفافية، مع ظل إن شئت. تبقى الخلفية البيضاء 255، 255، 255 تمامًا في JPEG وPNG.
+- **تبييض الخلفية فقط**، للمنتجات المصوّرة على خلفية شبه بيضاء: لا يُمس المنتج أبدًا.
+- **التحقق من أجل وجهة.** 21 متجرًا إلكترونيًا وشبكة اجتماعية ونادي تصوير ومكتبة صور ومقاس طباعة. ابدأ وصفة من وجهة، وتُعلَّم كل ملف ناجحًا أو تحذيرًا أو راسبًا وفق قواعدها المنشورة.
+- **تأطير الموضوع** ليملأ حصة ثابتة من الإطار، و**الاحتواء ضمن** إطار مثل 1920 × 1080 لجهاز عرض نادٍ.
+- **الحدود المستديرة** يمكن أن تستدير من الخارج أيضًا، بزوايا شفافة.
+- **قصّات جديدة لوسائل التواصل:** شبكة Instagram وThreads وصورة TikTok وFacebook مربع. صار منشور Facebook بمقاس 1080 × 1350.
+- **الاختصارات:** تدوير الصور وإزالة الخلفية.]]></description>
+            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Gira a l’esquerra i a la dreta.** Fes clic amb el botó dret en un resultat per girar-lo. Es torna a fer a partir de l’original, així que girar-lo mai no costa qualitat.
+- **Tots els formats que llegeix** apareixen ara on deixes anar els fitxers.
+- **Més estable amb lots grans.** S’ha corregit un bloqueig poc freqüent en comprimir molts fitxers alhora.
+
+### Shrinker Studio
+
+- **Gira i redreça.** Gira les fotos un quart o mitja volta, o inverteix-les, per a tota la recepta o només per a les fotos seleccionades (⌘L i ⌘R), a més de redreçar l’horitzó.
+- **Posa cada foto dreta.** Les cares i el text decideixen cap on és amunt. Una foto en què no quedi clar es deixa tal com és. «Posa dreta» ho fa per a la selecció.
+- **Elimina el fons** (macOS 15 o posterior). El subjecte es retalla al Mac i es posa sobre blanc, negre, un color o transparència, amb ombra si vols. Un fons blanc es manté exactament a 255, 255, 255 en JPEG i PNG.
+- **Només blanqueja el fons**, per a productes ja fotografiats sobre gairebé blanc: el producte no es toca mai.
+- **Comprova per a una destinació.** 21 botigues en línia, xarxes socials, clubs de fotografia, bancs d’imatges i mides d’impressió. Comença una recepta des d’una destinació, i cada fitxer es marca com a correcte, avís o incorrecte segons les regles publicades.
+- **Enquadra el subjecte** perquè ompli una part fixa de l’enquadrament, i **encaixa en** un marc com els 1920 × 1080 del projector d’un club.
+- **Les vores arrodonides** també es poden arrodonir per fora, amb les cantonades transparents.
+- **Nous retalls per a xarxes socials:** graella d’Instagram, Threads, foto de TikTok i Facebook quadrat. La publicació de Facebook passa a 1080 × 1350.
+- **Dreceres:** Gira les imatges i Elimina el fons.]]></description>
+            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Otočit doleva a doprava.** Klikněte na výsledek pravým tlačítkem a otočte ho. Vytvoří se znovu z originálu, takže otáčení nikdy nestojí kvalitu.
+- **Všechny formáty, které čte,** jsou teď uvedeny tam, kam pouštíte soubory.
+- **Stabilnější u velkých dávek.** Opraveno vzácné zaseknutí při komprimaci mnoha souborů najednou.
+
+### Shrinker Studio
+
+- **Otočit a narovnat.** Otáčejte fotky o čtvrt nebo půl otáčky nebo je překlápějte, pro celý recept nebo jen vybrané fotky (⌘L a ⌘R), vedle narovnání horizontu.
+- **Otočit každou fotku správně.** Obličeje a text rozhodnou, kde je nahoře. Fotka, u které to není jasné, zůstane, jak je. „Otočit správně“ to udělá pro výběr.
+- **Odstranit pozadí** (macOS 15 nebo novější). Objekt se vyřízne na vašem Macu a umístí na bílou, černou, barvu nebo průhlednost, volitelně se stínem. Bílé pozadí zůstane v JPEG i PNG přesně 255, 255, 255.
+- **Jen vybělit pozadí**, pro produkty už vyfocené na téměř bílé: produktu se to nikdy nedotkne.
+- **Kontrolovat pro cíl.** 21 tržišť, sociálních sítí, fotoklubů, fotobank a tiskových formátů. Začněte recept od cíle a každý soubor se označí jako vyhovuje, varování nebo nevyhovuje podle jeho zveřejněných pravidel.
+- **Zarámovat objekt**, aby vyplnil pevný podíl záběru, a **vejít se do** rámečku, jako je 1920 × 1080 klubového projektoru.
+- **Zaoblené rámečky** mohou být zaoblené i zvenku, s průhlednými rohy.
+- **Nové ořezy pro sociální sítě:** mřížka Instagramu, Threads, fotka na TikTok a Facebook čtverec. Příspěvek na Facebook má nyní 1080 × 1350.
+- **Zkratky:** Otočit obrázky a Odstranit pozadí.]]></description>
+            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Rotér til venstre og højre.** Højreklik på et resultat for at rotere det. Det laves igen ud fra originalen, så rotation koster aldrig kvalitet.
+- **Alle formater, det læser,** står nu der, hvor du slipper filerne.
+- **Mere stabil med store bunker.** En sjælden fastlåsning ved komprimering af mange filer på én gang er rettet.
+
+### Shrinker Studio
+
+- **Rotér og ret op.** Rotér fotos en kvart eller halv omgang, eller spejlvend dem, for hele opskriften eller kun de valgte fotos (⌘L og ⌘R), ud over at rette horisonten op.
+- **Vend hvert foto rigtigt.** Ansigter og tekst afgør, hvad der er op. Et foto, hvor det ikke er tydeligt, forbliver som det er. “Vend rigtigt” gør det for markeringen.
+- **Fjern baggrund** (macOS 15 eller nyere). Motivet frilægges på din Mac og lægges på hvid, sort, en farve eller gennemsigtighed, med skygge hvis du vil. En hvid baggrund forbliver præcis 255, 255, 255 i JPEG og PNG.
+- **Gør kun baggrunden hvid**, til produkter, der allerede er fotograferet på næsten hvid: Produktet røres aldrig.
+- **Tjek for en destination.** 21 markedspladser, sociale netværk, fotoklubber, billedbureauer og printstørrelser. Start en opskrift fra en destination, og hver fil markeres som bestået, advarsel eller ikke bestået efter dens offentliggjorte regler.
+- **Indram motivet**, så det fylder en fast andel af billedet, og **tilpas til** en boks som en klubprojektors 1920 × 1080.
+- **Afrundede rammer** kan også afrundes udvendigt, med gennemsigtige hjørner.
+- **Nye beskæringer til sociale medier:** Instagram-gitter, Threads, TikTok-foto og Facebook kvadratisk. Facebook-opslag er nu 1080 × 1350.
+- **Genveje:** Rotér billeder og Fjern baggrund.]]></description>
+            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Nach links und rechts drehen.** Klicke mit der rechten Maustaste auf ein Ergebnis, um es zu drehen. Es wird neu aus dem Original erstellt, also kostet das Drehen nie Qualität.
+- **Jedes Format, das es liest,** steht jetzt dort, wo du Dateien ablegst.
+- **Stabiler bei großen Stapeln.** Ein seltenes Hängenbleiben beim Komprimieren vieler Dateien gleichzeitig ist behoben.
+
+### Shrinker Studio
+
+- **Drehen & begradigen.** Drehe Fotos um eine Viertel- oder halbe Drehung oder spiegle sie, für das ganze Rezept oder nur die ausgewählten Fotos (⌘L und ⌘R), zusätzlich zum Ausrichten des Horizonts.
+- **Jedes Foto aufrecht drehen.** Gesichter und Text entscheiden, wo oben ist. Ist das nicht eindeutig, bleibt das Foto, wie es ist. „Aufrecht drehen“ erledigt das für die Auswahl.
+- **Hintergrund entfernen** (macOS 15 oder neuer). Das Motiv wird auf deinem Mac freigestellt und auf Weiß, Schwarz, eine Farbe oder Transparenz gelegt, auf Wunsch mit Schatten. Ein weißer Hintergrund bleibt in JPEG und PNG genau 255, 255, 255.
+- **Nur den Hintergrund aufhellen**, für Produkte, die schon auf fast Weiß fotografiert sind: Das Produkt wird nie verändert.
+- **Prüfen für ein Ziel.** 21 Marktplätze, soziale Netzwerke, Fotoclubs, Bildagenturen und Druckgrößen. Starte ein Rezept von einem Ziel aus, und jede Datei wird nach dessen veröffentlichten Regeln als bestanden, Warnung oder nicht bestanden markiert.
+- **Motiv einrahmen**, damit es einen festen Anteil des Bilds füllt, und **Einpassen** in eine Box wie 1920 × 1080 für den Beamer eines Clubs.
+- **Abgerundete Rahmen** können auch außen abgerundet sein, mit transparenten Ecken.
+- **Neue Social-Media-Zuschnitte:** Instagram-Raster, Threads, TikTok-Foto und Facebook quadratisch. Facebook-Beitrag ist jetzt 1080 × 1350.
+- **Kurzbefehle:** Bilder drehen und Hintergrund entfernen.]]></description>
+            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Περιστροφή αριστερά και δεξιά.** Κάντε δεξί κλικ σε ένα αποτέλεσμα για να το περιστρέψετε. Ξαναγίνεται από το πρωτότυπο, οπότε η περιστροφή δεν κοστίζει ποτέ σε ποιότητα.
+- **Κάθε μορφή που διαβάζει** εμφανίζεται πλέον εκεί που αφήνετε τα αρχεία.
+- **Πιο σταθερό με μεγάλες παρτίδες.** Διορθώθηκε ένα σπάνιο κόλλημα κατά τη συμπίεση πολλών αρχείων μαζί.
+
+### Shrinker Studio
+
+- **Περιστροφή και ίσιωμα.** Περιστρέψτε φωτογραφίες κατά ένα τέταρτο ή μισή στροφή ή αναστρέψτε τες, για όλη τη συνταγή ή μόνο τις επιλεγμένες φωτογραφίες (⌘L και ⌘R), πέρα από το ίσιωμα του ορίζοντα.
+- **Ευθυγράμμιση κάθε φωτογραφίας όρθια.** Τα πρόσωπα και το κείμενο αποφασίζουν πού είναι το πάνω. Μια φωτογραφία όπου αυτό δεν είναι σαφές μένει όπως είναι. Η «Περιστροφή όρθια» το κάνει για την επιλογή.
+- **Αφαίρεση φόντου** (macOS 15 ή νεότερο). Το θέμα αποκόπτεται στο Mac σας και μπαίνει σε λευκό, μαύρο, ένα χρώμα ή διαφάνεια, με σκιά αν θέλετε. Ένα λευκό φόντο μένει ακριβώς 255, 255, 255 σε JPEG και PNG.
+- **Μόνο λεύκανση του φόντου**, για προϊόντα ήδη φωτογραφημένα σε σχεδόν λευκό: το προϊόν δεν αγγίζεται ποτέ.
+- **Έλεγχος για προορισμό.** 21 πλατφόρμες πωλήσεων, κοινωνικά δίκτυα, φωτογραφικές λέσχες, τράπεζες εικόνων και μεγέθη εκτύπωσης. Ξεκινήστε μια συνταγή από έναν προορισμό, και κάθε αρχείο σημειώνεται ως επιτυχία, προειδοποίηση ή αποτυχία με βάση τους δημοσιευμένους κανόνες του.
+- **Καδράρισμα του θέματος** ώστε να γεμίζει σταθερό μέρος του κάδρου, και **χωράει σε** ένα πλαίσιο όπως τα 1920 × 1080 του προβολέα μιας λέσχης.
+- **Τα στρογγυλεμένα περιγράμματα** μπορούν να στρογγυλεύουν και εξωτερικά, με διαφανείς γωνίες.
+- **Νέα κροπαρίσματα για κοινωνικά δίκτυα:** πλέγμα Instagram, Threads, φωτογραφία TikTok και Facebook τετράγωνο. Η ανάρτηση Facebook είναι πλέον 1080 × 1350.
+- **Συντομεύσεις:** Περιστροφή εικόνων και Αφαίρεση φόντου.]]></description>
+            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Girar a la izquierda y a la derecha.** Haz clic con el botón derecho en un resultado para girarlo. Se vuelve a crear a partir del original, así que girarlo nunca cuesta calidad.
+- **Todos los formatos que lee** aparecen ahora donde sueltas los archivos.
+- **Más estable con lotes grandes.** Se ha corregido un bloqueo poco frecuente al comprimir muchos archivos a la vez.
+
+### Shrinker Studio
+
+- **Girar y enderezar.** Gira las fotos un cuarto o media vuelta, o voltéalas, para toda la receta o solo las fotos seleccionadas (⌘L y ⌘R), además de enderezar el horizonte.
+- **Poner cada foto derecha.** Las caras y el texto deciden hacia dónde es arriba. Una foto en la que no está claro se deja tal cual. «Poner derecha» lo hace con la selección.
+- **Eliminar fondo** (macOS 15 o posterior). El sujeto se recorta en tu Mac y se pone sobre blanco, negro, un color o transparencia, con sombra si quieres. Un fondo blanco se queda exactamente en 255, 255, 255 en JPEG y PNG.
+- **Solo blanquear el fondo**, para productos ya fotografiados sobre casi blanco: el producto nunca se toca.
+- **Comprobar para un destino.** 21 tiendas online, redes sociales, clubes de fotografía, bancos de imágenes y tamaños de impresión. Empieza una receta desde uno y cada archivo se marca como correcto, aviso o incorrecto según sus reglas publicadas.
+- **Encuadrar el sujeto** para que ocupe una parte fija del encuadre, y **encajar** en un marco como el 1920 × 1080 del proyector de un club.
+- **Los bordes redondeados** también pueden redondearse por fuera, con las esquinas transparentes.
+- **Nuevos recortes para redes sociales:** cuadrícula de Instagram, Threads, foto de TikTok y Facebook cuadrado. La publicación de Facebook pasa a 1080 × 1350.
+- **Atajos:** Girar imágenes y Eliminar fondo.]]></description>
+            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **چرخاندن به چپ و راست.** برای چرخاندن یک نتیجه، روی آن راست‌کلیک کنید. از روی فایل اصلی دوباره ساخته می‌شود، پس چرخاندن هرگز از کیفیت کم نمی‌کند.
+- **همهٔ قالب‌هایی که می‌خواند** اکنون همان‌جا که فایل‌ها را رها می‌کنید آمده‌اند.
+- **پایدارتر با دسته‌های بزرگ.** گیر کردن نادر هنگام فشرده‌سازی هم‌زمان فایل‌های زیاد برطرف شد.
+
+### Shrinker Studio
+
+- **چرخاندن و صاف کردن.** عکس‌ها را یک‌چهارم یا نیم دور بچرخانید یا قرینه کنید، برای کل دستور یا فقط عکس‌های انتخاب‌شده (⌘L و ⌘R)، در کنار صاف کردن افق.
+- **چرخاندن هر عکس به حالت ایستاده.** چهره‌ها و متن تعیین می‌کنند کدام سمت بالاست. عکسی که این در آن روشن نباشد، دست‌نخورده می‌ماند. «چرخش به حالت ایستاده» این کار را برای انتخاب انجام می‌دهد.
+- **حذف پس‌زمینه** (macOS 15 یا جدیدتر). سوژه روی Mac شما جدا می‌شود و روی سفید، سیاه، یک رنگ یا شفاف قرار می‌گیرد، در صورت تمایل با سایه. پس‌زمینهٔ سفید در JPEG و PNG دقیقاً 255، 255، 255 می‌ماند.
+- **فقط سفید کردن پس‌زمینه**، برای محصولاتی که از قبل روی تقریباً سفید عکاسی شده‌اند: به محصول هرگز دست زده نمی‌شود.
+- **بررسی برای یک مقصد.** 21 فروشگاه آنلاین، شبکهٔ اجتماعی، باشگاه عکاسی، بانک تصویر و اندازهٔ چاپ. یک دستور را از مقصدی شروع کنید، و هر فایل طبق قواعد منتشرشده‌اش قبول، هشدار یا رد علامت می‌خورد.
+- **کادربندی سوژه** تا بخش ثابتی از کادر را پر کند، و **جا دادن در** کادری مانند 1920 × 1080 پروژکتور یک باشگاه.
+- **قاب‌های گرد** می‌توانند از بیرون هم گرد باشند، با گوشه‌های شفاف.
+- **برش‌های تازه برای شبکه‌های اجتماعی:** شبکهٔ Instagram، Threads، عکس TikTok و Facebook مربع. پست Facebook اکنون 1080 × 1350 است.
+- **میان‌برها:** چرخاندن تصاویر و حذف پس‌زمینه.]]></description>
+            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Käännä vasemmalle ja oikealle.** Käännä tulos napsauttamalla sitä oikealla painikkeella. Se tehdään uudelleen alkuperäisestä, joten kääntäminen ei koskaan heikennä laatua.
+- **Kaikki sen lukemat muodot** näkyvät nyt siellä, mihin pudotat tiedostot.
+- **Vakaampi suurissa erissä.** Harvinainen jumittuminen pakattaessa monta tiedostoa kerralla on korjattu.
+
+### Shrinker Studio
+
+- **Käännä ja suorista.** Käännä kuvia neljännes- tai puolikierros tai peilaa ne koko reseptille tai vain valituille kuville (⌘L ja ⌘R), horisontin suoristamisen lisäksi.
+- **Käännä jokainen kuva pystyyn.** Kasvot ja teksti ratkaisevat, missä on ylös. Kuva, josta se ei ole selvää, jätetään ennalleen. ”Käännä pystyyn” tekee sen valinnalle.
+- **Poista tausta** (macOS 15 tai uudempi). Kohde rajataan Macillasi ja asetetaan valkoiselle, mustalle, värille tai läpinäkyvälle, halutessasi varjon kanssa. Valkoinen tausta pysyy JPEG- ja PNG-tiedostoissa tasan 255, 255, 255.
+- **Vain vaalenna taustaa**, valmiiksi lähes valkoisella kuvatuille tuotteille: tuotteeseen ei kosketa.
+- **Tarkista kohteelle.** 21 verkkokauppaa, sosiaalista verkostoa, kameraseuraa, kuvapankkia ja tulostuskokoa. Aloita resepti kohteesta, ja jokainen tiedosto merkitään hyväksytyksi, varoitukseksi tai hylätyksi sen julkaistujen sääntöjen mukaan.
+- **Rajaa kohde** täyttämään kiinteä osuus kuvasta, ja **sovita** laatikkoon, kuten kerhon projektorin 1920 × 1080.
+- **Pyöristetyt reunukset** voi pyöristää myös ulkoa, läpinäkyvin kulmin.
+- **Uusia rajauksia someen:** Instagram-ruudukko, Threads, TikTok-kuva ja Facebook neliö. Facebook-julkaisu on nyt 1080 × 1350.
+- **Pikakomennot:** Käännä kuvat ja Poista tausta.]]></description>
+            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Faire pivoter à gauche et à droite.** Faites un clic droit sur un résultat pour le faire pivoter. Il est refait à partir de l’original : le faire pivoter ne coûte jamais en qualité.
+- **Tous les formats qu’il lit** sont désormais indiqués là où vous déposez les fichiers.
+- **Plus stable avec les gros lots.** Un rare blocage lors de la compression de nombreux fichiers à la fois est corrigé.
+
+### Shrinker Studio
+
+- **Pivoter et redresser.** Faites pivoter les photos d’un quart ou d’un demi-tour, ou retournez-les, pour toute la recette ou seulement les photos sélectionnées (⌘L et ⌘R), en plus de redresser l’horizon.
+- **Remettre chaque photo dans le bon sens.** Les visages et le texte indiquent le haut. Une photo pour laquelle ce n’est pas clair reste telle quelle. « Remettre dans le bon sens » le fait pour la sélection.
+- **Supprimer l’arrière-plan** (macOS 15 ou ultérieur). Le sujet est détouré sur votre Mac et posé sur du blanc, du noir, une couleur ou de la transparence, avec une ombre si vous le souhaitez. Un fond blanc reste exactement 255, 255, 255 en JPEG et en PNG.
+- **Blanchir seulement le fond**, pour les produits déjà photographiés sur un fond presque blanc : le produit n’est jamais modifié.
+- **Vérifier pour une destination.** 21 places de marché, réseaux sociaux, clubs photo, banques d’images et formats d’impression. Partez d’une destination pour une recette, et chaque fichier est marqué conforme, avertissement ou non conforme selon ses règles publiées.
+- **Cadrer le sujet** pour qu’il occupe une part fixe du cadre, et **tenir dans** un cadre comme le 1920 × 1080 d’un projecteur de club.
+- **Les bordures arrondies** peuvent aussi être arrondies à l’extérieur, avec des coins transparents.
+- **Nouveaux recadrages pour les réseaux sociaux :** grille Instagram, Threads, photo TikTok et Facebook carré. La publication Facebook passe à 1080 × 1350.
+- **Raccourcis :** Faire pivoter les images et Supprimer l’arrière-plan.]]></description>
+            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **סיבוב שמאלה וימינה.** לחצו לחיצה ימנית על תוצאה כדי לסובב אותה. היא נוצרת מחדש מהמקור, כך שסיבוב אף פעם לא פוגע באיכות.
+- **כל הפורמטים שהוא קורא** מופיעים עכשיו במקום שבו משחררים קבצים.
+- **יציב יותר בקבוצות גדולות.** תוקנה היתקעות נדירה בדחיסת קבצים רבים בבת אחת.
+
+### Shrinker Studio
+
+- **סיבוב ויישור.** סובבו תצלומים ברבע או בחצי סיבוב, או הפכו אותם, לכל המתכון או רק לתצלומים שנבחרו (⌘L ו-⌘R), לצד יישור קו האופק.
+- **סיבוב כל תצלום למצב זקוף.** פנים וטקסט קובעים מה למעלה. תצלום שבו זה לא ברור נשאר כמו שהוא. „סיבוב למצב זקוף” עושה זאת לבחירה.
+- **הסרת רקע** (macOS 15 ואילך). הנושא נגזר ב-Mac שלכם ומונח על לבן, שחור, צבע או שקיפות, עם צל לבחירה. רקע לבן נשאר בדיוק 255, 255, 255 ב-JPEG וב-PNG.
+- **הלבנת הרקע בלבד**, למוצרים שכבר צולמו על רקע כמעט לבן: המוצר לעולם לא משתנה.
+- **בדיקה עבור יעד.** 21 חנויות מקוונות, רשתות חברתיות, מועדוני צילום, מאגרי תמונות וגדלי הדפסה. התחילו מתכון מיעד, וכל קובץ יסומן כעובר, אזהרה או נכשל לפי הכללים שפורסמו.
+- **מסגור הנושא** כך שימלא חלק קבוע מהמסגרת, ו**התאמה לתוך** תיבה כמו 1920 × 1080 של מקרן במועדון.
+- **מסגרות מעוגלות** יכולות להיות מעוגלות גם מבחוץ, עם פינות שקופות.
+- **חיתוכים חדשים לרשתות חברתיות:** רשת Instagram,‏ Threads, תצלום ל-TikTok ו-Facebook ריבוע. פוסט ב-Facebook הוא עכשיו 1080 × 1350.
+- **קיצורים:** סיבוב תמונות והסרת רקע.]]></description>
+            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Zakreni ulijevo i udesno.** Desnom tipkom kliknite rezultat da ga zakrenete. Ponovno se izrađuje iz originala, pa zakretanje nikad ne košta kvalitete.
+- **Svi formati koje čita** sada su navedeni tamo gdje ispuštate datoteke.
+- **Stabilniji kod velikih skupina.** Ispravljeno je rijetko zaglavljivanje pri sažimanju mnogo datoteka odjednom.
+
+### Shrinker Studio
+
+- **Zakretanje i izravnavanje.** Zakrenite fotografije za četvrtinu ili pola okreta ili ih zrcalite, za cijeli recept ili samo odabrane fotografije (⌘L i ⌘R), uz izravnavanje horizonta.
+- **Uspravi svaku fotografiju.** Lica i tekst odlučuju gdje je gore. Fotografija za koju to nije jasno ostaje kakva jest. „Uspravi” to čini za odabir.
+- **Ukloni pozadinu** (macOS 15 ili noviji). Motiv se izrezuje na vašem Macu i stavlja na bijelu, crnu, boju ili prozirnost, po želji sa sjenom. Bijela pozadina ostaje u JPEG-u i PNG-u točno 255, 255, 255.
+- **Samo izbijeli pozadinu**, za proizvode već snimljene na gotovo bijelom: proizvod se nikad ne dira.
+- **Provjeri za odredište.** 21 internetska tržnica, društvene mreže, fotoklubovi, foto-banke i veličine ispisa. Započnite recept od odredišta, i svaka se datoteka označava kao prolazi, upozorenje ili ne prolazi prema njegovim objavljenim pravilima.
+- **Uokviri motiv** da ispuni stalan udio kadra, i **uklopi u** okvir poput 1920 × 1080 klupskog projektora.
+- **Zaobljeni okviri** mogu biti zaobljeni i izvana, s prozirnim kutovima.
+- **Novi izrezi za društvene mreže:** mreža Instagrama, Threads, fotografija za TikTok i Facebook kvadrat. Objava na Facebooku sada je 1080 × 1350.
+- **Prečaci:** Zakreni slike i Ukloni pozadinu.]]></description>
+            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Forgatás balra és jobbra.** Kattintson jobb gombbal egy eredményre a forgatáshoz. Újra elkészül az eredetiből, így a forgatás sosem rontja a minőséget.
+- **Minden formátum, amit olvas,** most ott látható, ahová a fájlokat húzza.
+- **Stabilabb nagy kötegeknél.** Javítva egy ritka elakadás, amikor sok fájlt tömörített egyszerre.
+
+### Shrinker Studio
+
+- **Forgatás és kiegyenesítés.** Forgassa a fotókat negyed vagy fél fordulattal, vagy tükrözze őket, az egész receptre vagy csak a kijelölt fotókra (⌘L és ⌘R), a horizont kiegyenesítése mellett.
+- **Minden fotó álló helyzetbe forgatása.** Az arcok és a szöveg döntik el, merre van a fent. Ha ez nem egyértelmű, a fotó változatlan marad. A „Forgatás álló helyzetbe” ezt a kijelölésre teszi meg.
+- **Háttér eltávolítása** (macOS 15 vagy újabb). A témát a Mac kivágja, és fehérre, feketére, színre vagy átlátszóra helyezi, kívánság szerint árnyékkal. A fehér háttér JPEG-ben és PNG-ben pontosan 255, 255, 255 marad.
+- **Csak a háttér kifehérítése**, már majdnem fehér háttérrel fotózott termékekhez: a terméket sosem változtatja meg.
+- **Ellenőrzés egy célhoz.** 21 piactér, közösségi hálózat, fotóklub, stockfotó-oldal és nyomtatási méret. Kezdjen egy receptet egy célból, és minden fájl megfelelt, figyelmeztetés vagy nem felelt meg jelölést kap a közzétett szabályai szerint.
+- **A téma keretezése**, hogy a kép rögzített részét töltse ki, és **beleférés** egy keretbe, például egy klub kivetítőjének 1920 × 1080-ába.
+- **A lekerekített keretek** kívül is lekerekíthetők, átlátszó sarkokkal.
+- **Új közösségi kivágások:** Instagram-rács, Threads, TikTok-fotó és Facebook négyzet. A Facebook-bejegyzés most 1080 × 1350.
+- **Parancsok:** Képek forgatása és Háttér eltávolítása.]]></description>
+            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Snúa til vinstri og hægri.** Hægrismelltu á niðurstöðu til að snúa henni. Hún er gerð aftur úr frumritinu, svo það kostar aldrei gæði að snúa henni.
+- **Öll snið sem það les** eru nú talin upp þar sem þú sleppir skrám.
+- **Stöðugra með stórar lotur.** Sjaldgæf stöðvun þegar margar skrár voru þjappaðar í einu hefur verið löguð.
+
+### Shrinker Studio
+
+- **Snúa og rétta af.** Snúðu myndum um fjórðung eða hálfan hring, eða speglaðu þær, fyrir alla uppskriftina eða aðeins valdar myndir (⌘L og ⌘R), auk þess að rétta af sjóndeildarhringinn.
+- **Snúa hverri mynd rétt.** Andlit og texti ráða hvað snýr upp. Mynd þar sem það er óljóst er látin óbreytt. „Snúa rétt“ gerir það fyrir valið.
+- **Fjarlægja bakgrunn** (macOS 15 eða nýrra). Myndefnið er klippt út á Mac-tölvunni og sett á hvítt, svart, lit eða gegnsæi, með skugga ef þú vilt. Hvítur bakgrunnur helst nákvæmlega 255, 255, 255 í JPEG og PNG.
+- **Gera aðeins bakgrunninn hvítan**, fyrir vörur sem þegar eru myndaðar á næstum hvítu: varan er aldrei snert.
+- **Athuga fyrir áfangastað.** 21 markaðstorg, samfélagsmiðlar, ljósmyndaklúbbar, myndabankar og prentstærðir. Byrjaðu uppskrift á áfangastað, og hver skrá er merkt staðin, viðvörun eða fallin samkvæmt birtum reglum hans.
+- **Ramma inn myndefnið** svo það fylli fastan hluta rammans, og **passa innan** kassa eins og 1920 × 1080 á myndvarpa klúbbs.
+- **Ávalar rammar** geta líka verið ávalir að utan, með gegnsæjum hornum.
+- **Nýjar klippingar fyrir samfélagsmiðla:** Instagram-net, Threads, TikTok-mynd og Facebook ferningur. Facebook-færsla er nú 1080 × 1350.
+- **Flýtileiðir:** Snúa myndum og Fjarlægja bakgrunn.]]></description>
+            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Ruota a sinistra e a destra.** Fai clic con il tasto destro su un risultato per ruotarlo. Viene rifatto dall’originale, quindi ruotarlo non costa mai qualità.
+- **Tutti i formati che legge** ora sono elencati dove trascini i file.
+- **Più stabile con lotti grandi.** È stato risolto un raro blocco durante la compressione di molti file insieme.
+
+### Shrinker Studio
+
+- **Ruota e raddrizza.** Ruota le foto di un quarto o mezzo giro, o capovolgile, per tutta la ricetta o solo per le foto selezionate (⌘L e ⌘R), oltre a raddrizzare l’orizzonte.
+- **Metti ogni foto nel verso giusto.** Volti e testo decidono dov’è l’alto. Una foto in cui non è chiaro resta com’è. «Metti nel verso giusto» lo fa per la selezione.
+- **Rimuovi sfondo** (macOS 15 o successivo). Il soggetto viene scontornato sul Mac e messo su bianco, nero, un colore o trasparenza, con un’ombra se vuoi. Uno sfondo bianco resta esattamente 255, 255, 255 in JPEG e PNG.
+- **Sbianca solo lo sfondo**, per prodotti già fotografati su un quasi bianco: il prodotto non viene mai toccato.
+- **Controlla per una destinazione.** 21 marketplace, social network, circoli fotografici, agenzie stock e formati di stampa. Parti da una per una ricetta, e ogni file viene segnato come conforme, avviso o non conforme secondo le sue regole pubblicate.
+- **Inquadra il soggetto** perché occupi una quota fissa dell’inquadratura, e **adatta** a un riquadro come il 1920 × 1080 del proiettore di un circolo.
+- **I bordi arrotondati** possono essere arrotondati anche all’esterno, con angoli trasparenti.
+- **Nuovi ritagli social:** griglia di Instagram, Threads, foto TikTok e Facebook quadrato. Il post di Facebook ora è 1080 × 1350.
+- **Comandi rapidi:** Ruota immagini e Rimuovi sfondo.]]></description>
+            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **左右に回転。** 結果を右クリックすると回転できます。オリジナルから作り直すので、回転しても画質は落ちません。
+- **読み込めるすべての形式**が、ファイルをドロップする場所に表示されるようになりました。
+- **大量のファイルでも安定。** 多数のファイルを同時に圧縮したときにまれに止まる問題を修正しました。
+
+### Shrinker Studio
+
+- **回転と傾き補正。** 写真を90°や180°回転したり反転したりできます。レシピ全体にも、選択した写真だけにも（⌘Lと⌘R）。水平線の補正もこれまでどおり。
+- **各写真を正しい向きに回転。** 顔とテキストから上向きを判断します。判断できない写真はそのままです。「正しい向きに回転」で選択した写真にも行えます。
+- **背景を削除**（macOS 15以降）。被写体をMac上で切り抜き、白、黒、カラー、または透明の上に置きます。影も付けられます。白い背景はJPEGとPNGでちょうど255, 255, 255のままです。
+- **背景だけを白くする**。ほぼ白の背景で撮った製品向けで、製品には一切手を加えません。
+- **チェック先を指定。** マーケットプレイス、SNS、写真クラブ、ストックフォト、印刷サイズの21件。チェック先からレシピを始めると、公開ルールに照らして各ファイルに合格、警告、不合格が付きます。
+- **被写体をフレームに収め**て決めた割合を占めるようにしたり、クラブのプロジェクター用の1920 × 1080のような枠に**収め**たりできます。
+- **角丸の枠**は外側も角丸にでき、角は透明になります。
+- **SNS向けの新しい切り抜き：** Instagramグリッド、Threads、TikTok写真、Facebook正方形。Facebook投稿は1080 × 1350になりました。
+- **ショートカット：** 画像を回転、背景を削除。]]></description>
+            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **왼쪽 및 오른쪽으로 회전.** 결과를 오른쪽 클릭하면 회전할 수 있습니다. 원본에서 다시 만들기 때문에 회전해도 화질이 떨어지지 않습니다.
+- **읽을 수 있는 모든 형식**이 이제 파일을 놓는 곳에 표시됩니다.
+- **대량 작업에서 더 안정적.** 많은 파일을 한꺼번에 압축할 때 드물게 멈추던 문제를 수정했습니다.
+
+### Shrinker Studio
+
+- **회전 및 기울기 보정.** 사진을 90°나 180° 회전하거나 뒤집을 수 있습니다. 레시피 전체에도, 선택한 사진에만도(⌘L 및 ⌘R) 적용되며 수평선 보정도 그대로입니다.
+- **각 사진을 바로 세우기.** 얼굴과 텍스트로 위쪽을 판단합니다. 위쪽이 분명하지 않은 사진은 그대로 둡니다. '바로 세우기'로 선택한 사진에도 적용합니다.
+- **배경 제거**(macOS 15 이상). Mac에서 피사체를 오려 흰색, 검은색, 원하는 색상 또는 투명 배경에 놓고, 원하면 그림자도 넣습니다. 흰색 배경은 JPEG와 PNG에서 정확히 255, 255, 255로 유지됩니다.
+- **배경만 하얗게**. 거의 흰색 배경에서 찍은 제품용이며, 제품은 절대 건드리지 않습니다.
+- **대상 기준 확인.** 마켓플레이스, 소셜 네트워크, 사진 클럽, 스톡 사이트, 인쇄 크기 21곳. 대상에서 레시피를 시작하면 게시된 규칙에 따라 모든 파일에 통과, 경고 또는 실패가 표시됩니다.
+- **피사체 프레이밍**으로 정한 비율만큼 프레임을 채우고, 클럽 프로젝터의 1920 × 1080 같은 상자에 **맞추기**도 할 수 있습니다.
+- **둥근 테두리**는 바깥쪽도 둥글게 할 수 있으며 모서리는 투명해집니다.
+- **새로운 소셜 자르기:** Instagram 그리드, Threads, TikTok 사진, Facebook 정사각형. Facebook 게시물은 이제 1080 × 1350입니다.
+- **단축어:** 이미지 회전 및 배경 제거.]]></description>
+            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Roter mot venstre og høyre.** Høyreklikk på et resultat for å rotere det. Det lages på nytt fra originalen, så rotering koster aldri kvalitet.
+- **Alle formater det leser,** står nå der du slipper filer.
+- **Mer stabil med store bunker.** En sjelden stans ved komprimering av mange filer samtidig er rettet.
+
+### Shrinker Studio
+
+- **Roter og rett opp.** Roter bilder en kvart eller halv omdreining, eller speilvend dem, for hele oppskriften eller bare de valgte bildene (⌘L og ⌘R), i tillegg til å rette opp horisonten.
+- **Snu hvert foto riktig vei.** Ansikter og tekst avgjør hva som er opp. Et foto der det ikke er tydelig, blir stående som det er. «Snu riktig vei» gjør det for markeringen.
+- **Fjern bakgrunn** (macOS 15 eller nyere). Motivet frilegges på Macen og legges på hvitt, svart, en farge eller gjennomsiktighet, med skygge om du vil. En hvit bakgrunn forblir nøyaktig 255, 255, 255 i JPEG og PNG.
+- **Gjør bare bakgrunnen hvit**, for produkter som allerede er fotografert på nesten hvitt: Produktet røres aldri.
+- **Sjekk for et mål.** 21 markedsplasser, sosiale nettverk, fotoklubber, bildebyråer og utskriftsstørrelser. Start en oppskrift fra et mål, og hver fil merkes som bestått, advarsel eller ikke bestått etter de publiserte reglene.
+- **Ramme inn motivet** så det fyller en fast andel av bildet, og **tilpass til** en boks som en klubbprojektors 1920 × 1080.
+- **Avrundede rammer** kan også avrundes på utsiden, med gjennomsiktige hjørner.
+- **Nye beskjæringer for sosiale medier:** Instagram-rutenett, Threads, TikTok-foto og Facebook kvadratisk. Facebook-innlegg er nå 1080 × 1350.
+- **Snarveier:** Roter bilder og Fjern bakgrunn.]]></description>
+            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Naar links en rechts draaien.** Klik met de rechtermuisknop op een resultaat om het te draaien. Het wordt opnieuw gemaakt uit het origineel, dus draaien kost nooit kwaliteit.
+- **Elk formaat dat het leest** staat nu vermeld waar je bestanden neerzet.
+- **Stabieler bij grote batches.** Een zeldzame hapering bij het comprimeren van veel bestanden tegelijk is verholpen.
+
+### Shrinker Studio
+
+- **Draaien en rechtzetten.** Draai foto’s een kwart- of halve slag of spiegel ze, voor het hele recept of alleen de geselecteerde foto’s (⌘L en ⌘R), naast het rechtzetten van de horizon.
+- **Elke foto rechtop draaien.** Gezichten en tekst bepalen waar boven is. Een foto waarbij dat niet duidelijk is, blijft zoals hij is. ‘Rechtop draaien’ doet het voor de selectie.
+- **Achtergrond verwijderen** (macOS 15 of nieuwer). Het onderwerp wordt op je Mac vrijgesteld en op wit, zwart, een kleur of transparantie gezet, desgewenst met schaduw. Een witte achtergrond blijft in JPEG en PNG precies 255, 255, 255.
+- **Alleen de achtergrond wit maken**, voor producten die al op bijna wit zijn gefotografeerd: het product wordt nooit aangeraakt.
+- **Controleren voor een bestemming.** 21 marktplaatsen, sociale netwerken, fotoclubs, stockbureaus en afdrukformaten. Begin een recept vanuit een bestemming, en elk bestand krijgt geslaagd, waarschuwing of mislukt volgens de gepubliceerde regels.
+- **Het onderwerp kaderen** zodat het een vast deel van het beeld vult, en **passend binnen** een kader zoals de 1920 × 1080 van een clubprojector.
+- **Afgeronde randen** kunnen ook aan de buitenkant rond zijn, met transparante hoeken.
+- **Nieuwe uitsneden voor sociale media:** Instagram-raster, Threads, TikTok-foto en Facebook vierkant. Facebook-bericht is nu 1080 × 1350.
+- **Opdrachten:** Draai afbeeldingen en Achtergrond verwijderen.]]></description>
+            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Roter mot venstre og høgre.** Høgreklikk på eit resultat for å rotere det. Det blir laga på nytt frå originalen, så rotering kostar aldri kvalitet.
+- **Alle format det les,** står no der du slepper filer.
+- **Meir stabil med store bunkar.** Ein sjeldan stans ved komprimering av mange filer samtidig er retta.
+
+### Shrinker Studio
+
+- **Roter og rett opp.** Roter bilete ein kvart eller halv omdreiing, eller spegelvend dei, for heile oppskrifta eller berre dei valde bileta (⌘L og ⌘R), i tillegg til å rette opp horisonten.
+- **Snu kvart foto rett veg.** Andlet og tekst avgjer kva som er opp. Eit foto der det ikkje er tydeleg, blir ståande som det er. «Snu rett veg» gjer det for markeringa.
+- **Fjern bakgrunn** (macOS 15 eller nyare). Motivet blir frilagt på Macen og lagt på kvitt, svart, ein farge eller gjennomsikt, med skugge om du vil. Ein kvit bakgrunn held seg nøyaktig 255, 255, 255 i JPEG og PNG.
+- **Gjer berre bakgrunnen kvit**, for produkt som alt er fotograferte på nesten kvitt: Produktet blir aldri rørt.
+- **Sjekk for eit mål.** 21 marknadsplassar, sosiale nettverk, fotoklubbar, biletbyrå og utskriftsstorleikar. Start ei oppskrift frå eit mål, og kvar fil blir merkt som bestått, åtvaring eller ikkje bestått etter dei publiserte reglane.
+- **Ramm inn motivet** så det fyller ein fast del av biletet, og **tilpass til** ein boks som ein klubbprojektors 1920 × 1080.
+- **Avrunda rammer** kan òg avrundast på utsida, med gjennomsiktige hjørne.
+- **Nye beskjeringar for sosiale medium:** Instagram-rutenett, Threads, TikTok-foto og Facebook kvadratisk. Facebook-innlegg er no 1080 × 1350.
+- **Snarvegar:** Roter bilete og Fjern bakgrunn.]]></description>
+            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Obróć w lewo i w prawo.** Kliknij wynik prawym przyciskiem, aby go obrócić. Powstaje od nowa z oryginału, więc obracanie nigdy nie kosztuje jakości.
+- **Wszystkie formaty, które czyta,** są teraz wymienione tam, gdzie upuszczasz pliki.
+- **Stabilniej przy dużych partiach.** Naprawiono rzadkie zawieszenie podczas kompresji wielu plików naraz.
+
+### Shrinker Studio
+
+- **Obracanie i prostowanie.** Obracaj zdjęcia o ćwierć lub pół obrotu albo je odbijaj, dla całego przepisu lub tylko zaznaczonych zdjęć (⌘L i ⌘R), oprócz prostowania horyzontu.
+- **Ustaw każde zdjęcie pionowo.** Twarze i tekst decydują, gdzie jest góra. Zdjęcie, w którym nie jest to jasne, zostaje bez zmian. „Ustaw pionowo” robi to dla zaznaczenia.
+- **Usuń tło** (macOS 15 lub nowszy). Obiekt jest wycinany na Twoim Macu i umieszczany na bieli, czerni, kolorze lub przezroczystości, w razie potrzeby z cieniem. Białe tło pozostaje w JPEG i PNG dokładnie 255, 255, 255.
+- **Tylko wybiel tło**, dla produktów sfotografowanych już na prawie białym: produkt nigdy nie jest zmieniany.
+- **Sprawdzaj dla celu.** 21 platform sprzedażowych, sieci społecznościowych, klubów fotograficznych, banków zdjęć i rozmiarów druku. Zacznij przepis od celu, a każdy plik zostanie oznaczony jako zaliczony, ostrzeżenie lub niezaliczony według opublikowanych zasad.
+- **Kadruj obiekt**, aby wypełniał stałą część kadru, i **zmieść w** ramce, takiej jak 1920 × 1080 klubowego projektora.
+- **Zaokrąglone ramki** mogą być zaokrąglone także na zewnątrz, z przezroczystymi narożnikami.
+- **Nowe kadry do mediów społecznościowych:** siatka Instagrama, Threads, zdjęcie TikTok i Facebook kwadrat. Post na Facebooku ma teraz 1080 × 1350.
+- **Skróty:** Obróć obrazy i Usuń tło.]]></description>
+            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Girar para a esquerda e para a direita.** Clique com o botão direito em um resultado para girá-lo. Ele é refeito a partir do original, então girar nunca custa qualidade.
+- **Todos os formatos que ele lê** agora aparecem onde você solta os arquivos.
+- **Mais estável com lotes grandes.** Um travamento raro ao comprimir muitos arquivos de uma vez foi corrigido.
+
+### Shrinker Studio
+
+- **Girar e endireitar.** Gire as fotos um quarto ou meia volta, ou espelhe-as, para a receita toda ou só para as fotos selecionadas (⌘L e ⌘R), além de endireitar o horizonte.
+- **Endireitar cada foto.** Rostos e texto decidem onde fica o topo. Uma foto em que isso não fica claro é deixada como está. “Endireitar” faz isso para a seleção.
+- **Remover fundo** (macOS 15 ou posterior). O assunto é recortado no seu Mac e colocado sobre branco, preto, uma cor ou transparência, com sombra se quiser. Um fundo branco fica exatamente em 255, 255, 255 em JPEG e PNG.
+- **Só clarear o fundo**, para produtos já fotografados sobre quase branco: o produto nunca é alterado.
+- **Verificar para um destino.** 21 marketplaces, redes sociais, clubes de fotografia, bancos de imagens e tamanhos de impressão. Comece uma receita por um destino, e cada arquivo é marcado como aprovado, aviso ou reprovado pelas regras publicadas.
+- **Enquadrar o assunto** para que ele preencha uma parte fixa do quadro, e **caber em** uma caixa como os 1920 × 1080 do projetor de um clube.
+- **Bordas arredondadas** também podem ser arredondadas por fora, com cantos transparentes.
+- **Novos cortes para redes sociais:** grade do Instagram, Threads, foto do TikTok e Facebook quadrado. O post do Facebook agora é 1080 × 1350.
+- **Atalhos:** Girar Imagens e Remover Fundo.]]></description>
+            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Rodar para a esquerda e para a direita.** Clique com o botão direito num resultado para o rodar. É refeito a partir do original, por isso rodar nunca custa qualidade.
+- **Todos os formatos que lê** aparecem agora onde larga os ficheiros.
+- **Mais estável com lotes grandes.** Foi corrigido um bloqueio raro ao comprimir muitos ficheiros de uma vez.
+
+### Shrinker Studio
+
+- **Rodar e endireitar.** Rode as fotografias um quarto ou meia volta, ou espelhe-as, para toda a receita ou só para as fotografias selecionadas (⌘L e ⌘R), além de endireitar o horizonte.
+- **Endireitar cada fotografia.** Rostos e texto decidem onde fica o topo. Uma fotografia em que isso não é claro fica como está. “Endireitar” fá-lo para a seleção.
+- **Remover fundo** (macOS 15 ou posterior). O motivo é recortado no seu Mac e colocado sobre branco, preto, uma cor ou transparência, com sombra se quiser. Um fundo branco fica exatamente em 255, 255, 255 em JPEG e PNG.
+- **Apenas branquear o fundo**, para produtos já fotografados sobre quase branco: o produto nunca é alterado.
+- **Verificar para um destino.** 21 mercados online, redes sociais, clubes de fotografia, bancos de imagens e tamanhos de impressão. Comece uma receita a partir de um destino, e cada ficheiro é marcado como aprovado, aviso ou reprovado pelas regras publicadas.
+- **Enquadrar o motivo** para que ocupe uma parte fixa do enquadramento, e **caber em** uma caixa como os 1920 × 1080 do projetor de um clube.
+- **Molduras arredondadas** também podem ser arredondadas por fora, com cantos transparentes.
+- **Novos cortes para redes sociais:** grelha do Instagram, Threads, fotografia do TikTok e Facebook quadrado. A publicação do Facebook passa a 1080 × 1350.
+- **Atalhos:** Rodar imagens e Remover fundo.]]></description>
+            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Rotire la stânga și la dreapta.** Faceți clic dreapta pe un rezultat pentru a-l roti. Este refăcut din original, deci rotirea nu costă niciodată calitate.
+- **Toate formatele pe care le citește** apar acum acolo unde trageți fișierele.
+- **Mai stabil la loturi mari.** A fost corectat un blocaj rar la comprimarea multor fișiere deodată.
+
+### Shrinker Studio
+
+- **Rotire și îndreptare.** Rotiți fotografiile cu un sfert sau o jumătate de tură ori oglindiți-le, pentru toată rețeta sau doar pentru fotografiile selectate (⌘L și ⌘R), pe lângă îndreptarea orizontului.
+- **Rotește fiecare fotografie în poziție corectă.** Fețele și textul decid unde e sus. O fotografie la care nu e clar rămâne așa cum este. „Rotire în poziție corectă” o face pentru selecție.
+- **Elimină fundalul** (macOS 15 sau o versiune ulterioară). Subiectul este decupat pe Mac și pus pe alb, negru, o culoare sau transparență, cu umbră dacă doriți. Un fundal alb rămâne exact 255, 255, 255 în JPEG și PNG.
+- **Doar albește fundalul**, pentru produse fotografiate deja pe aproape alb: produsul nu este atins niciodată.
+- **Verifică pentru o destinație.** 21 de magazine online, rețele sociale, cluburi foto, bănci de imagini și dimensiuni de tipar. Porniți o rețetă de la o destinație, și fiecare fișier este marcat ca trecut, avertisment sau picat după regulile ei publicate.
+- **Încadrează subiectul** ca să ocupe o parte fixă din cadru, și **încadrare în** o casetă precum cei 1920 × 1080 ai proiectorului unui club.
+- **Chenarele rotunjite** pot fi rotunjite și pe exterior, cu colțuri transparente.
+- **Decupaje noi pentru rețele sociale:** grila Instagram, Threads, fotografie TikTok și Facebook pătrat. Postarea Facebook are acum 1080 × 1350.
+- **Scurtături:** Rotiți imaginile și Elimină fundalul.]]></description>
+            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Повернуть влево и вправо.** Нажмите на результат правой кнопкой, чтобы повернуть его. Он делается заново из оригинала, поэтому поворот никогда не стоит качества.
+- **Все форматы, которые он читает,** теперь перечислены там, куда вы перетаскиваете файлы.
+- **Стабильнее с большими пакетами.** Исправлено редкое зависание при сжатии множества файлов одновременно.
+
+### Shrinker Studio
+
+- **Поворот и выпрямление.** Поворачивайте фото на четверть или пол-оборота либо отражайте их, для всего рецепта или только выбранных фото (⌘L и ⌘R), помимо выравнивания горизонта.
+- **Ставить каждое фото правильно.** Лица и текст решают, где верх. Фото, где это неясно, остаётся как есть. «Поставить правильно» делает это для выбранных.
+- **Удаление фона** (macOS 15 или новее). Объект вырезается прямо на Mac и кладётся на белый, чёрный, цвет или прозрачность, по желанию с тенью. Белый фон остаётся ровно 255, 255, 255 в JPEG и PNG.
+- **Только высветлить фон** для товаров, уже снятых на почти белом: сам товар никогда не затрагивается.
+- **Проверять для назначения.** 21 маркетплейс, соцсеть, фотоклуб, фотобанк и размер печати. Начните рецепт с назначения, и каждый файл будет отмечен как пройден, предупреждение или не пройден по его опубликованным правилам.
+- **Кадрировать объект**, чтобы он занимал заданную долю кадра, и **вписать** в рамку, например 1920 × 1080 клубного проектора.
+- **Скруглённые рамки** можно скруглять и снаружи, с прозрачными углами.
+- **Новые обрезки для соцсетей:** сетка Instagram, Threads, фото для TikTok и Facebook, квадрат. Пост в Facebook теперь 1080 × 1350.
+- **Быстрые команды:** Повернуть изображения и Удалить фон.]]></description>
+            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Otočiť doľava a doprava.** Kliknite na výsledok pravým tlačidlom a otočte ho. Vytvorí sa znova z originálu, takže otáčanie nikdy nestojí kvalitu.
+- **Všetky formáty, ktoré číta,** sú teraz uvedené tam, kam púšťate súbory.
+- **Stabilnejší pri veľkých dávkach.** Opravené zriedkavé zaseknutie pri komprimovaní mnohých súborov naraz.
+
+### Shrinker Studio
+
+- **Otočiť a narovnať.** Otáčajte fotky o štvrť alebo pol otáčky alebo ich preklápajte, pre celý recept alebo len vybrané fotky (⌘L a ⌘R), popri narovnaní horizontu.
+- **Otočiť každú fotku správne.** Tváre a text rozhodnú, kde je hore. Fotka, pri ktorej to nie je jasné, zostane, ako je. „Otočiť správne“ to urobí pre výber.
+- **Odstrániť pozadie** (macOS 15 alebo novší). Objekt sa vyreže na vašom Macu a umiestni na bielu, čiernu, farbu alebo priehľadnosť, voliteľne s tieňom. Biele pozadie zostane v JPEG aj PNG presne 255, 255, 255.
+- **Len vybieliť pozadie**, pre produkty už odfotené na takmer bielom: produktu sa to nikdy nedotkne.
+- **Kontrolovať pre cieľ.** 21 trhovísk, sociálnych sietí, fotoklubov, fotobánk a tlačových formátov. Začnite recept od cieľa a každý súbor sa označí ako vyhovuje, upozornenie alebo nevyhovuje podľa jeho zverejnených pravidiel.
+- **Zarámovať objekt**, aby vyplnil pevný podiel záberu, a **zmestiť do** rámčeka, ako je 1920 × 1080 klubového projektora.
+- **Zaoblené rámčeky** môžu byť zaoblené aj zvonka, s priehľadnými rohmi.
+- **Nové orezy pre sociálne siete:** mriežka Instagramu, Threads, fotka na TikTok a Facebook štvorec. Príspevok na Facebook má teraz 1080 × 1350.
+- **Skratky:** Otočiť obrázky a Odstrániť pozadie.]]></description>
+            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Zasukaj v levo in desno.** Z desno tipko kliknite rezultat, da ga zasukate. Znova se izdela iz izvirnika, zato zasuk nikoli ne stane kakovosti.
+- **Vse oblike zapisa, ki jih bere,** so zdaj navedene tam, kamor spustite datoteke.
+- **Stabilnejši pri velikih paketih.** Odpravljena je redka zaustavitev pri stiskanju veliko datotek hkrati.
+
+### Shrinker Studio
+
+- **Zasukaj in izravnaj.** Zasukajte fotografije za četrt ali pol obrata ali jih zrcalite, za ves recept ali le izbrane fotografije (⌘L in ⌘R), poleg izravnave obzorja.
+- **Postavi vsako fotografijo pokonci.** Obrazi in besedilo odločijo, kje je zgoraj. Fotografija, pri kateri to ni jasno, ostane nespremenjena. »Postavi pokonci« to naredi za izbor.
+- **Odstrani ozadje** (macOS 15 ali novejši). Motiv se izreže na vašem Macu in postavi na belo, črno, barvo ali prosojnost, po želji s senco. Belo ozadje ostane v JPEG in PNG natanko 255, 255, 255.
+- **Samo pobeli ozadje**, za izdelke, že posnete na skoraj belem: izdelka se nikoli ne dotakne.
+- **Preveri za cilj.** 21 spletnih tržnic, družbenih omrežij, fotoklubov, fotobank in velikosti tiska. Začnite recept s ciljem, in vsaka datoteka je označena kot ustrezna, opozorilo ali neustrezna po njegovih objavljenih pravilih.
+- **Uokviri motiv**, da zapolni stalen delež kadra, in **prilagodi na** okvir, kot je 1920 × 1080 klubskega projektorja.
+- **Zaobljeni okvirji** so lahko zaobljeni tudi zunaj, s prosojnimi vogali.
+- **Novi obrezi za družbena omrežja:** mreža Instagrama, Threads, fotografija za TikTok in Facebook kvadrat. Objava na Facebooku je zdaj 1080 × 1350.
+- **Bližnjice:** Zasukaj slike in Odstrani ozadje.]]></description>
+            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Rotera åt vänster och höger.** Högerklicka på ett resultat för att rotera det. Det görs om från originalet, så rotation kostar aldrig kvalitet.
+- **Alla format det läser** står nu där du släpper filer.
+- **Stabilare med stora omgångar.** Ett sällsynt stopp när många filer komprimerades samtidigt är åtgärdat.
+
+### Shrinker Studio
+
+- **Rotera och räta upp.** Rotera foton ett kvarts eller halvt varv, eller spegelvänd dem, för hela receptet eller bara de markerade fotona (⌘L och ⌘R), utöver att räta upp horisonten.
+- **Vänd varje foto rätt.** Ansikten och text avgör vad som är upp. Ett foto där det inte är tydligt lämnas som det är. ”Vänd rätt” gör det för markeringen.
+- **Ta bort bakgrund** (macOS 15 eller senare). Motivet friläggs på din Mac och läggs på vitt, svart, en färg eller genomskinligt, med skugga om du vill. En vit bakgrund förblir exakt 255, 255, 255 i JPEG och PNG.
+- **Gör bara bakgrunden vit**, för produkter som redan fotograferats på nästan vitt: produkten rörs aldrig.
+- **Kontrollera för en destination.** 21 marknadsplatser, sociala nätverk, fotoklubbar, bildbyråer och utskriftsstorlekar. Börja ett recept från en destination, och varje fil markeras som godkänd, varning eller underkänd enligt dess publicerade regler.
+- **Rama in motivet** så att det fyller en fast andel av bilden, och **anpassa till** en ruta som en klubbprojektors 1920 × 1080.
+- **Rundade ramar** kan också rundas utvändigt, med genomskinliga hörn.
+- **Nya beskärningar för sociala medier:** Instagram-rutnät, Threads, TikTok-foto och Facebook kvadratisk. Facebook-inlägg är nu 1080 × 1350.
+- **Genvägar:** Rotera bilder och Ta bort bakgrund.]]></description>
+            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **หมุนซ้ายและหมุนขวา** คลิกขวาที่ผลลัพธ์เพื่อหมุน ระบบจะสร้างใหม่จากต้นฉบับ การหมุนจึงไม่ทำให้คุณภาพลดลงเลย
+- **ทุกรูปแบบที่อ่านได้** แสดงอยู่ตรงที่คุณวางไฟล์แล้ว
+- **เสถียรขึ้นกับไฟล์จำนวนมาก** แก้ปัญหาค้างที่เกิดขึ้นได้ยากเมื่อบีบอัดไฟล์จำนวนมากพร้อมกัน
+
+### Shrinker Studio
+
+- **หมุนและปรับให้ตรง** หมุนรูปถ่ายหนึ่งในสี่หรือครึ่งรอบ หรือกลับด้าน ทั้งสูตรหรือเฉพาะรูปที่เลือก (⌘L และ ⌘R) นอกเหนือจากการปรับเส้นขอบฟ้าให้ตรง
+- **หมุนรูปถ่ายแต่ละรูปให้ตั้งตรง** ใบหน้าและข้อความเป็นตัวตัดสินว่าด้านไหนคือด้านบน รูปที่ไม่ชัดเจนจะคงไว้ตามเดิม “หมุนให้ตั้งตรง” ทำสิ่งนี้กับรูปที่เลือก
+- **ลบพื้นหลัง** (macOS 15 ขึ้นไป) ตัดตัวแบบออกบน Mac ของคุณ แล้ววางบนสีขาว สีดำ สีที่เลือก หรือพื้นหลังโปร่งใส ใส่เงาได้ตามต้องการ พื้นหลังสีขาวคงอยู่ที่ 255, 255, 255 พอดีทั้งใน JPEG และ PNG
+- **ทำพื้นหลังให้ขาวเท่านั้น** สำหรับสินค้าที่ถ่ายบนพื้นเกือบขาวอยู่แล้ว โดยไม่แตะต้องตัวสินค้าเลย
+- **ตรวจสำหรับปลายทาง** 21 ร้านค้าออนไลน์ โซเชียลเน็ตเวิร์ก ชมรมถ่ายภาพ คลังภาพ และขนาดงานพิมพ์ เริ่มสูตรจากปลายทาง แล้วทุกไฟล์จะถูกทำเครื่องหมายว่าผ่าน เตือน หรือไม่ผ่านตามกฎที่เผยแพร่ไว้
+- **จัดกรอบตัวแบบ** ให้เต็มสัดส่วนที่กำหนดของกรอบ และ**ให้พอดีใน**กรอบ เช่น 1920 × 1080 ของโปรเจกเตอร์ชมรม
+- **ขอบมน** มนด้านนอกได้ด้วย โดยมุมเป็นโปร่งใส
+- **การครอบตัดใหม่สำหรับโซเชียล:** ตาราง Instagram, Threads, รูปถ่าย TikTok และ Facebook จัตุรัส โพสต์ Facebook เป็น 1080 × 1350 แล้ว
+- **คำสั่งลัด:** หมุนรูปภาพ และ ลบพื้นหลัง]]></description>
+            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Sola ve sağa döndür.** Bir sonucu döndürmek için sağ tıklayın. Orijinalden yeniden yapılır, bu yüzden döndürmek asla kaliteden götürmez.
+- **Okuduğu her biçim** artık dosyaları bıraktığınız yerde listeleniyor.
+- **Büyük gruplarda daha kararlı.** Çok sayıda dosya aynı anda sıkıştırılırken nadiren yaşanan takılma düzeltildi.
+
+### Shrinker Studio
+
+- **Döndür ve düzelt.** Fotoğrafları çeyrek veya yarım tur döndürün ya da çevirin; tüm tarif veya yalnızca seçili fotoğraflar için (⌘L ve ⌘R), ufku düzeltmenin yanı sıra.
+- **Her fotoğrafı dik çevir.** Yüzler ve metin yukarının neresi olduğuna karar verir. Bunun net olmadığı fotoğraf olduğu gibi bırakılır. “Dik Çevir” bunu seçim için yapar.
+- **Arka planı kaldır** (macOS 15 veya sonrası). Konu Mac’inizde kırpılır ve beyaz, siyah, bir renk veya saydamlık üzerine konur; isterseniz gölgeyle. Beyaz arka plan JPEG ve PNG’de tam olarak 255, 255, 255 kalır.
+- **Yalnızca arka planı beyazlat**, zaten neredeyse beyaz üzerinde çekilmiş ürünler için: ürüne asla dokunulmaz.
+- **Bir hedef için denetle.** 21 pazar yeri, sosyal ağ, fotoğraf kulübü, stok fotoğraf sitesi ve baskı boyutu. Bir hedeften tarif başlatın; her dosya, yayımlanan kurallarına göre geçti, uyarı veya kaldı olarak işaretlenir.
+- **Konuyu çerçevele**, böylece karenin sabit bir kısmını doldursun, ve bir kulüp projektörünün 1920 × 1080’i gibi bir kutuya **sığdır**.
+- **Yuvarlak kenarlıklar** dışarıdan da yuvarlatılabilir, köşeler saydam olur.
+- **Yeni sosyal medya kırpmaları:** Instagram ızgarası, Threads, TikTok fotoğrafı ve Facebook kare. Facebook gönderisi artık 1080 × 1350.
+- **Kestirmeler:** Görüntüleri Döndür ve Arka Planı Kaldır.]]></description>
+            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Повернути ліворуч і праворуч.** Натисніть на результат правою кнопкою, щоб повернути його. Його зроблено заново з оригіналу, тож поворот ніколи не коштує якості.
+- **Усі формати, які він читає,** тепер наведено там, куди ви перетягуєте файли.
+- **Стабільніший із великими пакетами.** Виправлено рідкісне зависання під час стискання багатьох файлів одночасно.
+
+### Shrinker Studio
+
+- **Поворот і випрямлення.** Повертайте фото на чверть або пів оберту чи віддзеркалюйте їх, для всього рецепта або лише вибраних фото (⌘L і ⌘R), окрім вирівнювання горизонту.
+- **Ставити кожне фото правильно.** Обличчя й текст вирішують, де верх. Фото, де це неясно, лишається як є. «Поставити правильно» робить це для вибраних.
+- **Вилучення фону** (macOS 15 або новіша). Об’єкт вирізається просто на Mac і кладеться на біле, чорне, колір або прозорість, за бажанням із тінню. Білий фон лишається рівно 255, 255, 255 у JPEG і PNG.
+- **Лише висвітлити фон** для товарів, уже знятих на майже білому: сам товар ніколи не змінюється.
+- **Перевіряти для призначення.** 21 маркетплейс, соцмережа, фотоклуб, фотобанк і розмір друку. Почніть рецепт із призначення, і кожен файл буде позначено як пройдено, попередження або не пройдено за його опублікованими правилами.
+- **Кадрувати об’єкт**, щоб він займав задану частку кадру, і **вписати** в рамку, як-от 1920 × 1080 клубного проєктора.
+- **Заокруглені рамки** можна заокруглювати й ззовні, із прозорими кутами.
+- **Нові обрізки для соцмереж:** сітка Instagram, Threads, фото для TikTok і Facebook, квадрат. Допис у Facebook тепер 1080 × 1350.
+- **Швидкі команди:** Повернути зображення і Вилучити фон.]]></description>
+            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **Xoay trái và xoay phải.** Bấm chuột phải vào một kết quả để xoay. Ảnh được làm lại từ bản gốc, nên xoay không bao giờ làm giảm chất lượng.
+- **Mọi định dạng ứng dụng đọc được** giờ được liệt kê ngay chỗ bạn thả tệp.
+- **Ổn định hơn với lô lớn.** Đã sửa lỗi hiếm khi bị treo lúc nén nhiều tệp cùng lúc.
+
+### Shrinker Studio
+
+- **Xoay và làm thẳng.** Xoay ảnh một phần tư hoặc nửa vòng, hoặc lật ảnh, cho cả công thức hay chỉ các ảnh đã chọn (⌘L và ⌘R), bên cạnh việc làm thẳng đường chân trời.
+- **Xoay từng ảnh cho thẳng đứng.** Khuôn mặt và chữ quyết định đâu là phía trên. Ảnh nào không rõ sẽ được giữ nguyên. “Xoay thẳng đứng” làm việc này cho các ảnh đã chọn.
+- **Xóa phông nền** (macOS 15 trở lên). Chủ thể được tách ngay trên máy Mac và đặt lên nền trắng, đen, một màu hoặc trong suốt, có thể thêm bóng. Nền trắng giữ đúng 255, 255, 255 trong JPEG và PNG.
+- **Chỉ làm trắng nền**, cho sản phẩm đã chụp trên nền gần trắng: sản phẩm không bao giờ bị thay đổi.
+- **Kiểm tra cho một đích đến.** 21 sàn thương mại, mạng xã hội, câu lạc bộ ảnh, kho ảnh và kích thước in. Bắt đầu công thức từ một đích đến, và mỗi tệp được đánh dấu đạt, cảnh báo hoặc không đạt theo quy định đã công bố.
+- **Đóng khung chủ thể** để nó chiếm một tỉ lệ cố định của khung hình, và **vừa trong** một khung như 1920 × 1080 của máy chiếu câu lạc bộ.
+- **Viền bo tròn** cũng có thể bo tròn phía ngoài, với các góc trong suốt.
+- **Khung cắt mới cho mạng xã hội:** lưới Instagram, Threads, ảnh TikTok và Facebook vuông. Bài đăng Facebook giờ là 1080 × 1350.
+- **Phím tắt:** Xoay hình ảnh và Xóa phông nền.]]></description>
+            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **向左及向右旋轉。** 在結果上按右鍵即可旋轉。它會由原圖重新製作，所以旋轉絕不會損失畫質。
+- **它能讀取的所有格式**現在都列在你放入檔案的地方。
+- **處理大批檔案更穩定。** 修正同時壓縮大量檔案時偶爾卡住的問題。
+
+### Shrinker Studio
+
+- **旋轉及拉直。** 將相片旋轉 90° 或 180°，或者翻轉，可用於整份配方，也可只用於所選相片（⌘L 和 ⌘R），同時仍可拉直地平線。
+- **把每張相片轉正。** 根據人臉和文字判斷哪邊向上。無法判斷的相片會保持原樣。「轉正」可用於所選相片。
+- **移除背景**（macOS 15 或以上版本）。在你的 Mac 上把主體去背，放在白色、黑色、某種顏色或透明背景上，可選擇加上陰影。白色背景在 JPEG 和 PNG 中保持剛好 255, 255, 255。
+- **只將背景變白**，適用於已在接近白色背景上拍攝的產品：產品本身絕不會被改動。
+- **按目標檢查。** 21 個網上商店、社交網絡、攝影會、圖庫和列印尺寸。由目標開始建立配方，每個檔案都會按其公佈的規則標示為通過、警告或不通過。
+- **框住主體**，令它佔畫面的固定比例，並可**縮放到**某個框內，例如攝影會投影機的 1920 × 1080。
+- **圓角邊框**的外側也可以是圓角，角落為透明。
+- **新的社交裁剪：** Instagram 格線、Threads、TikTok 相片和 Facebook 正方形。Facebook 帖子現為 1080 × 1350。
+- **捷徑：** 旋轉影像和移除背景。]]></description>
+            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **向左和向右旋转。** 右键点按结果即可旋转。它会从原图重新生成，所以旋转从不损失画质。
+- **它能读取的所有格式**现在都列在你拖放文件的地方。
+- **处理大批量更稳定。** 修正了同时压缩大量文件时偶尔卡住的问题。
+
+### Shrinker Studio
+
+- **旋转和拉直。** 将照片旋转 90° 或 180°，或进行翻转，可用于整个配方，也可只用于所选照片（⌘L 和 ⌘R），同时仍可拉直地平线。
+- **将每张照片转正。** 根据人脸和文字判断哪边朝上。无法判断的照片保持原样。“转正”可对所选照片执行。
+- **移除背景**（macOS 15 或更高版本）。在你的 Mac 上抠出主体，放在白色、黑色、某种颜色或透明背景上，可选添加阴影。白色背景在 JPEG 和 PNG 中保持正好 255, 255, 255。
+- **仅将背景变白**，适用于已在近乎白色背景上拍摄的产品：产品本身绝不会被改动。
+- **按目标检查。** 21 个电商平台、社交网络、摄影俱乐部、图库和打印尺寸。从目标开始创建配方，每个文件都会按其公布的规则标为通过、警告或未通过。
+- **框住主体**，让它占画面的固定比例，并可**缩放到**某个框内，例如俱乐部投影仪的 1920 × 1080。
+- **圆角边框**也可以把外侧做成圆角，角落为透明。
+- **新的社交裁剪：** Instagram 网格、Threads、TikTok 照片和 Facebook 正方形。Facebook 帖子现为 1080 × 1350。
+- **快捷指令：** 旋转图片和移除背景。]]></description>
+            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Pro
+
+- **向左及向右旋轉。** 在結果上按右鍵即可旋轉。它會從原圖重新產生，因此旋轉絕不會損失畫質。
+- **它能讀取的所有格式**現在都列在你放入檔案的地方。
+- **處理大批檔案更穩定。** 修正同時壓縮大量檔案時偶爾卡住的問題。
+
+### Shrinker Studio
+
+- **旋轉與拉直。** 將照片旋轉 90° 或 180°，或加以翻轉，可用於整份配方，也可只用於所選照片（⌘L 和 ⌘R），同時仍可拉直地平線。
+- **將每張照片轉正。** 依人臉和文字判斷哪邊朝上。無法判斷的照片會維持原樣。「轉正」可用於所選照片。
+- **移除背景**（macOS 15 或以上版本）。在你的 Mac 上將主體去背，放在白色、黑色、某種顏色或透明背景上，可選擇加上陰影。白色背景在 JPEG 和 PNG 中維持剛好 255, 255, 255。
+- **僅將背景變白**，適用於已在近乎白色背景上拍攝的產品：產品本身絕不會被改動。
+- **依目標檢查。** 21 個電商平台、社群網路、攝影社團、圖庫和列印尺寸。從目標開始建立配方，每個檔案都會依其公布的規則標示為通過、警告或未通過。
+- **框住主體**，讓它佔畫面的固定比例，並可**縮放到**某個框內，例如社團投影機的 1920 × 1080。
+- **圓角邊框**的外側也可以是圓角，角落為透明。
+- **新的社群裁切：** Instagram 格線、Threads、TikTok 照片和 Facebook 正方形。Facebook 貼文現為 1080 × 1350。
+- **捷徑：** 旋轉影像和移除背景。]]></description>
+            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.11.0/ShrinkerPro-1.11.0.dmg" length="12716506" type="application/octet-stream" sparkle:edSignature="oZqTz/ONxRtcWdcxbXSn9BGg/C9ibS9nB4+O7Zb90Adu7Xc+dJAo4DAYqGhHREf1j+iE5wrrn7FZpvfXl7MRCg=="/>
+        </item>
+        <item>
             <title>1.10.0</title>
             <pubDate>Thu, 19 Nov 2026 16:28:42 -0500</pubDate>
             <sparkle:version>20</sparkle:version>
@@ -921,268 +1543,6 @@
 - **儲存至 ▸ 匯出時詢問。** 每次匯出時選擇檔案夾。
 - **可直接輸入任何滑桿的數值**，就在步驟的彈出式視窗中。]]></description>
             <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.9.1/ShrinkerPro-1.9.1.dmg" length="11624967" type="application/octet-stream" sparkle:edSignature="Ielji1bvpvpowzwJUOMsu4Iped/ycDDsVWUVNChy7tLpmqjufriGu22JjdfavMkZRMs7CJtUj+VFLtQst0kuAg=="/>
-        </item>
-        <item>
-            <title>1.9.0</title>
-            <pubDate>Sat, 14 Nov 2026 11:02:22 -0500</pubDate>
-            <sparkle:version>18</sparkle:version>
-            <sparkle:shortVersionString>1.9.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Straighten.** A new recipe step levels a tilted horizon automatically. On any photo, Straighten by hand… sets the angle yourself against a grid.
-- **Keep the whole photo.** For stamps, prints and anything whose edges matter: nothing is cut off, and the corners are filled with the background or a colour you pick.
-- **Crop to the item.** Studio levels a scan and crops it to the stamp, print or card on the scanner glass, with a margin from none to 10%. Dust and hairs on the glass are left out.
-- **Side by side fits beside the sidebars,** and you can zoom out until even a very large scan fits.
-- **Fixed:** with All photos chosen, dragging the quality slider in Looks the same changed only the photo in front. It now sets the recipe to Manual at that quality, so it saves with the recipe.
-]]></description>
-            <description xml:lang="ar" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **تقويم.** خطوة وصفة جديدة تسوّي الأفق المائل تلقائيًا. وفي أي صورة، يتيح لك «التقويم يدويًا…» ضبط الزاوية بنفسك مقابل شبكة.
-- **الاحتفاظ بالصورة كاملة.** للطوابع والصور المطبوعة وكل ما تهم حوافه: لا يُقتطع شيء، وتُملأ الزوايا بالخلفية أو بلون تختاره.
-- **اقتصاص إلى العنصر.** يسوّي Studio الصورة الممسوحة ضوئيًا ويقتصها إلى الطابع أو الصورة المطبوعة أو البطاقة الموضوعة على زجاج الماسح، بهامش يتراوح بين 0 و10%. ويُستبعد الغبار والشعر العالق على الزجاج.
-- **يتسع عرض «جنبًا إلى جنب» بجوار الأشرطة الجانبية،** ويمكنك التصغير إلى أن تتسع حتى الصورة الممسوحة الكبيرة جدًا.
-- **تم الإصلاح:** عند اختيار «كل الصور»، كان سحب شريط تمرير الجودة في «يبدو متطابقًا» يغيّر الصورة الأمامية فقط. أما الآن فيضبط الوصفة على «يدوي» بتلك الجودة، فتُحفظ مع الوصفة.]]></description>
-            <description xml:lang="ca" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Redreça.** Un pas de recepta nou anivella automàticament un horitzó inclinat. En qualsevol foto, «Redreça a mà…» et permet ajustar tu mateix l’angle amb una quadrícula.
-- **Conserva tota la foto.** Per a segells, còpies impreses i tot allò en què les vores importen: no es retalla res, i les cantonades s’omplen amb el fons o amb un color que triïs.
-- **Escapça a l’objecte.** Studio redreça un escaneig i l’escapça al segell, la còpia o la targeta que hi ha sobre el vidre de l’escàner, amb un marge de 0 a 10 %. La pols i els pèls del vidre no es tenen en compte.
-- **«Costat a costat» cap al costat de les barres laterals,** i pots allunyar fins que hi càpiga fins i tot un escaneig molt gran.
-- **Corregit:** amb «Totes les fotos» triat, arrossegar el control de qualitat a «Es veu igual» només canviava la foto de davant. Ara posa la recepta a «Manual» amb aquesta qualitat, de manera que es desa amb la recepta.]]></description>
-            <description xml:lang="cs" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Narovnat.** Nový krok receptu automaticky vyrovná nakloněný horizont. U libovolné fotky můžete pomocí „Narovnat ručně…“ nastavit úhel sami podle mřížky.
-- **Zachovat celou fotku.** Pro známky, fotografie na papíře a vše, u čeho záleží na okrajích: nic se neořízne a rohy se vyplní pozadím nebo barvou, kterou si vyberete.
-- **Oříznout na předmět.** Studio vyrovná sken a ořízne ho na známku, fotografii nebo kartu na skle skeneru, s okrajem od 0 do 10 %. Prach a vlasy na skle se ignorují.
-- **„Vedle sebe“ se vejde vedle postranních panelů,** a můžete oddalovat, dokud se nevejde i velmi velký sken.
-- **Opraveno:** když byly vybrány „Všechny fotky“, tažení posuvníku kvality v režimu „Vypadá stejně“ změnilo jen fotku vpředu. Nyní nastaví recept na „Ručně“ s touto kvalitou, takže se uloží spolu s receptem.]]></description>
-            <description xml:lang="da" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Ret op.** Et nyt opskriftstrin retter en skæv horisont op automatisk. På ethvert foto kan du med “Ret op manuelt…” selv indstille vinklen efter et gitter.
-- **Behold hele fotoet.** Til frimærker, aftryk og alt, hvor kanterne betyder noget: Intet beskæres, og hjørnerne udfyldes med baggrunden eller en farve, du vælger.
-- **Beskær til emnet.** Studio retter en scanning op og beskærer den til frimærket, aftrykket eller kortet på scannerens glasplade med en margen fra 0 til 10 %. Støv og hår på glasset ignoreres.
-- **“Side om side” passer ved siden af sidepanelerne,** og du kan zoome ud, indtil selv en meget stor scanning kan være der.
-- **Rettet:** Når “Alle fotos” var valgt, ændrede træk i kvalitetsskyderen i “Ser ens ud” kun det forreste foto. Nu sætter den opskriften til “Manuel” med den kvalitet, så den gemmes med opskriften.]]></description>
-            <description xml:lang="de" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Begradigen.** Ein neuer Rezeptschritt richtet einen schiefen Horizont automatisch aus. Bei jedem Foto stellst du mit „Von Hand begradigen …“ den Winkel selbst an einem Raster ein.
-- **Ganzes Foto behalten.** Für Briefmarken, Abzüge und alles, bei dem die Ränder zählen: Nichts wird abgeschnitten, und die Ecken werden mit dem Hintergrund oder einer Farbe deiner Wahl gefüllt.
-- **Auf das Objekt zuschneiden.** Studio richtet einen Scan gerade aus und schneidet ihn auf die Briefmarke, den Abzug oder die Karte auf dem Scannerglas zu, mit einem Rand zwischen 0 und 10 %. Staub und Haare auf dem Glas werden dabei ignoriert.
-- **„Nebeneinander“ passt neben die Seitenleisten,** und du kannst herauszoomen, bis selbst ein sehr großer Scan ganz zu sehen ist.
-- **Behoben:** Wenn „Alle Fotos“ ausgewählt war, änderte das Ziehen des Qualitätsreglers bei „Sieht gleich aus“ nur das vordere Foto. Jetzt stellt es das Rezept auf „Manuell“ mit dieser Qualität, sodass sie mit dem Rezept gesichert wird.]]></description>
-            <description xml:lang="el" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Ίσιωμα.** Ένα νέο βήμα συνταγής ισιώνει αυτόματα έναν γερμένο ορίζοντα. Σε οποιαδήποτε φωτογραφία, το «Ίσιωμα με το χέρι…» σάς επιτρέπει να ορίσετε μόνοι σας τη γωνία πάνω σε ένα πλέγμα.
-- **Διατήρηση ολόκληρης φωτογραφίας.** Για γραμματόσημα, εκτυπώσεις και ό,τι έχει σημαντικές άκρες: τίποτα δεν περικόπτεται και οι γωνίες γεμίζουν με το φόντο ή με ένα χρώμα της επιλογής σας.
-- **Περικοπή στο αντικείμενο.** Το Studio ισιώνει μια σάρωση και την περικόπτει στο γραμματόσημο, την εκτύπωση ή την κάρτα πάνω στο τζάμι του σαρωτή, με περιθώριο από 0 έως 10%. Η σκόνη και οι τρίχες στο τζάμι αγνοούνται.
-- **Η προβολή «Δίπλα-δίπλα» χωρά δίπλα στις πλαϊνές στήλες,** και μπορείτε να κάνετε σμίκρυνση μέχρι να χωρέσει ακόμη και μια πολύ μεγάλη σάρωση.
-- **Διορθώθηκε:** με επιλεγμένο το «Όλες οι φωτογραφίες», η μεταφορά του ρυθμιστικού ποιότητας στο «Φαίνεται ίδια» άλλαζε μόνο τη φωτογραφία μπροστά. Τώρα ορίζει τη συνταγή σε «Χειροκίνητη» με αυτή την ποιότητα, ώστε να αποθηκεύεται μαζί με τη συνταγή.]]></description>
-            <description xml:lang="es" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Enderezar.** Un nuevo paso de receta nivela automáticamente un horizonte inclinado. En cualquier foto, «Enderezar a mano…» te permite ajustar tú mismo el ángulo con una cuadrícula.
-- **Conservar toda la foto.** Para sellos, copias impresas y todo aquello cuyos bordes importan: no se recorta nada, y las esquinas se rellenan con el fondo o con un color que elijas.
-- **Recortar al objeto.** Studio endereza un escaneo y lo recorta al sello, la copia o la tarjeta que hay sobre el cristal del escáner, con un margen de 0 a 10 %. El polvo y los pelos del cristal se ignoran.
-- **«Lado a lado» cabe junto a las barras laterales,** y puedes alejar hasta que quepa incluso un escaneo muy grande.
-- **Corregido:** con «Todas las fotos» elegido, arrastrar el regulador de calidad en «Se ve igual» solo cambiaba la foto que estaba delante. Ahora ajusta la receta a «Manual» con esa calidad, de modo que se guarda con la receta.]]></description>
-            <description xml:lang="fa" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **صاف کردن.** یک مرحلهٔ تازهٔ دستور پخت، افق کج را خودکار تراز می‌کند. در هر عکسی، با «صاف کردن دستی…» می‌توانید زاویه را خودتان روی یک شبکه تنظیم کنید.
-- **حفظ کل عکس.** برای تمبرها، چاپ‌ها و هر چیزی که لبه‌هایش مهم است: چیزی بریده نمی‌شود و گوشه‌ها با پس‌زمینه یا رنگی که انتخاب می‌کنید پر می‌شوند.
-- **برش دادن به اندازهٔ شیء.** Studio تصویر اسکن‌شده را صاف می‌کند و آن را به اندازهٔ تمبر، چاپ یا کارت روی شیشهٔ اسکنر برش می‌دهد، با حاشیه‌ای از 0 تا 10٪. گرد و غبار و موهای روی شیشه نادیده گرفته می‌شوند.
-- **«کنار هم» کنار نوارهای کناری جا می‌شود،** و می‌توانید آن‌قدر کوچک‌نمایی کنید تا حتی یک تصویر اسکن‌شدهٔ بسیار بزرگ هم جا شود.
-- **رفع شد:** وقتی «همهٔ عکس‌ها» انتخاب شده بود، کشیدن لغزندهٔ کیفیت در «ظاهر یکسان» فقط عکس جلویی را تغییر می‌داد. اکنون دستور پخت را روی «دستی» با همان کیفیت تنظیم می‌کند تا همراه دستور پخت ذخیره شود.]]></description>
-            <description xml:lang="fi" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Suorista.** Uusi reseptin vaihe suoristaa vinon horisontin automaattisesti. Millä tahansa valokuvalla voit asettaa kulman itse ruudukkoa vasten toiminnolla ”Suorista käsin…”.
-- **Säilytä koko valokuva.** Postimerkeille, vedoksille ja kaikelle, jonka reunoilla on merkitystä: mitään ei rajata pois, ja kulmat täytetään taustalla tai valitsemallasi värillä.
-- **Rajaa kohteeseen.** Studio suoristaa skannauksen ja rajaa sen skannerin lasilla olevaan postimerkkiin, vedokseen tai korttiin, ja marginaalin koko on 0–10 %. Lasilla olevaa pölyä ja hiuksia ei huomioida.
-- **”Vierekkäin” mahtuu sivupalkkien viereen,** ja voit loitontaa, kunnes hyvin suurikin skannaus mahtuu näkyviin.
-- **Korjattu:** kun ”Kaikki valokuvat” oli valittuna, laatuliukusäätimen vetäminen tilassa ”Näyttää samalta” muutti vain edessä olevaa valokuvaa. Nyt se vaihtaa reseptin tilaan ”Manuaalinen” tällä laadulla, joten laatu tallentuu reseptin mukana.]]></description>
-            <description xml:lang="fr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Redresser.** Une nouvelle étape de recette redresse automatiquement un horizon penché. Sur n’importe quelle photo, « Redresser à la main… » vous permet de régler vous-même l’angle à l’aide d’une grille.
-- **Garder toute la photo.** Pour les timbres, les tirages et tout ce dont les bords comptent : rien n’est coupé, et les coins sont remplis avec le fond ou une couleur de votre choix.
-- **Recadrer sur l’objet.** Studio redresse un scan et le recadre sur le timbre, le tirage ou la carte posé sur la vitre du scanner, avec une marge de 0 à 10 %. La poussière et les cheveux sur la vitre sont ignorés.
-- **« Côte à côte » tient à côté des barres latérales,** et vous pouvez faire un zoom arrière jusqu’à ce que même un très grand scan tienne à l’écran.
-- **Corrigé :** lorsque « Toutes les photos » était choisi, faire glisser le curseur de qualité dans « Rendu identique » ne modifiait que la photo au premier plan. Il règle désormais la recette sur « Manuel » à cette qualité, qui est donc enregistrée avec la recette.]]></description>
-            <description xml:lang="he" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **יישור.** שלב מתכון חדש מיישר אוטומטית אופק נטוי. בכל תצלום, ״יישור ידני…״ מאפשר לקבוע את הזווית ביד מול רשת.
-- **שמירת התצלום כולו.** לבולים, להדפסות ולכל דבר שהשוליים שלו חשובים: שום דבר לא נחתך, והפינות ממולאות ברקע או בצבע לבחירה.
-- **חיתוך לפי הפריט.** Studio מיישר סריקה וחותך אותה לפי הבול, ההדפסה או הכרטיס שעל זכוכית הסורק, עם שוליים מ־0 ועד 10%. אבק ושערות על הזכוכית אינם נלקחים בחשבון.
-- **״זה לצד זה״ נכנס לצד סרגלי הצד,** ואפשר להקטין את התצוגה עד שאפילו סריקה גדולה מאוד נכנסת במלואה.
-- **תוקן:** כשנבחרה האפשרות ״כל התצלומים״, גרירת מחוון האיכות ב״נראה זהה״ שינתה רק את התצלום שבחזית. כעת היא מגדירה את המתכון ל״ידני״ באיכות הזו, כך שהאיכות נשמרת עם המתכון.]]></description>
-            <description xml:lang="hr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Izravnavanje.** Novi korak recepta automatski izravnava nakrivljeni horizont. Na bilo kojoj fotografiji pomoću „Ručno izravnavanje…” sami postavljate kut prema mreži.
-- **Zadrži cijelu fotografiju.** Za marke, otiske i sve kod čega su rubovi važni: ništa se ne odrezuje, a kutovi se ispune pozadinom ili bojom koju odaberete.
-- **Izreži na predmet.** Studio izravnava sken i reže ga na marku, otisak ili karticu na staklu skenera, s marginom od 0 do 10 %. Prašina i dlačice na staklu se zanemaruju.
-- **Prikaz „Usporedno” stane uz bočne stupce,** a možete umanjivati dok ne stane čak i vrlo velik sken.
-- **Ispravljeno:** kad su bile odabrane „Sve fotografije”, povlačenje klizača kvalitete u načinu „Izgleda isto” mijenjalo je samo fotografiju sprijeda. Sada postavlja recept na „Ručno” s tom kvalitetom, pa se ona sprema s receptom.]]></description>
-            <description xml:lang="hu" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Kiegyenesítés.** Egy új receptlépés automatikusan kiegyenesíti a ferde horizontot. Bármelyik fotón a „Kiegyenesítés kézzel…” segítségével saját maga állíthatja be a szöget egy rácshoz igazítva.
-- **Teljes fotó megtartása.** Bélyegekhez, nyomatokhoz és mindenhez, aminél számítanak a szélek: semmi sem vágódik le, a sarkok pedig a háttérrel vagy egy választott színnel töltődnek ki.
-- **Kivágás a tárgyra.** A Studio kiegyenesíti a szkennelt képet, és a szkenner üveglapján lévő bélyegre, nyomatra vagy kártyára vágja, 0 és 10% közötti margóval. Az üvegen lévő port és hajszálakat figyelmen kívül hagyja.
-- **Az „Egymás mellett” nézet elfér az oldalsávok mellett,** és addig kicsinyíthet, amíg még egy nagyon nagy szkennelt kép is elfér.
-- **Javítva:** ha az „Összes fotó” volt kiválasztva, a minőségcsúszka húzása a „Szemre azonos” módban csak az elöl lévő fotót változtatta meg. Most a receptet „Kézi” módra állítja ezzel a minőséggel, így az a recepttel együtt mentődik.]]></description>
-            <description xml:lang="is" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Rétta af.** Nýtt uppskriftarskref réttir af skakkan sjóndeildarhring sjálfvirkt. Á hvaða ljósmynd sem er getur þú stillt hornið eftir hnitaneti með „Rétta af handvirkt…“.
-- **Halda allri ljósmyndinni.** Fyrir frímerki, útprentanir og allt þar sem brúnirnar skipta máli: ekkert er skorið af, og hornin eru fyllt með bakgrunninum eða lit sem þú velur.
-- **Skera að hlutnum.** Studio réttir af skannaða mynd og sker hana að frímerkinu, útprentuninni eða kortinu á gleri skannans, með spássíu frá 0 upp í 10%. Ryk og hár á glerinu er hunsað.
-- **„Hlið við hlið“ kemst fyrir við hliðarstikurnar,** og þú getur minnkað aðdrátt þar til jafnvel mjög stór skönnuð mynd kemst fyrir.
-- **Lagað:** þegar „Allar ljósmyndir“ var valið breytti það aðeins fremstu ljósmyndinni að draga gæðasleðann í „Lítur eins út“. Nú stillir sleðinn uppskriftina á „Handvirkt“ með þeim gæðum, svo að þau vistast með uppskriftinni.]]></description>
-            <description xml:lang="it" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Raddrizza.** Un nuovo passaggio della ricetta raddrizza automaticamente un orizzonte storto. Su qualsiasi foto, «Raddrizza a mano…» ti permette di impostare tu stesso l’angolo su una griglia.
-- **Mantieni tutta la foto.** Per francobolli, stampe e tutto ciò in cui i bordi contano: non si taglia nulla, e gli angoli vengono riempiti con lo sfondo o con un colore a tua scelta.
-- **Ritaglia all’oggetto.** Studio raddrizza una scansione e la ritaglia attorno al francobollo, alla stampa o alla cartolina sul vetro dello scanner, con un margine da 0 al 10%. Polvere e peli sul vetro vengono ignorati.
-- **La vista «Affiancate» sta accanto alle barre laterali,** e puoi ridurre lo zoom finché anche una scansione molto grande ci sta per intero.
-- **Corretto:** con «Tutte le foto» scelto, trascinare il cursore della qualità in «Sembra identico» cambiava solo la foto in primo piano. Ora imposta la ricetta su «Manuale» a quella qualità, così viene salvata con la ricetta.]]></description>
-            <description xml:lang="ja" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **傾き補正。** 新しいレシピのステップで、傾いた水平線を自動で補正します。どの写真でも、「手動で傾き補正…」を使えばグリッドに合わせて自分で角度を設定できます。
-- **写真全体を残す。** 切手、プリントなど、端が重要なものに。何も切り取られず、角は背景または選んだ色で塗りつぶされます。
-- **対象物に合わせて切り取る。** Studioはスキャン画像の傾きを補正し、スキャナのガラス面に置いた切手、プリント、カードに合わせて切り取ります。余白は0〜10%の範囲で設定できます。ガラス面のほこりや髪の毛は無視されます。
-- **「並べて表示」がサイドバーの横に収まるようになりました。** また、非常に大きなスキャン画像でも全体が収まるまで縮小できます。
-- **修正：** 「すべての写真」を選択しているとき、「見た目が同じ」で品質スライダをドラッグすると手前の写真しか変わりませんでした。現在は、レシピがその品質の「手動」に設定され、レシピと一緒に保存されます。]]></description>
-            <description xml:lang="ko" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **기울기 보정.** 새 레시피 단계가 기울어진 수평선을 자동으로 맞춥니다. 어떤 사진에서든 ‘수동으로 기울기 보정…’을 사용하면 격자에 맞춰 각도를 직접 설정할 수 있습니다.
-- **사진 전체 유지.** 우표, 인화 사진 등 가장자리가 중요한 모든 것에 적합합니다. 잘리는 부분이 없으며 모서리는 배경 또는 선택한 색상으로 채워집니다.
-- **대상에 맞춰 자르기.** Studio가 스캔 이미지를 바로잡고 스캐너 유리 위의 우표, 인화 사진 또는 카드에 맞춰 자릅니다. 여백은 0부터 10%까지 지정할 수 있습니다. 유리 위의 먼지와 머리카락은 무시됩니다.
-- **‘나란히 보기’가 사이드바 옆에 맞게 표시되며,** 아주 큰 스캔 이미지도 다 보일 때까지 축소할 수 있습니다.
-- **수정됨:** ‘모든 사진’을 선택한 상태에서 ‘똑같아 보임’의 품질 슬라이더를 드래그하면 앞에 있는 사진만 변경되었습니다. 이제 레시피가 해당 품질의 ‘수동’으로 설정되므로 레시피와 함께 저장됩니다.]]></description>
-            <description xml:lang="nb" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Rett opp.** Et nytt oppskriftstrinn retter opp en skjev horisont automatisk. På alle foto kan du med «Rett opp for hånd…» stille inn vinkelen selv etter et rutenett.
-- **Behold hele fotoet.** For frimerker, papirbilder og alt der kantene betyr noe: Ingenting blir beskåret, og hjørnene fylles med bakgrunnen eller en farge du velger.
-- **Beskjær til objektet.** Studio retter opp en skanning og beskjærer den til frimerket, papirbildet eller kortet på skannerglasset, med en marg fra 0 til 10 %. Støv og hår på glasset blir ignorert.
-- **«Side ved side» får plass ved siden av sidefeltene,** og du kan zoome ut til selv en svært stor skanning får plass.
-- **Rettet:** Når «Alle foto» var valgt, endret dra i kvalitetsglidebryteren i «Ser lik ut» bare fotoet foran. Nå setter den oppskriften til «Manuell» med den kvaliteten, slik at kvaliteten arkiveres med oppskriften.]]></description>
-            <description xml:lang="nl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Rechtzetten.** Een nieuwe receptstap zet een scheve horizon automatisch recht. Bij elke foto stel je met ‘Met de hand rechtzetten…’ zelf de hoek in aan de hand van een raster.
-- **Hele foto behouden.** Voor postzegels, afdrukken en alles waarbij de randen ertoe doen: er wordt niets afgesneden, en de hoeken worden opgevuld met de achtergrond of een kleur die je kiest.
-- **Op het object bijsnijden.** Studio zet een scan recht en snijdt hem bij op de postzegel, afdruk of kaart op de glasplaat van de scanner, met een marge van 0 tot 10%. Stof en haren op het glas worden genegeerd.
-- **‘Naast elkaar’ past naast de navigatiekolommen,** en je kunt uitzoomen tot zelfs een heel grote scan in beeld past.
-- **Opgelost:** als ‘Alle foto's’ was gekozen, veranderde het slepen met de kwaliteitsregelaar bij ‘Ziet er hetzelfde uit’ alleen de voorste foto. Nu wordt het recept ingesteld op ‘Handmatig’ met die kwaliteit, zodat die met het recept wordt bewaard.]]></description>
-            <description xml:lang="nn" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Rett opp.** Eit nytt oppskriftssteg rettar opp ein skeiv horisont automatisk. På alle foto kan du med «Rett opp for hand…» stille inn vinkelen sjølv etter eit rutenett.
-- **Behald heile fotoet.** For frimerke, papirbilete og alt der kantane betyr noko: Ingenting blir beskore, og hjørna blir fylte med bakgrunnen eller ein farge du vel.
-- **Beskjer til objektet.** Studio rettar opp ei skanning og beskjer ho til frimerket, papirbiletet eller kortet på skannarglaset, med ein marg frå 0 til 10 %. Støv og hår på glaset blir ignorerte.
-- **«Side ved side» får plass ved sida av sidefelta,** og du kan zoome ut til sjølv ei svært stor skanning får plass.
-- **Retta:** Når «Alle foto» var valt, endra draging i kvalitetsglidebrytaren i «Ser lik ut» berre fotoet framme. No set han oppskrifta til «Manuell» med den kvaliteten, slik at kvaliteten blir lagra med oppskrifta.]]></description>
-            <description xml:lang="pl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Prostowanie.** Nowy krok przepisu automatycznie prostuje przechylony horyzont. Na dowolnym zdjęciu „Prostuj ręcznie…” pozwala samodzielnie ustawić kąt według siatki.
-- **Zachowaj całe zdjęcie.** Do znaczków, odbitek i wszystkiego, w czym liczą się krawędzie: nic nie zostaje przycięte, a narożniki są wypełniane tłem lub wybranym przez Ciebie kolorem.
-- **Kadruj do obiektu.** Studio prostuje skan i kadruje go do znaczka, odbitki lub kartki na szybie skanera, z marginesem od 0 do 10%. Kurz i włosy na szybie są pomijane.
-- **Widok „Obok siebie” mieści się obok pasków bocznych,** a pomniejszać możesz tak długo, aż zmieści się nawet bardzo duży skan.
-- **Naprawiono:** gdy wybrane były „Wszystkie zdjęcia”, przeciąganie suwaka jakości w trybie „Wygląda tak samo” zmieniało tylko zdjęcie na wierzchu. Teraz ustawia przepis na „Ręcznie” z tą jakością, więc zostaje ona zachowana razem z przepisem.]]></description>
-            <description xml:lang="pt-BR" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Endireitar.** Uma nova etapa de receita nivela automaticamente um horizonte torto. Em qualquer foto, “Endireitar à mão…” permite que você mesmo ajuste o ângulo com uma grade.
-- **Manter a foto inteira.** Para selos, impressões e tudo cujas bordas importam: nada é cortado, e os cantos são preenchidos com o fundo ou com uma cor que você escolher.
-- **Recortar no objeto.** O Studio nivela uma digitalização e a recorta no selo, na impressão ou no cartão sobre o vidro do scanner, com uma margem de 0 a 10%. Poeira e fios de cabelo no vidro são ignorados.
-- **“Lado a lado” cabe ao lado das barras laterais,** e você pode afastar até que mesmo uma digitalização muito grande caiba.
-- **Corrigido:** com “Todas as fotos” escolhido, arrastar o controle de qualidade em “Aparência idêntica” alterava só a foto da frente. Agora ele define a receita como “Manual” com essa qualidade, então ela é salva com a receita.]]></description>
-            <description xml:lang="pt-PT" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Endireitar.** Um novo passo de receita nivela automaticamente um horizonte inclinado. Em qualquer fotografia, “Endireitar à mão…” permite definir o ângulo por si mesmo com uma grelha.
-- **Manter a fotografia inteira.** Para selos, provas impressas e tudo aquilo em que as margens contam: nada é cortado, e os cantos são preenchidos com o fundo ou com uma cor à sua escolha.
-- **Recortar ao objeto.** O Studio nivela uma digitalização e recorta-a ao selo, à prova impressa ou ao cartão sobre o vidro do digitalizador, com uma margem de 0 a 10%. O pó e os cabelos no vidro são ignorados.
-- **“Lado a lado” cabe ao lado das barras laterais,** e pode diminuir o zoom até que mesmo uma digitalização muito grande caiba.
-- **Corrigido:** com “Todas as fotografias” escolhido, arrastar o nivelador de qualidade em “Visualmente igual” alterava apenas a fotografia da frente. Agora define a receita como “Manual” com essa qualidade, pelo que é guardada com a receita.]]></description>
-            <description xml:lang="ro" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Îndreptare.** Un nou pas de rețetă îndreaptă automat un orizont înclinat. Pe orice fotografie, „Îndreptare manuală…” vă permite să setați singur unghiul după o grilă.
-- **Păstrează toată fotografia.** Pentru timbre, fotografii tipărite și orice la care contează marginile: nu se taie nimic, iar colțurile sunt umplute cu fundalul sau cu o culoare la alegere.
-- **Decupează la obiect.** Studio îndreaptă o scanare și o decupează la timbrul, fotografia tipărită sau cartea de pe geamul scanerului, cu o margine de la 0 la 10 %. Praful și firele de păr de pe geam sunt ignorate.
-- **„Una lângă alta” încape lângă barele laterale,** și puteți micșora până când încape chiar și o scanare foarte mare.
-- **Remediat:** cu „Toate fotografiile” selectat, tragerea glisorului de calitate în „Arată la fel” modifica doar fotografia din față. Acum setează rețeta pe „Manual” la acea calitate, astfel încât aceasta se salvează odată cu rețeta.]]></description>
-            <description xml:lang="ru" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Выпрямление.** Новый шаг рецепта автоматически выравнивает заваленный горизонт. На любом фото «Выпрямить вручную…» позволяет самостоятельно задать угол по сетке.
-- **Сохранить всё фото.** Для марок, отпечатков и всего, где важны края: ничего не обрезается, а углы заполняются фоном или выбранным вами цветом.
-- **Обрезать по предмету.** Studio выравнивает скан и обрезает его по марке, отпечатку или карточке на стекле сканера с полем от 0 до 10 %. Пыль и волоски на стекле не учитываются.
-- **Вид «Рядом» умещается возле боковых панелей,** а уменьшать масштаб можно, пока не поместится даже очень большой скан.
-- **Исправлено:** когда были выбраны «Все фото», перетаскивание ползунка качества в режиме «Выглядит так же» меняло только фото на переднем плане. Теперь оно переводит рецепт в режим «Вручную» с этим качеством, так что оно сохраняется вместе с рецептом.]]></description>
-            <description xml:lang="sk" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Narovnať.** Nový krok receptu automaticky vyrovná naklonený horizont. Pri ľubovoľnej fotke môžete pomocou „Narovnať ručne…“ nastaviť uhol sami podľa mriežky.
-- **Zachovať celú fotku.** Pre známky, fotografie na papieri a všetko, pri čom záleží na okrajoch: nič sa neoreže a rohy sa vyplnia pozadím alebo farbou, ktorú si vyberiete.
-- **Orezať na predmet.** Studio vyrovná sken a oreže ho na známku, fotografiu alebo kartu na skle skenera, s okrajom od 0 do 10 %. Prach a vlasy na skle sa ignorujú.
-- **„Vedľa seba“ sa zmestí vedľa bočných panelov,** a môžete oddiaľovať, kým sa nezmestí aj veľmi veľký sken.
-- **Opravené:** keď boli vybraté „Všetky fotky“, ťahanie posúvača kvality v režime „Vyzerá rovnako“ zmenilo len fotku vpredu. Teraz nastaví recept na „Manuálne“ s touto kvalitou, takže sa uloží spolu s receptom.]]></description>
-            <description xml:lang="sl" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Izravnaj.** Nov korak recepta samodejno poravna nagnjeno obzorje. Na kateri koli fotografiji z »Ročno izravnaj …« sami nastavite kot ob mreži.
-- **Ohrani celo fotografijo.** Za znamke, natisnjene fotografije in vse, pri čemer so robovi pomembni: nič se ne odreže, vogali pa se zapolnijo z ozadjem ali barvo po vaši izbiri.
-- **Obreži na predmet.** Studio poravna optično prebrano sliko in jo obreže na znamko, natisnjeno fotografijo ali kartico na steklu optičnega bralnika, z robom od 0 do 10 %. Prah in dlake na steklu so prezrti.
-- **Pogled »Drug ob drugem« se umesti ob stranske stolpce,** pomanjšate pa lahko, dokler ne gre na zaslon tudi zelo velika optično prebrana slika.
-- **Odpravljeno:** ko je bila izbrana možnost »Vse fotografije«, je vlečenje drsnika kakovosti v načinu »Videti enako« spremenilo le sprednjo fotografijo. Zdaj nastavi recept na »Ročno« s to kakovostjo, zato se ta shrani skupaj z receptom.]]></description>
-            <description xml:lang="sv" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Räta upp.** Ett nytt receptsteg rätar upp en sned horisont automatiskt. På alla foton kan du med ”Räta upp för hand…” själv ställa in vinkeln mot ett rutnät.
-- **Behåll hela fotot.** För frimärken, kopior och allt där kanterna spelar roll: inget beskärs, och hörnen fylls med bakgrunden eller en färg du väljer.
-- **Beskär till objektet.** Studio rätar upp en skanning och beskär den till frimärket, kopian eller kortet på skannerglaset, med en marginal från 0 till 10 %. Damm och hårstrån på glaset ignoreras.
-- **”Sida vid sida” får plats bredvid sidofälten,** och du kan zooma ut tills även en mycket stor skanning får plats.
-- **Åtgärdat:** När ”Alla foton” var valt ändrade dragning av kvalitetsreglaget i ”Ser likadan ut” bara fotot längst fram. Nu ställs receptet in på ”Manuell” med den kvaliteten, så att den sparas med receptet.]]></description>
-            <description xml:lang="th" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **ปรับให้ตรง** ขั้นตอนสูตรใหม่จะปรับเส้นขอบฟ้าที่เอียงให้ตรงโดยอัตโนมัติ และในรูปถ่ายใดก็ได้ “ปรับให้ตรงด้วยมือ…” ให้คุณตั้งมุมเองโดยเทียบกับเส้นตาราง
-- **เก็บรูปถ่ายทั้งรูป** สำหรับแสตมป์ ภาพพิมพ์ และทุกอย่างที่ขอบมีความสำคัญ: ไม่มีส่วนใดถูกตัดออก และมุมจะถูกเติมด้วยพื้นหลังหรือสีที่คุณเลือก
-- **ครอบตัดตามวัตถุ** Studio จะปรับภาพสแกนให้ตรงแล้วครอบตัดตามแสตมป์ ภาพพิมพ์ หรือการ์ดบนกระจกสแกนเนอร์ โดยมีระยะขอบตั้งแต่ 0 ถึง 10% ฝุ่นและเส้นผมบนกระจกจะไม่ถูกนับรวม
-- **“เทียบข้างกัน” วางพอดีข้างแถบด้านข้าง** และคุณซูมออกได้จนแม้แต่ภาพสแกนที่ใหญ่มากก็แสดงได้พอดี
-- **แก้ไขแล้ว:** เมื่อเลือก “ทุกรูปถ่าย” ไว้ การลากแถบเลื่อนคุณภาพใน “ดูเหมือนเดิม” จะเปลี่ยนเฉพาะรูปถ่ายที่อยู่ด้านหน้า ตอนนี้จะตั้งสูตรเป็น “กำหนดเอง” ที่คุณภาพนั้น จึงบันทึกไปพร้อมกับสูตร]]></description>
-            <description xml:lang="tr" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Düzelt.** Yeni bir tarif adımı eğik bir ufku otomatik olarak düzeltir. Herhangi bir fotoğrafta “Elle düzelt…” ile açıyı bir ızgaraya göre kendiniz ayarlayabilirsiniz.
-- **Fotoğrafın tamamını koru.** Pullar, baskılar ve kenarları önemli olan her şey için: hiçbir şey kırpılmaz ve köşeler arka planla ya da seçtiğiniz bir renkle doldurulur.
-- **Nesneye kırp.** Studio bir taramayı düzeltir ve tarayıcı camındaki pula, baskıya veya karta göre kırpar; kenar boşluğu %0 ile %10 arasında olabilir. Camdaki toz ve saç telleri hesaba katılmaz.
-- **“Yan yana” kenar çubuklarının yanına sığar,** ve çok büyük bir tarama bile sığana kadar uzaklaştırabilirsiniz.
-- **Düzeltildi:** “Tüm fotoğraflar” seçiliyken “Aynı görünür” modunda kalite sürgüsünü sürüklemek yalnızca öndeki fotoğrafı değiştiriyordu. Artık tarifi o kalitede “Elle” olarak ayarlar, böylece kalite tarifle birlikte kaydedilir.]]></description>
-            <description xml:lang="uk" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Випрямлення.** Новий крок рецепта автоматично вирівнює завалений горизонт. На будь-якому фото «Випрямлення вручну…» дає змогу самостійно встановити кут за сіткою.
-- **Зберегти все фото.** Для марок, відбитків і всього, де важливі краї: нічого не обтинається, а кути заповнюються тлом або вибраним вами кольором.
-- **Обтяти за предметом.** Studio вирівнює скан і обтинає його за маркою, відбитком або карткою на склі сканера з полем від 0 до 10 %. Пил і волосинки на склі не враховуються.
-- **Вигляд «Поруч» уміщується біля бічних панелей,** а зменшувати масштаб можна, доки не вміститься навіть дуже великий скан.
-- **Виправлено:** коли було вибрано «Усі фото», перетягування повзунка якості в режимі «Виглядає так само» змінювало лише фото на передньому плані. Тепер воно перемикає рецепт у режим «Вручну» з цією якістю, тож вона зберігається разом із рецептом.]]></description>
-            <description xml:lang="vi" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **Làm thẳng.** Một bước công thức mới tự động cân bằng đường chân trời bị nghiêng. Trên bất kỳ ảnh nào, “Làm thẳng thủ công…” cho phép bạn tự đặt góc theo lưới.
-- **Giữ nguyên cả ảnh.** Dành cho tem, ảnh in và mọi thứ có cạnh quan trọng: không có gì bị cắt, và các góc được lấp đầy bằng nền hoặc màu do bạn chọn.
-- **Cắt xén theo vật thể.** Studio làm thẳng ảnh quét và cắt xén theo con tem, ảnh in hoặc thẻ trên mặt kính máy quét, với lề từ 0 đến 10%. Bụi và sợi tóc trên kính được bỏ qua.
-- **“Cạnh nhau” vừa khít bên cạnh các thanh bên,** và bạn có thể thu nhỏ cho đến khi ngay cả ảnh quét rất lớn cũng vừa.
-- **Đã sửa:** khi chọn “Tất cả ảnh”, kéo thanh trượt chất lượng trong “Trông như nhau” chỉ thay đổi ảnh ở phía trước. Giờ đây thao tác này đặt công thức thành “Thủ công” ở mức chất lượng đó, nên chất lượng được lưu cùng công thức.]]></description>
-            <description xml:lang="zh-HK" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **拉直。** 新的配方步驟會自動拉直傾斜的地平線。在任何相片上，「手動拉直⋯」可讓你對照格線自行設定角度。
-- **保留整張相片。** 適用於郵票、沖印相片及邊緣重要的內容：不會裁掉任何部分，四角會以背景或你選擇的色彩填滿。
-- **裁剪至物件。** Studio會拉直掃描影像，並將其裁剪至掃描器玻璃面上的郵票、沖印相片或卡片，邊距可設為0至10%。玻璃上的塵埃和毛髮會被略過。
-- **「並排」可在側邊欄旁完整顯示，** 你亦可以縮小至連非常大的掃描影像也能完整顯示。
-- **已修正：** 選取「所有相片」時，在「看起來一樣」中拖移品質滑桿只會更改最前面的相片。現在會將配方設為該品質的「手動」，因此會隨配方一併儲存。]]></description>
-            <description xml:lang="zh-Hans" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **拉直。** 新的配方步骤会自动拉直倾斜的地平线。在任意照片上，“手动拉直…”可让你对照网格自行设定角度。
-- **保留整张照片。** 适用于邮票、冲印照片以及边缘重要的内容：不会裁掉任何部分，四角会以背景或你选取的颜色填充。
-- **裁剪到物件。** Studio 会拉直扫描件，并将其裁剪到扫描仪玻璃板上的邮票、冲印照片或卡片，边距可设为 0 到 10%。玻璃上的灰尘和毛发会被忽略。
-- **“并排”可在边栏旁完整显示，** 你还可以缩小到连非常大的扫描件也能完整显示。
-- **修复：** 选中“所有照片”时，在“看起来一样”中拖移质量滑块只会更改最前面的照片。现在它会将配方设为该质量下的“手动”，因此会随配方一起存储。]]></description>
-            <description xml:lang="zh-Hant" sparkle:format="markdown"><![CDATA[### Shrinker Studio
-
-- **拉直。** 新的配方步驟會自動拉直傾斜的地平線。在任何照片上，「手動拉直⋯」可讓你對照格線自行設定角度。
-- **保留整張照片。** 適用於郵票、沖印照片及邊緣重要的內容：不會裁掉任何部分，四角會以背景或你選擇的顏色填滿。
-- **裁切至物件。** Studio會拉直掃描影像，並將其裁切至掃描器玻璃面上的郵票、沖印照片或卡片，邊距可設為0到10%。玻璃上的灰塵和毛髮會被忽略。
-- **「並排」可在側邊欄旁完整顯示，** 你也可以縮小到連非常大的掃描影像也能完整顯示。
-- **修正：** 選取「所有照片」時，在「看起來相同」中拖移品質滑桿只會更改最前面的照片。現在它會將配方設為該品質的「手動」，因此會隨配方一併儲存。]]></description>
-            <enclosure url="https://github.com/jeso87/ShrinkerPro/releases/download/v1.9.0/ShrinkerPro-1.9.0.dmg" length="11523535" type="application/octet-stream" sparkle:edSignature="Lnadp1nAVjyTZk+K7YovhFYIyR21zxbuWT7MXvx3EWmvG0A8BArg/RiVNqhmeWA5CA7AkDm09clNlIUyCAD0AA=="/>
         </item>
     </channel>
 </rss>
